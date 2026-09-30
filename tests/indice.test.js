@@ -108,3 +108,13 @@ test('indiceZona: rango entre puntos', () => {
   assert.ok(z.especies[0].min < z.especies[0].max);
   assert.equal(z.especies[0].max, z.especies[0].valor);
 });
+
+test('nulos al final de previsión (día 69) → sinDatos solo en ese día, no antes', () => {
+  const s = serieSintetica({ dias: 70, hoy: 59, precip: (k) => (k === 69 ? null : 2) });
+  const z68 = indiceZona({ a: s }, 68, [BOLETUS]);
+  const z69 = indiceZona({ a: s }, 69, [BOLETUS]);
+  assert.equal(z68.sinDatos, false);
+  assert.ok(typeof z68.valor === 'number');
+  assert.equal(z69.sinDatos, true);
+  assert.equal(z69.valor, null);
+});
