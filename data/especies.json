@@ -194,6 +194,149 @@
           "titulo": "Kalač P. (2010), Trace element contents in European species of wild growing edible mushrooms (Food Chemistry 122(1))",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Suele salir en montaña media, más o menos entre 700 y 1.300 m. Las fuentes dan rangos algo distintos, de 500 a 1.800 m.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-edulis-rey-de-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/boletus-edulis/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
+              "fecha": "2023-12-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Al empezar la temporada, prueba bosques abiertos y soleados (laderas al este); a finales de verano y en otoño, las caras norte y sombrías; en años secos, los valles norte protegidos.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://www.associacioboletaireindependent.cat/index.php/es/bolets/155-cuando-saldran-los-boletus",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.directoalpaladar.com/ingredientes-y-alimentos/pasear-por-el-monte-para-buscar-setas-trucos-y-consejos/amp",
+              "fecha": "2018-10-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Mira a partir de una semana después de una lluvia útil y hasta unas dos semanas después. Las fuentes dan entre 7 y 16 días.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-edulis-rey-de-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/boletus-edulis/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.associacioboletaireindependent.cat/index.php/es/bolets/155-cuando-saldran-los-boletus",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
+              "fecha": "2023-12-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "La temperatura ideal del suelo está entre 15 y 24 °C. El viento seco frena la salida y las heladas fuertes la cortan.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-edulis-rey-de-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.associacioboletaireindependent.cat/index.php/es/bolets/155-cuando-saldran-los-boletus",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/boletus-edulis/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Un choque térmico, como una tormenta tras tiempo cálido, favorece la salida.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
+              "fecha": "2023-12-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Busca bajo roble, haya, pino o castaño entre brezos y helechos, y en claros. Mira también jaras, hojarasca y pinocha donde asoma semienterrado, y orillas de arroyo.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-edulis-rey-de-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
+              "fecha": "2023-12-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Si encuentras uno, hay más cerca porque es gregario. Es «vecero»: no da la misma cantidad cada año, aunque vuelve a los mismos sitios.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-edulis-rey-de-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
+              "fecha": "2023-12-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -380,6 +523,47 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere el pino albar, en zonas despejadas del pinar con poco sotobosque y pendientes suaves bien drenadas. La jara y el brezo son indicadores.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/boletus-pinophilus-en-la-serrania-de-cuenca-sierra-de-albarracin-y-alto-tajo/",
+              "fecha": "2019-06-05",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Las fuentes lo sitúan por encima de unos 1.200 a 1.300 m.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/boletus-pinophilus-en-la-serrania-de-cuenca-sierra-de-albarracin-y-alto-tajo/",
+              "fecha": "2019-06-05",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aparece unos 10 a 20 días después de lluvias, con temperaturas que suben y se mantienen estables.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/boletus-pinophilus-en-la-serrania-de-cuenca-sierra-de-albarracin-y-alto-tajo/",
+              "fecha": "2019-06-05",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        }
       ]
     },
     {
@@ -554,6 +738,73 @@
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca bajo roble (quejigo, melojo, encina), alcornoque, castaño y jarales, en claros y sotobosque aclarado. Suelo ácido, pobre y bien drenado; cunetas y bordes de pista.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale en verano, sobre todo de junio a septiembre, unos 7 a 10 días después de una tormenta fuerte tras el calor.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Suele estar semienterrado y camuflado en suelo duro. Mira donde haya daños de fauna.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se encuentra desde el nivel del mar hasta unos 1.100 m.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "En agosto el calor lo hace salir, pero también se llena de larvas: comprueba antes de cortar.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/boletus-aereus-el-rey-de-las-setas-estivales/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -710,6 +961,34 @@
           "url": "https://www.fungipedia.org/hongos/boletus-reticulatus.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere hayedos y melojares de suelo ácido y suelto, con poco sotobosque: bordes musgosos y claros, cerca de arroyos y manantiales. Evita la umbría cerrada. Sale de junio a agosto.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://silvestresezcaray.com/boletus-reticulatus-veraneante-de-los-bosques-del-oja/",
+              "fecha": "2013-08-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Necesita una tormenta de verano seguida de noches suaves y húmedas, sin viento seco.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://silvestresezcaray.com/boletus-reticulatus-veraneante-de-los-bosques-del-oja/",
+              "fecha": "2013-08-01",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -1383,6 +1662,96 @@
           "titulo": "Micocyl: permisos del área Montes de Soria, partes micológicos, Pinar Grande",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Siempre en pinar. Le gustan los pinares jóvenes y con poco sotobosque, sobre todo claros por cortas forestales.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-comestibles/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.escapadarural.com/blog/cada-seta-en-su-bosque/",
+              "fecha": "2025-10-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Tarda mucho tras la lluvia: unos 30 a 40 días desde las primeras lluvias de otoño. En Teruel, unos 40 días desde una tormenta fuerte.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/descubre-cuando-salen-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/niscalos-2019-empieza-la-temporada-en-teruel/",
+              "fecha": "2019-09-06",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Si pasan más de unos 15 días sin humedad se puede estropear la temporada. El calor de septiembre y el viento fuerte los secan; las cotas altas conservan mejor la humedad.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/niscalos-2019-empieza-la-temporada-en-teruel/",
+              "fecha": "2019-09-06",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "A finales de octubre de 2024, al bajar la temperatura, el níscalo tomó el relevo de los boletos de calor (B. edulis y B. aereus) en Castilla y León.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Rara vez sale solo: si ves uno, mira alrededor. Si vuelve a llover unos días después, vuelve a mirar el mismo sitio.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/cogiendo-niscalos-por-guadalajara/",
+              "fecha": "2018-10-31",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "No pises ni cortes la Russula torulosa, la «chivata» del níscalo: indica un pinar productivo.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -1545,6 +1914,34 @@
           "url": "https://www.fungipedia.org/hongos/lactarius-sanguifluus.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere el pinar sobre suelo calizo y ambiente cálido; el níscalo común, en suelos ácidos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/lactarius-sanguifluus/",
+              "fecha": "2015-08-25",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "En Cuenca, el «mízcalo de negral» sale en pinar de laricio y el «de rodeno» en rodenales (pino resinero sobre arenas).",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/iect_lactarius_deliciosus_tcm30-164130.pdf",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -1713,6 +2110,21 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Sale bajo árboles de hoja ancha, sobre todo haya y roble, desde el verano hasta mediados de otoño.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/hongos/russula-cyanoxantha.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -1866,6 +2278,21 @@
           "url": "https://www.aranzadi.eus/assets/files/urola-kosta-bailarako-perretxikoak-euskera.pdf",
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Solo bajo árboles de hoja ancha (robledal, castañar), de junio a septiembre. Es termófila, poco frecuente y se agusana enseguida.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/hongos/russula-virescens.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -2035,6 +2462,75 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca bajo haya, castaño, roble, encina y rebollo (menos bajo coníferas), en suelos ácidos, en la hojarasca cerca de brezo, jara y helecho. Taludes, bordes de pista, orillas de arroyo y claros con humedad.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/rebozuelos-las-setas-amarillas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/rebozuelos/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "En el norte es una seta de verano tras las tormentas; en otoño baja mucho. Prefiere humedad sostenida antes que una tormenta aislada.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/los-rebozuelos-lo-grandes-animadores-del-verano-en-la-zona-norte-peninsular/",
+              "fecha": "2019-07-31",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/comunidad/foro/4-consultas-de-micologia/67065-consulta-sobre-rebozuelo-cantharellus.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.mycora.es/mapa-setas",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Vuelve cada año al mismo sitio y aguanta bien la sequía una vez que empieza a salir.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/rebozuelos-las-setas-amarillas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se aconseja arrancarlo con un giro suave.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/rebozuelos/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -2192,6 +2688,67 @@
           "url": "https://sierradelrincon.org/wp-content/uploads/2024/09/2409NormasSeptiembre2024Maquetadas.pdf",
           "titulo": "Reserva de la Biosfera Sierra del Rincón: normas de visita del Hayedo de Montejo (sept. 2024)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca sitios muy húmedos en hayedo y robledal: paredes de barranco y turberas, entre musgo, líquenes y hojarasca, en grupos numerosos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/trompetas-de-los-muertos-delicias-negras/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/trompeta-de-la-muerte/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale desde finales de verano hasta bien entrado el invierno y tolera el frío. Tras lluvias atlánticas intensas, a finales de otoño e invierno.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/trompetas-de-los-muertos-delicias-negras/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/trompeta-de-la-muerte/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/las-trompetas-las-grandes-animadoras-del-invierno-en-la-zona-mediterranea/",
+              "fecha": "2020-01-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Si encuentras una, hay más cerca.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/trompetas-de-los-muertos-delicias-negras/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/trompeta-de-la-muerte/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -2354,6 +2911,39 @@
           "url": "https://www.aranzadi.eus/assets/files/urola-kosta-bailarako-perretxikoak-euskera.pdf",
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere zonas húmedas bajo árboles de hoja ancha y pinos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-trompetas-las-grandes-animadoras-del-invierno-en-la-zona-mediterranea/",
+              "fecha": "2020-01-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Las fuentes discrepan en el mes de salida: desde finales de verano y principios de otoño hasta noviembre y febrero.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-trompetas-las-grandes-animadoras-del-invierno-en-la-zona-mediterranea/",
+              "fecha": "2020-01-02",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/comunidad/foro/4-consultas-de-micologia/67065-consulta-sobre-rebozuelo-cantharellus.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -2543,6 +3133,39 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere zonas húmedas bajo árboles de hoja ancha y pinos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-trompetas-las-grandes-animadoras-del-invierno-en-la-zona-mediterranea/",
+              "fecha": "2020-01-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Las fuentes discrepan en el mes de salida: desde finales de verano y principios de otoño hasta noviembre y febrero.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-trompetas-las-grandes-animadoras-del-invierno-en-la-zona-mediterranea/",
+              "fecha": "2020-01-02",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/comunidad/foro/4-consultas-de-micologia/67065-consulta-sobre-rebozuelo-cantharellus.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -2707,6 +3330,47 @@
           "url": "https://www.aranzadi.eus/assets/files/urola-kosta-bailarako-perretxikoak-euskera.pdf",
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Sale sobre todo en hayedo y bajo coníferas, en filas o corros que a veces miden varios metros. Está semienterrada bajo hojarasca y pinocha, y a veces solo asoma parte del sombrero.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/lengua-de-vaca-gamuza-hydnum-repandum/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale de octubre a diciembre o enero y aguanta bien el frío y las heladas; en pinar sale más tarde que en caducifolios. Se puede coger incluso con nieve.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/lengua-de-vaca-gamuza-hydnum-repandum/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Vuelve a los mismos sitios cada año.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/lengua-de-vaca-gamuza-hydnum-repandum/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -2893,6 +3557,116 @@
           "url": "https://micocyl.es/setas/oronja-gorringo-ou-de-reig",
           "titulo": "Micocyl (Junta de Castilla y León / Cesefor): condiciones generales de recolección",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca bosque mediterráneo abierto con castaño, melojo, encina, alcornoque o quejigo: márgenes, caminos y zonas soleadas o adehesadas. Suelo ácido, laderas sur. Evita bosques umbríos y coníferas densas.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-huevo-de-rey-amanita-caesarea-la-reina-del-bosque/",
+              "fecha": "2023-07-18",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/amanita-cesarea/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/la-amanita-caesarea-aparece-por-la-rioja/",
+              "fecha": "2016-06-23",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.riaza.es/micologia",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Su altitud óptima es de unos 600 a 1.200 m.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-huevo-de-rey-amanita-caesarea-la-reina-del-bosque/",
+              "fecha": "2023-07-18",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Tarda en salir: entre unos 21 y 50 días tras la lluvia. Sale con calor y lluvias abundantes y desaparece con el frío otoñal.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-huevo-de-rey-amanita-caesarea-la-reina-del-bosque/",
+              "fecha": "2023-07-18",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/descubre-cuando-salen-las-setas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/amanita-cesarea/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aparece después de Boletus aereus: si ya han salido los boletos negros, empieza a mirar por oronjas.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-amanita-caesarea-aparece-por-la-rioja/",
+              "fecha": "2016-06-23",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se dice que el gamón (Asphodelus) y las moscas atraídas por el olor delatan su presencia.",
+          "tipo": "creencia",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-amanita-caesarea-aparece-por-la-rioja/",
+              "fecha": "2016-06-23",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Córtala con navaja extrayendo la volva y llévala en cesta de mimbre.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/amanita-cesarea/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -3236,6 +4010,65 @@
           "titulo": "Kalač P. (2010), Trace element contents in European species of wild growing edible mushrooms (Food Chemistry 122(1))",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca en claros de bosque, bordes de camino y pastos con paso de luz, bajo alcornoque, pino, castaño o encina, en suelos ácidos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/macrolepiota-procera-parasol-apagallums/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale a finales de verano y en otoño, y en algunas zonas en primavera. Tras lluvia intensa pueden salir muchas en poco espacio.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/macrolepiota-procera-parasol-apagallums/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Repite sitios con éxito y busca en corros.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/macrolepiota-procera-parasol-apagallums/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "No cojas ejemplares de menos de 10 cm de sombrero: se confunden con lepiotas tóxicas. Ojo también con el parasol de láminas verdes, tóxico e invasor.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/macrolepiota-procera-parasol-apagallums/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-parasol-de-laminas-verdes-una-especie-exotica-invasora-bastante-toxica/",
+              "fecha": "2019-11-10",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        }
       ]
     },
     {
@@ -3414,6 +4247,34 @@
           "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9505289/",
           "titulo": "Kalač P. (2010), Trace element contents in European species of wild growing edible mushrooms (Food Chemistry 122(1))",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca en pastizales de zonas bajas y campas abonadas por ganado, en suelo nitrogenado, en primavera y otoño.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/hongos/agaricus-campestris.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Descártalo si amarillea al rascar la base y huele a fenol (puede ser Agaricus xanthodermus, tóxico), y desecha los de láminas ennegrecidas.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/hongos/agaricus-campestris.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -3795,6 +4656,142 @@
           "titulo": "Inosperma erubescens: muscarina y época",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca en prados, pastizales, claros y orlas con arbustos espinosos de flor rosácea (espino albar, endrino, rosales, majuelo), sobre suelo algo básico. También en fresnedas y choperas de ribera no encharcadas.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-perrechico-la-seta-reina-de-la-primavera/",
+              "fecha": "2024-05-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://blog.guuk.com/perretxikos-euskadi-donde-encontrarlos/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/12324-ayudarme-a-encontrarlas.html",
+              "fecha": "2011-04-30",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Otras plantas indicadoras: aulaga, enebro, lastón y musgos. Los linderos y muros de piedra retienen calor.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Fíjate en los corros de brujas, con hierba quemada o de verde azulado.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-perrechico-la-seta-reina-de-la-primavera/",
+              "fecha": "2024-05-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/12324-ayudarme-a-encontrarlas.html",
+              "fecha": "2011-04-30",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale primero en cotas bajas y sitios cálidos (fondos de valle en marzo y abril) y después sube a praderas de media y alta montaña en mayo y junio. Prefiere zonas soleadas y evita la umbría.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/perrechicos-en-cotas-bajas-y-primeras-colmenillas-llega-la-primavera/",
+              "fecha": "2016-04-06",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Le van bien los días cálidos alternados con tormentas y nieblas nocturnas. Las primaveras secas o con cambios bruscos la estropean.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Es muy fiel: fructifica cada año en el mismo sitio.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-perrechico-la-seta-reina-de-la-primavera/",
+              "fecha": "2024-05-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Entra por el interior del corro y no por el borde: pisar el borde compacta el suelo y daña la regeneración del micelio.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
+              "fecha": "2018-05-16",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se cuenta que el micelio calienta y se nota con la mano en el corro.",
+          "tipo": "creencia",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-perrechico-la-seta-reina-de-la-primavera/",
+              "fecha": "2024-05-20",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -4160,6 +5157,21 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Sale al final del otoño, cuando baja la temperatura y aún hay humedad, en coníferas y caducifolios, en grandes manchas.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/setas-comestibles-de-invierno-la-pardilla-y-el-pie-azul/",
+              "fecha": "2014-11-25",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -4513,6 +5525,39 @@
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca en prados y claros, en corros de brujas. Se localizan por la hierba más crecida y las gramíneas asociadas (grama, ballico, espiguilla). Evita parques, jardines, cunetas y campos de golf por los metales pesados.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-senderuela-los-carriles-de-las-praderas/",
+              "fecha": "2024-06-13",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale en primavera y otoño con temperaturas suaves. Recógela en días lluviosos y no con calor o viento sur, porque se seca enseguida. Es fiel: vuelve cada año a los mismos lugares.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-senderuela-los-carriles-de-las-praderas/",
+              "fecha": "2024-06-13",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/senderuelas-por-los-montes-de-alava-y-navarra/",
+              "fecha": "2015-05-08",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -4668,6 +5713,111 @@
           "url": "https://www.fungipedia.org/hongos/pleurotus-eryngii.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Vive sobre raíces muertas del cardo corredor (Eryngium campestre): busca cardos en praderas y eriales, no en el bosque.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-setas-de-cardo-y-de-cana-las-grandes-animadoras-de-las-praderas/",
+              "fecha": "2019-10-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/buscar-setas-de-cardo/",
+              "fecha": "2014-11-07",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-de-cardo-trucos-para-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Mira en praderas, eriales, dehesas, cañadas pastadas por ovejas, cultivos abandonados y bordes de camino.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-de-cardo-trucos-para-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/las-setas-de-cardo-y-de-cana-las-grandes-animadoras-de-las-praderas/",
+              "fecha": "2019-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Su ciclo dura unos 20 días desde una lluvia abundante. Sale en otoño, primavera e incluso invierno si no hiela. Se quema con frío intenso y se llena de gusanos con exceso de lluvia.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-setas-de-cardo-y-de-cana-las-grandes-animadoras-de-las-praderas/",
+              "fecha": "2019-10-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-de-cardo-trucos-para-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Prefiere suelos calizos y solanas.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-de-cardo-trucos-para-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.boletsdesoca.com/es/seta-de-cardo-habitat-recoleccion-cultivo-nutricion-y-cocina/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se encuentra desde el nivel del mar hasta unos 1.500 m.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-setas-de-cardo-y-de-cana-las-grandes-animadoras-de-las-praderas/",
+              "fecha": "2019-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Córtala con navaja por la base sin hurgar en el suelo. Es muy fiel a su terreno.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/setas-de-cardo-trucos-para-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -5320,6 +6470,98 @@
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Busca en pináceas y fagáceas de más de 50 años, en umbrías húmedas, semienterrado y a veces bajo la nieve.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/como-se-recolecta-el-marzuelo-la-primera-seta-del-ano-despues-del-deshielo/",
+              "fecha": "2020-02-05",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Sale 7 a 10 días tras lluvia o deshielo, con máximas diurnas de 4 a 10 °C. Necesita una buena nevada previa y deshielo con lluvia fina; se acaba hacia los 16 a 18 °C ambientales.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/como-se-recolecta-el-marzuelo-la-primera-seta-del-ano-despues-del-deshielo/",
+              "fecha": "2020-02-05",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-marzuelo-una-exquisita-seta-poco-conocida-en-la-gastronomia/",
+              "fecha": "2025-02-19",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Los primeros salen en cotas bajas y se sube según se calienta: al principio, zonas con más sol; después, sombrías y húmedas.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/como-se-recolecta-el-marzuelo-la-primera-seta-del-ano-despues-del-deshielo/",
+              "fecha": "2020-02-05",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/el-marzuelo-una-exquisita-seta-poco-conocida-en-la-gastronomia/",
+              "fecha": "2025-02-19",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-marzuelo-una-exquisita-seta-poco-conocida-en-la-gastronomia/",
+              "fecha": "2025-02-19",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Se recomienda arrancarlo con torsión y tapar el hueco, sin navaja, por riesgo de infección del micelio.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/como-se-recolecta-el-marzuelo-la-primera-seta-del-ano-despues-del-deshielo/",
+              "fecha": "2020-02-05",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -5643,6 +6885,57 @@
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere pino albar, rodeno y abetos de más de 30 años, en zonas musgosas, umbrías y húmedas de montaña, sobre suelo ácido. Sale de octubre a enero y resiste las heladas.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-capuchina-y-la-negrilla-las-ricas-tardias",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Busca pequeños bultos en la pinocha. Extráela entera con cuidado, sin rastrillo ni palo, y no cojas las de menos de 3 cm.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-capuchina-y-la-negrilla-las-ricas-tardias",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Es fiel a los mismos lugares cada año.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        }
       ]
     },
     {
@@ -5807,6 +7100,21 @@
           "url": "https://www.fungipedia.org/hongos/tricholoma-terreum.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Aparece en grupos grandes, en límites de prado y pinar.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "http://guiahongosnavarra1garciabona.blogspot.com/2014/03/tricholoma-terreum-schaeff-p-kumm.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -6285,6 +7593,88 @@
           "url": "https://inchem.org/documents/pims/fungi/pimg029.htm",
           "titulo": "Gyromitra esculenta: giromitrina y prohibición de venta en España (IPCS INCHEM)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Prefiere riberas de choperas, plátanos y alisos, y también pinares de alta montaña, encinares y bosques mixtos.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://femturisme.cat/es/noticias/setas-fuera-de-la-temporada-habitual-que-buscar-y-cuando-hacerlo",
+              "fecha": "2026-03-24",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/la-colmenilla-la-seta-de-esta-primavera/",
+              "fecha": "2022-05-17",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.riaza.es/micologia",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "No busca el bosque perfecto, sino zonas removidas: quemados de hace 2 o 3 años, talas y suelo con madera muerta.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://femturisme.cat/es/noticias/setas-fuera-de-la-temporada-habitual-que-buscar-y-cuando-hacerlo",
+              "fecha": "2026-03-24",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Sale primero en cotas bajas y riberas (Guadalajara, Soria) bajo chopos y álamos, y después en alta montaña.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/perrechicos-en-cotas-bajas-y-primeras-colmenillas-llega-la-primavera/",
+              "fecha": "2016-04-06",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/la-colmenilla-la-seta-de-esta-primavera/",
+              "fecha": "2022-05-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Le van bien las lluvias tempranas seguidas de estabilidad y suelo templado. Evita los descensos bruscos de temperatura.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-colmenilla-la-seta-de-esta-primavera/",
+              "fecha": "2022-05-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Nunca se come cruda. No la confundas con Gyromitra.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://femturisme.cat/es/noticias/setas-fuera-de-la-temporada-habitual-que-buscar-y-cuando-hacerlo",
+              "fecha": "2026-03-24",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },

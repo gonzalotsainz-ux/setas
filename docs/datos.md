@@ -379,6 +379,32 @@ Formato GeoJSON FeatureCollection. Cada Feature es un Polygon o MultiPolygon:
 
 El bbox de `alava` se ensanchó de `lonMin -3.0` a `-3.25` para que contenga el coto de la Sierra de Árcena (lon -3.19…-3.06). Los recuentos GBIF de Álava en `data/especies.json` se calcularon con el bbox antiguo (`-3.0`) y no se han repetido: `scripts/gbif-presencia.mjs` no permite limitarse a una zona.
 
+## data/sitios.json (sitios conocidos)
+
+Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy ninguna).
+
+```json
+{ "version": 1, "sitios": [ {
+  "id": "valsain-matas-pinar", "zona": "guadarrama", "nombre": "…", "municipio": "…",
+  "tipo": "sitio | ruta | no-ir",
+  "especies": ["boletus-edulis"], "habitat": ["pinar-silvestre"], "epoca": [9, 10, 11],
+  "consejo": "Texto breve con palabras propias.",
+  "legal": { "estado": "permiso | libre | prohibido | privado | sin-confirmar", "normas": ["id-de-normativa"], "texto": "…" },
+  "lat": null, "lon": null,
+  "fuentes": [ { "url": "https://…", "titulo": "…", "fecha": "2022-10-24 | null", "consultado": "2026-09-30" } ],
+  "nFuentes": 2, "confianza": "alta | media | baja", "verificado": false, "notas": ""
+} ] }
+```
+
+- `confianza` casa con `nFuentes` (fuentes independientes, no las que se listan): alta = 3 o más, media = 2, baja = 1 o menos.
+- `tipo: "no-ir"`: lugares prohibidos, privados o sin regla confirmada; se muestran en un recuadro rojo. Un sitio que no es `no-ir` no puede ser `prohibido` ni `privado` (lo valida `scripts/validar-datos.mjs`).
+- Si una fuente contradice la norma oficial, `legal` sigue la norma y la contradicción va en `notas`.
+- Si algún día hay `lat`/`lon`, el validador comprueba que no caen dentro de un polígono `prohibido` de `cotos.geojson`.
+
+### `trucos` en `data/especies.json`
+
+Solo las comestibles. `[{ "texto", "tipo": "orientacion | altitud | microhabitat | indicador | tiempo | recoleccion | creencia", "fuentes": [{ "url", "fecha", "consultado" }], "confianza": "alta | media | baja", "cifrasOrientativas": true }]`. Las cifras de 04d (días, metros, °C) se leyeron con resúmenes automáticos: llevan `cifrasOrientativas: true` y la interfaz muestra «cifras orientativas». `creencia` se muestra como «Creencia popular (sin base)».
+
 ## Meteorología (Open-Meteo)
 
 Comprobado en vivo el 2026-09-30: con el modelo por defecto (best_match) el suelo horario (`soil_moisture_0_to_7cm`, `soil_temperature_0_to_7cm`) llega relleno (1.680 valores por punto en 70 días), y la humedad de suelo del archivo histórico coincide con la del forecast (sesgo medio < 0,001 m³/m³ en 52 días solapados; rango histórico 0,093–0,429). No se usa `models=ecmwf_ifs` en la serie principal ni en el archivo. `models=` solo se usa en la llamada de contraste de lluvia (`urlModelos`).

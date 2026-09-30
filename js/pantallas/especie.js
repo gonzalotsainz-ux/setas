@@ -1,6 +1,9 @@
 // Pantalla «Especie»: ficha completa de #especie/<id>.
-import { fichaEspecie } from '../ui/ficha.js';
+import { fichaEspecie, ganchos } from '../ui/ficha.js';
+import { trucosEspecie } from '../ui/sitios.js';
 import { el, icono } from '../ui/dom.js';
+
+ganchos.trucos = trucosEspecie;   // sección «Trucos para encontrarla» (tarea 15b)
 
 export function pintar({ estado, param }) {
   const e = estado.datos.porId[param];

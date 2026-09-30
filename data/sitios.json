@@ -1,0 +1,2195 @@
+{
+  "version": 1,
+  "sitios": [
+    {
+      "notas": "Terranostrum cita boletus, níscalo, rebozuelo y llanegas sin más detalle. Una sola fuente turística.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "navafria-pinar",
+      "zona": "guadarrama",
+      "nombre": "Pinar de Navafría",
+      "municipio": "Navafría (Segovia)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "cantharellus-cibarius"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Pinar de montaña de unas 2.690 ha en la vertiente segoviana, citado por su variedad de setas en otoño. La fuente no da más detalle.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-segovia"
+        ],
+        "texto": "Acotado SG-50002 «Montes de Segovia» con permiso de pago. No está comprobado si la Comunidad de Pedraza, que lo gestiona, tiene permiso propio."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/turismo/segovia/segovia-sur/navafria/setas-en-segovia",
+          "titulo": "Terranostrum: setas en Navafría",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "CONTRADICCIÓN: el artículo de Hola (2022) dice que «en Madrid no se requería permiso». Es incorrecto o está desactualizado: el PRUG del Parque Nacional (art. 59) y la nota de la Comunidad de Madrid de 23/10/2024 exigen licencia en Lozoya. El campo legal sigue la norma oficial.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "puerto-navafria-camino-horizontal",
+      "zona": "guadarrama",
+      "nombre": "Puerto de Navafría, «Camino Horizontal»",
+      "municipio": "Lozoya (Madrid) y Navafría (Segovia)",
+      "tipo": "ruta",
+      "especies": [
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Unos 30 minutos a pie desde el aparcamiento por una pista forestal llana. El níscalo se busca en los pinares secos.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-lozoya",
+          "pn-guadarrama-prug",
+          "cyl-montes-de-segovia"
+        ],
+        "texto": "Lado madrileño (Lozoya, dentro del Parque Nacional): licencia municipal de Lozoya. Lado segoviano: permiso del acotado SG-50002. Falta cruzar el recorrido con las zonas de Reserva: mira el mapa antes."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
+          "titulo": "Hola: mejores bosques de España para coger setas",
+          "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "La especie y el aparcamiento salen de una sola fuente turística (Hola, 2022); el régimen legal sale del convenio oficial de Rascafría. Hay URA-A y Reserva cercanas (Arroyo de Santa María del Paular, El Purgatorio, Laguna de los Pájaros…).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "puerto-morcuera",
+      "zona": "guadarrama",
+      "nombre": "Puerto de la Morcuera",
+      "municipio": "Miraflores de la Sierra y Rascafría (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Se aparca en el km 18 de la M-611, junto a la fuente de Cossío. Hay zonas de Reserva muy cerca: consulta el mapa antes de alejarte.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-rascafria",
+          "pn-guadarrama-prug"
+        ],
+        "texto": "Dentro del Parque Nacional. El MUP «Morcuera» es uno de los tres montes autorizados en Rascafría: licencia de Rascafría. Sin ella, multa de hasta 3.000 €."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
+          "titulo": "Hola: mejores bosques de España para coger setas",
+          "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.comunidad.madrid/node/58396",
+          "titulo": "Comunidad de Madrid: convenio micológico de Rascafría",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Hola pudo apoyarse en Vozpópuli, así que las dos fuentes turísticas pueden no ser independientes. La licencia sale de la nota oficial de la Comunidad.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "puerto-canencia",
+      "zona": "guadarrama",
+      "nombre": "Puerto de Canencia",
+      "municipio": "Canencia (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "melojar",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Robledales y pinares. Mejor entre semana: los fines de semana se llena.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Canencia exige licencia municipal (nota de la Comunidad de Madrid de 23/10/2024). El cupo de 10 kg no está verificado para Canencia."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.vozpopuli.com/marabilias/destinos/setas-otono-destinos-naturaleza-parques_nacionales-hongos_0_853414667.html",
+          "titulo": "Vozpópuli: setas de otoño, destinos de naturaleza",
+          "fecha": "2015-10-19",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
+          "titulo": "Hola: mejores bosques de España para coger setas",
+          "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.comunidad.madrid/node/70372",
+          "titulo": "Comunidad de Madrid: municipios con licencia micológica",
+          "fecha": "2024-10-23",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Son cuatro fuentes, pero las dos normativas (Micocyl y El Jardín de la Hilaria) derivan de la misma orden, así que solo cuentan como una independiente más las turísticas.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "valsain-matas-pinar",
+      "zona": "guadarrama",
+      "nombre": "Matas y Pinar de Valsaín",
+      "municipio": "Real Sitio de San Ildefonso (Segovia)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis",
+        "pleurotus-eryngii",
+        "amanita-caesarea"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Se aparca junto al puente de la Cantina (km 17 de la CL-601) y se va solo a pie. Corta el pie a ras en níscalo, seta de cardo y llanegas; no cojas boletus de menos de 4 cm ni otras setas de menos de 2 cm.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "valsain-orden-aaa-1681-2016"
+        ],
+        "texto": "Permiso del OAPN (Orden AAA/1681/2016): 10 € al día o 15 € el fin de semana para foráneos, 5 kg, sin comercializar. La Umbría de Siete Picos queda excluida (ver «No ir»)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/turismo/segovia/setas-en-segovia",
+          "titulo": "Terranostrum: dónde buscar setas en Segovia (incluye La Granja y Valsaín)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micocyl.es/noticias/montes-de-valsain-segovia-aprovechamiento-micologico-regulado",
+          "titulo": "Micocyl: Montes de Valsaín, aprovechamiento micológico regulado",
+          "fecha": "2016-11-11",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.eljardindelahilaria.com/recoleccion-de-setas-en-los-montes-de-valsain/",
+          "titulo": "El Jardín de la Hilaria: recolección de setas en Valsaín",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
+          "titulo": "Hola: mejores bosques de España para coger setas",
+          "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Fuente oficial (parte micológico de Cesefor, 28/10/2024) pero una sola. Los inventarios de boletus se hacen en Pinus sylvestris y los de níscalo en Pinus pinaster. Es un dato de Castilla y León, no medido en Madrid. Se leyó mediante resumen automático: cifras orientativas.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guadarrama-segoviano-micocyl-2024",
+      "zona": "guadarrama",
+      "nombre": "Guadarrama segoviano: dato oficial de rendimiento (otoño 2024)",
+      "municipio": "Sierra de Guadarrama (Segovia)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "pinar-resinero"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Micocyl midió en otoño de 2024 un rendimiento medio de boletus de más de 3 kg por hora y picos de níscalo de hasta 4 kg por hora. Sirve como indicio de que la sierra segoviana produce, no como garantía.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-segovia",
+          "cyl-sg-50005-junta-segovia"
+        ],
+        "texto": "Acotados SG-50002 y SG-50005 con permiso de Micocyl."
+      },
+      "fuentes": [
+        {
+          "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+          "titulo": "Micocyl: parte micológico del 28/10/2024 (Cesefor)",
+          "fecha": "2024-10-28",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Polígonos pnsg-reserva-umbria-de-siete-picos, pnsg-ura-solana-de-siete-picos y pnsg-ura-siete-picos en data/cotos.geojson.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "id": "siete-picos-valsain",
+      "zona": "guadarrama",
+      "nombre": "Umbría y Solana de Siete Picos y cumbres",
+      "municipio": "Cercedilla y Valsaín",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Zona de Reserva y de Uso Restringido A del Parque Nacional; además, la Umbría de Siete Picos está excluida del permiso de Valsaín.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "valsain-orden-aaa-1681-2016"
+        ],
+        "texto": "Recogida prohibida por el PRUG (art. 59.b) y excluida de la Orden AAA/1681/2016."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2016-9680",
+          "titulo": "Orden AAA/1681/2016 (BOE)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "notas": "Polígonos pnsg-ura-macizo-de-penalara y pnsg-reserva-laguna-grande-de-penalara-y-canales, entre otros.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "id": "penalara-cotos-lagunas",
+      "zona": "guadarrama",
+      "nombre": "Macizo de Peñalara, Cotos alto, lagunas y turberas",
+      "municipio": "Rascafría y Cercedilla",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Reserva y Uso Restringido A del Parque Nacional: no se recogen setas.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug"
+        ],
+        "texto": "Recogida prohibida por el PRUG (art. 59.b)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Identificadores pnsg-* en data/cotos.geojson.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "id": "reservas-paular-purgatorio",
+      "zona": "guadarrama",
+      "nombre": "Arroyo de Santa María del Paular, El Purgatorio, Laguna de los Pájaros, Cerro Ventoso, La Acebeda, Mujer Muerta y Ribera del Manzanares",
+      "municipio": "Parque Nacional de la Sierra de Guadarrama",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Zonas de Reserva o de Uso Restringido A: no se recogen setas. Están cerca de sitios con licencia, como la Morcuera.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug"
+        ],
+        "texto": "Recogida prohibida por el PRUG (art. 59.b)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Hola (2022) y Vozpópuli (2015) solo citan Cotos y Alameda del Valle como lugares de setas, sin régimen legal; no se siguen. La ausencia de ordenanza es un resultado de búsqueda, no una confirmación oficial: confirma con el ayuntamiento.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "pn-monte-sin-plan",
+      "zona": "guadarrama",
+      "nombre": "Cercedilla, Navacerrada, Puerto de Cotos y Alameda del Valle",
+      "municipio": "Parque Nacional de la Sierra de Guadarrama",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Dentro del Parque Nacional y sin ordenanza ni convenio micológico que se haya encontrado. No se recoge salvo que el ayuntamiento confirme licencia.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug"
+        ],
+        "texto": "El PRUG (art. 59.b) prohíbe la recolección episódica en montes del Parque sin plan de aprovechamiento. No se ha localizado plan para estos municipios."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Las dos páginas son de la misma web: cuentan como una fuente.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "riaza-ayllon",
+      "zona": "sierra-norte",
+      "nombre": "Alrededores de Riaza y Ayllón",
+      "municipio": "Riaza y Ayllón (Segovia)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-aereus",
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "cantharellus-cibarius",
+        "amanita-caesarea",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "melojar",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Terranostrum enumera las especies de la comarca sin dar parajes concretos. Sirve para saber qué esperar, no dónde.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-segovia"
+        ],
+        "texto": "Acotado SG-50002 «Montes de Segovia»: permiso de pago (5 kg; 3 kg de seta de cardo y perrechico). Riaza y Ayllón tienen tarifa local."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/turismo/segovia/segovia-nordeste-riaza-y-duraton/riaza/setas-en-segovia",
+          "titulo": "Terranostrum: setas en Riaza",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.terranostrum.es/turismo/segovia/segovia-nordeste-riaza-y-duraton/ayllon/setas-en-segovia",
+          "titulo": "Terranostrum: setas en Ayllón",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Es una noticia de sucesos, sin datos de arbolado. Hubo otra intervención el 29/10/2023 en Collado Hermoso.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "la-quesera-pedrosa",
+      "zona": "sierra-norte",
+      "nombre": "Puerto de La Quesera, La Pedrosa y Collado Hermoso",
+      "municipio": "Sierra de Ayllón (Segovia)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "La Guardia Civil incautó 75 kg de níscalos y 48 kg de boletus el 5/11/2023: indicio de sitio productivo y vigilado. Ve con permiso y DNI.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-segovia",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado SG-50002; sanción por el Decreto 31/2017 si se recoge sin permiso."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.agronewscastillayleon.com/?p=130433",
+          "titulo": "Agronews Castilla y León: incautación en La Quesera y La Pedrosa",
+          "fecha": "2023-11-05",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Polígono montejo-hayedo en data/cotos.geojson (precisión «derivado»).",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "id": "hayedo-de-montejo",
+      "zona": "sierra-norte",
+      "nombre": "Hayedo de Montejo (MUP 89 «El Chaparral y La Solana»)",
+      "municipio": "Montejo de la Sierra (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "No se permite recoger ningún elemento vegetal ni hongo; solo visitas guiadas.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "montejo-prohibicion"
+        ],
+        "texto": "Resolución 2213/2025 de la Dirección General de Biodiversidad y Gestión Forestal de la Comunidad de Madrid."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.sierradelrincon.org/wp-content/uploads/2025/11/022Resolucion-2213_2025-DG-Biodiversidad-y-Gestion-Forestal.pdf",
+          "titulo": "Resolución 2213/2025: normas de acceso al Hayedo de Montejo",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.comunidad.madrid/node/6065",
+          "titulo": "Comunidad de Madrid: normas de visita al Hayedo de Montejo",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Descarga el GPX antes (cobertura irregular). El coto figura como AV-50002 (sin polígono) y PMAV-50009: régimen desconocido.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "navarredonda-ruta-micologica",
+      "zona": "gredos",
+      "nombre": "Ruta micológica de Navarredonda de Gredos",
+      "municipio": "Navarredonda de Gredos (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "hygrophorus-marzuolus",
+        "boletus-pinophilus",
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "tricholoma-portentosum"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Sendero de 4,3 km por pinar abierto y luminoso de pino silvestre maduro. Marzuelo de enero a abril, boletus de pino desde mayo y boletus común a final de verano y otoño.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/avila/valle-del-tormes-gredos/ruta-micologica-navarredonda-de-gredos",
+          "titulo": "Terranostrum: ruta micológica de Navarredonda de Gredos",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "hoyos-del-espino-ruta-micologica",
+      "zona": "gredos",
+      "nombre": "Ruta micológica de Hoyos del Espino",
+      "municipio": "Hoyos del Espino (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "boletus-pinophilus",
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Sendero de 3,6 km por pinar de pino silvestre, con las mismas especies que la ruta de Navarredonda.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-av-50003-gredos"
+        ],
+        "texto": "Acotado AV-50003 «Gredos» (titular: Hoyos del Espino), recreativo hasta 5 kg. El portal de permisos mostraba «sin tarifa disponible» el 30/09/2026: confirma antes de ir."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/avila/valle-del-tormes-gredos/ruta-micologica-hoyos-del-espino",
+          "titulo": "Terranostrum: ruta micológica de Hoyos del Espino",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "El monte PMAV-50010 queda a menos de 1,3 km (cálculo propio); permiso desconocido.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "candeleda-las-atalayas",
+      "zona": "gredos",
+      "nombre": "Candeleda: paraje Las Atalayas",
+      "municipio": "Candeleda (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "amanita-caesarea",
+        "lactarius-deliciosus",
+        "sparassis-crispa",
+        "boletus-pinophilus",
+        "cantharellus-cibarius"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "consejo": "Ruta de 3,1 km por pino resinero con melojo. Los inviernos suaves y húmedos alargan la temporada hasta diciembre; hay otra en primavera.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/ruta-micologica-candeleda",
+          "titulo": "Terranostrum: ruta micológica de Candeleda",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "La misma ficha cita también Rubroboletus rhodoxanthus, que no se recomienda comer y por eso no figura en las especies.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "arenas-el-berrocal",
+      "zona": "gredos",
+      "nombre": "Arenas de San Pedro: El Berrocal",
+      "municipio": "Arenas de San Pedro (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "lactarius-deliciosus",
+        "amanita-caesarea",
+        "sparassis-crispa",
+        "cantharellus-cibarius"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "melojar",
+        "castanar"
+      ],
+      "epoca": [
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Ruta de 4,9 km por pino resinero con melojo y castaño, en otoño y en primavera (rebozuelo en mayo). Hace falta lluvia abundante.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/avila/valle-del-tietar/arenas-de-san-pedro/ruta-micologica-arenas-de-san-pedro",
+          "titulo": "Terranostrum: ruta micológica de Arenas de San Pedro",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guisando-pino-de-la-vibora",
+      "zona": "gredos",
+      "nombre": "Guisando: Pino de la Víbora",
+      "municipio": "Guisando (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "sparassis-crispa",
+        "lactarius-deliciosus",
+        "suillus-luteus",
+        "boletus-pinophilus"
+      ],
+      "habitat": [
+        "pinar-resinero"
+      ],
+      "epoca": [
+        5,
+        6,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Ruta de 3,7 km por pino resinero. Otoño para Sparassis, níscalo y Suillus; primavera e inicio de verano para el boletus de pino. El triángulo El Hornillo-El Arenal-Guisando tiene récord de lluvia.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/avila/valle-del-tietar/guisando/ruta-micologica-guisando",
+          "titulo": "Terranostrum: ruta micológica de Guisando",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Cerca de PMAV-50010; permiso desconocido.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "el-hornillo-collado-de-la-casa",
+      "zona": "gredos",
+      "nombre": "El Hornillo: Collado de la Casa",
+      "municipio": "El Hornillo (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "boletus-reticulatus",
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "russula-cyanoxantha",
+        "russula-virescens",
+        "sparassis-crispa",
+        "cantharellus-cibarius"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "melojar",
+        "castanar"
+      ],
+      "epoca": [
+        5,
+        9,
+        10,
+        11,
+        12
+      ],
+      "consejo": "Ruta de 7,6 km desde el área recreativa La Francisca, por pino, melojo y castaño, con más de 1.700 mm de lluvia al año. Otoño y primavera, hasta diciembre.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/avila/valle-del-tietar/el-hornillo/ruta-micologica-el-hornillo",
+          "titulo": "Terranostrum: ruta micológica de El Hornillo",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "El truco de la vertiente sur (fructifica tarde, hasta diciembre, y otra vez en mayo) lo dice una sola web, Terranostrum, en varias fichas.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "el-arenal-los-collaillos",
+      "zona": "gredos",
+      "nombre": "El Arenal: Los Collaillos",
+      "municipio": "El Arenal (Ávila)",
+      "tipo": "ruta",
+      "especies": [
+        "sparassis-crispa",
+        "lactarius-deliciosus",
+        "suillus-luteus",
+        "boletus-pinophilus"
+      ],
+      "habitat": [
+        "pinar-resinero"
+      ],
+      "epoca": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "consejo": "Ruta de 7 km con 403 m de desnivel por pino resinero. Mucha lluvia y sin heladas fuertes significa temporada larga en la vertiente sur.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/senderismo/ruta-micologica-el-arenal",
+          "titulo": "Terranostrum: ruta micológica de El Arenal",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Que los otoños cálidos y húmedos rindan más sale del resumen de un buscador sobre un estudio de 15 años en 18 parcelas (no se abrió el original): una sola fuente, sin verificar. Un usuario de Minube opina que vale cualquier pinada adulta de repoblación en umbría (opinión).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-pinar-grande",
+      "zona": "soria",
+      "nombre": "Pinar Grande y Aula del Amogable",
+      "municipio": "Covaleda, Duruelo, Vinuesa y Navaleno (Soria)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "cantharellus-cibarius",
+        "tricholoma-portentosum"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        10,
+        11,
+        12
+      ],
+      "consejo": "Pinar de pino silvestre de 12.500 ha, llamado reserva micológica. El boletus rinde según la densidad del arbolado, y se dice que los otoños cálidos y húmedos rinden más.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-soria"
+        ],
+        "texto": "Parque Micológico Montes de Soria (PMSO-50001, incluye el MUP 172 «Pinar Grande»): 10 € por 2 días para foráneos, 5 kg al día."
+      },
+      "fuentes": [
+        {
+          "url": "https://uvadoc.uva.es/handle/10324/1122",
+          "titulo": "Universidad de Valladolid: tesis sobre B. edulis y níscalo en pinares (2012)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micologia.turismosoria.es/",
+          "titulo": "Turismo de Soria: micología",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.agronewscastillayleon.com/concurso-micologico-el-miguelon-de-soria-2013",
+          "titulo": "Agronews: concurso micológico El Miguelón",
+          "fecha": "2013-11-09",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.minube.com/rincon/buscar-setas-en-soria-a67899",
+          "titulo": "Minube: opiniones de usuarios",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 4,
+      "confianza": "alta"
+    },
+    {
+      "notas": "Otra fuente extiende la temporada desde finales de agosto hasta las primeras heladas.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-navaleno",
+      "zona": "soria",
+      "nombre": "Navaleno y su Centro Micológico",
+      "municipio": "Navaleno (Soria)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "amanita-caesarea",
+        "craterellus-cornucopioides",
+        "marasmius-oreades",
+        "macrolepiota-procera",
+        "tricholoma-portentosum"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Pinares a unos 1.100 m. Hacen falta lluvia y temperaturas por encima de 0 °C. El Centro Micológico organiza rutas guiadas, ideales para aprender.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-soria"
+        ],
+        "texto": "Permiso de Montes de Soria (foráneo: 10 € por 2 días, 5 kg al día)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.elconfidencialdigital.com/viajar/articulo/espana/secreto-micologico-navaleno-soria-bosque-setas-mas-codiciado-castilla-leon/20251008220818001668.html",
+          "titulo": "El Confidencial Digital: el secreto micológico de Navaleno",
+          "fecha": "2025-10-08",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.navaleno.es/actualidad/por-que-soria-es-la-mejor-tierra-para-ir-buscar-setas",
+          "titulo": "Ayuntamiento de Navaleno: por qué Soria es la mejor tierra para las setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.terranostrum.es/turismo/setas-en-soria",
+          "titulo": "Terranostrum: setas en Soria",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/lugares-donde-podras-coger-setas-en-soria-este-otono/",
+          "titulo": "Soria ni te la imaginas: lugares donde coger setas en Soria",
+          "fecha": "2020-11-10",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 4,
+      "confianza": "alta"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-covaleda-puentes-del-duero",
+      "zona": "soria",
+      "nombre": "Covaleda: ruta «Puentes del Duero» (PRC-SO 75)",
+      "municipio": "Covaleda (Soria)",
+      "tipo": "ruta",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Sendero señalizado para recorrer el pinar y el robledal donde salen boletus y níscalos.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-so-50001-covaleda"
+        ],
+        "texto": "Acotado SO-50001 (Covaleda, Duruelo y Vinuesa). El precio aparece con datos contradictorios: confírmalo antes de ir."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/turismo/setas-en-soria",
+          "titulo": "Terranostrum: setas en Soria (Covaleda)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/lugares-donde-podras-coger-setas-en-soria-este-otono/",
+          "titulo": "Soria ni te la imaginas: lugares donde coger setas en Soria",
+          "fecha": "2020-11-10",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-duruelo-vinuesa",
+      "zona": "soria",
+      "nombre": "Duruelo de la Sierra y Vinuesa",
+      "municipio": "Duruelo de la Sierra y Vinuesa (Soria)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "melojar"
+      ],
+      "epoca": [
+        10,
+        11,
+        12
+      ],
+      "consejo": "Pino y roble entre Urbión y Cebollera. En Vinuesa, el GR 86 (etapa Vinuesa-Covaleda, 21,6 km) cruza el pinar. Contrata una guía para aprender a identificar.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-so-50001-covaleda",
+          "cyl-montes-de-soria"
+        ],
+        "texto": "Acotados SO-50001 y SO-50007 (Vinuesa, propiedad de una empresa privada); la Laguna Negra está dentro del PMSO-50001."
+      },
+      "fuentes": [
+        {
+          "url": "https://turismo.vinuesa.es/en/naturaleza-y-entorno/pine-forest-and-mycology/",
+          "titulo": "Turismo de Vinuesa: pinar y micología",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.terranostrum.es/turismo/setas-en-soria",
+          "titulo": "Terranostrum: setas en Soria (Duruelo)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/lugares-donde-podras-coger-setas-en-soria-este-otono/",
+          "titulo": "Soria ni te la imaginas: lugares donde coger setas en Soria",
+          "fecha": "2020-11-10",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-rio-lobos-san-leonardo",
+      "zona": "soria",
+      "nombre": "San Leonardo de Yagüe y Cañón del Río Lobos",
+      "municipio": "San Leonardo de Yagüe (Soria)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "hygrophorus-marzuolus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "sabinar"
+      ],
+      "epoca": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Pinar y sabinar. En otoño, boletus y níscalo; los marzuelos, de febrero a abril, son la única mención de setas de primavera de la zona.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-soria"
+        ],
+        "texto": "Dentro del PMSO-50001 (unas 4.500 ha de parques naturales incluidas): permiso de Montes de Soria."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.terranostrum.es/turismo/setas-en-soria",
+          "titulo": "Terranostrum: setas en Soria (Río Lobos)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/lugares-donde-podras-coger-setas-en-soria-este-otono/",
+          "titulo": "Soria ni te la imaginas: lugares donde coger setas en Soria",
+          "fecha": "2020-11-10",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.consumer.es/?p=78883",
+          "titulo": "Consumer: los bosques de San Leonardo y Navaleno son ricos en Lactarius y Boletus",
+          "fecha": "2013-11-20",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "notas": "Feria Micológica de Tierras Altas a finales de abril o principios de mayo.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-tierras-altas",
+      "zona": "soria",
+      "nombre": "Tierras Altas de Soria (Santa Cruz de Yanguas, Pinar de Taniñe, Magaña y Cerbón)",
+      "municipio": "Santa Cruz de Yanguas, Carrascosa de la Sierra, Aldealices y Villar del Río (Soria)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "pinar-negral"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Taniñe va del pino laricio (abajo) al silvestre (arriba); Magaña y Cerbón dan seta de cardo; Carrascosa y Aldealices, boletus de calidad. Santa Cruz de Yanguas tiene ruta micológica señalizada.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-montes-de-soria"
+        ],
+        "texto": "Zona regulada por Montes de Soria según un cálculo espacial propio (dentro o a menos de 2 km del PMSO-50001 o el SO-50003). Confirma en el PDF de zonas reguladas."
+      },
+      "fuentes": [
+        {
+          "url": "https://mancomunidadtierrasaltas.es/setas-tierras-altas-soria/",
+          "titulo": "Mancomunidad de Tierras Altas: setas en Tierras Altas",
+          "fecha": "2024-10-31",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.terranostrum.es/turismo/setas-en-soria",
+          "titulo": "Terranostrum: setas en Soria",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "National Geographic dio error 403 al abrirla: solo se conoce el resumen del buscador.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "soria-montenegro-salduero-molinos",
+      "zona": "soria",
+      "nombre": "Montenegro de Cameros, Salduero y Molinos de Duero",
+      "municipio": "Soria",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Pinares citados solo como lugares donde salen boletus y níscalos en octubre y noviembre; sin parajes concretos.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "No se ha comprobado qué acotado rige. Decreto 31/2017: en acotados, permiso; fuera, 3 kg al día sin comercializar."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/lugares-donde-podras-coger-setas-en-soria-este-otono/",
+          "titulo": "Soria ni te la imaginas: lugares donde coger setas en Soria",
+          "fecha": "2020-11-10",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://viajes.nationalgeographic.com.es/gastronomia/soria-todos-secretos-gran-meca-setas-espana_14729",
+          "titulo": "National Geographic Viajes: Soria, la gran meca de las setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Polígono SO-50005 en data/cotos.geojson.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "quinto-de-la-mata",
+      "zona": "soria",
+      "nombre": "Quinto de la Mata (SO-50005)",
+      "municipio": "Soria",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Acotado privado de Castilla y León: no entres a recoger sin autorización expresa del titular.",
+      "legal": {
+        "estado": "privado",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado privado SO-50005 según el registro de acotados micológicos de Castilla y León."
+      },
+      "fuentes": [
+        {
+          "url": "https://micologiacyl.es/acotados",
+          "titulo": "Micocyl: acotados micológicos",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://idecyl.jcyl.es/geonetwork/docs/api/records/SPAGOBCYLMNADTSAMMZR",
+          "titulo": "IDECyL: acotados micológicos",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "La web de la Mancomunidad lista 14 municipios (sin Orea); otra página cita 17 (con Orea): comprueba Orea antes de ir. Henares al Día: no circules con vehículo por pistas forestales y conoce al propietario del monte; hubo 6 rescates de personas perdidas en 2021, así que lleva el móvil cargado y avisa del destino.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guadalajara-alto-tajo",
+      "zona": "guadalajara",
+      "nombre": "Alto Tajo: Checa, Orea, Peralejos de las Truchas y Alustante",
+      "municipio": "Checa, Orea, Peralejos de las Truchas y Alustante (Guadalajara)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis",
+        "pleurotus-eryngii",
+        "morchella",
+        "amanita-caesarea"
+      ],
+      "habitat": [
+        "pinar-negral",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Orea y Checa se consideran un paraíso para recolectores con experiencia. La Mancomunidad ofrece una guía de identificación y mapas de zonas de recolección descargables.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "guadalajara-mancomunidad-la-sierra",
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Permiso de la Mancomunidad La Sierra: 5 € al día para foráneos, 5 kg; sin bolsas de plástico, rastrillos ni palas; grupos de hasta 3; nunca de noche. Las normas del Parque Natural del Alto Tajo no están verificadas."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.senderismoguadalajara.es/blog/donde-ir-de-setas-en-guadalajara-mejores-lugares-recoger-setas/",
+          "titulo": "Senderismo Guadalajara: dónde ir de setas en Guadalajara",
+          "fecha": "2020-11-07",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://henaresaldia.com/guadalajara-territorio-setero/",
+          "titulo": "Henares al Día: Guadalajara, territorio setero",
+          "fecha": "2021-10-19",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-guadalajara/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Guadalajara",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://sierraaltotajo.es/micoturismo",
+          "titulo": "Mancomunidad La Sierra: micoturismo",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 4,
+      "confianza": "alta"
+    },
+    {
+      "notas": "Las ordenanzas de Rillo de Gallo y Herrería son modificaciones provisionales de julio de 2026.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guadalajara-senorio-de-molina",
+      "zona": "guadalajara",
+      "nombre": "Señorío de Molina (Rueda de la Sierra, Rillo de Gallo, Corduente, Castilnuevo, Tortuera…)",
+      "municipio": "Señorío de Molina (Guadalajara)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis"
+      ],
+      "habitat": [],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "La fuente solo enumera los pueblos donde se cogen níscalos y boletus en otoño, sin parajes ni consejos.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "guadalajara-rillo-de-gallo",
+          "guadalajara-herreria",
+          "guadalajara-torrecuadrada",
+          "guadalajara-cobeta",
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Varios municipios tienen ordenanza propia (Rillo de Gallo, Herrería, Cobeta, Torrecuadrada); en los demás no se ha verificado. Confirma en el ayuntamiento."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-guadalajara/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Guadalajara",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guadalajara-cogolludo-cabezadas",
+      "zona": "guadalajara",
+      "nombre": "Pinares de Cogolludo y Las Cabezadas",
+      "municipio": "Cogolludo (Guadalajara)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-resinero"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Henares al Día cita estos pinares por sus níscalos; en la Sierra Norte, más bien boletus y seta de cardo.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Un blog dice que Cogolludo pide permiso municipal; confirma en el ayuntamiento. Fuera de cotos, el máximo es de 5 kg o 10 L al día."
+      },
+      "fuentes": [
+        {
+          "url": "https://henaresaldia.com/guadalajara-territorio-setero/",
+          "titulo": "Henares al Día: Guadalajara, territorio setero",
+          "fecha": "2021-10-19",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-guadalajara/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Guadalajara",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Un catálogo científico cita Boletus edulis en Tejera Negra, pero no dice dónde recoger (solo se leyó el resumen del buscador).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "hayedo-tejera-negra",
+      "zona": "guadalajara",
+      "nombre": "Hayedo de Tejera Negra",
+      "municipio": "Cantalojas (Guadalajara)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Parque Natural: no consta qué regula la recogida de setas. No recojas sin confirmarlo con el Parque y con el ayuntamiento (Cantalojas y Galve de Sorbe piden permiso municipal, según un blog).",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Las reglas de setas del Parque Natural no se han localizado (el PRUG no está verificado). Trátalo como «no recoger» hasta confirmarlo."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-guadalajara/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Guadalajara",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://researchgate.net/profile/Fermin-Pancorbo/publication/268810258",
+          "titulo": "Pancorbo: catálogo de micobiota de la Sierra Norte de Guadalajara",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Una sola fuente (blog de senderismo).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "almiruete-reserva-privada",
+      "zona": "guadalajara",
+      "nombre": "Almiruete (Tamajón): reserva micológica privada",
+      "municipio": "Tamajón (Guadalajara)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Reserva privada con autorización: no se recoge sin ella.",
+      "legal": {
+        "estado": "privado",
+        "normas": [],
+        "texto": "Según una única fuente, es una reserva micológica privada que exige autorización."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.senderismoguadalajara.es/blog/donde-ir-de-setas-en-guadalajara-mejores-lugares-recoger-setas/",
+          "titulo": "Senderismo Guadalajara: dónde ir de setas en Guadalajara",
+          "fecha": "2020-11-07",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Casi todas son blogs personales (fiabilidad media). Un blog dice que las setas salen entre 800 y 1.950 m de altitud. Colmenillas en primavera.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cuenca-valdemeca-fuente-ardilla",
+      "zona": "cuenca",
+      "nombre": "Sierra de Valdemeca, Fuente de la Ardilla y Estepares",
+      "municipio": "Valdemeca (Cuenca)",
+      "tipo": "ruta",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "cantharellus-cibarius",
+        "morchella",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "pinar-resinero",
+        "prado"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Ruta señalizada de 4 km (1 h 30) desde la CM-2016, camino de Cañete, por pino albar y rodeno. Tras las tormentas de verano ya hay setas en septiembre.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Hace falta permiso de Valdemeca (ordenanza no verificada; un blog da «7 kg por persona y día»). Las normas del Parque Natural de la Serranía de Cuenca no están verificadas."
+      },
+      "fuentes": [
+        {
+          "url": "http://lassetasyloshongosmicologiacoquense.blogspot.com/2015/06/buscar-setas-en-la-serrania-de-cuenca.html",
+          "titulo": "Blog de Valdemeca: buscar setas en la Serranía de Cuenca (junio de 2015)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://elbrilloenlamirada.blogspot.com/2014/11/hongos-y-setas-de-la-serrania-de-cuenca.html",
+          "titulo": "El Brillo en la Mirada: hongos y setas de la Serranía de Cuenca (noviembre de 2014)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://amivall.com/micoturismo-cuenca-guia-rutas-setas.php",
+          "titulo": "Amivall: micoturismo en Cuenca, guía de rutas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-cuenca/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Cuenca",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.visitaserraniadecuenca.com/en/node/21195",
+          "titulo": "Visita Serranía de Cuenca: ruta de Valdemeca",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 5,
+      "confianza": "alta"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cuenca-tragacete",
+      "zona": "cuenca",
+      "nombre": "Tragacete y los nacimientos del Júcar y del Cuervo",
+      "municipio": "Tragacete (Cuenca)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Pinos, robles y hayas a más de 1.200 m. Las zonas más sombrías y húmedas son las más productivas. Hay tres rutas: Júcar, Callejones de Las Majadas y río Cuervo.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cuenca-tragacete"
+        ],
+        "texto": "Coto municipal (MUP 150): 5 € al día para foráneos, 5 kg. La prensa de 2021 cita también un ticket turístico de 1 € al día con consumo mínimo de 25 € en el pueblo y 2 kg. Ordenanza sin verificar."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.eldiario.es/consumoclaro/pueblo-cuenca-buscar-setas-tres-rutas-senderismo-perfecto-plan-otono_1_11822606.html",
+          "titulo": "eldiario.es: un pueblo de Cuenca para buscar setas",
+          "fecha": "2024-11-15",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-buscar-setas-en-cuenca/",
+          "titulo": "Tus casas rurales: dónde buscar setas en Cuenca",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://amivall.com/micoturismo-cuenca-guia-rutas-setas.php",
+          "titulo": "Amivall: micoturismo en Cuenca, guía de rutas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://lassetasyloshongosmicologiacoquense.blogspot.com/2015/06/buscar-setas-en-la-serrania-de-cuenca.html",
+          "titulo": "Blog de Valdemeca: buscar setas en la Serranía de Cuenca (junio de 2015)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 4,
+      "confianza": "alta"
+    },
+    {
+      "notas": "La guía de Amivall consultada para Cuenca se apoya en parte en un texto hecho con ayuda de inteligencia artificial y revisado: por eso cuenta como una fuente independiente menos.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cuenca-las-majadas-dehesa-olmos",
+      "zona": "cuenca",
+      "nombre": "Las Majadas, Dehesa de los Olmos (PR-CU 104) y Callejones",
+      "municipio": "Las Majadas (Cuenca)",
+      "tipo": "ruta",
+      "especies": [
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Ruta de 13 km (4 h 30) por pinar y roble, considerada un sitio emblemático de la comarca.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "No se ha comprobado la ordenanza del municipio. Fuera de cotos, el máximo es de 5 kg o 10 L al día."
+      },
+      "fuentes": [
+        {
+          "url": "https://amivall.com/micoturismo-cuenca-guia-rutas-setas.php",
+          "titulo": "Amivall: micoturismo en Cuenca, guía de rutas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.eldiario.es/consumoclaro/pueblo-cuenca-buscar-setas-tres-rutas-senderismo-perfecto-plan-otono_1_11822606.html",
+          "titulo": "eldiario.es: un pueblo de Cuenca para buscar setas",
+          "fecha": "2024-11-15",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://lassetasyloshongosmicologiacoquense.blogspot.com/2015/06/buscar-setas-en-la-serrania-de-cuenca.html",
+          "titulo": "Blog de Valdemeca: buscar setas en la Serranía de Cuenca (junio de 2015)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cuenca-huelamo-masegar",
+      "zona": "cuenca",
+      "nombre": "Huélamo: Ruta del Masegar (PR-CU 07)",
+      "municipio": "Huélamo (Cuenca)",
+      "tipo": "ruta",
+      "especies": [],
+      "habitat": [
+        "pinar-negral",
+        "pinar-silvestre",
+        "sabinar"
+      ],
+      "epoca": [
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Ruta de 9,8 km (3 h) por pinares, robledales y sabinares, en primavera y otoño. La fuente no cita especies.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "No se ha comprobado la ordenanza del municipio."
+      },
+      "fuentes": [
+        {
+          "url": "https://amivall.com/micoturismo-cuenca-guia-rutas-setas.php",
+          "titulo": "Amivall: micoturismo en Cuenca, guía de rutas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "El PDF no se pudo leer: el dato procede del resumen del buscador y no está verificado literalmente.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cuenca-boniches-caniete-rodeno",
+      "zona": "cuenca",
+      "nombre": "Rodenales de Cañete y Boniches",
+      "municipio": "Cañete y Boniches (Cuenca)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "lactarius-sanguifluus"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "pinar-negral"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "En Cuenca, el «mízcalo de rodeno» sale en los rodenales (pino resinero sobre arenas) y el de «negral» en pinar de laricio.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cuenca-boniches"
+        ],
+        "texto": "Boniches: ordenanza con permiso de 3 € al día o 20 € al año para foráneos (BOP de Cuenca, 04/09/2024). Cañete: sin datos."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/iect_lactarius_deliciosus_tcm30-164130.pdf",
+          "titulo": "MITECO: ficha de Lactarius deliciosus del Inventario Español de Conocimientos Tradicionales",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "La fuente solo dice que el níscalo llegó con las repoblaciones de pino; el consejo de buscar en los pinares y no en el encinar es una inferencia de la investigación, no una afirmación de la fuente.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "toledo-navahermosa-pinares",
+      "zona": "toledo",
+      "nombre": "Pinares de repoblación de Navahermosa (Valcavero y Sierra de la Galinda)",
+      "municipio": "Navahermosa (Toledo)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "melojar",
+        "encinar"
+      ],
+      "epoca": [],
+      "consejo": "El ayuntamiento cuenta que el níscalo llegó con los pinos de repoblación y era casi desconocido antes de los años 80. Conviene probar en las manchas de pino repoblado antes que en el encinar.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15",
+          "estatal-ley-43-2003-montes"
+        ],
+        "texto": "Montes públicos de Navahermosa sin ordenanza localizada; linda con Cabañeros. Confirma en el ayuntamiento. En fincas privadas hace falta permiso del propietario."
+      },
+      "fuentes": [
+        {
+          "url": "https://navahermosa.es/turismo-y-m-ambiente/patrimonio-natural/",
+          "titulo": "Ayuntamiento de Navahermosa: patrimonio natural",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Saber popular recogido en un artículo etnográfico. No hay ficha de esta especie en la app.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "toledo-san-pablo-criadillas",
+      "zona": "toledo",
+      "nombre": "Criadillas de tierra bajo las jaras (San Pablo de los Montes)",
+      "municipio": "San Pablo de los Montes (Toledo)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "jaral"
+      ],
+      "epoca": [],
+      "consejo": "Dicho local: «donde hay jarilla, hay criadilla». La criadilla de tierra (Terfezia arenaria) es un hongo subterráneo que se busca bajo las jaras.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "estatal-ley-43-2003-montes"
+        ],
+        "texto": "Predominan las fincas privadas: pide permiso al propietario. No se ha encontrado norma propia para las criadillas en Castilla-La Mancha."
+      },
+      "fuentes": [
+        {
+          "url": "https://w3.ual.es/GruposInv/myco-ual/textos/EtnomicologiaCLM.pdf",
+          "titulo": "Fajardo y otros (2010): Etnomicología en Castilla-La Mancha, Bol. Soc. Micol. Madrid 34",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "La fuente no cita especies. Las jornadas de 2025 ya han pasado: sirve como pista de quién organiza actividades, no como fecha.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "toledo-navamorcuende-jornadas",
+      "zona": "toledo",
+      "nombre": "Sierra de San Vicente: jornadas micológicas de Navamorcuende",
+      "municipio": "Navamorcuende (Toledo)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "melojar",
+        "castanar",
+        "pinar-resinero",
+        "encinar",
+        "jaral"
+      ],
+      "epoca": [
+        11
+      ],
+      "consejo": "Buena forma de aprender con gente local: la Diputación de Toledo y la asociación Toletum organizaron unas jornadas del 14 al 16 de noviembre de 2025. Zona lluviosa, con robledales, castañares y pinares.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Actividad guiada: el permiso lo gestiona la organización. Fuera de la actividad, confirma la norma local. Queda fuera de la lista de zonas de la investigación."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.eldebate.com/espana/castilla-la-mancha/20251107/este-rincon-escondido-toledo-donde-nacen-setas-buscadas-otono_352922.html",
+          "titulo": "El Debate: el rincón escondido de Toledo donde nacen setas",
+          "fecha": "2025-11-07",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Es una regla de prudencia de la investigación, no una prohibición confirmada. Ver 01-normativa-cotos.md (apartado 14.3).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cabaneros-parque-nacional",
+      "zona": "toledo",
+      "nombre": "Parque Nacional de Cabañeros",
+      "municipio": "Alcoba de los Montes, Horcajo de los Montes y Retuerta del Bullaque",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "No se ha encontrado la regla de setas de su PRUG. Mientras no se confirme lo contrario, no se recoge. Navahermosa y Hontanar lindan con él.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "estatal-ley-43-2003-montes"
+        ],
+        "texto": "Regla de setas del PRUG no localizada (la página del MITECO dio error). En el único parque nacional con PRUG leído, Guadarrama, la recolección episódica está prohibida sin plan: trátalo como «no recoger»."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
+          "titulo": "BOE: Ley 43/2003, de Montes",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Predominan las fincas privadas y cinegéticas. data/cotos.geojson no trae ningún coto en Toledo.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "id": "toledo-fincas-privadas",
+      "zona": "toledo",
+      "nombre": "Fincas privadas y cotos de caza de los Montes de Toledo",
+      "municipio": "Montes de Toledo",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Las setas son del propietario del monte. Entrar sin su permiso se sanciona, y hay que evitar los días de montería.",
+      "legal": {
+        "estado": "privado",
+        "normas": [
+          "estatal-ley-43-2003-montes",
+          "clm-orden-2016-11-15"
+        ],
+        "texto": "Ley 43/2003 (art. 36): los frutos del monte son de su titular. Sanción leve de 100 a 1.000 € (art. 74)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
+          "titulo": "BOE: Ley 43/2003, de Montes",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Hola da el hayedo; Aranzadi registra el perretxiko en Urkabustaiz. Una Orden Foral de Zigoitia restringe accesos durante la berrea (no se leyó): https://zigoitia.eus/datos/contenido/documents/1784/Orden%20Foral%20de%20restricciones%20durante%20berrea.pdf. La asociación Gorbeiako Bazterra (Murgia) revisa tus setas cada lunes en su sede (Onda Vasca, una sola fuente).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "alava-gorbeia-urkabustaiz",
+      "zona": "alava",
+      "nombre": "Gorbeia: hayedos de Urkabustaiz (Casa del Parque de Sarría)",
+      "municipio": "Urkabustaiz (Álava)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "lactarius-deliciosus",
+        "calocybe-gambosa"
+      ],
+      "habitat": [
+        "hayedo"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Empieza por la Casa del Parque de Sarría, a unos 20 km al noroeste de Vitoria: área recreativa con hayas grandes y pista asfaltada junto al río Baias. En primavera, perretxiko en los pastos.",
+      "legal": {
+        "estado": "libre",
+        "normas": [
+          "alava-foral",
+          "eus-gorbeia-prug"
+        ],
+        "texto": "Libre hasta 2 kg por persona y día (el PRUG de Gorbeia remite al Decreto Foral 89/2008). Solo navaja y cesta; nunca de noche."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
+          "titulo": "Hola: mejores bosques de España para coger setas",
+          "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.aranzadi.eus/buscador-micologico/ficha/1-1-003.02.27.00.01.00",
+          "titulo": "Aranzadi: ficha de Calocybe gambosa",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ondavasca.com/una-jornada-dedicada-a-las-setas-en-murgia/",
+          "titulo": "Onda Vasca: una jornada dedicada a las setas en Murgia",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Ninguna fuente lista especies para el coto. Izki es Parque Natural y su PRUG no se pudo leer.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "alava-izki-arraia",
+      "zona": "alava",
+      "nombre": "Coto de Izki: Korres, Bernedo, Apellániz y Maeztu",
+      "municipio": "Arraia-Maeztu, Bernedo y Campezo (Álava)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "melojar",
+        "hayedo",
+        "quejigar"
+      ],
+      "epoca": [],
+      "consejo": "Uno de los mejores marojales (roble melojo) conservados. El coto abarca 16 pueblos: aparca junto a la iglesia de Apellániz, en el Parketxe de Korres o en los pueblos.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "alava-coto-arraia",
+          "alava-foral"
+        ],
+        "texto": "Permiso del coto de Arraia-Maeztu: 5 € al día, 20 € a la semana y 80 € por temporada para no empadronados. Tarifas de 2017, sin confirmar para 2026. Ayuntamiento: 945 410 033."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.arraia-maeztu.eus/servicios/coto-de-setas/",
+          "titulo": "Ayuntamiento de Arraia-Maeztu: coto de setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf",
+          "titulo": "Ayuntamiento de Arraia-Maeztu: información del coto (2017)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "La ordenanza no lista especies: se incluye la senderuela solo porque fija su tamaño mínimo. Importes de 2026 sin transcribir; la prensa de 2023 daba 5 € al día y 52 € por temporada.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "alava-entzia-asparrena",
+      "zona": "alava",
+      "nombre": "Parque Micológico Asparrena-Apota (Entzia y Aizkorri-Aratz)",
+      "municipio": "Asparrena (Álava)",
+      "tipo": "sitio",
+      "especies": [
+        "marasmius-oreades"
+      ],
+      "habitat": [
+        "hayedo",
+        "pastizal-montana"
+      ],
+      "epoca": [],
+      "consejo": "La ordenanza fija 17 puntos de acceso aproximados. Con coche, deja la tarjeta del permiso en el salpicadero; cesta de mimbre, láminas o poros hacia abajo, y tapa los agujeros con la misma tierra.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "alava-parque-micologico-asparrena",
+          "alava-foral"
+        ],
+        "texto": "Permiso del ayuntamiento (diario, semanal o de temporada), 2 kg al día. Tamaño mínimo: sombrero de 4 cm (2 cm en trompeta negra, trompetilla amarilla, rebozuelo y senderuela). Dentro del Parque Natural de Aizkorri-Aratz rigen además su PORN y su PRUG."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.arabakolautada.eus/site_media/uploads/84160698391126867.pdf",
+          "titulo": "Ordenanza del Parque Micológico Asparrena-Apota (extracto)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://www.asparrena.eus/ocio-y-turismo/parque-micologico-asparrena-san-millan",
+          "titulo": "Ayuntamiento de Asparrena: parque micológico",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Confusión peligrosa: Entoloma sinuatum (láminas y esporada rosadas) y Amanita verna (blanca, con anillo y volva).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "alava-perretxikos-campas",
+      "zona": "alava",
+      "nombre": "Perretxikos en campas y pastos de Álava",
+      "municipio": "Álava",
+      "tipo": "sitio",
+      "especies": [
+        "calocybe-gambosa"
+      ],
+      "habitat": [
+        "prado",
+        "pastizal-montana"
+      ],
+      "epoca": [
+        4,
+        5
+      ],
+      "consejo": "Busca corros y filas en el pasto, en zona soleada y caliza y lejos de la civilización. Se comen por San Prudencio (28 de abril).",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "alava-foral"
+        ],
+        "texto": "Fuera de acotados, libre hasta 2 kg al día. En campas de monte público acotado hace falta permiso, y en campas particulares, el del dueño."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.aranzadi.eus/buscador-micologico/ficha/1-1-003.02.27.00.01.00",
+          "titulo": "Aranzadi: ficha de Calocybe gambosa",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/12324-ayudarme-a-encontrarlas.html",
+          "titulo": "Fungipedia (foro): ayudarme a encontrarlas",
+          "fecha": "2011-04-30",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://lacasadelassetas.com/blog/perrechico-una-seta-muy-especial/",
+          "titulo": "La Casa de las Setas: el perrechico, una seta muy especial",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    }
+  ]
+}

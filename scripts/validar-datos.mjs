@@ -13,12 +13,31 @@ const CONFIANZAS = ['alta', 'media', 'baja'];
 export const BASES = ['evidencia', 'cualitativo', 'heuristica'];
 export const TIPOS_TEMPORADA = ['otono', 'primavera', 'verano'];
 const HELADAS = ['nula', 'baja', 'media', 'alta'];
+export const TIPOS_SITIO = ['sitio', 'ruta', 'no-ir'];
+export const ESTADOS_LEGALES = ['permiso', 'libre', 'prohibido', 'privado', 'sin-confirmar'];
+export const TIPOS_TRUCO = ['orientacion', 'altitud', 'microhabitat', 'indicador', 'tiempo', 'recoleccion', 'creencia'];
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const URL_OK = /^https?:\/\//;
 
 export const licenciaPermitida = (t) => /^(CC0( 1\.0)?|PD|CC BY(-SA)?( \d\.\d)?)$/.test(t ?? '');
 
-export function validar({ zonas, especies, normativa, cotos, existe = existsSync }) {
+// Punto dentro de un anillo (trazado de rayos); [lon, lat].
+const enAnillo = (lon, lat, anillo) => {
+  let dentro = false;
+  for (let i = 0, j = anillo.length - 1; i < anillo.length; j = i++) {
+    const [xi, yi] = anillo[i], [xj, yj] = anillo[j];
+    if ((yi > lat) !== (yj > lat) && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) dentro = !dentro;
+  }
+  return dentro;
+};
+const enPoligono = (lon, lat, [exterior, ...huecos]) => enAnillo(lon, lat, exterior) && !huecos.some((h) => enAnillo(lon, lat, h));
+export const puntoEnGeometria = (lon, lat, g) => (g?.type === 'Polygon' ? enPoligono(lon, lat, g.coordinates)
+  : g?.type === 'MultiPolygon' ? g.coordinates.some((p) => enPoligono(lon, lat, p)) : false);
+
+const fuentesOk = (fs) => Array.isArray(fs) && fs.length > 0 && fs.every((f) => URL_OK.test(f.url ?? '') && FECHA.test(f.consultado ?? '')
+  && (f.fecha == null || FECHA.test(f.fecha)));
+
+export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: [] }, existe = existsSync }) {
   const e = [];
   const err = (msg) => e.push(msg);
   const unicos = (lista, que) => { const vistos = new Set(); for (const x of lista) { if (vistos.has(x.id)) err(`${que} duplicado: ${x.id}`); vistos.add(x.id); } return vistos; };
@@ -63,6 +82,14 @@ export function validar({ zonas, especies, normativa, cotos, existe = existsSync
       if (!f.autor || !URL_OK.test(f.url ?? '')) err(`${q}: foto sin autor o sin url de origen`);
       if (!existe(f.archivo)) err(`${q}: falta el archivo ${f.archivo}`);
     }
+    for (const [k, t] of (s.trucos ?? []).entries()) {
+      const qt = `${q}: truco ${k + 1}`;
+      if (s.categoria !== 'comestible') err(`${q}: solo las comestibles llevan trucos`);
+      if (!t.texto) err(`${qt}: sin texto`);
+      if (!TIPOS_TRUCO.includes(t.tipo)) err(`${qt}: tipo desconocido ${t.tipo}`);
+      if (!CONFIANZAS.includes(t.confianza)) err(`${qt}: confianza desconocida ${t.confianza}`);
+      if (!fuentesOk(t.fuentes)) err(`${qt}: falta fuente con url y consultado`);
+    }
     if (s.categoria === 'comestible') {
       if (!s.indice && !s.sinIndice) err(`${q}: comestible sin índice ni motivo sinIndice`);
       if (s.indice) {
@@ -99,13 +126,41 @@ export function validar({ zonas, especies, normativa, cotos, existe = existsSync
     for (const n of p.normas ?? []) if (!idsNormas.has(n)) err(`${q}: norma inexistente ${n}`);
     if (!URL_OK.test(p.fuente ?? '') || !FECHA.test(p.revisado ?? '')) err(`${q}: sin fuente o revisado`);
   }
+  const prohibidos = (cotos.features ?? []).filter((f) => f.properties?.tipo === 'prohibido');
+  unicos(sitios.sitios, 'sitio');
+  for (const x of sitios.sitios) {
+    const q = `sitio ${x.id}`;
+    if (!idsZonas.has(x.zona)) err(`${q}: zona inexistente ${x.zona}`);
+    if (!x.nombre || !x.consejo) err(`${q}: falta nombre o consejo`);
+    if (!TIPOS_SITIO.includes(x.tipo)) err(`${q}: tipo desconocido ${x.tipo}`);
+    if (!CONFIANZAS.includes(x.confianza)) err(`${q}: confianza desconocida ${x.confianza}`);
+    for (const id of x.especies ?? []) if (!idsEspecies.has(id)) err(`${q}: especie inexistente ${id}`);
+    for (const h of x.habitat ?? []) if (!HABITATS.includes(h)) err(`${q}: hábitat desconocido ${h}`);
+    if (!Array.isArray(x.epoca) || !x.epoca.every((m) => Number.isInteger(m) && m >= 1 && m <= 12)) err(`${q}: epoca inválida`);
+    if (!ESTADOS_LEGALES.includes(x.legal?.estado)) err(`${q}: legal.estado desconocido ${x.legal?.estado}`);
+    if (!x.legal?.texto) err(`${q}: legal sin texto`);
+    for (const n of x.legal?.normas ?? []) if (!idsNormas.has(n)) err(`${q}: norma inexistente ${n}`);
+    if (x.tipo !== 'no-ir' && ['prohibido', 'privado'].includes(x.legal?.estado)) err(`${q}: un sitio ${x.legal.estado} solo puede ser de tipo no-ir`);
+    if (!fuentesOk(x.fuentes)) err(`${q}: falta fuente con url y consultado`);
+    const n = x.nFuentes;
+    if (!Number.isInteger(n) || n < 0) err(`${q}: nFuentes inválido`);
+    else if ((x.confianza === 'alta' && n < 3) || (x.confianza === 'media' && n !== 2) || (x.confianza === 'baja' && n > 1)) {
+      err(`${q}: confianza ${x.confianza} no casa con ${n} fuentes (alta: 3 o más, media: 2, baja: 1 o menos)`);
+    }
+    if ((x.lat == null) !== (x.lon == null)) err(`${q}: coordenadas incompletas (lat y lon juntas o ninguna)`);
+    else if (x.lat != null) {
+      if (typeof x.lat !== 'number' || typeof x.lon !== 'number' || Math.abs(x.lat) > 90 || Math.abs(x.lon) > 180) err(`${q}: lat/lon inválidas`);
+      else for (const f of prohibidos) if (puntoEnGeometria(x.lon, x.lat, f.geometry)) err(`${q}: cae dentro de la zona prohibida ${f.properties.id}`);
+    }
+  }
   return e;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const leer = (f) => JSON.parse(readFileSync(f, 'utf8'));
   const errores = validar({ zonas: leer('data/zonas.json'), especies: leer('data/especies.json'),
-    normativa: leer('data/normativa.json'), cotos: leer('data/cotos.geojson') });
+    normativa: leer('data/normativa.json'), cotos: leer('data/cotos.geojson'),
+    sitios: existsSync('data/sitios.json') ? leer('data/sitios.json') : undefined });
   if (errores.length) { console.error(errores.map((x) => `✗ ${x}`).join('\n')); process.exit(1); }
   console.log('✓ Datos válidos');
 }

@@ -102,3 +102,92 @@ test('índice.base y temporada.tipo fuera de la lista → error', () => {
   const e = base(); e.especies.especies[0].temporada.tipo = 'invierno';
   assert.match(validar(e).join('\n'), /temporada\.tipo desconocido/);
 });
+
+// ---- Sitios conocidos y trucos (tarea 15b) ----
+const sitio = () => ({ id: 's1', zona: 'soria', nombre: 'Pinar', municipio: 'Covaleda (Soria)', tipo: 'sitio',
+  especies: ['boletus-edulis'], habitat: ['pinar-silvestre'], epoca: [10, 11], consejo: 'Busca en umbrías.',
+  legal: { estado: 'permiso', normas: ['n1'], texto: 'Permiso de la asociación.' }, lat: null, lon: null,
+  fuentes: [{ url: 'https://x.es', titulo: 't', fecha: null, consultado: '2026-09-30' }],
+  nFuentes: 1, confianza: 'baja', verificado: false, notas: '' });
+const conSitios = (...s) => ({ ...base(), sitios: { version: 1, sitios: s } });
+
+test('sitio válido → sin errores; sin sitios.json también', () => {
+  assert.deepEqual(validar(conSitios(sitio())), []);
+  assert.deepEqual(validar(base()), []);
+});
+
+test('sitio sin fuentes o sin consultado → error', () => {
+  const s = sitio(); s.fuentes = [];
+  assert.match(validar(conSitios(s)).join('\n'), /s1.*fuente/);
+  const t = sitio(); delete t.fuentes[0].consultado;
+  assert.match(validar(conSitios(t)).join('\n'), /s1.*fuente/);
+});
+
+test('sitio con zona, especie, hábitat o norma inexistentes → error', () => {
+  const a = sitio(); a.zona = 'marte';
+  assert.match(validar(conSitios(a)).join('\n'), /s1.*zona/);
+  const b = sitio(); b.especies = ['seta-inventada'];
+  assert.match(validar(conSitios(b)).join('\n'), /seta-inventada/);
+  const c = sitio(); c.legal.normas = ['norma-inventada'];
+  assert.match(validar(conSitios(c)).join('\n'), /norma-inventada/);
+  const d = sitio(); d.habitat = ['selva'];
+  assert.match(validar(conSitios(d)).join('\n'), /selva/);
+});
+
+test('enums de tipo, confianza y estado legal', () => {
+  const a = sitio(); a.tipo = 'mirador';
+  assert.match(validar(conSitios(a)).join('\n'), /tipo/);
+  const b = sitio(); b.confianza = 'total';
+  assert.match(validar(conSitios(b)).join('\n'), /confianza/);
+  const c = sitio(); c.legal.estado = 'quizá';
+  assert.match(validar(conSitios(c)).join('\n'), /legal\.estado/);
+});
+
+test('un sitio recomendable no puede ser prohibido ni privado; un no-ir sí', () => {
+  const a = sitio(); a.legal.estado = 'prohibido';
+  assert.match(validar(conSitios(a)).join('\n'), /no-ir/);
+  const b = sitio(); b.legal.estado = 'privado';
+  assert.match(validar(conSitios(b)).join('\n'), /no-ir/);
+  const c = sitio(); c.tipo = 'no-ir'; c.legal.estado = 'prohibido';
+  assert.deepEqual(validar(conSitios(c)), []);
+});
+
+test('la confianza tiene que casar con el número de fuentes', () => {
+  const a = sitio(); a.confianza = 'alta'; a.nFuentes = 1;
+  assert.match(validar(conSitios(a)).join('\n'), /confianza/);
+  const b = sitio(); b.confianza = 'alta'; b.nFuentes = 3;
+  assert.deepEqual(validar(conSitios(b)), []);
+  const c = sitio(); c.confianza = 'media'; c.nFuentes = 2;
+  assert.deepEqual(validar(conSitios(c)), []);
+  const d = sitio(); d.confianza = 'baja'; d.nFuentes = 2;
+  assert.match(validar(conSitios(d)).join('\n'), /confianza/);
+});
+
+test('coordenadas: ambas o ninguna; fuera de un polígono prohibido', () => {
+  const a = sitio(); a.lat = 40.5;
+  assert.match(validar(conSitios(a)).join('\n'), /lat.*lon|coordenadas/);
+  const cuadrado = { type: 'Feature', properties: { id: 'res', tipo: 'prohibido', precision: 'oficial', zona: 'soria', normas: [], fuente: 'https://x.es', revisado: '2026-09-30' },
+    geometry: { type: 'Polygon', coordinates: [[[-3, 41], [-2, 41], [-2, 42], [-3, 42], [-3, 41]]] } };
+  const dentro = sitio(); dentro.lat = 41.5; dentro.lon = -2.5;
+  const d = conSitios(dentro); d.cotos = { type: 'FeatureCollection', features: [cuadrado] };
+  assert.match(validar(d).join('\n'), /zona prohibida res/);
+  const fuera = sitio(); fuera.lat = 41.5; fuera.lon = -1.5;
+  const f = conSitios(fuera); f.cotos = d.cotos;
+  assert.deepEqual(validar(f), []);
+});
+
+const truco = () => ({ texto: 'Mira en umbrías.', tipo: 'orientacion', fuentes: [{ url: 'https://x.es', fecha: null, consultado: '2026-09-30' }], confianza: 'media', cifrasOrientativas: false });
+
+test('trucos: con fuentes, tipo y confianza válidos; solo comestibles', () => {
+  const d = base(); d.especies.especies[0].trucos = [truco()];
+  assert.deepEqual(validar(d), []);
+  const a = base(); a.especies.especies[0].trucos = [{ ...truco(), fuentes: [] }];
+  assert.match(validar(a).join('\n'), /boletus-edulis.*truco.*fuente/);
+  const b = base(); b.especies.especies[0].trucos = [{ ...truco(), tipo: 'magia' }];
+  assert.match(validar(b).join('\n'), /truco.*tipo/);
+  const c = base(); c.especies.especies[0].trucos = [{ ...truco(), confianza: 'enorme' }];
+  assert.match(validar(c).join('\n'), /truco.*confianza/);
+  const e = base(); e.especies.especies[0].categoria = 'mortal'; e.especies.especies[0].sindrome = 's'; e.especies.sindromes = [{ id: 's', fuentes: [{ url: 'https://x.es', consultado: '2026-09-30' }] }];
+  e.especies.especies[0].indice = null; e.especies.especies[0].trucos = [truco()];
+  assert.match(validar(e).join('\n'), /comestibles llevan trucos/);
+});

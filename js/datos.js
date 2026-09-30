@@ -6,8 +6,10 @@ export async function cargarDatos() {
     if (!r.ok) throw new Error(`No se pudo cargar data/${n}.json (${r.status})`);
     return r.json();
   })));
+  // Los sitios conocidos son un complemento: si no cargan, la app sigue y las secciones lo dicen (sitios: null).
+  const sitios = await fetch('data/sitios.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
   const porId = Object.fromEntries(especies.especies.map((e) => [e.id, e]));
-  cache = { zonas: zonas.zonas, especies: especies.especies, sindromes: especies.sindromes, normativa: normativa.normas, porId };
+  cache = { zonas: zonas.zonas, especies: especies.especies, sindromes: especies.sindromes, normativa: normativa.normas, sitios: sitios?.sitios ?? null, porId };
   return cache;
 }
 export const puntosDe = (zonas) => zonas.flatMap((z) => z.puntos);

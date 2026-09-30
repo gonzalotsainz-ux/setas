@@ -7,6 +7,7 @@ import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia } from '../ui/grafico-lluvia.js';
 import { desglose } from '../ui/desglose.js';
 import { fichaNormativa } from '../ui/normativa.js';
+import { seccionDondeBuscar } from '../ui/sitios.js';
 import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
@@ -266,5 +267,5 @@ export function pintar({ estado, param, refrescarMeteo }) {
   pintarDinamico();
 
   return el('div', {}, cabecera(zona, c.res?.valor ?? null),
-    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, calendario(c.especies), seccionNormativa(zona, datos), habitats));
+    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, calendario(c.especies), seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
 }
