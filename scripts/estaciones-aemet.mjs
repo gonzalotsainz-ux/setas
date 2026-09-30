@@ -3,7 +3,8 @@
 //   node scripts/estaciones-aemet.mjs propuestas [N=6]      → candidatas por zona (< 30 km y < 400 m de desnivel)
 //   node scripts/estaciones-aemet.mjs sonda ID,ID,…         → qué días recientes tiene cada estación (hay que tenerlas
 //                                                              en supabase/functions/aemet/estaciones.json)
-//   node scripts/estaciones-aemet.mjs aplicar zona=ID,ID …  → escribe data/zonas.json y la lista blanca de la función
+//   node scripts/estaciones-aemet.mjs aplicar zona=ID,ID …  → escribe data/zonas.json (con lat/lon de cada estación, para elegir la
+//                                                              más cercana a cada punto) y la lista blanca de la función
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const RAIZ = new URL('../', import.meta.url);
@@ -67,7 +68,7 @@ if (modo === 'propuestas') {
     z.estacionesAemet = (elegidas[z.id] ?? []).map((id) => {
       const e = inv[id]; if (!e) throw new Error(`${id} no está en el inventario`);
       todas.add(id);
-      return { id, nombre: e.nombre.replace(/\b(\p{L})(\p{L}*)/gu, (_, a, b) => a + b.toLowerCase()).replace(/ (Del|De|Las|La|Los|El|Y)(?= )/g, (m) => m.toLowerCase()), altitud: e.altitud, distanciaKm: Math.round(km(c, e) * 10) / 10 };
+      return { id, nombre: e.nombre.replace(/\b(\p{L})(\p{L}*)/gu, (_, a, b) => a + b.toLowerCase()).replace(/ (Del|De|Las|La|Los|El|Y)(?= )/g, (m) => m.toLowerCase()), altitud: e.altitud, distanciaKm: Math.round(km(c, e) * 10) / 10, lat: Math.round(e.lat * 1e4) / 1e4, lon: Math.round(e.lon * 1e4) / 1e4 };
     });
   }
   writeFileSync(new URL('data/zonas.json', RAIZ), `${JSON.stringify(datos, null, 2)}\n`);

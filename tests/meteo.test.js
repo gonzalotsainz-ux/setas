@@ -141,6 +141,22 @@ test('obtenerMeteo: usa la caché reciente sin pedir nada', async () => {
   assert.ok(r3.series.a);
 });
 
+test('obtenerMeteo: una caché que no tiene todos los puntos (se añadió uno) no se sirve', async () => {
+  const m = new Map();
+  const almacen = { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v), removeItem: (k) => m.delete(k), key: (i) => [...m.keys()][i], get length() { return m.size; } };
+  const mas = [...PUNTOS, { ...PUNTOS[0], id: 'nuevo' }];
+  let llamadas = 0;
+  const ok = async (url) => { llamadas++; const n = decodeURIComponent(url.match(/latitude=([^&]*)/)?.[1] ?? '').split(',').length;
+    return { ok: true, json: async () => Array.from({ length: n }, () => (url.includes('models=') ? { daily: { time: [] } } : respuesta())) }; };
+  const ahora = new Date('2026-09-30T10:00:00Z');
+  await obtenerMeteo(PUNTOS, { fetchFn: ok, ahora, almacen });
+  const antes = llamadas;
+  const r = await obtenerMeteo(mas, { fetchFn: ok, ahora: new Date('2026-09-30T11:00:00Z'), almacen });
+  assert.ok(llamadas > antes, 'debe volver a pedir');
+  assert.equal(r.desdeCache, false);
+  assert.ok(r.series.nuevo && r.series.a);
+});
+
 test('obtenerMeteo: una entrada de caché corrupta o antigua no lanza', async () => {
   for (const basura of ['{"datos":null,"hora":"x"}', '{"hora":"2026-09-30T08:00:00Z"}', '[1,2]', 'no es json']) {
     const almacen = { getItem: (k) => (k === 'setas:meteo' ? basura : null), setItem() {}, removeItem() {}, key: () => null, length: 0 };

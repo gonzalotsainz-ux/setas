@@ -119,7 +119,7 @@ async function pedir(fetchFn, url) {
 const diaAnterior = (f) => new Date(Date.parse(`${f}T00:00:00Z`) - 864e5).toISOString().slice(0, 10);
 
 async function climatologia(fetchFn, puntos, inicio, almacen) {
-  const clave = `clim:${inicio}`;
+  const clave = `clim:${inicio}:${puntos.map((p) => p.id).join(',')}`;   // los puntos van en la clave: si se añade uno, se vuelve a pedir
   const c = leer(clave, almacen);
   if (c) return c.datos;
   try {
@@ -137,7 +137,8 @@ export async function obtenerMeteo(puntos, { fetchFn = globalThis.fetch?.bind(gl
   const hoy = hoyMadrid(ahora);
   const alm = almacen;
   const previo = leer('meteo', alm)?.datos?.hoy ? leer('meteo', alm) : null;   // una entrada corrupta o antigua se ignora
-  if (previo && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) return { ...previo.datos, hora: previo.hora, desdeCache: true };
+  const completa = !!previo?.datos?.series && puntos.every((p) => previo.datos.series[p.id]);   // si se añadió un punto, la caché no vale
+  if (previo && completa && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) return { ...previo.datos, hora: previo.hora, desdeCache: true };
   try {
     const [principal, modelos] = await Promise.all([pedir(fetchFn, urlPrincipal(puntos)), pedir(fetchFn, urlModelos(puntos)).catch(() => null)]);
     let series = parsearPrincipal(principal, puntos, hoy);

@@ -43,6 +43,41 @@
           "proteccion": "Dentro del Parque Natural Sierra Norte de Guadarrama (ENP 2025 del MITECO). El art. 49.3 del PORN (Decreto 4/2010, BOCyL 20/01/2010) exige autorización de la Administración del Espacio Natural para el aprovechamiento comercial de hongos; para la recolección recreativa rige el Decreto 31/2017. No se ha encontrado un PRUG con reglas propias para setas ni se ha podido comprobar la zonificación interna. Fuera del Parque Nacional (OAPN).",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=421351.29571382666,4538214.244087299,421391.29571382666,4538254.244087299&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
+        },
+        {
+          "id": "guadarrama-morcuera-pinar",
+          "nombre": "Pinar de la Morcuera (Rascafría)",
+          "lat": 40.83233,
+          "lon": -3.85257,
+          "altitud": 1580,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Restringido, subzona C (zonificación OAPN, punto en polígono; no es Reserva ni Uso Restringido A). Dentro del MUP 151 «La Morcuera», uno de los tres montes autorizados en el convenio de Rascafría: hace falta licencia de Rascafría (el permiso no da acceso en vehículo a las pistas). Qué dice el PRUG exactamente para la subzona C, sin comprobar.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-09-30",
+          "nota": "MFE50 provincia 28: Pinares de pino albar, Pinus sylvestris 10/10, FCC 75 %, 49 ha, monte arbolado de plantación (repoblación). Dentro del MUP 151 «La Morcuera» (catálogo IDEM). Ortofoto: pinar cerrado y denso, a unos 280 m de la pista más cercana. A 1,6 km de la URA-A «El Purgatorio» (la anterior ancla de Wikipedia en el puerto estaba a ~1 km de la URA-A «Charca de las Hoyuelas»; se alejó). Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
+        },
+        {
+          "id": "guadarrama-miraflores-pinar",
+          "nombre": "Pinar de Miraflores (MUP 13)",
+          "lat": 40.8215,
+          "lon": -3.8137,
+          "altitud": 1591,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Dentro del Parque Regional de la Cuenca Alta del Manzanares (capa ENP 2025 del MITECO); sus normas de recolección no se han leído. A 264 m del Parque Nacional (fuera de él). Dentro del MUP 13 de Miraflores, uno de los dos montes con licencia municipal de Miraflores.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-09-30",
+          "nota": "MFE50 provincia 28: Pinares de pino albar, Pinus sylvestris 9/10, FCC 80 %, 327 ha, monte arbolado. Dentro del MUP 13 «La Sierra, La Raya, Las Dehesas y otros» (catálogo IDEM). Ortofoto: pinar cerrado; el matorral abierto más cercano queda a unos 80 m. A 1,6 km de la URA-A «Charca de las Hoyuelas». Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
+        },
+        {
+          "id": "guadarrama-canencia-pinar",
+          "nombre": "Pinar bajo el Puerto de Canencia",
+          "lat": 40.8781,
+          "lon": -3.7703,
+          "altitud": 1382,
+          "habitat": "pinar-silvestre",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-09-30",
+          "nota": "MFE50 provincia 28: Pinares de pino albar, Pinus sylvestris 9/10 (y Juniperus oxycedrus 1/10), FCC 85 %, 1.438 ha, monte arbolado. Dentro del MUP 72 «Perímetro de Canencia» (propiedad de la Comunidad de Madrid). Ortofoto: pinar denso continuo. Queda a unos 1,2 km al norte-noroeste del ancla de Wikipedia (40,8689 N, -3,7638 E, junto al puerto); el punto de prueba más cercano al puerto caía en un claro con zona recreativa, por eso se eligió masa continua. Fuera del Parque Nacional (a 3,8 km) y del Parque Regional según el ENP 2025; a 5,8 km de la URA-A más cercana. Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
         }
       ],
       "estacionesAemet": [
@@ -50,13 +85,25 @@
           "id": "3266A",
           "nombre": "Puerto Alto del León",
           "altitud": 1530,
-          "distanciaKm": 28.2
+          "distanciaKm": 29.4,
+          "lat": 40.7064,
+          "lon": -4.1414
         },
         {
           "id": "2462",
           "nombre": "Puerto de Navacerrada",
           "altitud": 1892,
-          "distanciaKm": 14.9
+          "distanciaKm": 14.7,
+          "lat": 40.7933,
+          "lon": -4.0108
+        },
+        {
+          "id": "3104Y",
+          "nombre": "Rascafría",
+          "altitud": 1159,
+          "distanciaKm": 2.1,
+          "lat": 40.8897,
+          "lon": -3.8883
         }
       ],
       "normas": [
@@ -72,12 +119,16 @@
         "madrid-lozoya",
         "madrid-miraflores",
         "madrid-manzanares",
-        "madrid-soto-del-real"
+        "madrid-soto-del-real",
+        "madrid-canencia",
+        "madrid-pedriza-san-blas"
       ],
       "avisos": [
         "Parque Nacional: solo donde haya plan de aprovechamiento micológico; prohibido en Zonas de Reserva y de Uso Restringido A",
         "Valsaín está regulado (Orden AAA/1681/2016, 10.668 ha)",
-        "Rascafría, Miraflores y Lozoya exigen licencia municipal"
+        "Rascafría, Miraflores y Lozoya exigen licencia municipal",
+        "Coto micológico de La Pedriza y Hoya de San Blas: permiso propio (foráneo 5 kg/día) y fuera de Reserva y Uso Restringido A",
+        "Rascafría: el permiso no da acceso en vehículo a las pistas forestales"
       ],
       "fuentes": [
         {
@@ -111,8 +162,8 @@
         "Segovia"
       ],
       "bbox": [
-        -3.75,
-        40.95,
+        -3.8,
+        40.8,
         -3.3,
         41.35
       ],
@@ -146,6 +197,28 @@
           "habitat": "pinar-silvestre",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=457346.55471770617,4561530.228824541,457386.55471770617,4561570.228824541&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
+        },
+        {
+          "id": "sierra-norte-canencia-melojar",
+          "nombre": "Melojar de Canencia (La Solana)",
+          "lat": 40.9158,
+          "lon": -3.7652,
+          "altitud": 1336,
+          "habitat": "melojar",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-09-30",
+          "nota": "MFE50 provincia 28: Melojares, Quercus pyrenaica 9/10, FCC 85 %, 69 ha, monte arbolado. Dentro del MUP 73 «La Solana y otros» (Ayuntamiento de Canencia). Ortofoto: rebollar denso con claros de pasto alrededor. No hay fuente que sitúe el abedular de Canencia (Wikipedia solo dice que existe en el término), así que este punto es un melojar y no un abedular. Fuera de espacios protegidos; a 6,4 km del Parque Nacional y a 8,3 km de la URA-A más cercana. Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
+        },
+        {
+          "id": "sierra-norte-bustarviejo-melojar",
+          "nombre": "Melojar de Bustarviejo (Dehesa del Valle, MUP 68)",
+          "lat": 40.83402,
+          "lon": -3.7694,
+          "altitud": 1271,
+          "habitat": "melojar",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-09-30",
+          "nota": "MFE50 provincia 28: Melojares, Quercus pyrenaica 9/10, FCC 80 %, 182 ha, monte arbolado. Dentro del MUP 68 «Dehesa del Valle», uno de los cinco de la ordenanza de Bustarviejo (66 a 70). Ortofoto: rebollar denso a unos 60 m de una pista. Fuera del Parque Nacional (a 2,9 km) y del Parque Regional (a 0,8 km); a 4,3 km de la URA-A más cercana. El ancla de Wikipedia era el casco urbano de Bustarviejo, no el monte. Recuerda: caza en domingos y festivos del 8 de octubre a febrero. Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
         }
       ],
       "estacionesAemet": [
@@ -153,13 +226,25 @@
           "id": "3111D",
           "nombre": "Somosierra",
           "altitud": 1454,
-          "distanciaKm": 14.9
+          "distanciaKm": 9.2,
+          "lat": 41.1358,
+          "lon": -3.5803
         },
         {
           "id": "2182C",
           "nombre": "Pedraza",
           "altitud": 1107,
-          "distanciaKm": 29.3
+          "distanciaKm": 16.6,
+          "lat": 41.1339,
+          "lon": -3.7903
+        },
+        {
+          "id": "3104Y",
+          "nombre": "Rascafría",
+          "altitud": 1159,
+          "distanciaKm": 29.4,
+          "lat": 40.8897,
+          "lon": -3.8883
         }
       ],
       "normas": [
@@ -169,11 +254,13 @@
         "estatal-ley-43-2003-montes",
         "cyl-montes-de-segovia",
         "cyl-sg-50005-junta-segovia",
-        "madrid-bustarviejo"
+        "madrid-bustarviejo",
+        "madrid-canencia"
       ],
       "avisos": [
         "Hayedo de Montejo: prohibido recolectar hongos; solo visitas guiadas",
-        "Vertiente segoviana (Riaza, Ayllón): acotado con permiso Micocyl"
+        "Vertiente segoviana (Riaza, Ayllón): acotado con permiso Micocyl",
+        "Bustarviejo: foráneo 1 o 2 días (5 €/8 €, 5 kg); caza en domingos y festivos del 8 de octubre a febrero: mejor entre semana"
       ],
       "fuentes": [
         {
@@ -257,13 +344,17 @@
           "id": "2005Y",
           "nombre": "Vinuesa, Quintanarejo",
           "altitud": 1197,
-          "distanciaKm": 11.2
+          "distanciaKm": 11.2,
+          "lat": 41.9678,
+          "lon": -2.7828
         },
         {
           "id": "2298",
           "nombre": "Palacios de la Sierra",
           "altitud": 1080,
-          "distanciaKm": 25.3
+          "distanciaKm": 25.3,
+          "lat": 41.9597,
+          "lon": -3.1317
         }
       ],
       "normas": [
@@ -362,13 +453,17 @@
           "id": "3319D",
           "nombre": "Puerto del Pico",
           "altitud": 1285,
-          "distanciaKm": 13
+          "distanciaKm": 13,
+          "lat": 40.3397,
+          "lon": -5.0128
         },
         {
           "id": "2430Y",
           "nombre": "Muñotello",
           "altitud": 1178,
-          "distanciaKm": 29.2
+          "distanciaKm": 29.2,
+          "lat": 40.5433,
+          "lon": -5.0442
         }
       ],
       "normas": [
@@ -455,13 +550,17 @@
           "id": "8096",
           "nombre": "Cuenca",
           "altitud": 949,
-          "distanciaKm": 26.7
+          "distanciaKm": 26.7,
+          "lat": 40.0672,
+          "lon": -2.1319
         },
         {
           "id": "8210Y",
           "nombre": "Salvacañete",
           "altitud": 1160,
-          "distanciaKm": 28.9
+          "distanciaKm": 28.9,
+          "lat": 40.1031,
+          "lon": -1.5036
         }
       ],
       "normas": [
@@ -550,13 +649,17 @@
           "id": "3021Y",
           "nombre": "Zaorejas",
           "altitud": 1250,
-          "distanciaKm": 22.1
+          "distanciaKm": 22.1,
+          "lat": 40.7583,
+          "lon": -2.1997
         },
         {
           "id": "3013",
           "nombre": "Molina de Aragón",
           "altitud": 1062,
-          "distanciaKm": 19.2
+          "distanciaKm": 19.2,
+          "lat": 40.8417,
+          "lon": -1.8789
         }
       ],
       "normas": [
@@ -658,7 +761,9 @@
           "id": "3305Y",
           "nombre": "Navahermosa",
           "altitud": 750,
-          "distanciaKm": 18.2
+          "distanciaKm": 18.2,
+          "lat": 39.6306,
+          "lon": -4.4769
         }
       ],
       "normas": [
@@ -762,13 +867,17 @@
           "id": "9073X",
           "nombre": "Agurain/Salvatierra, Opakua",
           "altitud": 660,
-          "distanciaKm": 17.6
+          "distanciaKm": 17.6,
+          "lat": 42.8297,
+          "lon": -2.3597
         },
         {
           "id": "9178X",
           "nombre": "Campezo/Kanpezu",
           "altitud": 570,
-          "distanciaKm": 23.6
+          "distanciaKm": 23.6,
+          "lat": 42.6706,
+          "lon": -2.3461
         }
       ],
       "normas": [

@@ -35,28 +35,50 @@ export function aplicarEstacion(serie, obs, id) {
   return { ...serie, precip, origenPrecip };
 }
 
-// Devuelve una copia de `meteo` con la lluvia medida de la estación en las series de cada zona que tenga una
-// estación con datos suficientes, salvo que se haya elegido «Usar modelo» y haya discrepancia.
-// `meteo.contraste[zona.id] = { estacion, comparacion, discrepa, usaModelo, aplicada }`.
+// Distancia en km entre dos coordenadas (haversine); null si falta alguna.
+export function distanciaKm(a, b) {
+  if (![a?.lat, a?.lon, b?.lat, b?.lon].every(Number.isFinite)) return null;
+  const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLon = (b.lon - a.lon) * r;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.sqrt(h));
+}
+
+// Estaciones de la zona ordenadas por cercanía al punto. La `distanciaKm` de cada una pasa a ser la del punto. Sin
+// coordenadas en el punto o en la estación queda al final y en su orden original (el sort es estable).
+export function estacionesPorCercania(punto, estaciones) {
+  return (estaciones ?? []).map((e) => { const d = distanciaKm(punto, e); return { e, d }; })
+    .sort((x, y) => (x.d ?? Infinity) - (y.d ?? Infinity))
+    .map(({ e, d }) => (d == null ? e : { ...e, distanciaKm: Math.round(d * 10) / 10 }));
+}
+
+// Devuelve una copia de `meteo` con la lluvia medida de la estación en la serie de cada punto que tenga una estación
+// con datos suficientes: la más cercana de las de su zona (si no llega al mínimo de días, la siguiente). Si hay
+// discrepancia y se ha elegido «Usar modelo» en la zona, ese punto se queda con el modelo.
+// `meteo.contrastePuntos[punto.id] = { estacion, comparacion, discrepa, usaModelo, aplicada }` (la estación elegida lleva
+// su distancia al punto) y `meteo.contraste[zona.id]` resume la zona: el primer punto que discrepa, o el primero con estación.
 export function aplicarContraste(zonas, meteo, obs, usarModelo = () => false) {
   if (!meteo?.series || !obs) return meteo;
-  const series = { ...meteo.series }, contraste = {};
+  const series = { ...meteo.series }, contraste = {}, contrastePuntos = {};
   for (const z of zonas) {
-    const propias = z.puntos.filter((p) => meteo.series[p.id]);
-    if (!propias.length) continue;
-    for (const est of z.estacionesAemet ?? []) {
-      const o = obs[est.id];
-      if (!o) continue;
-      const ref = propias.reduce((a, b) => (Math.abs(b.altitud - est.altitud) < Math.abs(a.altitud - est.altitud) ? b : a));
-      const comparacion = compararLluvia(meteo.series[ref.id], o);
-      if (comparacion.P26estacion == null) continue;
-      const usaModelo = comparacion.discrepa && usarModelo(z.id);
-      if (!usaModelo) for (const p of propias) series[p.id] = aplicarEstacion(meteo.series[p.id], o, est.id);
-      contraste[z.id] = { estacion: est, comparacion, discrepa: comparacion.discrepa, usaModelo, aplicada: !usaModelo };
-      break;
+    const entradas = [];
+    for (const p of z.puntos.filter((q) => meteo.series[q.id])) {
+      for (const est of estacionesPorCercania(p, z.estacionesAemet)) {
+        const o = obs[est.id];
+        if (!o) continue;
+        const comparacion = compararLluvia(meteo.series[p.id], o);
+        if (comparacion.P26estacion == null) continue;
+        const usaModelo = comparacion.discrepa && usarModelo(z.id);
+        if (!usaModelo) series[p.id] = aplicarEstacion(meteo.series[p.id], o, est.id);
+        const entrada = { estacion: est, comparacion, discrepa: comparacion.discrepa, usaModelo, aplicada: !usaModelo };
+        contrastePuntos[p.id] = entrada;
+        entradas.push(entrada);
+        break;
+      }
     }
+    const resumen = entradas.find((x) => x.discrepa) ?? entradas[0];
+    if (resumen) contraste[z.id] = resumen;
   }
-  return { ...meteo, series, contraste };
+  return { ...meteo, series, contraste, contrastePuntos };
 }
 
 // «Usar modelo», por zona, en localStorage.

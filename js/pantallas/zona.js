@@ -82,19 +82,22 @@ function detallePunto(p) {
 }
 
 // Origen de la cifra de 26 días: cuántos días vienen de la estación y cuántos del modelo.
-function origenLluvia(serie, meteo, zona) {
+function origenLluvia(serie, meteo, zona, id) {
   const dias = serie.origenPrecip?.slice(serie.hoy - 25, serie.hoy + 1) ?? [];
   const deEstacion = dias.filter((o) => o?.startsWith('estacion:'));
   if (deEstacion.length) {
-    const id = deEstacion[0].slice('estacion:'.length);
-    const nombre = zona.estacionesAemet?.find((e) => e.id === id)?.nombre ?? id;
+    const idEstacion = deEstacion[0].slice('estacion:'.length);
+    const est = meteo.contrastePuntos?.[id]?.estacion ?? zona.estacionesAemet?.find((e) => e.id === idEstacion);
+    const nombre = est?.nombre ?? idEstacion;
+    const lugar = est?.distanciaKm != null && est?.altitud != null ? ` (a ${est.distanciaKm.toLocaleString('es-ES')}${nbsp}km, ${miles(est.altitud)}${nbsp}m)` : '';
     const resto = dias.length - deEstacion.length;
-    return `Estación AEMET ${nombre}: ${deEstacion.length} días${resto ? ` de estación + ${resto} de modelo (AEMET publica con unos 3 días de retraso)` : ''}`;
+    return `Estación AEMET ${nombre}${lugar}: ${deEstacion.length} días${resto ? ` de estación + ${resto} de modelo (AEMET publica con unos 3 días de retraso)` : ''}`;
   }
-  return `Modelo: Open-Meteo best_match · actualizado a las ${hora(meteo.hora)}`;
+  const sinEstacion = meteo.contrastePuntos && zona.estacionesAemet?.length && !meteo.contrastePuntos[id];
+  return `Modelo: Open-Meteo best_match · actualizado a las ${hora(meteo.hora)}${sinEstacion ? ' · ninguna estación AEMET cercana con datos suficientes' : ''}`;
 }
 
-function cifrasLluvia(serie, disp, meteo, zona) {
+function cifrasLluvia(serie, disp, meteo, zona, id) {
   const t = serie.precip.slice(serie.hoy - 25, serie.hoy + 1);
   const p26 = t.length === 26 && t.every((v) => v != null) ? t.reduce((a, b) => a + b, 0) : null;
   const bloque = (valor, rotulo, origen) => el('div', {},
@@ -102,7 +105,7 @@ function cifrasLluvia(serie, disp, meteo, zona) {
     el('p', { clase: 'cifras__rotulo', texto: rotulo }), el('p', { clase: 'cifras__origen', texto: origen }));
   const n = Object.keys(disp?.modelos ?? {}).length;
   return el('div', { clase: 'cifras' },
-    bloque(p26 == null ? null : Math.round(p26), 'Últimos 26 días', origenLluvia(serie, meteo, zona)),
+    bloque(p26 == null ? null : Math.round(p26), 'Últimos 26 días', origenLluvia(serie, meteo, zona, id)),
     bloque(disp?.media == null ? null : Math.round(disp.media), disp?.horizonte ? `Próximos ${disp.horizonte} días` : 'Próximos días',
       disp?.media == null ? 'Sin previsión de varios modelos' : `Media de ${n} modelos`));
 }
@@ -134,8 +137,8 @@ function cajaModelos(disp) {
 }
 
 // Estación y modelo discrepan en la lluvia de 26 días: se muestran las dos cifras y se puede elegir el modelo.
-function cajaContraste(zona, meteo) {
-  const c = meteo.contraste?.[zona.id];
+function cajaContraste(zona, meteo, id) {
+  const c = meteo.contrastePuntos?.[id];
   if (!c?.discrepa) return null;
   const { P26estacion, P26modelo, diasCubiertos, estacionCubierta, modeloCubierto } = c.comparacion;
   const boton = el('button', { clase: 'chip', type: 'button', texto: 'Usar modelo', attrs: { 'aria-pressed': String(c.usaModelo) } });
@@ -153,14 +156,14 @@ function cajaContraste(zona, meteo) {
     el('div', { clase: 'chips' }, boton));
 }
 
-function seccionLluvia(zona, meteo, serie, disp, obsError) {
+function seccionLluvia(zona, meteo, serie, id, disp, obsError) {
   const futuros = serie.fechas.length - 1 - serie.hoy;
   const fig = el('figure', { clase: 'grafico' });
   fig.style.marginBlock = '0';
   fig.innerHTML = graficoLluvia({ serie, dispersionPunto: disp, altura: 250 });
   return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-lluvia' } },
     el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-lluvia', texto: 'Lluvia' }), el('span', { clase: 'texto-2 texto-s', texto: `${serie.hoy + 1} días y ${futuros} de previsión` })),
-    cifrasLluvia(serie, disp, meteo, zona), fig,
+    cifrasLluvia(serie, disp, meteo, zona, id), fig,
     obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: 'Lluvia medida en estaciones: no disponible ahora' }) : null,
     el('ul', { clase: 'leyenda' },
       el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida'),
@@ -267,7 +270,7 @@ export function pintar({ estado, param, refrescarMeteo }) {
     else {
       const disp = meteo.dispersion?.[id] ?? null;
       if (meteo.hoy !== hoyMadrid()) partes.push(aviso(`Datos del ${fecha(meteo.hoy)}. No se ha podido actualizar; las notas son de ese día.`, false));
-      partes.push(seccionLluvia(zona, meteo, serie, disp, estado.obs ? null : estado.obsError), cajaContraste(zona, meteo), cajaModelos(disp));
+      partes.push(seccionLluvia(zona, meteo, serie, id, disp, estado.obs ? null : estado.obsError), cajaContraste(zona, meteo, id), cajaModelos(disp));
     }
     partes.push(listaEspecies(zona, c.especies, c.res, serie, nombrePunto(punto)));
     dinamico.replaceChildren(...partes.filter(Boolean));

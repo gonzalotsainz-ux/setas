@@ -114,3 +114,48 @@ test('contraste: sin observaciones devuelve la meteo tal cual', () => {
   assert.equal(aplicarContraste([zona([{ id: 'E1', altitud: 1450 }])], meteo, null), meteo);
   assert.equal(aplicarContraste([zona([{ id: 'E1', altitud: 1450 }])], meteo, {}).contraste.z, undefined);
 });
+
+// ---- estación más cercana a cada punto ----
+
+const zonaCoord = (estaciones) => ({ id: 'z', puntos: [{ id: 'a', lat: 40.83, lon: -3.85, altitud: 1580 }, { id: 'b', lat: 40.92, lon: -3.76, altitud: 1336 }], estacionesAemet: estaciones });
+const cerca = { A: { id: 'EA', nombre: 'Cerca de a', altitud: 1159, lat: 40.85, lon: -3.88 }, B: { id: 'EB', nombre: 'Cerca de b', altitud: 1100, lat: 40.94, lon: -3.74 } };
+
+test('contraste: cada punto usa su estación más cercana, aunque sean de la misma zona', () => {
+  const s = serieSintetica({ precip: () => 2 });
+  const obs = { EA: obsDe(s, 1), EB: obsDe(s, 1.5) };
+  // la lista va en orden inverso a propósito: manda la distancia, no el orden
+  const m = aplicarContraste([zonaCoord([cerca.B, cerca.A])], meteoDe(s), obs);
+  assert.equal(m.contrastePuntos.a.estacion.id, 'EA');
+  assert.equal(m.contrastePuntos.b.estacion.id, 'EB');
+  assert.equal(m.series.a.origenPrecip[56], 'estacion:EA');
+  assert.equal(m.series.b.origenPrecip[56], 'estacion:EB');
+  assert.equal(m.series.a.precip[56], 1);
+  assert.equal(m.series.b.precip[56], 1.5);
+  assert.ok(m.contrastePuntos.a.estacion.distanciaKm < 5 && m.contrastePuntos.b.estacion.distanciaKm < 5);   // distancia al punto, no a la zona
+  assert.equal(m.contrastePuntos.a.aplicada, true);
+});
+
+test('contraste: si la más cercana no tiene datos suficientes se usa la siguiente; sin ninguna, modelo', () => {
+  const s = serieSintetica({ precip: () => 2 });
+  const incompleta = obsDe(s, 1, 50, 57);
+  const m = aplicarContraste([zonaCoord([cerca.A, cerca.B])], meteoDe(s), { EA: obsDe(s, 1), EB: incompleta });
+  assert.equal(m.contrastePuntos.b.estacion.id, 'EA');   // EB está más cerca de b pero no llega al mínimo
+  const sinNinguna = aplicarContraste([zonaCoord([cerca.A, cerca.B])], meteoDe(s), { EA: incompleta, EB: incompleta });
+  assert.equal(sinNinguna.contrastePuntos.a, undefined);
+  assert.equal(sinNinguna.contrastePuntos.b, undefined);
+  assert.equal(sinNinguna.series.a.origenPrecip[56], 'modelo');
+  assert.equal(sinNinguna.contraste.z, undefined);
+});
+
+test('contraste: «Usar modelo» solo quita la estación a los puntos que discrepan', () => {
+  const s = serieSintetica({ precip: () => 2 });
+  const obs = { EA: obsDe(s, 0.5), EB: obsDe(s, 2) };           // a discrepa (0,5 frente a 2), b no
+  const m = aplicarContraste([zonaCoord([cerca.A, cerca.B])], meteoDe(s), obs, () => true);
+  assert.equal(m.contrastePuntos.a.discrepa, true);
+  assert.equal(m.contrastePuntos.a.usaModelo, true);
+  assert.equal(m.series.a.origenPrecip[56], 'modelo');
+  assert.equal(m.contrastePuntos.b.discrepa, false);
+  assert.equal(m.series.b.origenPrecip[56], 'estacion:EB');
+  assert.equal(m.contraste.z.discrepa, true);                    // la zona avisa si algún punto discrepa
+  assert.equal(m.contraste.z.estacion.id, 'EA');
+});

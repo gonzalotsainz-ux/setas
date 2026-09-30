@@ -68,7 +68,8 @@
   - `id`: código de la estación AEMET
   - `nombre`: nombre de la estación
   - `altitud`: altitud de la estación
-  - `distanciaKm`: distancia aproximada al punto
+  - `distanciaKm`: distancia aproximada al centro de la zona
+  - `lat`, `lon`: coordenadas de la estación (se regeneran con `node scripts/estaciones-aemet.mjs aplicar …`)
 - `normas`: referencias a ids de normas regulatorias
 - `avisos`: avisos especiales de la zona (permisos, restricciones)
 - `fuentes`: referencias bibliográficas de la zona
@@ -79,7 +80,7 @@
 ### Notas sobre los datos actuales de `zonas.json`
 
 - `comunidad`: `madrid-castilla-y-leon` (guadarrama y sierra-norte), `castilla-y-leon`, `castilla-la-mancha` o `euskadi`.
-- `estacionesAemet` está **vacío en las 8 zonas** hasta tener la clave de AEMET OpenData (tarea 16). Se rellena en la tarea 18.
+- `estacionesAemet` ya está rellena (tarea 18). Cada estación lleva `lat`/`lon` (inventario de AEMET) para que `aplicarContraste` elija, **para cada punto**, la más cercana de las de su zona (`distanciaKm` del inventario es la distancia al centro de la zona; la del punto se calcula al vuelo). `3104Y` Rascafría está en `guadarrama` y en `sierra-norte`.
 - `altitud` de cada punto es la del terreno (API de elevación de Open-Meteo); la meteo se pide con `elevation=` igual a ese valor.
 - Cómo se comprobó que cada punto está sobre bosque real del hábitat indicado (30/09/2026):
   - **Castilla y León** (guadarrama, sierra-norte, soria, gredos): capa `montes:gesfor_cyl_tipmas` de IDECyL, consulta por punto
@@ -106,6 +107,17 @@
     recolección del Parque Regional de Gredos (PORN Decreto 36/1995, Ley 3/1996) y del Parque Natural de Izki (PRUG Decreto 73/2018). Los tres están
     marcados así en `proteccion`.
   - No se ha cruzado con Red Natura 2000 (ZEC/ZEPA), que por sí sola no suele prohibir la recolección.
+- **Vertiente madrileña (tarea 18b, 30/09/2026)**: cinco puntos dentro de bosque real de montes de utilidad pública con licencia municipal:
+  `guadarrama-morcuera-pinar` (MUP 151), `guadarrama-miraflores-pinar` (MUP 13), `guadarrama-canencia-pinar` (MUP 72), `sierra-norte-canencia-melojar`
+  (MUP 73) y `sierra-norte-bustarviejo-melojar` (MUP 68). Especie dominante y FCC: MFE50 del MITECO, shapefile de la provincia 28
+  (`https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html`), punto en polígono.
+  Montes de utilidad pública: WFS de la IDEM de la Comunidad de Madrid (`https://idem.comunidad.madrid/geoidem/ows`, capa `Zonas:IDEM_MA_MONTES_UP`; no hay
+  capa pública de MUP con licencia, pero los números 13, 66-70, 72, 73, 140 y 151 existen ahí). Ortofoto PNOA (teselas z17 3x3). Se partió de las anclas de
+  `docs/investigacion/04e-sitios-sierra-madrid.md` (puertos y pueblos de Wikipedia) y se movieron a bosque denso. Sin punto en ningún polígono `prohibido`
+  (lo fija `tests/puntos-madrid.test.js`). Morcuera cae en el Parque Nacional (Uso Restringido, subzona C) y Miraflores en el Parque Regional de la Cuenca Alta
+  del Manzanares: ambos con `proteccion`. No hay punto en Navacerrada (Parque Nacional sin ordenanza) ni abedular de Canencia (nadie lo sitúa).
+  El bbox de `sierra-norte` se amplió a `[-3.8, 40.8, -3.3, 41.35]` para contener Canencia y Bustarviejo; los recuentos GBIF de `especies.json` se hicieron con el
+  bbox antiguo y no se han repetido.
 - **Laguna de cobertura en Guadarrama**: no hay melojar de piedemonte verificado. El único melojar comprobado (`guadarrama-navas-melojar`) está a
   1472 m. En el piedemonte de Valsaín, IDECyL da rebollar a 1215 m (40.8684, -4.0332, Q. pyrenaica 55 % con pino silvestre 45 %) y 1104 m, pero la
   ortofoto muestra dehesa abierta junto a embalse, pista o urbanización, sin masa densa; se descartaron. Queda pendiente.

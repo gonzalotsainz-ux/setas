@@ -659,7 +659,7 @@
         "Licencia obligatoria dentro del Parque Nacional: Rascafría, Miraflores de la Sierra y Lozoya. Fuera del Parque: Bustarviejo y Canencia.",
         "No existe decreto micológico autonómico: la Comunidad cita la Ley 43/2003, la Ley 16/1995 Forestal de Madrid y la Orden de 27 de mayo de 1992. Recoger solo en montes públicos señalizados o con permiso del propietario.",
         "Convenio de 21/11/2020: recogida autorizada en 7.286,70 ha del Parque Nacional en Rascafría (MUP Morcuera, El Pinganillo y Las Calderuelas más siete montes municipales).",
-        "Cada ordenanza tiene su ficha: madrid-rascafria, madrid-lozoya, madrid-miraflores, madrid-manzanares, madrid-bustarviejo y madrid-soto-del-real."
+        "Cada ordenanza tiene su ficha: madrid-rascafria, madrid-lozoya, madrid-miraflores, madrid-canencia, madrid-manzanares, madrid-bustarviejo, madrid-soto-del-real y el coto madrid-pedriza-san-blas."
       ],
       "permiso": {
         "obligatorio": true,
@@ -670,7 +670,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Lista comprobada en la primera pasada. Canencia: solo se ha visto el anuncio de aprobación provisional (BOCM 14/09/2021, https://www.bocm.es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF); su texto y tasas no se han leído. Convenio: https://www.comunidad.madrid/node/58396."
+      "notas": "Lista comprobada en la primera pasada. Canencia: la ordenanza definitiva está en BOCM 01/02/2022 (ficha madrid-canencia).es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF); su texto y tasas no se han leído. Convenio: https://www.comunidad.madrid/node/58396."
     },
     {
       "id": "madrid-rascafria",
@@ -687,7 +687,9 @@
       "resumen": [
         "Foráneo: solo permiso recreativo de 1 o 2 días, 10 kg por persona y día.",
         "Local y vinculado: recreativo 10 kg; intensivo hasta 30 kg en total (10 kg de cardo y perrechico, 20 kg de boletus y níscalo).",
-        "Solo cuchillo, navaja o tijera de menos de 11 cm; grupos de más de 3 personas en paralelo prohibidos."
+        "Solo cuchillo, navaja o tijera de menos de 11 cm; grupos de más de 3 personas en paralelo prohibidos.",
+        "El permiso de recogida no da derecho al acceso de vehículos por las pistas forestales. A los foráneos solo se les vende en la tienda virtual del ayuntamiento (www.rascafria.org).",
+        "Solo se recoge en los tres MUP del convenio de 2020 (Morcuera, El Pinganillo y Las Calderuelas) y en siete montes municipales; el resto del término no consta autorizado."
       ],
       "permiso": {
         "obligatorio": true,
@@ -737,7 +739,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Texto y tabla de tasas leídos en el BOCM el 30/09/2026 (la tabla de la primera pasada era ambigua; aquí queda resuelta). Importes de 2020, sin actualizaciones vistas."
+      "notas": "Texto y tabla de tasas leídos en el BOCM el 30/09/2026 (la tabla de la primera pasada era ambigua; aquí queda resuelta). Importes de 2020, sin actualizaciones vistas. Aviso sobre vehículos leído en https://www.rascafria.org/informacion-micologica/ el 30/09/2026; la venta solo en tienda virtual sale de la nota PERMISOS-R.pdf (https://www.rascafria.org/wp-content/uploads/2022/09/PERMISOS-R.pdf). Las zonas de Reserva y Uso Restringido A quedan excluidas (PRUG). Ayuntamiento: 91 869 11 17."
     },
     {
       "id": "madrid-lozoya",
@@ -799,7 +801,7 @@
     },
     {
       "id": "madrid-miraflores",
-      "titulo": "Ordenanza municipal del aprovechamiento micológico de Miraflores de la Sierra (BOCM n.º 12, 15/01/2021; tasa) y modificación (BOCM 16/11/2022)",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Miraflores de la Sierra (BOCM n.º 12, 15/01/2021; tasa) y modificación definitiva (BOCM n.º 273, 16/11/2022)",
       "tipo": "ordenanza",
       "ambito": {
         "comunidad": "madrid",
@@ -810,7 +812,10 @@
       "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
       "vigente": true,
       "resumen": [
-        "Recreativo 10 kg por persona y día; intensivo hasta 30 kg en total."
+        "Recogida autorizada solo en los Montes de Utilidad Pública n.º 13 («La Sierra, La Raya, Las Dehesas y otros») y n.º 140 («Perímetro Aguirre»). Fuera de esos dos montes no se puede recoger.",
+        "Foráneo: solo permiso recreativo, 10 kg por persona y día, 5 € el día (nota municipal de 2022); la tasa de 2021 fija 5 € un día, 10 € dos días y 80 € la temporada.",
+        "La modificación de 2022 reajusta el permiso intensivo (10 kg de cardo y perrechico, 20 kg de boletus y níscalo, 30 kg el resto, 30 kg como máximo), fija la temporada del 1 de agosto al 31 de julio y exige llevar DNI.",
+        "Venta según el ayuntamiento (2022): Plaza de España 1, lunes a viernes de 9:30 a 13:30, y oficina de turismo los fines de semana, solo con tarjeta."
       ],
       "permiso": {
         "obligatorio": true,
@@ -864,7 +869,7 @@
         ]
       },
       "cupoKgDia": 10,
-      "horario": "Temporada del 15 de julio al 1 de julio del año siguiente (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "horario": "Temporada del 1 de agosto al 31 de julio del año siguiente (modificación de 2022). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
       "prohibiciones": [
         "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
         "Recoger de noche (desde la puesta hasta la salida del sol)",
@@ -873,7 +878,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": false,
-      "notas": "Tasas de 2021 leídas en el BOCM. La modificación de noviembre de 2022 (https://bocm.es/boletin/CM_Orden_BOCM/2022/11/16/BOCM-20221116-87.PDF) no se ha leído, así que puede haber cambiado importes o cupos. Ordenanza: https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-45.PDF."
+      "notas": "Modificación de noviembre de 2022 leída el 30/09/2026 (https://bocm.es/boletin/CM_Orden_BOCM/2022/11/16/BOCM-20221116-87.PDF): no toca las tasas ni el cupo recreativo. Sigue sin verificar que los importes de 2021 sean los vigentes (no se ha localizado ordenanza fiscal posterior) y que el foráneo tenga hoy permiso de 2 días o de temporada; la nota municipal de 2022 (Madrid Norte 24 Horas 27/10/2022 y Crónica Norte 02/11/2022, misma nota = 1 fuente) solo habla de 5 €/día y 10 kg. El aviso del ayuntamiento de 17/10/2025 devolvió 404. Los números 13 y 140 coinciden con el catálogo de MUP de la Comunidad (IDEM, capa Zonas:IDEM_MA_MONTES_UP)."
     },
     {
       "id": "madrid-manzanares",
@@ -937,7 +942,7 @@
     },
     {
       "id": "madrid-bustarviejo",
-      "titulo": "Ordenanza municipal del aprovechamiento micológico de Bustarviejo (BOCM n.º 100, 28/04/2021) y tasa",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Bustarviejo (BOCM n.º 100, 28/04/2021) y su modificación definitiva (BOCM n.º 170, 18/07/2025)",
       "tipo": "ordenanza",
       "ambito": {
         "comunidad": "madrid",
@@ -945,47 +950,49 @@
           "sierra-norte"
         ]
       },
-      "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF",
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF",
       "vigente": true,
       "resumen": [
-        "Foráneo recreativo limitado a 5 kg por persona y día (la tabla de tasas lo indica expresamente); local y vinculado recreativo 10 kg.",
-        "Existe permiso foráneo de dos días, pero su precio no está confirmado (la tabla del BOCM es ambigua: 7 o 10 €)."
+        "Desde la modificación de 2025 el foráneo solo puede sacar permiso recreativo de 1 o 2 días consecutivos: 5 kg por persona y día, 5 € (1 día) u 8 € (2 días). Ya no hay permiso de temporada para foráneos.",
+        "Local: recreativo 3 € anual (5 kg) e intensivo 25 € anual (25 kg).",
+        "Se aplica a los Montes de Utilidad Pública n.º 66 «Cerro del Pendón y Agregados», 67 «Dehesa de Navalmadero, La Huelga y Prado Montiel», 68 «Dehesa del Valle», 69 «Dehesa Vieja» y 70 «Prado Espartal y agregado Prado Córdoba».",
+        "Los MUP de Bustarviejo tienen la caza arrendada todos los domingos y festivos del 8 de octubre a finales de febrero, y la ordenanza prohíbe recoger en los días y superficies con cacerías o cortas: mejor entre semana o en sábado."
       ],
       "permiso": {
         "obligatorio": true,
         "donde": "https://www.comunidad.madrid/node/70372",
         "tarifas": [
           {
-            "nombre": "Foráneo recreativo, temporada",
-            "precio": 100,
-            "cupoKgDia": 5,
-            "anio": 2021,
-            "verificado": true,
-            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
-          },
-          {
             "nombre": "Foráneo recreativo, un día",
             "precio": 5,
             "cupoKgDia": 5,
-            "anio": 2021,
+            "anio": 2025,
             "verificado": true,
-            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF"
           },
           {
-            "nombre": "Vinculado recreativo, temporada",
-            "precio": 15,
-            "cupoKgDia": 10,
-            "anio": 2021,
+            "nombre": "Foráneo recreativo, dos días consecutivos",
+            "precio": 8,
+            "cupoKgDia": 5,
+            "anio": 2025,
             "verificado": true,
-            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF"
           },
           {
-            "nombre": "Local recreativo, temporada",
+            "nombre": "Local recreativo, anual",
             "precio": 3,
-            "cupoKgDia": 10,
-            "anio": 2021,
+            "cupoKgDia": 5,
+            "anio": 2025,
             "verificado": true,
-            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF"
+          },
+          {
+            "nombre": "Local intensivo, anual",
+            "precio": 25,
+            "cupoKgDia": 25,
+            "anio": 2025,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF"
           }
         ]
       },
@@ -999,7 +1006,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "La tabla de tasas leída el 30/09/2026 es ambigua para el permiso de dos días del foráneo (aparecen 7 y 10 en la misma fila), por eso no se ha transcrito."
+      "notas": "Modificación de 2025 leída en el BOCM el 30/09/2026 (tabla de permisos, artículo 5, montes 66-70 y aviso de caza). Historia: la ordenanza de 2021 (https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF) daba al foráneo 5 kg, 5 € el día y 100 € de temporada, y al vinculado 15 € de temporada con 10 kg; la modificación de 2025 no los recoge, así que se retiran hasta comprobar si siguen vigentes. La tabla de 2021 era ambigua en el permiso foráneo de dos días (7 o 10 €); la de 2025 lo aclara: 8 €. Nota anterior: La tabla de tasas leída el 30/09/2026 es ambigua para el permiso de dos días del foráneo (aparecen 7 y 10 en la misma fila), por eso no se ha transcrito."
     },
     {
       "id": "madrid-soto-del-real",
@@ -1952,6 +1959,161 @@
       "revisado": "2026-09-30",
       "verificado": false,
       "notas": "Importes leídos en el PDF el 30/09/2026, pero sin fecha de la ordenanza ni confirmación de que sigan vigentes en 2026."
+    },
+    {
+      "id": "madrid-canencia",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Canencia (BOCM n.º 26, 01/02/2022; aprobación provisional en BOCM 14/09/2021)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte"
+        ]
+      },
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+      "vigente": true,
+      "resumen": [
+        "Foráneo: solo permiso recreativo de 1 o 2 días, 10 kg por persona y día, 5 € (1 día) y 10 € (2 días).",
+        "Local recreativo 10 kg e intensivo 30 kg; vinculado recreativo 15 € de temporada.",
+        "Ámbito: Montes de Utilidad Pública del Parque Nacional y demás montes catalogados de utilidad pública del término. Quedan excluidas las zonas del PRUG (Reserva y Uso Restringido A), donde recoger está prohibido.",
+        "No cita números de MUP. Según el catálogo de la Comunidad de Madrid (IDEM), en el término figuran «Perímetro de Canencia» (MUP 72) y «La Solana y otros» (MUP 73)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 10,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 10,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "horario": "Temporada de permisos del 15 de julio al 1 de julio del año siguiente. Prohibido recoger de noche.",
+      "prohibiciones": [
+        "Recoger en las Zonas de Reserva y de Uso Restringido A del Parque Nacional",
+        "Recoger donde haya cortas de arbolado o cacerías ese día",
+        "Herramientas que alteren el mantillo",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto, cupos y tabla de tasas leídos en el BOCM el 30/09/2026. La tabla de tasas es una fila de columnas sin cabecera clara («Foráneo recreativo _ _ 5 10»); se interpreta como 5 € por un día y 10 € por dos, como en la nota de la Comunidad y en Rascafría. Hay bando de la temporada 2024 (https://canencia.es/ciudadanos/tablon-municipal/877-bando-temporada-de-recogida-de-setas-2024); teléfono del ayuntamiento 918 687 511."
+    },
+    {
+      "id": "madrid-pedriza-san-blas",
+      "titulo": "Coto micológico «La Pedriza y Hoya de San Blas» (Soto del Real y Manzanares el Real), en el Área de Influencia Socioeconómica del Parque Nacional",
+      "tipo": "coto",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://setaspedrizasanblas.es/el-coto/",
+      "vigente": true,
+      "resumen": [
+        "Coto conjunto de 7.564 ha de bosque, creado por los ayuntamientos de Soto del Real y Manzanares el Real con la dirección del Parque Nacional sobre el Plan de Aprovechamiento Micológico del Parque.",
+        "Foráneo (no empadronado): solo recreativo, 5 kg por persona y día; 5 € un día, 10 € dos días consecutivos y 80 € la temporada.",
+        "Quedan fuera del coto las Zonas de Reserva y las de Uso Restringido tipo A (mapa descargable en la web del coto): ahí no se puede recoger.",
+        "Sectores con permiso según la prensa: El Risco, La Camorza, El Hueco de San Blas, Perímetro Aguirre, La Sierra, La Raya y las Dehesas. La web del coto no describe especies ni hábitat por sector."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.setaspedrizasanblas.es/",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días consecutivos",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          },
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 80,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          },
+          {
+            "nombre": "Empadronado recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          },
+          {
+            "nombre": "Empadronado intensivo, temporada",
+            "precio": 25,
+            "cupoKgDia": 25,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.setaspedrizasanblas.es/"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Temporada del 01/09/2026 al 31/07/2027.",
+      "prohibiciones": [
+        "Recoger en Zonas de Reserva y de Uso Restringido A",
+        "Alterar la capa superficial del suelo",
+        "Bolsas de plástico (se recomienda cesta)",
+        "Tamaño mínimo: boletus 4 cm de diámetro, resto 2 cm"
+      ],
+      "sanciones": "Según las ordenanzas municipales de Soto del Real (BOCM 02/12/2024) y Manzanares el Real (BOCM 26/01/2021): hasta 3.000 € en las muy graves.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Web del coto y página de permisos leídas el 30/09/2026 (precios y cupos de la temporada 2026-27). No se ha conseguido el mapa del coto en formato vectorial, por eso no está en cotos.geojson: hay que descargarlo de la web antes de ir. Los sectores salen de Madrid Norte 24 Horas (15/10/2025), https://www.madridnorte24horas.com/articulo/tendencias/guia-practica-recolectar-setas-otono-donde-puede-donde-permisos-posibles-sanciones/20251015134538122750.html. Las ordenanzas madrid-manzanares y madrid-soto-del-real siguen siendo la base legal; los importes de Manzanares (2021) quedan superados por los del coto."
     }
   ]
 }

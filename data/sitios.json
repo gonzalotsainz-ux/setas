@@ -89,7 +89,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "La especie y el aparcamiento salen de una sola fuente turística (Hola, 2022); el régimen legal sale del convenio oficial de Rascafría. Hay URA-A y Reserva cercanas (Arroyo de Santa María del Paular, El Purgatorio, Laguna de los Pájaros…).",
+      "notas": "La especie y el aparcamiento salen de una sola fuente turística (Hola, 2022); el régimen legal sale del convenio oficial de Rascafría. Hay URA-A y Reserva cercanas (Arroyo de Santa María del Paular, El Purgatorio, Laguna de los Pájaros…). Hábitat según Wikipedia: matorrales, pinares, melojares y un pequeño hayedo aislado. El lado de Miraflores (MUP 13) tiene su propia licencia.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -117,9 +117,10 @@
         "estado": "permiso",
         "normas": [
           "madrid-rascafria",
+          "madrid-miraflores",
           "pn-guadarrama-prug"
         ],
-        "texto": "Dentro del Parque Nacional. El MUP «Morcuera» es uno de los tres montes autorizados en Rascafría: licencia de Rascafría. Sin ella, multa de hasta 3.000 €."
+        "texto": "Dentro del Parque Nacional. El MUP «La Morcuera» (2.222,7 ha) es uno de los tres montes autorizados en Rascafría: licencia de Rascafría (foráneo 5 € al día o 10 € dos días, 10 kg, solo en la tienda virtual). El permiso no da acceso en vehículo a las pistas forestales. El puerto queda a ~1 km de la URA-A «Charca de las Hoyuelas»: no entres en Reserva ni en Uso Restringido A. Sin licencia, multa de hasta 3.000 €."
       },
       "fuentes": [
         {
@@ -139,7 +140,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "Hola pudo apoyarse en Vozpópuli, así que las dos fuentes turísticas pueden no ser independientes. La licencia sale de la nota oficial de la Comunidad.",
+      "notas": "Hola pudo apoyarse en Vozpópuli, así que las dos fuentes turísticas pueden no ser independientes. La licencia sale de la nota oficial de la Comunidad. Fuentes de setas: 2 reales (Tuscasasrurales y Sierra Norte de Madrid); La Razón, El Español, 20minutos y El Mundo repiten lo mismo (04e). Cuerpo del puerto a unos 6 km de la Reserva o URA-A más cercana (comprobación geométrica sobre cotos.geojson). Wikipedia sitúa pinares en el puerto y un abedular en el término sin ubicarlo. El ayuntamiento confirma la licencia en el 918 687 511.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -162,13 +163,14 @@
         10,
         11
       ],
-      "consejo": "Robledales y pinares. Mejor entre semana: los fines de semana se llena.",
+      "consejo": "Pinares y robledales alrededor del puerto (1.524 m). Mejor entre semana: los fines de semana se llena. Entra solo en montes de utilidad pública del término y nunca en las zonas de Reserva o Uso Restringido A.",
       "legal": {
         "estado": "permiso",
         "normas": [
+          "madrid-canencia",
           "madrid-ordenanzas-sierra"
         ],
-        "texto": "Canencia exige licencia municipal (nota de la Comunidad de Madrid de 23/10/2024). El cupo de 10 kg no está verificado para Canencia."
+        "texto": "Licencia municipal de Canencia (ordenanza definitiva BOCM 01/02/2022): foráneo 5 € un día o 10 € dos días, 10 kg por persona y día. Prohibido en las zonas de Reserva y Uso Restringido A del Parque Nacional. El puerto queda fuera del Parque Nacional según la Comunidad."
       },
       "fuentes": [
         {
@@ -187,6 +189,12 @@
           "url": "https://www.comunidad.madrid/node/70372",
           "titulo": "Comunidad de Madrid: municipios con licencia micológica",
           "fecha": "2024-10-23",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+          "titulo": "BOCM 01/02/2022: ordenanza de Canencia",
+          "fecha": "2022-02-01",
           "consultado": "2026-09-30"
         }
       ],
@@ -380,7 +388,7 @@
       "confianza": "media"
     },
     {
-      "notas": "Identificadores pnsg-* en data/cotos.geojson.",
+      "notas": "Identificadores pnsg-* en data/cotos.geojson. Los Batanes (Rascafría) no aparece en cotos.geojson: no se puede afirmar que esté fuera de una zona prohibida; ninguna fuente de setas lo cita, así que no se recomienda.",
       "lat": null,
       "lon": null,
       "verificado": true,
@@ -418,19 +426,19 @@
       "confianza": "media"
     },
     {
-      "notas": "Hola (2022) y Vozpópuli (2015) solo citan Cotos y Alameda del Valle como lugares de setas, sin régimen legal; no se siguen. La ausencia de ordenanza es un resultado de búsqueda, no una confirmación oficial: confirma con el ayuntamiento.",
+      "notas": "Hola (2022) y Vozpópuli (2015) solo citan Cotos y Alameda del Valle como lugares de setas, sin régimen legal; no se siguen. La ausencia de ordenanza es un resultado de búsqueda, no una confirmación oficial: confirma con el ayuntamiento. Vertiente madrileña (04e): ninguna fuente de setas respalda un sitio concreto en estos municipios. La ausencia de ordenanza es resultado de búsqueda, no confirmación oficial. Puerto de Navacerrada: solo sirve como punto de aire de montaña, no para recoger (Reserva de la Umbría de Siete Picos a ~1,5 km).",
       "lat": null,
       "lon": null,
       "verificado": false,
       "id": "pn-monte-sin-plan",
       "zona": "guadarrama",
-      "nombre": "Cercedilla, Navacerrada, Puerto de Cotos y Alameda del Valle",
-      "municipio": "Parque Nacional de la Sierra de Guadarrama",
+      "nombre": "Montes del Parque Nacional sin ordenanza ni plan: Alameda del Valle, Pinilla del Valle, Cercedilla, Navacerrada, Guadarrama y Los Molinos",
+      "municipio": "Alameda del Valle, Pinilla del Valle, Cercedilla, Navacerrada, Guadarrama y Los Molinos (Madrid)",
       "tipo": "no-ir",
       "especies": [],
       "habitat": [],
       "epoca": [],
-      "consejo": "Dentro del Parque Nacional y sin ordenanza ni convenio micológico que se haya encontrado. No se recoge salvo que el ayuntamiento confirme licencia.",
+      "consejo": "Son montes del Parque Nacional o de su borde y no consta ordenanza micológica ni plan de aprovechamiento. No se recoge salvo que el ayuntamiento confirme licencia. Además, en Alameda del Valle un comentario habla de fincas privadas con restricciones: las setas son del propietario.",
       "legal": {
         "estado": "prohibido",
         "normas": [
@@ -2191,6 +2199,381 @@
         {
           "url": "https://lacasadelassetas.com/blog/perrechico-una-seta-muy-especial/",
           "titulo": "La Casa de las Setas: el perrechico, una seta muy especial",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "notas": "Hábitat: una fuente (Wikipedia: rebollo como árbol nativo dominante; pino de repoblación). Hallazgos: ninguna fuente micológica; que Boletus aereus y B. reticulatus figuren en el anexo encaja con melojar pero no está comprobado. Hay jornadas micológicas guiadas en Bustarviejo (Actividadex, sierradelguadarrama.com). Los cinco MUP existen en el catálogo de la Comunidad (IDEM). Ver el punto de referencia sierra-norte-bustarviejo-melojar.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "especies": [
+        "boletus-aereus",
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "boletus-reticulatus",
+        "lactarius-deliciosus",
+        "amanita-caesarea",
+        "cantharellus-cibarius",
+        "pleurotus-eryngii",
+        "tricholoma-portentosum",
+        "hygrophorus-marzuolus"
+      ],
+      "habitat": [
+        "melojar",
+        "pinar-silvestre"
+      ],
+      "id": "bustarviejo-mup-66-70",
+      "zona": "sierra-norte",
+      "nombre": "Montes de Bustarviejo (MUP 66 a 70)",
+      "municipio": "Bustarviejo (Madrid)",
+      "tipo": "sitio",
+      "consejo": "Rebollar (melojo) con pino silvestre y laricio de repoblación, desde el pueblo (865 m en la Dehesa de Navalmadero) hasta los 1.866 m. Las especies son las del anexo de la ordenanza (58 en total): que figuren ahí no prueba que se encuentren. Los domingos y festivos del 8 de octubre a finales de febrero hay caza arrendada y no se puede recoger: ve entre semana o en sábado.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-bustarviejo",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Licencia de Bustarviejo (BOCM 18/07/2025): foráneo 5 € un día u 8 € dos días, 5 kg por persona y día. Solo en los MUP 66 a 70; fuera del Parque Nacional según la Comunidad. No se recoge donde haya cacerías o cortas ese día."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/07/18/BOCM-20250718-52.PDF",
+          "titulo": "BOCM 18/07/2025: modificación de la ordenanza de Bustarviejo",
+          "fecha": "2025-07-18",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Bustarviejo",
+          "titulo": "Wikipedia: Bustarviejo (vegetación)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wms?service=WMS&request=GetCapabilities",
+          "titulo": "IDEM Comunidad de Madrid: Montes del Catálogo de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Dos fuentes independientes (web del coto y prensa que la cita). La época no consta: el permiso dura del 01/09/2026 al 31/07/2027. Sin descripción de hábitat por sector. Polígono del coto no disponible en vectorial (no está en cotos.geojson). Cadena SER (12/09/2025) solo se vio como titular.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "pedriza-hoya-san-blas",
+      "zona": "guadarrama",
+      "nombre": "Coto micológico La Pedriza y Hoya de San Blas",
+      "municipio": "Soto del Real y Manzanares el Real (Madrid)",
+      "tipo": "sitio",
+      "consejo": "Coto de 7.564 ha con sus sectores (El Risco, La Camorza, El Hueco de San Blas, Perímetro Aguirre, La Sierra, La Raya y las Dehesas). La web no da especies ni época por sector. Dentro del macizo de La Pedriza hay zonas de Uso Restringido A (Ribera del Manzanares, Cuerda Larga) donde no se puede recoger: descarga el mapa del coto antes de ir. Decálogo del coto: no remover el suelo y usar cesta.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-pedriza-san-blas",
+          "madrid-soto-del-real",
+          "madrid-manzanares",
+          "pn-guadarrama-prug"
+        ],
+        "texto": "Permiso del coto obligatorio (web propia): foráneo 5 € un día, 10 € dos días u 80 € la temporada 2026-27, 5 kg por persona y día. Excluidas las zonas de Reserva y de Uso Restringido A."
+      },
+      "fuentes": [
+        {
+          "url": "https://setaspedrizasanblas.es/el-coto/",
+          "titulo": "Coto micológico La Pedriza y Hoya de San Blas: el coto",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://permisos.setaspedrizasanblas.es/",
+          "titulo": "Coto micológico La Pedriza y Hoya de San Blas: permisos",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.madridnorte24horas.com/articulo/tendencias/guia-practica-recolectar-setas-otono-donde-puede-donde-permisos-posibles-sanciones/20251015134538122750.html",
+          "titulo": "Madrid Norte 24 Horas: guía práctica para recolectar setas",
+          "fecha": "2025-10-15",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Una sola nota municipal (Madrid Norte 24 Horas 27/10/2022 y Crónica Norte 02/11/2022). Fechas de veda de Madrid Norte 24 Horas 15/10/2025 (12, 16, 19, 23, 26 y 30 de octubre): motivo no explicado. Sin descripción de hábitat ni especies. Ver el punto de referencia guadarrama-miraflores-pinar.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "miraflores-mup-13-140",
+      "zona": "guadarrama",
+      "nombre": "Montes de Miraflores de la Sierra (MUP 13 y 140)",
+      "municipio": "Miraflores de la Sierra (Madrid)",
+      "tipo": "sitio",
+      "consejo": "Solo se puede recoger en los MUP 13 («La Sierra, La Raya, Las Dehesas y otros») y 140 («Perímetro Aguirre»); fuera de ellos, no. Parte del MUP 13 entra en el Parque Nacional (Uso Restringido): no entres en Reserva ni en Uso Restringido A. La prensa cita fechas de octubre con veda hasta las 14:00 que podrían ser cacerías: confírmalo con el ayuntamiento.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-miraflores",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Licencia de Miraflores (foráneo solo recreativo, 10 kg, 5 € el día según la nota municipal de 2022; ordenanza de 2021: 5 €, 10 € dos días y 80 € la temporada). Venta en Plaza de España 1 y en la oficina de turismo, solo con tarjeta. Importes vigentes sin verificar."
+      },
+      "fuentes": [
+        {
+          "url": "https://bocm.es/boletin/CM_Orden_BOCM/2022/11/16/BOCM-20221116-87.PDF",
+          "titulo": "BOCM 16/11/2022: modificación de la ordenanza de Miraflores",
+          "fecha": "2022-11-16",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://madridnorte24horas.com/miraflores-de-la-sierra/medio-ambiente-miraflores-de-la-sierra/si-recoges-setas-en-miraflores-de-la-sierra-esta-informacion-te-interesa-mucho",
+          "titulo": "Madrid Norte 24 Horas: Miraflores de la Sierra",
+          "fecha": "2022-10-27",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wms?service=WMS&request=GetCapabilities",
+          "titulo": "IDEM Comunidad de Madrid: Montes del Catálogo de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "notas": "La investigación 04e cuenta 3 fuentes (Fungipedia 2019, Ciclolodge 2023 y La Mirada Norte 2026), todas vagas y una anecdótica; aquí se cuentan 2 (las dos guías generales) y el comentario del foro queda como testimonio aislado. Ninguna da coordenadas.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [
+        10,
+        11
+      ],
+      "especies": [
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "melojar"
+      ],
+      "id": "rascafria-paular-lozoya-valle",
+      "zona": "guadarrama",
+      "nombre": "Valle del Paular y Valle del Lozoya (Rascafría)",
+      "municipio": "Rascafría (Madrid)",
+      "tipo": "sitio",
+      "consejo": "Las guías hablan en general de pinares, robledales y zonas húmedas del valle. Un forista cuenta muchas cosechas de Boletus edulis entre el 1 de octubre y primeros de noviembre (testimonio aislado). Solo se recoge en los tres MUP autorizados (Morcuera, El Pinganillo y Las Calderuelas) y en siete montes municipales; el resto del valle no consta autorizado. El permiso no da acceso en vehículo a las pistas forestales.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-rascafria",
+          "pn-guadarrama-prug"
+        ],
+        "texto": "Licencia de Rascafría: foráneo 5 € un día o 10 € dos días, 10 kg por persona y día, solo en la tienda virtual (www.rascafria.org). Prohibido en Reserva y Uso Restringido A (Artiñuelo, Santa María del Paular, Purgatorio)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/72546-parte-micologico-en-madrid.html",
+          "titulo": "Fungipedia: parte micológico en Madrid (@Sanfrux)",
+          "fecha": "2019-11-05",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://ciclolodge.com/donde-recoger-setas-en-la-sierra-de-madrid-micologia/",
+          "titulo": "Ciclolodge: dónde recoger setas en la sierra de Madrid",
+          "fecha": "2023-10-25",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.lamiradanorte.com/los-mejores-rincones-de-la-sierra-norte-de-madrid-para-buscar-setas-este-otono",
+          "titulo": "La Mirada Norte: mejores rincones para buscar setas",
+          "fecha": "2026-09-29",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.rascafria.org/informacion-micologica/",
+          "titulo": "Ayuntamiento de Rascafría: información micológica",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Sin fuente de setas para este municipio. Hay MUP de Lozoya en el catálogo de la Comunidad, pero no se sabe cuáles incluye el coto. Ver también puerto-navafria-camino-horizontal.",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "lozoya-coto-micologico",
+      "zona": "guadarrama",
+      "nombre": "Montes de Lozoya",
+      "municipio": "Lozoya (Madrid)",
+      "tipo": "sitio",
+      "consejo": "El ayuntamiento anuncia un «Coto micológico de Lozoya», pero no se ha abierto su enlace: mapa, montes y tasas actuales sin comprobar. Llama al ayuntamiento (91 869 30 29) antes de ir.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "madrid-lozoya",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Hace falta licencia municipal (ordenanza de Lozoya, BOCM 23/04/2021: foráneo 5 € al día, 10 kg). Qué montes cubre hoy, sin confirmar."
+      },
+      "fuentes": [
+        {
+          "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/23/BOCM-20210423-57.PDF",
+          "titulo": "BOCM 23/04/2021: ordenanza de Lozoya",
+          "fecha": "2021-04-23",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.lozoya.es/",
+          "titulo": "Ayuntamiento de Lozoya",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 0,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo).",
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "sierra-norte-pueblos-sin-ordenanza",
+      "zona": "sierra-norte",
+      "nombre": "Pueblos de la Sierra Norte sin ordenanza conocida",
+      "municipio": "Montejo de la Sierra (fuera del Hayedo), La Hiruela, Prádena del Rincón, Horcajuelo, Puebla de la Sierra, Somosierra, Robregordo, Braojos, Gascones, Garganta de los Montes, Navarredonda y San Mamés (Madrid)",
+      "tipo": "sitio",
+      "consejo": "Ninguna fuente de setas cita sitios concretos en estos pueblos y no se ha encontrado ordenanza micológica. Pregunta en el ayuntamiento antes de recoger: la regla general de Madrid es recoger solo en monte público señalizado o con permiso del propietario. Navarredonda y San Mamés son municipios vinculados al Parque Nacional.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Sin ordenanza localizada en el BOCM (resultado de búsqueda, no confirmación oficial). En Madrid solo se recoge en montes públicos señalizados o con permiso del propietario."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/node/70372",
+          "titulo": "Comunidad de Madrid: recogida de setas y ordenanzas municipales",
+          "fecha": "2024-10-23",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sierranortemadrid.org/setas-sierra-norte-madrid/",
+          "titulo": "Sierra Norte Madrid: setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 0,
+      "confianza": "baja"
+    },
+    {
+      "notas": "Polígonos pnsg-ura-arroyo-del-artinuelo, pnsg-reserva-afloramientos-metamorficos-del-collado-de-la-flecha-y-cabecera-del-artinuelo y pnsg-reserva-afloramiento-metamorficos-collado-de-la-flecha en data/cotos.geojson.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "artinuelo-rascafria",
+      "zona": "guadarrama",
+      "nombre": "Arroyo del Artiñuelo y su cabecera",
+      "municipio": "Rascafría (Madrid)",
+      "tipo": "no-ir",
+      "consejo": "Zona de Reserva y de Uso Restringido A del Parque Nacional: no se recogen setas, aunque esté dentro del término de Rascafría.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "madrid-rascafria"
+        ],
+        "texto": "Recogida prohibida por el PRUG (art. 59.b) y excluida de la ordenanza de Rascafría."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "notas": "Polígonos pnsg-ura-ribera-del-manzanares y pnsg-ura-cuerda-larga-y-laderas-del-macizo-de-cabezas-de-hierro en data/cotos.geojson.",
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "epoca": [],
+      "especies": [],
+      "habitat": [],
+      "id": "ribera-manzanares-cuerda-larga",
+      "zona": "guadarrama",
+      "nombre": "Ribera del Manzanares y Cuerda Larga (Cabezas de Hierro)",
+      "municipio": "Manzanares el Real, Soto del Real y Rascafría (Madrid)",
+      "tipo": "no-ir",
+      "consejo": "Zonas de Uso Restringido A del Parque Nacional: no se recoge, aunque el coto de La Pedriza esté justo al lado. Mira el mapa del coto para saber dónde acaba lo permitido.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "madrid-pedriza-san-blas"
+        ],
+        "texto": "Recogida prohibida por el PRUG (art. 59.b); el coto de La Pedriza y Hoya de San Blas excluye las zonas de Reserva y Uso Restringido A."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+          "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama (Decreto 18/2020 y Decreto 16/2019)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://setaspedrizasanblas.es/el-coto/",
+          "titulo": "Coto micológico La Pedriza y Hoya de San Blas: el coto",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "http://sigred.oapn.es/geoserverOAPN/ZonificacionPRUG/ows",
+          "titulo": "OAPN: zonificación del PRUG",
           "fecha": null,
           "consultado": "2026-09-30"
         }
