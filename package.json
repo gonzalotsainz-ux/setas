@@ -8,5 +8,7 @@
     "comprobar": "npm test && npm run validar",
     "gancho": "node scripts/instalar-gancho.mjs"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
 }

@@ -149,7 +149,26 @@
         "Micocyl lo considera «termófilo»: fructifica pronto en otoño; hay brotes en primavera y verano si llueve.",
         "Para Cuenca y Alto Tajo no hay confirmación [NO VERIFICADO]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/boletus-edulis-1.webp",
+          "autor": "(c) Rafael Medina, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/62402241"
+        },
+        {
+          "archivo": "img/especies/boletus-edulis-2.webp",
+          "autor": "(c) franciscodocampo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/98777899"
+        },
+        {
+          "archivo": "img/especies/boletus-edulis-3.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/53133842"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -322,7 +341,26 @@
         "Temporada: primer brote en primavera (mayo–junio) y otro en otoño; los meses del brote otoñal no se dan en la ficha (se toma septiembre–noviembre).",
         "En Álava aparece en pinares de P. pinaster según la guía de Aranzadi [F5]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/boletus-pinophilus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/96247668"
+        },
+        {
+          "archivo": "img/especies/boletus-pinophilus-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/249982662"
+        },
+        {
+          "archivo": "img/especies/boletus-pinophilus-3.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/186405286"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -483,7 +521,26 @@
         "Presencia por zona deducida del hábitat (Valle del Tiétar y Gredos, Montes de Toledo, Sierra Norte) [NO VERIFICADO].",
         "Especie termófila: finales de verano y principio de otoño (agosto–octubre)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/boletus-aereus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/399886873"
+        },
+        {
+          "archivo": "img/especies/boletus-aereus-2.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/341434656"
+        },
+        {
+          "archivo": "img/especies/boletus-aereus-3.webp",
+          "autor": "(c) Txabardegi, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/77976907"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -627,7 +684,20 @@
       "notas": [
         "Solo bajo frondosas. Es el boleto «de verano»: de finales de primavera a principio de otoño (meses no dados en la ficha; se toma junio–octubre, como la tabla 1.4)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/boletus-reticulatus-1.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/148253348"
+        },
+        {
+          "archivo": "img/especies/boletus-reticulatus-2.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/53133810"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -776,7 +846,26 @@
       "notas": [
         "Abunda bajo coníferas y también sale bajo frondosas; los hábitats se han reducido a los pinares."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/imleria-badia-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/367105713"
+        },
+        {
+          "archivo": "img/especies/imleria-badia-2.webp",
+          "autor": "(c) Jane Weeden, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/247057494"
+        },
+        {
+          "archivo": "img/especies/imleria-badia-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/245960817"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -921,7 +1010,20 @@
       "notas": [
         "Hábitat: pinos y frondosas, de mayo a otoño. La ficha no da zonas: la presencia sale del hábitat [NO VERIFICADO]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/neoboletus-erythropus-1.webp",
+          "autor": "(c) sandravanaalst, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/29129489"
+        },
+        {
+          "archivo": "img/especies/neoboletus-erythropus-2.webp",
+          "autor": "(c) Jane Weeden, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/246651812"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1066,7 +1168,26 @@
         "Forma «alfombras» en otoño; a veces también en primavera (sin meses en la ficha).",
         "Solo S. luteus figura en la Parte A; S. granulatus no se cita en el RD."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/suillus-luteus-1.webp",
+          "autor": "(c) frangp, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/250785739"
+        },
+        {
+          "archivo": "img/especies/suillus-luteus-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/256632943"
+        },
+        {
+          "archivo": "img/especies/suillus-luteus-3.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/54139045"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1217,7 +1338,26 @@
       "notas": [
         "Coníferas, sobre todo pinos; Micocyl lo asocia a Pinus pinaster. Aguanta bien el descenso de temperaturas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lactarius-deliciosus-1.webp",
+          "autor": "(c) Javier Sánchez Álvarez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/140407875"
+        },
+        {
+          "archivo": "img/especies/lactarius-deliciosus-2.webp",
+          "autor": "(c) Lídia Carrera, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/320362633"
+        },
+        {
+          "archivo": "img/especies/lactarius-deliciosus-3.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/65943984"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1385,7 +1525,14 @@
         "Zonas: [NO VERIFICADO por zonas concretas].",
         "Solo L. sanguifluus y L. semisanguifluus están en la Parte A; L. vinosus no se cita."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lactarius-sanguifluus-1.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/340569314"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1527,7 +1674,26 @@
       "notas": [
         "Temporada «de verano a mediados de otoño»: meses convenidos (junio–octubre) al no darlos la ficha."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/russula-cyanoxantha-1.webp",
+          "autor": "(c) sandravanaalst, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/29199790"
+        },
+        {
+          "archivo": "img/especies/russula-cyanoxantha-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/403497052"
+        },
+        {
+          "archivo": "img/especies/russula-cyanoxantha-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/243039462"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1668,7 +1834,20 @@
       "notas": [
         "Especie termófila y poco frecuente."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/russula-virescens-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/122436848"
+        },
+        {
+          "archivo": "img/especies/russula-virescens-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/123197132"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1823,7 +2002,20 @@
       "notas": [
         "Prefiere frondosas y aparece menos en coníferas. Abundante en veranos lluviosos."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/cantharellus-cibarius-1.webp",
+          "autor": "(c) Daniel Castanhal García, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/360661188"
+        },
+        {
+          "archivo": "img/especies/cantharellus-cibarius-2.webp",
+          "autor": "(c) franciscodocampo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/91630874"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -1956,7 +2148,26 @@
         "Crece en placas en robledales y hayedos húmedos.",
         "Se puede secar."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/craterellus-cornucopioides-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/183511230"
+        },
+        {
+          "archivo": "img/especies/craterellus-cornucopioides-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/184532160"
+        },
+        {
+          "archivo": "img/especies/craterellus-cornucopioides-3.webp",
+          "autor": "(c) Thibaud Aronson, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/98781446"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2105,7 +2316,26 @@
       "notas": [
         "Zonas musgosas de pinares, con preferencia por terreno calizo. Zonas: [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/craterellus-lutescens-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/63837267"
+        },
+        {
+          "archivo": "img/especies/craterellus-lutescens-2.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/63837275"
+        },
+        {
+          "archivo": "img/especies/craterellus-lutescens-3.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/137192202"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2274,7 +2504,26 @@
       "notas": [
         "Crece sobre musgo en caducifolios o coníferas. La ficha no da zonas: la presencia sale del hábitat [NO VERIFICADO]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/craterellus-tubaeformis-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/101026227"
+        },
+        {
+          "archivo": "img/especies/craterellus-tubaeformis-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/252027282"
+        },
+        {
+          "archivo": "img/especies/craterellus-tubaeformis-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/245966526"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2426,7 +2675,20 @@
       "notas": [
         "Parte A: H. repandum, H. rufescens e H. albidum. Sale desde finales de verano en caducifolios; en pinares es tardío y llega hasta las nieves."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/hydnum-repandum-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/324372707"
+        },
+        {
+          "archivo": "img/especies/hydnum-repandum-2.webp",
+          "autor": "(c) Daniel Castanhal García, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/332297774"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2593,7 +2855,20 @@
         "Altitud 300–1.200 m [NO VERIFICADO]. Zonas [NO VERIFICADO por zonas]. Escasa en Álava [F2].",
         "Especie muy termófila; a veces también en coníferas; sale tras tormentas de verano."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-caesarea-1.webp",
+          "autor": "(c) Loïc Chalmandrier, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/327362312"
+        },
+        {
+          "archivo": "img/especies/amanita-caesarea-2.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/171738886"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2724,7 +2999,14 @@
       "notas": [
         "Especie del suroeste ibérico y norte de África. Posible en los Montes de Toledo [NO VERIFICADO; su área principal es Extremadura, Andalucía occidental y Portugal]. Temporada invierno y primavera (enero–abril)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-ponderosa-1.webp",
+          "autor": "Cardoazul",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_ponderosa1.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -2903,7 +3185,26 @@
         "fuente": "docs/investigacion/03-fructificacion-datos.md#14"
       },
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/macrolepiota-procera-1.webp",
+          "autor": "(c) TOURDERA, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/375493598"
+        },
+        {
+          "archivo": "img/especies/macrolepiota-procera-2.webp",
+          "autor": "(c) Yokki, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/328780391"
+        },
+        {
+          "archivo": "img/especies/macrolepiota-procera-3.webp",
+          "autor": "(c) Jane Weeden, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/245748969"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3075,7 +3376,20 @@
       "notas": [
         "Pastizales abonados por el ganado, suelo nitrogenado. Temporada «primavera y otoño»: meses convenidos (marzo–mayo y septiembre–noviembre)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/agaricus-campestris-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/98379847"
+        },
+        {
+          "archivo": "img/especies/agaricus-campestris-2.webp",
+          "autor": "(c) Santiago Martín-Bravo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/329716896"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3250,7 +3564,14 @@
         "La ficha no da zonas: la presencia sale del hábitat [NO VERIFICADO]. Pastizales y campas, claros de pinares; primavera y otoño (meses convenidos).",
         "Solo figura en la Parte B (cultivado) del RD 30/2009."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/agaricus-arvensis-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/237252351"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3423,7 +3744,26 @@
       "notas": [
         "Solo en primavera, en praderas de montaña junto a espinos, endrinos, rosales silvestres y brezo, y en campas. Especie emblemática de Álava. Zonas del centro [NO VERIFICADO]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/calocybe-gambosa-1.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/158548756"
+        },
+        {
+          "archivo": "img/especies/calocybe-gambosa-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/24776525"
+        },
+        {
+          "archivo": "img/especies/calocybe-gambosa-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/353599009"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3606,7 +3946,14 @@
       "notas": [
         "Praderas de montaña y bajo pinos, en grandes corros. Zonas [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/infundibulicybe-geotropa-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/66244356"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3774,7 +4121,20 @@
       "notas": [
         "Planifolios, pinares y brezales; aparece a finales de otoño y en invierno (octubre–enero). Nomenclatura: Lepista pasó a Collybia en 2023."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/collybia-nuda-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/101009861"
+        },
+        {
+          "archivo": "img/especies/collybia-nuda-2.webp",
+          "autor": "(c) Santiago Martín-Bravo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/145845000"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -3950,7 +4310,20 @@
       "notas": [
         "Especie tardía y resistente al frío. Zonas [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/collybia-personata-1.webp",
+          "autor": "(c) Cristina Villaverde, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/70309704"
+        },
+        {
+          "archivo": "img/especies/collybia-personata-2.webp",
+          "autor": "(c) scolym, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/142351816"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4107,7 +4480,20 @@
         "Temporada «primavera y otoño»: meses convenidos (marzo–mayo y septiembre–noviembre).",
         "Crece en corros de brujas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/marasmius-oreades-1.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/141153741"
+        },
+        {
+          "archivo": "img/especies/marasmius-oreades-2.webp",
+          "autor": "(c) Jane Weeden, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/245352808"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4256,7 +4642,20 @@
         "Zonas: parameras y pastos [NO VERIFICADO por zonas]. Otoño (octubre–noviembre) y a veces en primavera (sin meses en la ficha).",
         "Ligada a las raíces del cardo corredor (Eryngium campestre) y umbelíferas, en eriales, pastizales y cunetas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/pleurotus-eryngii-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/54143764"
+        },
+        {
+          "archivo": "img/especies/pleurotus-eryngii-2.webp",
+          "autor": "(c) Cenaida, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/247912226"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4405,7 +4804,20 @@
       "notas": [
         "Especie de frío (noviembre–marzo). Zonas: hayedos de Álava; riberas (choperas) de todas las zonas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/pleurotus-ostreatus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/260267720"
+        },
+        {
+          "archivo": "img/especies/pleurotus-ostreatus-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/37334982"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4549,7 +4961,26 @@
         "Nombres comunes locales [NO VERIFICADO]. Hábitat (tocones y troncos de chopo y sauce, en riberas y choperas) [NO VERIFICADO: ficha de F2 no disponible]. La ficha no da zonas: la presencia sale del hábitat.",
         "Temporada «primavera y otoño»: meses convenidos."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/cyclocybe-cylindracea-1.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/248734232"
+        },
+        {
+          "archivo": "img/especies/cyclocybe-cylindracea-2.webp",
+          "autor": "(c) Naturalista, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/62355634"
+        },
+        {
+          "archivo": "img/especies/cyclocybe-cylindracea-3.webp",
+          "autor": "(c) Andrea Monsalve, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/255680321"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4685,7 +5116,26 @@
       "notas": [
         "Crece en bordes de caminos, escombreras, tierra removida, lugares nitrogenados: ningún hábitat de la lista del proyecto. Otoño y primavera (meses convenidos)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/coprinus-comatus-1.webp",
+          "autor": "(c) Javier Sánchez Álvarez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/139512452"
+        },
+        {
+          "archivo": "img/especies/coprinus-comatus-2.webp",
+          "autor": "(c) Javier Sánchez Álvarez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/115727949"
+        },
+        {
+          "archivo": "img/especies/coprinus-comatus-3.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/62490229"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4843,7 +5293,20 @@
         "Zonas [NO VERIFICADO por zonas; especie conocida del Sistema Central y el Ibérico]. Desfase de la tabla 1.4 «—»: se usa el general de micorrícicos de §1.3 (7–21 días).",
         "Sale en invierno y principio de primavera, a menudo junto a la nieve que se funde y medio enterrada en la pinocha, en suelo silíceo."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/hygrophorus-marzuolus-1.webp",
+          "autor": "Amirosław",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Hygrophorus_marzuolus-6.jpg"
+        },
+        {
+          "archivo": "img/especies/hygrophorus-marzuolus-2.webp",
+          "autor": "GLJIVARSKO DRUSTVO NIS from Serbia",
+          "licencia": "CC BY 2.0",
+          "url": "https://commons.wikimedia.org/wiki/File:HYGROPHORUS_MARZUOLUS_(F._Fr.)Bresadola_(5731129003).jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -4980,7 +5443,20 @@
         "Zonas [NO VERIFICADO por zonas]. Sin tóxicas graves conocidas en el género.",
         "Exclusiva de pinares calcáreos en otoño."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/hygrophorus-latitabundus-1.webp",
+          "autor": "Pau Cabot",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Hygrophorus_latitabundus.JPG"
+        },
+        {
+          "archivo": "img/especies/hygrophorus-latitabundus-2.webp",
+          "autor": "Paffka",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Hygrophorus_latitabundus1.JPG"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5134,7 +5610,26 @@
         "Muy apreciada en Soria.",
         "Crece en pinares, en corros, a menudo medio enterrada. Aguanta bien las heladas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-portentosum-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/330696047"
+        },
+        {
+          "archivo": "img/especies/tricholoma-portentosum-2.webp",
+          "autor": "(c) Daniel Heras González, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/143337621"
+        },
+        {
+          "archivo": "img/especies/tricholoma-portentosum-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/255778316"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5292,7 +5787,14 @@
       "notas": [
         "Pinares, en bordes y claros; a veces forma alfombras. «Mediados de octubre a principios de invierno»."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-terreum-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/63837237"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5431,7 +5933,14 @@
       "notas": [
         "Crece sobre troncos vivos de roble y castaño."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/fistulina-hepatica-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/320181818"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5580,7 +6089,26 @@
         "Crece en la base de troncos y tocones de coníferas, sobre todo pinos.",
         "Parte B del RD 30/2009."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/sparassis-crispa-1.webp",
+          "autor": "(c) poblado_verde_en_acción, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/251898662"
+        },
+        {
+          "archivo": "img/especies/sparassis-crispa-2.webp",
+          "autor": "(c) Chema Montero, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/321871584"
+        },
+        {
+          "archivo": "img/especies/sparassis-crispa-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/34301341"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5718,7 +6246,14 @@
       "notas": [
         "Primavera, en riberas (fresno, olmo, chopo), zonas quemadas, bosques, parques y jardines; también pinares quemados. Solo «chopera» entra en los hábitats de la lista del proyecto."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/morchella-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/113861785"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5858,7 +6393,20 @@
         "Temporada: T. melanosporum diciembre–marzo; T. aestivum mayo–agosto.",
         "Zonas [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tuber-melanosporum-1.webp",
+          "autor": "Diego Delso",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Tuber_melanosporum_-_trufa_negra,_%C3%81greda,_Espa%C3%B1a.jpg"
+        },
+        {
+          "archivo": "img/especies/tuber-melanosporum-2.webp",
+          "autor": "Marianne Casamance",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:M%C3%A9lanosporum_du_Ventoux.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -5995,7 +6543,20 @@
       "notas": [
         "Otoño, bajo frondosas (robles, castaños, hayas, avellanos) y más raramente coníferas. Citada en España con Q. pyrenaica en Madrid y con Q. suber."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-phalloides-1.webp",
+          "autor": "(c) T R Shankar Raman, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/142938015"
+        },
+        {
+          "archivo": "img/especies/amanita-phalloides-2.webp",
+          "autor": "(c) Rafael Medina, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/189837164"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -6125,7 +6686,26 @@
         "Primavera: meses convenidos (marzo–mayo).",
         "Primavera, pinares y caducifolios en suelos ácidos."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-verna-1.webp",
+          "autor": "Pieria(Uploader and Photographer)",
+          "licencia": "PD",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_verna-01.jpg"
+        },
+        {
+          "archivo": "img/especies/amanita-verna-2.webp",
+          "autor": "Pieria(Uploader and Photographer)",
+          "licencia": "PD",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_verna-02.jpg"
+        },
+        {
+          "archivo": "img/especies/amanita-verna-3.webp",
+          "autor": "Sinisa Radic",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_verna_3.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -6364,7 +6944,14 @@
         "Temporada «verano y otoño»: meses convenidos.",
         "Verano y otoño, frondosas en suelo ácido; rara."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-virosa-1.webp",
+          "autor": "Cephas",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_virosa_UL_01.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -6498,7 +7085,14 @@
         "Temporada: B1 dice «sobre todo en otoño, pero también en otras épocas»; se marcan los 12 meses para que ninguna interfaz la dé por fuera de temporada.",
         "Sobre madera o tocones de coníferas y frondosas; sobre todo en otoño, pero también en otras épocas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/galerina-marginata-1.webp",
+          "autor": "(c) Daniel Castanhal García, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/332297575"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -6556,7 +7150,26 @@
       "notas": [
         "Jardines, zonas ruderales y bordes de senderos."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lepiota-brunneoincarnata-1.webp",
+          "autor": "User:Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_brunneoincarnata_060823w.jpg"
+        },
+        {
+          "archivo": "img/especies/lepiota-brunneoincarnata-2.webp",
+          "autor": "This image was created by user Murselin Guney (Beyrek) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:2015-10-11_Lepiota_brunneoincarnata_Chodat_%26_C._Mart%C3%ADn_564314.jpg"
+        },
+        {
+          "archivo": "img/especies/lepiota-brunneoincarnata-3.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_brunneoincarnata_170929w.JPG"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -6665,7 +7278,14 @@
       "sindrome": "faloidiano",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lepiota-helveola-1.webp",
+          "autor": "Renée Lebeuf",
+          "licencia": "CC0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_helveola_(Qu%C3%A9bec).jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -6717,7 +7337,26 @@
       "sindrome": "faloidiano",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lepiota-subincarnata-1.webp",
+          "autor": "Britney (Riverdweller)",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_subincarnata_117620.jpg"
+        },
+        {
+          "archivo": "img/especies/lepiota-subincarnata-2.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_subincarnata_170925w.JPG"
+        },
+        {
+          "archivo": "img/especies/lepiota-subincarnata-3.webp",
+          "autor": "This image was created by user Richard Daniel (RichardDaniel) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lepiota_subincarnata_1130318.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -6825,7 +7464,14 @@
         "Frondosas (robles, castaños, hayas) en suelo ácido. Citada en hayedos del País Vasco.",
         "En España se ha documentado al menos un caso mixto con A. phalloides."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/cortinarius-orellanus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/84954351"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -6935,7 +7581,26 @@
       "notas": [
         "Coníferas húmedas y musgosas, sobre todo en el norte de Europa [NO VERIFICADO presencia en las zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/cortinarius-rubellus-1.webp",
+          "autor": "Eric Steinert",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Cortinarius_rubellus_01.jpg"
+        },
+        {
+          "archivo": "img/especies/cortinarius-rubellus-2.webp",
+          "autor": "Inger-Lise Fonneland",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Cortinarius_rubellus-2107747.jpg"
+        },
+        {
+          "archivo": "img/especies/cortinarius-rubellus-3.webp",
+          "autor": "Ulla-Britt Bøe",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Cortinarius_rubellus-2084385.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7028,7 +7693,26 @@
       "notas": [
         "Mediterránea, encinares y alcornocales calcáreos u otros [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-proxima-1.webp",
+          "autor": "This image was created by user Davide Puddu (Davide Puddu) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_proxima_Dum%C3%A9e_512034_2014-11-29.jpg"
+        },
+        {
+          "archivo": "img/especies/amanita-proxima-2.webp",
+          "autor": "Nikos D. Karabelas",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_proxima_Mushroom_Skafidaki_1.jpg"
+        },
+        {
+          "archivo": "img/especies/amanita-proxima-3.webp",
+          "autor": "Nikos D. Karabelas",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_proxima_Mushroom_Skafidaki_4.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7081,7 +7765,26 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-ovoidea-1.webp",
+          "autor": "(c) Emily Nyenyedzi Davies, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/252005493"
+        },
+        {
+          "archivo": "img/especies/amanita-ovoidea-2.webp",
+          "autor": "(c) Rafael Carbonell Font, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/248381160"
+        },
+        {
+          "archivo": "img/especies/amanita-ovoidea-3.webp",
+          "autor": "(c) Rafael Carbonell Font, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/250594648"
+        }
+      ],
       "fuentes": [
         {
           "id": "F5",
@@ -7194,7 +7897,26 @@
         "Coníferas, primavera, suelos arenosos.",
         "Pinares de Guadarrama, Soria y Gredos en primavera, justo en época de colmenillas y marzuelos [NO VERIFICADO por zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/gyromitra-esculenta-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/237259571"
+        },
+        {
+          "archivo": "img/especies/gyromitra-esculenta-2.webp",
+          "autor": "(c) Lídia Carrera, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/381730392"
+        },
+        {
+          "archivo": "img/especies/gyromitra-esculenta-3.webp",
+          "autor": "(c) Rafael Medina, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/76874438"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7301,7 +8023,26 @@
       "notas": [
         "La categoría «mortal» es la del síndrome giromitriano (B4 dice «puede ser mortal»); la ficha no grada esta especie aparte."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/gyromitra-gigas-1.webp",
+          "autor": "This image was created by user Ron Pastorino (Ronpast) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Gyromitra_gigas_85397.jpg"
+        },
+        {
+          "archivo": "img/especies/gyromitra-gigas-2.webp",
+          "autor": "Holger Krisp",
+          "licencia": "CC BY 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Riesenlorchel_Gyromitra_gigas.jpg"
+        },
+        {
+          "archivo": "img/especies/gyromitra-gigas-3.webp",
+          "autor": "Dmitriy Bochkov",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Gyromitra_gigas_33807377.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7408,7 +8149,20 @@
       "notas": [
         "La categoría «mortal» es la del síndrome giromitriano (B4 dice «puede ser mortal»); la ficha no grada esta especie aparte."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/gyromitra-infula-1.webp",
+          "autor": "Holger Krisp",
+          "licencia": "CC BY 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Gyromitra_infula_Bischofsm%C3%BCtze.jpg"
+        },
+        {
+          "archivo": "img/especies/gyromitra-infula-2.webp",
+          "autor": "Holger Krisp",
+          "licencia": "CC BY 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Elfin_Saddle_Gyromitra_infula.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7516,7 +8270,14 @@
         "Otoño: meses convenidos (septiembre–noviembre).",
         "Pinares arenosos (P. pinaster, P. pinea) en otoño."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-equestre-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/99968495"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7573,7 +8334,14 @@
       "sindrome": "rabdomiolisis",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-flavovirens-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/99968495"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7612,7 +8380,26 @@
       "sindrome": "rabdomiolisis",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-sulphureum-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/250143094"
+        },
+        {
+          "archivo": "img/especies/tricholoma-sulphureum-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/237313287"
+        },
+        {
+          "archivo": "img/especies/tricholoma-sulphureum-3.webp",
+          "autor": "(c) Jane Weeden, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/246656747"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7716,7 +8503,14 @@
       "notas": [
         "Coníferas y frondosas, sobre todo con abedul."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/paxillus-involutus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/27859383"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7840,7 +8634,14 @@
         "Primavera y verano: meses convenidos (marzo–agosto).",
         "Primavera y verano, en frondosas y parques."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/inosperma-erubescens-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/383668563"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -7924,7 +8725,20 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/clitocybe-rivulosa-1.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_rivulosa_20081116w.JPG"
+        },
+        {
+          "archivo": "img/especies/clitocybe-rivulosa-2.webp",
+          "autor": "Sacha47",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_rivulosa,_old.png"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8014,7 +8828,20 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/clitocybe-dealbata-1.webp",
+          "autor": "Pau Cabot",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_dealbata.jpg"
+        },
+        {
+          "archivo": "img/especies/clitocybe-dealbata-2.webp",
+          "autor": "Archenzo",
+          "licencia": "CC BY 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_dealbata_1.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8107,7 +8934,26 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/clitocybe-phyllophila-1.webp",
+          "autor": "photo taken by User:Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_phyllophila_041031w.jpg"
+        },
+        {
+          "archivo": "img/especies/clitocybe-phyllophila-2.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_phyllophila_20081018wb.JPG"
+        },
+        {
+          "archivo": "img/especies/clitocybe-phyllophila-3.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_phyllophila_20101107wa.JPG"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8197,7 +9043,20 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/clitocybe-candicans-1.webp",
+          "autor": "Jerzy Opioła",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_candicans_(6).JPG"
+        },
+        {
+          "archivo": "img/especies/clitocybe-candicans-2.webp",
+          "autor": "Jerzy Opioła",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Clitocybe_candicans_a3_(1).jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8249,7 +9108,14 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/mycena-pura-1.webp",
+          "autor": "Garrett Taylor",
+          "licencia": "CC0",
+          "url": "https://commons.wikimedia.org/wiki/File:Mycena_pura_166990662.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8288,7 +9154,26 @@
       "sindrome": "muscarinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/mycena-rosea-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/330706495"
+        },
+        {
+          "archivo": "img/especies/mycena-rosea-2.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/190712723"
+        },
+        {
+          "archivo": "img/especies/mycena-rosea-3.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/253727831"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8401,7 +9286,26 @@
       "notas": [
         "Coníferas y frondosas."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-pantherina-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/318647147"
+        },
+        {
+          "archivo": "img/especies/amanita-pantherina-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/185551302"
+        },
+        {
+          "archivo": "img/especies/amanita-pantherina-3.webp",
+          "autor": "(c) Emily Nyenyedzi Davies, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/250276922"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -8453,7 +9357,20 @@
       "notas": [
         "La investigación no da hábitat ni temporada de esta especie."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-muscaria-1.webp",
+          "autor": "(c) franciscodocampo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/140870805"
+        },
+        {
+          "archivo": "img/especies/amanita-muscaria-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/138821656"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -8550,7 +9467,20 @@
       "notas": [
         "Pinares; también en primavera."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-gemmata-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/309991165"
+        },
+        {
+          "archivo": "img/especies/amanita-gemmata-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/330696143"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8667,7 +9597,26 @@
         "Finales de verano y otoño: meses convenidos (agosto–noviembre).",
         "Finales de verano y otoño, robledales."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/entoloma-sinuatum-1.webp",
+          "autor": "Holger Krisp",
+          "licencia": "CC BY 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Riesen-R%C3%B6tling_Entoloma_sinuatum.JPG"
+        },
+        {
+          "archivo": "img/especies/entoloma-sinuatum-2.webp",
+          "autor": "Eugene Popov",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Entoloma_sinuatum_54291818.jpg"
+        },
+        {
+          "archivo": "img/especies/entoloma-sinuatum-3.webp",
+          "autor": "Jose Angel Urquia Goitia",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Entoloma_sinuatum_3.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -8784,7 +9733,26 @@
         "Verano y otoño: meses convenidos.",
         "Tocones de olivo, roble, encina y haya; verano y otoño."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/omphalotus-olearius-1.webp",
+          "autor": "(c) Santiago Martín-Bravo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/251900798"
+        },
+        {
+          "archivo": "img/especies/omphalotus-olearius-2.webp",
+          "autor": "(c) Pieter Prins, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/147723889"
+        },
+        {
+          "archivo": "img/especies/omphalotus-olearius-3.webp",
+          "autor": "(c) David F. Belmonte, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/331599185"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8864,7 +9832,26 @@
       "notas": [
         "Habitat no indicado en la ficha: se asume el del género (pastizales)."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/agaricus-xanthodermus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/237252706"
+        },
+        {
+          "archivo": "img/especies/agaricus-xanthodermus-2.webp",
+          "autor": "(c) Sara Navarro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/102918910"
+        },
+        {
+          "archivo": "img/especies/agaricus-xanthodermus-3.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/327641604"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -8969,7 +9956,14 @@
       "notas": [
         "Frondosas termófilas en suelo calizo."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/rubroboletus-satanas-1.webp",
+          "autor": "Björn S...",
+          "licencia": "CC BY-SA 2.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Frankenwarte_10.08.2016_Satan%27s_Bolete_-_Rubroboletus_satanas_(29135732512).jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9015,7 +10009,14 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/rubroboletus-rhodoxanthus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/324296383"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9060,7 +10061,14 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/rubroboletus-pulchrotinctus-1.webp",
+          "autor": "sergey_cherkasov",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Rubroboletus_pulchrotinctus_3.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9109,7 +10117,20 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/imperator-lupinus-1.webp",
+          "autor": "Bernypisa",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Boletus_lupinus.jpg"
+        },
+        {
+          "archivo": "img/especies/imperator-lupinus-2.webp",
+          "autor": "Bernypisa",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Boletus_lupinus2.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9209,7 +10230,26 @@
       "notas": [
         "Más propia de frondosas y abetales de montaña calcárea [NO VERIFICADO presencia en zonas]."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tricholoma-pardinum-1.webp",
+          "autor": "This image was created by user Ryane Snow (snowman) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:2008-11-26_Tricholoma_pardinum_Qu%C3%A9l_30173.jpg"
+        },
+        {
+          "archivo": "img/especies/tricholoma-pardinum-2.webp",
+          "autor": "Jerzy Opioła",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Tricholoma_pardinum_(1).JPG"
+        },
+        {
+          "archivo": "img/especies/tricholoma-pardinum-3.webp",
+          "autor": "Alan Rockefeller",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Tricholoma_pardinum_166842453.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9272,7 +10312,26 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/lactarius-torminosus-1.webp",
+          "autor": "Strobilomyces",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lactarius_torminosus_041031w.jpg"
+        },
+        {
+          "archivo": "img/especies/lactarius-torminosus-2.webp",
+          "autor": "Tocekas",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lactarius_torminosus_(cropped).jpg"
+        },
+        {
+          "archivo": "img/especies/lactarius-torminosus-3.webp",
+          "autor": "dschigel",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Lactarius_torminosus_96037780.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9325,7 +10384,20 @@
       "notas": [
         "La investigación no da hábitat ni temporada de esta especie."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/hypholoma-fasciculare-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/320176978"
+        },
+        {
+          "archivo": "img/especies/hypholoma-fasciculare-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/166575461"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -9370,7 +10442,26 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/ramaria-formosa-1.webp",
+          "autor": "Ra'ike (see also: de:Benutzer:Ra'ike)",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_formosa_-_Dreifarbige_Koralle.jpg"
+        },
+        {
+          "archivo": "img/especies/ramaria-formosa-2.webp",
+          "autor": "Alan Rockefeller",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_formosa_Alan_Rockefeller.JPG"
+        },
+        {
+          "archivo": "img/especies/ramaria-formosa-3.webp",
+          "autor": "linkie",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_formosa_101440924.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9422,7 +10513,26 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/ramaria-pallida-1.webp",
+          "autor": "Tatiana",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_pallida_88393338.jpg"
+        },
+        {
+          "archivo": "img/especies/ramaria-pallida-2.webp",
+          "autor": "Tatiana",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_pallida_87331384.jpg"
+        },
+        {
+          "archivo": "img/especies/ramaria-pallida-3.webp",
+          "autor": "Tatiana",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Ramaria_pallida_87090365.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9468,7 +10578,20 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/russula-emetica-1.webp",
+          "autor": "Piotr J",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Russula_emetica1.JPG"
+        },
+        {
+          "archivo": "img/especies/russula-emetica-2.webp",
+          "autor": "Jerzy Opioła",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Russula_emetica_BW42.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9520,7 +10643,26 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/scleroderma-1.webp",
+          "autor": "(c) Gijs Romijn, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/234351148"
+        },
+        {
+          "archivo": "img/especies/scleroderma-2.webp",
+          "autor": "(c) Daniel Castanhal García, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/316095322"
+        },
+        {
+          "archivo": "img/especies/scleroderma-3.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/304945771"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9573,7 +10715,26 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/chlorophyllum-brunneum-1.webp",
+          "autor": "(c) LJ Moore-McClelland, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/11926571"
+        },
+        {
+          "archivo": "img/especies/chlorophyllum-brunneum-2.webp",
+          "autor": "no rights reserved",
+          "licencia": "CC0",
+          "url": "https://www.inaturalist.org/observations/26855923"
+        },
+        {
+          "archivo": "img/especies/chlorophyllum-brunneum-3.webp",
+          "autor": "(c) Wendy St. John, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/115844912"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9623,7 +10784,14 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/macrolepiota-venenata-1.webp",
+          "autor": "MM1994",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Chlorophyllum_venenatum.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9679,7 +10847,14 @@
       "sindrome": "coprinico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/coprinopsis-atramentaria-1.webp",
+          "autor": "(c) Hannah Stitt, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/249075965"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9782,7 +10957,26 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/clitocybe-nebularis-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/257577279"
+        },
+        {
+          "archivo": "img/especies/clitocybe-nebularis-2.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/252049983"
+        },
+        {
+          "archivo": "img/especies/clitocybe-nebularis-3.webp",
+          "autor": "(c) Óscar Sampedro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/145385575"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -9837,7 +11031,20 @@
       "sindrome": "hemolitico",
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/amanita-rubescens-1.webp",
+          "autor": "(c) franciscodocampo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/34711608"
+        },
+        {
+          "archivo": "img/especies/amanita-rubescens-2.webp",
+          "autor": "(c) franciscodocampo, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/141604559"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -9878,7 +11085,20 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/armillaria-mellea-1.webp",
+          "autor": "(c) Carl Ramirez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/333846319"
+        },
+        {
+          "archivo": "img/especies/armillaria-mellea-2.webp",
+          "autor": "(c) Rafael Carbonell Font, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/323520235"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -9923,7 +11143,20 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/kuehneromyces-mutabilis-1.webp",
+          "autor": "(c) Alina Martin, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/223045296"
+        },
+        {
+          "archivo": "img/especies/kuehneromyces-mutabilis-2.webp",
+          "autor": "(c) Phil James, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/100185937"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -9963,7 +11196,20 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/helvella-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/330706657"
+        },
+        {
+          "archivo": "img/especies/helvella-2.webp",
+          "autor": "(c) Lídia Carrera, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/324386324"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
@@ -10002,7 +11248,26 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/hygrophorus-russula-1.webp",
+          "autor": "This image was created by user Matt Sherman (Shermanii) at Mushroom Observer, a source for mycological images.You can contact this user here.",
+          "licencia": "CC BY-SA 3.0",
+          "url": "https://commons.wikimedia.org/wiki/File:2011-10-09_Hygrophorus_russula_(Schaeff.)_Kauffman_175022.jpg"
+        },
+        {
+          "archivo": "img/especies/hygrophorus-russula-2.webp",
+          "autor": "Qwert1234",
+          "licencia": "CC0",
+          "url": "https://commons.wikimedia.org/wiki/File:Hygrophorus_russula,_Japan_1.JPG"
+        },
+        {
+          "archivo": "img/especies/hygrophorus-russula-3.webp",
+          "autor": "Qwert1234",
+          "licencia": "CC0",
+          "url": "https://commons.wikimedia.org/wiki/File:Hygrophorus_russula,_Japan_3.JPG"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -10052,7 +11317,20 @@
       "notas": [
         "La investigación no da hábitat, síndrome ni temporada de esta especie: solo la cita como confusión de Boletus edulis."
       ],
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/tylopilus-felleus-1.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/237313566"
+        },
+        {
+          "archivo": "img/especies/tylopilus-felleus-2.webp",
+          "autor": "(c) Jose Castro, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/252023387"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -10097,7 +11375,14 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/suillellus-luridus-1.webp",
+          "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
+          "licencia": "CC BY 4.0",
+          "url": "https://www.inaturalist.org/observations/54048499"
+        }
+      ],
       "fuentes": [
         {
           "id": "F2",
@@ -10142,7 +11427,26 @@
       "sindrome": null,
       "indice": null,
       "sinIndice": null,
-      "fotos": [],
+      "fotos": [
+        {
+          "archivo": "img/especies/pleurocybella-porrigens-1.webp",
+          "autor": "David Hera",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Pleurocybella_porrigens_321566706.jpg"
+        },
+        {
+          "archivo": "img/especies/pleurocybella-porrigens-2.webp",
+          "autor": "David Hera",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Pleurocybella_porrigens_321566756.jpg"
+        },
+        {
+          "archivo": "img/especies/pleurocybella-porrigens-3.webp",
+          "autor": "alexbarnard",
+          "licencia": "CC BY 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Pleurocybella_porrigens_317797843.jpg"
+        }
+      ],
       "fuentes": [
         {
           "id": "F1",
