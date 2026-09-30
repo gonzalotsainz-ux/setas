@@ -2073,7 +2073,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "CORRECCIÓN 30/09/2026: una versión anterior decía que Gorbeia era de recogida libre hasta 2 kg. Es falso dentro del parque micológico: hace falta permiso. La web oficial dice que, de los seis municipios de la Cuadrilla de Gorbeialdea, hoy solo Zuia forma el parque; un informe previo citaba también Urkabustaiz y Zigoitia y no se confirma (por eso el polígono de cotos.geojson es solo el MUP 734). Fuera de ese monte, por ejemplo en Urkabustaiz, no consta permiso del parque: confirma con el ayuntamiento y con la Diputación. Hola y Aranzadi sitúan el hayedo y el perretxiko en Urkabustaiz; la Casa del Parque de Sarría cae dentro del plano oficial. Comentarios de lectores de TurismoVasco (2016 a 2019) llaman a Gorbea «apuesta segura» para aereus: una sola fuente, sin verificar, y sin avisar del permiso. Una Orden Foral de Zigoitia restringe accesos durante la berrea (no se leyó): https://zigoitia.eus/datos/contenido/documents/1784/Orden%20Foral%20de%20restricciones%20durante%20berrea.pdf. La asociación Gorbeiako Bazterra (Murgia) revisa tus setas cada lunes en su sede (Onda Vasca, una sola fuente). La ordenanza lista las parcelas en un anexo que el PDF no deja leer.",
+      "notas": "El id es histórico (el sitio nació como «hayedos de Urkabustaiz») y se mantiene por los enlaces. CORRECCIÓN 30/09/2026: una versión anterior decía que Gorbeia era de recogida libre hasta 2 kg. Es falso dentro del parque micológico: hace falta permiso. Hola y Aranzadi sitúan el hayedo y el perretxiko en Urkabustaiz; la Casa del Parque de Sarría cae dentro del plano oficial. Comentarios de lectores de TurismoVasco (2016 a 2019) llaman a Gorbea «apuesta segura» para aereus: una sola fuente, sin verificar, y sin avisar del permiso. Una Orden Foral de Zigoitia restringe accesos durante la berrea (no se leyó): https://zigoitia.eus/datos/contenido/documents/1784/Orden%20Foral%20de%20restricciones%20durante%20berrea.pdf. La asociación Gorbeiako Bazterra (Murgia) revisa tus setas cada lunes en su sede (Onda Vasca, una sola fuente). La ordenanza lista las parcelas en un anexo que el PDF no deja leer. AMBIGÜEDAD OFICIAL: la portada de gorbeiamikologia.eus dice que en 2022 Urkabustaiz, Zigoitia y Zuia pusieron en marcha el proyecto, y la página «Parque Micológico» dice que hoy lo forma Zuia; la ordenanza leída es solo la de Zuia y el polígono de la app es solo el MUP 734. En Urkabustaiz y Zigoitia la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -2096,7 +2096,7 @@
         10,
         11
       ],
-      "consejo": "Empieza por la Casa del Parque de Sarría, a unos 20 km al noroeste de Vitoria: área recreativa con hayas grandes y pista asfaltada junto al río Baias. El plano oficial del parque micológico marca aparcamientos en Sarria (Parketxea y Puenteblanco) y en el puerto de Altube, y tres zonas de recogida sobre el monte 734 «Altube». Antes de entrar, compra el permiso en gorbeiamikologia.eus. En primavera, perretxiko en los pastos.",
+      "consejo": "Empieza por la Casa del Parque de Sarría, a unos 20 km al noroeste de Vitoria: área recreativa con hayas grandes y pista asfaltada junto al río Baias. El plano oficial del parque micológico marca aparcamientos en Sarria (Parketxea y Puenteblanco) y en el puerto de Altube, y tres zonas de recogida sobre el monte 734 «Altube». Antes de entrar, compra el permiso en gorbeiamikologia.eus. En primavera, perretxiko en los pastos. En Urkabustaiz y Zigoitia la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger.",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -2104,7 +2104,7 @@
           "alava-foral",
           "eus-gorbeia-prug"
         ],
-        "texto": "Permiso obligatorio en el Parque Micológico de Gorbeialdea (montes públicos de Zuia, sobre todo el MUP 734 «Altube y Gorbeia»): 10 € al día, 15 € a la semana o 50 € la temporada de 2026 (tarifas de la web oficial). Máximo 2 kg por persona y día (algunas especies, 1 kg), desde una hora después del amanecer hasta la puesta del sol, solo con cuchillo o navaja y en cesta, sin remover el suelo. Puede vedarse por caza, mal tiempo o por orden de la Diputación. Hay que llevar el permiso y un documento de identidad. En el Parque Natural rigen además su PRUG y la orden foral de la berrea."
+        "texto": "Permiso obligatorio en el Parque Micológico de Gorbeialdea (montes públicos de Zuia, sobre todo el MUP 734 «Altube y Gorbeia»): 10 € al día, 15 € a la semana o 50 € la temporada de 2026 (tarifas de la web oficial). Máximo 2 kg por persona y día (algunas especies, 1 kg), desde una hora después del amanecer hasta la puesta del sol, solo con cuchillo o navaja y en cesta, sin remover el suelo. Puede vedarse por caza, mal tiempo o por orden de la Diputación. Hay que llevar el permiso y un documento de identidad. En el Parque Natural rigen además su PRUG y la orden foral de la berrea. En Urkabustaiz y Zigoitia la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger."
       },
       "fuentes": [
         {
@@ -2141,6 +2141,18 @@
           "url": "https://www.gorbeiamikologia.eus/es/micoturismo/",
           "titulo": "Gorbeia Mikologia: plano del parque (MUP 734 «Altube», zonas 1 a 3)",
           "fecha": "2025-09-04",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.gorbeiamikologia.eus/es/",
+          "titulo": "Gorbeia Mikologia: portada («en 2022, 3 municipios: Urkabustaiz, Zigoitia y Zuia, pusieron en marcha el proyecto»)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.gorbeiamikologia.eus/es/parque-micologico/",
+          "titulo": "Gorbeia Mikologia: Parque Micológico («actualmente lo forma Zuia»)",
+          "fecha": null,
           "consultado": "2026-09-30"
         }
       ],
@@ -2757,9 +2769,7 @@
       "consejo": "Dos foreros dicen en 2010 que en Orduña se da el rebozuelo, pero que la zona suele estar llena de gente y con los setales esquilmados desde hace años; uno prefiere subir el puerto hacia Valdegovía. Aquí sirve como aviso de saturación, no como recomendación.",
       "legal": {
         "estado": "sin-confirmar",
-        "normas": [
-          "alava-foral"
-        ],
+        "normas": [],
         "texto": "No se ha comprobado el régimen de Orduña (territorio de Bizkaia, regulado por su Diputación Foral, no por el Decreto Foral 89/2008 de Álava). Confirma en el ayuntamiento antes de recoger."
       },
       "lat": null,

@@ -339,7 +339,7 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "alta",
+          "confianza": "media",
           "cifrasOrientativas": false
         },
         {
@@ -929,7 +929,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Si en un encinar o carrascal ves Rubroboletus satanas, el suelo es básico y ahí no busques aereus ni oronja, que según un forero moderador solo salen en suelo ácido. El satanás es tóxico: no lo recojas.",
+          "texto": "Según un foro de 2010, donde más se ha cogido aereus es en carrascal y con calor, y no todos los carrascales valen: en uno donde solo salía Rubroboletus satanas no había aereus. El satanás es tóxico: no lo recojas.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -3869,7 +3869,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Aparece después de Boletus aereus: si ya han salido los boletos negros, empieza a mirar por oronjas. Un hilo de 2010 sitúa la oronja unos 19 a 21 días después del mismo chaparrón que trae el aereus.",
+          "texto": "Aparece después de Boletus aereus: si ya han salido los boletos negros, empieza a mirar por oronjas. Un hilo de foro de 2010 sitúa la oronja unos 19 a 21 días después del mismo chaparrón que trae el aereus.",
           "tipo": "indicador",
           "fuentes": [
             {
