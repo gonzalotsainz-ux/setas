@@ -9,7 +9,7 @@ export const urlSegura = (u) => typeof u === 'string' && /^https?:\/\//.test(u);
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
 
 export const AVISO_SITIOS = 'Recopilado de blogs, prensa y webs oficiales; comprueba siempre el permiso y respeta las propiedades privadas.';
-export const AVISO_FUERA_ZONA = 'El índice de la zona se calcula lejos de aquí: tómalo como orientativo.';
+export const AVISO_FUERA_ZONA = 'Este pueblo queda fuera del área donde se calcula el índice de la zona: tómalo como orientativo.';
 export const AVISO_TRUCOS = 'Recopilados de blogs, guías divulgativas y webs de micología, no de estudios revisados. Las cifras se leyeron con resúmenes automáticos: tómalas como orientación y contrástalas.';
 
 // [1,2,3,4,5,9,10,11] → «enero a mayo y septiembre a noviembre»

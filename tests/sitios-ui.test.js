@@ -28,7 +28,7 @@ const textos = (n) => (typeof n === 'string' ? [n] : [n.textContent, ...n.hijos.
 test('los sitios fuera del bbox de su zona avisan de que el índice es orientativo', () => {
   globalThis.document = { createElement: nodo };
   try {
-    assert.equal(AVISO_FUERA_ZONA, 'El índice de la zona se calcula lejos de aquí: tómalo como orientativo.');
+    assert.equal(AVISO_FUERA_ZONA, 'Este pueblo queda fuera del área donde se calcula el índice de la zona: tómalo como orientativo.');
     const s = (id, extra = {}) => ({ id, zona: 'soria', nombre: id, municipio: 'X (Soria)', tipo: 'sitio', especies: [], epoca: [], consejo: 'c',
       legal: { estado: 'libre', normas: [], texto: 'l' }, fuentes: [{ url: 'https://x.es', consultado: '2026-09-30' }], nFuentes: 1, confianza: 'baja', ...extra });
     const pinta = (sitio) => textos(seccionDondeBuscar({ id: 'soria' }, { sitios: [sitio], normativa: [], porId: {} }));
