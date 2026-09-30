@@ -167,6 +167,7 @@
 /* ---------- 2b. Semánticos: tema oscuro ---------- */
 /* Se repite el bloque en los dos selectores porque no hay paso de compilación. */
 @media (prefers-color-scheme: dark) {
+  /* Mantener sincronizado con el bloque de :root[data-theme="dark"] de más abajo. */
   :root:not([data-theme="light"]) {
     color-scheme: dark;
 
@@ -221,6 +222,7 @@
     --c-rejilla: var(--p-bosque-750);
   }
 }
+/* Mantener sincronizado con el bloque de @media (prefers-color-scheme: dark) de arriba. */
 :root[data-theme="dark"] {
   color-scheme: dark;
 

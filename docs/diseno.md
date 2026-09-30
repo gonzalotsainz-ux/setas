@@ -55,6 +55,12 @@ Cada nivel tiene tres colores: trazo (`--c-sem-X`, barras), fondo (`--c-sem-X-fo
 (`--c-sem-X-texto`). **Se lee sin color:** siempre lleva la palabra y una forma de cuatro barras crecientes; cada
 barra llena son 20 puntos.
 
+**Herencia del nivel:** vale el `data-nivel` más cercano, sea del propio `.semaforo` o de un contenedor
+(`.fila-zona`, una tarjeta). Todo el semáforo se pinta con propiedades personalizadas (`--sem`, `--sem-fondo`,
+`--sem-texto`, `--b1` a `--b4` para las barras llenas...), así que un `.semaforo` con su propio nivel dentro de un
+contenedor con otro nivel muestra el suyo. Sin `data-nivel` en ningún sitio, los valores de `:root` dan el aspecto
+«sin datos»: nunca sale un nivel inventado.
+
 | Nivel | Rango | Barras llenas | Claro (trazo) | Oscuro (trazo) |
 |---|---|---|---|---|
 | Nulo | 0 a 20 | 0 (cuatro huecas) | piedra `#7a736b` | `#a39c93` |
@@ -62,12 +68,15 @@ barra llena son 20 puntos.
 | Posible | 40 a 60 | 2 | ocre `#b27a0e` | `#e2ad48` |
 | Bueno | 60 a 80 | 3 | musgo `#4c8a37` | `#93c877` |
 | Muy bueno | 80 a 100 | 4 | pinar `#1d5e3a` | `#5fd08f` |
-| Sin datos | sin nota | ninguna: «?» en círculo discontinuo, borde discontinuo, sin número | `#7d827e` | `#8f9791` |
+| Sin datos | sin nota | ninguna: «?» en círculo discontinuo, anillo fino y sin fondo, sin número | `#7d827e` | `#8f9791` |
 
 ### Contraste (comprobado)
 
-Comprobado con un script que resuelve los tokens de `tokens.css` y calcula la razón WCAG 2.x de 51 pares por tema
-(texto ≥ 4,5:1; trazos, bordes de control y foco ≥ 3:1). **0 fallos en los dos temas.** Algunos valores:
+Comprobado con `node scripts/contraste.mjs`, que resuelve los tokens de `css/tokens.css` y calcula la razón WCAG 2.x
+de 52 pares por tema (texto ≥ 4,5:1; trazos, bordes de control y foco ≥ 3:1). También comprueba que los dos bloques
+del tema oscuro (`@media (prefers-color-scheme: dark)` y `:root[data-theme="dark"]`) sigan siendo idénticos. Sale con
+código 1 si algo falla: **hay que ejecutarlo tras tocar cualquier color.** Resultado actual: **0 fallos en los dos
+temas.** Algunos valores:
 
 | Par | Claro | Oscuro |
 |---|---|---|
@@ -78,7 +87,7 @@ Comprobado con un script que resuelve los tokens de `tokens.css` y calcula la ra
 | texto sobre botón de Toxicología | 6,54 | 7,92 |
 | texto del semáforo sobre su fondo (el peor) | 5,68 (posible) | 8,71 (bajo) |
 | barras del semáforo sobre su fondo (el peor) | 3,04 (posible) | 5,41 (nulo) |
-| sin datos: texto sobre su fondo | 6,51 | 8,79 |
+| sin datos: texto sobre la tarjeta | 7,71 | 10,28 |
 
 ## Tipografía (Google Fonts)
 
@@ -99,14 +108,14 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | `.cabecera` | barra superior fija: marca y botón de **Toxicología** (`tel:+34915620420`), siempre visible |
 | `.barra-nav` | isla flotante inferior con 5 secciones (Hoy, Mapa, Especies, Diario, Ajustes) y, encima, la franja «Ante la duda, no la comas.», siempre visible |
 | `.tarjeta`, `.tarjeta--bisel` + `.tarjeta__nucleo` | tarjeta plana; bisel doble solo para la pieza principal de la pantalla |
-| `.semaforo[data-nivel]` | distintivo del nivel con barras + palabra; `data-nivel` en un contenedor también da `--sem*` a sus hijos |
+| `.semaforo[data-nivel]` | distintivo del nivel con barras + palabra; hereda el `data-nivel` más cercano (ver «Herencia del nivel») |
 | `.indice`, `.indice--grande` | nota 0 a 100 en el color de texto del nivel |
 | `.chip`, `.chips` | filtros de 44 px, en fila desplazable; `aria-pressed="true"` para el activo |
 | `.boton` (`--peligro`, `--suave`, `--compacto`, `--icono`) + `.boton__nido` | píldoras de 48 px (44 px las compactas); icono anidado a la derecha en la acción principal |
 | `.etiqueta` (`--acento`, `--ocre`) | confianza, «orientativo», «incierta», origen del dato |
 | `.aviso` | aviso ocre (previsión incierta) |
 | `.aviso-peligro` | recuadro rojo (tóxicas parecidas, precaución) |
-| `.hoja[data-abierta]` | hoja inferior para detalles, filtros o Toxicología |
+| `.hoja[data-abierta]` | hoja inferior para detalles, filtros o Toxicología. Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
 | `.lista-zonas` + `.fila-zona[data-nivel]` | fila con raya lateral del nivel, nombre, nota grande, semáforo y frase; sirve también para especies |
 | `.factores` + `.factor` | desglose del índice: código, nombre, valor, frase clara y barra fina sin pista |
 | `.grafico` | gráfico SVG de lluvia: dos paneles con el mismo eje (acumulado de 26 días arriba, lluvia diaria abajo), previsión rayada en ocre con horquilla entre modelos y raya de «hoy» |
@@ -115,8 +124,14 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | `.pie` | aviso fijo del índice, Toxicología y 112, «Weather data by Open-Meteo.com» y AEMET |
 
 Reglas: objetivos táctiles de 44 px o más; radios 24/18 px en tarjetas, píldora en controles, 10 px en detalles;
-foco visible ocre de 3 px; sin guiones largos en los textos; iconos de **Phosphor Icons** (regular, licencia MIT)
-en un `<symbol>` por pantalla; la pestaña Especies usa la silueta del logo.
+foco visible ocre de 3 px; sin guiones largos en los textos; la pestaña Especies usa la silueta del logo.
+
+**Iconos:** Phosphor Icons (regular, licencia MIT) en un solo sprite, `img/iconos.svg`. Ids: `i-telefono`, `i-atras`,
+`i-ir`, `i-abrir`, `i-hoy`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
+`i-temp`, `i-flecha` e `i-especies`. La app, servida por http(s), los usa así:
+`<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-mapa"/></svg>`. Las maquetas llevan una copia en
+línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cuando la página se abre con `file://`
+(comprobado: con `file://` no pinta nada; por http, sí).
 
 ## Maquetas
 

@@ -113,11 +113,32 @@
   margin-bottom: var(--esp-3);
 }
 
-/* ---------- Semáforo: color + texto + forma (barras crecientes) ---------- */
-.semaforo {
+/* ---------- Semáforo: color + texto + forma (barras crecientes) ----------
+   El nivel se hereda: vale el data-nivel más cercano, sea del propio .semaforo o de un contenedor
+   (fila, tarjeta). Todo va en propiedades personalizadas para que gane siempre el antecesor más
+   cercano. Sin data-nivel en ningún sitio, los valores de :root dan el aspecto «sin datos». */
+:root,
+[data-nivel="sin-datos"] {
   --sem: var(--c-sin-datos);
-  --sem-fondo: var(--c-sin-datos-fondo);
+  --sem-fondo: transparent;
   --sem-texto: var(--c-sin-datos-texto);
+  --sem-anillo: 1.5px;       /* anillo fino alrededor del distintivo */
+  --sem-barras: none;        /* sin barras... */
+  --sem-interrogacion: grid; /* ...y con «?» en un círculo discontinuo */
+  --b1: 0; --b2: 0; --b3: 0; --b4: 0;
+}
+[data-nivel="nulo"],
+[data-nivel="bajo"],
+[data-nivel="posible"],
+[data-nivel="bueno"],
+[data-nivel="muy-bueno"] { --sem-anillo: 0px; --sem-barras: block; --sem-interrogacion: none; }
+[data-nivel="nulo"]      { --sem: var(--c-sem-nulo);      --sem-fondo: var(--c-sem-nulo-fondo);      --sem-texto: var(--c-sem-nulo-texto);      --b1: 0; --b2: 0; --b3: 0; --b4: 0; }
+[data-nivel="bajo"]      { --sem: var(--c-sem-bajo);      --sem-fondo: var(--c-sem-bajo-fondo);      --sem-texto: var(--c-sem-bajo-texto);      --b1: 1; --b2: 0; --b3: 0; --b4: 0; }
+[data-nivel="posible"]   { --sem: var(--c-sem-posible);   --sem-fondo: var(--c-sem-posible-fondo);   --sem-texto: var(--c-sem-posible-texto);   --b1: 1; --b2: 1; --b3: 0; --b4: 0; }
+[data-nivel="bueno"]     { --sem: var(--c-sem-bueno);     --sem-fondo: var(--c-sem-bueno-fondo);     --sem-texto: var(--c-sem-bueno-texto);     --b1: 1; --b2: 1; --b3: 1; --b4: 0; }
+[data-nivel="muy-bueno"] { --sem: var(--c-sem-muy-bueno); --sem-fondo: var(--c-sem-muy-bueno-fondo); --sem-texto: var(--c-sem-muy-bueno-texto); --b1: 1; --b2: 1; --b3: 1; --b4: 1; }
+
+.semaforo {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -125,6 +146,7 @@
   padding: 0 12px 0 10px;
   border-radius: var(--r-pildora);
   background: var(--sem-fondo);
+  box-shadow: inset 0 0 0 var(--sem-anillo) var(--sem);
   color: var(--sem-texto);
   font-weight: 700;
   font-size: var(--t-s);
@@ -138,38 +160,24 @@
   height: 16px;
   color: var(--sem);
 }
+/* Barra llena (--_b: 1) o hueca (--_b: 0, contorno a media opacidad) */
 .semaforo__icono i {
-  display: block;
+  display: var(--sem-barras);
   width: 4px;
   border-radius: 2px;
   box-shadow: inset 0 0 0 1.5px currentColor;
-  opacity: 0.5;
+  background: color-mix(in srgb, currentColor calc(var(--_b) * 100%), transparent);
+  opacity: calc(0.5 + var(--_b) * 0.5);
 }
-.semaforo__icono i:nth-child(1) { height: 6px; }
-.semaforo__icono i:nth-child(2) { height: 9px; }
-.semaforo__icono i:nth-child(3) { height: 12px; }
-.semaforo__icono i:nth-child(4) { height: 16px; }
-
-.semaforo[data-nivel="nulo"],      [data-nivel="nulo"]      { --sem: var(--c-sem-nulo);      --sem-fondo: var(--c-sem-nulo-fondo);      --sem-texto: var(--c-sem-nulo-texto); }
-.semaforo[data-nivel="bajo"],      [data-nivel="bajo"]      { --sem: var(--c-sem-bajo);      --sem-fondo: var(--c-sem-bajo-fondo);      --sem-texto: var(--c-sem-bajo-texto); }
-.semaforo[data-nivel="posible"],   [data-nivel="posible"]   { --sem: var(--c-sem-posible);   --sem-fondo: var(--c-sem-posible-fondo);   --sem-texto: var(--c-sem-posible-texto); }
-.semaforo[data-nivel="bueno"],     [data-nivel="bueno"]     { --sem: var(--c-sem-bueno);     --sem-fondo: var(--c-sem-bueno-fondo);     --sem-texto: var(--c-sem-bueno-texto); }
-.semaforo[data-nivel="muy-bueno"], [data-nivel="muy-bueno"] { --sem: var(--c-sem-muy-bueno); --sem-fondo: var(--c-sem-muy-bueno-fondo); --sem-texto: var(--c-sem-muy-bueno-texto); }
-[data-nivel="sin-datos"] { --sem: var(--c-sin-datos); --sem-fondo: var(--c-sin-datos-fondo); --sem-texto: var(--c-sin-datos-texto); }
-
-[data-nivel="bajo"] .semaforo__icono i:nth-child(-n+1),
-[data-nivel="posible"] .semaforo__icono i:nth-child(-n+2),
-[data-nivel="bueno"] .semaforo__icono i:nth-child(-n+3),
-[data-nivel="muy-bueno"] .semaforo__icono i { background: currentColor; opacity: 1; }
-
-/* Sin datos: sin barras, interrogación en un círculo discontinuo y borde discontinuo */
-[data-nivel="sin-datos"].semaforo { background: transparent; box-shadow: inset 0 0 0 1.5px var(--sem); }
-[data-nivel="sin-datos"] .semaforo__icono { align-items: center; }
-[data-nivel="sin-datos"] .semaforo__icono i { display: none; }
-[data-nivel="sin-datos"] .semaforo__icono::before {
+.semaforo__icono i:nth-child(1) { height: 6px;  --_b: var(--b1); }
+.semaforo__icono i:nth-child(2) { height: 9px;  --_b: var(--b2); }
+.semaforo__icono i:nth-child(3) { height: 12px; --_b: var(--b3); }
+.semaforo__icono i:nth-child(4) { height: 16px; --_b: var(--b4); }
+.semaforo__icono::before {
   content: "?";
-  display: grid;
+  display: var(--sem-interrogacion);
   place-items: center;
+  align-self: center;
   width: 16px; height: 16px;
   border: 1.5px dashed currentColor;
   border-radius: 50%;
@@ -341,9 +349,16 @@
   background: var(--c-superficie);
   box-shadow: 0 -20px 50px -20px rgb(var(--c-sombra) / 0.5);
   transform: translateY(105%);
-  transition: transform var(--dur-media) var(--curva);
+  /* Cerrada: fuera del orden de tabulación y del lector de pantalla; la visibilidad cambia
+     al final del deslizamiento para que la salida se siga viendo */
+  visibility: hidden;
+  transition: transform var(--dur-media) var(--curva), visibility 0s linear var(--dur-media);
 }
-.hoja[data-abierta="true"] { transform: none; }
+.hoja[data-abierta="true"] {
+  transform: none;
+  visibility: visible;
+  transition: transform var(--dur-media) var(--curva), visibility 0s linear 0s;
+}
 .hoja::before {
   content: "";
   display: block;
