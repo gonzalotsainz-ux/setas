@@ -46,6 +46,13 @@ export function credito(f) {
     f.nota ? el('span', { clase: 'foto__nota', texto: f.nota }) : null,
     el('span', {}, `${f.autor ?? 'Autor desconocido'} · ${f.licencia ?? 'licencia no indicada'}`, ' · ', enlace(f.url, 'ver original')));
 }
+// Crédito compacto para miniaturas: «Foto de X» si el taxón difiere, autor · licencia · enlace.
+export function creditoCompacto(f) {
+  return el('p', { clase: 'credito-mini texto-s' },
+    f.taxonFoto ? el('span', { clase: 'foto__taxon' }, 'Foto de ', latin(f.taxonFoto), '. ') : null,
+    f.nota ? el('span', { clase: 'foto__nota', texto: `${f.nota} ` }) : null,
+    `${f.autor ?? 'Autor desconocido'} · ${f.licencia ?? 'licencia no indicada'} · `, enlace(f.url, 'original'));
+}
 export function imagen(f, alt, eager = false) {
   return el('img', { clase: 'foto__img', src: f.archivo, alt, loading: eager ? 'eager' : 'lazy', decoding: 'async' });
 }
@@ -73,14 +80,16 @@ function cabecera(e) {
       etiqueta(e.rd30_2009 ? `RD 30/2009 · Parte ${e.rd30_2009}` : 'RD 30/2009: no citada en el informe')));
 }
 
+// Comestible con algo que advertir: precaución, no recomendada, síndrome o Partes C/D del RD 30/2009.
+export const hayAlerta = (e) => Boolean(CATEGORIAS[e.categoria]?.precaucion || e.sindrome || ['C', 'D'].includes(e.rd30_2009));
 const aviso = (clase, ...hijos) => el('div', { clase, attrs: { role: 'note' } }, ...hijos);
 
 // Banner rojo al principio. Comestible con precaución y no recomendada: precauciones[0] tal cual.
 // Mortal y tóxica: el rótulo de su categoría (nunca menos que lo que dicen los datos).
 function banner(e) {
   const c = CATEGORIAS[e.categoria];
-  if (c?.precaucion && e.precauciones?.length) {
-    return aviso('aviso-peligro', icono('i-aviso'), el('p', {}, el('strong', { texto: `${c.nombre}. ` }), e.precauciones[0]));
+  if (e.categoria !== 'mortal' && e.categoria !== 'toxica' && hayAlerta(e) && e.precauciones?.length) {
+    return aviso('aviso-peligro', icono('i-aviso'), el('p', {}, c?.precaucion ? el('strong', { texto: `${c.nombre}. ` }) : null, e.precauciones[0]));
   }
   if (e.categoria === 'mortal') return aviso('aviso-peligro', icono('i-aviso'), el('p', {}, el('strong', { texto: 'MORTAL. ' }), 'Puede matar. No la comas nunca ni la mezcles con otras setas en la cesta.'));
   if (e.categoria === 'toxica') return aviso('aviso-peligro', icono('i-aviso'), el('p', {}, el('strong', { texto: 'Tóxica. ' }), 'No se debe comer.'));
@@ -89,15 +98,18 @@ function banner(e) {
 
 function precauciones(e) {
   const c = CATEGORIAS[e.categoria];
-  const resto = c?.precaucion ? (e.precauciones ?? []).slice(1) : (e.precauciones ?? []);   // la [0] ya está en el banner
+  const promovida = e.categoria !== 'mortal' && e.categoria !== 'toxica' && hayAlerta(e);
+  const resto = promovida ? (e.precauciones ?? []).slice(1) : (e.precauciones ?? []);   // la [0] ya está en el banner
   if (!resto.length) return null;
-  return aviso(c?.peligro ? 'aviso-peligro' : 'aviso', icono('i-aviso'), el('div', {}, el('strong', { texto: 'Precauciones' }), lista(resto)));
+  return aviso(c?.peligro || hayAlerta(e) ? 'aviso-peligro' : 'aviso', icono('i-aviso'), el('div', {}, el('strong', { texto: 'Precauciones' }), lista(resto)));
 }
 
 const presenciaTexto = (z) => {
-  if (z.presencia === 'confirmada') return `confirmada con ${z.gbif} registros GBIF${z.taxonGbif ? ` (registros como ${z.taxonGbif})` : ''}`;
-  if (z.presencia === 'sin-registros') return 'sin registros en GBIF';
-  return 'orientativa';
+  const n = z.gbif > 0 ? `${z.gbif} ${z.gbif === 1 ? 'registro' : 'registros'} GBIF` : null;
+  const como = z.taxonGbif ? ` (registros como ${z.taxonGbif})` : '';
+  if (z.presencia === 'confirmada') return `confirmada con ${n ?? 'registros GBIF'}${como}`;
+  if (z.presencia === 'sin-registros') return `sin registros en GBIF${como}`;
+  return n ? `orientativa; ${n}${como}` : `orientativa${como}`;
 };
 
 function temporada(e) {
@@ -141,10 +153,11 @@ function confusion(c, datos) {
     el('p', { clase: 'confusion__nombre' }, nombre, otra ? el('span', { clase: 'texto-2', texto: ` · ${comun(otra)}` }) : null),
     el('p', {}, el('span', { clase: 'chip-riesgo', attrs: { 'data-riesgo': c.riesgo }, texto: RIESGOS[c.riesgo] ?? c.riesgo }), otra ? [' ', chipCategoria(otra.categoria)] : null),
     el('p', { texto: c.diferencias }),
+    f ? creditoCompacto(f) : null,
     otra ? el('a', { clase: 'confusion__enlace', href: `#especie/${encodeURIComponent(c.especie)}`, texto: 'Ver su ficha' }) : null);
   return el('li', { clase: 'confusion' },
     f ? el('img', { clase: 'confusion__foto', src: f.archivo, alt: `${otra.nombre}${f.taxonFoto ? ` (foto de ${f.taxonFoto})` : ''}`, loading: 'lazy', decoding: 'async' })
-      : el('span', { clase: 'confusion__foto confusion__foto--vacia', attrs: { 'aria-hidden': 'true' } }),
+      : el('span', { clase: 'confusion__foto confusion__foto--vacia texto-s', texto: 'Sin foto' }),
     cuerpo);
 }
 
@@ -189,20 +202,20 @@ function indice(e, datos) {
 
 const REGLA_6H = 'Si los síntomas empezaron más de 6 horas después de comer, es una URGENCIA GRAVE, aunque luego te encuentres mejor. No esperes: llama al 112.';
 function sindrome(e, datos) {
-  if (e.categoria !== 'toxica' && e.categoria !== 'mortal') return null;
+  if (!e.sindrome) return null;
   const s = datos.sindromes?.find((x) => x.id === e.sindrome);
   const partes = [];
   if (s) {
     const riesgo = s.gravedad === 'grave' ? 'alto' : s.gravedad === 'moderada' ? 'medio' : s.gravedad;
     partes.push(el('h3', { texto: s.nombre }),
       el('p', { clase: 'etiquetas' }, el('span', { clase: 'chip-riesgo', attrs: { 'data-riesgo': riesgo }, texto: `Gravedad ${s.gravedad}` }),
-        etiqueta(s.latencia ? `Latencia: ${s.latencia}` : 'Latencia: no indicada', s.verificado === false ? 'ocre' : null),
-        s.verificado === false ? etiqueta('latencia sin verificar', 'ocre') : null),
+        etiqueta(`${s.latencia ? `Latencia: ${s.latencia}` : 'Latencia: no indicada'}${s.verificado === false ? ' (sin verificar)' : ''}`, s.verificado === false ? 'ocre' : null)),
       el('p', { texto: s.texto }),
       s.fuentes?.length ? el('p', { clase: 'texto-2 texto-s' }, 'Fuentes: ', ...s.fuentes.flatMap((f, i) => [i ? ' · ' : null, enlace(f.url, f.titulo ?? f.id ?? 'fuente'), f.consultado ? ` (${f.consultado})` : null])) : null);
   }
+  const grave = e.categoria === 'toxica' || e.categoria === 'mortal' || s?.gravedad === 'grave' || s?.gravedad === 'mortal';
   return seccion('Síntomas e intoxicación', ...partes,
-    aviso('aviso-peligro', icono('i-aviso'), el('p', {}, el('strong', { texto: 'Regla de las 6 horas. ' }), REGLA_6H)),
+    grave ? aviso('aviso-peligro', icono('i-aviso'), el('p', {}, el('strong', { texto: 'Regla de las 6 horas. ' }), REGLA_6H)) : null,
     el('p', {}, el('a', { href: '#seguridad', texto: 'Qué hacer si hay síntomas' })));
 }
 

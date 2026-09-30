@@ -990,7 +990,7 @@
       ],
       "valor": "bueno",
       "precauciones": [
-        "SOLO USUARIOS AVANZADOS: bueno solo bien cocinado. No está en la Parte A del RD 30/2009. La app debe marcarlo como «no recomendado para principiantes»."
+        "SOLO USUARIOS AVANZADOS: bueno solo bien cocinado. No está en la Parte A del RD 30/2009. No recomendado para principiantes."
       ],
       "confusiones": [
         {
@@ -2816,7 +2816,7 @@
       "precauciones": [
         "Parte A solo con la volva abierta.",
         "Prohibido recoger ejemplares cerrados («en huevo») en montes Micocyl.",
-        "Un huevo cerrado no se identifica con seguridad: la app nunca debe validar oronjas cerradas."
+        "Un huevo cerrado no se identifica con seguridad: nunca comas oronjas cerradas."
       ],
       "confusiones": [
         {
@@ -6371,7 +6371,7 @@
       ],
       "valor": "excelente",
       "precauciones": [
-        "Su recolección suele estar muy regulada o acotada (a menudo requiere perro y licencia, y muchas truferas son plantaciones privadas). La app debe advertirlo."
+        "Su recolección suele estar muy regulada o acotada (a menudo requiere perro y licencia, y muchas truferas son plantaciones privadas). Infórmate antes de buscarla."
       ],
       "confusiones": [
         {
@@ -7455,7 +7455,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "Cortinarius sp. figura entero en la Parte D. La app no debe aceptar ninguna seta con cortina y esporada herrumbre."
+        "Cortinarius sp. figura entero en la Parte D. No comas ninguna seta con cortina y esporada herrumbre."
       ],
       "confusiones": [],
       "sindrome": "orellanico",
@@ -8496,7 +8496,7 @@
       "valor": null,
       "precauciones": [
         "Síndrome brusco en personas que ya lo han comido otras veces (sensibilización): puede ser mortal.",
-        "Una «clásica» que la app no debe recomendar."
+        "Una «clásica» que no se debe recomendar."
       ],
       "confusiones": [],
       "sindrome": "paxilico",
@@ -10950,7 +10950,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "En la Parte D del RD 30/2009; indigesta para muchas personas; se confunde con Entoloma sinuatum. La app debe marcarla en rojo aunque alguna guía antigua la dé por comestible."
+        "En la Parte D del RD 30/2009; indigesta para muchas personas; se confunde con Entoloma sinuatum. No la comas aunque alguna guía antigua la dé por comestible."
       ],
       "confusiones": [
         {

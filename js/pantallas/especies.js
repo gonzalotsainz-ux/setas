@@ -1,6 +1,6 @@
 // Lista de especies: buscador, pestañas por categoría, filtros de zona y «Sale este mes».
 import { el, icono, mayus } from '../ui/dom.js';
-import { chipCategoria, comun, imagen } from '../ui/ficha.js';
+import { chipCategoria, comun, imagen, creditoCompacto } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
 import { hoyMadrid } from '../meteo.js';
 
@@ -34,12 +34,12 @@ export function filtrar(especies, { texto, pestana, zona, mes }, mesActual) {
 function tarjeta(e) {
   const f = e.fotos?.[0];
   const mortal = e.categoria === 'mortal';
-  return el('li', {}, el('a', { clase: `especie-tarjeta${mortal ? ' especie-tarjeta--mortal' : ''}`, href: `#especie/${encodeURIComponent(e.id)}`, attrs: { 'data-categoria': e.categoria } },
+  return el('li', { clase: `especie-item${mortal ? ' especie-item--mortal' : ''}` }, el('a', { clase: 'especie-tarjeta', href: `#especie/${encodeURIComponent(e.id)}`, attrs: { 'data-categoria': e.categoria } },
     f ? imagen(f, `${e.nombre}${f.taxonFoto ? ` (foto de ${f.taxonFoto})` : ''}`) : el('span', { clase: 'especie-tarjeta__foto especie-tarjeta__foto--vacia texto-s', texto: 'Sin foto' }),
     el('span', { clase: 'especie-tarjeta__texto' },
       el('span', { clase: 'especie-tarjeta__comun', texto: mayus(comun(e)) }),
       el('span', { clase: 'latin especie-tarjeta__latin', texto: e.nombre }),
-      chipCategoria(e.categoria))));
+      chipCategoria(e.categoria))), f ? creditoCompacto(f) : null);
 }
 
 export function pintar({ estado }) {
@@ -58,7 +58,7 @@ export function pintar({ estado }) {
   }
 
   const buscador = el('input', { id: 'buscar-especie', type: 'search', value: ui.texto, placeholder: 'Nombre, sinónimo o euskera', attrs: { autocomplete: 'off', enterkeyhint: 'search' } });
-  buscador.addEventListener('input', () => { ui.texto = buscador.value; calcular(); });
+  buscador.addEventListener('input', () => { ui.texto = buscador.value; pestanas.classList.toggle('chips--inactivas', normalizar(ui.texto).trim() !== ''); calcular(); });
 
   const zonaSel = el('select', { id: 'filtro-zona' }, el('option', { value: '', texto: 'Todas las zonas' }),
     datos.zonas.map((z) => el('option', { value: z.id, texto: nombreCorto(z) })));
@@ -68,12 +68,13 @@ export function pintar({ estado }) {
   const pestanas = el('div', { clase: 'chips', attrs: { role: 'group', 'aria-label': 'Categoría' } });
   for (const p of PESTANAS) {
     const b = el('button', { clase: 'chip', type: 'button', texto: p.texto, attrs: { 'aria-pressed': String(p.id === ui.pestana) } });
-    b.addEventListener('click', () => { ui.pestana = p.id; pestanas.querySelectorAll('.chip').forEach((c, k) => c.setAttribute('aria-pressed', String(PESTANAS[k].id === ui.pestana))); calcular(); });
+    b.addEventListener('click', () => { ui.pestana = p.id; ui.texto = ''; buscador.value = ''; pestanas.classList.remove('chips--inactivas'); pestanas.querySelectorAll('.chip').forEach((c, k) => c.setAttribute('aria-pressed', String(PESTANAS[k].id === ui.pestana))); calcular(); });
     pestanas.append(b);
   }
   const mes = el('button', { clase: 'chip', type: 'button', texto: 'Sale este mes', attrs: { 'aria-pressed': String(ui.mes) } });
   mes.addEventListener('click', () => { ui.mes = !ui.mes; mes.setAttribute('aria-pressed', String(ui.mes)); calcular(); });
 
+  pestanas.classList.toggle('chips--inactivas', normalizar(ui.texto).trim() !== '');
   calcular();
   return el('div', {},
     el('section', { clase: 'portada' }, el('h1', { texto: 'Especies' }),
