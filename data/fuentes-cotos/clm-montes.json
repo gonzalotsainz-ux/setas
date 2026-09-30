@@ -1,0 +1,26 @@
+{
+  "_nota": "Números de monte de utilidad pública (campo cmup del IEPF del MITECO, catálogo provincial) que citan las ordenanzas. Solo se mapea lo que la ordenanza nombra con número; lo demás va en 'sinMapa' con el motivo. Comprobado el 2026-09-30 que el monte cae en el término del municipio (Nominatim/OSM).",
+  "montes": {
+    "tragacete": { "nombre": "Coto municipal de Tragacete (MUP 150 «La Fuenseca y otros»)", "provincia": "Cuenca", "montes": ["150"], "normas": ["cuenca-tragacete", "clm-orden-2016-11-15"], "zona": "cuenca",
+      "permisoUrl": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+      "fuente": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+      "nota": "La ordenanza incluye además las fincas Poyal y Vasallo, que no son MUP y no se dibujan. Solo prensa; no se ha visto el BOP." },
+    "la-huerguina": { "nombre": "Coto municipal de La Huérguina (MUP 48)", "provincia": "Cuenca", "montes": ["48"], "normas": ["cuenca-la-huerguina", "clm-orden-2016-11-15"], "zona": "cuenca",
+      "permisoUrl": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+      "fuente": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+      "nota": "MUP 48 del catálogo de Cuenca = «La Muela y Dehesa Horniguilla», situado en el término de La Huérguina. Solo prensa; no se ha visto el BOP." },
+    "torrecuadrada": { "nombre": "Coto municipal de Torrecuadrada de Molina (MUP 205)", "provincia": "Guadalajara", "montes": ["205"], "normas": ["guadalajara-torrecuadrada", "clm-orden-2016-11-15"], "zona": "guadalajara",
+      "permisoUrl": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf",
+      "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf",
+      "nota": "MUP 205 del catálogo de Guadalajara = «Dehesa Boyal» (250 ha). El título de la ordenanza cita el MUP 205; el texto también aplica a montes comunales y a fincas particulares adheridas, que no se dibujan." }
+  },
+  "sinMapa": {
+    "boniches": { "normas": ["cuenca-boniches"], "motivo": "La ordenanza (BOP Cuenca n.º 103, 04/09/2024) es solo una tasa y no cita número de monte." },
+    "cobeta": { "normas": ["guadalajara-cobeta"], "motivo": "La ordenanza habla de «terrenos municipales y montes de utilidad pública del término» sin números de monte." },
+    "rillo-de-gallo": { "normas": ["guadalajara-rillo-de-gallo"], "motivo": "La ordenanza aplica a todos los MUP, comunales y fincas adheridas del término, sin números." },
+    "herreria": { "normas": ["guadalajara-herreria"], "motivo": "Igual que Rillo de Gallo: sin números de monte." },
+    "arbancon": { "normas": ["guadalajara-arbancon"], "motivo": "Solo «fincas del Ayuntamiento» y particulares adheridos; sin números de monte." },
+    "arroyo-de-las-fraguas": { "normas": ["guadalajara-arroyo-de-las-fraguas"], "motivo": "Solo «fincas del Ayuntamiento» y particulares adheridos; sin números de monte." },
+    "mancomunidad-la-sierra": { "normas": ["guadalajara-mancomunidad-la-sierra"], "motivo": "17 municipios del Alto Tajo sin lista de montes ni mapa." }
+  }
+}

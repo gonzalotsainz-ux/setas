@@ -1,0 +1,150 @@
+{
+  "SG-50001": {
+    "nombre": "Valsaín (Centro de Montes de Valsaín)",
+    "normas": [
+      "valsain-orden-aaa-1681-2016",
+      "pn-guadarrama-prug",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://www.miteco.gob.es/content/dam/miteco/es/parques-nacionales-oapn/centros-fincas/valsain/setas-2017_tcm30-432288.pdf"
+  },
+  "SG-50003": {
+    "nombre": "Cerezo de Arriba",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SG-50004": {
+    "nombre": "Berrocal de Huebra",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SG-50005": {
+    "nombre": "Montes de la Comunidad de Castilla y León en Segovia",
+    "normas": [
+      "cyl-sg-50005-junta-segovia",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia"
+  },
+  "SG-50006": {
+    "nombre": "Acotado de Arcones",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SG-50011": {
+    "nombre": "El Espinar",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SG-50012": {
+    "nombre": "Torrecaballeros",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50001": {
+    "nombre": "Acotado de Covaleda",
+    "normas": [
+      "cyl-so-50001-covaleda",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://www.pinaresdeurbion.es/licencias/"
+  },
+  "SO-50002": {
+    "nombre": "Montes de Soria (acotado SO-50002)",
+    "normas": [
+      "cyl-montes-de-soria",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+  },
+  "SO-50003": {
+    "nombre": "Montes de la Comunidad de Castilla y León en Soria",
+    "normas": [
+      "cyl-montes-de-soria",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+  },
+  "SO-50004": {
+    "nombre": "La Póveda",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50005": {
+    "nombre": "Quinto de la Mata (privado)",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50007": {
+    "nombre": "Vinuesa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50013": {
+    "nombre": "Golmayo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50014": {
+    "nombre": "Talveila",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "SO-50019": {
+    "nombre": "El Royo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "PMSO-50001": {
+    "nombre": "Parque Micológico Montes de Soria",
+    "normas": [
+      "cyl-montes-de-soria",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+  },
+  "AV-50001": {
+    "nombre": "El Tiemblo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "AV-50003": {
+    "nombre": "Gredos",
+    "normas": [
+      "cyl-av-50003-gredos",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/gredos"
+  },
+  "AV-50004": {
+    "nombre": "Casillas",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/acotados"
+  }
+}

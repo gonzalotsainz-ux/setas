@@ -1,0 +1,13 @@
+{
+  "_nota": "Cotos de Álava que se dibujan con los montes de utilidad pública del MITECO (campo cmup = número del catálogo de Álava). Nombres comprobados: los de Asparrena coinciden con los topónimos de la ordenanza (Apota, Ubarrundia, Albeniz, Arbara, Allondo).",
+  "montes": {
+    "asparrena-apota": { "nombre": "Parque Micológico Asparrena-Apota (MUP 305, 306, 307, 311 y 632)", "montes": ["305", "306", "307", "311", "632"], "normas": ["alava-parque-micologico-asparrena", "alava-foral"],
+      "permisoUrl": "https://www.asparrena.eus/ocio-y-turismo/parque-micologico-asparrena-san-millan",
+      "fuente": "https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres",
+      "nota": "Faltan el Monte Alto de Ametzaga, que la ordenanza incluye pero no lleva número de MUP en la capa, y los terrenos de otros titulares. Dentro del Parque Natural Aizkorri-Aratz rigen además su PORN y su PRUG." },
+    "gordoa": { "nombre": "Junta Administrativa de Gordoa (MUP 312 «Oraneta y Borrinkurutz»)", "montes": ["312"], "normas": ["alava-foral"],
+      "permisoUrl": "https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres",
+      "fuente": "https://www.araba.eus/botha/Boletines/2010/117/2010_117_06437.pdf",
+      "nota": "Acotado oficial según la Diputación Foral de Álava (MUP 312 «Oraneta»). No se ha leído su ordenanza ni hay tarifa ni norma propia en la app; consulta el enlace antes de ir." }
+  }
+}
