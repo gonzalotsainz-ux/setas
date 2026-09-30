@@ -1,1 +1,662 @@
-{"version": 1, "zonas": []}
+{
+  "version": 1,
+  "zonas": [
+    {
+      "id": "guadarrama",
+      "nombre": "Sierra de Guadarrama (Madrid y Segovia, Valsaín)",
+      "comunidad": "madrid-castilla-y-leon",
+      "provincias": [
+        "Madrid",
+        "Segovia"
+      ],
+      "bbox": [
+        -4.25,
+        40.65,
+        -3.75,
+        41.05
+      ],
+      "habitats": [
+        "pinar-silvestre",
+        "melojar",
+        "pastizal-montana",
+        "prado"
+      ],
+      "puntos": [
+        {
+          "id": "guadarrama-valsain-pinar",
+          "nombre": "Pinar de Valsaín (Real Sitio de San Ildefonso)",
+          "lat": 40.853,
+          "lon": -3.9943,
+          "altitud": 1561,
+          "habitat": "pinar-silvestre",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=416171.72158879065,4522894.57593216,416211.72158879065,4522934.57593216&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "guadarrama-navas-melojar",
+          "nombre": "Melojar de la vertiente segoviana (Navas de San Antonio)",
+          "lat": 40.9915,
+          "lon": -3.9348,
+          "altitud": 1472,
+          "habitat": "melojar",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=421351.29571382666,4538214.244087299,421391.29571382666,4538254.244087299&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "pn-guadarrama-prug",
+        "valsain-orden-aaa-1681-2016",
+        "cyl-decreto-31-2017",
+        "madrid-ordenanzas-sierra"
+      ],
+      "avisos": [
+        "Parque Nacional: solo donde haya plan de aprovechamiento micológico; prohibido en Zonas de Reserva y de Uso Restringido A",
+        "Valsaín está regulado (Orden AAA/1681/2016, 10.668 ha)",
+        "Rascafría, Miraflores y Lozoya exigen licencia municipal"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "sierra-norte",
+      "nombre": "Sierra Norte de Madrid y Ayllón (Montejo, Somosierra, Riaza)",
+      "comunidad": "madrid-castilla-y-leon",
+      "provincias": [
+        "Madrid",
+        "Segovia"
+      ],
+      "bbox": [
+        -3.75,
+        40.95,
+        -3.3,
+        41.35
+      ],
+      "habitats": [
+        "hayedo",
+        "melojar",
+        "robledal-albar",
+        "abedular",
+        "jaral",
+        "pinar-silvestre",
+        "pinar-resinero",
+        "pinar-negral"
+      ],
+      "puntos": [
+        {
+          "id": "sierra-norte-riaza-melojar",
+          "nombre": "Melojar de Riaza (Segovia)",
+          "lat": 41.2801,
+          "lon": -3.434,
+          "altitud": 1505,
+          "habitat": "melojar",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=463634.8469095925,4569922.393009087,463674.8469095925,4569962.393009087&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "sierra-norte-sepulveda-pinar",
+          "nombre": "Pinar de repoblación de pino silvestre (Sepúlveda, Sierra de Ayllón)",
+          "lat": 41.2042,
+          "lon": -3.5085,
+          "altitud": 1324,
+          "habitat": "pinar-silvestre",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=457346.55471770617,4561530.228824541,457386.55471770617,4561570.228824541&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "madrid-ordenanzas-sierra",
+        "montejo-prohibicion",
+        "cyl-decreto-31-2017"
+      ],
+      "avisos": [
+        "Hayedo de Montejo: prohibido recolectar hongos; solo visitas guiadas",
+        "Vertiente segoviana (Riaza, Ayllón): acotado con permiso Micocyl"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "soria",
+      "nombre": "Soria (Pinar Grande, Tierras Altas, Montes de Soria)",
+      "comunidad": "castilla-y-leon",
+      "provincias": [
+        "Soria"
+      ],
+      "bbox": [
+        -3.2,
+        41.7,
+        -2.5,
+        42.15
+      ],
+      "habitats": [
+        "pinar-silvestre",
+        "pinar-resinero",
+        "melojar",
+        "hayedo",
+        "sabinar",
+        "encinar",
+        "quejigar"
+      ],
+      "puntos": [
+        {
+          "id": "soria-pinar-grande-covaleda",
+          "nombre": "Pinar Grande (Covaleda)",
+          "lat": 41.9415,
+          "lon": -2.8315,
+          "altitud": 1540,
+          "habitat": "pinar-silvestre",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=513947.5455016748,4643274.797264725,513987.5455016748,4643314.797264725&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "soria-navaleno-resinero",
+          "nombre": "Pinar de pino resinero (Navaleno)",
+          "lat": 41.8672,
+          "lon": -3.0286,
+          "altitud": 1177,
+          "habitat": "pinar-resinero",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=497606.4976246832,4635012.15934397,497646.4976246832,4635052.15934397&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "soria-cidones-melojar",
+          "nombre": "Rebollar de Cidones",
+          "lat": 41.829,
+          "lon": -2.678,
+          "altitud": 1134,
+          "habitat": "melojar",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=526718.5667605546,4630820.68277984,526758.5667605546,4630860.68277984&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "cyl-decreto-31-2017"
+      ],
+      "avisos": [
+        "Permiso Micocyl obligatorio en los acotados (recreativo hasta 5 kg/día)",
+        "Prohibido recolectar de noche y las oronjas cerradas"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "gredos",
+      "nombre": "Gredos y Valle del Tiétar",
+      "comunidad": "castilla-y-leon",
+      "provincias": [
+        "Ávila"
+      ],
+      "bbox": [
+        -5.4,
+        40.15,
+        -4.4,
+        40.5
+      ],
+      "habitats": [
+        "castanar",
+        "melojar",
+        "pinar-resinero",
+        "pinar-silvestre",
+        "pinar-negral",
+        "pinar-pinonero",
+        "encinar",
+        "alcornocal",
+        "pastizal-montana"
+      ],
+      "puntos": [
+        {
+          "id": "gredos-navahondilla-castanar",
+          "nombre": "Castañar de Navahondilla (vertiente sur-este de Gredos)",
+          "lat": 40.3262,
+          "lon": -4.5068,
+          "altitud": 832,
+          "habitat": "castanar",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=371971.6913473573,4465032.664521398,372011.6913473573,4465072.664521398&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "gredos-arenal-resinero",
+          "nombre": "Pinar de pino resinero de El Arenal (Valle del Tiétar)",
+          "lat": 40.2928,
+          "lon": -5.0719,
+          "altitud": 1240,
+          "habitat": "pinar-resinero",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=323874.58281993214,4462295.616296301,323914.58281993214,4462335.616296301&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "gredos-villarejo-silvestre",
+          "nombre": "Pinar de pino silvestre de Villarejo del Valle",
+          "lat": 40.3417,
+          "lon": -5.0072,
+          "altitud": 1334,
+          "habitat": "pinar-silvestre",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=329497.362041508,4467597.2267853925,329537.362041508,4467637.2267853925&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "cyl-decreto-31-2017"
+      ],
+      "avisos": [
+        "Montes regulados por Micocyl en Ávila: comprobar el monte concreto",
+        "En primavera, riesgo de Amanita vidua (mortal) bajo encina, melojo o alcornoque"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "cuenca",
+      "nombre": "Serranía de Cuenca",
+      "comunidad": "castilla-la-mancha",
+      "provincias": [
+        "Cuenca"
+      ],
+      "bbox": [
+        -2.1,
+        39.8,
+        -1.5,
+        40.45
+      ],
+      "habitats": [
+        "pinar-negral",
+        "pinar-silvestre",
+        "pinar-resinero",
+        "quejigar",
+        "sabinar",
+        "encinar"
+      ],
+      "puntos": [
+        {
+          "id": "cuenca-serrania-negral",
+          "nombre": "Pinar de pino salgareño (Serranía de Cuenca)",
+          "lat": 40.0227,
+          "lon": -1.9714,
+          "altitud": 1232,
+          "habitat": "pinar-negral",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "cuenca-boniches-resinero",
+          "nombre": "Pinar de pino resinero de Boniches",
+          "lat": 39.9701,
+          "lon": -1.6521,
+          "altitud": 1088,
+          "habitat": "pinar-resinero",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "clm-orden-2016-11-15"
+      ],
+      "avisos": [
+        "Orden de 15/11/2016 y ordenanzas municipales: los cotos son municipales",
+        "Suelo mayoritariamente calizo, con manchas silíceas de rodeno"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "titulo": "MITECO: Mapa Forestal de España 1:50.000 (MFE50), Castilla-La Mancha",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "guadalajara",
+      "nombre": "Guadalajara (Alto Tajo, Sierra Norte)",
+      "comunidad": "castilla-la-mancha",
+      "provincias": [
+        "Guadalajara"
+      ],
+      "bbox": [
+        -2.4,
+        40.45,
+        -1.6,
+        41.05
+      ],
+      "habitats": [
+        "pinar-negral",
+        "pinar-silvestre",
+        "pinar-resinero",
+        "sabinar",
+        "quejigar",
+        "encinar",
+        "hayedo",
+        "melojar"
+      ],
+      "puntos": [
+        {
+          "id": "guadalajara-poveda-negral",
+          "nombre": "Pinar de pino salgareño de Poveda de la Sierra",
+          "lat": 40.6094,
+          "lon": -2.0169,
+          "altitud": 1360,
+          "habitat": "pinar-negral",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "guadalajara-tierzo-sabinar",
+          "nombre": "Sabinar albar de Tierzo",
+          "lat": 40.7507,
+          "lon": -1.9,
+          "altitud": 1314,
+          "habitat": "sabinar",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "clm-orden-2016-11-15"
+      ],
+      "avisos": [
+        "Orden de 15/11/2016 y ordenanzas locales, que pueden exigir permiso",
+        "Parque Natural del Alto Tajo: comprobar su regulación"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "titulo": "MITECO: Mapa Forestal de España 1:50.000 (MFE50), Castilla-La Mancha",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "toledo",
+      "nombre": "Montes de Toledo",
+      "comunidad": "castilla-la-mancha",
+      "provincias": [
+        "Toledo"
+      ],
+      "bbox": [
+        -5.05,
+        39.35,
+        -4,
+        39.8
+      ],
+      "habitats": [
+        "encinar",
+        "alcornocal",
+        "melojar",
+        "quejigar",
+        "jaral",
+        "pinar-resinero"
+      ],
+      "puntos": [
+        {
+          "id": "toledo-navalucillos-encinar",
+          "nombre": "Encinar de Los Navalucillos",
+          "lat": 39.6101,
+          "lon": -4.6186,
+          "altitud": 972,
+          "habitat": "encinar",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "toledo-menasalbas-melojar",
+          "nombre": "Melojar de Menasalbas",
+          "lat": 39.5501,
+          "lon": -4.4125,
+          "altitud": 941,
+          "habitat": "melojar",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "toledo-sevilleja-alcornocal",
+          "nombre": "Alcornocal de Sevilleja de la Jara",
+          "lat": 39.4552,
+          "lon": -4.925,
+          "altitud": 550,
+          "habitat": "alcornocal",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "clm-orden-2016-11-15"
+      ],
+      "avisos": [
+        "En primavera, riesgo de Amanita vidua (mortal) bajo encina, melojo o alcornoque",
+        "Mayor riesgo primaveral también de Amanita verna",
+        "Fincas privadas: hace falta permiso del propietario"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
+          "titulo": "MITECO: Mapa Forestal de España 1:50.000 (MFE50), Castilla-La Mancha",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "alava",
+      "nombre": "Álava (Gorbeia, Montes de Vitoria, Izki, Valderejo, Entzia)",
+      "comunidad": "euskadi",
+      "provincias": [
+        "Álava"
+      ],
+      "bbox": [
+        -3,
+        42.55,
+        -2.25,
+        43.05
+      ],
+      "habitats": [
+        "hayedo",
+        "melojar",
+        "quejigar",
+        "encinar",
+        "pinar-silvestre",
+        "pastizal-montana"
+      ],
+      "puntos": [
+        {
+          "id": "alava-gorbeia-hayedo",
+          "nombre": "Hayedo de Gorbeia (Urkabustaiz)",
+          "lat": 42.954,
+          "lon": -2.9184,
+          "altitud": 760,
+          "habitat": "hayedo",
+          "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Espezien_banaketa_Distribucion_de_especies&QUERY_LAYERS=Espezien_banaketa_Distribucion_de_especies&CRS=EPSG:4326&BBOX=42.9537,-2.9187000000000003,42.9543,-2.9181&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "alava-entzia-hayedo",
+          "nombre": "Hayedo de Entzia (Iruraiz-Gauna)",
+          "lat": 42.7985,
+          "lon": -2.494,
+          "altitud": 934,
+          "habitat": "hayedo",
+          "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Espezien_banaketa_Distribucion_de_especies&QUERY_LAYERS=Espezien_banaketa_Distribucion_de_especies&CRS=EPSG:4326&BBOX=42.798199999999994,-2.4943000000000004,42.7988,-2.4937&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "alava-izki-marojal",
+          "nombre": "Marojal de Izki (Bernedo)",
+          "lat": 42.6824,
+          "lon": -2.4941,
+          "altitud": 772,
+          "habitat": "melojar",
+          "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Espezien_banaketa_Distribucion_de_especies&QUERY_LAYERS=Espezien_banaketa_Distribucion_de_especies&CRS=EPSG:4326&BBOX=42.6821,-2.4944,42.682700000000004,-2.4938&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "alava-entzia-pastizal",
+          "nombre": "Pastizal de montaña de Entzia (Arraia-Maeztu)",
+          "lat": 42.772,
+          "lon": -2.3836,
+          "altitud": 1011,
+          "habitat": "pastizal-montana",
+          "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Lurraren_erabilera_Uso_del_suelo&QUERY_LAYERS=Lurraren_erabilera_Uso_del_suelo&CRS=EPSG:4326&BBOX=42.771699999999996,-2.3839,42.7723,-2.3832999999999998&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "alava-foral"
+      ],
+      "avisos": [
+        "Libre hasta 2 kg por persona y día, salvo en terreno acotado y señalizado",
+        "Acotados: Asparrena-Apota (Entzia), Arraia (Izki), Sierra de Árcena, Gordoa y Legutio"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?service=WMS&request=GetCapabilities&version=1.3.0",
+          "titulo": "Gobierno Vasco: Mapa forestal 2010 (distribución de especies y usos del suelo)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
+          "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
+          "consultado": "2026-09-30"
+        }
+      ]
+    }
+  ]
+}

@@ -74,6 +74,25 @@
   - `titulo`: título de la fuente
   - `consultado`: fecha de consulta (YYYY-MM-DD)
 
+### Notas sobre los datos actuales de `zonas.json`
+
+- `comunidad`: `madrid-castilla-y-leon` (guadarrama y sierra-norte), `castilla-y-leon`, `castilla-la-mancha` o `euskadi`.
+- `estacionesAemet` está **vacío en las 8 zonas** hasta tener la clave de AEMET OpenData (tarea 16). Se rellena en la tarea 18.
+- `altitud` de cada punto es la del terreno (API de elevación de Open-Meteo); la meteo se pide con `elevation=` igual a ese valor.
+- Cómo se comprobó que cada punto está sobre bosque real del hábitat indicado (30/09/2026):
+  - **Castilla y León** (guadarrama, sierra-norte, soria, gredos): capa `montes:gesfor_cyl_tipmas` de IDECyL, consulta por punto
+    (`GetFeatureInfo`). `fuente` es la URL exacta de esa consulta, con la especie dominante y el porcentaje de ocupación.
+  - **Castilla-La Mancha** (cuenca, guadalajara, toledo): Mapa Forestal de España 1:50.000 (MFE50) del MITECO, consulta punto en
+    polígono sobre el shapefile provincial; `fuente` es la página de descarga del MFE50.
+  - **Álava**: mapa forestal 2010 del Gobierno Vasco (`WMS_NEKAZARITZA`, capa de distribución de especies, o de usos del suelo
+    para el pastizal); `fuente` es la URL exacta de la consulta.
+  - Además, en todos los puntos: cubierta arbolada densa confirmada sobre la ortofoto PNOA y clase de SIOSE (IGN).
+  - El MFE25 del MITECO (`wms.mapama.gob.es/sig/Biodiversidad/MFE`) devolvía un error del servidor ese día y su descarga
+    tiene captcha; por eso se usaron las fuentes anteriores.
+- Límites conocidos: el hábitat «pinar de rodeno» (Cuenca) y la «umbría» (Toledo) no se pueden comprobar con estas fuentes
+  (no indican sustrato ni orientación). «Repoblación» en `sierra-norte-sepulveda-pinar` se aprecia en la ortofoto
+  (filas de plantación), no en la capa forestal.
+
 ## data/especies.json
 
 ```json

@@ -1,1 +1,142 @@
-{"version": 1, "normas": []}
+{
+  "version": 1,
+  "normas": [
+    {
+      "id": "cyl-decreto-31-2017",
+      "titulo": "Decreto 31/2017, de 5 de octubre, que regula el Recurso Micológico Silvestre de Castilla y León (BOCyL n.º 194, 09/10/2017)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte",
+          "soria",
+          "gredos"
+        ]
+      },
+      "url": "http://bocyl.jcyl.es/boletines/2017/10/09/pdf/BOCYL-D-09102017-1.pdf",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": true
+    },
+    {
+      "id": "pn-guadarrama-prug",
+      "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama: Decreto 18/2020, de 11 de febrero (Comunidad de Madrid, BOCM n.º 51, 29/02/2020) y Decreto 16/2019, de 23 de mayo (Castilla y León, BOCyL 24/05/2019)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "madrid-castilla-y-leon",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Leído solo el art. 59.b del decreto de Madrid; el PRUG de Castilla y León no se ha leído literalmente."
+    },
+    {
+      "id": "valsain-orden-aaa-1681-2016",
+      "titulo": "Orden AAA/1681/2016, de 20 de octubre (BOE n.º 256, 22/10/2016), norma específica del aprovechamiento micológico en los montes de Valsaín (Segovia)",
+      "tipo": "orden",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2016-9680",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": true
+    },
+    {
+      "id": "madrid-ordenanzas-sierra",
+      "titulo": "Ordenanzas municipales de recolección micológica de la sierra de Madrid (Rascafría, Lozoya, Miraflores de la Sierra, Bustarviejo, Canencia…)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte"
+        ]
+      },
+      "url": "https://www.comunidad.madrid/node/70372",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Lista de municipios con licencia según la nota de la Comunidad de Madrid de 23/10/2024; cada ordenanza (BOCM) se detalla en la tarea 9."
+    },
+    {
+      "id": "montejo-prohibicion",
+      "titulo": "Normas de visita del Hayedo de Montejo (Reserva de la Biosfera Sierra del Rincón, sept. 2024): prohibido recolectar plantas, hongos o minerales",
+      "tipo": "circular",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "sierra-norte"
+        ]
+      },
+      "url": "https://sierradelrincon.org/wp-content/uploads/2024/09/2409NormasSeptiembre2024Maquetadas.pdf",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Fuente secundaria: normas de visita, no el texto normativo."
+    },
+    {
+      "id": "clm-orden-2016-11-15",
+      "titulo": "Orden de 15/11/2016, de la Consejería de Agricultura, Medio Ambiente y Desarrollo Rural, por la que se regula la recolección de setas silvestres en los montes de Castilla-La Mancha (DOCM n.º 226, 21/11/2016)",
+      "tipo": "orden",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "cuenca",
+          "guadalajara",
+          "toledo"
+        ]
+      },
+      "url": "https://vlex.es/vid/orden-15-11-2016-774565357",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "El PDF oficial de la Junta da error 404; el contenido viene de resúmenes, sin leer el DOCM."
+    },
+    {
+      "id": "alava-foral",
+      "titulo": "Decreto Foral 89/2008, de 14 de octubre, del Consejo de Diputados, que regula los aprovechamientos de hongos, plantas, flores y frutos silvestres (BOTHA n.º 121, 22/10/2008)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.araba.eus/botha/Boletines/2008/121/2008_121_06859.pdf",
+      "vigente": true,
+      "resumen": [],
+      "permiso": null,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "PDF enlazado desde la Diputación pero no descargado; resumen oficial verificado en https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres"
+    }
+  ]
+}
