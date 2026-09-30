@@ -4,6 +4,7 @@ import { NIVELES, nivelDe, semaforo, palabraDe } from './ui/semaforo.js';
 import { indiceZona } from './indice.js';
 import { especiesDeZona, nombreCorto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
+import { hoyMadrid } from './meteo.js';
 
 const IGN = (capa, fmt) => `https://www.ign.es/wmts/${capa.servicio}?service=WMTS&request=GetTile&version=1.0.0&layer=${capa.layer}&style=default&format=image/${fmt}&tilematrixset=GoogleMapsCompatible&tilematrix={z}&tilerow={y}&tilecol={x}`;
 const ATR_IGN = '© <a href="https://www.scne.es">Instituto Geográfico Nacional</a> CC BY 4.0';
@@ -79,7 +80,8 @@ export function notaPunto(zona, punto, datos, meteo, umbrales) {
     if (p == null || Number.isNaN(p)) { mm = null; break; }
     mm += p;
   }
-  return { valor: res.valor, mejor: res.especies[0] ? datos.porId[res.especies[0].id] : null, mm };
+  return { valor: res.valor, mejor: res.especies[0] ? datos.porId[res.especies[0].id] : null, mm,
+    fueraDeTemporada: res.fueraDeTemporada, incompleta: res.incompleta, faltan: res.faltan.length };
 }
 
 const enlaceA = (href, texto, clase) => (urlSegura(href) ? el('a', { texto, href, rel: 'noopener', clase }) : el('span', { texto }));
@@ -107,11 +109,21 @@ function popupCoto(p, normas) {
   return raiz;
 }
 
-function popupPunto(zona, punto, nota) {
+// «Datos del 30 de septiembre» cuando la meteo guardada es de otro día (igual que Hoy y Zona); null si es de hoy.
+export function avisoOtroDia(meteo, hoy = hoyMadrid()) {
+  return meteo?.series && meteo.hoy && meteo.hoy !== hoy ? `Datos del ${FECHA_DIA.format(new Date(`${meteo.hoy}T12:00:00Z`))}. No se ha podido actualizar; las notas son de ese día.` : null;
+}
+const FECHA_DIA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'Europe/Madrid' });
+const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
+
+function popupPunto(zona, punto, nota, meteo) {
   const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: punto.nombre }), el('p', { clase: 'texto-2 texto-s', texto: zona.nombre }));
-  const fila = el('p', { clase: 'mapa-popup__etiquetas' }, semaforo(nota.valor));
+  const fila = el('p', { clase: 'mapa-popup__etiquetas' }, semaforo(nota.valor, nota.fueraDeTemporada ? 'Fuera de temporada' : null));
   if (nota.valor != null) fila.append(el('b', { clase: 'tabular', texto: `${nota.valor}/100` }));
   raiz.append(fila);
+  const otroDia = avisoOtroDia(meteo);
+  if (otroDia) raiz.append(el('p', { clase: 'mapa-popup__aviso', texto: otroDia }));
+  if (nota.incompleta) raiz.append(el('p', { clase: 'texto-s', texto: `${textoFaltan(nota.faltan)}.` }));
   if (nota.mejor) raiz.append(el('p', { clase: 'texto-s' }, 'Mejor: ', el('span', { clase: 'latin', texto: nota.mejor.nombre })));
   if (nota.mm != null) raiz.append(el('p', { clase: 'texto-s tabular', texto: `Lluvia en 26 días: ${Math.round(nota.mm)} mm` }));
   if (punto.altitud != null) raiz.append(el('p', { clase: 'texto-2 texto-s', texto: `Altitud: ${punto.altitud} m` }));
@@ -127,7 +139,7 @@ export const fechaLarga = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(iso ?? '') ? FECHA
 function popupSalida(s, datos) {
   const zona = datos?.zonas?.find((z) => z.id === s.zona_id);
   const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: fechaLarga(s.fecha) }), el('p', { clase: 'texto-2 texto-s', texto: zona ? nombreCorto(zona) : s.zona_id }));
-  const especies = (s.especies ?? []).map((e) => {
+  const especies = (Array.isArray(s.especies) ? s.especies : []).map((e) => {
     const sp = datos?.porId?.[e.especie_id];
     return el('li', {}, sp ? (sp.comunes?.es?.[0] ?? sp.nombre) : e.especie_id, e.kg != null && e.kg !== '' ? el('span', { clase: 'tabular', texto: ` · ${e.kg} kg` }) : null);
   });
@@ -181,7 +193,7 @@ export async function crearMapa(elemento, opciones = {}) {
     for (const p of z.puntos) {
       const nota = notaPunto(z, p, datos, meteo, umbrales);
       const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, radius: 9, weight: 2.5, fillOpacity: 1, color: COLOR.halo, fillColor: NIVEL_COLOR[nivelDe(nota.valor)] });
-      m.bindPopup(() => popupPunto(z, p, nota), POPUP);
+      m.bindPopup(() => popupPunto(z, p, nota, meteo), POPUP);
       m.addTo(zonas);
       if (nota.mm != null) {
         const c = L.circleMarker([p.lat, p.lon], { pane: PANE_LLUVIA, radius: radioLluvia(nota.mm), weight: 2, color: COLOR.lluvia, fillColor: COLOR.lluvia, fillOpacity: 0.22, interactive: false });

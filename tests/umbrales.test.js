@@ -55,3 +55,18 @@ test('cargarUmbrales devuelve {} ante error', async () => {
   assert.deepEqual(await cargarUmbrales(sb), {});
   assert.deepEqual(await cargarUmbrales({ from: () => { throw new Error('caído'); } }), {});
 });
+
+import { fusionarUmbral } from '../js/umbrales.js';
+test('fusionarUmbral: solo topt, trango, pmin, pfull y desfase; el resto de la fila se ignora', () => {
+  const f = fusionarUmbral(esp.indice, { topt: 12, usarSuelo: true, helada: 'alta', confianza: 'baja', otra: 1 });
+  assert.equal(f.topt, 12);
+  assert.equal(f.usarSuelo, false);
+  assert.equal(f.helada, 'baja');
+  assert.equal(f.confianza, 'alta');
+  assert.equal('otra' in f, false);
+  assert.deepEqual(fusionarUmbral(esp.indice, null), esp.indice);
+  assert.deepEqual(fusionarUmbral(esp.indice, 'basura'), esp.indice);
+  const [m] = especiesDeZona(zona, [esp], { 'boletus-edulis': { helada: 'alta', pmin: 20 } });
+  assert.equal(m.indice.helada, 'baja');
+  assert.equal(m.indice.pmin, 20);
+});

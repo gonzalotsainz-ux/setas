@@ -45,3 +45,12 @@ test('notaPunto: si falta un día de lluvia, mm es null', () => {
   assert.equal(r.mm, null);
 });
 
+
+import { avisoOtroDia } from '../js/mapa.js';
+test('avisoOtroDia: «Datos del …» solo si la meteo guardada es de otro día', () => {
+  const s = { a: {} };
+  assert.equal(avisoOtroDia({ hoy: '2026-10-01', series: s }, '2026-10-01'), null);
+  assert.match(avisoOtroDia({ hoy: '2026-09-30', series: s }, '2026-10-01'), /^Datos del 30 de septiembre\./);
+  assert.equal(avisoOtroDia({ hoy: '2026-09-30', series: null }, '2026-10-01'), null);   // sin datos ya se avisa aparte
+  assert.equal(avisoOtroDia(null, '2026-10-01'), null);
+});

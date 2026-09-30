@@ -3,6 +3,7 @@ import { indiceZona } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
 import { especiesDeZona, nombreCorto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
+import { urlSegura } from '../ui/normativa.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const ui = { dia: 0, especie: '' };   // la elección se conserva al repintar
@@ -40,9 +41,11 @@ export function haceCuanto(iso, ahora = new Date()) {
   return h < 1 ? 'hace menos de 1 h' : `hace ${h} h`;
 }
 
-function sinDatosZona(zona, motivo, incierta = false) {
-  return { zona, res: { valor: null, etiqueta: null, sinDatos: true, especies: [] }, mejor: null, incierta, motivo };
+const vacio = { valor: null, etiqueta: null, sinDatos: true, fueraDeTemporada: false, incompleta: false, faltan: [], especies: [] };
+function sinDatosZona(zona, motivo, incierta = false, res = vacio) {
+  return { zona, res, mejor: null, incierta, motivo };
 }
+export const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
 
 // Cálculo de una zona para el día i (hoy + d), opcionalmente limitado a una especie.
 export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
@@ -55,8 +58,14 @@ export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
     if (!especies.length) return sinDatosZona(zona, 'Sin registros de esta especie en la zona. No se calcula nota.');
   }
   const res = indiceZona(series, primera.hoy + d, especies);
-  const incierta = zona.puntos.some((p) => meteo.dispersion?.[p.id]?.incierta);
-  if (res.sinDatos) return sinDatosZona(zona, 'Faltan datos para calcular la nota.', incierta);
+  // el contraste de modelos es de la lluvia de los próximos días: no afecta a la nota de hoy
+  const incierta = d > 0 && zona.puntos.some((p) => meteo.dispersion?.[p.id]?.incierta);
+  if (res.fueraDeTemporada) {
+    return sinDatosZona(zona, especieId ? 'Fuera de temporada en esas fechas. No se calcula nota.' : 'Fuera de temporada: ninguna especie de la zona lo está. No se calcula nota.', incierta, res);
+  }
+  if (res.sinDatos) {
+    return sinDatosZona(zona, `Faltan datos para calcular la nota${res.faltan.length ? ` (${textoFaltan(res.faltan.length)})` : ''}.`, incierta, res);
+  }
   const mejor = res.especies[0];
   const discrepa = !!meteo.contraste?.[zona.id]?.discrepa;
   return { zona, res, mejor, incierta, discrepa, protegido: !!zona.puntos.find((p) => p.id === mejor.punto)?.proteccion };
@@ -78,8 +87,9 @@ const notaGrande = (valor, grande) => el('p', { clase: `indice${grande ? ' indic
 
 function filaZona(fila, pos, datos, d) {
   const nivel = nivelDe(fila.res.valor);
-  const estado = el('span', { clase: 'fila-zona__estado' }, semaforo(fila.res.valor));
+  const estado = el('span', { clase: 'fila-zona__estado' }, semaforo(fila.res.valor, fila.res.fueraDeTemporada ? 'Fuera de temporada' : null));
   if (fila.mejor) estado.append(etiqueta(`Confianza ${fila.mejor.resultado.confianza}`));
+  if (fila.mejor && fila.res.incompleta) estado.append(etiqueta(textoFaltan(fila.res.faltan.length), 'ocre'));
   if (d > 0 && fila.mejor) estado.append(etiqueta('Previsión', 'ocre'));
   if (fila.incierta) estado.append(etiqueta('Previsión incierta', 'ocre'));
   if (fila.discrepa) estado.append(etiqueta('Estación y modelo no coinciden', 'ocre'));
@@ -99,6 +109,7 @@ function destacada(fila, datos, caducado, d) {
   const autor = foto?.autor?.replace(/^\(c\)\s*/, '').replace(/,?\s*some rights reserved.*$/, '');
   const rotulo = caducado ? 'La mejor zona con los últimos datos' : d > 0 ? `La mejor zona, previsión a +${d} días` : 'La mejor zona ahora';
   const meta = el('div', { clase: 'destacada__meta' }, semaforo(fila.res.valor));
+  if (fila.res.incompleta) meta.append(etiqueta(textoFaltan(fila.res.faltan.length), 'ocre'));
   if (fila.mejor.min !== fila.mejor.max) meta.append(etiqueta(`${fila.mejor.min} a ${fila.mejor.max} según el punto`));
   meta.append(etiqueta(`Confianza ${fila.mejor.resultado.confianza}`));
   if (d > 0) meta.append(etiqueta('Previsión', 'ocre'));
@@ -112,7 +123,7 @@ function destacada(fila, datos, caducado, d) {
     el('div', { clase: 'tarjeta__nucleo' },
       foto ? el('div', { clase: 'destacada__foto' },
         el('img', { src: foto.archivo, alt: `Foto de ${e.nombre}`, width: 1024, height: 768 }),
-        el('span', { clase: 'credito-foto' }, 'Foto: ', el('a', { href: foto.url, texto: autor }), `, ${foto.licencia}`)) : null,
+        el('span', { clase: 'credito-foto' }, 'Foto: ', urlSegura(foto.url) ? el('a', { href: foto.url, texto: autor }) : el('span', { texto: autor }), `, ${foto.licencia}`)) : null,
       el('div', { clase: 'destacada__cuerpo' },
         el('div', { clase: 'destacada__cabeza' },
           el('div', {}, el('p', { clase: 'destacada__rotulo', texto: rotulo }), el('h2', { texto: nombreCorto(fila.zona), id: 'destacada-nombre' })),

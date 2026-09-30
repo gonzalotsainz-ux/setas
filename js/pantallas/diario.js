@@ -228,7 +228,7 @@ function hojaNuevaSalida({ estado, alGuardar }) {
       const autor = autorActual() ?? await preguntarAutor();
       if (!autor) { estadoGuardar.textContent = 'Di quién eres para guardar la salida.'; return; }
       const z = datos.zonas.find((x) => x.id === zona.value);
-      const foto = fotoFijaDelDia({ zona: z, lat: punto?.lat, lon: punto?.lon, datos, meteo: estado.meteo, umbrales: estado.umbrales ?? {} });
+      const foto = fotoFijaDelDia({ zona: z, lat: punto?.lat, lon: punto?.lon, fecha: fecha.value, datos, meteo: estado.meteo, umbrales: estado.umbrales ?? {} });
       const id = nuevaId();
       let prep;
       try { prep = await prepararFotosBorrador(id, fotos, { almacen: almacenFotos }); } catch (e) { estadoGuardar.textContent = e.message; return; }
@@ -260,7 +260,7 @@ function miniaturasDe(urls, etiqueta) {
       el('img', { src: u.mini, alt: '', loading: 'lazy', decoding: 'async' })))));
 }
 function listaEspecies(datos, especies) {
-  if (!especies?.length) return el('p', { clase: 'texto-2 texto-s', texto: 'Sin especies apuntadas.' });
+  if (!Array.isArray(especies) || !especies.length) return el('p', { clase: 'texto-2 texto-s', texto: 'Sin especies apuntadas.' });
   return el('ul', { clase: 'diario-especies' }, especies.map((e) => el('li', {}, el('span', { texto: nombreEspecie(datos, e.especie_id) }),
     e.kg != null && e.kg !== '' ? el('span', { clase: 'tabular', texto: kgTexto(Number(e.kg)) }) : null)));
 }

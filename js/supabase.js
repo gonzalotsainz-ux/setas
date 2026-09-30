@@ -2,8 +2,9 @@
 // y, con RLS abierto a `anon`, cualquiera con la URL puede leer y editar el diario.
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
 
-export const SUPABASE_URL = 'https://ctgedeunquvmcfqsufjj.supabase.co';
-export const SUPABASE_ANON = 'sb_publishable_IkbuQo3x4etQ6Sr5YXU6yQ_IRTjeERV';
+import { SUPABASE_URL, SUPABASE_ANON } from './config.js';
+
+export { SUPABASE_URL, SUPABASE_ANON };
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false, autoRefreshToken: false } });
 
 const CLAVE_AUTOR = 'setas.autor';

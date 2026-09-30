@@ -431,3 +431,19 @@ Comprobado en vivo el 2026-09-30: con el modelo por defecto (best_match) el suel
 Comprobado en vivo el 2026-09-30 con `models=ecmwf_ifs,icon_seamless,meteofrance_seamless&forecast_days=8`: los modelos no llegan igual de lejos. ECMWF devuelve los 8 días, ICON (`icon_seamless`) devuelve `null` desde el día +7 y Météo-France (`meteofrance_seamless`) desde el +4 (alcance ~4 días). Exigir 7 días completos por modelo dejaba solo a ECMWF y el contraste nunca aparecía.
 
 Regla de `dispersion()`: para cada modelo se cuenta el alcance (días consecutivos con valor desde hoy+1, 0–7). El horizonte `h` es el mayor valor entre 3 y 7 al que llegan al menos 2 modelos; se compara la lluvia acumulada de hoy+1…hoy+h solo entre los modelos con alcance ≥ h, y los demás quedan en `excluidos`. Si menos de 2 modelos llegan a 3 días, no hay contraste (`horizonte: null`). La incertidumbre se mantiene: rango > 0,5·media y rango > 10 mm.
+
+### Peticiones y su peso (estimación, 2026-09-30)
+
+Open-Meteo cuenta como varias llamadas una petición de más de 10 variables o de más de 2 semanas por punto, con fracciones: «Requests for data covering more than 10 weather variables or extending over a period of more than 2 weeks for a single location are considered multiple API calls» ([open-meteo.com/en/pricing](https://open-meteo.com/en/pricing), consultado el 2026-09-30). Estimación usada aquí: `puntos × max(1, variables/10) × max(1, días/14)`, con los **26 puntos** actuales. Límites gratuitos: 600 llamadas/min, 5.000/h, 10.000/día. Es una estimación (Open-Meteo no publica la fórmula exacta para varios puntos).
+
+| Petición | Qué pide | Cuándo | Peso estimado |
+|---|---|---|---|
+| Serie principal (`urlPrincipal`) | 7 diarias + 2 horarias, 70 días | como mucho cada 3 h | 26 × 1 × 5 ≈ **130** |
+| Contraste de modelos (`urlModelos`) | lluvia de 3 modelos, 8 días | con la principal | 26 × 1 × 1 ≈ **26** |
+| Lluvia desde el 1-ago (`urlLluviaArchivo`) | solo `precipitation_sum`, del 1-ago al día antes de la serie | desde el 1-oct, una vez al día (caché por día); nada si la serie ya empieza el 1-ago o antes | 1-oct: 26 × 1 × 1 = **26**; crece ~2/día por punto (31-dic ≈ 26 × 7 ≈ **180**) |
+| Lluvia desde el 1-ago de respaldo (`urlLluviaPrevision`) | lo mismo al forecast (guarda unos 2 meses atrás) | solo si el archivo falla o no llega | como la anterior, solo con los puntos que falten |
+| Climatología del suelo (`urlClimatologia`) | solo `soil_moisture_0_to_7cm_mean`, 2 años hasta el día antes de la serie | una vez cada 30 días (clave: solo el conjunto de puntos); si falla, se reintenta solo ella a los 20 min | 26 × 1 × 52 ≈ **1.360** |
+
+Antes (hasta la v1) la climatología pedía 2 variables desde el 1-ene-2023, ≈ 26 × 1 × 93 ≈ **2.430** llamadas, en cada refresco con una clave que cambiaba cada día (causa probable de los 429). La climatología solo alimenta `fS` (humedad del suelo): si no llega, el índice se calcula sin ese factor y lo explica. La lluvia desde el 1-ago, en cambio, es imprescindible para las especies de otoño desde el 1-oct: si no llega ni del archivo ni del forecast, esas especies salen «sin datos» y la zona, «sin datos» o «N especies sin datos suficientes», nunca con una nota inventada.
+
+Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago van en paralelo con la principal (el inicio de la serie se conoce de antemano: hoy − 60 días). Ojo: la climatología (~1.360) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, se reintenta a los 20 min y, mientras, el índice va sin humedad del suelo.

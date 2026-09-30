@@ -1,6 +1,14 @@
 // Umbrales del índice editados (compartidos en Supabase, sin login: cualquiera con la web puede editarlos).
 const NOMBRE = { topt: 'temperatura óptima', pmin: 'lluvia mínima', pfull: 'lluvia de pleno', trango: 'rango de temperatura', desfase: 'desfase' };
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
+// Lo único editable del índice: el resto de claves de una fila (usarSuelo, helada, confianza…) se ignora.
+export const CLAVES_UMBRAL = ['topt', 'trango', 'pmin', 'pfull', 'desfase'];
+export function fusionarUmbral(indice, fila) {
+  const r = { ...indice };
+  if (!fila || typeof fila !== 'object' || Array.isArray(fila)) return r;
+  for (const k of CLAVES_UMBRAL) if (k in fila) r[k] = fila[k];
+  return r;
+}
 
 // Mismas reglas que scripts/validar-datos.mjs para `indice` (pfull > pmin, trango y desfase crecientes) más los
 // límites físicos. Devuelve la lista de mensajes; vacía = válido. Solo mira los campos presentes.

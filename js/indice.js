@@ -27,6 +27,9 @@ function calendario(fecha, meses) {
   const siguiente = (m % 12) + 1, anterior = ((m + 10) % 12) + 1;
   return meses.includes(siguiente) || meses.includes(anterior) ? 0.5 : 0;
 }
+// «En temporada» (spec §5): el calendario de la especie da algo (> 0) ese día; los meses contiguos cuentan.
+export const enTemporada = (fecha, especie) => calendario(fecha, especie.temporada.meses) > 0;
+const diaAnterior = (f) => new Date(Date.parse(`${f}T00:00:00Z`) - 864e5).toISOString().slice(0, 10);
 
 function lluviaDesdeAgosto(s, i) {
   const f = s.fechas[i], m = Number(f.slice(5, 7)), a = Number(f.slice(0, 4));
@@ -35,7 +38,9 @@ function lluviaDesdeAgosto(s, i) {
   if (j0 === -1) {
     if (s.fechas[0] < agosto) j0 = 0;
     else {
-      if (s.lluviaAntesDeSerie?.desde !== agosto) throw new DatosIncompletos('falta la lluvia desde el 1 de agosto');
+      const antes = s.lluviaAntesDeSerie;
+      // la suma tiene que empezar el 1-ago y acabar justo el día antes de la serie (si trae `hasta`)
+      if (antes?.desde !== agosto || antes.mm == null || (antes.hasta && antes.hasta !== diaAnterior(s.fechas[0]))) throw new DatosIncompletos('falta la lluvia desde el 1 de agosto');
       mm = s.lluviaAntesDeSerie.mm; j0 = 0;
     }
   }
@@ -107,19 +112,32 @@ export function calcularIndice(serie, i, especie) {
     datos: { P26, P3, lag, T20, pct, Pagosto }, explicacion };
 }
 
+// Nota de zona (spec §5): el máximo de las especies EN TEMPORADA, con el mejor punto de cada una.
+// - Las de fuera de temporada (fC = 0) no entran en la nota: si solo hay de esas, `fueraDeTemporada` y sin nota.
+// - `faltan`: especies en temporada que no se han podido calcular en ningún punto (DatosIncompletos). Si falta
+//   alguna, la zona es `incompleta`; si además no queda ninguna calculada, `sinDatos` (nunca un 0 inventado).
 export function indiceZona(seriesPorPunto, i, especies) {
-  const res = [];
+  const res = [], faltan = [];
+  let fuera = 0;
+  const fecha = Object.values(seriesPorPunto).map((s) => s?.fechas?.[i]).find(Boolean);
   for (const sp of especies) {
-    let mejor = null, min = Infinity, max = -Infinity;
+    let mejor = null, min = Infinity, max = -Infinity, esFuera = false;
     for (const [punto, serie] of Object.entries(seriesPorPunto)) {
       let r;
       try { r = calcularIndice(serie, i, sp); } catch (e) { if (e instanceof DatosIncompletos) continue; throw e; }
+      if (r.factores.fC === 0) { esFuera = true; break; }
       min = Math.min(min, r.valor); max = Math.max(max, r.valor);
       if (!mejor || r.valor > mejor.valor) mejor = { id: sp.id, valor: r.valor, punto, resultado: r };
     }
-    if (mejor) res.push({ ...mejor, min, max });
+    if (esFuera) fuera++;
+    else if (mejor) res.push({ ...mejor, min, max });
+    else if (!fecha || enTemporada(fecha, sp)) faltan.push(sp.id);   // sin fecha no se sabe: cuenta como faltante
   }
   res.sort((a, b) => b.valor - a.valor);
-  if (!res.length) return { valor: null, etiqueta: null, sinDatos: true, especies: [] };
-  return { valor: res[0].valor, etiqueta: etiqueta(res[0].valor), sinDatos: false, especies: res };
+  const incompleta = faltan.length > 0;
+  if (!res.length) {
+    const soloFuera = fuera > 0 && !incompleta;
+    return { valor: null, etiqueta: null, sinDatos: !soloFuera, fueraDeTemporada: soloFuera, incompleta, faltan, especies: [] };
+  }
+  return { valor: res[0].valor, etiqueta: etiqueta(res[0].valor), sinDatos: false, fueraDeTemporada: false, incompleta, faltan, especies: res };
 }

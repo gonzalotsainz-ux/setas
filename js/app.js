@@ -1,6 +1,6 @@
 // Arranque, estado y router por hash.
 import { cargarDatos, puntosDe } from './datos.js';
-import { obtenerMeteo, hoyMadrid } from './meteo.js';
+import { obtenerMeteo, hoyMadrid, REINTENTO_MS } from './meteo.js';
 import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
@@ -73,13 +73,22 @@ export async function refrescarMeteo() {
   }
   recalcularContraste();
   window.dispatchEvent(new Event('meteo'));
+  // Si faltó la climatología o la lluvia desde agosto, se reintenta solo eso (obtenerMeteo no repite lo demás).
+  clearTimeout(reintento);
+  if (estado.meteoBruta.pendiente) reintento = setTimeout(refrescarMeteo, REINTENTO_MS + 30e3);
   if (estado.meteoBruta.series) await cargarObservaciones();
 }
+let reintento = null;
 
 document.querySelector('[data-toxicologia]')?.replaceWith(botonToxicologia());
 document.querySelector('[data-aviso-duda]')?.replaceWith(avisoDuda());
 window.addEventListener('hashchange', () => pintar(true));
-window.addEventListener('meteo', () => pintar(false));
+// La meteo solo cambia lo que enseñan Hoy, Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
+const PINTAN_METEO = new Set(['hoy', 'zona', 'mapa']);
+window.addEventListener('meteo', () => {
+  const nombre = (location.hash.slice(1) || 'hoy').split('/')[0];
+  if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'hoy')) pintar(false);
+});
 window.addEventListener('contraste', () => { recalcularContraste(); pintar(false); });   // «Usar modelo» cambiado en Zona
 try {
   estado.datos = await cargarDatos();

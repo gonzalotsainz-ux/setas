@@ -1,6 +1,6 @@
 // Diario compartido: salidas en Supabase, con cola de borradores local para no perder nada sin red.
 // Sin login: el autor es solo un nombre elegido en el dispositivo (js/supabase.js).
-import { indiceZona } from './indice.js';
+import { indiceZona, HISTORIA_MINIMA } from './indice.js';
 import { especiesDeZona } from './datos.js';
 
 const CLAVE = 'setas:borradores';
@@ -155,7 +155,7 @@ export async function borrarSalida(id, { supabase }) {
 
 export const urlFoto = (ruta, { supabase }) => supabase.storage.from(BUCKET).getPublicUrl(ruta).data.publicUrl;
 
-export const totalKg = (especies) => (especies ?? []).reduce((t, e) => {
+export const totalKg = (especies) => (Array.isArray(especies) ? especies : []).reduce((t, e) => {
   const n = Number(String(e?.kg ?? '').replace(',', '.'));
   return t + (Number.isFinite(n) ? n : 0);
 }, 0);
@@ -171,11 +171,12 @@ export async function ajustarATamano(codificar, { max = 1600, calidad = 0.8, lim
   return r;
 }
 
-// Serie de un punto recortada a los últimos 30 días y los próximos 3 (foto fija para el diario).
-export function recortarSerie(serie, antes = 30, despues = 3) {
+// Serie de un punto recortada a los 30 días anteriores y los 3 siguientes a `centro` (por defecto, hoy): foto fija
+// para el diario. En el recorte, `hoy` es la posición de `centro` (el día de la salida).
+export function recortarSerie(serie, antes = 30, despues = 3, centro = serie.hoy) {
   const n = serie.fechas.length;
-  const a = Math.max(0, serie.hoy - antes), z = Math.min(n, serie.hoy + despues + 1);
-  const r = { hoy: serie.hoy - a };
+  const a = Math.max(0, centro - antes), z = Math.min(n, centro + despues + 1);
+  const r = { hoy: centro - a };
   for (const [k, v] of Object.entries(serie)) if (Array.isArray(v) && v.length === n) r[k] = v.slice(a, z);
   return r;
 }
@@ -188,14 +189,19 @@ export function puntoMasCercano(zona, lat, lon) {
   return ps.reduce((m, p) => (d(p) < d(m) ? p : m));
 }
 
-// Meteo e índice de ese día para guardarlos junto a la salida: del punto de la zona más cercano al sitio.
-export function fotoFijaDelDia({ zona, lat, lon, datos, meteo, umbrales = {} }) {
+// Meteo e índice del DÍA DE LA SALIDA (`fecha`, AAAA-MM-DD; por defecto, hoy) para guardarlos junto a ella: del punto
+// de la zona más cercano al sitio. Si ese día no está en la serie o le faltan los 30 días de historia, no se guarda nada.
+export function fotoFijaDelDia({ zona, lat, lon, fecha, datos, meteo, umbrales = {} }) {
+  const nada = { meteo: null, indice: null };
   const punto = puntoMasCercano(zona, lat, lon);
   const serie = punto && meteo?.series?.[punto.id];
-  if (!serie) return { meteo: null, indice: null };
-  const res = indiceZona({ [punto.id]: serie }, serie.hoy, especiesDeZona(zona, datos.especies, umbrales));
+  if (!serie) return nada;
+  const j = fecha ? serie.fechas.indexOf(fecha) : serie.hoy;
+  if (j === -1 || j < HISTORIA_MINIMA - 1) return nada;
+  const res = indiceZona({ [punto.id]: serie }, j, especiesDeZona(zona, datos.especies, umbrales));
   return {
-    meteo: { punto: punto.id, serie: recortarSerie(serie) },
-    indice: { punto: punto.id, valor: res.valor, etiqueta: res.etiqueta, especies: res.especies.slice(0, 3).map((e) => ({ id: e.id, valor: e.valor })) },
+    meteo: { punto: punto.id, serie: recortarSerie(serie, 30, 3, j) },
+    indice: { punto: punto.id, fecha: serie.fechas[j], valor: res.valor, etiqueta: res.etiqueta, especies: res.especies.slice(0, 3).map((e) => ({ id: e.id, valor: e.valor })),
+      ...(res.fueraDeTemporada ? { fueraDeTemporada: true } : {}), ...(res.incompleta ? { faltan: res.faltan } : {}) },
   };
 }

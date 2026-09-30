@@ -4,7 +4,7 @@ import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
-import { validarUmbral, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
+import { validarUmbral, fusionarUmbral, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
 const esUrl = (u) => typeof u === 'string' && /^https?:\/\//i.test(u);
 const enlace = (texto, href) => (esUrl(href) ? el('a', { texto, href, target: '_blank', rel: 'noopener noreferrer' }) : el('span', { texto }));
@@ -80,8 +80,11 @@ const CONFIANZA = { alta: 'confianza alta', media: 'confianza media', baja: 'con
 
 function filaUmbral({ estado, especie, fila, alCambiar }) {
   const orig = especie.indice;
-  const efectivo = { ...orig, ...(estado.umbrales[especie.id] ?? {}) };
-  const editado = !!estado.umbrales[especie.id];
+  // Solo las claves editables, y validada: una fila mal formada (RLS abierto) no rompe la pantalla ni quita «Restablecer».
+  const fusion = fusionarUmbral(orig, estado.umbrales[especie.id]);
+  const filaMala = validarUmbral(fusion).length > 0 || !Array.isArray(fusion.trango) || !Array.isArray(fusion.desfase);
+  const efectivo = filaMala ? orig : fusion;
+  const editado = Object.hasOwn(estado.umbrales, especie.id) || !!fila;
   const entradas = {};
   const campos = CAMPOS.map(([k, rotulo, leer]) => {
     const id = `umbral-${especie.id}-${k}`;
@@ -128,6 +131,7 @@ function filaUmbral({ estado, especie, fila, alCambiar }) {
   const editor = fila?.autor ?? 'desconocido';
   const cuerpo = [origen];
   if (editado) cuerpo.push(el('p', { clase: 'ajustes-editado', texto: `Editado por ${editor}${fila?.actualizado ? ` el ${fechaCorta(fila.actualizado)}` : ''}` }));
+  if (editado && filaMala) cuerpo.push(el('p', { clase: 'aviso-peligro', role: 'note', texto: 'El umbral guardado no es válido y no se usa: el índice sigue con los valores de la investigación. Guarda unos nuevos o pulsa «Restablecer».' }));
   cuerpo.push(formulario);
   return el('details', { clase: 'ajustes-especie', attrs: { 'data-id': especie.id } },
     el('summary', {}, el('span', { clase: 'ajustes-especie__nombre', texto: comun(especie) }), editado ? el('span', { clase: 'etiqueta etiqueta--ocre', texto: `Editado por ${editor}` }) : null),
@@ -165,7 +169,7 @@ function bloqueCalibracion(estado) {
   listarSalidas({ supabase }).then((salidas) => {
     const porEspecie = new Map();
     for (const s of [...salidas].sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))) {
-      for (const e of s.especies ?? []) {
+      for (const e of Array.isArray(s.especies) ? s.especies : []) {
         const kg = Number(String(e.kg ?? '').replace(',', '.'));
         const v = s.indice?.especies?.find((x) => x.id === e.especie_id)?.valor;
         const z = estado.datos.zonas.find((x) => x.id === s.zona_id);

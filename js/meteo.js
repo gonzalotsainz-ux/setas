@@ -1,4 +1,4 @@
-// Open-Meteo: serie principal (60 días pasados + 10 de previsión), contraste de modelos y climatología del suelo.
+// Open-Meteo: serie principal (60 días pasados + 10 de previsión), contraste de modelos, lluvia desde el 1-ago y climatología del suelo.
 // Fundamento: docs/investigacion/03-fructificacion-datos.md §2.
 // Comprobado en vivo (2026-09-30): el suelo horario con el modelo por defecto (best_match) viene relleno y el archivo
 // histórico coincide con el forecast (sesgo medio < 0,001 m³/m³ en 52 días solapados), así que no hace falta `models=`.
@@ -14,6 +14,11 @@ export const PASADOS = 60, FUTUROS = 10;
 const TRES_HORAS = 3 * 3600e3;
 const ZONA = 'Europe/Madrid';
 const ESPERA_MS = 15000;   // sin respuesta en 15 s, se da por caída y se usa la caché
+export const ESPERA_ARCHIVO_MS = 45000;   // la climatología (2 años de archivo) tarda más
+const ESPERA_LLUVIA_MS = 20000;           // la lluvia desde agosto es una petición pequeña
+export const REINTENTO_MS = 20 * 60e3;    // lo que faltó (climatología o lluvia desde agosto) se reintenta a los 20 min
+const CLIMA_VALIDA_MS = 30 * 864e5;       // la climatología del suelo apenas cambia: vale 30 días
+const DIAS_CLIMA = 730;                   // 2 años completos: todas las estaciones del año (Morchella en primavera)
 
 export const hoyMadrid = (ahora = new Date()) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: ZONA, year: 'numeric', month: '2-digit', day: '2-digit' }).format(ahora);
@@ -26,8 +31,13 @@ export const urlPrincipal = (puntos) => `${PREVISION}?${new URLSearchParams({ ..
   daily: DIARIAS.join(','), hourly: HORARIAS.join(','), past_days: PASADOS, forecast_days: FUTUROS })}`;
 export const urlModelos = (puntos) => `${PREVISION}?${new URLSearchParams({ ...coords(puntos),
   daily: 'precipitation_sum', models: MODELOS.join(','), forecast_days: 8 })}`;
-export const urlArchivo = (puntos, desde, hasta) => `${ARCHIVO}?${new URLSearchParams({ ...coords(puntos),
-  daily: 'precipitation_sum,soil_moisture_0_to_7cm_mean', start_date: desde, end_date: hasta })}`;
+export const urlArchivo = (puntos, desde, hasta, daily) => `${ARCHIVO}?${new URLSearchParams({ ...coords(puntos),
+  daily, start_date: desde, end_date: hasta })}`;
+// Pesos estimados de cada petición: docs/datos.md («Peso de las peticiones»).
+export const urlClimatologia = (puntos, hasta) => urlArchivo(puntos, sumarDias(hasta, 1 - DIAS_CLIMA), hasta, 'soil_moisture_0_to_7cm_mean');
+export const urlLluviaArchivo = (puntos, desde, hasta) => urlArchivo(puntos, desde, hasta, 'precipitation_sum');
+export const urlLluviaPrevision = (puntos, desde, hasta) => `${PREVISION}?${new URLSearchParams({ ...coords(puntos),
+  daily: 'precipitation_sum', start_date: desde, end_date: hasta })}`;
 
 function mediaDiaria(horas, valores) {
   const g = new Map();
@@ -80,17 +90,29 @@ export function dispersion(r, hoy) {
   return { modelos, media, rango, incierta: rango > 0.5 * media && rango > 10, horizonte, excluidos };
 }
 
-export function resumirArchivo(r, inicioSerie) {
-  const d = r.daily, porMes = {};
-  const a = Number(inicioSerie.slice(0, 4)), m = Number(inicioSerie.slice(5, 7));
-  const agosto = `${m >= 8 ? a : a - 1}-08-01`;
-  let mm = 0, falta = false;
-  d.time.forEach((f, k) => {
-    const v = d.soil_moisture_0_to_7cm_mean[k];
+export function resumirArchivo(r) {
+  const d = r?.daily, porMes = {};
+  (d?.time ?? []).forEach((f, k) => {
+    const v = d.soil_moisture_0_to_7cm_mean?.[k];
     if (v != null) (porMes[Number(f.slice(5, 7))] ??= []).push(v);
-    if (f >= agosto && f < inicioSerie) { const p = d.precipitation_sum[k]; if (p == null) falta = true; else mm += p; }
   });
-  return { porMes, lluviaAntesDeSerie: falta ? null : { desde: agosto, mm: Math.round(mm * 10) / 10 } };
+  return { porMes };
+}
+
+// Lluvia de `desde` a `hasta` (ambos incluidos) de una respuesta diaria. Si falta algún día (hueco, o el archivo aún
+// no llega hasta `hasta` por el retraso de ERA5), null: nunca se cuenta un día sin dato como 0.
+export function lluviaAntes(r, desde, hasta) {
+  const d = r?.daily;
+  if (!d?.time || !d.precipitation_sum) return null;
+  let mm = 0, dias = 0;
+  for (const [k, f] of d.time.entries()) {
+    if (f < desde || f > hasta) continue;
+    const p = d.precipitation_sum[k];
+    if (p == null || Number.isNaN(p)) return null;
+    mm += p; dias++;
+  }
+  if (dias !== entreDias(desde, hasta) + 1) return null;
+  return { desde, hasta, mm: Math.round(mm * 10) / 10 };
 }
 
 export function percentil(v, muestra) {
@@ -99,37 +121,103 @@ export function percentil(v, muestra) {
   return (100 * c) / muestra.length;
 }
 
+// Percentil de la humedad del suelo de cada día frente a la climatología del punto (mes anterior, el mismo y el siguiente).
 export function aplicarClimatologia(serie, resumen) {
   const hsueloPct = serie.fechas.map((f, k) => {
     const m = Number(f.slice(5, 7));
-    const muestra = [m - 1, m, m + 1].map((x) => ((x + 11) % 12) + 1).flatMap((x) => resumen.porMes[x] ?? []);
+    const muestra = [m - 1, m, m + 1].map((x) => ((x + 11) % 12) + 1).flatMap((x) => resumen.porMes?.[x] ?? []);
     return percentil(serie.hsuelo[k], muestra);
   });
-  return { ...serie, hsueloPct, lluviaAntesDeSerie: resumen.lluviaAntesDeSerie };
+  return { ...serie, hsueloPct };
 }
 
-async function pedir(fetchFn, url) {
-  const r = await fetchFn(url, { signal: AbortSignal.timeout(ESPERA_MS) });
+// Lluvia desde el 1-ago hasta el día antes de la serie: solo vale si acaba justo ahí.
+export function aplicarLluviaAntes(serie, ll) {
+  const vale = ll && ll.hasta === diaAnterior(serie.fechas[0]);
+  return { ...serie, lluviaAntesDeSerie: vale ? ll : null };
+}
+
+async function pedir(fetchFn, url, espera = ESPERA_MS) {
+  const r = await fetchFn(url, { signal: AbortSignal.timeout(espera) });
   if (!r.ok) throw new Error(`Open-Meteo respondió ${r.status}`);
   const j = await r.json();
   if (j?.error) throw new Error(`Open-Meteo: ${j.reason}`);
   return j;
 }
 
-const diaAnterior = (f) => new Date(Date.parse(`${f}T00:00:00Z`) - 864e5).toISOString().slice(0, 10);
+const DIA = 864e5;
+const sumarDias = (f, n) => new Date(Date.parse(`${f}T00:00:00Z`) + n * DIA).toISOString().slice(0, 10);
+const diaAnterior = (f) => sumarDias(f, -1);
+const entreDias = (a, b) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / DIA);
+// 1 de agosto de la temporada de otoño en curso para una fecha (de agosto a diciembre, el del año; si no, el del anterior).
+export const agostoDe = (f) => `${Number(f.slice(5, 7)) >= 8 ? Number(f.slice(0, 4)) : Number(f.slice(0, 4)) - 1}-08-01`;
+const clavePuntos = (puntos) => puntos.map((p) => p.id).sort().join(',');
 
-async function climatologia(fetchFn, puntos, inicio, almacen) {
-  const clave = `clim:${inicio}:${puntos.map((p) => p.id).join(',')}`;   // los puntos van en la clave: si se añade uno, se vuelve a pedir
-  const c = leer(clave, almacen);
-  if (c) return c.datos;
+// Climatología de humedad del suelo: 2 años hasta `hasta`, en caché 30 días con clave solo del conjunto de puntos
+// (si se añade uno, se vuelve a pedir). Si falla, se usa la guardada aunque esté caducada; sin ninguna, null.
+async function climatologia(fetchFn, puntos, hasta, alm, ahora) {
+  const clave = `clim:${clavePuntos(puntos)}`;
+  const c = leer(clave, alm);
+  const guardada = c?.datos && typeof c.datos === 'object' && puntos.every((p) => c.datos[p.id]?.porMes) ? c.datos : null;
+  if (guardada && ahora - new Date(c.hora) < CLIMA_VALIDA_MS) return guardada;
   try {
-    const desde = `${Number(inicio.slice(0, 4)) - 3}-01-01`;
-    const r = comoLista(await pedir(fetchFn, urlArchivo(puntos, desde, diaAnterior(inicio))));
-    const res = Object.fromEntries(r.map((x, k) => [puntos[k].id, resumirArchivo(x, inicio)]));
-    guardar(clave, res, undefined, almacen);
-    borrarPrefijo('clim:', clave, almacen);
+    const r = comoLista(await pedir(fetchFn, urlClimatologia(puntos, hasta), ESPERA_ARCHIVO_MS));
+    const res = Object.fromEntries(r.map((x, k) => [puntos[k].id, resumirArchivo(x)]));
+    guardar(clave, res, ahora.toISOString(), alm);
+    borrarPrefijo('clim:', clave, alm);
     return res;
-  } catch { return null; }   // sin climatología, el índice se calcula sin fS y lo explica
+  } catch { return guardada; }   // sin climatología, el índice se calcula sin fS y lo explica
+}
+
+// Lluvia desde el 1-ago hasta el día antes de la serie (la necesita el arranque de temporada de las de otoño desde que
+// la serie de 60 días empieza después del 1-ago). Petición ligera al archivo (solo `precipitation_sum`), en caché por día
+// (la clave lleva el inicio de la serie). Lo que el archivo no traiga se pide al forecast (guarda ~2 meses hacia atrás);
+// si tampoco, ese punto queda sin dato (null) y sus especies de otoño salen «sin datos», no con una nota inventada.
+// Devuelve { necesaria, porPunto: { id: {desde, hasta, mm} | null } }.
+async function lluviaDesdeAgosto(fetchFn, puntos, hoy, inicio, alm) {
+  const desde = agostoDe(hoy), hasta = diaAnterior(inicio);
+  if (inicio <= desde) return { necesaria: false, porPunto: {} };
+  const clave = `lluvia:${inicio}:${clavePuntos(puntos)}`;
+  const c = leer(clave, alm)?.datos;
+  if (c && puntos.every((p) => c[p.id]?.mm != null && c[p.id].desde === desde && c[p.id].hasta === hasta)) return { necesaria: true, porPunto: c };
+  const porPunto = Object.fromEntries(puntos.map((p) => [p.id, null]));
+  const rellenar = async (url, lista) => {
+    try {
+      const r = comoLista(await pedir(fetchFn, url, ESPERA_LLUVIA_MS));
+      r.forEach((x, k) => { if (lista[k]) porPunto[lista[k].id] ??= lluviaAntes(x, desde, hasta); });
+    } catch { /* se prueba con la siguiente fuente */ }
+  };
+  await rellenar(urlLluviaArchivo(puntos, desde, hasta), puntos);
+  const faltan = puntos.filter((p) => !porPunto[p.id]);
+  if (faltan.length) await rellenar(urlLluviaPrevision(faltan, desde, hasta), faltan);
+  if (puntos.every((p) => porPunto[p.id])) { guardar(clave, porPunto, undefined, alm); borrarPrefijo('lluvia:', clave, alm); }
+  return { necesaria: true, porPunto };
+}
+
+// Pone climatología y lluvia desde agosto en las series (cada una solo si llegó).
+function completarSeries(series, clim, lluvia) {
+  return Object.fromEntries(Object.entries(series).map(([id, s0]) => {
+    let s = clim?.[id] ? aplicarClimatologia(s0, clim[id]) : s0;
+    if (lluvia?.necesaria && !s.lluviaAntesDeSerie) s = aplicarLluviaAntes(s, lluvia.porPunto[id]);
+    return [id, s];
+  }));
+}
+// Qué falta (se reintenta a los REINTENTO_MS): climatología de algún punto o lluvia desde agosto cuando hace falta.
+function pendienteDe(series, puntos, faltaClim) {
+  const faltaLluvia = puntos.some((p) => { const s = series[p.id]; return s && s.fechas[0] > agostoDe(s.fechas[s.hoy]) && !s.lluviaAntesDeSerie; });
+  return faltaClim || faltaLluvia ? { clim: faltaClim, lluvia: faltaLluvia } : null;
+}
+const faltaClimDe = (clim, puntos) => !clim || puntos.some((p) => !clim[p.id]);
+
+// Reintento de lo que faltó (climatología y/o lluvia desde agosto) sobre la meteo guardada, sin repetir el resto.
+async function reintentarPendiente(fetchFn, puntos, datos, alm, ahora) {
+  const inicio = datos.series[puntos[0].id].fechas[0];
+  const [clim, lluvia] = await Promise.all([
+    datos.pendiente.clim ? climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora) : Promise.resolve(undefined),
+    datos.pendiente.lluvia ? lluviaDesdeAgosto(fetchFn, puntos, datos.hoy, inicio, alm) : Promise.resolve(undefined)]);
+  const series = completarSeries(datos.series, clim, lluvia);
+  const pendiente = pendienteDe(series, puntos, datos.pendiente.clim ? faltaClimDe(clim, puntos) : false);
+  return { ...datos, series, pendiente, intento: ahora.toISOString() };
 }
 
 // almacen: localStorage por defecto; null desactiva la caché (pruebas y scripts).
@@ -138,16 +226,28 @@ export async function obtenerMeteo(puntos, { fetchFn = globalThis.fetch?.bind(gl
   const alm = almacen;
   const previo = leer('meteo', alm)?.datos?.hoy ? leer('meteo', alm) : null;   // una entrada corrupta o antigua se ignora
   const completa = !!previo?.datos?.series && puntos.every((p) => previo.datos.series[p.id]);   // si se añadió un punto, la caché no vale
-  if (previo && completa && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) return { ...previo.datos, hora: previo.hora, desdeCache: true };
+  if (previo && completa && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) {
+    const p = previo.datos;
+    if (p.pendiente && ahora - new Date(p.intento ?? previo.hora) >= REINTENTO_MS) {
+      const datos = await reintentarPendiente(fetchFn, puntos, p, alm, ahora);
+      guardar('meteo', datos, previo.hora, alm);
+      return { ...datos, hora: previo.hora, desdeCache: true };
+    }
+    return { ...p, hora: previo.hora, desdeCache: true };
+  }
   try {
+    // El inicio de la serie se sabe antes de pedirla (past_days): archivo y forecast van a la vez.
+    const inicio = sumarDias(hoy, -PASADOS);
+    const climP = climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora);
+    const lluviaP = lluviaDesdeAgosto(fetchFn, puntos, hoy, inicio, alm);
     const [principal, modelos] = await Promise.all([pedir(fetchFn, urlPrincipal(puntos)), pedir(fetchFn, urlModelos(puntos)).catch(() => null)]);
-    let series = parsearPrincipal(principal, puntos, hoy);
-    const inicio = series[puntos[0].id].fechas[0];
-    const clim = await climatologia(fetchFn, puntos, inicio, alm);
-    if (clim) series = Object.fromEntries(Object.entries(series).map(([id, s]) => [id, clim[id] ? aplicarClimatologia(s, clim[id]) : s]));
+    const bruto = parsearPrincipal(principal, puntos, hoy);
+    const [clim, lluvia] = await Promise.all([climP, lluviaP]);
+    const series = completarSeries(bruto, clim, lluvia);
+    const pendiente = pendienteDe(series, puntos, faltaClimDe(clim, puntos));
     const disp = modelos ? Object.fromEntries(comoLista(modelos).map((r, k) => [puntos[k].id, dispersion(r, hoy)])) : null;
-    const datos = { hoy, series, dispersion: disp };
     const hora = ahora.toISOString();
+    const datos = { hoy, series, dispersion: disp, pendiente, intento: hora };
     guardar('meteo', datos, hora, alm);
     return { ...datos, hora, desdeCache: false };
   } catch (e) {

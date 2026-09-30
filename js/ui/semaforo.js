@@ -8,7 +8,8 @@ export function nivelDe(valor) {
 }
 export const palabraDe = (nivel) => PALABRA[nivel];
 
-// semaforo(valor|null, etiqueta?) → <span class="semaforo" data-nivel>. Sin valor: «Sin datos», sin número.
+// semaforo(valor|null, etiqueta?) → <span class="semaforo" data-nivel>. Sin valor: gris y sin número, con el texto
+// «Sin datos» o la etiqueta que se pase (p. ej. «Fuera de temporada»).
 export function semaforo(valor, etiqueta = null) {
   const nivel = nivelDe(valor);
   const el = document.createElement('span');
@@ -18,6 +19,6 @@ export function semaforo(valor, etiqueta = null) {
   barras.className = 'semaforo__icono';
   barras.setAttribute('aria-hidden', 'true');
   barras.innerHTML = '<i></i><i></i><i></i><i></i>';
-  el.append(barras, nivel === 'sin-datos' ? 'Sin datos' : (etiqueta ?? PALABRA[nivel]));
+  el.append(barras, etiqueta ?? PALABRA[nivel]);
   return el;
 }

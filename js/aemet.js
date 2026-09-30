@@ -1,4 +1,5 @@
 import { parsearPrec } from '../supabase/functions/aemet/prec.js';
+import { SUPABASE_URL, SUPABASE_ANON } from './config.js';   // sin cargar supabase.js (cliente del CDN) para dos constantes
 
 // Lluvia medida en estaciones AEMET (a través de la Edge Function) y contraste con el modelo.
 // Sin login: la función se llama con la clave publicable en la cabecera `apikey`.
@@ -15,18 +16,22 @@ export { parsearPrec };
 // (> 30 % y > 10 mm), así que no depende de los últimos días sin medida (AEMET publica con retraso).
 // P26estacion es la definición del índice: días de estación + días del modelo en la cola sin medida (lo que produce
 // aplicarEstacion). P26modelo es la lluvia de 26 días solo con el modelo. Con menos de MIN_DIAS_ESTACION días, null.
+// Un día sin dato del modelo no cuenta como 0: P26modelo sale null, P26estacion solo existe si ese día lo cubre la
+// estación, y en la comparación solo entran los días con los dos datos (`diasComparados`).
 export function compararLluvia(serie, obs) {
   const i = serie.hoy, js = Array.from({ length: 26 }, (_, k) => i - 25 + k);
-  const mod = (j) => serie.precip[j] ?? 0;
-  const cubiertos = js.filter((j) => obs[serie.fechas[j]] != null);
-  const estacionCubierta = cubiertos.reduce((t, j) => t + obs[serie.fechas[j]], 0);
-  const modeloCubierto = cubiertos.reduce((t, j) => t + mod(j), 0);
-  const P26modelo = js.reduce((t, j) => t + mod(j), 0);
+  const mod = (j) => { const v = serie.precip[j]; return v == null || Number.isNaN(v) ? null : v; };
+  const ob = (j) => obs[serie.fechas[j]] ?? null;
+  const suma = (l, f) => l.reduce((t, j) => (t == null || f(j) == null ? null : t + f(j)), 0);
+  const cubiertos = js.filter((j) => ob(j) != null);
+  const pares = cubiertos.filter((j) => mod(j) != null);
+  const estacionCubierta = suma(pares, ob), modeloCubierto = suma(pares, mod);
+  const P26modelo = suma(js, mod);
   const completa = cubiertos.length >= MIN_DIAS_ESTACION;
-  const P26estacion = completa ? estacionCubierta + P26modelo - modeloCubierto : null;
+  const P26estacion = completa ? suma(js, (j) => ob(j) ?? mod(j)) : null;
   const d = Math.abs(estacionCubierta - modeloCubierto);
   const discrepa = completa && d > 10 && d > 0.3 * Math.max(estacionCubierta, modeloCubierto);
-  return { P26modelo, P26estacion, diasCubiertos: cubiertos.length, estacionCubierta, modeloCubierto, discrepa };
+  return { P26modelo, P26estacion, diasCubiertos: cubiertos.length, diasComparados: pares.length, estacionCubierta, modeloCubierto, discrepa };
 }
 
 export function aplicarEstacion(serie, obs, id) {
@@ -100,7 +105,6 @@ export async function pedirObservaciones(estaciones, desde, hasta, { ahora = Dat
     const g = JSON.parse(localStorage.getItem(clave) ?? 'null');
     if (g && ahora - g.t < SEIS_HORAS) return g.datos;
   } catch { /* sin caché local */ }
-  const { SUPABASE_URL, SUPABASE_ANON } = await import('./supabase.js');
   const url = `${SUPABASE_URL}/functions/v1/aemet?${new URLSearchParams({ estaciones: estaciones.join(','), desde, hasta })}`;
   const r = await fetch(url, { headers: { apikey: SUPABASE_ANON } });
   if (!r.ok) throw new Error(`AEMET vía Supabase: ${r.status}`);

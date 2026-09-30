@@ -310,3 +310,37 @@ test('crearSalida solo envía columnas reales de salidas (nada de ultimoError ni
   await crearSalida({ id: 'b1', fecha: '2026-10-12', zona_id: 'z', notas: 'x', ultimoError: 'HTTP 503', fotosSubidas: 0, fotos: [] }, { supabase: sb });
   assert.deepEqual(Object.keys(sb.bd.salidas[0]).sort(), ['fecha', 'id', 'notas', 'zona_id']);
 });
+
+// ---- Corrección final: I2 (la foto fija es la del día de la salida) y menor 4 ----
+test('fotoFijaDelDia: con una fecha pasada, índice y meteo de ESE día, no de hoy', () => {
+  const zona = { id: 'z', habitats: ['pinar'], puntos: [{ id: 'p', lat: 41, lon: -2 }] };
+  const datos = { especies: [{ ...BOLETUS, categoria: 'comestible', zonas: { z: { presencia: 'frecuente' } }, habitats: ['pinar'] }] };
+  // 70 días; hoy = 59; la tormenta de los días 40–42 hace que el día 45 y el 59 den notas distintas
+  const serie = serieSintetica({ dias: 70, hoy: 59, precip: lluviaBuena });
+  const meteo = { series: { p: serie } };
+  const hoyR = fotoFijaDelDia({ zona, lat: 41, lon: -2, fecha: serie.fechas[59], datos, meteo });
+  const pasado = fotoFijaDelDia({ zona, lat: 41, lon: -2, fecha: serie.fechas[45], datos, meteo });
+  assert.notEqual(pasado.indice.valor, hoyR.indice.valor);
+  assert.equal(pasado.meteo.serie.fechas[pasado.meteo.serie.hoy], serie.fechas[45]);   // recorte centrado en la salida
+  assert.equal(pasado.meteo.serie.fechas[0], serie.fechas[15]);
+  assert.equal(pasado.meteo.serie.fechas.at(-1), serie.fechas[48]);
+  assert.equal(pasado.indice.fecha, serie.fechas[45]);
+  // sin historia suficiente (j < 29) o fuera de la serie: no se guarda nada inventado
+  assert.deepEqual(fotoFijaDelDia({ zona, lat: 41, lon: -2, fecha: serie.fechas[20], datos, meteo }), { meteo: null, indice: null });
+  assert.deepEqual(fotoFijaDelDia({ zona, lat: 41, lon: -2, fecha: '2020-01-01', datos, meteo }), { meteo: null, indice: null });
+});
+
+test('recortarSerie: centrado en otro día', () => {
+  const n = 71;
+  const serie = { fechas: Array.from({ length: n }, (_, k) => `d${k}`), hoy: 60, precip: Array.from({ length: n }, (_, k) => k) };
+  const r = recortarSerie(serie, 30, 3, 40);
+  assert.equal(r.fechas[r.hoy], 'd40');
+  assert.equal(r.fechas[0], 'd10');
+  assert.equal(r.fechas.at(-1), 'd43');
+});
+
+test('totalKg: especies que no son una lista no rompen', () => {
+  assert.equal(totalKg('no es lista'), 0);
+  assert.equal(totalKg({ a: 1 }), 0);
+  assert.equal(totalKg(null), 0);
+});

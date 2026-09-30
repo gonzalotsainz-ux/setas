@@ -159,3 +159,20 @@ test('contraste: «Usar modelo» solo quita la estación a los puntos que discre
   assert.equal(m.contraste.z.discrepa, true);                    // la zona avisa si algún punto discrepa
   assert.equal(m.contraste.z.estacion.id, 'EA');
 });
+
+test('compararLluvia: un nulo del modelo no cuenta como 0 en la P26 mostrada', () => {
+  const s = serieSintetica({ precip: () => 2 });
+  s.precip[45] = null;                                   // día sin medida en la estación y sin modelo
+  const obs = obsDe(s, 2, 34, 45);                       // 11 días: estación incompleta
+  const c = compararLluvia(s, obs);
+  assert.equal(c.P26modelo, null);
+  assert.equal(c.P26estacion, null);
+  // con la estación cubriendo el día sin modelo, la P26 de estación sí existe; la del modelo no
+  const s2 = serieSintetica({ precip: () => 2 });
+  s2.precip[40] = null;
+  const c2 = compararLluvia(s2, obsDe(s2, 2));
+  assert.equal(c2.P26modelo, null);
+  assert.equal(c2.P26estacion, 52);
+  assert.equal(c2.discrepa, false);                      // el día sin modelo no se compara (no es 2 contra 0)
+  assert.equal(c2.diasComparados, 22);
+});

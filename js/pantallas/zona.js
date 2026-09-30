@@ -36,12 +36,16 @@ function calcular(zona, datos, meteo, umbrales) {
   const especies = especiesDeZona(zona, datos.especies, umbrales);
   if (!primera) return { series, especies, res: null, porPunto: {} };
   const res = indiceZona(series, primera.hoy, especies);
-  const porPunto = Object.fromEntries(Object.entries(series).map(([id, s]) => [id, indiceZona({ [id]: s }, s.hoy, especies).valor]));
+  const porPunto = Object.fromEntries(Object.entries(series).map(([id, s]) => [id, indiceZona({ [id]: s }, s.hoy, especies)]));
   return { series, especies, res, porPunto };
 }
 
 // ---- Piezas ----
-function cabecera(zona, valor) {
+const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
+const rotulo = (res) => (res?.fueraDeTemporada ? 'Fuera de temporada' : null);
+
+function cabecera(zona, res) {
+  const valor = res?.valor ?? null;
   const detalle = detalleNombre(zona);
   const alts = zona.puntos.map((p) => p.altitud);
   const meta = el('div', { clase: 'portada__meta' }, etiqueta(zona.provincias.join(' y ')),
@@ -54,19 +58,20 @@ function cabecera(zona, valor) {
         el('div', {}, el('h1', { id: 'titulo-zona', texto: nombreCorto(zona) }), detalle ? el('p', { clase: 'portada__sub', texto: detalle }) : null),
         el('div', { clase: 'zona-cabeza__nota' },
           valor != null ? el('p', { clase: 'indice indice--grande' }, String(valor), el('span', { clase: 'indice__max', texto: '/100' })) : null,
-          semaforo(valor))),
+          semaforo(valor, rotulo(res)))),
       meta),
+    res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null,
     avisos.length ? el('div', { clase: 'pila' }, avisos) : null);
 }
 
 function selectorPuntos(zona, sel, porPunto, alElegir) {
   const grupo = el('div', { clase: 'puntos', attrs: { role: 'group', 'aria-label': 'Punto de referencia' } });
   for (const p of zona.puntos) {
-    const v = porPunto[p.id] ?? null;
+    const rp = porPunto[p.id] ?? null, v = rp?.valor ?? null;
     const b = el('button', { clase: 'punto', type: 'button', attrs: { 'aria-pressed': String(p.id === sel), 'data-nivel': nivelDe(v) } },
       el('span', { clase: 'punto__nombre', texto: nombrePunto(p) }),
       el('span', { clase: 'punto__meta texto-2', texto: `${habitat(p.habitat)} · ${miles(p.altitud)}${nbsp}m` }),
-      el('span', { clase: 'punto__nota' }, semaforo(v), v != null ? el('b', { clase: 'tabular', texto: String(v) }) : null),
+      el('span', { clase: 'punto__nota' }, semaforo(v, rotulo(rp)), v != null ? el('b', { clase: 'tabular', texto: String(v) }) : null),
       p.proteccion ? etiqueta('Espacio protegido', 'ocre') : null);
     b.addEventListener('click', () => alElegir(p.id));
     grupo.append(b);
@@ -144,6 +149,8 @@ function cajaContraste(zona, meteo, id) {
   const c = meteo.contrastePuntos?.[id];
   if (!c?.discrepa) return null;
   const { P26estacion, P26modelo, diasCubiertos, estacionCubierta, modeloCubierto } = c.comparacion;
+  const diasComparados = c.comparacion.diasComparados ?? diasCubiertos;
+  const mm = (v) => (v == null ? 'sin datos' : `${Math.round(v)}${nbsp}mm`);   // un día sin modelo no se cuenta como 0
   const boton = el('button', { clase: 'chip', type: 'button', texto: 'Usar modelo', attrs: { 'aria-pressed': String(c.usaModelo) } });
   if (ui.enfocarModelo === zona.id) { ui.enfocarModelo = null; setTimeout(() => boton.focus({ preventScroll: true }), 50); }   // el repintado recrea el botón
   boton.addEventListener('click', () => {
@@ -154,8 +161,8 @@ function cajaContraste(zona, meteo, id) {
   return el('section', { clase: 'tarjeta desacuerdo', attrs: { 'aria-labelledby': 'titulo-contraste' } },
     el('div', { clase: 'desacuerdo__cabeza' }, icono('i-aviso'),
       el('div', {}, el('h2', { id: 'titulo-contraste', texto: 'Estación y modelo no coinciden' }),
-        el('p', { clase: 'texto-2', texto: `Estación ${c.estacion.nombre}: ${Math.round(P26estacion)}${nbsp}mm · Modelo: ${Math.round(P26modelo)}${nbsp}mm` }))),
-    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasCubiertos} días medidos: estación ${Math.round(estacionCubierta)}${nbsp}mm, modelo ${Math.round(modeloCubierto)}${nbsp}mm. Estación ${c.estacion.nombre ?? c.estacion.id}${lugarEstacion(c.estacion)}${lejana(c.estacion)}. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
+        el('p', { clase: 'texto-2', texto: `Estación ${c.estacion.nombre}: ${mm(P26estacion)} · Modelo: ${mm(P26modelo)}` }))),
+    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasComparados} días medidos${diasComparados < diasCubiertos ? ' con dato del modelo' : ''}: estación ${mm(estacionCubierta)}, modelo ${mm(modeloCubierto)}. Estación ${c.estacion.nombre ?? c.estacion.id}${lugarEstacion(c.estacion)}${lejana(c.estacion)}. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
     el('div', { clase: 'chips' }, boton));
 }
 
@@ -181,17 +188,16 @@ function enPunto(serie, especie) {
 
 function filaEspecie(e, r, rango, abierta, alAbrir) {
   const foto = e.fotos?.[0];
-  const valor = r?.valor ?? null;
+  const fuera = r?.factores?.fC === 0;   // fuera de temporada: se enseña rotulada, sin nota
+  const valor = fuera ? null : r?.valor ?? null;
   const idDetalle = `desglose-${e.id}`;
-  const fuera = r && r.valor === 0 && Object.keys(r.datos).length === 0;
   const fila = el('button', { clase: 'especie-fila', type: 'button', attrs: { 'aria-expanded': String(abierta), 'aria-controls': idDetalle, 'data-nivel': nivelDe(valor) } },
     foto ? el('img', { clase: 'especie-fila__foto', src: foto.archivo, alt: '', width: 56, height: 56, loading: 'lazy' }) : el('span', { clase: 'especie-fila__foto' }),
     el('span', { clase: 'especie-fila__nombre' }, el('span', { clase: 'latin', texto: e.nombre }), el('span', { clase: 'texto-2 texto-s', texto: comun(e) })),
     valor != null ? el('span', { clase: 'indice', texto: String(valor) }) : null,
-    el('span', { clase: 'especie-fila__estado' }, semaforo(valor),
-      r ? etiqueta(`Confianza ${r.confianza}`) : null,
+    el('span', { clase: 'especie-fila__estado' }, semaforo(valor, fuera ? 'Fuera de temporada' : null),
+      r && !fuera ? etiqueta(`Confianza ${r.confianza}`) : null,
       rango && rango.min !== rango.max ? el('span', { clase: 'texto-2 texto-s tabular', texto: `${rango.min}–${rango.max} entre puntos` }) : null,
-      fuera ? el('span', { clase: 'texto-2 texto-s', texto: 'Fuera de temporada' }) : null,
       !r ? el('span', { clase: 'texto-2 texto-s', texto: 'Faltan datos en este punto' }) : null),
     el('span', { clase: 'especie-fila__abrir', attrs: { 'aria-hidden': 'true' } }, icono('i-abrir')));
   const detalle = el('div', { clase: 'especie-detalle', id: idDetalle, hidden: !abierta, attrs: { 'data-nivel': nivelDe(valor) } },
@@ -213,7 +219,8 @@ function listaEspecies(zona, especies, res, serie, sel) {
       el('div', { clase: 'tarjeta' }, el('p', { texto: 'Sin registros' }), el('p', { clase: 'texto-2 texto-s', texto: 'No consta ninguna especie comestible con índice en esta zona.' })));
   }
   const rangos = Object.fromEntries((res?.especies ?? []).map((s) => [s.id, s]));
-  const filas = especies.map((e) => ({ e, r: serie ? enPunto(serie, e) : null })).sort((a, b) => (b.r?.valor ?? -1) - (a.r?.valor ?? -1));
+  const orden = (r) => (r == null ? -1 : r.factores?.fC === 0 ? -2 : r.valor);   // sin datos, y al final las de fuera de temporada
+  const filas = especies.map((e) => ({ e, r: serie ? enPunto(serie, e) : null })).sort((a, b) => orden(b.r) - orden(a.r));
   return el('section', { attrs: { 'aria-labelledby': 'titulo-especies' } }, cabeza(`en ${sel}`),
     el('div', { clase: 'tarjeta lista' }, el('ul', { clase: 'lista-especies', attrs: { 'aria-label': 'Especies de la zona, de mayor a menor nota' } },
       filas.map(({ e, r }) => filaEspecie(e, r, rangos[e.id], ui.abierta[zona.id] === e.id, (id) => { ui.abierta[zona.id] = id; })))));
@@ -281,6 +288,6 @@ export function pintar({ estado, param, refrescarMeteo }) {
   }
   pintarDinamico();
 
-  return el('div', {}, cabecera(zona, c.res?.valor ?? null),
+  return el('div', {}, cabecera(zona, c.res),
     el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
 }

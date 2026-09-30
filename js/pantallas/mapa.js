@@ -1,5 +1,5 @@
 // Pantalla «Mapa»: IGN + cotos por precisión, zonas prohibidas, lluvia por punto y leyenda.
-import { crearMapa, leyenda, pintarSalidas } from '../mapa.js';
+import { crearMapa, leyenda, pintarSalidas, avisoOtroDia } from '../mapa.js';
 import { el, icono } from '../ui/dom.js';
 
 // Lo que la usuaria toca se conserva al repintar (la previsión llega después del primer pintado).
@@ -31,6 +31,8 @@ export async function pintar({ estado, param }) {
   if (!meteo?.series) {
     avisos.append(el('div', { clase: 'aviso' }, icono('i-aviso'), el('p', { texto: meteo?.error ? 'No hay previsión: los puntos salen sin nota.' : 'Esperando la previsión: los puntos saldrán con su nota en unos segundos.' })));
   }
+  const otroDia = avisoOtroDia(meteo);   // meteo guardada de otro día: se dice, igual que en Hoy y Zona
+  if (otroDia) avisos.append(el('div', { clase: 'aviso', attrs: { role: 'note' } }, icono('i-info'), el('p', { texto: otroDia })));
   const nuevo = await crearMapa(lienzo, {
     datos, meteo, umbrales: estado.umbrales ?? {}, ...guardado,
     onCambio: (c) => Object.assign(guardado, c),
