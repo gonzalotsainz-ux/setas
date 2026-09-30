@@ -55,16 +55,28 @@ export function parsearPrincipal(json, puntos, hoy) {
   return series;
 }
 
+// Contraste sobre el horizonte común: cada modelo llega a un alcance distinto (Météo-France ~4 d, ICON ~7 d, ECMWF 8 d),
+// así que se compara la lluvia acumulada de hoy+1…hoy+h, con h = el mayor (3–7) al que llegan al menos 2 modelos.
 export function dispersion(r, hoy) {
-  const d = r.daily, i0 = d.time.indexOf(hoy), modelos = {};
-  if (i0 !== -1) for (const m of MODELOS) {
-    const v = d[`precipitation_sum_${m}`]?.slice(i0 + 1, i0 + 8);
-    if (v?.length === 7 && v.every((x) => x != null)) modelos[m] = Math.round(v.reduce((a, b) => a + b, 0) * 10) / 10;
+  const d = r.daily, i0 = d.time.indexOf(hoy);
+  const alcance = (m) => {
+    const v = d[`precipitation_sum_${m}`];
+    let n = 0;
+    if (i0 !== -1 && v) while (n < 7 && v[i0 + 1 + n] != null) n++;
+    return n;
+  };
+  const al = Object.fromEntries(MODELOS.map((m) => [m, alcance(m)]));
+  let horizonte = null;
+  for (let h = 7; h >= 3 && horizonte == null; h--) if (MODELOS.filter((m) => al[m] >= h).length >= 2) horizonte = h;
+  if (horizonte == null) return { modelos: {}, media: null, rango: null, incierta: null, horizonte: null, excluidos: MODELOS.filter((m) => al[m] < 3) };
+  const modelos = {};
+  for (const m of MODELOS) if (al[m] >= horizonte) {
+    const suma = d[`precipitation_sum_${m}`].slice(i0 + 1, i0 + 1 + horizonte).reduce((a, b) => a + b, 0);
+    modelos[m] = Math.round(suma * 10) / 10;
   }
-  const vals = Object.values(modelos);
-  if (vals.length < 2) return { modelos, media: null, rango: null, incierta: null };
+  const vals = Object.values(modelos), excluidos = MODELOS.filter((m) => !(m in modelos));
   const media = vals.reduce((a, b) => a + b, 0) / vals.length, rango = Math.max(...vals) - Math.min(...vals);
-  return { modelos, media, rango, incierta: rango > 0.5 * media && rango > 10 };
+  return { modelos, media, rango, incierta: rango > 0.5 * media && rango > 10, horizonte, excluidos };
 }
 
 export function resumirArchivo(r, inicioSerie) {

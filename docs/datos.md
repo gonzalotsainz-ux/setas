@@ -368,3 +368,9 @@ Formato GeoJSON FeatureCollection. Cada Feature es un Polygon o MultiPolygon:
 ## Meteorología (Open-Meteo)
 
 Comprobado en vivo el 2026-09-30: con el modelo por defecto (best_match) el suelo horario (`soil_moisture_0_to_7cm`, `soil_temperature_0_to_7cm`) llega relleno (1.680 valores por punto en 70 días), y la humedad de suelo del archivo histórico coincide con la del forecast (sesgo medio < 0,001 m³/m³ en 52 días solapados; rango histórico 0,093–0,429). No se usa `models=ecmwf_ifs` en la serie principal ni en el archivo. `models=` solo se usa en la llamada de contraste de lluvia (`urlModelos`).
+
+### Contraste de modelos: horizonte común
+
+Comprobado en vivo el 2026-09-30 con `models=ecmwf_ifs,icon_seamless,meteofrance_seamless&forecast_days=8`: los modelos no llegan igual de lejos. ECMWF devuelve los 8 días, ICON (`icon_seamless`) devuelve `null` desde el día +7 y Météo-France (`meteofrance_seamless`) desde el +4 (alcance ~4 días). Exigir 7 días completos por modelo dejaba solo a ECMWF y el contraste nunca aparecía.
+
+Regla de `dispersion()`: para cada modelo se cuenta el alcance (días consecutivos con valor desde hoy+1, 0–7). El horizonte `h` es el mayor valor entre 3 y 7 al que llegan al menos 2 modelos; se compara la lluvia acumulada de hoy+1…hoy+h solo entre los modelos con alcance ≥ h, y los demás quedan en `excluidos`. Si menos de 2 modelos llegan a 3 días, no hay contraste (`horizonte: null`). La incertidumbre se mantiene: rango > 0,5·media y rango > 10 mm.

@@ -60,8 +60,40 @@ test('dispersión entre modelos', () => {
   assert.equal(d.media, 21);
   assert.equal(d.rango, 28);
   assert.equal(d.incierta, true);
+  assert.equal(d.horizonte, 7);
+  assert.deepEqual(d.excluidos, []);
   const parecidos = { daily: { time, precipitation_sum_ecmwf_ifs: time.map(() => 2), precipitation_sum_icon_seamless: time.map(() => 2.2) } };
   assert.equal(dispersion(parecidos, '2026-10-01').incierta, false);
+});
+
+// Serie de 8 días (hoy = 2026-10-01 en el índice 0; hoy+1…hoy+7 = índices 1…7). `alcance` = días consecutivos con valor desde hoy+1.
+const serieModelo = (alcance, v) => Array.from({ length: 8 }, (_, k) => (k === 0 ? 0 : k <= alcance ? v : null));
+const conAlcances = (a) => ({ daily: { time: Array.from({ length: 8 }, (_, k) => `2026-10-0${k + 1}`),
+  ...Object.fromEntries(Object.entries(a).map(([m, [al, v]]) => [`precipitation_sum_${m}`, serieModelo(al, v)])) } });
+
+test('dispersión: caso real, contraste sobre el horizonte común (ICON hasta +6, Météo-France hasta +3)', () => {
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [6, 1], meteofrance_seamless: [3, 4] }), '2026-10-01');
+  assert.equal(d.horizonte, 6);
+  assert.deepEqual(d.modelos, { ecmwf_ifs: 12, icon_seamless: 6 });
+  assert.deepEqual(d.excluidos, ['meteofrance_seamless']);
+  assert.equal(d.media, 9);
+  assert.equal(d.rango, 6);
+});
+
+test('dispersión: un solo modelo con alcance ≥ 3 → sin contraste', () => {
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [2, 1], meteofrance_seamless: [1, 4] }), '2026-10-01');
+  assert.deepEqual(d.modelos, {});
+  assert.equal(d.horizonte, null);
+  assert.equal(d.media, null);
+  assert.equal(d.rango, null);
+  assert.equal(d.incierta, null);
+});
+
+test('dispersión: dos modelos con alcance 3 y uno con 7 → horizonte 3 con los tres', () => {
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [3, 1], meteofrance_seamless: [3, 4] }), '2026-10-01');
+  assert.equal(d.horizonte, 3);
+  assert.deepEqual(d.modelos, { ecmwf_ifs: 6, icon_seamless: 3, meteofrance_seamless: 12 });
+  assert.deepEqual(d.excluidos, []);
 });
 
 test('resumen de archivo: lluvia desde agosto y muestras por mes', () => {

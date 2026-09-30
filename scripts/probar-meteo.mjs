@@ -11,4 +11,4 @@ for (const p of puntos) {
   const t20 = s.tmedia.slice(i - 19, i + 1).reduce((a, b) => a + b, 0) / 20;
   console.log(`${p.id.padEnd(28)} celda ${String(s.celdaAltitud).padStart(5)} m · P26 ${p26.toFixed(1).padStart(6)} mm · T20 ${t20.toFixed(1)} °C · suelo pct ${s.hsueloPct[i]?.toFixed(0) ?? '—'}`);
 }
-console.log('Dispersión 7 d:', JSON.stringify(r.dispersion?.[puntos[0].id]));
+console.log('Dispersión (horizonte común):', JSON.stringify(r.dispersion?.[puntos[0].id]));
