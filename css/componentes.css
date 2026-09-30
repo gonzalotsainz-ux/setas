@@ -598,18 +598,6 @@
 .desglose__titulo { font-size: var(--t-base); margin-bottom: var(--esp-2); }
 .formula { margin-top: var(--esp-3); padding: var(--esp-3); border-radius: var(--r-s); background: var(--c-superficie-2); font-family: var(--fuente-cifras); font-size: var(--t-xs); line-height: 1.6; color: var(--c-texto-2); overflow-wrap: anywhere; }
 
-/* Calendario */
-.tabla-scroll { position: relative; overflow-x: auto; margin-inline: calc(var(--esp-4) * -1); padding-inline: var(--esp-4); }
-.calendario { border-collapse: separate; border-spacing: 0; width: 100%; font-size: var(--t-s); }
-.calendario th, .calendario td { padding: 0; text-align: center; }
-.calendario thead th { padding-bottom: var(--esp-2); color: var(--c-texto-2); font-weight: 700; min-width: 18px; }
-.calendario th[scope="row"] { position: sticky; left: 0; z-index: 1; width: 6.5rem; min-width: 6.5rem; white-space: nowrap; padding: 6px var(--esp-2) 6px 0; text-align: left; font-weight: 400; background: var(--c-superficie); }
-.calendario thead th:first-child { text-align: left; position: sticky; left: 0; background: var(--c-superficie); z-index: 1; }
-.calendario td { height: 30px; border-left: 2px solid var(--c-superficie); border-top: 3px solid var(--c-superficie); border-bottom: 3px solid var(--c-superficie); background: var(--c-superficie-2); }
-.calendario td.mes--si { background: var(--c-acento); }
-.calendario td.mes-actual { outline: 2px solid var(--c-ocre); outline-offset: -2px; }
-.calendario thead .mes-actual { color: var(--c-ocre-texto); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
-
 /* Normativa */
 .norma { border-top: 1px solid var(--c-borde); }
 .norma__resumen { display: grid; gap: var(--esp-2); padding: var(--esp-3) 0; min-height: 44px; cursor: pointer; list-style: none; }

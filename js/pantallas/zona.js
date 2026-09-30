@@ -186,24 +186,6 @@ function listaEspecies(zona, especies, res, serie, sel) {
       filas.map(({ e, r }) => filaEspecie(e, r, rangos[e.id], ui.abierta[zona.id] === e.id, (id) => { ui.abierta[zona.id] = id; })))));
 }
 
-// «Boletus edulis (grupo…)» → «B. edulis»: cabe en la columna fija del calendario.
-const abreviado = (n) => { const [g, sp] = n.split(' '); return sp ? `${g[0]}. ${sp}` : g; };
-
-function calendario(especies) {
-  if (!especies.length) return null;
-  const mesActual = Number(hoyMadrid().slice(5, 7));
-  const cab = el('tr', {}, el('th', { scope: 'col', texto: 'Especie' }),
-    MESES.map((m, k) => el('th', { scope: 'col', clase: k + 1 === mesActual ? 'mes-actual' : '', attrs: { 'aria-label': m }, texto: m[0].toUpperCase() })));
-  const filas = especies.map((e) => el('tr', {}, el('th', { scope: 'row' }, el('span', { clase: 'latin', texto: abreviado(e.nombre), title: e.nombre })),
-    MESES.map((m, k) => {
-      const si = e.temporada.meses.includes(k + 1);
-      return el('td', { clase: `mes${si ? ' mes--si' : ''}${k + 1 === mesActual ? ' mes-actual' : ''}` }, el('span', { clase: 'solo-lector', texto: si ? `${m}: temporada` : `${m}: fuera de temporada` }));
-    })));
-  return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-calendario' } },
-    el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-calendario', texto: 'Calendario' }), el('span', { clase: 'texto-2 texto-s', texto: 'meses de temporada' })),
-    el('div', { clase: 'tabla-scroll', tabIndex: 0, attrs: { role: 'region', 'aria-label': 'Calendario de temporada por especie' } },
-      el('table', { clase: 'calendario' }, el('thead', {}, cab), el('tbody', {}, filas))));
-}
 
 function seccionNormativa(zona, datos) {
   const hoy = hoyMadrid();
@@ -267,5 +249,5 @@ export function pintar({ estado, param, refrescarMeteo }) {
   pintarDinamico();
 
   return el('div', {}, cabecera(zona, c.res?.valor ?? null),
-    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, calendario(c.especies), seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
+    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
 }

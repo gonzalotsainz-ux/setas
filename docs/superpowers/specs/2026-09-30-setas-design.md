@@ -43,7 +43,7 @@ estar muy desviada: en una prueba, un punto de Guadarrama cayó a 2.097 m.
 - **Mapa.** Topográfico del IGN (y ortofoto PNOA como alternativa), zonas, cotos (polígono oficial o zona aproximada
   con enlace), salidas del diario y capa de lluvia acumulada en 26 días por punto.
 - **Zona.** Gráfico de lluvia de 60 días más 10 de previsión, con la horquilla entre modelos; índice por especie con
-  su desglose; hábitats; cotos y permisos; calendario de qué sale cada mes.
+  su desglose; hábitats; cotos y permisos. (el calendario se quitó a petición de la usuaria el 2026-09-30; la temporada está en cada ficha de especie)
 - **Especies.** Fichas con fotos, identificación, hábitat, temporada, zonas y un recuadro rojo de **tóxicas
   parecidas** con los rasgos que las distinguen.
 - **Diario.** Lista y alta de salidas: fecha, zona, punto en el mapa, especies y kilos, fotos y notas. La meteo y el
