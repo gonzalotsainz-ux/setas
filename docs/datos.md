@@ -325,3 +325,7 @@ Formato GeoJSON FeatureCollection. Cada Feature es un Polygon o MultiPolygon:
 - `regimenConfirmado`: bool, si el régimen se ha verificado
 - `fuente`: URL de origen (catastro, IGN, etc.)
 - `revisado`: fecha de última revisión (YYYY-MM-DD)
+
+## Meteorología (Open-Meteo)
+
+Comprobado en vivo el 2026-09-30: con el modelo por defecto (best_match) el suelo horario (`soil_moisture_0_to_7cm`, `soil_temperature_0_to_7cm`) llega relleno (1.680 valores por punto en 70 días), y la humedad de suelo del archivo histórico coincide con la del forecast (sesgo medio < 0,001 m³/m³ en 52 días solapados; rango histórico 0,093–0,429). No se usa `models=ecmwf_ifs` en la serie principal ni en el archivo. `models=` solo se usa en la llamada de contraste de lluvia (`urlModelos`).
