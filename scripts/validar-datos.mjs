@@ -10,6 +10,8 @@ export const PRESENCIAS = ['confirmada', 'orientativa', 'sin-registros'];
 export const TIPOS_COTO = ['acotado', 'parque-micologico', 'regulado', 'prohibido'];
 export const PRECISIONES = ['oficial', 'derivado', 'aproximado'];
 const CONFIANZAS = ['alta', 'media', 'baja'];
+export const BASES = ['evidencia', 'cualitativo', 'heuristica'];
+export const TIPOS_TEMPORADA = ['otono', 'primavera', 'verano'];
 const HELADAS = ['nula', 'baja', 'media', 'alta'];
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const URL_OK = /^https?:\/\//;
@@ -24,6 +26,11 @@ export function validar({ zonas, especies, normativa, cotos, existe = existsSync
   const idsNormas = unicos(normativa.normas, 'norma');
   const idsZonas = unicos(zonas.zonas, 'zona');
   const idsEspecies = unicos(especies.especies, 'especie');
+  const idsSindromes = unicos(especies.sindromes ?? [], 'síndrome');
+
+  for (const x of especies.sindromes ?? []) {
+    if (!x.fuentes?.length || x.fuentes.some((f) => !URL_OK.test(f.url ?? '') || !FECHA.test(f.consultado ?? ''))) err(`síndrome ${x.id}: falta fuente con url y consultado`);
+  }
 
   for (const z of zonas.zonas) {
     if (!Array.isArray(z.bbox) || z.bbox.length !== 4) err(`zona ${z.id}: bbox inválido`);
@@ -44,6 +51,8 @@ export function validar({ zonas, especies, normativa, cotos, existe = existsSync
     if (!CATEGORIAS.includes(s.categoria)) err(`${q}: categoría desconocida ${s.categoria}`);
     if (!s.fuentes?.length || s.fuentes.some((f) => !URL_OK.test(f.url ?? '') || !FECHA.test(f.consultado ?? ''))) err(`${q}: falta fuente con url y consultado`);
     for (const h of s.habitats ?? []) if (!HABITATS.includes(h)) err(`${q}: hábitat desconocido ${h}`);
+    if (s.sindrome && !idsSindromes.has(s.sindrome)) err(`${q}: síndrome inexistente ${s.sindrome}`);
+    if (['toxica', 'mortal'].includes(s.categoria) && !s.sindrome) err(`${q}: ${s.categoria} sin síndrome`);
     for (const [zid, v] of Object.entries(s.zonas ?? {})) {
       if (!idsZonas.has(zid)) err(`${q}: zona inexistente ${zid}`);
       if (!PRESENCIAS.includes(v.presencia)) err(`${q}: presencia desconocida en ${zid}`);
@@ -64,10 +73,12 @@ export function validar({ zonas, especies, normativa, cotos, existe = existsSync
         if (!Array.isArray(i.desfase) || !(i.desfase[1] >= i.desfase[0])) err(`${q}: índice.desfase inválido`);
         if (!HELADAS.includes(i.helada)) err(`${q}: índice.helada desconocida`);
         if (!CONFIANZAS.includes(i.confianza)) err(`${q}: índice.confianza desconocida`);
+        if (!BASES.includes(i.base)) err(`${q}: índice.base desconocida ${i.base}`);
         if (!i.fuente) err(`${q}: índice sin fuente`);
       }
     } else if (s.indice) err(`${q}: solo las comestibles llevan índice`);
     if (!s.temporada?.meses?.every((m) => m >= 1 && m <= 12)) err(`${q}: temporada.meses inválido`);
+    if (s.temporada?.meses?.length && !TIPOS_TEMPORADA.includes(s.temporada?.tipo)) err(`${q}: temporada.tipo desconocido ${s.temporada?.tipo}`);
   }
 
   for (const n of normativa.normas) {

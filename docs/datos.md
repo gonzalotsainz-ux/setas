@@ -194,7 +194,7 @@
     {
       "id": "faloidiano",
       "nombre": "Síndrome faloidiano",
-      "latencia": "6–24 h",
+      "latencia": "6–24 h (normalmente más de 6 h)",
       "gravedad": "mortal",
       "texto": "…",
       "fuentes": [
@@ -215,20 +215,23 @@
 - `sinonimos`: otros nombres científicos aceptados
 - `comunes`: nombres comunes por idioma (es, eu, etc.)
 - `categoria`: comestible|comestible-precaucion|no-recomendada|toxica|mortal
-- `rd30_2009`: clasificación del RD 30/2009 (A, B, C, D, etc.)
+- `rd30_2009`: parte del anexo del RD 30/2009 que cita el informe: `A`, `B`, `C`, `D` o `null` (si el informe no la cita). **Valores usados; no se comprueban.**
 - `habitats`: hábitats donde fructifica
-- `altitud`: rango de altitud (min, max, verificado)
+- `altitud`: rango de altitud (min, max, verificado) o `null` si el informe no da rango. Los rangos del informe son orientativos (`verificado: false`).
 - `zonas`: presencia por zona {"zoneId": {presencia, gbif, fuente}}
   - `presencia`: confirmada|orientativa|sin-registros
   - `gbif`: URL o null si sin registros GBIF
   - `fuente`: referencia a fuente (id o URL)
-- `temporada`: {meses: [1-12], tipo: "otono"|"primavera"|"verano"|"invierno"|"todo"}
+- `temporada`: {meses: [1-12], tipo}. `tipo` es `otono`, `primavera` o `verano` (**lo comprueba el validador**); si el informe no da temporada, `meses: []` y `tipo: null`. Cuando el informe dice «primavera»/«otoño»/«verano y otoño» sin meses, se usan marzo–mayo, septiembre–noviembre, etc. (convención, anotada en `notas`).
 - `identificacion`: características diagnósticas
-- `valor`: comestibilidad|excelente|bueno|mediocre|pobre
+- `valor`: calidad culinaria, texto del informe (`excelente`, `bueno`, `mediocre o bueno`, `limitado`…) o `null` en tóxicas. **Texto libre: no se comprueba.**
 - `precauciones`: advertencias especiales
-- `confusiones`: especies confundibles [{especie, riesgo, diferencias}]
-  - `riesgo`: bajo|medio|mortal
-- `sindrome`: síndrome tóxico si aplica (referencia a sindromes[].id)
+- `confusiones`: especies confundibles con ficha propia [{especie, riesgo, diferencias}]; `especie` debe ser el id de una ficha existente (**lo comprueba el validador**)
+  - `riesgo`: `bajo`, `medio` o `mortal` (**valores usados; no se comprueban**). Se asigna por la categoría más grave del par: `mortal` si alguna de las dos es `mortal`; `medio` si alguna es `toxica` o `no-recomendada`; `bajo` en otro caso (una confusión con *Tylopilus felleus*, amargo, se fuerza a `bajo`).
+- `confusionesMenores` (opcional): confusiones que el informe cita sin ficha propia [{nombre, riesgo, diferencias}].
+- `sinConfusiones` (opcional): texto literal del informe cuando declara que no hay confusión peligrosa.
+- `notas` (opcional): avisos del informe sin campo propio, incluidos los `[NO VERIFICADO]`.
+- `sindrome`: síndrome tóxico si aplica (id de `sindromes[]`; **lo comprueba el validador**: debe existir, y toda `toxica` o `mortal` debe llevarlo)
 - `indice`: índice de fructificación (solo comestibles)
   - `topt`: temperatura óptima (°C)
   - `trango`: rango de temperatura [min, max]
@@ -237,21 +240,23 @@
   - `desfase`: lag de precipitación [min, max] días
   - `helada`: probabilidad de helada nula|baja|media|alta
   - `confianza`: alta|media|baja
-  - `base`: evidencia|extrapolacion|analogia
-  - `analogo`: si base=analogia, especie análoga
+  - `base`: `evidencia`, `cualitativo` o `heuristica` (**lo comprueba el validador**). Va con `confianza`: `alta`/`evidencia` (la tabla 1.4 cita E1, E2 o E14), `media`/`cualitativo` (cita §1.2), `baja`/`heuristica` (HEURÍSTICA o copiada de un análogo)
+  - `analogo`: id de la especie cuyos parámetros térmicos y de lluvia se copian (`null` si la especie tiene fila propia); la temporada nunca se copia
   - `fuente`: referencia a investigación
 - `sinIndice`: motivo de no llevar índice (hipogeo, etc.)
 - `fotos`: fotografías [{archivo, autor, licencia, url}]
   - `licencia`: CC0, PD, CC BY, CC BY-SA (sin NC ni ND)
-- `fuentes`: referencias bibliográficas
+- `fuentes`: referencias bibliográficas [{id, url, titulo, consultado}] (**url y consultado obligatorios**). `urlVerificada: false` marca las fichas de Fungipedia que no existen con el patrón de URL del informe (comprobado el 2026-09-30; el informe las cita igualmente).
+- `zonas[id].verificado`: `false` si el informe marca la presencia en esa zona como `[NO VERIFICADO]` o si sale solo del hábitat; `presencia` es siempre `orientativa` hasta confirmarla con GBIF (tarea 7).
 
 **Campos de síndrome:**
 - `id`: identificador único
 - `nombre`: nombre del síndrome
-- `latencia`: período entre ingesta y síntomas
-- `gravedad`: leve|moderada|grave|mortal
+- `latencia`: período entre ingesta y síntomas (texto; `null` si el informe no la da)
+- `gravedad`: `moderada`, `grave` o `mortal` (**valores usados; no se comprueban**); criterio: lo peor que dice el informe del síndrome
 - `texto`: descripción de síntomas
-- `fuentes`: referencias médicas
+- `fuentes`: referencias médicas [{id, url, titulo, consultado}]; **al menos una, con url y consultado (lo comprueba el validador)**. `id` único en `sindromes[]`.
+- `verificado: false` (opcional): el informe marca la latencia como no verificada.
 
 ## data/normativa.json
 
@@ -299,7 +304,7 @@
 **Campos:**
 - `id`: identificador único (slug)
 - `titulo`: título completo de la norma
-- `tipo`: decreto|orden|circular|ley|etc.
+- `tipo`: ejemplos: decreto, orden, circular, ley (texto libre; no se comprueba)
 - `ambito`: {comunidad, zonas} ámbito geográfico de aplicación
 - `url`: URL de la norma oficial
 - `vigente`: bool, si está en vigor

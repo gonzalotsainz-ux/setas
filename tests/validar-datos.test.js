@@ -62,3 +62,43 @@ test('licencias', () => {
   for (const ok of ['CC0', 'CC0 1.0', 'PD', 'CC BY 4.0', 'CC BY-SA 3.0', 'CC BY']) assert.ok(licenciaPermitida(ok), ok);
   for (const no of ['CC BY-NC 4.0', 'CC BY-ND 4.0', 'All rights reserved', '']) assert.ok(!licenciaPermitida(no), no);
 });
+
+const sindrome = () => ({ id: 'faloidiano', nombre: 'Síndrome faloidiano', latencia: '6–24 h', gravedad: 'mortal', texto: 'x',
+  fuentes: [{ url: 'https://x.es', consultado: '2026-09-30' }] });
+const mortal = () => ({ id: 'amanita-phalloides', nombre: 'Amanita phalloides', categoria: 'mortal', rd30_2009: null,
+  habitats: [], zonas: {}, temporada: { meses: [9, 10], tipo: 'otono' }, identificacion: ['x'], confusiones: [],
+  sindrome: 'faloidiano', indice: null, fotos: [], fuentes: [{ id: 'F2', url: 'https://x.es', consultado: '2026-09-30' }] });
+const conSindromes = () => { const d = base(); d.especies.especies.push(mortal()); d.especies.sindromes = [sindrome()]; return d; };
+
+test('síndromes y tóxica con síndrome → válido', () => { assert.deepEqual(validar(conSindromes()), []); });
+
+test('síndrome duplicado → error', () => {
+  const d = conSindromes(); d.especies.sindromes.push(sindrome());
+  assert.match(validar(d).join('\n'), /síndrome duplicado: faloidiano/);
+});
+
+test('síndrome sin fuente con url y consultado → error', () => {
+  const d = conSindromes(); d.especies.sindromes[0].fuentes = [{ url: 'https://x.es' }];
+  assert.match(validar(d).join('\n'), /síndrome faloidiano.*fuente/);
+  d.especies.sindromes[0].fuentes = [];
+  assert.match(validar(d).join('\n'), /síndrome faloidiano.*fuente/);
+});
+
+test('especie con síndrome inexistente → error', () => {
+  const d = conSindromes(); d.especies.especies[1].sindrome = 'inventado';
+  assert.match(validar(d).join('\n'), /amanita-phalloides.*síndrome inexistente inventado/);
+});
+
+test('tóxica o mortal sin síndrome → error', () => {
+  for (const cat of ['toxica', 'mortal']) {
+    const d = conSindromes(); d.especies.especies[1].categoria = cat; d.especies.especies[1].sindrome = null;
+    assert.match(validar(d).join('\n'), /amanita-phalloides.*síndrome/, cat);
+  }
+});
+
+test('índice.base y temporada.tipo fuera de la lista → error', () => {
+  const d = base(); d.especies.especies[0].indice.base = 'analogia';
+  assert.match(validar(d).join('\n'), /índice\.base desconocida/);
+  const e = base(); e.especies.especies[0].temporada.tipo = 'invierno';
+  assert.match(validar(e).join('\n'), /temporada\.tipo desconocido/);
+});
