@@ -142,3 +142,17 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 
 Los datos son **inventados** (lo dice una etiqueta arriba). La foto es `img/especies/boletus-edulis-2.webp`
 (franciscodocampo, CC BY 4.0, iNaturalist), con su crédito visible.
+
+## Auditoría de usabilidad final (2026-09-30)
+
+Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en claro y oscuro por Hoy, Zona
+(Guadarrama y Soria), Mapa, Especies, ficha de *Amanita phalloides*, Seguridad, Diario y Ajustes: sin errores de
+consola propios (solo un 429 de Open-Meteo tras recargas repetidas, que la app gestiona), sin desbordamiento
+horizontal, con Toxicología, «Ante la duda» y la atribución de Open-Meteo visibles en todas.
+
+- **Corregido:** los enlaces del pie (Reglas de seguridad, 91 562 04 20, 112, Open-Meteo) medían 20 px de alto; ahora
+  tienen zona de toque de 44 px (`.pie a::after`) sin mover el texto.
+- **No corregido, justificado:** los enlaces de crédito («original», «ver original», autor de la foto) y los nombres
+  de especie dentro de frases miden 18 a 22 px. Son enlaces en línea dentro de texto (WCAG 2.2, criterio 2.5.8, los
+  exime) y ampliarlos rompería la lectura compacta de créditos, que la licencia CC BY exige visibles. Las acciones
+  principales sí miden 44 px o más.

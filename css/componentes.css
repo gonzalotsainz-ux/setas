@@ -499,6 +499,9 @@
 }
 .pie p + p { margin-top: var(--esp-2); }
 .pie a { color: var(--c-texto); }
+/* Zona de toque ampliada (≥ 44 px de alto) sin mover el texto. */
+.pie a { position: relative; }
+.pie a::after { content: ''; position: absolute; inset: -12px -4px; }
 
 /* ---------- Pantalla Hoy (de maqueta/hoy.html) ---------- */
 .portada { padding: var(--esp-6) 0 var(--esp-2); }
