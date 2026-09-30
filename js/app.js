@@ -2,6 +2,7 @@
 import { cargarDatos, puntosDe } from './datos.js';
 import { obtenerMeteo } from './meteo.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
+import { guardia } from './ui/carrera.js';
 
 export const estado = { datos: null, meteo: null, sesion: null };
 const pantallas = {
@@ -9,6 +10,7 @@ const pantallas = {
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
   diario: () => import('./pantallas/diario.js'), ajustes: () => import('./pantallas/ajustes.js'),
 };
+const carrera = guardia();   // un pintado asíncrono antiguo no puede pisar a uno más nuevo
 const SECCION = { zona: 'mapa', especie: 'especies' };   // la sección de la barra que queda marcada
 
 function error(raiz, titulo, detalle) {
@@ -20,13 +22,17 @@ function error(raiz, titulo, detalle) {
 }
 
 async function pintar(cambioDePantalla = false) {
+  const ficha = carrera.nueva();
   const [nombre, param] = (location.hash.slice(1) || 'hoy').split('/');
   const cargar = pantallas[nombre] ?? pantallas.hoy;
   const raiz = document.getElementById('app');
   try {
     const m = await cargar();
-    raiz.replaceChildren(await m.pintar({ estado, param: param && decodeURIComponent(param), refrescarMeteo }));
+    const nodo = await m.pintar({ estado, param: param && decodeURIComponent(param), refrescarMeteo });
+    if (!carrera.vigente(ficha)) return;
+    raiz.replaceChildren(nodo);
   } catch (e) {
+    if (!carrera.vigente(ficha)) return;
     error(raiz, 'No se ha podido abrir esta pantalla', e.message);
   }
   const actual = SECCION[nombre] ?? nombre;

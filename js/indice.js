@@ -4,7 +4,7 @@
 export class DatosIncompletos extends Error {}
 
 export const HISTORIA_MINIMA = 30;
-const PESOS = { fW: 0.35, fT: 0.25, fS: 0.20, fR: 0.20 };
+export const PESOS = { fW: 0.35, fT: 0.25, fS: 0.20, fR: 0.20 };
 const CORTES = [[80, 'muy bueno'], [60, 'bueno'], [40, 'posible'], [20, 'bajo'], [0, 'nulo']];
 
 export const etiqueta = (v) => CORTES.find(([m]) => v >= m)[1];
