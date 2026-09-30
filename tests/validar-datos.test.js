@@ -176,6 +176,25 @@ test('coordenadas: ambas o ninguna; fuera de un polígono prohibido', () => {
   assert.deepEqual(validar(f), []);
 });
 
+test('point-in-polygon de sitios: MultiPolygon y polígono con hueco', () => {
+  const props = { id: 'res', tipo: 'prohibido', precision: 'oficial', zona: 'soria', normas: [], fuente: 'https://x.es', revisado: '2026-09-30' };
+  const con = (geometry, lon, lat) => {
+    const s = sitio(); s.lat = lat; s.lon = lon;
+    const d = conSitios(s); d.cotos = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: props, geometry }] };
+    return validar(d).join('\n');
+  };
+  const cuadro = (x, y, l) => [[x, y], [x + l, y], [x + l, y + l], [x, y + l], [x, y]];
+  // MultiPolygon: dos cuadrados separados; vale el punto dentro de cualquiera, no el de en medio
+  const multi = { type: 'MultiPolygon', coordinates: [[cuadro(-3, 41, 1)], [cuadro(0, 41, 1)]] };
+  assert.match(con(multi, -2.5, 41.5), /zona prohibida res/);
+  assert.match(con(multi, 0.5, 41.5), /zona prohibida res/);
+  assert.doesNotMatch(con(multi, -1.5, 41.5), /zona prohibida/);
+  // Polígono con hueco: dentro del anillo exterior pero dentro del hueco no cuenta
+  const hueco = { type: 'Polygon', coordinates: [cuadro(-3, 41, 3), cuadro(-2, 42, 1)] };
+  assert.match(con(hueco, -2.8, 41.2), /zona prohibida res/);
+  assert.doesNotMatch(con(hueco, -1.5, 42.5), /zona prohibida/);
+});
+
 const truco = () => ({ texto: 'Mira en umbrías.', tipo: 'orientacion', fuentes: [{ url: 'https://x.es', fecha: null, consultado: '2026-09-30' }], confianza: 'media', cifrasOrientativas: false });
 
 test('trucos: con fuentes, tipo y confianza válidos; solo comestibles', () => {

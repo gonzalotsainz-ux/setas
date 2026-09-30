@@ -234,7 +234,7 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "baja",
           "cifrasOrientativas": false
         },
         {
@@ -1751,6 +1751,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "En Cuenca, el «mízcalo de rodeno» (Lactarius deliciosus) sale en los rodenales, con pino resinero sobre arenas.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/iect_lactarius_deliciosus_tcm30-164130.pdf",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": false
         }
       ]
     },
@@ -1931,7 +1944,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "En Cuenca, el «mízcalo de negral» sale en pinar de laricio y el «de rodeno» en rodenales (pino resinero sobre arenas).",
+          "texto": "En Cuenca, el «mízcalo de negral» sale en pinar de laricio (pino salgareño).",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -3602,7 +3615,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Tarda en salir: entre unos 21 y 50 días tras la lluvia. Sale con calor y lluvias abundantes y desaparece con el frío otoñal.",
+          "texto": "Tarda en salir: entre unos 18 y 50 días tras la lluvia. Sale con calor y lluvias abundantes y desaparece con el frío otoñal.",
           "tipo": "tiempo",
           "fuentes": [
             {

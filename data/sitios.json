@@ -581,7 +581,7 @@
       "confianza": "media"
     },
     {
-      "notas": "Descarga el GPX antes (cobertura irregular). El coto figura como AV-50002 (sin polígono) y PMAV-50009: régimen desconocido.",
+      "notas": "Descarga el GPX antes (cobertura irregular). El coto figura como AV-50002 (sin polígono) y PMAV-50009: régimen desconocido. El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -614,7 +614,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -630,7 +631,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "",
+      "notas": "El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -656,7 +657,8 @@
       "legal": {
         "estado": "permiso",
         "normas": [
-          "cyl-av-50003-gredos"
+          "cyl-av-50003-gredos",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "Acotado AV-50003 «Gredos» (titular: Hoyos del Espino), recreativo hasta 5 kg. El portal de permisos mostraba «sin tarifa disponible» el 30/09/2026: confirma antes de ir."
       },
@@ -672,7 +674,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "El monte PMAV-50010 queda a menos de 1,3 km (cálculo propio); permiso desconocido.",
+      "notas": "El monte PMAV-50010 queda a menos de 1,3 km (cálculo propio); permiso desconocido. El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -702,7 +704,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -718,7 +721,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "La misma ficha cita también Rubroboletus rhodoxanthus, que no se recomienda comer y por eso no figura en las especies.",
+      "notas": "La misma ficha cita también Rubroboletus rhodoxanthus, que no se recomienda comer y por eso no figura en las especies. El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -748,7 +751,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -764,7 +768,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "",
+      "notas": "El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -793,7 +797,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -809,7 +814,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "Cerca de PMAV-50010; permiso desconocido.",
+      "notas": "Cerca de PMAV-50010; permiso desconocido. El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -843,7 +848,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -859,7 +865,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "El truco de la vertiente sur (fructifica tarde, hasta diciembre, y otra vez en mayo) lo dice una sola web, Terranostrum, en varias fichas.",
+      "notas": "El truco de la vertiente sur (fructifica tarde, hasta diciembre, y otra vez en mayo) lo dice una sola web, Terranostrum, en varias fichas. El Parque Regional de la Sierra de Gredos no tiene regla de setas localizada.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -887,7 +893,8 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "cyl-decreto-31-2017"
+          "cyl-decreto-31-2017",
+          "cyl-gredos-parque-regional"
         ],
         "texto": "La ficha de la ruta no dice qué permiso rige. Decreto 31/2017: en acotados hace falta permiso (5 kg); fuera, 3 kg al día sin comercializar. Confirma en Micocyl (975 23 96 70)."
       },
@@ -1106,7 +1113,7 @@
           "cyl-so-50001-covaleda",
           "cyl-montes-de-soria"
         ],
-        "texto": "Acotados SO-50001 y SO-50007 (Vinuesa, propiedad de una empresa privada); la Laguna Negra está dentro del PMSO-50001."
+        "texto": "Acotados SO-50001 y SO-50007 (Vinuesa, privado: es de DS Smith y el permiso lo da su titular, no Montes de Soria); la Laguna Negra está dentro del PMSO-50001."
       },
       "fuentes": [
         {
@@ -1831,7 +1838,7 @@
         "encinar"
       ],
       "epoca": [],
-      "consejo": "El ayuntamiento cuenta que el níscalo llegó con los pinos de repoblación y era casi desconocido antes de los años 80. Conviene probar en las manchas de pino repoblado antes que en el encinar.",
+      "consejo": "El ayuntamiento cuenta que el níscalo llegó con los pinos de repoblación y era casi desconocido antes de los años 80. Conviene probar en las manchas de pino repoblado antes que en el encinar. (inferencia)",
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
@@ -2027,7 +2034,7 @@
           "alava-foral",
           "eus-gorbeia-prug"
         ],
-        "texto": "Libre hasta 2 kg por persona y día (el PRUG de Gorbeia remite al Decreto Foral 89/2008). Solo navaja y cesta; nunca de noche."
+        "texto": "Libre hasta 2 kg por persona y día (el PRUG de Gorbeia remite al Decreto Foral 89/2008). Solo navaja y cesta; nunca de noche. Libre salvo ordenanza del concejo o normas del parque."
       },
       "fuentes": [
         {

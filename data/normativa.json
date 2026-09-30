@@ -147,7 +147,7 @@
         "Ámbito: MUP n.º 1 y 2 «Matas» y «Pinar de Valsaín» (10.668 ha; 3.326 ha dentro del Parque Nacional y 7.011 ha en su zona periférica). Excluida la zona entre el arroyo del Telégrafo, la cumbrera de Siete Picos y el camino Schmidt.",
         "Permiso recreativo: hasta 5 kg por persona y día. Intensivo local: hasta 25 kg por día, solo para empadronados en el Real Sitio de San Ildefonso.",
         "Se remite al Decreto 31/2017 y al Real Decreto 30/2009 para lo no previsto.",
-        "Tamaños mínimos (quinto.3 o equivalente): grupo Boletus, diámetro mínimo de 4 cm; resto de especies, 2 cm de diámetro, salvo las que no alcanzan esa dimensión. Níscalos, setas de cardo, llanegas, negrillas y capuchinas, cortando el pie con navaja."
+        "Tamaños mínimos (cuarto.3): grupo Boletus, diámetro mínimo de 4 cm; resto de especies, 2 cm de diámetro, salvo las que no alcanzan esa dimensión en su estado normal. Es obligatorio recolectar níscalos (Lactarius grupo deliciosus), setas de cardo (Pleurotus eryngii), llanegas (Hygrophorus sp.), negrillas (Tricholoma terreum) y capuchinas (Tricholoma portentosum) cortando el pie con una navaja (cuarto.2)."
       ],
       "permiso": {
         "obligatorio": true,
@@ -204,7 +204,7 @@
         ]
       },
       "cupoKgDia": 5,
-      "horario": "Prohibida la recogida nocturna, desde la puesta del sol hasta el amanecer (quinto-sexto.2 de la orden). El acceso al monte se hace siempre a pie (apartado quinto.6).",
+      "horario": "Prohibida la recogida nocturna, desde la puesta del sol hasta el amanecer (sexto.2 de la orden). El acceso al monte se hace siempre a pie (quinto.6).",
       "prohibiciones": [
         "Portar o usar herramientas que puedan dañar el mantillo, el micelio o las raíces: hoces, rastrillos, azadas o similares (sexto.1)",
         "Recoger durante las horas nocturnas, de la puesta del sol al amanecer (sexto.2)",
