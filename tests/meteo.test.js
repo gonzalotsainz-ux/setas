@@ -319,3 +319,53 @@ test('climatología caída: se reintenta solo ella a los 20 min, no cada vez ni 
   assert.ok(r2.series.a.hsueloPct.some((v) => v != null));
   assert.deepEqual(r2.series.a.lluviaAntesDeSerie, { desde: '2026-08-01', hasta: '2026-08-01', mm: 7 });
 });
+
+// ---- Residuales: espera creciente de la climatología y orden de las peticiones ----
+test('la serie principal se pide antes que el archivo (no en paralelo)', async () => {
+  const orden = [];
+  const base = openMeteoFalso({ clima: 'falla' });
+  let principalHecha = false;
+  const fetchFn = async (url) => {
+    const u = decodeURIComponent(url);
+    if (u.includes('archive-api')) orden.push(principalHecha ? 'archivo-tras-principal' : 'archivo-antes');
+    const r = await base.fetchFn(url);
+    if (!u.includes('archive-api') && !u.includes('models=') && !u.includes('start_date')) principalHecha = true;
+    return r;
+  };
+  await obtenerMeteo(PUNTOS, { fetchFn, ahora: UN_OCTUBRE, almacen: null });
+  assert.ok(orden.length >= 2);
+  assert.deepEqual([...new Set(orden)], ['archivo-tras-principal']);
+});
+
+test('climatología caída: espera 20 min → 1 h → 6 h → 24 h (guardada), sin pedirla en el refresco de 3 h; un éxito la reinicia', async () => {
+  const almacen = almacenMapa();
+  const t0 = new Date('2026-10-01T04:00:00Z').getTime();   // 06:00 en Madrid
+  const en = (min) => new Date(t0 + min * 60e3);
+  const pedirEn = async (min, clima = 'falla') => {
+    const f = openMeteoFalso({ clima, ahora: en(min) });
+    const r = await obtenerMeteo(PUNTOS, { fetchFn: f.fetchFn, ahora: en(min), almacen });
+    return { r, clima: f.llamadas.filter(esClima).length, principal: f.llamadas.filter((u) => !u.includes('archive-api') && !u.includes('models=') && !u.includes('start_date')).length };
+  };
+  const espera = () => JSON.parse(almacen.m.get('setas:clim-espera')).datos;
+  let x = await pedirEn(0);                        // fallo 1 → espera 20 min
+  assert.equal(x.clima, 1);
+  assert.equal(espera().fallos, 1);
+  assert.equal(x.r.proximoReintento, en(20).toISOString());
+  x = await pedirEn(15); assert.equal(x.clima, 0, 'a los 15 min, todavía no');
+  x = await pedirEn(21); assert.equal(x.clima, 1, 'a los 21 min se reintenta');   // fallo 2 → 1 h
+  assert.equal(x.principal, 0, 'solo la climatología');
+  assert.equal(espera().proximo, en(81).toISOString());
+  x = await pedirEn(60); assert.equal(x.clima, 0);
+  x = await pedirEn(82); assert.equal(x.clima, 1);   // fallo 3 → 6 h
+  assert.equal(espera().proximo, en(82 + 360).toISOString());
+  x = await pedirEn(200);                          // refresco de 3 h: serie nueva, pero sin climatología
+  assert.equal(x.principal, 1);
+  assert.equal(x.clima, 0, 'el refresco de 3 h no la pide mientras dura la espera');
+  assert.equal(x.r.pendiente.clim, true);
+  x = await pedirEn(82 + 361); assert.equal(x.clima, 1);   // fallo 4 → 24 h
+  assert.equal(espera().proximo, en(82 + 361 + 1440).toISOString());
+  x = await pedirEn(82 + 361 + 1441, 'ok');        // al día siguiente: vuelve a pedirla y sale bien
+  assert.equal(x.clima, 1);
+  assert.equal(x.r.pendiente, null);
+  assert.equal(almacen.m.has('setas:clim-espera'), false, 'un éxito reinicia la espera');
+});

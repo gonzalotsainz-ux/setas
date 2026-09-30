@@ -16,7 +16,10 @@ const ZONA = 'Europe/Madrid';
 const ESPERA_MS = 15000;   // sin respuesta en 15 s, se da por caída y se usa la caché
 export const ESPERA_ARCHIVO_MS = 45000;   // la climatología (2 años de archivo) tarda más
 const ESPERA_LLUVIA_MS = 20000;           // la lluvia desde agosto es una petición pequeña
-export const REINTENTO_MS = 20 * 60e3;    // lo que faltó (climatología o lluvia desde agosto) se reintenta a los 20 min
+export const REINTENTO_MS = 20 * 60e3;    // la lluvia desde agosto que faltó se reintenta a los 20 min
+// La climatología caída se reintenta con espera creciente (guardada en el almacén): 20 min → 1 h → 6 h → 24 h.
+// Mientras dura la espera no se pide, ni en el refresco de 3 h. Un éxito la reinicia.
+export const ESPERAS_CLIMA_MS = [20 * 60e3, 3600e3, 6 * 3600e3, 24 * 3600e3];
 const CLIMA_VALIDA_MS = 30 * 864e5;       // la climatología del suelo apenas cambia: vale 30 días
 const DIAS_CLIMA = 730;                   // 2 años completos: todas las estaciones del año (Morchella en primavera)
 
@@ -153,20 +156,35 @@ const entreDias = (a, b) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.pars
 export const agostoDe = (f) => `${Number(f.slice(5, 7)) >= 8 ? Number(f.slice(0, 4)) : Number(f.slice(0, 4)) - 1}-08-01`;
 const clavePuntos = (puntos) => puntos.map((p) => p.id).sort().join(',');
 
+// Espera de la climatología tras fallos: { fallos, proximo (ISO) } o null.
+function esperaClima(alm) {
+  const e = leer('clim-espera', alm)?.datos;
+  return e && Number.isFinite(e.fallos) && !Number.isNaN(Date.parse(e.proximo)) ? e : null;
+}
+export const climaEnEspera = (alm, ahora = new Date()) => { const e = esperaClima(alm); return !!e && ahora < new Date(e.proximo); };
+
 // Climatología de humedad del suelo: 2 años hasta `hasta`, en caché 30 días con clave solo del conjunto de puntos
 // (si se añade uno, se vuelve a pedir). Si falla, se usa la guardada aunque esté caducada; sin ninguna, null.
+// Con la espera activa (fallos recientes) no se pide.
 async function climatologia(fetchFn, puntos, hasta, alm, ahora) {
   const clave = `clim:${clavePuntos(puntos)}`;
   const c = leer(clave, alm);
   const guardada = c?.datos && typeof c.datos === 'object' && puntos.every((p) => c.datos[p.id]?.porMes) ? c.datos : null;
   if (guardada && ahora - new Date(c.hora) < CLIMA_VALIDA_MS) return guardada;
+  if (climaEnEspera(alm, ahora)) return guardada;
   try {
     const r = comoLista(await pedir(fetchFn, urlClimatologia(puntos, hasta), ESPERA_ARCHIVO_MS));
     const res = Object.fromEntries(r.map((x, k) => [puntos[k].id, resumirArchivo(x)]));
     guardar(clave, res, ahora.toISOString(), alm);
     borrarPrefijo('clim:', clave, alm);
+    borrarPrefijo('clim-espera', '', alm);
     return res;
-  } catch { return guardada; }   // sin climatología, el índice se calcula sin fS y lo explica
+  } catch {   // sin climatología, el índice se calcula sin fS y lo explica
+    const fallos = (esperaClima(alm)?.fallos ?? 0) + 1;
+    const espera = ESPERAS_CLIMA_MS[Math.min(fallos, ESPERAS_CLIMA_MS.length) - 1];
+    guardar('clim-espera', { fallos, proximo: new Date(ahora.getTime() + espera).toISOString() }, undefined, alm);
+    return guardada;
+  }
 }
 
 // Lluvia desde el 1-ago hasta el día antes de la serie (la necesita el arranque de temporada de las de otoño desde que
@@ -209,15 +227,28 @@ function pendienteDe(series, puntos, faltaClim) {
 }
 const faltaClimDe = (clim, puntos) => !clim || puntos.some((p) => !clim[p.id]);
 
-// Reintento de lo que faltó (climatología y/o lluvia desde agosto) sobre la meteo guardada, sin repetir el resto.
-async function reintentarPendiente(fetchFn, puntos, datos, alm, ahora) {
+// Qué reintento toca ya: la climatología si pasó su espera; la lluvia si pasaron REINTENTO_MS desde el último intento.
+function tocaReintento(datos, alm, ahora) {
+  const p = datos.pendiente;
+  return { clim: !!p?.clim && !climaEnEspera(alm, ahora), lluvia: !!p?.lluvia && ahora - new Date(datos.intentoLluvia ?? datos.intento) >= REINTENTO_MS };
+}
+// Cuándo conviene volver a llamar a obtenerMeteo para reintentar lo pendiente (ISO) o null.
+function proximoReintento(datos, alm) {
+  const p = datos.pendiente, t = [];
+  if (p?.clim) t.push(Date.parse(esperaClima(alm)?.proximo ?? datos.intento) || Date.now());
+  if (p?.lluvia) t.push(Date.parse(datos.intentoLluvia ?? datos.intento) + REINTENTO_MS);
+  return t.length ? new Date(Math.min(...t)).toISOString() : null;
+}
+
+// Reintento de lo que faltó y ya toca (climatología y/o lluvia desde agosto) sobre la meteo guardada, sin repetir el resto.
+async function reintentarPendiente(fetchFn, puntos, datos, alm, ahora, toca) {
   const inicio = datos.series[puntos[0].id].fechas[0];
   const [clim, lluvia] = await Promise.all([
-    datos.pendiente.clim ? climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora) : Promise.resolve(undefined),
-    datos.pendiente.lluvia ? lluviaDesdeAgosto(fetchFn, puntos, datos.hoy, inicio, alm) : Promise.resolve(undefined)]);
+    toca.clim ? climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora) : Promise.resolve(undefined),
+    toca.lluvia ? lluviaDesdeAgosto(fetchFn, puntos, datos.hoy, inicio, alm) : Promise.resolve(undefined)]);
   const series = completarSeries(datos.series, clim, lluvia);
-  const pendiente = pendienteDe(series, puntos, datos.pendiente.clim ? faltaClimDe(clim, puntos) : false);
-  return { ...datos, series, pendiente, intento: ahora.toISOString() };
+  const pendiente = pendienteDe(series, puntos, datos.pendiente.clim ? (toca.clim ? faltaClimDe(clim, puntos) : true) : false);
+  return { ...datos, series, pendiente, ...(toca.lluvia ? { intentoLluvia: ahora.toISOString() } : {}) };
 }
 
 // almacen: localStorage por defecto; null desactiva la caché (pruebas y scripts).
@@ -228,28 +259,27 @@ export async function obtenerMeteo(puntos, { fetchFn = globalThis.fetch?.bind(gl
   const completa = !!previo?.datos?.series && puntos.every((p) => previo.datos.series[p.id]);   // si se añadió un punto, la caché no vale
   if (previo && completa && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) {
     const p = previo.datos;
-    if (p.pendiente && ahora - new Date(p.intento ?? previo.hora) >= REINTENTO_MS) {
-      const datos = await reintentarPendiente(fetchFn, puntos, p, alm, ahora);
+    const toca = tocaReintento(p, alm, ahora);
+    if (toca.clim || toca.lluvia) {
+      const datos = await reintentarPendiente(fetchFn, puntos, p, alm, ahora, toca);
       guardar('meteo', datos, previo.hora, alm);
-      return { ...datos, hora: previo.hora, desdeCache: true };
+      return { ...datos, hora: previo.hora, desdeCache: true, proximoReintento: proximoReintento(datos, alm) };
     }
-    return { ...p, hora: previo.hora, desdeCache: true };
+    return { ...p, hora: previo.hora, desdeCache: true, proximoReintento: proximoReintento(p, alm) };
   }
   try {
-    // El inicio de la serie se sabe antes de pedirla (past_days): archivo y forecast van a la vez.
-    const inicio = sumarDias(hoy, -PASADOS);
-    const climP = climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora);
-    const lluviaP = lluviaDesdeAgosto(fetchFn, puntos, hoy, inicio, alm);
+    // Primero la serie principal (y los modelos); solo después el archivo, para no competir con ella.
     const [principal, modelos] = await Promise.all([pedir(fetchFn, urlPrincipal(puntos)), pedir(fetchFn, urlModelos(puntos)).catch(() => null)]);
     const bruto = parsearPrincipal(principal, puntos, hoy);
-    const [clim, lluvia] = await Promise.all([climP, lluviaP]);
+    const inicio = bruto[puntos[0].id].fechas[0];
+    const [clim, lluvia] = await Promise.all([climatologia(fetchFn, puntos, diaAnterior(inicio), alm, ahora), lluviaDesdeAgosto(fetchFn, puntos, hoy, inicio, alm)]);
     const series = completarSeries(bruto, clim, lluvia);
     const pendiente = pendienteDe(series, puntos, faltaClimDe(clim, puntos));
     const disp = modelos ? Object.fromEntries(comoLista(modelos).map((r, k) => [puntos[k].id, dispersion(r, hoy)])) : null;
     const hora = ahora.toISOString();
     const datos = { hoy, series, dispersion: disp, pendiente, intento: hora };
     guardar('meteo', datos, hora, alm);
-    return { ...datos, hora, desdeCache: false };
+    return { ...datos, hora, desdeCache: false, proximoReintento: proximoReintento(datos, alm) };
   } catch (e) {
     if (previo) return { ...previo.datos, hora: previo.hora, desdeCache: true, error: e.message };
     return { hoy, series: null, dispersion: null, hora: null, desdeCache: false, error: e.message };

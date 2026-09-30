@@ -1,6 +1,6 @@
 // Arranque, estado y router por hash.
 import { cargarDatos, puntosDe } from './datos.js';
-import { obtenerMeteo, hoyMadrid, REINTENTO_MS } from './meteo.js';
+import { obtenerMeteo, hoyMadrid } from './meteo.js';
 import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
@@ -73,9 +73,11 @@ export async function refrescarMeteo() {
   }
   recalcularContraste();
   window.dispatchEvent(new Event('meteo'));
-  // Si faltó la climatología o la lluvia desde agosto, se reintenta solo eso (obtenerMeteo no repite lo demás).
+  // Si faltó la climatología o la lluvia desde agosto, se reintenta solo eso cuando toque (obtenerMeteo lleva la
+  // espera creciente de la climatología y no repite lo demás).
   clearTimeout(reintento);
-  if (estado.meteoBruta.pendiente) reintento = setTimeout(refrescarMeteo, REINTENTO_MS + 30e3);
+  const cuando = Date.parse(estado.meteoBruta.proximoReintento ?? '');
+  if (estado.meteoBruta.pendiente && Number.isFinite(cuando)) reintento = setTimeout(refrescarMeteo, Math.min(Math.max(0, cuando - Date.now()) + 30e3, 2 ** 31 - 1));
   if (estado.meteoBruta.series) await cargarObservaciones();
 }
 let reintento = null;

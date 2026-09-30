@@ -4,7 +4,7 @@ import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
-import { validarUmbral, fusionarUmbral, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
+import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
 const esUrl = (u) => typeof u === 'string' && /^https?:\/\//i.test(u);
 const enlace = (texto, href) => (esUrl(href) ? el('a', { texto, href, target: '_blank', rel: 'noopener noreferrer' }) : el('span', { texto }));
@@ -81,9 +81,7 @@ const CONFIANZA = { alta: 'confianza alta', media: 'confianza media', baja: 'con
 function filaUmbral({ estado, especie, fila, alCambiar }) {
   const orig = especie.indice;
   // Solo las claves editables, y validada: una fila mal formada (RLS abierto) no rompe la pantalla ni quita «Restablecer».
-  const fusion = fusionarUmbral(orig, estado.umbrales[especie.id]);
-  const filaMala = validarUmbral(fusion).length > 0 || !Array.isArray(fusion.trango) || !Array.isArray(fusion.desfase);
-  const efectivo = filaMala ? orig : fusion;
+  const { efectivo, filaMala } = umbralEfectivo(orig, estado.umbrales[especie.id]);
   const editado = Object.hasOwn(estado.umbrales, especie.id) || !!fila;
   const entradas = {};
   const campos = CAMPOS.map(([k, rotulo, leer]) => {

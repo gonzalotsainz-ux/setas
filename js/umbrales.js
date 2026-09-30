@@ -1,13 +1,25 @@
 // Umbrales del índice editados (compartidos en Supabase, sin login: cualquiera con la web puede editarlos).
 const NOMBRE = { topt: 'temperatura óptima', pmin: 'lluvia mínima', pfull: 'lluvia de pleno', trango: 'rango de temperatura', desfase: 'desfase' };
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
-// Lo único editable del índice: el resto de claves de una fila (usarSuelo, helada, confianza…) se ignora.
+// Lo único editable del índice: el resto de claves de una fila (usarSuelo, helada, confianza…) se ignora, y un
+// valor null o ausente deja el de la investigación.
 export const CLAVES_UMBRAL = ['topt', 'trango', 'pmin', 'pfull', 'desfase'];
 export function fusionarUmbral(indice, fila) {
   const r = { ...indice };
   if (!fila || typeof fila !== 'object' || Array.isArray(fila)) return r;
-  for (const k of CLAVES_UMBRAL) if (k in fila) r[k] = fila[k];
+  for (const k of CLAVES_UMBRAL) if (fila[k] != null) r[k] = fila[k];
   return r;
+}
+// Validación del índice YA fusionado: los cinco campos tienen que estar y ser válidos.
+export function validarUmbralCompleto(p) {
+  const faltan = CLAVES_UMBRAL.filter((k) => p?.[k] == null);
+  return faltan.length ? [`Faltan ${faltan.join(', ')}`] : validarUmbral(p);
+}
+// Índice que se usa con una fila editada: la fusión si es válida; si no, el original (y `filaMala` para avisar).
+export function umbralEfectivo(indice, fila) {
+  const fusion = fusionarUmbral(indice, fila);
+  const errores = validarUmbralCompleto(fusion);
+  return { efectivo: errores.length ? { ...indice } : fusion, filaMala: errores.length > 0, errores };
 }
 
 // Mismas reglas que scripts/validar-datos.mjs para `indice` (pfull > pmin, trango y desfase crecientes) más los

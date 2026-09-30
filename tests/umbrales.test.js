@@ -70,3 +70,27 @@ test('fusionarUmbral: solo topt, trango, pmin, pfull y desfase; el resto de la f
   assert.equal(m.indice.helada, 'baja');
   assert.equal(m.indice.pmin, 20);
 });
+
+import { umbralEfectivo, validarUmbralCompleto } from '../js/umbrales.js';
+test('una fila con nulos ({ trango: null, topt: null }) no se copia: la especie sigue con su índice y calcula', () => {
+  const orig = console.warn; console.warn = () => {};
+  try {
+    const fila = { trango: null, topt: null };
+    assert.deepEqual(fusionarUmbral(esp.indice, fila), esp.indice);
+    const [m] = especiesDeZona(zona, [esp], { 'boletus-edulis': fila });
+    assert.deepEqual(m.indice, esp.indice);
+    assert.ok(Number.isFinite(calcularIndice(serieSintetica({ precip: lluviaBuena }), 59, m).valor));
+    // Ajustes usa umbralEfectivo: valores de la investigación, sin romper (los accesores de la pantalla leen trango[0])
+    const u = umbralEfectivo(esp.indice, fila);
+    assert.equal(u.filaMala, false);
+    assert.equal(u.efectivo.trango[0], esp.indice.trango[0]);
+    const roto = umbralEfectivo(esp.indice, { trango: 'x' });
+    assert.equal(roto.filaMala, true);
+    assert.deepEqual(roto.efectivo, esp.indice);
+  } finally { console.warn = orig; }
+});
+test('validarUmbralCompleto exige los cinco campos', () => {
+  assert.deepEqual(validarUmbralCompleto(esp.indice), []);
+  assert.match(validarUmbralCompleto({ ...esp.indice, trango: null }).join(), /trango/);
+  assert.match(validarUmbralCompleto({ topt: 12 }).join(), /pmin/);
+});
