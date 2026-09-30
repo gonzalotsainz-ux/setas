@@ -140,3 +140,20 @@ test('obtenerMeteo: usa la caché reciente sin pedir nada', async () => {
   assert.match(r3.error, /sin red/);
   assert.ok(r3.series.a);
 });
+
+test('obtenerMeteo: una entrada de caché corrupta o antigua no lanza', async () => {
+  for (const basura of ['{"datos":null,"hora":"x"}', '{"hora":"2026-09-30T08:00:00Z"}', '[1,2]', 'no es json']) {
+    const almacen = { getItem: (k) => (k === 'setas:meteo' ? basura : null), setItem() {}, removeItem() {}, key: () => null, length: 0 };
+    const r = await obtenerMeteo(PUNTOS, { fetchFn: async () => { throw new Error('sin red'); }, ahora: new Date('2026-09-30T10:00:00Z'), almacen });
+    assert.equal(r.series, null);
+    assert.match(r.error, /sin red/);
+  }
+});
+
+test('obtenerMeteo: cada petición lleva un límite de tiempo (AbortSignal)', async () => {
+  const opciones = [];
+  const fetchFn = async (url, op) => { opciones.push(op); return { ok: false, status: 500 }; };
+  await obtenerMeteo(PUNTOS, { fetchFn, ahora: new Date('2026-09-30T10:00:00Z'), almacen: null });
+  assert.ok(opciones.length >= 1);
+  for (const op of opciones) assert.ok(op?.signal instanceof AbortSignal);
+});

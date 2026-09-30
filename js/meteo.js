@@ -13,6 +13,7 @@ export const MODELOS = ['ecmwf_ifs', 'icon_seamless', 'meteofrance_seamless'];
 export const PASADOS = 60, FUTUROS = 10;
 const TRES_HORAS = 3 * 3600e3;
 const ZONA = 'Europe/Madrid';
+const ESPERA_MS = 15000;   // sin respuesta en 15 s, se da por caída y se usa la caché
 
 export const hoyMadrid = (ahora = new Date()) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: ZONA, year: 'numeric', month: '2-digit', day: '2-digit' }).format(ahora);
@@ -108,7 +109,7 @@ export function aplicarClimatologia(serie, resumen) {
 }
 
 async function pedir(fetchFn, url) {
-  const r = await fetchFn(url);
+  const r = await fetchFn(url, { signal: AbortSignal.timeout(ESPERA_MS) });
   if (!r.ok) throw new Error(`Open-Meteo respondió ${r.status}`);
   const j = await r.json();
   if (j?.error) throw new Error(`Open-Meteo: ${j.reason}`);
@@ -135,7 +136,7 @@ async function climatologia(fetchFn, puntos, inicio, almacen) {
 export async function obtenerMeteo(puntos, { fetchFn = globalThis.fetch?.bind(globalThis), ahora = new Date(), almacen = almacenPorDefecto() } = {}) {
   const hoy = hoyMadrid(ahora);
   const alm = almacen;
-  const previo = leer('meteo', alm);
+  const previo = leer('meteo', alm)?.datos?.hoy ? leer('meteo', alm) : null;   // una entrada corrupta o antigua se ignora
   if (previo && previo.datos.hoy === hoy && ahora - new Date(previo.hora) < TRES_HORAS) return { ...previo.datos, hora: previo.hora, desdeCache: true };
   try {
     const [principal, modelos] = await Promise.all([pedir(fetchFn, urlPrincipal(puntos)), pedir(fetchFn, urlModelos(puntos)).catch(() => null)]);

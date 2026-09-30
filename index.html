@@ -5,9 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Setas</title>
   <meta name="description" content="Previsión y recogida de setas: lluvia, índice por especie, cotos y diario.">
+  <meta name="theme-color" content="#f1f2ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1510" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;700&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
 </head>
 <body>
-  <main id="app">Cargando…</main>
-  <script type="module" src="js/app.js"></script>
+<div class="pantalla">
+  <header class="cabecera">
+    <a class="marca" href="#hoy" aria-label="Setas, inicio">
+      <svg class="marca__simbolo" viewBox="0 0 64 64" aria-hidden="true">
+        <path class="sombrero" fill-rule="evenodd" d="M8 34C8 20.7 18.7 10 32 10s24 10.7 24 24c0 2.2-1.8 4-4 4H12c-2.2 0-4-1.8-4-4ZM32 13.2c-.9 1.1-8.2 10.2-8.2 14.9a8.2 8.2 0 0 0 16.4 0c0-4.7-7.3-13.8-8.2-14.9Z"/>
+        <path class="gota" d="M32 18.4c-1.6 2.1-5.3 7.1-5.3 9.8a5.3 5.3 0 0 0 10.6 0c0-2.7-3.7-7.7-5.3-9.8Z"/>
+        <path class="pie-seta" d="M24.6 41h14.8c.9 4 2.1 8.3 2.1 11 0 4-4.2 6-9.5 6s-9.5-2-9.5-6c0-2.7 1.2-7 2.1-11Z"/>
+      </svg>
+      Setas
+    </a>
+    <a class="boton boton--peligro boton--compacto" href="tel:+34915620420" data-toxicologia aria-label="Llamar a Toxicología: 91 562 04 20, 24 horas">Toxicología</a>
+  </header>
+
+  <main id="app" tabindex="-1"><p class="portada__sub">Cargando…</p></main>
+
+  <footer class="pie">
+    <p>El índice mide la <strong>oportunidad meteorológica</strong>, no la producción del monte.</p>
+    <p data-aviso-duda>Ante la duda, no la comas. Síntomas más de 6 h después de comer = urgencia grave: llama al 112.</p>
+    <p>Toxicología (INTCF, 24 h): <a class="tabular" href="tel:+34915620420">91 562 04 20</a>. Emergencias: <a href="tel:112">112</a>.</p>
+    <p><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a> (CC BY 4.0). Lluvia observada: AEMET OpenData.</p>
+  </footer>
+</div>
+
+<nav class="barra-nav" aria-label="Secciones">
+  <p class="barra-nav__seguridad"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-aviso"/></svg>Ante la duda, no la comas.</p>
+  <ul>
+    <li><a href="#hoy"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-hoy"/></svg>Hoy</a></li>
+    <li><a href="#mapa"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-mapa"/></svg>Mapa</a></li>
+    <li><a href="#especies"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-especies"/></svg>Especies</a></li>
+    <li><a href="#diario"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-diario"/></svg>Diario</a></li>
+    <li><a href="#ajustes"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-ajustes"/></svg>Ajustes</a></li>
+  </ul>
+</nav>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
