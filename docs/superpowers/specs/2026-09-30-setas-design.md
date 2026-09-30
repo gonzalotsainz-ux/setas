@@ -42,7 +42,7 @@ estar muy desviada: en una prueba, un punto de Guadarrama cayó a 2.097 m.
   a 13 °C → boletus probable»), filtro por especie y aviso si la previsión es incierta.
 - **Mapa.** Topográfico del IGN (y ortofoto PNOA como alternativa), zonas, cotos (polígono oficial o zona aproximada
   con enlace), salidas del diario y capa de lluvia acumulada en 26 días por punto.
-- **Zona.** Gráfico de lluvia de 45 días más 10 de previsión, con la horquilla entre modelos; índice por especie con
+- **Zona.** Gráfico de lluvia de 60 días más 10 de previsión, con la horquilla entre modelos; índice por especie con
   su desglose; hábitats; cotos y permisos; calendario de qué sale cada mes.
 - **Especies.** Fichas con fotos, identificación, hábitat, temporada, zonas y un recuadro rojo de **tóxicas
   parecidas** con los rasgos que las distinguen.
@@ -59,16 +59,17 @@ Fuente principal: **Open-Meteo** (gratis para uso no comercial, sin clave, CORS 
 atribución «Weather data by Open-Meteo.com»). Límites: menos de 10.000 llamadas/día; esta app usa unas decenas.
 
 - **Serie principal:** `api.open-meteo.com/v1/forecast` con todos los puntos en **una sola llamada**, más
-  `past_days=45`, `forecast_days=10`, `timezone=Europe/Madrid` y `elevation` por punto. Variables diarias:
-  `precipitation_sum`, `temperature_2m_mean/min/max`, `soil_temperature_0_to_7cm_mean`,
-  `soil_moisture_0_to_10cm_mean`, `et0_fao_evapotranspiration`, `wind_speed_10m_max` y `relative_humidity_2m_mean`.
-  Modelo `best_match`.
+  `past_days=60`, `forecast_days=10`, `timezone=Europe/Madrid` y `elevation` por punto. Variables diarias:
+  `precipitation_sum`, `temperature_2m_mean/min/max`, `et0_fao_evapotranspiration`, `wind_speed_10m_max` y `relative_humidity_2m_mean`. Suelo: horarias
+  `soil_moisture_0_to_7cm` y `soil_temperature_0_to_7cm` promediadas por día, la misma capa que usa la
+  climatología. Modelo `best_match`.
 - **Contraste entre modelos:** una segunda llamada, solo de precipitación, con `models=ecmwf_ifs,icon_seamless,
   meteofrance_seamless`. Se muestra la media y la dispersión. Si la dispersión de la lluvia prevista a 7 días
   supera el 50 % de la media y 10 mm, la previsión se marca como **incierta**. (Open-Meteo **no** ofrece AEMET
   HARMONIE: comprobado.)
 - **Climatología para percentiles de humedad del suelo:** `archive-api.open-meteo.com/v1/archive`, con los 3 últimos
-  otoños por punto. Se descarga una vez por temporada y se guarda en IndexedDB. ERA5-Land llega con retraso, así
+  otoños por punto. Se descarga en una sola llamada para todos los puntos, a lo sumo una vez al día, y se guarda resumida en
+  `localStorage`. ERA5-Land llega con retraso, así
   que para los últimos 45 días siempre se usa el forecast con `past_days`.
 - **Lluvia medida en estaciones (AEMET OpenData):** a cada zona se le asignan 1–2 estaciones AEMET cercanas y
   representativas. La clave de AEMET, gratuita y pedida por Gonzalo, vive como *secret* en una **Supabase Edge
@@ -234,7 +235,8 @@ Se publica en GitHub Pages desde `main`.
 index.html            estructura y navegación
 css/                  tokens (tema claro/oscuro) y componentes
 js/app.js             arranque y rutas (#hoy, #mapa, #zona/<id>, #especies, #diario, #ajustes)
-js/meteo.js           Open-Meteo (serie principal, contraste de modelos, climatología) + caché
+js/meteo.js           Open-Meteo (serie principal, contraste de modelos, climatología)
+js/cache.js           caché en localStorage a prueba de fallos
 js/aemet.js           cliente de la Edge Function
 js/indice.js          función pura del índice (sin DOM ni red)
 js/mapa.js            Leaflet + capas IGN/OSM + cotos
@@ -249,7 +251,7 @@ tests/                node --test: índice y validación de datos
 docs/investigacion/   informes de investigación con fuentes
 ```
 
-- **Librerías:** Leaflet y una librería ligera de gráficos, desde CDN con versión fijada.
+- **Librerías:** Leaflet desde CDN con versión fijada. Los gráficos son SVG propio, sin librería.
 - **Mapas:** IGN (MTN y PNOA por WMTS, CC BY 4.0, con atribución) y OSM como alternativa, con atribución. No se
   descargan teselas en masa.
 - **Diseño visual:** en la construcción se usan los plugins `ui-ux-pro-max` (estructura, sistema de diseño,
@@ -269,7 +271,8 @@ docs/investigacion/   informes de investigación con fuentes
 - **`validar-datos.mjs`:** comprueba que cada especie, norma y coto tenga fuente y fecha, que las confusiones apunten
   a fichas existentes, que las zonas de cada especie existan, que las fotos tengan licencia permitida y que el
   GeoJSON sea válido.
-- **GitHub Actions:** ejecuta ambas en cada push.
+- **Gancho `pre-push` local:** ejecuta ambas antes de cada subida. No se usa GitHub Actions porque el token de la
+  cuenta no tiene el permiso `workflow`.
 - **Prueba manual en el móvil** antes de dar la v1 por buena: cargar Hoy, abrir una zona, dar de alta una salida con
   foto y comprobar la caída de Open-Meteo (simulada) y el modo oscuro.
 
