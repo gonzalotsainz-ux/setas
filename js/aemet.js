@@ -1,3 +1,5 @@
+import { parsearPrec } from '../supabase/functions/aemet/prec.js';
+
 // Lluvia medida en estaciones AEMET (a través de la Edge Function) y contraste con el modelo.
 // Sin login: la función se llama con la clave publicable en la cabecera `apikey`.
 //
@@ -7,22 +9,24 @@
 
 export const MIN_DIAS_ESTACION = 22;
 
-export function parsearPrec(t) {
-  if (t == null || t === '' || t === 'Acum') return null;
-  if (t === 'Ip') return 0;
-  const v = Number(String(t).replace(',', '.'));
-  return Number.isFinite(v) ? v : null;
-}
+export { parsearPrec };
 
-// P26 del modelo frente a P26 de la estación (extrapolada a 26 días si faltan los últimos por el retraso de AEMET).
+// Compara con los MISMOS días: Σ estación frente a Σ modelo en los días con observación. `discrepa` usa ese par
+// (> 30 % y > 10 mm), así que no depende de los últimos días sin medida (AEMET publica con retraso).
+// P26estacion es la definición del índice: días de estación + días del modelo en la cola sin medida (lo que produce
+// aplicarEstacion). P26modelo es la lluvia de 26 días solo con el modelo. Con menos de MIN_DIAS_ESTACION días, null.
 export function compararLluvia(serie, obs) {
-  const i = serie.hoy, dias = serie.fechas.slice(i - 25, i + 1);
-  const P26modelo = serie.precip.slice(i - 25, i + 1).reduce((a, b) => a + (b ?? 0), 0);
-  const vals = dias.map((f) => obs[f]).filter((v) => v != null);
-  const P26estacion = vals.length >= MIN_DIAS_ESTACION ? vals.reduce((a, b) => a + b, 0) * (26 / vals.length) : null;
-  const discrepa = P26estacion != null && Math.abs(P26estacion - P26modelo) > 10
-    && Math.abs(P26estacion - P26modelo) > 0.3 * Math.max(P26estacion, P26modelo);
-  return { P26modelo, P26estacion, diasCubiertos: vals.length, discrepa };
+  const i = serie.hoy, js = Array.from({ length: 26 }, (_, k) => i - 25 + k);
+  const mod = (j) => serie.precip[j] ?? 0;
+  const cubiertos = js.filter((j) => obs[serie.fechas[j]] != null);
+  const estacionCubierta = cubiertos.reduce((t, j) => t + obs[serie.fechas[j]], 0);
+  const modeloCubierto = cubiertos.reduce((t, j) => t + mod(j), 0);
+  const P26modelo = js.reduce((t, j) => t + mod(j), 0);
+  const completa = cubiertos.length >= MIN_DIAS_ESTACION;
+  const P26estacion = completa ? estacionCubierta + P26modelo - modeloCubierto : null;
+  const d = Math.abs(estacionCubierta - modeloCubierto);
+  const discrepa = completa && d > 10 && d > 0.3 * Math.max(estacionCubierta, modeloCubierto);
+  return { P26modelo, P26estacion, diasCubiertos: cubiertos.length, estacionCubierta, modeloCubierto, discrepa };
 }
 
 export function aplicarEstacion(serie, obs, id) {

@@ -172,7 +172,7 @@ export function pintar({ estado, refrescarMeteo }) {
   if (caducado) sub.append(`Datos del ${fechaCorta(meteo.hoy)}. No se ha podido actualizar; las notas son de ese día.`);
   else if (meteo.desdeCache) sub.append(`Datos de ${haceCuanto(meteo.hora)}`, meteo.error ? '. No se ha podido actualizar.' : '.');
   else sub.append('Actualizado a las ', el('time', { clase: 'tabular', dateTime: meteo.hora, texto: horaDe(meteo.hora) }), '. Previsión de Open-Meteo.');
-  if (estado.obsError) sub.append(' Lluvia medida en estaciones: no disponible ahora.');
+  if (!estado.obs && estado.obsError && datos.zonas.some((z) => z.estacionesAemet?.length)) sub.append(' Lluvia medida en estaciones: no disponible ahora.');
 
   const portada = el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-hoy' } },
     el('p', { clase: 'portada__fecha' }, el('time', { dateTime: hoy, texto: fechaLarga(hoy) })),

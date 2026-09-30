@@ -13,7 +13,7 @@ import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const nbsp = ' ';
-const ui = { punto: {}, abierta: {} };   // punto elegido y especie desplegada, por zona; se conservan al repintar
+const ui = { punto: {}, abierta: {}, enfocarModelo: null };   // punto elegido y especie desplegada, por zona; se conservan al repintar
 const MODELOS = { ecmwf_ifs: 'ECMWF', icon_seamless: 'ICON', meteofrance_seamless: 'Météo-France' };
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
@@ -83,13 +83,13 @@ function detallePunto(p) {
 
 // Origen de la cifra de 26 días: cuántos días vienen de la estación y cuántos del modelo.
 function origenLluvia(serie, meteo, zona) {
-  const dias = serie.origenPrecip.slice(serie.hoy - 25, serie.hoy + 1);
+  const dias = serie.origenPrecip?.slice(serie.hoy - 25, serie.hoy + 1) ?? [];
   const deEstacion = dias.filter((o) => o?.startsWith('estacion:'));
   if (deEstacion.length) {
     const id = deEstacion[0].slice('estacion:'.length);
     const nombre = zona.estacionesAemet?.find((e) => e.id === id)?.nombre ?? id;
     const resto = dias.length - deEstacion.length;
-    return `Estación AEMET ${nombre}: ${deEstacion.length} días${resto ? `; modelo: ${resto} (AEMET publica con unos 3 días de retraso)` : ''}`;
+    return `Estación AEMET ${nombre}: ${deEstacion.length} días${resto ? ` de estación + ${resto} de modelo (AEMET publica con unos 3 días de retraso)` : ''}`;
   }
   return `Modelo: Open-Meteo best_match · actualizado a las ${hora(meteo.hora)}`;
 }
@@ -137,9 +137,11 @@ function cajaModelos(disp) {
 function cajaContraste(zona, meteo) {
   const c = meteo.contraste?.[zona.id];
   if (!c?.discrepa) return null;
-  const { P26estacion, P26modelo, diasCubiertos } = c.comparacion;
+  const { P26estacion, P26modelo, diasCubiertos, estacionCubierta, modeloCubierto } = c.comparacion;
   const boton = el('button', { clase: 'chip', type: 'button', texto: 'Usar modelo', attrs: { 'aria-pressed': String(c.usaModelo) } });
+  if (ui.enfocarModelo === zona.id) { ui.enfocarModelo = null; setTimeout(() => boton.focus({ preventScroll: true }), 50); }   // el repintado recrea el botón
   boton.addEventListener('click', () => {
+    ui.enfocarModelo = zona.id;
     fijarUsarModelo(zona.id, boton.getAttribute('aria-pressed') !== 'true');
     window.dispatchEvent(new Event('contraste'));
   });
@@ -147,7 +149,7 @@ function cajaContraste(zona, meteo) {
     el('div', { clase: 'desacuerdo__cabeza' }, icono('i-aviso'),
       el('div', {}, el('h2', { id: 'titulo-contraste', texto: 'Estación y modelo no coinciden' }),
         el('p', { clase: 'texto-2', texto: `Estación ${c.estacion.nombre}: ${Math.round(P26estacion)}${nbsp}mm · Modelo: ${Math.round(P26modelo)}${nbsp}mm` }))),
-    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días. La estación está a ${c.estacion.distanciaKm.toLocaleString('es-ES')}${nbsp}km y ${miles(c.estacion.altitud)}${nbsp}m, con ${diasCubiertos} de 26 días medidos. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
+    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasCubiertos} días medidos: estación ${Math.round(estacionCubierta)}${nbsp}mm, modelo ${Math.round(modeloCubierto)}${nbsp}mm. La estación está a ${c.estacion.distanciaKm.toLocaleString('es-ES')}${nbsp}km y ${miles(c.estacion.altitud)}${nbsp}m. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
     el('div', { clase: 'chips' }, boton));
 }
 
@@ -159,7 +161,7 @@ function seccionLluvia(zona, meteo, serie, disp, obsError) {
   return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-lluvia' } },
     el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-lluvia', texto: 'Lluvia' }), el('span', { clase: 'texto-2 texto-s', texto: `${serie.hoy + 1} días y ${futuros} de previsión` })),
     cifrasLluvia(serie, disp, meteo, zona), fig,
-    obsError ? el('p', { clase: 'texto-2 texto-s', texto: 'Lluvia medida en estaciones: no disponible ahora' }) : null,
+    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: 'Lluvia medida en estaciones: no disponible ahora' }) : null,
     el('ul', { clase: 'leyenda' },
       el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida'),
       el('li', {}, el('span', { clase: 'muestra muestra--prevista' }), 'Prevista, con horquilla'),
@@ -265,7 +267,7 @@ export function pintar({ estado, param, refrescarMeteo }) {
     else {
       const disp = meteo.dispersion?.[id] ?? null;
       if (meteo.hoy !== hoyMadrid()) partes.push(aviso(`Datos del ${fecha(meteo.hoy)}. No se ha podido actualizar; las notas son de ese día.`, false));
-      partes.push(seccionLluvia(zona, meteo, serie, disp, estado.obsError), cajaContraste(zona, meteo), cajaModelos(disp));
+      partes.push(seccionLluvia(zona, meteo, serie, disp, estado.obs ? null : estado.obsError), cajaContraste(zona, meteo), cajaModelos(disp));
     }
     partes.push(listaEspecies(zona, c.especies, c.res, serie, nombrePunto(punto)));
     dinamico.replaceChildren(...partes.filter(Boolean));

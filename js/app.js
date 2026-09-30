@@ -59,8 +59,7 @@ async function cargarObservaciones() {
     estado.obs = await pedirObservaciones(estaciones, desde, hasta);
     estado.obsError = null;
   } catch (e) {
-    estado.obs = null;
-    estado.obsError = e.message;
+    estado.obsError = e.message;   // se conservan las observaciones anteriores, si las hay
   }
   recalcularContraste();
   window.dispatchEvent(new Event('meteo'));

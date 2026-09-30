@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import { parsearPrec, compararLluvia, aplicarEstacion, aplicarContraste } from '../js/aemet.js';
 import { serieSintetica } from './ayudas.js';
 
+const zona = (estaciones) => ({ id: 'z', puntos: [{ id: 'a', altitud: 1500 }, { id: 'b', altitud: 1100 }], estacionesAemet: estaciones });
+const meteoDe = (s) => ({ series: { a: s, b: s }, hoy: s.fechas[s.hoy] });
+const obsDe = (s, v, desde = 34, hasta = 57) => Object.fromEntries(s.fechas.slice(desde, hasta).map((f) => [f, v]));
+
 test('precipitación de AEMET', () => {
   assert.equal(parsearPrec('2,4'), 2.4);
   assert.equal(parsearPrec('0,0'), 0);
@@ -10,6 +14,11 @@ test('precipitación de AEMET', () => {
   assert.equal(parsearPrec('Acum'), null);
   assert.equal(parsearPrec(''), null);
   assert.equal(parsearPrec(undefined), null);
+  assert.equal(parsearPrec(' 2,4 '), 2.4);
+  assert.equal(parsearPrec(' Ip '), 0);
+  assert.equal(parsearPrec(3.5), 3.5);
+  assert.equal(parsearPrec('abc'), null);
+  assert.equal(parsearPrec(NaN), null);
 });
 
 test('comparación: discrepa si difiere > 30 % y > 10 mm', () => {
@@ -22,7 +31,7 @@ test('comparación: discrepa si difiere > 30 % y > 10 mm', () => {
   assert.equal(c.discrepa, true);
 });
 
-test('estación incompleta (< 24 de 26 días) → no se compara', () => {
+test('estación incompleta (< 22 de 26 días) → no se compara', () => {
   const s = serieSintetica();
   const obs = Object.fromEntries(s.fechas.slice(40, 60).map((f) => [f, 1]));
   assert.equal(compararLluvia(s, obs).P26estacion, null);
@@ -39,10 +48,35 @@ test('aplicarEstacion sustituye solo días observados y no toca la previsión', 
   assert.equal(s.precip[50], 2);           // no muta la original
 });
 
+test('discrepa compara los mismos días: la cola sin medida (húmeda o seca) no la decide', () => {
+  // estación 1 mm/día y modelo 1 mm/día en los 23 días medidos (34..56): coinciden
+  for (const cola of [0, 30]) {
+    const s = serieSintetica({ precip: (k) => (k >= 57 ? cola : 1) });
+    const c = compararLluvia(s, obsDe(s, 1));
+    assert.equal(c.diasCubiertos, 23);
+    assert.equal(c.estacionCubierta, 23);
+    assert.equal(c.modeloCubierto, 23);
+    assert.equal(c.discrepa, false);
+    assert.equal(c.P26estacion, 23 + cola * 3);   // definición del índice: estación + modelo en la cola
+    assert.equal(c.P26modelo, 23 + cola * 3);
+  }
+  // si en los días medidos sí difieren (estación 3, modelo 1), discrepa con cualquier cola
+  for (const cola of [0, 30]) {
+    const s = serieSintetica({ precip: (k) => (k >= 57 ? cola : 1) });
+    const c = compararLluvia(s, obsDe(s, 3));
+    assert.equal(c.discrepa, true);
+    assert.equal(c.P26estacion, 69 + cola * 3);
+  }
+});
+
+test('límite de cobertura: 21 días no compara, 22 sí', () => {
+  const s = serieSintetica({ precip: () => 1 });
+  assert.equal(compararLluvia(s, obsDe(s, 1, 36, 57)).P26estacion, null);       // 21 días
+  assert.equal(compararLluvia(s, obsDe(s, 1, 35, 57)).P26estacion, 26);         // 22 días: 22 + 4 del modelo
+  assert.equal(compararLluvia(s, obsDe(s, 1, 36, 57)).discrepa, false);
+});
+
 // ---- aplicarContraste ----
-const zona = (estaciones) => ({ id: 'z', puntos: [{ id: 'a', altitud: 1500 }, { id: 'b', altitud: 1100 }], estacionesAemet: estaciones });
-const meteoDe = (s) => ({ series: { a: s, b: s }, hoy: s.fechas[s.hoy] });
-const obsDe = (s, v, desde = 34, hasta = 57) => Object.fromEntries(s.fechas.slice(desde, hasta).map((f) => [f, v]));
 
 test('contraste: aplica la estación con ≥ 22 días medidos (retraso de 3 días) y deja el modelo en los últimos', () => {
   const s = serieSintetica({ precip: () => 2 });
