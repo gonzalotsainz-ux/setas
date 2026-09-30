@@ -657,6 +657,12 @@
   background: color-mix(in srgb, var(--c-superficie) 88%, transparent);
   color: var(--c-texto-2);
   font-size: 11px;
+  max-width: calc(100% - 28px);
+  margin: 0 8px 6px 0;
+  padding: 2px 8px;
+  border-radius: var(--r-s);
+  white-space: normal;
+  text-align: right;
 }
 .mapa .leaflet-control-attribution a { color: var(--c-acento-fuerte); }
 .mapa .leaflet-tooltip {

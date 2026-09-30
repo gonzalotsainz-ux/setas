@@ -4,7 +4,7 @@ import { el, icono } from '../ui/dom.js';
 
 // Lo que la usuaria toca se conserva al repintar (la previsión llega después del primer pintado).
 const guardado = { vista: null, base: null, activas: null, enfocada: null };
-let actual = null;
+let actual = null, ultima = 0;
 
 function cerrar() { actual?.destruir(); actual = null; }
 window.addEventListener('hashchange', () => {
@@ -12,6 +12,7 @@ window.addEventListener('hashchange', () => {
 });
 
 export async function pintar({ estado, param }) {
+  const mia = ++ultima;
   const datos = estado.datos, meteo = estado.meteo;
   const lienzo = el('div', { clase: 'mapa', attrs: { role: 'region', 'aria-label': 'Mapa de zonas, cotos y prohibiciones' } });
   const avisos = el('div', { clase: 'mapa-avisos' });
@@ -23,6 +24,8 @@ export async function pintar({ estado, param }) {
     datos, meteo, umbrales: estado.umbrales ?? {}, ...guardado,
     onCambio: (c) => Object.assign(guardado, c),
   });
+  // Un pintado superado por otro, o que termina cuando ya se ha salido del mapa, no deja mapa vivo.
+  if (mia !== ultima || !location.hash.startsWith('#mapa')) { nuevo.destruir(); return el('div'); }
   cerrar();
   actual = nuevo;
   if (param && param !== guardado.enfocada && nuevo.enfocarZona(param)) guardado.enfocada = param;

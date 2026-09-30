@@ -1,6 +1,6 @@
 // Mapa base IGN (topográfico y ortofoto) + OSM, con capas de zonas, cotos, lluvia y salidas.
 import { el } from './ui/dom.js';
-import { nivelDe, semaforo, palabraDe } from './ui/semaforo.js';
+import { NIVELES, nivelDe, semaforo, palabraDe } from './ui/semaforo.js';
 import { indiceZona } from './indice.js';
 import { especiesDeZona, nombreCorto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
@@ -12,11 +12,15 @@ export const BASES = {
   'Ortofoto PNOA': [IGN({ servicio: 'pnoa-ma', layer: 'OI.OrthoimageCoverage' }, 'jpeg'), `PNOA cedido por ${ATR_IGN}`],
   'OpenStreetMap': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'],
 };
+// Las capas vectoriales van sobre teselas IGN/PNOA, siempre claras, en cualquier tema: por eso sus colores
+// son fijos (los primitivos del tema claro, oscuros) y no siguen el tema. Cada trazo lleva además un halo blanco.
+export const COLOR = { peligro: '#9e1c16', acento: '#1f4a33', texto: '#3d4a41', lluvia: '#0b5394', halo: '#ffffff' };
+export const NIVEL_COLOR = { nulo: '#7a736b', bajo: '#b8542a', posible: '#b27a0e', bueno: '#4c8a37', 'muy-bueno': '#1d5e3a', 'sin-datos': '#7d827e' };
 export const ESTILO_COTO = {
-  prohibido: { color: 'var(--c-peligro)', fillOpacity: 0.25, weight: 2 },
-  acotado: { color: 'var(--c-acento)', fillOpacity: 0.12, weight: 1.5 },
-  'parque-micologico': { color: 'var(--c-acento)', fillOpacity: 0.18, weight: 2 },
-  regulado: { color: 'var(--c-texto-2)', fillOpacity: 0.08, weight: 1 },
+  prohibido: { color: COLOR.peligro, fillOpacity: 0.25, weight: 2 },
+  acotado: { color: COLOR.acento, fillOpacity: 0.12, weight: 1.5 },
+  'parque-micologico': { color: COLOR.acento, fillOpacity: 0.18, weight: 2 },
+  regulado: { color: COLOR.texto, fillOpacity: 0.08, weight: 1 },
 };
 export const ESTILO_PRECISION = { oficial: {}, derivado: { dashArray: '6 4' }, aproximado: { dashArray: '2 6' } };
 
@@ -31,29 +35,15 @@ const PRECISION_LEYENDA = { oficial: 'Límite oficial', derivado: 'Derivado de m
 // Popups: estrechos y con margen para no quedar bajo los controles de zoom y capas.
 const POPUP = { minWidth: 200, maxWidth: 250, autoPanPaddingTopLeft: [60, 16], autoPanPaddingBottomRight: [16, 16] };
 const PANE_LLUVIA = 'lluvia', PANE_PUNTOS = 'puntos';
-const MM_POR_PX = 6;   // radio del círculo de lluvia = mm de los últimos 26 días / 6, en píxeles
-const radioLluvia = (mm) => Math.max(3, mm / MM_POR_PX);
+// Lluvia: anillo alrededor del punto (12 px = por fuera del marcador de 9 px) que crece con los mm de 26 días.
+export const radioLluvia = (mm) => 12 + mm / 4;
 
-// Leaflet no lee var(--…) en atributos SVG: se resuelven los tokens con getComputedStyle.
-function tokens() {
-  const cs = getComputedStyle(document.documentElement);
-  const v = (n) => cs.getPropertyValue(n).trim();
-  return {
-    peligro: v('--c-peligro'), acento: v('--c-acento'), texto2: v('--c-texto-2'), superficie: v('--c-superficie'),
-    lluvia: v('--c-lluvia'), sinDatos: v('--c-sin-datos'), borde: v('--c-borde-fuerte'),
-    nivel: (n) => v(`--c-sem-${n}`) || v('--c-sin-datos'),
-  };
-}
-const colorToken = (t, valor) => {
-  const m = /^var\(--c-([a-z0-9-]+)\)$/.exec(valor);
-  return m ? ({ peligro: t.peligro, acento: t.acento, 'texto-2': t.texto2 }[m[1]] ?? valor) : valor;
-};
-// Con t = null se deja el var(--…) tal cual (para DOM normal); con tokens se resuelve (para capas de Leaflet).
-export function estiloCoto(props, t = tokens()) {
+export function estiloCoto(props) {
   const base = ESTILO_COTO[props.tipo] ?? ESTILO_COTO.regulado;
-  const color = t ? colorToken(t, base.color) : base.color;
-  return { ...base, color, fillColor: color, ...(ESTILO_PRECISION[props.precision] ?? {}) };
+  return { ...base, fillColor: base.color, ...(ESTILO_PRECISION[props.precision] ?? {}) };
 }
+// Halo blanco bajo el trazo: sin relleno, más ancho y sin punteado, para separar el límite del mapa.
+export const estiloHalo = (props) => ({ color: COLOR.halo, weight: estiloCoto(props).weight + 3, opacity: 0.85, fill: false, interactive: false });
 
 // Leaflet se carga con <script>: la URL ESM de cdnjs no existe (404).
 let cargaLeaflet = null;
@@ -62,6 +52,8 @@ export function cargarLeaflet() {
   cargaLeaflet ??= new Promise((ok, ko) => {
     const s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    s.integrity = 'sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==';
+    s.crossOrigin = 'anonymous';
     s.onload = () => ok(window.L);
     s.onerror = () => { cargaLeaflet = null; ko(new Error('No se ha podido cargar el mapa (Leaflet). Comprueba la conexión.')); };
     document.head.append(s);
@@ -76,7 +68,7 @@ const cargarCotos = () => (cacheCotos ??= fetch('data/cotos.geojson').then((r) =
 }).catch((e) => { cacheCotos = null; throw e; }));
 
 // Nota del día de un punto: mejor especie de la zona con la serie de ese punto.
-function notaPunto(zona, punto, datos, meteo, umbrales) {
+export function notaPunto(zona, punto, datos, meteo, umbrales) {
   const serie = meteo?.series?.[punto.id];
   if (!serie) return { valor: null, mejor: null, mm: null };
   const especies = especiesDeZona(zona, datos.especies, umbrales);
@@ -146,47 +138,48 @@ export async function crearMapa(elemento, opciones = {}) {
 
   // Capas superpuestas
   const zonas = L.layerGroup();
-  const rectangulos = [], marcadores = [], circulos = [];
-  mapa.createPane(PANE_LLUVIA).style.zIndex = 420;   // sobre los polígonos de coto (400)
+    mapa.createPane(PANE_LLUVIA).style.zIndex = 420;   // sobre los polígonos de coto (400)
   mapa.createPane(PANE_PUNTOS).style.zIndex = 450;    // y los puntos, sobre la lluvia
   const lluvia = L.layerGroup();
   const cotos = L.layerGroup();
   const salidas = L.layerGroup();   // la rellena la tarea 17 (diario)
   const normas = new Map((datos?.normativa ?? []).map((n) => [n.id, n]));
-  let t = tokens();
 
   for (const z of datos?.zonas ?? []) {
-    const rect = L.rectangle(limitesZona(z), { fill: false, weight: 1.5, dashArray: '1 0', interactive: true, bubblingMouseEvents: false });
-    rect.bindTooltip(nombreCorto(z), { sticky: true });
+    L.rectangle(limitesZona(z), { color: COLOR.halo, weight: 5, opacity: 0.85, fill: false, interactive: false }).addTo(zonas);
+    const rect = L.rectangle(limitesZona(z), { color: COLOR.acento, fill: false, weight: 2, interactive: true, bubblingMouseEvents: false });
+    rect.bindTooltip(el('span', { texto: nombreCorto(z) }), { sticky: true });
     rect.bindPopup(() => el('div', { clase: 'mapa-popup' }, el('h3', { texto: z.nombre }),
       el('p', { clase: 'mapa-popup__acciones' }, el('a', { clase: 'boton boton--compacto', href: `#zona/${encodeURIComponent(z.id)}`, texto: `Ver ${nombreCorto(z)}` }))), POPUP);
-    rectangulos.push(rect); rect.addTo(zonas);
+    rect.addTo(zonas);
     for (const p of z.puntos) {
       const nota = notaPunto(z, p, datos, meteo, umbrales);
-      const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, radius: 9, weight: 2, fillOpacity: 1 });
+      const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, radius: 9, weight: 2.5, fillOpacity: 1, color: COLOR.halo, fillColor: NIVEL_COLOR[nivelDe(nota.valor)] });
       m.bindPopup(() => popupPunto(z, p, nota), POPUP);
-      marcadores.push({ m, nota }); m.addTo(zonas);
+      m.addTo(zonas);
       if (nota.mm != null) {
-        const c = L.circleMarker([p.lat, p.lon], { pane: PANE_LLUVIA, radius: radioLluvia(nota.mm), weight: 1, fillOpacity: 0.35, interactive: false });
-        circulos.push(c); c.addTo(lluvia);
+        const c = L.circleMarker([p.lat, p.lon], { pane: PANE_LLUVIA, radius: radioLluvia(nota.mm), weight: 2, color: COLOR.lluvia, fillColor: COLOR.lluvia, fillOpacity: 0.22, interactive: false });
+        c.addTo(lluvia);
       }
     }
   }
 
-  // Cotos: perezoso; el GeoJSON (1 MB) se pide al activar la capa o al llegar a zoom ≥ 9
+  // Cotos: perezoso. La capa puede estar encendida, pero el GeoJSON (1 MB) no se pide hasta que
+  // se enciende a mano desde el control o el zoom llega a 9.
   let geojson = null, cargando = false;
-  const pintarCotos = (capa) => { capa.setStyle((f) => estiloCoto(f.properties, t)); };
   async function asegurarCotos() {
     if (geojson || cargando || !mapa.hasLayer(cotos)) return;
     cargando = true;
     try {
       const datosCotos = await cargarCotos();
       const feats = [...datosCotos.features].sort((a, b) => (a.properties.tipo === 'prohibido') - (b.properties.tipo === 'prohibido'));   // los prohibidos, encima
-      geojson = L.geoJSON({ type: 'FeatureCollection', features: feats }, {
-        style: (f) => estiloCoto(f.properties, t),
+      const coleccion = { type: 'FeatureCollection', features: feats };
+      cotos.addLayer(L.geoJSON(coleccion, { style: (f) => estiloHalo(f.properties), interactive: false }));   // halos, debajo de todo
+      geojson = L.geoJSON(coleccion, {
+        style: (f) => estiloCoto(f.properties),
         onEachFeature: (f, capa) => {
           capa.bindPopup(() => popupCoto(f.properties, normas), POPUP);
-          capa.bindTooltip(f.properties.nombre, { sticky: true });
+          capa.bindTooltip(el('span', { texto: f.properties.nombre }), { sticky: true });
         },
       });
       cotos.addLayer(geojson);
@@ -195,15 +188,6 @@ export async function crearMapa(elemento, opciones = {}) {
     } finally { cargando = false; }
   }
   const cotosPorZoom = () => { if (mapa.getZoom() >= 9) asegurarCotos(); };
-
-  function reaplicar() {
-    t = tokens();
-    rectangulos.forEach((r) => r.setStyle({ color: t.acento }));
-    marcadores.forEach(({ m, nota }) => m.setStyle({ color: t.superficie, fillColor: nota.valor == null ? t.sinDatos : t.nivel(nivelDe(nota.valor)) }));
-    circulos.forEach((c) => c.setStyle({ color: t.lluvia, fillColor: t.lluvia }));
-    if (geojson) pintarCotos(geojson);
-  }
-  reaplicar();
 
   // Control de capas
   const superpuestas = {};
@@ -218,7 +202,8 @@ export async function crearMapa(elemento, opciones = {}) {
   }
   if (capas.includes('salidas')) salidas.addTo(mapa);
 
-  mapa.on('overlayadd', (e) => { if (e.layer === cotos) asegurarCotos(); });
+  let iniciado = false;   // al encender la capa por defecto (al cargar la vista) no se pide nada
+  mapa.on('overlayadd', (e) => { if (iniciado && e.layer === cotos) asegurarCotos(); });
   mapa.on('zoomend', cotosPorZoom);
   mapa.on('baselayerchange', () => onCambio({ base: Object.keys(bases).find((n) => mapa.hasLayer(bases[n])) }));
   const estadoCapas = () => onCambio({ activas: Object.keys(porNombre).filter((id) => mapa.hasLayer(porNombre[id])) });
@@ -234,15 +219,9 @@ export async function crearMapa(elemento, opciones = {}) {
   const enfocar = (z) => mapa.fitBounds(limitesZona(z), { padding: [20, 20], animate: false });
   function encuadrar(fn) { if (dimensionado()) { encuadre = null; fn(); } else encuadre = fn; }
   if (encuadre) encuadrar(encuadre);
-  asegurarCotos();
+  iniciado = true;
   cotosPorZoom();
 
-  // Cambio de tema: los colores ya resueltos se vuelven a leer
-  const oscuro = matchMedia('(prefers-color-scheme: dark)');
-  const alCambiarTema = () => requestAnimationFrame(reaplicar);
-  oscuro.addEventListener('change', alCambiarTema);
-  const observador = new MutationObserver(alCambiarTema);
-  observador.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   // El contenedor se mide al insertarlo en la página
   const medida = new ResizeObserver(() => { mapa.invalidateSize(); if (encuadre && dimensionado()) { const f = encuadre; encuadre = null; f(); } });
   medida.observe(elemento);
@@ -255,8 +234,7 @@ export async function crearMapa(elemento, opciones = {}) {
       return !!z;
     },
     destruir() {
-      oscuro.removeEventListener('change', alCambiarTema);
-      observador.disconnect(); medida.disconnect();
+      medida.disconnect();
       // Leaflet 1.9: remove() en mitad de una animación de zoom deja un temporizador que falla al terminar.
       mapa._animatingZoom = false;
       mapa.remove();
@@ -267,12 +245,11 @@ export async function crearMapa(elemento, opciones = {}) {
 // Leyenda fija: tipos de coto, precisión del límite, semáforo de los puntos y círculo de lluvia.
 export function leyenda() {
   const muestra = (tipo, precision = 'oficial') => {
-    const e = estiloCoto({ tipo, precision }, null);
+    const e = estiloCoto({ tipo, precision });
     const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     s.setAttribute('class', 'mapa-leyenda__muestra'); s.setAttribute('viewBox', '0 0 28 18'); s.setAttribute('aria-hidden', 'true');
     const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     for (const [k, v] of Object.entries({ x: 2, y: 2, width: 24, height: 14, rx: 3 })) r.setAttribute(k, v);
-    // Es DOM, no capa de Leaflet: aquí var(--…) sí se resuelve y sigue al tema solo.
     Object.assign(r.style, { stroke: e.color, strokeWidth: e.weight, fill: e.fillColor, fillOpacity: e.fillOpacity + 0.1, strokeDasharray: e.dashArray ?? 'none' });
     s.append(r);
     return s;
@@ -280,7 +257,7 @@ export function leyenda() {
   const item = (nodo, texto) => el('li', { clase: 'mapa-leyenda__item' }, nodo, el('span', { texto }));
   const punto = (nivel) => {
     const s = el('span', { clase: 'mapa-leyenda__punto', attrs: { 'aria-hidden': 'true' } });
-    s.style.background = `var(--c-sem-${nivel})`;
+    s.style.background = NIVEL_COLOR[nivel];
     return s;
   };
   return el('section', { clase: 'tarjeta mapa-leyenda', attrs: { 'aria-labelledby': 'mapa-leyenda-titulo' } },
@@ -290,7 +267,7 @@ export function leyenda() {
     el('h3', { texto: 'Precisión del límite' }),
     el('ul', { clase: 'mapa-leyenda__lista' }, Object.keys(PRECISION_LEYENDA).map((k) => item(muestra('acotado', k), PRECISION_LEYENDA[k]))),
     el('h3', { texto: 'Nota de hoy en cada punto' }),
-    el('ul', { clase: 'mapa-leyenda__lista' }, ['nulo', 'bajo', 'posible', 'bueno', 'muy-bueno'].map((n) => item(punto(n), palabraDe(n)))),
-    el('h3', { texto: 'Círculo de lluvia' }),
-    el('p', { clase: 'texto-2 texto-s', texto: `Radio proporcional a la lluvia de los últimos 26 días (25 mm = ${Math.round(radioLluvia(25))} px, 100 mm = ${Math.round(radioLluvia(100))} px). Actívalo en el control de capas.` }));
+    el('ul', { clase: 'mapa-leyenda__lista' }, NIVELES.map((n) => item(punto(n), palabraDe(n)))),
+    el('h3', { texto: 'Anillo de lluvia' }),
+    el('p', { clase: 'texto-2 texto-s', texto: `Anillo azul alrededor de cada punto; su radio crece con la lluvia de los últimos 26 días (0 mm = ${radioLluvia(0)} px, 25 mm = ${Math.round(radioLluvia(25))} px, 100 mm = ${Math.round(radioLluvia(100))} px). Se activa en el control de capas.` }));
 }
