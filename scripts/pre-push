@@ -1,0 +1,2 @@
+#!/bin/sh
+npm run --silent comprobar || { echo "✗ Pruebas o validación fallan: no se sube."; exit 1; }
