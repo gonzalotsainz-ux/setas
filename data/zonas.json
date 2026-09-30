@@ -45,7 +45,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3266A",
+          "nombre": "Puerto Alto del León",
+          "altitud": 1530,
+          "distanciaKm": 28.2
+        },
+        {
+          "id": "2462",
+          "nombre": "Puerto de Navacerrada",
+          "altitud": 1892,
+          "distanciaKm": 14.9
+        }
+      ],
       "normas": [
         "pn-guadarrama-prug",
         "valsain-orden-aaa-1681-2016",
@@ -135,7 +148,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3111D",
+          "nombre": "Somosierra",
+          "altitud": 1454,
+          "distanciaKm": 14.9
+        },
+        {
+          "id": "2182C",
+          "nombre": "Pedraza",
+          "altitud": 1107,
+          "distanciaKm": 29.3
+        }
+      ],
       "normas": [
         "madrid-ordenanzas-sierra",
         "montejo-prohibicion",
@@ -226,7 +252,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "2005Y",
+          "nombre": "Vinuesa, Quintanarejo",
+          "altitud": 1197,
+          "distanciaKm": 11.2
+        },
+        {
+          "id": "2298",
+          "nombre": "Palacios de la Sierra",
+          "altitud": 1080,
+          "distanciaKm": 25.3
+        }
+      ],
       "normas": [
         "cyl-decreto-31-2017",
         "estatal-ley-43-2003-montes",
@@ -318,7 +357,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3319D",
+          "nombre": "Puerto del Pico",
+          "altitud": 1285,
+          "distanciaKm": 13
+        },
+        {
+          "id": "2430Y",
+          "nombre": "Muñotello",
+          "altitud": 1178,
+          "distanciaKm": 29.2
+        }
+      ],
       "normas": [
         "cyl-decreto-31-2017",
         "estatal-ley-43-2003-montes",
@@ -398,7 +450,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "8096",
+          "nombre": "Cuenca",
+          "altitud": 949,
+          "distanciaKm": 26.7
+        },
+        {
+          "id": "8210Y",
+          "nombre": "Salvacañete",
+          "altitud": 1160,
+          "distanciaKm": 28.9
+        }
+      ],
       "normas": [
         "clm-orden-2016-11-15",
         "estatal-ley-43-2003-montes",
@@ -480,7 +545,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3021Y",
+          "nombre": "Zaorejas",
+          "altitud": 1250,
+          "distanciaKm": 22.1
+        },
+        {
+          "id": "3013",
+          "nombre": "Molina de Aragón",
+          "altitud": 1062,
+          "distanciaKm": 19.2
+        }
+      ],
       "normas": [
         "clm-orden-2016-11-15",
         "estatal-ley-43-2003-montes",
@@ -575,7 +653,14 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3305Y",
+          "nombre": "Navahermosa",
+          "altitud": 750,
+          "distanciaKm": 18.2
+        }
+      ],
       "normas": [
         "clm-orden-2016-11-15",
         "estatal-ley-43-2003-montes"
@@ -672,7 +757,20 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "9073X",
+          "nombre": "Agurain/Salvatierra, Opakua",
+          "altitud": 660,
+          "distanciaKm": 17.6
+        },
+        {
+          "id": "9178X",
+          "nombre": "Campezo/Kanpezu",
+          "altitud": 570,
+          "distanciaKm": 23.6
+        }
+      ],
       "normas": [
         "alava-foral",
         "estatal-ley-43-2003-montes",

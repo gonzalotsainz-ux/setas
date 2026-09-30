@@ -58,7 +58,8 @@ export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
   const incierta = zona.puntos.some((p) => meteo.dispersion?.[p.id]?.incierta);
   if (res.sinDatos) return sinDatosZona(zona, 'Faltan datos para calcular la nota.', incierta);
   const mejor = res.especies[0];
-  return { zona, res, mejor, incierta, protegido: !!zona.puntos.find((p) => p.id === mejor.punto)?.proteccion };
+  const discrepa = !!meteo.contraste?.[zona.id]?.discrepa;
+  return { zona, res, mejor, incierta, discrepa, protegido: !!zona.puntos.find((p) => p.id === mejor.punto)?.proteccion };
 }
 
 export const ordenarZonas = (filas) => [...filas].sort((a, b) => (b.res.valor ?? -1) - (a.res.valor ?? -1));
@@ -81,6 +82,7 @@ function filaZona(fila, pos, datos, d) {
   if (fila.mejor) estado.append(etiqueta(`Confianza ${fila.mejor.resultado.confianza}`));
   if (d > 0 && fila.mejor) estado.append(etiqueta('Previsión', 'ocre'));
   if (fila.incierta) estado.append(etiqueta('Previsión incierta', 'ocre'));
+  if (fila.discrepa) estado.append(etiqueta('Estación y modelo no coinciden', 'ocre'));
   if (fila.protegido) estado.append(etiqueta('Espacio protegido', 'ocre'));
   const a = el('a', { clase: 'fila-zona', href: `#zona/${fila.zona.id}`, attrs: { 'data-nivel': nivel } },
     el('span', { clase: 'fila-zona__nombre-linea' }, el('span', { clase: 'fila-zona__pos', texto: String(pos) }), el('span', { clase: 'fila-zona__nombre', texto: nombreCorto(fila.zona) })),
@@ -170,6 +172,7 @@ export function pintar({ estado, refrescarMeteo }) {
   if (caducado) sub.append(`Datos del ${fechaCorta(meteo.hoy)}. No se ha podido actualizar; las notas son de ese día.`);
   else if (meteo.desdeCache) sub.append(`Datos de ${haceCuanto(meteo.hora)}`, meteo.error ? '. No se ha podido actualizar.' : '.');
   else sub.append('Actualizado a las ', el('time', { clase: 'tabular', dateTime: meteo.hora, texto: horaDe(meteo.hora) }), '. Previsión de Open-Meteo.');
+  if (estado.obsError) sub.append(' Lluvia medida en estaciones: no disponible ahora.');
 
   const portada = el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-hoy' } },
     el('p', { clase: 'portada__fecha' }, el('time', { dateTime: hoy, texto: fechaLarga(hoy) })),
