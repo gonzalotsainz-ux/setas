@@ -129,7 +129,7 @@
     Montes de Oca). Las Merindades no caben en `burgos` sin solapar con `alava` (lon ≥ -3,25, lat ≤ 43,06): van en la zona `merindades`
     `[-4.0, 42.6, -3.2501, 43.25]`. El este del Valle de Losa, San Zadornil y Bozoó quedan geográficamente dentro del bbox de `alava`; sus acotados
     llevan `zona: merindades` igualmente. Neila y Regumiel (Burgos) caen al este de -3,04, en el bbox de `soria`: límite del esquema de un bbox por zona.
-  - `extremadura` es una sola zona `[-7.45, 39.3, -5.3001, 40.35]`. Para que el castañar de las Villuercas (lon -5,35) cupiera sin solapar,
+  - `extremadura` es una sola zona, que empezó como `[-7.45, 39.3, -5.3001, 40.35]` (ampliada al sur en la segunda pasada, ver más abajo). Para que el castañar de las Villuercas (lon -5,35) cupiera sin solapar,
     `gredos` pasó de lon mín. -5,4 a **-5,3** (sus puntos están al este de -5,08; la franja quitada es sobre todo de Cáceres). Los recuentos GBIF de
     `soria` y `gredos` se repitieron con los bbox nuevos.
   - Puntos de Burgos (P1 a P5 de 07a): comprobados de nuevo el 30/09/2026 con IDECyL (`gesfor_cyl_tipmas` y `montes_cyl_mup_vw`), la capa oficial de
@@ -431,7 +431,7 @@ El bbox de `alava` se ensanchó de `lonMin -3.0` a `-3.25` para que contenga el 
 
 ## data/sitios.json (sitios conocidos)
 
-Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy ninguna).
+Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).
 
 ```json
 { "version": 1, "sitios": [ {
@@ -449,11 +449,27 @@ Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigació
 - `confianza` casa con `nFuentes` (fuentes independientes, no las que se listan): alta = 3 o más, media = 2, baja = 1 o menos.
 - `tipo: "no-ir"`: lugares prohibidos, privados o sin regla confirmada; se muestran en un recuadro rojo. Un sitio que no es `no-ir` no puede ser `prohibido` ni `privado` (lo valida `scripts/validar-datos.mjs`).
 - Si una fuente contradice la norma oficial, `legal` sigue la norma y la contradicción va en `notas`.
-- Si algún día hay `lat`/`lon`, el validador comprueba que no caen dentro de un polígono `prohibido` de `cotos.geojson`.
+- Si hay `lat`/`lon`, el validador comprueba que no caen dentro de un polígono `prohibido` de `cotos.geojson`.
+- `zona` se asigna por provincia y administración (qué decreto u ordenanza rige), no por el bbox: el bbox solo sirve para el recuento de GBIF y para contener los puntos meteorológicos. Por eso hay sitios cuyo pueblo queda fuera del bbox de su zona (p. ej. los de Soria al este de lon -2,5, los de Guadalajara en la Sierra Norte, Las Navas del Marqués en `gredos`).
 
 ### `trucos` en `data/especies.json`
 
-Solo las comestibles. `[{ "texto", "tipo": "orientacion | altitud | microhabitat | indicador | tiempo | recoleccion | creencia", "fuentes": [{ "url", "fecha", "consultado" }], "confianza": "alta | media | baja", "cifrasOrientativas": true }]`. Las cifras de 04d (días, metros, °C) se leyeron con resúmenes automáticos: llevan `cifrasOrientativas: true` y la interfaz muestra «cifras orientativas». `creencia` se muestra como «Creencia popular (sin base)».
+Solo las comestibles. `[{ "texto", "tipo": "orientacion | altitud | microhabitat | indicador | tiempo | recoleccion | creencia", "fuentes": [{ "url", "fecha", "consultado" }], "confianza": "alta | media | baja", "cifrasOrientativas": true }]`. Las cifras de 04d (días, metros, °C) se leyeron con resúmenes automáticos: llevan `cifrasOrientativas: true` y la interfaz muestra «cifras orientativas». `creencia` se muestra como «Creencia popular (sin base)». Criterio de `confianza` en los trucos de la segunda pasada: `alta` solo con 3 o más fuentes independientes directas; `media` con 2, o con 1 fuente oficial/institucional (Micocyl, MITECO) o con pruebas indirectas; `baja` con 1 fuente no oficial. Los mensajes de más de 10 años lo dicen en el propio texto del truco. `cifrasOrientativas: true` en todo lo que lleva cifras y se leyó con resumen automático.
+
+### Segunda pasada de sitios y trucos (30/09/2026)
+
+A partir de `docs/investigacion/06a` a `06d`, `07a` y `07b`: 98 sitios nuevos (de 80 a 178), 10 sitios existentes completados, 7 normas nuevas, 49 trucos nuevos y 10 ediciones de trucos existentes. Las fuentes y las fechas están en cada sitio o truco.
+
+- **Sitios por zona** (nuevos): guadarrama 1, sierra-norte 3, gredos 7, soria 17, guadalajara 8, cuenca 7, toledo 2, alava 3, burgos 8, merindades 12, extremadura 30. Hay 5 NO IR nuevos: 1 prohibido (La Barranca, Fuenfría y Cotos), 3 montes dentro de espacios protegidos sin norma de setas leída (Valcorchero, Castañar Gallego y Baldío de la Umbría) y 1 privado (dehesas de criadillas).
+- **Correcciones a los informes**: *Honrubia de la Cuesta* es de Segovia (BOP de Segovia n.º 133, 04/11/2016), no de Cuenca; su ordenanza (MUP 279 y 280, 8 kg al día, foráneo 10 € al día) está en `segovia-honrubia-de-la-cuesta-2016`. Las tarifas de Traíd y Aldeanueva de Atienza no figuran en su BOP (06b las suponía iguales a las de la Mancomunidad). Micocyl desaconseja recoger *Tricholoma terreum* (parte del 02/12/2022, rabdomiólisis): el primer truco de su ficha lo recoge.
+- **Normas nuevas** (texto del BOP leído el 30/09/2026): Orea 2018 (con tique turístico de 1 €), Campisábalos 2021, Gascueña de Bornova 2020, Alustante 2017 (cupos de 10 y 12 kg), Traíd 2017, Aldeanueva de Atienza 2018 y Honrubia de la Cuesta 2016. También se leyeron las de Checa, Megina y Tordesilos (2017-2018): tienen las mismas tarifas que la Mancomunidad La Sierra y no se añaden.
+- **Coordenadas**: los 11 aparcamientos del coto La Engaña vienen de la web oficial del coto (ETRS89 UTM 30, mapa del 19/07/2017), convertidos a WGS84 y comprobados contra `cotos.geojson`: ninguno cae en una zona prohibida y 10 de 11 caen dentro del polígono BU-50008 (el aparcamiento de Alto el Caballo queda a unos 340 m o menos fuera del polígono derivado). Berzocana: las da su propia fuente. Los demás sitios siguen sin coordenadas.
+- **Montes públicos de Extremadura** (16 sitios, `extremadura-monte-*`): son datos derivados del MFE50 y el catálogo de montes del MITECO, sin fuente micológica; por eso no llevan especies y dicen que hay que preguntar al ayuntamiento. No se incluyó la Dehesa Boyal de Piornal (no se pudo identificar en la capa) ni el MUP de Serradilla (ya cubierto por Monfragüe).
+- **Extremadura incluye Badajoz**: el bbox de `extremadura` pasó de `[-7.45, 39.3, -5.3001, 40.35]` a `[-7.45, 37.95, -5.3001, 40.35]` para contener Tentudía (Fuentes de León 38,07 N, Monesterio 38,09 N) sin solapar ninguna zona; `provincias` es ahora Cáceres y Badajoz. El recuento de GBIF se repitió solo para esa zona (`node scripts/gbif-presencia.mjs --zona=extremadura`, 30/09/2026): 35 recuentos cambiaron y 4 subieron de orientativa a confirmada (Agaricus arvensis, Pleurotus ostreatus, Cyclocybe cylindracea y Tricholoma terreum); ninguna otra zona cambió. El bbox ampliado incluye también un trozo del norte de Huelva y de Sevilla (GBIF se filtra por país España, así que no cuenta Portugal).
+- **Monfragüe**: sigue `prohibido`. El texto legal del sitio y la nota del polígono dicen: «Prohibido salvo autorización del Parque; el PRUG solo prevé setas sin fines comerciales en el monte Dehesa Boyal y Cuarto de los Arroyos (Serradilla)».
+- **Mirabel**: el número de MUP (132) lo da la ordenanza, pero la capa de montes del MITECO no lo trae: el polígono `ex-mirabel-mup-132` se asocia por nombre y término. Pasó a `regimenConfirmado: false` y lo dice en la nota.
+- **Valle de Losa, San Zadornil y Bozoó**: sus cotos y sitios siguen en `merindades` aunque su geometría cae en el bbox de `alava`. Es lo más coherente: son de Burgos (rige el Decreto 31/2017 de Castilla y León, no el Decreto Foral 89/2008 de Álava) y la zona `alava` muestra las normas y avisos de Álava. El solape es solo de bbox y afecta nada más al recuento de GBIF, no al régimen que se enseña. Es un límite del esquema de un bbox por zona, como el de Neila y Regumiel (Burgos, dentro del bbox de `soria`).
+- **Lo que quedó fuera** (motivo en `docs/investigacion/` y en el informe de la tarea): Fuente del Cura (no se pudo situar), Piedralaves y la Sierra Norte sin fuente, los vídeos de YouTube (solo títulos), Puente de Vadillos y Beteta (senderismo, sin setas), El Hosquillo y Ciudad Encantada (sin regla ni fuente de setas), Monterrubio de la Demanda y los Obarenes (sin fuente micológica), Villanueva Tobera (sin enlace verificable), Amurrio, las rutas guiadas de Alegría-Dulantzi y las jornadas de El Royo y El Burgo de Osma (eventos sin paraje).
 
 ## Meteorología (Open-Meteo)
 

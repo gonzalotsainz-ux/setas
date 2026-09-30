@@ -3335,6 +3335,390 @@
       "revisado": "2026-09-30",
       "verificado": true,
       "notas": "Leídos el 30/09/2026 el apartado de normas generales y el 5.5.1 (Zona de Uso Restringido). El PRUG tenía 10 años de vigencia y se entiende prorrogado hasta que entre en vigor el que lo sustituya (apartado 1.6); no se ha comprobado si ya hay uno nuevo. El resto de la zonificación no se ha leído."
+    },
+    {
+      "id": "guadalajara-orea-2018",
+      "titulo": "Ordenanza fiscal de Orea sobre la recolección de hongos y setas, con tique turístico (BOP de Guadalajara n.º 246, 26/12/2018)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf",
+      "vigente": true,
+      "resumen": [
+        "Vale en los montes de utilidad pública y los comunales de Orea, y en las fincas particulares que se adhieran; el permiso vale, como mínimo, en los terrenos acotados del municipio. Temporada de fecha a fecha de un año.",
+        "Foráneo: permiso diario recreativo de 5 € y 5 kg al día. Vecino (más de seis meses empadronado): 10 € al año, sin límite. «Hijo de Orea»: 20 € al año y 10 kg al día.",
+        "Tique turístico-micológico: 1 € por tique y día, hasta 2 kg por tique, para turistas que consuman al menos 25 € al día en los establecimientos de Orea; una cesta por tique.",
+        "Los vehículos que pagan en Orea su impuesto de circulación tienen una tarjeta para aparcar en los márgenes de los caminos. Los menores de 14 años no pagan si van con un adulto con permiso."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2018,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf"
+          },
+          {
+            "nombre": "Tique turístico-micológico, diario (consumo mínimo de 25 € en Orea)",
+            "precio": 1,
+            "cupoKgDia": 2,
+            "anio": 2018,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf"
+          },
+          {
+            "nombre": "Vecino recreativo, anual",
+            "precio": 10,
+            "cupoKgDia": null,
+            "anio": 2018,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf"
+          },
+          {
+            "nombre": "«Hijo de Orea» recreativo, anual",
+            "precio": 20,
+            "cupoKgDia": 10,
+            "anio": 2018,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_3562.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta el amanecer).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos y azadas, y remover el mantillo o el micelio",
+        "Recoger de noche",
+        "Bolsas y cubos de plástico",
+        "Más de tres personas en paralelo",
+        "Circular en coche fuera de las vías públicas habilitadas",
+        "Recoger donde haya aprovechamientos forestales con maquinaria, zonas reservadas señalizadas o monterías señalizadas"
+      ],
+      "sanciones": "Las de la Ley 3/2008 de Montes de Castilla-La Mancha y la Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto íntegro del BOP leído el 30/09/2026. Es de 2018: confirma con el ayuntamiento que los importes siguen vigentes. Orea figura entre los 17 municipios de la Mancomunidad La Sierra, pero esta ordenanza propia tiene importes distintos (vecino 10 € al año frente a 5 €): discrepancia sin resolver."
+    },
+    {
+      "id": "guadalajara-campisabalos-2021",
+      "titulo": "Ordenanza reguladora del aprovechamiento micológico de Campisábalos (BOP de Guadalajara n.º 24, 05/02/2021)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2021_295.pdf",
+      "vigente": true,
+      "resumen": [
+        "El permiso vale en las fincas municipales, la finca «El Campo», las «añadas» (fincas particulares adheridas) y el MUP n.º 12 (Pinarón, Pinarejo y Dehesa de las Navas); el permiso indica el acotado.",
+        "Foráneo: 5 € al día y 5 kg. Vinculado con el pueblo: 5 € al año y 10 kg al día. Vecino empadronado: exento, hasta 20 kg al día. Los comercios que vendan permisos a foráneos cobran 0,50 € por permiso.",
+        "Permiso científico-didáctico gratuito para más de 5 ejemplares por especie y persona."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2021_295.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2021_295.pdf"
+          },
+          {
+            "nombre": "Vinculado recreativo, anual",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2021_295.pdf"
+          },
+          {
+            "nombre": "Vecino recreativo, anual (exento)",
+            "precio": 0,
+            "cupoKgDia": 20,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2021_295.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta el amanecer, según las tablas de orto y ocaso).",
+      "prohibiciones": [
+        "Rastrillos, hoces, azadas, picos, palas o similares",
+        "Bolsas o cubos de plástico",
+        "Recoger de noche",
+        "Molestar al ganado, dejar portillos abiertos o cortar alambradas"
+      ],
+      "sanciones": "Multa de 100 a 1.000 € según la naturaleza de la infracción; además, las de la Ley 3/2008 de Montes de Castilla-La Mancha.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto íntegro del BOP leído el 30/09/2026 (acuerdo plenario de 18/11/2020, definitivo el 05/02/2021). Importes de 2021: confirma que siguen vigentes."
+    },
+    {
+      "id": "guadalajara-gascuena-2020",
+      "titulo": "Ordenanza fiscal de Gascueña de Bornova sobre el aprovechamiento de setas, níscalos, boletus y hongos en sus montes (BOP de Guadalajara n.º 238, 16/12/2020)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2020_3373.pdf",
+      "vigente": true,
+      "resumen": [
+        "Vale en los montes propiedad del Ayuntamiento. La recogida de autoconsumo es libre y episódica, con un máximo de 5 kg o 10 litros por persona y día, pero está sujeta a permiso del ayuntamiento previo pago de la cuota.",
+        "No vecinos mayores de 18 años: 10 € por persona y día. Compradores de níscalos: 30 € al día. Los vecinos están exentos en la recogida de níscalos."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2020_3373.pdf",
+        "tarifas": [
+          {
+            "nombre": "No vecino mayor de 18 años, por persona y día",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2020_3373.pdf"
+          },
+          {
+            "nombre": "Comprador de níscalos, por día",
+            "precio": 30,
+            "cupoKgDia": null,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2020_3373.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibida la recogida de noche, desde el ocaso hasta el orto.",
+      "prohibiciones": [
+        "Recoger de noche"
+      ],
+      "sanciones": "Las de la Ley 3/2008 de Montes de Castilla-La Mancha y la Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOP leído el 30/09/2026. Importes de 2020: confirma que siguen vigentes."
+    },
+    {
+      "id": "guadalajara-alustante-2017",
+      "titulo": "Ordenanza fiscal de Alustante sobre el aprovechamiento micológico (BOP de Guadalajara n.º 220, 20/11/2017)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf",
+      "vigente": true,
+      "resumen": [
+        "Temporada del 1 de enero al 31 de diciembre. Se consideran vecinos los empadronados (más de seis meses) en cualquiera de los municipios de la Mancomunidad La Sierra.",
+        "Cupos propios: 12 kg al día para vecinos y 10 kg para propietarios, arrendatarios y turistas (frente a los 5 kg de la Mancomunidad y de la Orden autonómica de 2016)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf",
+        "tarifas": [
+          {
+            "nombre": "Turista, diario",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2017,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf"
+          },
+          {
+            "nombre": "Turista, semanal",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2017,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf"
+          },
+          {
+            "nombre": "Turista, temporada",
+            "precio": 60,
+            "cupoKgDia": 10,
+            "anio": 2017,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf"
+          },
+          {
+            "nombre": "Vecino recreativo, temporada",
+            "precio": 5,
+            "cupoKgDia": 12,
+            "anio": 2017,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf"
+          },
+          {
+            "nombre": "Propietario o arrendatario no vecino, temporada",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2017,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf3464.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "prohibiciones": [],
+      "sanciones": "Las de la Ley 3/2008 de Montes de Castilla-La Mancha y la Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOP leído el 30/09/2026 (los cupos de 10 y 12 kg contradicen el tope de 5 kg de la Orden autonómica de 2016 para recogida libre: ante la duda, 5 kg). Importes de 2017. Permiso comercial para vecinos: 30 € la temporada y 30 kg (no se incluye, no es recreativo)."
+    },
+    {
+      "id": "guadalajara-traid-2017",
+      "titulo": "Ordenanza de aprovechamiento micológico de Traíd (BOP de Guadalajara n.º 216, 14/11/2017)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf3385.pdf",
+      "vigente": true,
+      "resumen": [
+        "Vale en los montes de utilidad pública, los comunales y las fincas particulares cuyos propietarios den su consentimiento expreso. El permiso vale en los acotados de Traíd y en los de los municipios de la Mancomunidad adheridos al convenio.",
+        "Los permisos turísticos se pueden sacar en el ayuntamiento, en comercios adheridos y por internet."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf3385.pdf",
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol).",
+      "prohibiciones": [
+        "Recoger de noche (desde la puesta del sol hasta el amanecer)",
+        "Bolsas y cubos de plástico para transportar las setas",
+        "Más de tres personas recogiendo en paralelo barriendo el bosque"
+      ],
+      "sanciones": "Las de la Ley 3/2008 de Montes de Castilla-La Mancha y la Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOP leído el 30/09/2026: no incluye importes ni cupos. Consulta los de la Mancomunidad La Sierra (Traíd es uno de sus 17 municipios) o al ayuntamiento."
+    },
+    {
+      "id": "guadalajara-aldeanueva-de-atienza-2018",
+      "titulo": "Ordenanza reguladora del aprovechamiento micológico de la E.A.T.I.M. de Aldeanueva de Atienza (BOP de Guadalajara n.º 1, 02/01/2018)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_21.pdf",
+      "vigente": true,
+      "resumen": [
+        "Vale en los montes de utilidad pública, los comunales y las fincas particulares cuyos propietarios consientan de forma expresa. Los vecinos y propietarios sacan el permiso en el ayuntamiento de su localidad."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2018_21.pdf",
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol).",
+      "prohibiciones": [
+        "Recoger de noche (desde la puesta del sol hasta el amanecer)",
+        "Bolsas y cubos de plástico para transportar las setas",
+        "Más de tres personas recogiendo en paralelo barriendo el bosque"
+      ],
+      "sanciones": "Las de la Ley 3/2008 de Montes de Castilla-La Mancha y la Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOP leído el 30/09/2026: no incluye importes ni cupos. Aldeanueva de Atienza es una entidad local menor (Condemios de Arriba)."
+    },
+    {
+      "id": "segovia-honrubia-de-la-cuesta-2016",
+      "titulo": "Ordenanza fiscal de Honrubia de la Cuesta (Segovia) reguladora de la tasa por autorizaciones de aprovechamiento micológico en los MUP 279 y 280 (BOP de Segovia n.º 133, 04/11/2016)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "sierra-norte"
+        ]
+      },
+      "url": "https://www.honrubiadelacuesta.es/documents/2549495/d91ac4cd-fa22-6766-827c-a68e1d060e71",
+      "vigente": true,
+      "resumen": [
+        "Vale en los montes de utilidad pública 279 y 280 del término. Permiso nominal; solo las especies del anexo, con tamaño mínimo (2 cm de sombrero, 4 cm en los boletus).",
+        "Máximo 8 kg al día sumando todas las especies; cada menor acompañante, hasta 3 kg aparte.",
+        "Tarifas: local recreativo exento; vinculado recreativo 3 € al año; local comercial 25 € y vinculado comercial 50 € al año; foráneo recreativo 10 € al día o 15 € el fin de semana; no se conceden permisos comerciales a foráneos."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, diario",
+            "precio": 10,
+            "cupoKgDia": 8,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://www.honrubiadelacuesta.es/documents/2549495/d91ac4cd-fa22-6766-827c-a68e1d060e71"
+          },
+          {
+            "nombre": "Foráneo recreativo, fin de semana (sábado y domingo)",
+            "precio": 15,
+            "cupoKgDia": 8,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://www.honrubiadelacuesta.es/documents/2549495/d91ac4cd-fa22-6766-827c-a68e1d060e71"
+          },
+          {
+            "nombre": "Vinculado recreativo, anual",
+            "precio": 3,
+            "cupoKgDia": 8,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://www.honrubiadelacuesta.es/documents/2549495/d91ac4cd-fa22-6766-827c-a68e1d060e71"
+          },
+          {
+            "nombre": "Local recreativo, anual (exento)",
+            "precio": 0,
+            "cupoKgDia": 8,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://www.honrubiadelacuesta.es/documents/2549495/d91ac4cd-fa22-6766-827c-a68e1d060e71"
+          }
+        ]
+      },
+      "cupoKgDia": 8,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta el amanecer). En época de caza, chaleco reflectante amarillo, verde o naranja.",
+      "prohibiciones": [
+        "Rastrillar el suelo o dañar el micelio",
+        "Recoger de noche",
+        "Recoger oronjas cerradas (en huevo)",
+        "Recoger parasoles con el sombrero sin extender",
+        "Recoger en los días y zonas de una cacería colectiva autorizada",
+        "Usar fuego",
+        "Circular fuera de los caminos y pistas autorizados"
+      ],
+      "sanciones": "Las de la legislación de montes y tributaria aplicable (ver Ley 43/2003 y Decreto 31/2017).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto íntegro del BOP de Segovia leído el 30/09/2026 en la copia del ayuntamiento. El informe 06b lo situaba en Cuenca: es de Segovia. Importes de 2016 (casi 10 años): confirma con el ayuntamiento que siguen vigentes. Comparte bloque del boletín con otras ordenanzas de la provincia."
     }
   ]
 }

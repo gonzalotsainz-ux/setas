@@ -255,7 +255,8 @@
         "cyl-montes-de-segovia",
         "cyl-sg-50005-junta-segovia",
         "madrid-bustarviejo",
-        "madrid-canencia"
+        "madrid-canencia",
+        "segovia-honrubia-de-la-cuesta-2016"
       ],
       "avisos": [
         "Hayedo de Montejo: prohibido recolectar hongos; solo visitas guiadas",
@@ -877,7 +878,13 @@
         "guadalajara-herreria",
         "guadalajara-torrecuadrada",
         "guadalajara-arbancon",
-        "guadalajara-arroyo-de-las-fraguas"
+        "guadalajara-arroyo-de-las-fraguas",
+        "guadalajara-orea-2018",
+        "guadalajara-campisabalos-2021",
+        "guadalajara-gascuena-2020",
+        "guadalajara-alustante-2017",
+        "guadalajara-traid-2017",
+        "guadalajara-aldeanueva-de-atienza-2018"
       ],
       "avisos": [
         "Orden de 15/11/2016 y ordenanzas locales, que pueden exigir permiso",
@@ -1139,14 +1146,15 @@
     },
     {
       "id": "extremadura",
-      "nombre": "Extremadura (Sierra de San Pedro, Villuercas, Ambroz y Gata)",
+      "nombre": "Extremadura (Sierra de San Pedro, Villuercas, Ambroz, Gata y Tentudía)",
       "comunidad": "extremadura",
       "provincias": [
-        "Cáceres"
+        "Cáceres",
+        "Badajoz"
       ],
       "bbox": [
         -7.45,
-        39.3,
+        37.95,
         -5.3001,
         40.35
       ],

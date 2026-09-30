@@ -67,3 +67,12 @@ test('zonas nuevas (Burgos, norte de Burgos y Extremadura): cada punto dentro de
   for (const f of cotos.features) if (/^P?M?BU-/.test(f.properties.id)) assert.notEqual(f.properties.zona, 'soria', f.properties.id);
   assert.ok(zonas.find((z) => z.id === 'soria').bbox[0] >= -3.04);
 });
+
+test('extremadura incluye Badajoz: el bbox llega al sur hasta Tentudía (lat 38,0) sin solapar otra zona', () => {
+  const ex = zonas.find((z) => z.id === 'extremadura');
+  assert.deepEqual(ex.provincias, ['Cáceres', 'Badajoz']);
+  assert.ok(ex.bbox[1] <= 38.0 && ex.bbox[3] >= 40.3);
+  // Tentudía (Fuentes de León 38,07 N, Monesterio 38,09 N) queda dentro
+  assert.ok(ex.bbox[1] < 38.07 && 38.09 < ex.bbox[3]);
+  for (const z of zonas.filter((q) => q.id !== 'extremadura')) assert.ok(!(ex.bbox[0] < z.bbox[2] && z.bbox[0] < ex.bbox[2] && ex.bbox[1] < z.bbox[3] && z.bbox[1] < ex.bbox[3]), z.id);
+});

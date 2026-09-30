@@ -100,8 +100,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 13,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -459,6 +459,46 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "En los pinares de montaña de pino albar (silvestre) sale el boletus, mientras que en el pino negral o resinero sale el níscalo: los partes de Micocyl y la prensa los separan así.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://www.elespanol.com/castilla-y-leon/region/soria/20211020/montes-soria-declarado-parque-micologico-castilla-leon/620938260_0.html",
+              "fecha": "2021-10-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media"
+        },
+        {
+          "texto": "En los pinares de Soria el boletus está en plena producción entre finales de septiembre y la primera semana de octubre (los controles de la Guardia Civil de 2017 y de 2023 coinciden) y se acaba con el frío de finales de octubre (Micocyl, 28/10/2024); el níscalo aguanta hasta noviembre. Son pruebas indirectas (decomisos), no partes de campo.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.agronewscastillayleon.com/la-guardia-civil-de-soria-incauta-458-kg-de-boletus-edulis-durante-el-puente-de-san-saturio",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.agronewscastillayleon.com/?p=94659",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -560,8 +600,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -817,8 +857,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 17,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 29,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -995,6 +1035,35 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "En los melojares de la sierra de Guadarrama salen B. aereus, B. aestivalis y B. erythropus desde la primavera hasta la caída de la hoja, según un estudio de la UCM (una sola fuente).",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.ucm.es/data/cont/media/www/pag-92361/ADESGAM-Potencial%20Micol%C3%B3gico.pdf",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "En el suroeste (Extremadura, Andalucía) el otoño micológico suele llegar más tarde: hay que esperar a que el calor afloje. Las bajadas de la temperatura mínima lo cortan: en noviembre de 2023 Micocyl habló de producciones testimoniales en Castilla y León.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/otono-2026-que-podemos-esperar-de-la-proxima-campana-de-setas-en-espana/",
+              "fecha": "2026-08-15",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micocyl.es/noticias/las-lluvias-y-el-descenso-de-temperaturas-propician-la-fructificacion-de-especies-mas",
+              "fecha": "2023-11-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media"
         }
       ]
     },
@@ -1090,8 +1159,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 10,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -1292,8 +1361,8 @@
         },
         "extremadura": {
           "presencia": "orientativa",
-          "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -1490,8 +1559,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 11,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -1661,7 +1730,7 @@
         "extremadura": {
           "presencia": "confirmada",
           "gbif": 17,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -1845,8 +1914,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 8,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -2049,7 +2118,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "En Cuenca, el «mízcalo de rodeno» (Lactarius deliciosus) sale en los rodenales, con pino resinero sobre arenas.",
+          "texto": "En Cuenca, el «mízcalo de rodeno» (Lactarius deliciosus) sale en los rodenales, con pino resinero (Pinus pinaster) sobre arenas silíceas. Su pariente calcícola, el «mízcalo de negral» (níscalo sanguino, Lactarius sanguifluus), va con pino salgareño o laricio (Pinus nigra): rodeno y arena, níscalo naranja; negral y caliza, sanguino.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -2091,6 +2160,99 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "El orden de la temporada según los partes de Micocyl de 2024 es: termófilas (hongo blanco, B. aereus, cesárea) a finales de octubre, después el níscalo y luego las tardías (lengua de vaca, seta de brezo, angula y capuchina). Con el frío (parte del 20/11/2024) el descenso fue mayor en zonas altas y en pino albar, mientras en las llanuras de pino piñonero y negral el níscalo siguió bueno: con frío, baja de cota y cambia del pino silvestre al resinero.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241121.pdf",
+              "fecha": "2024-11-20",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "El tipo de pino orienta: en los pinares resineros o negrales silíceos (Pinus pinaster) salen los níscalos y en el pinar albar de montaña (P. sylvestris) sobre todo boletus; los partes de Micocyl separan así las dos especies.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://www.elespanol.com/castilla-y-leon/region/soria/20211020/montes-soria-declarado-parque-micologico-castilla-leon/620938260_0.html",
+              "fecha": "2021-10-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.dipsoria.es/sites/dipsoria/files/public/noticias/folleto-micoturismo_0.pdf",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta"
+        },
+        {
+          "texto": "A 1.250-1.415 m (pinar de Hoyocasero, Ávila) el níscalo llegó hasta mediados de noviembre en 1998, un año seco, y las heladas lo cortan pronto (dato antiguo). En los pinares de llanura de Segovia, Soria y Valladolid seguía abundante a finales de noviembre de 2018; en Soria aguanta hasta noviembre y en Guadalajara aún había a finales de diciembre de 2018.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://revistas.usal.es/index.php/0211-9714/article/download/6087/6107/0",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micocyl.es/sites/default/files/editor/parte_mico_291118_.pdf",
+              "fecha": "2018-11-29",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.agronewscastillayleon.com/la-guardia-civil-de-guadalajara-incauta-mas-de-una-tonelada-de-niscalos-en-el-final-de-la-campana",
+              "fecha": "2018-12-21",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "En Ávila, según Micocyl (partes del 28/10 y 20/11/2024), las mejores zonas son las que más humedad retienen (pinares, robledales y junto a cursos de agua) y las condiciones eran ideales con 12 a 20 °C de día y más de 5 °C de noche.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+              "fecha": "2024-10-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241121.pdf",
+              "fecha": "2024-11-20",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Según pastores de la Serranía de Cuenca, donde se hace un sestero de ganado (dormidero de ovejas o cabras) dejan de salir los mízclos que antes había: evita los rodales pisoteados por el ganado.",
+          "tipo": "creencia",
+          "fuentes": [
+            {
+              "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/temas/inventarios-nacionales/iect_lactarius_deliciosus_tcm30-164130.pdf",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -2203,7 +2365,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "nota": "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus"
         }
@@ -2393,8 +2555,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 14,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 22,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -2508,6 +2670,18 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sale de mayo a noviembre, con el máximo tras las lluvias de verano y, en otoño, con humedad y temperatura estables; es frecuente en Euskadi, Navarra y la zona cantábrica. Láminas flexibles y untuosas; el sombrero puede tener colores variables, pero nunca es rojo.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/russula-cyanoxantha-la-seta-carbonera/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -2594,8 +2768,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -2695,6 +2869,24 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Es termófila (de junio a septiembre; un mensaje de Fungipedia de 2021 la muestra en octubre), poco frecuente, y suele salir sola o en grupos de 2 o 3, no en corros. Aviso: no la confundas con Amanita phalloides (mortal, sombrero verdoso): comprueba siempre que no tenga anillo ni volva.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/russula-virescens-seta-de-cura-giberludina/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/comunidad/foro/4-consultas-de-micologia/73487-russula-virescens.html",
+              "fecha": "2021-10-10",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -2787,8 +2979,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -3065,8 +3257,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 10,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 16,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -3231,6 +3423,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "Sale de agosto a enero en bosques húmedos y umbríos de haya y roble (en Aragón, Albarracín y el Pirineo). Extráela con cuidado con navaja, sin rastrillar, y no cojas las menores de 4 cm ni las muy pasadas.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-trompeta-negra-la-sorprendente",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -3323,7 +3528,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -3553,7 +3758,7 @@
         "extremadura": {
           "presencia": "confirmada",
           "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -3683,6 +3888,30 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Un mensaje de Fungipedia la sitúa en pinares o bosque mixto con el suelo cubierto de musgo, todavía a primeros de diciembre (mensaje antiguo, de hace más de diez años; una sola fuente).",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/50147-craterellus-cornucopioides.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "En noviembre de 2015, en los hayedos de Ultzama (Navarra), se mezclaban C. cornucopioides, C. cinereus y C. tubaeformis; una corrección distinguió la tubaeformis por los surcos más marcados y el color más oscuro. (Mensaje de hace más de diez años.)",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/68508-robando-setas-a-roberto-en-la-ultzama.html",
+              "fecha": "2015-11-09",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -3786,8 +4015,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -3907,6 +4136,31 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "En hayedo atlántico puede empezar en verano: un lector contaba en 2014 que en los hayedos navarros el pico fue en julio y principios de agosto, y que en septiembre ya estaban viejas y secas. Un solo comentario, de hace más de diez años.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/explosion-de-gamuzas-lengua-de-vaca-en-hayedos-navarros/",
+              "fecha": "2014-09-12",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Aguanta heladas por debajo de unos -5 °C bajo sotobosque denso, y la especie Hydnum albidum fructifica cada año en los mismos lugares.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-lenguas-de-vaca-hydnum-spp-unas-especies-comestibles-bastante-resistentes-a-las-fuertes-heladas-invernales/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -4011,8 +4265,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 15,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 22,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -4156,7 +4410,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Tarda en salir: entre unos 18 y 50 días tras la lluvia. Sale con calor y lluvias abundantes y desaparece con el frío otoñal.",
+          "texto": "Sale unas tres semanas (de 18 a 22 días) después de una tormenta fuerte de verano, con calor; si la humedad previa es variable el margen se ensancha hasta unos 50 días. Desaparece con el frío otoñal.",
           "tipo": "tiempo",
           "fuentes": [
             {
@@ -4173,9 +4427,29 @@
               "url": "https://www.pinaresdeurbion.es/guia-setas/amanita-cesarea/",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/setas-de-verano-donde-y-cuando/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/amanita-caesarea-oronja-placer-del-cesar/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-huevo-de-rey-la-reina-de-las-tormentas",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1844.0",
+              "fecha": "2010-03-19",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": true
         },
         {
@@ -4320,8 +4594,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -4489,8 +4763,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 45,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 61,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -4676,6 +4950,37 @@
           ],
           "confianza": "media",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "En algunas zonas también sale en primavera: un mensaje de 2017 la encontró en mayo a 1.400 m en suelo removido de un hayedo-robledal, donde «siempre las habíamos encontrado desde julio». Un solo mensaje.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/5-fotografia-micologica/70839-las-galampernas-macrolepiota-procera-tambien-salen-en-primavera.html",
+              "fecha": "2017-05-06",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Sale desde finales de verano en claros herbosos de pinar, hayedo y campas, y no suele salir dentro del bosque cerrado. Micocyl la citaba fructificando en Castilla y León el 17 de noviembre de 2022.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/macrolepiota-procera-parasol-apagallums/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.micocyl.es/noticias/parte-micologico-17-de-noviembre-de-2022",
+              "fecha": "2022-11-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -4763,8 +5068,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 18,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -4901,6 +5206,36 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Busca praderas muy pastoreadas por ovejas, yeguas o vacas, de hierba corta: majadas, eras, cañadas y cerca de corrales. Sale de primavera a otoño tras las lluvias, a veces en corros, en zonas de unos 400 a 700 mm de lluvia al año (dato de una ficha sin verificar).",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/agaricus-campestris/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aviso: en la misma pradera crecen amanitas blancas mortales, así que un principiante no debe cogerlo sin ayuda. Descártalo si amarillea al rascar la base y huele a fenol (Agaricus xanthodermus, tóxico) o si tiene las láminas negras.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/agaricus-campestris/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/4371-agaricus-campestris.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media"
         }
       ]
     },
@@ -4995,9 +5330,9 @@
           "consultado": "2026-09-30"
         },
         "extremadura": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -5361,7 +5696,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Fíjate en los corros de brujas, con hierba quemada o de verde azulado.",
+          "texto": "Se dice que los corros con la hierba quemada o de un verde azulado delatan el perretxiko, pero según un hilo de Fungipedia esa señal es más propia de la senderuela (Marasmius oreades), que mata la hierba, la fertiliza y sale antes que el perretxiko; no te fíes de ella para el perretxiko (mensaje antiguo, de hace más de diez años; una sola fuente).",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -5373,13 +5708,18 @@
               "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/12324-ayudarme-a-encontrarlas.html",
               "fecha": "2011-04-30",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/67354-sobre-perretxikos-y-senderuela.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "baja",
           "cifrasOrientativas": false
         },
         {
-          "texto": "Sale primero en cotas bajas y sitios cálidos (fondos de valle en marzo y abril) y después sube a praderas de media y alta montaña en mayo y junio. Prefiere zonas soleadas y evita la umbría.",
+          "texto": "Sale primero en cotas bajas y sitios cálidos: las primeras, hacia San Jorge (23 de abril) en laderas al sur y soleadas y en fondos de valle en marzo y abril; la gran fructificación va de mayo a junio y llega hasta julio en cotas cercanas a 2.000 m (Sistema Ibérico, Pirineo aragonés). Prefiere zonas soleadas y evita la umbría.",
           "tipo": "altitud",
           "fuentes": [
             {
@@ -5391,10 +5731,15 @@
               "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
               "fecha": "2018-05-16",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-perrechico-la-seta-de-primavera-por-excelencia-en-aragon",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
-          "cifrasOrientativas": false
+          "confianza": "alta",
+          "cifrasOrientativas": true
         },
         {
           "texto": "Le van bien los días cálidos alternados con tormentas y nieblas nocturnas. Las primaveras secas o con cambios bruscos la estropean.",
@@ -5506,6 +5851,43 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aunque prefiere suelo calcáreo o algo básico, un moderador de Foro Micológico dice que también sale en suelos ácidos, por ejemplo sobre el granito del Guadarrama (mensaje probablemente de hace más de diez años, sin fecha legible; una sola fuente).",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=27768.0",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "En el valle de Kuartango (Álava) el perretxiko destaca por su abundancia y calidad y la feria municipal se celebra a mediados de mayo (la de 2019, el 12 de mayo): indica que mayo es temporada alta allí (una sola fuente).",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.gasteizhoy.com/feria-perretxiko-kuartango/",
+              "fecha": "2019-05-12",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Un forero avisa de que en la misma pradera hay setas tóxicas muy parecidas; esa fuente no detalla cuáles, así que no cojas perretxiko sin estar seguro y consulta las confusiones de la ficha.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=4940458",
+              "fecha": "2016-05-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -5607,8 +5989,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 16,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -5696,6 +6078,32 @@
           "url": "https://www.fungipedia.org/hongos/infundibulicybe-geotropa.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Va en praderas de montaña, brezales y claros; sale en otoño e invierno tras las lluvias otoñales, en grandes corros («corros de bruja») en pastos bajo robles y, en pinar, de forma masiva. Coge solo ejemplares jóvenes, porque el pie es fibroso.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/seta-platera-cabeza-de-fraile-clitocybe-geotropa-una-joya-de-los-bosques/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Aviso: en los mismos corros de pradera pueden crecer Clitocybe pequeñas y blancas (C. rivulosa, C. dealbata), tóxicas por muscarina (confusión peligrosa conocida; estas fuentes no la detallan). No la recojas sin estar seguro de la identificación. Mira las fichas de esas especies en la app.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/seta-platera-cabeza-de-fraile-clitocybe-geotropa-una-joya-de-los-bosques/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -5809,8 +6217,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "taxonGbif": "Lepista nuda"
         }
@@ -5925,6 +6333,36 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Es saprótrofa y sale en claros soleados con materia orgánica, bajo haya, pino y roble, del nivel del mar a unos 1.500 m; va de octubre a mayo, con el pico en noviembre.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/el-pie-azul-la-nazarena-del-bosque",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/setas-comestibles-de-invierno-la-pardilla-y-el-pie-azul/",
+              "fecha": "2014-11-25",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aviso: se confunde con Cortinarius de tonos azulados o violáceos, con Clitocybe odora, con Lepista personata y con la tóxica Mycena pura. No la recomiendes sin comprobar la esporada y el olor, y cuécela siempre.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/el-pie-azul-la-nazarena-del-bosque",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media"
         }
       ]
     },
@@ -6034,7 +6472,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "taxonGbif": "Lepista personata"
         }
@@ -6130,6 +6568,32 @@
           "titulo": "Collybia nuda / C. personata: cambio de género Lepista a Collybia (2023)",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Va en prados y pastos de montaña sobre suelos calizos y en claros de robledal, mejor en el borde del prado que dentro del bosque; aparece a primeros de otoño y aguanta el frío hasta el invierno.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/lepista-personata-la-seta-de-pie-violeta/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Aviso: se confunde con Tricholoma purpurascens y con Cortinarius violáceos. No la recomiendes sin comprobar la esporada y el olor, y cuécela siempre.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/lepista-personata-la-seta-de-pie-violeta/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        }
       ]
     },
     {
@@ -6224,8 +6688,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -6446,8 +6910,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -6741,9 +7205,9 @@
           "consultado": "2026-09-30"
         },
         "extremadura": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -6827,6 +7291,32 @@
           "url": "https://www.fungipedia.org/hongos/pleurotus-ostreatus.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Crece en troncos de haya, sauce, chopo, olmo y álamo, a veces en árboles vivos y a cierta altura (mira hacia arriba), y en bordes de ríos y arroyos de zonas umbrías y húmedas, de primavera a otoño; el calor intenso y las heladas tempranas lo frenan.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/pleurotus-ostreatus-seta-de-ostra/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Aviso: «seta de chopo» puede ser Pleurotus ostreatus o Cyclocybe cylindracea; identifica bien el sustrato y las láminas antes de recoger. Córtala por la base para no dañar el micelio.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://fungipedia.org/setas-informacion-y-consultas/2-foro-de-bienvenida/72982-duda-sobre-setas-de-chopo-ya-pasadas.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -6913,9 +7403,9 @@
           "consultado": "2026-09-30"
         },
         "extremadura": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -7093,8 +7583,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 18,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 66,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -7187,6 +7677,21 @@
           "url": "https://www.aranzadi.eus/assets/files/urola-kosta-bailarako-perretxikoak-euskera.pdf",
           "titulo": "Aranzadi / Arkamurka Natur Elkartea, Urola Kosta bailarako perretxikoak (2009)",
           "consultado": "2026-09-30"
+        }
+      ],
+      "trucos": [
+        {
+          "texto": "Es de los primeros hongos que salen tras una lluvia, en zonas abonadas, prados, bordes de camino y tierra removida, en otoño y primavera. Se autodigiere en 2 o 3 días: coge solo ejemplares blancos y cocínalos el mismo día; separar pie y sombrero frena un poco la degradación.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/coprinus-comatus-una-de-las-setas-comestibles-mas-interesantes/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -7283,7 +7788,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -7374,7 +7879,7 @@
       ],
       "trucos": [
         {
-          "texto": "Busca en pináceas y fagáceas de más de 50 años, en umbrías húmedas, semienterrado y a veces bajo la nieve.",
+          "texto": "Busca en pináceas y fagáceas de más de 50 años, en umbrías húmedas, semienterrado y a veces bajo la nieve. Las fuentes coinciden en umbría húmeda y suelo ácido (también laderas norte).",
           "tipo": "microhabitat",
           "fuentes": [
             {
@@ -7386,9 +7891,14 @@
               "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/setas/del-moncayo/marzuelo",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": true
         },
         {
@@ -7415,7 +7925,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Los primeros salen en cotas bajas y se sube según se calienta: al principio, zonas con más sol; después, sombrías y húmedas.",
+          "texto": "Una sola fuente (Cesta y Setas, 2025) dice que al principio salen antes en las zonas con más sol y después en las sombrías; todas las demás hablan de umbría, así que no te fíes de esto sin más. Un mensaje general de 2014 (más de diez años, no específico del marzuelo) aconseja mirar en solanas con mucho frío y humedad y en umbrías con calor y un mes sin lluvia.",
           "tipo": "altitud",
           "fuentes": [
             {
@@ -7427,13 +7937,18 @@
               "url": "https://www.cestaysetas.com/el-marzuelo-una-exquisita-seta-poco-conocida-en-la-gastronomia/",
               "fecha": "2025-02-19",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/2-foro-de-bienvenida/66454-umbria-o-solana.html",
+              "fecha": "2014-11-08",
+              "consultado": "2026-09-30"
             }
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
         },
         {
-          "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática. La hepática (Hepatica nobilis) como señal la cita también La Casa de las Setas.",
+          "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática. La hepática (Hepatica nobilis) como señal la cita también La Casa de las Setas. La Casa de las Setas repite el artículo de Cesta y Setas de 2015, así que no cuenta como fuente aparte para la hepática.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -7456,7 +7971,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Se recomienda arrancarlo con torsión y tapar el hueco, sin navaja, por riesgo de infección del micelio.",
+          "texto": "Se recomienda arrancarlo con torsión y tapar el hueco, sin navaja, por riesgo de infección del micelio. No cojas los menores de 4 cm.",
           "tipo": "recoleccion",
           "fuentes": [
             {
@@ -7468,13 +7983,18 @@
               "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/setas/del-moncayo/marzuelo",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
           "confianza": "media",
-          "cifrasOrientativas": false
+          "cifrasOrientativas": true
         },
         {
-          "texto": "Dos hilos de foro coinciden en la subida por altitud. En el norte empiezan a mediados de febrero en pinar entre 600 y 800 m y suben hasta unos 1.400 m a finales de marzo. En otro hilo de febrero de 2011 avisan de que 1.500 m son demasiados para esas fechas y aconsejan mirar hacia 1.000 m. En hayedo son más difíciles de ver por la hojarasca; en pinar, más fáciles. Es un dato de foros de 2011 y 2012 (más de 10 años).",
+          "texto": "La altitud sube con la temporada (cuatro fuentes coinciden): empieza en hayedos desde unos 400 m y, conforme avanza el tiempo, pasa al pino silvestre entre 800 y 1.400 m; a más altura, más avanzada la temporada. En el norte empieza a mediados de febrero en pinar entre 600 y 800 m y sube hasta unos 1.400 m a finales de marzo; un hilo de 2011 avisa de que 1.500 m son demasiados para esas fechas y aconseja mirar hacia 1.000 m. Por zonas (2015): finales de febrero y principios de marzo en cotas bajas de Navarra y Cataluña, mediados de marzo en Soria, Burgos, Guadalajara y Picos de Europa, y finales de marzo en Teruel, la sierra madrileña y el Pirineo alto. En hayedo es más difícil verlos por la hojarasca; en pinar, más fácil. Datos de foros de 2011 a 2014 (más de diez años) y un artículo de 2015.",
           "tipo": "altitud",
           "fuentes": [
             {
@@ -7486,9 +8006,19 @@
               "url": "https://www.foromicologico.es/index.php?topic=9164.0",
               "fecha": "2011-02-26",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/66984-habitat-del-marzuelo.html",
+              "fecha": "2014-12-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/los-secretos-del-marzuelo/",
+              "fecha": "2015-03-04",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": true
         }
       ]
@@ -7653,6 +8183,93 @@
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
         }
+      ],
+      "trucos": [
+        {
+          "texto": "Va siempre con pinos (silvestre, negral o rodeno, y carrasco) y prefiere suelo básico o neutro, a veces ácido. Crece en pinar de cualquier densidad, mejor denso, sobre todo en laderas de umbría.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/llanega-negra-la-reina-del-frio-hygrophorus-latitabundus/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/setas/comunidad-de-albarracin/llanega-negra",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-llanega-el-almibar-del-monte",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://turismomaestrazgo.org/en/setas/black-slug/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta"
+        },
+        {
+          "texto": "Sale con el frío: desde finales de septiembre por encima de unos 1.000 m y hasta diciembre o enero (la ventana central es de octubre a enero). Micocyl la cita entre las especies que aparecen con las bajadas de temperatura de finales de otoño y todavía en fructificación el 17 de noviembre de 2022.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/llanega-negra-la-reina-del-frio-hygrophorus-latitabundus/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-llanega-el-almibar-del-monte",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micocyl.es/noticias/continua-la-fructificacion-de-tricolomas-llanegas-y-niscalos-aunque-el-boletus-se-reduce",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.micocyl.es/noticias/parte-micologico-17-de-noviembre-de-2022",
+              "fecha": "2022-11-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Una fuente la asocia a boj y romero en el lugar donde sale.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/llanega-negra-la-reina-del-frio-hygrophorus-latitabundus/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Crece sobre todo en superficie y a veces algo enterrada bajo la pinocha: no rastrilles, y si la arrancas, tapa el hueco; no cojas las menores de 4 cm. Quita la viscosidad del sombrero antes de cocinarla. Hay una parecida, Hygrophorus persoonii (suelo ácido, peor comestible), que no es peligrosa.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/noticias/setas-de-otono-e-invierno/la-llanega-el-almibar-del-monte",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/llanega-negra-la-reina-del-frio-hygrophorus-latitabundus/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        }
       ]
     },
     {
@@ -7744,7 +8361,7 @@
         "extremadura": {
           "presencia": "confirmada",
           "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -7907,6 +8524,36 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "Sale con las bajadas de temperatura de finales de otoño (Micocyl, noviembre); en los abetales pirenaicos empieza a mediados de octubre y dura hasta enero. Es muy fiel al sitio y crece en coníferas de más de 40 años.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.micocyl.es/noticias/continua-la-fructificacion-de-tricolomas-llanegas-y-niscalos-aunque-el-boletus-se-reduce",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aviso: la capuchina se confunde con Amanita phalloides (mortal) cuando hay ejemplares verdosos o pálidos. Si dudas, no la cojas; comprueba que no haya anillo ni volva.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -8002,9 +8649,9 @@
           "consultado": "2026-09-30"
         },
         "extremadura": {
-          "presencia": "orientativa",
-          "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -8094,6 +8741,19 @@
       ],
       "trucos": [
         {
+          "texto": "Micocyl desaconseja recolectar y consumir la negrilla, porque hay estudios que hallan en ella toxinas que pueden provocar rabdomiólisis, igual que Tricholoma equestre (parte del 2 de diciembre de 2022). Tenlo en cuenta antes de seguir los consejos de hábitat de esta ficha.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.micocyl.es/noticias/puente-de-setas",
+              "fecha": "2022-12-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
           "texto": "Aparece en grupos grandes, en límites de prado y pinar.",
           "tipo": "microhabitat",
           "fuentes": [
@@ -8105,6 +8765,54 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Crece en claros y bordes de pinar, en la base de los pinos y en bordes de caminos, en sitios umbríos y húmedos, de octubre a enero y en pinares de más de 30 años. Micocyl la citaba muy abundante en los pinares a principios de diciembre de 2022.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.micoaragon.es/setas/comunidad-de-albarracin/negrilla",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://guiahongosnavarra1garciabona.blogspot.com/2014/03/tricholoma-terreum-schaeff-p-kumm.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micocyl.es/noticias/puente-de-setas",
+              "fecha": "2022-12-02",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Una fuente dice que sale pronto entre unos 1.200 y 1.800 m y que va bajando hacia el nivel del mar según avanza el invierno, en pinar calcáreo; otra fuente da suelo ácido, y no se ha resuelto la contradicción.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/fredolic-negrilla-tricholoma-terreum/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aviso: la negrilla se confunde con Tricholoma pardinum (tóxico, más robusto, sombrero escamoso, en abetal y hayedo). Si dudas, no la cojas.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
+              "fecha": "2020-12-15",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -8201,8 +8909,8 @@
         },
         "extremadura": {
           "presencia": "confirmada",
-          "gbif": 23,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 26,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -8367,7 +9075,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -8671,6 +9379,11 @@
               "url": "https://www.cestaysetas.com/la-colmenilla-la-seta-de-esta-primavera/",
               "fecha": "2022-05-17",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/67050-dudas-sobre-colmenilla-morchella.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
           "confianza": "media",
@@ -8714,6 +9427,132 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "En los quemados, el pico de las colmenillas pirófilas llega la primera primavera tras el incendio del verano anterior, y la segunda da solo una fructificación residual; otras fuentes hablan de 2 o 3 años. Mira ahí primero y no esperes más allá. (El artículo de 2012 y el mensaje de 2016 tienen unos diez años o más.)",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-colmenillas-pirofilas-las-grandes-amantes-de-los-incendios-forestales/",
+              "fecha": "2019-07-24",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/las-colmenillas-y-los-incendios-forestales-ii/",
+              "fecha": "2012-06-19",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=4940458",
+              "fecha": "2016-05-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Aviso en zonas quemadas: las colmenillas pirófilas pueden acumular metales pesados y restos de los retardantes que lanzan los aviones, y suele haber restricciones de acceso y de recogida. Comprueba antes el régimen del lugar (no verificado en Álava ni en el centro) y modera lo que comas.",
+          "tipo": "recoleccion",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/las-colmenillas-pirofilas-las-grandes-amantes-de-los-incendios-forestales/",
+              "fecha": "2019-07-24",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "En las riberas busca bajo fresno, chopo, avellano, álamo, olmo y alisos, en las zonas más arenosas y en tramos limpios del río, donde se acumula madera. Un hilo antiguo de Fungipedia concluye que pesa más la humedad del suelo que la cercanía del agua. (Mensajes de 2014 y 2015: más de diez años.)",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/trucos-para-coger-colmenillas/",
+              "fecha": "2016-04-21",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/colmenillas-ribera-primavera/",
+              "fecha": "2021-04-18",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=27621.0",
+              "fecha": "2015-04-20",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/65302-un-buen-dia-buscando-colmenillas-morchella-esculenta.html",
+              "fecha": "2014-04-26",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.fungipedia.org/setas-informacion-y-consultas/4-consultas-de-micologia/67050-dudas-sobre-colmenilla-morchella.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta"
+        },
+        {
+          "texto": "Según un artículo, en las riberas entre unos 400 y 800 m suelen salir entre mediados de abril y primeros de mayo; en 2016 ya había colmenillas el 3 de abril en Álava y Burgos. Las plantas en flor en ese momento serían indicadoras, pero el autor no dice cuáles.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/trucos-para-coger-colmenillas/",
+              "fecha": "2016-04-21",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Cada rodal es fiel a su fecha: si en un lugar salen la segunda semana de abril, lo harán en la misma semana los años siguientes si las condiciones acompañan. Un lector lo liga a cuando los brotes del fresno son evidentes (una sola fuente para esto último).",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.cestaysetas.com/el-extrano-ciclo-de-las-colmenillas/",
+              "fecha": "2017-03-29",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=27621.0",
+              "fecha": "2015-04-21",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/colmenillas-trucos-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media"
+        },
+        {
+          "texto": "Empieza por los bordes orientados al sur y ve girando hacia el norte según avanza la primavera (una sola fuente).",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/colmenillas-trucos-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
+        },
+        {
+          "texto": "Se cree que donde hay bonetes (Gyromitra) hay colmenillas, pero no es fiable: a veces sí y a veces no. Gyromitra es tóxica y se parece a la colmenilla: no comas nada por asociación de hábitat. (Hilo de 2015: más de diez años.)",
+          "tipo": "creencia",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=27621.0",
+              "fecha": "2015-04-21",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja"
         }
       ]
     },
@@ -8796,7 +9635,7 @@
         "extremadura": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-7.45+39.3%2C-5.3001+39.3%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+39.3%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
