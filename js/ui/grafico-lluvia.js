@@ -2,7 +2,9 @@
 // arriba el acumulado de 26 días, abajo la lluvia diaria. La previsión va rayada en ocre, con la
 // horquilla entre modelos y una raya en «hoy». Los colores salen de clases CSS (.grafico en componentes.css).
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-const fechaCorta = (f) => `${Number(f.slice(8, 10))} ${MESES[Number(f.slice(5, 7)) - 1]}`;
+const fechaCorta = (f) => (/^\d{4}-\d{2}-\d{2}$/.test(f) ? `${Number(f.slice(8, 10))} ${MESES[Number(f.slice(5, 7)) - 1]}` : '');
+// Las fechas llegan de datos externos y el SVG se inyecta con innerHTML: se escapan.
+const esc = (t) => String(t).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const r1 = (x) => Math.round(x * 10) / 10;
 const nbsp = ' ';
 
@@ -29,10 +31,10 @@ export function graficoLluvia({ serie, dispersionPunto = null, altura = 250 }) {
   // Barras diarias
   const barras = serie.fechas.map((f, k) => {
     const v = serie.precip[k];
-    if (v == null) return `<g class="sin-dato"><title>${f}: sin dato</title><circle class="sin-dato-punto" cx="${cx(k)}" cy="${yB1 - 2}" r="1.6"/></g>`;
+    if (v == null) return `<g class="sin-dato"><title>${esc(f)}: sin dato</title><circle class="sin-dato-punto" cx="${cx(k)}" cy="${yB1 - 2}" r="1.6"/></g>`;
     const prev = k > serie.hoy;
     const h = Math.max(v > 0 ? 1 : 0, yB1 - yB(v));
-    return `<rect class="${prev ? 'barra prevista barra-prevista' : 'barra barra-pasada'}" x="${r1(cx(k) - ancho / 2)}" y="${r1(yB1 - h)}" width="${r1(ancho)}" height="${r1(h)}" rx="1"><title>${f}: ${v.toFixed(1)} mm${prev ? ' (previsión)' : ''}</title></rect>`;
+    return `<rect class="${prev ? 'barra prevista barra-prevista' : 'barra barra-pasada'}" x="${r1(cx(k) - ancho / 2)}" y="${r1(yB1 - h)}" width="${r1(ancho)}" height="${r1(h)}" rx="1"><title>${esc(f)}: ${v.toFixed(1)} mm${prev ? ' (previsión)' : ''}</title></rect>`;
   }).join('');
 
   // Acumulado: tramo pasado continuo y tramo previsto discontinuo, cortados en los huecos

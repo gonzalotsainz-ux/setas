@@ -38,3 +38,10 @@ test('una serie sin previsión no rompe el gráfico', () => {
   assert.equal((svg.match(/barra prevista/g) ?? []).length, 0);
   assert.equal((svg.match(/<rect class="barra/g) ?? []).length, 60);
 });
+
+test('las fechas se escapan en el SVG', () => {
+  const s = serieSintetica({ dias: 60, hoy: 59, precip: () => 1 });
+  s.fechas[5] = '2026-08-25"><script>x</script>';
+  const svg = graficoLluvia({ serie: s });
+  assert.doesNotMatch(svg, /<script>/);
+});

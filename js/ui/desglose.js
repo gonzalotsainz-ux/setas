@@ -1,5 +1,6 @@
 // Desglose del índice: cada factor con su valor, una barra y una frase clara, y la fórmula con los números reales.
 import { PESOS } from '../indice.js';
+import { el } from './dom.js';
 
 const NOMBRES = {
   fW: ['fW', 'Lluvia de 26 días'], fR: ['fR', 'Episodio de lluvia'], fT: ['fT', 'Temperatura'], fS: ['fS', 'Humedad del suelo'],
@@ -40,23 +41,22 @@ export function filasDesglose(r) {
   return { fueraDeTemporada: false, filas, formula, calculado, valor: r.valor, sinSuelo: f.fS == null };
 }
 
-function el(tag, clase, texto) { const e = document.createElement(tag); if (clase) e.className = clase; if (texto != null) e.textContent = texto; return e; }
 
 export function desglose(r) {
-  const d = filasDesglose(r), raiz = el('div', 'desglose');
-  if (d.fueraDeTemporada) { raiz.append(el('p', 'texto-2', `${d.frase}: el índice es 0 hasta que empiece su temporada.`)); return raiz; }
-  raiz.append(el('h4', 'desglose__titulo', `Por qué sale ${r.valor}`));
-  const ul = el('ul', 'factores');
+  const d = filasDesglose(r), raiz = el('div', { clase: 'desglose' });
+  if (d.fueraDeTemporada) { raiz.append(el('p', { clase: 'texto-2', texto: `${d.frase}: el índice es 0 hasta que empiece su temporada.` })); return raiz; }
+  raiz.append(el('h4', { clase: 'desglose__titulo', texto: `Por qué sale ${r.valor}` }));
+  const ul = el('ul', { clase: 'factores' });
   for (const fila of d.filas) {
-    const li = el('li', 'factor');
-    const cod = el('span', 'factor__codigo');
-    cod.innerHTML = fila.codigo === 'pen' ? 'pen' : `f<sub>${fila.codigo[1]}</sub>`;
-    li.append(cod, el('span', 'factor__nombre', fila.nombre),
-      el('span', 'factor__valor', fila.valor == null ? 'sin dato' : num(fila.valor)), el('span', 'factor__frase', fila.frase));
-    if (fila.valor != null) { const b = el('span', 'factor__barra'); b.style.setProperty('--v', String(Math.max(0, Math.min(1, fila.valor)))); b.setAttribute('aria-hidden', 'true'); li.append(b); }
+    const li = el('li', { clase: 'factor' });
+    const cod = el('span', { clase: 'factor__codigo' });
+    if (fila.codigo === 'pen') cod.textContent = 'pen'; else cod.append('f', el('sub', { texto: fila.codigo[1] }));
+    li.append(cod, el('span', { clase: 'factor__nombre', texto: fila.nombre }),
+      el('span', { clase: 'factor__valor', texto: fila.valor == null ? 'sin dato' : num(fila.valor) }), el('span', { clase: 'factor__frase', texto: fila.frase }));
+    if (fila.valor != null) { const b = el('span', { clase: 'factor__barra' }); b.style.setProperty('--v', String(Math.max(0, Math.min(1, fila.valor)))); b.setAttribute('aria-hidden', 'true'); li.append(b); }
     ul.append(li);
   }
-  raiz.append(ul, el('p', 'formula', d.formula));
-  if (d.sinSuelo) raiz.append(el('p', 'texto-2 texto-s', 'Sin climatología del suelo: los otros tres pesos se reparten el suyo.'));
+  raiz.append(ul, el('p', { clase: 'formula', texto: d.formula }));
+  if (d.sinSuelo) raiz.append(el('p', { clase: 'texto-2 texto-s', texto: 'Sin climatología del suelo: los otros tres pesos se reparten el suyo.' }));
   return raiz;
 }
