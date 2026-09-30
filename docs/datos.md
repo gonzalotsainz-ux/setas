@@ -62,6 +62,8 @@
   - `habitat`: hábitat principal del punto
   - `fuente`: URL de origen del punto
   - `revisado`: fecha de verificación (YYYY-MM-DD)
+  - `proteccion` (opcional): estado de protección del punto (espacio natural y qué se sabe de sus normas de recolección); se omite si está fuera de espacios protegidos
+  - `nota` (opcional): dato para volver a verificar el punto (polígono y especie/FCC usados) o salvedades
 - `estacionesAemet`: estaciones AEMET cercanas para datos meteorológicos
   - `id`: código de la estación AEMET
   - `nombre`: nombre de la estación
@@ -89,6 +91,24 @@
   - Además, en todos los puntos: cubierta arbolada densa confirmada sobre la ortofoto PNOA y clase de SIOSE (IGN).
   - El MFE25 del MITECO (`wms.mapama.gob.es/sig/Biodiversidad/MFE`) devolvía un error del servidor ese día y su descarga
     tiene captcha; por eso se usaron las fuentes anteriores.
+- **Espacios protegidos** (comprobación punto en polígono, 30/09/2026; campo `proteccion` de cada punto):
+  - Parque Nacional de Guadarrama: zonificación del OAPN (`_fuentes/datos/oapn_zonificacion_prug_ppnn_EPSG4326_20260930.geojson`).
+    Resultado: solo `guadarrama-valsain-pinar` cae dentro, en Zona de Uso Moderado (no Reserva). Ningún otro punto toca un Parque Nacional.
+  - Resto de espacios: capa de Espacios Naturales Protegidos 2025 del MITECO (`https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/servicios/banco-datos-naturaleza/enp/Enp2025_geojson.zip`, EPSG:25830).
+    Dentro: `guadarrama-valsain-pinar` y `guadarrama-navas-melojar` (Parque Natural Sierra Norte de Guadarrama), `gredos-arenal-resinero` y
+    `gredos-villarejo-silvestre` (Parque Regional de la Sierra de Gredos), `alava-izki-marojal` (Parque Natural de Izki). Fuera: los otros 15 puntos.
+    Distancias a los espacios más cercanos: Poveda de la Sierra 2,3 km del Parque Natural del Alto Tajo; Tierzo 3,8 km del Alto Tajo; los puntos de
+    Cuenca a más de 2 km del Monumento Natural Palancares y Tierra Muerta.
+  - El punto de Cuenca de la primera versión (40.0227, -1.9714) caía dentro del Monumento Natural Palancares y Tierra Muerta y se sustituyó por
+    `cuenca-serrania-negral` (Palomera, fuera del monumento).
+  - Normas leídas: PORN del Parque Natural Sierra Norte de Guadarrama (Decreto 4/2010, BOCyL 20/01/2010), art. 49.3: la recolección comercial de hongos
+    requiere autorización. Sin verificar: PRUG de ese parque, su zonificación interna (la capa IDECyL `ps/ren_cyl_en_sg_porn` ya no existe), normas de
+    recolección del Parque Regional de Gredos (PORN Decreto 36/1995, Ley 3/1996) y del Parque Natural de Izki (PRUG Decreto 73/2018). Los tres están
+    marcados así en `proteccion`.
+  - No se ha cruzado con Red Natura 2000 (ZEC/ZEPA), que por sí sola no suele prohibir la recolección.
+- **Laguna de cobertura en Guadarrama**: no hay melojar de piedemonte verificado. El único melojar comprobado (`guadarrama-navas-melojar`) está a
+  1472 m. En el piedemonte de Valsaín, IDECyL da rebollar a 1215 m (40.8684, -4.0332, Q. pyrenaica 55 % con pino silvestre 45 %) y 1104 m, pero la
+  ortofoto muestra dehesa abierta junto a embalse, pista o urbanización, sin masa densa; se descartaron. Queda pendiente.
 - Límites conocidos: el hábitat «pinar de rodeno» (Cuenca) y la «umbría» (Toledo) no se pueden comprobar con estas fuentes
   (no indican sustrato ni orientación). «Repoblación» en `sierra-norte-sepulveda-pinar` se aprecia en la ortofoto
   (filas de plantación), no en la capa forestal.

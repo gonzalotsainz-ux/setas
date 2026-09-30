@@ -29,6 +29,7 @@
           "lon": -3.9943,
           "altitud": 1561,
           "habitat": "pinar-silvestre",
+          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Moderado (zonificación OAPN, punto en polígono; no es Zona de Reserva). Recolección solo con plan de aprovechamiento y permiso de Valsaín (Orden AAA/1681/2016). También dentro del Parque Natural Sierra Norte de Guadarrama (Ley 18/2010); su zonificación interna no se ha podido comprobar.",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=416171.72158879065,4522894.57593216,416211.72158879065,4522934.57593216&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         },
@@ -39,6 +40,7 @@
           "lon": -3.9348,
           "altitud": 1472,
           "habitat": "melojar",
+          "proteccion": "Dentro del Parque Natural Sierra Norte de Guadarrama (ENP 2025 del MITECO; Ley 18/2010, PORN Decreto 4/2010). El art. 49.3 del PORN exige autorización para la recolección comercial de hongos; no se ha leído el PRUG ni se ha podido comprobar la zonificación interna. Fuera del Parque Nacional (OAPN).",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=421351.29571382666,4538214.244087299,421391.29571382666,4538254.244087299&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         }
@@ -284,6 +286,7 @@
           "lon": -5.0719,
           "altitud": 1240,
           "habitat": "pinar-resinero",
+          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO); normas de recolección sin verificar (PORN Decreto 36/1995, Ley 3/1996).",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=323874.58281993214,4462295.616296301,323914.58281993214,4462335.616296301&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         },
@@ -294,6 +297,7 @@
           "lon": -5.0072,
           "altitud": 1334,
           "habitat": "pinar-silvestre",
+          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO); normas de recolección sin verificar (PORN Decreto 36/1995, Ley 3/1996).",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=329497.362041508,4467597.2267853925,329537.362041508,4467637.2267853925&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         }
@@ -353,11 +357,12 @@
       "puntos": [
         {
           "id": "cuenca-serrania-negral",
-          "nombre": "Pinar de pino salgareño (Serranía de Cuenca)",
-          "lat": 40.0227,
-          "lon": -1.9714,
-          "altitud": 1232,
+          "nombre": "Pinar de pino salgareño de Palomera (Serranía de Cuenca)",
+          "lat": 40.0689,
+          "lon": -1.9971,
+          "altitud": 1250,
           "habitat": "pinar-negral",
+          "nota": "MFE50 polígono 438516 (provincia 16, Cuenca): Pinares de pino salgareño, Pinus nigra 9/10, FCC 75 %, 299 ha. A unos 2 km del Monumento Natural Palancares y Tierra Muerta, fuera de él.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         },
@@ -368,6 +373,7 @@
           "lon": -1.6521,
           "altitud": 1088,
           "habitat": "pinar-resinero",
+          "nota": "MFE50 polígono 448007 (provincia 16, Cuenca): Pinares de Pinus pinaster ssp. mesogeensis, P. pinaster 9/10, FCC 70 %, 242 ha. El MFE50 no indica sustrato (rodeno sin comprobar).",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         }
@@ -434,6 +440,7 @@
           "lon": -2.0169,
           "altitud": 1360,
           "habitat": "pinar-negral",
+          "nota": "MFE50 polígono 460136 (provincia 19, Guadalajara): Pinares de pino salgareño, Pinus nigra 9/10, FCC 60 %, 183 ha. A unos 2,3 km del Parque Natural del Alto Tajo, fuera de él.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         },
@@ -444,6 +451,7 @@
           "lon": -1.9,
           "altitud": 1314,
           "habitat": "sabinar",
+          "nota": "MFE50 polígono 458927 (provincia 19, Guadalajara): Sabinares albares, Juniperus thurifera 6/10 con Q. ilex 2/10 y Q. faginea 1/10, FCC 65 %, 192 ha. Sabinar abierto: la ortofoto muestra copas oscuras dispersas sobre suelo claro y no permite distinguir sabina de otro matorral (comprobación visual no concluyente); SIOSE lo clasifica como mezcla de cultivo y vegetación.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         }
@@ -508,6 +516,7 @@
           "lon": -4.6186,
           "altitud": 972,
           "habitat": "encinar",
+          "nota": "MFE50 polígono 574949 (provincia 45, Toledo): Encinares, Quercus ilex 7/10, Q. pyrenaica 2/10, Q. faginea 1/10, FCC 70 %, 177 ha.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         },
@@ -518,6 +527,7 @@
           "lon": -4.4125,
           "altitud": 941,
           "habitat": "melojar",
+          "nota": "MFE50 polígono 568815 (provincia 45, Toledo): Melojares, Quercus pyrenaica 7/10, Q. ilex 2/10, FCC 80 %, 185 ha. Orientación (umbría) sin comprobar.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         },
@@ -528,6 +538,7 @@
           "lon": -4.925,
           "altitud": 550,
           "habitat": "alcornocal",
+          "nota": "MFE50 polígono 528809 (provincia 45, Toledo): Alcornocales (código de especie 46), 6/10, con código 68 2/10 y Q. ilex 1/10, FCC 65 %, 114 ha.",
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_castilla_la_mancha.html",
           "revisado": "2026-09-30"
         }
@@ -613,6 +624,7 @@
           "lon": -2.4941,
           "altitud": 772,
           "habitat": "melojar",
+          "proteccion": "Dentro del Parque Natural de Izki (ENP 2025 del MITECO); normas de recolección sin verificar (PRUG Decreto 73/2018).",
           "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Espezien_banaketa_Distribucion_de_especies&QUERY_LAYERS=Espezien_banaketa_Distribucion_de_especies&CRS=EPSG:4326&BBOX=42.6821,-2.4944,42.682700000000004,-2.4938&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
           "revisado": "2026-09-30"
         },
