@@ -67,3 +67,35 @@ test('los índices heurísticos por análogo son de confianza baja y citan su an
     assert.ok(porId[e.indice.analogo]?.indice, `${e.id}: análogo ${e.indice.analogo}`);
   }
 });
+
+// --- ronda de correcciones 1 ---
+const NIVEL = ['bajo', 'medio', 'alto', 'mortal'];
+const GRAV = { mortal: 'mortal', grave: 'alto', moderada: 'medio', leve: 'bajo' };
+const nivel = (e) => NIVEL.indexOf(e.sindrome ? GRAV[sindromes.find((s) => s.id === e.sindrome).gravedad]
+  : ['toxica', 'no-recomendada'].includes(e.categoria) ? 'medio' : e.categoria === 'mortal' ? 'mortal' : 'bajo');
+test('el riesgo de cada confusión con ficha con síndrome sigue la gravedad del síndrome (el peor de los dos)', () => {
+  let n = 0;
+  for (const e of especies) for (const c of e.confusiones) {
+    const t = porId[c.especie];
+    if (!t.sindrome) continue;
+    n++;
+    assert.equal(c.riesgo, NIVEL[Math.max(nivel(e), nivel(t))], `${e.id} -> ${c.especie}`);
+    assert.ok(NIVEL.indexOf(c.riesgo) >= NIVEL.indexOf(GRAV[sindromes.find((s) => s.id === t.sindrome).gravedad]), `${e.id} -> ${c.especie}`);
+  }
+  assert.ok(n > 20);
+});
+test('la senderuela y la platera frente a Clitocybe muscarínica son riesgo alto, no medio', () => {
+  for (const id of ['marasmius-oreades', 'infundibulicybe-geotropa', 'pleurotus-eryngii'])
+    assert.ok(porId[id].confusiones.filter((c) => c.especie.startsWith('clitocybe')).every((c) => c.riesgo === 'alto'), id);
+});
+test('los cortinarios naranjas y su síndrome son mortales (sección C del informe)', () => {
+  for (const id of ['cortinarius-orellanus', 'cortinarius-rubellus']) assert.equal(porId[id].categoria, 'mortal', id);
+  assert.equal(sindromes.find((s) => s.id === 'orellanico').gravedad, 'mortal');
+});
+test('galerina cubre los 12 meses e Inosperma incluye prado', () => {
+  assert.equal(porId['galerina-marginata'].temporada.meses.length, 12);
+  assert.ok(porId['inosperma-erubescens'].habitats.includes('prado'));
+});
+test('precauciones no lleva descripciones de hábitat', () => {
+  for (const e of especies) for (const p of e.precauciones) assert.doesNotMatch(p, /^(Crece|Sale|Coníferas|Frondosas|Tocones|Pinares)\b/, `${e.id}: ${p}`);
+});

@@ -837,8 +837,7 @@
       "valor": "mediocre o bueno",
       "precauciones": [
         "Pelar siempre la cutícula, que es laxante y puede dar diarrea.",
-        "Retirar los tubos en ejemplares maduros.",
-        "Solo S. luteus figura en la Parte A; S. granulatus no se cita en el RD."
+        "Retirar los tubos en ejemplares maduros."
       ],
       "confusiones": [],
       "sinConfusiones": "Ninguna peligrosa dentro del género [F2].",
@@ -864,7 +863,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Forma «alfombras» en otoño; a veces también en primavera (sin meses en la ficha)."
+        "Forma «alfombras» en otoño; a veces también en primavera (sin meses en la ficha).",
+        "Solo S. luteus figura en la Parte A; S. granulatus no se cita en el RD."
       ],
       "fotos": [],
       "fuentes": [
@@ -1095,9 +1095,7 @@
         "Látex naranja que pasa a rojo vinoso en minutos (L. semisanguifluus)."
       ],
       "valor": "bueno",
-      "precauciones": [
-        "Solo L. sanguifluus y L. semisanguifluus están en la Parte A; L. vinosus no se cita."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "lactarius-torminosus",
@@ -1128,7 +1126,8 @@
       "sinIndice": null,
       "notas": [
         "Exclusivamente micorrícicos de pinos. L. sanguifluus abunda bajo P. sylvestris entre 700 y 900 m y en pinares con jara. Muchos lo prefieren al deliciosus.",
-        "Zonas: [NO VERIFICADO por zonas concretas]."
+        "Zonas: [NO VERIFICADO por zonas concretas].",
+        "Solo L. sanguifluus y L. semisanguifluus están en la Parte A; L. vinosus no se cita."
       ],
       "fotos": [],
       "fuentes": [
@@ -1328,7 +1327,6 @@
       ],
       "valor": "excelente",
       "precauciones": [
-        "Especie termófila y poco frecuente.",
         "Recoger el ejemplar entero para ver la base del pie (volva)."
       ],
       "confusiones": [
@@ -1359,6 +1357,9 @@
         "fuente": "docs/investigacion/03-fructificacion-datos.md#14"
       },
       "sinIndice": null,
+      "notas": [
+        "Especie termófila y poco frecuente."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -1556,7 +1557,6 @@
       ],
       "valor": "excelente",
       "precauciones": [
-        "Se puede secar.",
         "En el Hayedo de Montejo está prohibido recolectar."
       ],
       "confusiones": [],
@@ -1583,7 +1583,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Crece en placas en robledales y hayedos húmedos."
+        "Crece en placas en robledales y hayedos húmedos.",
+        "Se puede secar."
       ],
       "fotos": [],
       "fuentes": [
@@ -2650,8 +2651,7 @@
       "valor": "bueno",
       "precauciones": [
         "Solo ejemplares jóvenes con las láminas aún no marrones.",
-        "Gran acumulador de cadmio.",
-        "Solo figura en la Parte B (cultivado) del RD 30/2009."
+        "Gran acumulador de cadmio."
       ],
       "confusiones": [
         {
@@ -2697,7 +2697,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "La ficha no da zonas: la presencia sale del hábitat [NO VERIFICADO]. Pastizales y campas, claros de pinares; primavera y otoño (meses convenidos)."
+        "La ficha no da zonas: la presencia sale del hábitat [NO VERIFICADO]. Pastizales y campas, claros de pinares; primavera y otoño (meses convenidos).",
+        "Solo figura en la Parte B (cultivado) del RD 30/2009."
       ],
       "fotos": [],
       "fuentes": [
@@ -2811,7 +2812,7 @@
       "confusiones": [
         {
           "especie": "inosperma-erubescens",
-          "riesgo": "mortal",
+          "riesgo": "alto",
           "diferencias": "Muscarínica y potencialmente mortal: sale en primavera y verano, sombrero cónico fibroso y manchas rojizas en sombrero, láminas y pie. Láminas pardas de adulto."
         },
         {
@@ -2962,22 +2963,22 @@
       "confusiones": [
         {
           "especie": "clitocybe-rivulosa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Muscarínica, Parte D: pequeña, blanquecina y de pie fino, en prados y bordes de caminos."
         },
         {
           "especie": "clitocybe-dealbata",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Muscarínica, Parte D: pequeña, blanquecina y de pie fino, en prados y bordes de caminos."
         },
         {
           "especie": "clitocybe-phyllophila",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Muscarínica, Parte D: pequeña, blanquecina y de pie fino, en prados y bordes de caminos."
         },
         {
           "especie": "clitocybe-candicans",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Muscarínica, Parte D: pequeña, blanquecina y de pie fino, en prados y bordes de caminos."
         }
       ],
@@ -3387,18 +3388,17 @@
       ],
       "valor": "bueno",
       "precauciones": [
-        "Solo los sombreros.",
-        "Crece en corros de brujas."
+        "Solo los sombreros."
       ],
       "confusiones": [
         {
           "especie": "clitocybe-rivulosa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "PELIGROSA (muscarínica, Parte D): comparte hábitat, es blanquecina con láminas decurrentes y apretadas y su pie no resiste la torsión. Aranzadi documenta intoxicaciones por esta confusión."
         },
         {
           "especie": "clitocybe-dealbata",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "PELIGROSA (muscarínica, Parte D): comparte hábitat, es blanquecina con láminas decurrentes y apretadas y su pie no resiste la torsión."
         }
       ],
@@ -3424,7 +3424,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Temporada «primavera y otoño»: meses convenidos (marzo–mayo y septiembre–noviembre)."
+        "Temporada «primavera y otoño»: meses convenidos (marzo–mayo y septiembre–noviembre).",
+        "Crece en corros de brujas."
       ],
       "fotos": [],
       "fuentes": [
@@ -3514,13 +3515,11 @@
         "Crece junto a un cardo."
       ],
       "valor": "excelente",
-      "precauciones": [
-        "Ligada a las raíces del cardo corredor (Eryngium campestre) y umbelíferas, en eriales, pastizales y cunetas."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "clitocybe-rivulosa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "PELIGROSA: más pequeña, blanquecina, frágil y no ligada a raíces."
         }
       ],
@@ -3546,7 +3545,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Zonas: parameras y pastos [NO VERIFICADO por zonas]. Otoño (octubre–noviembre) y a veces en primavera (sin meses en la ficha)."
+        "Zonas: parameras y pastos [NO VERIFICADO por zonas]. Otoño (octubre–noviembre) y a veces en primavera (sin meses en la ficha).",
+        "Ligada a las raíces del cardo corredor (Eryngium campestre) y umbelíferas, en eriales, pastizales y cunetas."
       ],
       "fotos": [],
       "fuentes": [
@@ -3948,7 +3948,6 @@
       ],
       "valor": "excelente",
       "precauciones": [
-        "Sale en invierno y principio de primavera, a menudo junto a la nieve que se funde y medio enterrada en la pinocha, en suelo silíceo.",
         "Sin riesgos mortales conocidos en esa época, aunque en primavera hay amanitas blancas: revisar la base."
       ],
       "confusiones": [
@@ -3987,7 +3986,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Zonas [NO VERIFICADO por zonas; especie conocida del Sistema Central y el Ibérico]. Desfase de la tabla 1.4 «—»: se usa el general de micorrícicos de §1.3 (7–21 días)."
+        "Zonas [NO VERIFICADO por zonas; especie conocida del Sistema Central y el Ibérico]. Desfase de la tabla 1.4 «—»: se usa el general de micorrícicos de §1.3 (7–21 días).",
+        "Sale en invierno y principio de primavera, a menudo junto a la nieve que se funde y medio enterrada en la pinocha, en suelo silíceo."
       ],
       "fotos": [],
       "fuentes": [
@@ -4061,8 +4061,7 @@
       ],
       "valor": "excelente",
       "precauciones": [
-        "Pelar la cutícula y raspar el pie.",
-        "Exclusiva de pinares calcáreos en otoño."
+        "Pelar la cutícula y raspar el pie."
       ],
       "confusiones": [],
       "confusionesMenores": [
@@ -4094,7 +4093,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Zonas [NO VERIFICADO por zonas]. Sin tóxicas graves conocidas en el género."
+        "Zonas [NO VERIFICADO por zonas]. Sin tóxicas graves conocidas en el género.",
+        "Exclusiva de pinares calcáreos en otoño."
       ],
       "fotos": [],
       "fuentes": [
@@ -4172,9 +4172,7 @@
         "Olor y sabor harinosos suaves."
       ],
       "valor": "excelente",
-      "precauciones": [
-        "Crece en pinares, en corros, a menudo medio enterrada. Aguanta bien las heladas."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "tricholoma-pardinum",
@@ -4221,7 +4219,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Muy apreciada en Soria."
+        "Muy apreciada en Soria.",
+        "Crece en pinares, en corros, a menudo medio enterrada. Aguanta bien las heladas."
       ],
       "fotos": [],
       "fuentes": [
@@ -4460,8 +4459,7 @@
       ],
       "valor": "limitado",
       "precauciones": [
-        "Ácida.",
-        "Crece sobre troncos vivos de roble y castaño."
+        "Ácida."
       ],
       "confusiones": [],
       "sinConfusiones": "Inconfundible [F2]. Es una buena especie para aprender.",
@@ -4486,6 +4484,9 @@
         "fuente": "docs/investigacion/03-fructificacion-datos.md#14"
       },
       "sinIndice": null,
+      "notas": [
+        "Crece sobre troncos vivos de roble y castaño."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -4564,10 +4565,7 @@
         "Masa globosa tipo coliflor o «esponja» crema, formada por lóbulos rizados."
       ],
       "valor": "bueno de joven",
-      "precauciones": [
-        "Crece en la base de troncos y tocones de coníferas, sobre todo pinos.",
-        "Parte B del RD 30/2009."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "ramaria-formosa",
@@ -4602,7 +4600,9 @@
       },
       "sinIndice": null,
       "notas": [
-        "Confusión con Sparassis sin riesgo: ninguna peligrosa."
+        "Confusión con Sparassis sin riesgo: ninguna peligrosa.",
+        "Crece en la base de troncos y tocones de coníferas, sobre todo pinos.",
+        "Parte B del RD 30/2009."
       ],
       "fotos": [],
       "fuentes": [
@@ -4708,8 +4708,7 @@
       "precauciones": [
         "TÓXICA CRUDA O POCO COCINADA.",
         "Hay un síndrome neurológico documentado por los centros antivenenos franceses: temblor, ataxia y trastornos visuales unas 12 h después de comer grandes cantidades o morillas poco cocinadas.",
-        "Cocinar bien, no comer en exceso y no probar crudas.",
-        "Según el RD 30/2009 (Parte C) solo se comercializa tras tratamiento."
+        "Cocinar bien, no comer en exceso y no probar crudas."
       ],
       "confusiones": [
         {
@@ -4740,7 +4739,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Primavera, en riberas (fresno, olmo, chopo), zonas quemadas, bosques, parques y jardines; también pinares quemados. Solo «chopera» entra en los hábitats de la lista del proyecto."
+        "Primavera, en riberas (fresno, olmo, chopo), zonas quemadas, bosques, parques y jardines; también pinares quemados. Solo «chopera» entra en los hábitats de la lista del proyecto.",
+        "Según el RD 30/2009 (Parte C) solo se comercializa tras tratamiento."
       ],
       "fotos": [],
       "fuentes": [
@@ -4895,7 +4895,10 @@
         "robledal-albar",
         "castanar",
         "hayedo",
-        "alcornocal"
+        "alcornocal",
+        "pinar-silvestre",
+        "pinar-negral",
+        "pinar-resinero"
       ],
       "altitud": null,
       "zonas": {
@@ -4918,6 +4921,12 @@
           "verificado": false
         },
         "gredos": {
+          "presencia": "orientativa",
+          "gbif": null,
+          "fuente": "docs/investigacion/02-especies.md#B1",
+          "verificado": false
+        },
+        "cuenca": {
           "presencia": "orientativa",
           "gbif": null,
           "fuente": "docs/investigacion/02-especies.md#B1",
@@ -5096,9 +5105,7 @@
         "Tiñe de amarillo con KOH."
       ],
       "valor": null,
-      "precauciones": [
-        "Primavera, pinares y caducifolios en suelos ácidos."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "agaricus-campestris",
@@ -5115,7 +5122,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Primavera: meses convenidos (marzo–mayo)."
+        "Primavera: meses convenidos (marzo–mayo).",
+        "Primavera, pinares y caducifolios en suelos ácidos."
       ],
       "fotos": [],
       "fuentes": [
@@ -5228,7 +5236,6 @@
       ],
       "valor": null,
       "precauciones": [
-        "Abril–junio, con Quercus mediterráneos (encina, melojo, alcornoque), más raramente castaño, haya o pino; suelos ácidos.",
         "Contenido en amatoxinas muy alto.",
         "En primavera hay riesgo de A. vidua bajo melojo o encina (Gredos, Montes de Toledo)."
       ],
@@ -5248,7 +5255,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Probable en Montes de Toledo, Tiétar y Gredos [NO VERIFICADO por zonas]."
+        "Probable en Montes de Toledo, Tiétar y Gredos [NO VERIFICADO por zonas].",
+        "Abril–junio, con Quercus mediterráneos (encina, melojo, alcornoque), más raramente castaño, haya o pino; suelos ácidos."
       ],
       "fotos": [],
       "fuentes": [
@@ -5341,9 +5349,7 @@
         "Olor rafanoide desagradable."
       ],
       "valor": null,
-      "precauciones": [
-        "Verano y otoño, frondosas en suelo ácido; rara."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "agaricus-campestris",
@@ -5355,7 +5361,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Temporada «verano y otoño»: meses convenidos."
+        "Temporada «verano y otoño»: meses convenidos.",
+        "Verano y otoño, frondosas en suelo ácido; rara."
       ],
       "fotos": [],
       "fuentes": [
@@ -5447,9 +5454,18 @@
       },
       "temporada": {
         "meses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
           9,
           10,
-          11
+          11,
+          12
         ],
         "tipo": "otono"
       },
@@ -5461,7 +5477,6 @@
       ],
       "valor": null,
       "precauciones": [
-        "Sobre madera o tocones de coníferas y frondosas; sobre todo en otoño, pero también en otras épocas.",
         "Regla: seta pequeña parda con anillo sobre madera: NUNCA."
       ],
       "confusiones": [
@@ -5479,6 +5494,10 @@
       "sindrome": "faloidiano",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Temporada: B1 dice «sobre todo en otoño, pero también en otras épocas»; se marcan los 12 meses para que ninguna interfaz la dé por fuera de temporada.",
+        "Sobre madera o tocones de coníferas y frondosas; sobre todo en otoño, pero también en otras épocas."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -5521,7 +5540,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "Jardines, zonas ruderales y bordes de senderos. Aumento reciente de casos en España.",
+        "Aumento reciente de casos en España.",
         "Lepiota sp. entera en la Parte D. Regla: ninguna lepiota menor de 10 cm."
       ],
       "confusiones": [
@@ -5534,6 +5553,9 @@
       "sindrome": "faloidiano",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Jardines, zonas ruderales y bordes de senderos."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -5729,7 +5751,7 @@
           "sare hiltzailea"
         ]
       },
-      "categoria": "toxica",
+      "categoria": "mortal",
       "rd30_2009": "D",
       "habitats": [
         "hayedo",
@@ -5793,14 +5815,16 @@
       ],
       "valor": null,
       "precauciones": [
-        "Frondosas (robles, castaños, hayas) en suelo ácido. Citada en hayedos del País Vasco.",
-        "En España se ha documentado al menos un caso mixto con A. phalloides.",
         "Cortinarius sp. figura entero en la Parte D. La app no debe aceptar ninguna seta con cortina y esporada herrumbre."
       ],
       "confusiones": [],
       "sindrome": "orellanico",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Frondosas (robles, castaños, hayas) en suelo ácido. Citada en hayedos del País Vasco.",
+        "En España se ha documentado al menos un caso mixto con A. phalloides."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -5835,7 +5859,7 @@
         "es": [],
         "eu": []
       },
-      "categoria": "toxica",
+      "categoria": "mortal",
       "rd30_2009": "D",
       "habitats": [
         "pinar-silvestre",
@@ -5902,13 +5926,15 @@
       ],
       "valor": null,
       "precauciones": [
-        "Coníferas húmedas y musgosas, sobre todo en el norte de Europa [NO VERIFICADO presencia en las zonas].",
         "Cortinarius sp. figura entero en la Parte D."
       ],
       "confusiones": [],
       "sindrome": "orellanico",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Coníferas húmedas y musgosas, sobre todo en el norte de Europa [NO VERIFICADO presencia en las zonas]."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -5988,19 +6014,20 @@
         "Anillo cremoso."
       ],
       "valor": null,
-      "precauciones": [
-        "Mediterránea, encinares y alcornocales calcáreos u otros [NO VERIFICADO por zonas]."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "amanita-ovoidea",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Se confunde con Amanita ovoidea (kukuma), que no se recomienda."
         }
       ],
       "sindrome": "proximal",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Mediterránea, encinares y alcornocales calcáreos u otros [NO VERIFICADO por zonas]."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -6047,7 +6074,7 @@
       "confusiones": [
         {
           "especie": "amanita-proxima",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Confusión con A. proxima (Parte D, renal aguda)."
         }
       ],
@@ -6149,9 +6176,8 @@
       ],
       "valor": null,
       "precauciones": [
-        "Coníferas, primavera, suelos arenosos. Puede ser mortal. El hervido no la hace segura.",
-        "Su venta está prohibida en España. Gyromitra sp. está en la Parte D.",
-        "Pinares de Guadarrama, Soria y Gredos en primavera, justo en época de colmenillas y marzuelos [NO VERIFICADO por zonas]."
+        "Puede ser mortal. El hervido no la hace segura.",
+        "Su venta está prohibida en España. Gyromitra sp. está en la Parte D."
       ],
       "confusiones": [
         {
@@ -6164,7 +6190,9 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Primavera: meses convenidos (marzo–mayo)."
+        "Primavera: meses convenidos (marzo–mayo).",
+        "Coníferas, primavera, suelos arenosos.",
+        "Pinares de Guadarrama, Soria y Gredos en primavera, justo en época de colmenillas y marzuelos [NO VERIFICADO por zonas]."
       ],
       "fotos": [],
       "fuentes": [
@@ -6477,7 +6505,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "Pinares arenosos (P. pinaster, P. pinea) en otoño. Parte D del RD 30/2009 y Orden SCO/3303/2006 (prohibición cautelar de comercializar). Regla: toda seta amarilla de pinar con láminas amarillas: NUNCA.",
+        "Parte D del RD 30/2009 y Orden SCO/3303/2006 (prohibición cautelar de comercializar). Regla: toda seta amarilla de pinar con láminas amarillas: NUNCA.",
         "Se describieron casos mortales en Francia (1992: 12 casos y 3 muertes)."
       ],
       "confusiones": [],
@@ -6485,7 +6513,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Otoño: meses convenidos (septiembre–noviembre)."
+        "Otoño: meses convenidos (septiembre–noviembre).",
+        "Pinares arenosos (P. pinaster, P. pinea) en otoño."
       ],
       "fotos": [],
       "fuentes": [
@@ -6677,7 +6706,6 @@
       ],
       "valor": null,
       "precauciones": [
-        "Coníferas y frondosas, sobre todo con abedul.",
         "Síndrome brusco en personas que ya lo han comido otras veces (sensibilización): puede ser mortal.",
         "Una «clásica» que la app no debe recomendar."
       ],
@@ -6685,6 +6713,9 @@
       "sindrome": "paxilico",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Coníferas y frondosas, sobre todo con abedul."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -6725,7 +6756,9 @@
         "hayedo",
         "melojar",
         "robledal-albar",
-        "castanar"
+        "castanar",
+        "prado",
+        "pastizal-montana"
       ],
       "altitud": null,
       "zonas": {
@@ -6790,13 +6823,13 @@
       ],
       "valor": null,
       "precauciones": [
-        "Primavera y verano, en frondosas y parques. Inocybe sp. está en la Parte D.",
+        "Inocybe sp. está en la Parte D.",
         "Muscarínica y potencialmente mortal (A22). Regla: seta blanca de primavera en prado que enrojece: NUNCA."
       ],
       "confusiones": [
         {
           "especie": "calocybe-gambosa",
-          "riesgo": "mortal",
+          "riesgo": "alto",
           "diferencias": "Se confunde con el perrechico."
         }
       ],
@@ -6804,7 +6837,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Primavera y verano: meses convenidos (marzo–agosto)."
+        "Primavera y verano: meses convenidos (marzo–agosto).",
+        "Primavera y verano, en frondosas y parques."
       ],
       "fotos": [],
       "fuentes": [
@@ -6873,17 +6907,17 @@
       "confusiones": [
         {
           "especie": "marasmius-oreades",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Comparten hábitat; el pie de la senderuela resiste la torsión."
         },
         {
           "especie": "pleurotus-eryngii",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "La seta de cardo está ligada a raíces de cardo."
         },
         {
           "especie": "infundibulicybe-geotropa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Son pequeñas, blanquecinas y de pie fino."
         }
       ],
@@ -6963,17 +6997,17 @@
       "confusiones": [
         {
           "especie": "marasmius-oreades",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Comparten hábitat; el pie de la senderuela resiste la torsión."
         },
         {
           "especie": "pleurotus-eryngii",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "La seta de cardo está ligada a raíces de cardo."
         },
         {
           "especie": "infundibulicybe-geotropa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Son pequeñas, blanquecinas y de pie fino."
         }
       ],
@@ -7056,17 +7090,17 @@
       "confusiones": [
         {
           "especie": "marasmius-oreades",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Comparten hábitat; el pie de la senderuela resiste la torsión."
         },
         {
           "especie": "pleurotus-eryngii",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "La seta de cardo está ligada a raíces de cardo."
         },
         {
           "especie": "infundibulicybe-geotropa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Son pequeñas, blanquecinas y de pie fino."
         }
       ],
@@ -7146,17 +7180,17 @@
       "confusiones": [
         {
           "especie": "marasmius-oreades",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Comparten hábitat; el pie de la senderuela resiste la torsión."
         },
         {
           "especie": "pleurotus-eryngii",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "La seta de cardo está ligada a raíces de cardo."
         },
         {
           "especie": "infundibulicybe-geotropa",
-          "riesgo": "medio",
+          "riesgo": "alto",
           "diferencias": "Son pequeñas, blanquecinas y de pie fino."
         }
       ],
@@ -7348,9 +7382,7 @@
         "Anillo liso."
       ],
       "valor": null,
-      "precauciones": [
-        "Coníferas y frondosas."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "amanita-rubescens",
@@ -7366,6 +7398,9 @@
       "sindrome": "panterinico",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Coníferas y frondosas."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -7507,13 +7542,14 @@
         "Amarilla pálida."
       ],
       "valor": null,
-      "precauciones": [
-        "Pinares; también en primavera."
-      ],
+      "precauciones": [],
       "confusiones": [],
       "sindrome": "panterinico",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Pinares; también en primavera."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -7610,7 +7646,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "Finales de verano y otoño, robledales. Según F2, causa gran parte de las intoxicaciones anuales."
+        "Según F2, causa gran parte de las intoxicaciones anuales."
       ],
       "confusiones": [
         {
@@ -7628,7 +7664,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Finales de verano y otoño: meses convenidos (agosto–noviembre)."
+        "Finales de verano y otoño: meses convenidos (agosto–noviembre).",
+        "Finales de verano y otoño, robledales."
       ],
       "fotos": [],
       "fuentes": [
@@ -7732,9 +7769,7 @@
         "En racimos sobre tocones."
       ],
       "valor": null,
-      "precauciones": [
-        "Tocones de olivo, roble, encina y haya; verano y otoño."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "cantharellus-cibarius",
@@ -7746,7 +7781,8 @@
       "indice": null,
       "sinIndice": null,
       "notas": [
-        "Verano y otoño: meses convenidos."
+        "Verano y otoño: meses convenidos.",
+        "Tocones de olivo, roble, encina y haya; verano y otoño."
       ],
       "fotos": [],
       "fuentes": [
@@ -7809,9 +7845,7 @@
         "Amarilleo vivo en la base del pie al rascar con la uña (base amarillo cromo)."
       ],
       "valor": null,
-      "precauciones": [
-        "Habitat no indicado en la ficha: se asume el del género (pastizales)."
-      ],
+      "precauciones": [],
       "confusiones": [
         {
           "especie": "agaricus-campestris",
@@ -7827,6 +7861,9 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Habitat no indicado en la ficha: se asume el del género (pastizales)."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -7912,7 +7949,6 @@
       ],
       "valor": null,
       "precauciones": [
-        "Frondosas termófilas en suelo calizo.",
         "Boleto con poros rojos o carne que azulea: no recomendado."
       ],
       "confusiones": [
@@ -7930,6 +7966,9 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Frondosas termófilas en suelo calizo."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -8150,7 +8189,7 @@
       ],
       "valor": null,
       "precauciones": [
-        "Gastroenteritis intensa. Más propia de frondosas y abetales de montaña calcárea [NO VERIFICADO presencia en zonas]."
+        "Gastroenteritis intensa."
       ],
       "confusiones": [
         {
@@ -8167,6 +8206,9 @@
       "sindrome": "gastrointestinal",
       "indice": null,
       "sinIndice": null,
+      "notas": [
+        "Más propia de frondosas y abetales de montaña calcárea [NO VERIFICADO presencia en zonas]."
+      ],
       "fotos": [],
       "fuentes": [
         {
@@ -9137,7 +9179,7 @@
       "id": "orellanico",
       "nombre": "Síndrome orellánico (orellanina): nefrotóxico",
       "latencia": "2–20 días (media de unos 8,5 días hasta el fallo renal)",
-      "gravedad": "grave",
+      "gravedad": "mortal",
       "texto": "Latencia muy larga. La insuficiencia renal pasa a crónica en cerca del 50 % de los casos. Si los síntomas empiezan más de 6 horas después de comer setas, es una urgencia grave aunque la persona se encuentre mejor.",
       "fuentes": [
         {

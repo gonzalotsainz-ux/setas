@@ -225,9 +225,9 @@
 - `temporada`: {meses: [1-12], tipo}. `tipo` es `otono`, `primavera` o `verano` (**lo comprueba el validador**); si el informe no da temporada, `meses: []` y `tipo: null`. Cuando el informe dice «primavera»/«otoño»/«verano y otoño» sin meses, se usan marzo–mayo, septiembre–noviembre, etc. (convención, anotada en `notas`).
 - `identificacion`: características diagnósticas
 - `valor`: calidad culinaria, texto del informe (`excelente`, `bueno`, `mediocre o bueno`, `limitado`…) o `null` en tóxicas. **Texto libre: no se comprueba.**
-- `precauciones`: advertencias especiales
+- `precauciones`: advertencias especiales (solo avisos; la interfaz las pinta como aviso. En `comestible-precaucion` y `no-recomendada`, `precauciones[0]` es el texto del banner rojo). Lo descriptivo (hábitat, cómo crece, situación legal) va en `notas`
 - `confusiones`: especies confundibles con ficha propia [{especie, riesgo, diferencias}]; `especie` debe ser el id de una ficha existente (**lo comprueba el validador**)
-  - `riesgo`: `bajo`, `medio` o `mortal` (**valores usados; no se comprueban**). Se asigna por la categoría más grave del par: `mortal` si alguna de las dos es `mortal`; `medio` si alguna es `toxica` o `no-recomendada`; `bajo` en otro caso (una confusión con *Tylopilus felleus*, amargo, se fuerza a `bajo`).
+  - `riesgo`: `bajo`, `medio`, `alto` o `mortal` (**valores usados; no se comprueban**, los fija `tests/especies-datos.test.js`). Es el peor de los dos de la pareja, donde cada especie vale: gravedad de su síndrome (`mortal`→`mortal`, `grave`→`alto`, `moderada`→`medio`, `leve`→`bajo`); sin síndrome, `toxica`/`no-recomendada`→`medio` y `comestible`→`bajo`. Excepción: *Tylopilus felleus* ↔ *B. edulis* se fuerza a `bajo` (amargo, sin síndrome).
 - `confusionesMenores` (opcional): confusiones que el informe cita sin ficha propia [{nombre, riesgo, diferencias}].
 - `sinConfusiones` (opcional): texto literal del informe cuando declara que no hay confusión peligrosa.
 - `notas` (opcional): avisos del informe sin campo propio, incluidos los `[NO VERIFICADO]`.
