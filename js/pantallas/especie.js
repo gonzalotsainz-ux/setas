@@ -1,8 +1,13 @@
-// Pantalla provisional: la sustituye su tarea correspondiente.
-export function pintar() {
-  const t = document.createElement('section');
-  t.className = 'tarjeta';
-  t.innerHTML = '<h2>Especie</h2><p class="texto-2">Disponible en la siguiente versión</p>';
-  t.style.marginTop = 'var(--esp-6)';
-  return t;
+// Pantalla «Especie»: ficha completa de #especie/<id>.
+import { fichaEspecie } from '../ui/ficha.js';
+import { el, icono } from '../ui/dom.js';
+
+export function pintar({ estado, param }) {
+  const e = estado.datos.porId[param];
+  if (!e) {
+    return el('section', { clase: 'tarjeta', attrs: { style: 'margin-top: var(--esp-6)' } },
+      el('h2', { texto: 'Especie no encontrada' }), el('p', { texto: 'No hay ninguna ficha con ese nombre.' }),
+      el('a', { clase: 'volver', href: '#especies' }, icono('i-atras'), 'Volver a Especies'));
+  }
+  return fichaEspecie(e, estado.datos);
 }

@@ -694,3 +694,75 @@
 .mapa-leyenda__item { display: flex; align-items: center; gap: var(--esp-3); font-size: var(--t-s); }
 .mapa-leyenda__muestra { width: 28px; height: 18px; flex: none; }
 .mapa-leyenda__punto { width: 16px; height: 16px; border-radius: 50%; flex: none; border: 2px solid var(--c-superficie); box-shadow: 0 0 0 1px var(--c-borde-fuerte); margin-inline: 6px; }
+
+/* ---------- Especies y seguridad ---------- */
+.cabecera__acciones { display: flex; align-items: center; gap: var(--esp-2); }
+.controles__fila { display: grid; grid-template-columns: 1fr auto; gap: var(--esp-3); align-items: end; }
+.campo input[type="search"] {
+  width: 100%; min-height: 48px; padding: 0 var(--esp-4); border-radius: 999px; border: 1.5px solid var(--c-borde-fuerte);
+  background: var(--c-superficie); color: var(--c-texto); font: inherit; font-size: var(--t-base);
+}
+
+.chip-cat, .chip-riesgo {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: var(--r-pildora);
+  font-size: var(--t-s); font-weight: 800; line-height: 1.3; letter-spacing: 0.01em;
+  background: var(--c-superficie-2); color: var(--c-texto-2);
+}
+.chip-cat .icono { width: 14px; height: 14px; }
+.chip-cat[data-categoria="comestible"], .chip-riesgo[data-riesgo="bajo"] { background: var(--c-acento-suave); color: var(--c-acento-fuerte); }
+.chip-cat[data-categoria="comestible-precaucion"], .chip-cat[data-categoria="no-recomendada"], .chip-riesgo[data-riesgo="medio"] { background: var(--c-ocre-suave); color: var(--c-ocre-texto); }
+.chip-cat[data-categoria="toxica"], .chip-riesgo[data-riesgo="alto"] { background: var(--c-peligro-suave); color: var(--c-peligro-fuerte); box-shadow: inset 0 0 0 1.5px var(--c-peligro); }
+.chip-cat[data-categoria="mortal"], .chip-riesgo[data-riesgo="mortal"] { background: var(--c-peligro); color: var(--c-sobre-peligro); text-transform: uppercase; }
+
+.especies-rejilla { margin: var(--esp-3) 0 0; padding: 0; list-style: none; display: grid; gap: var(--esp-3); }
+.especie-tarjeta {
+  display: grid; grid-template-columns: 88px 1fr; gap: var(--esp-3); align-items: center; min-height: 88px; padding: var(--esp-2);
+  border-radius: var(--r-m); background: var(--c-superficie); box-shadow: inset 0 0 0 1.5px var(--c-borde); color: inherit; text-decoration: none;
+}
+.especie-tarjeta--mortal { box-shadow: inset 0 0 0 2.5px var(--c-peligro); }
+.especie-tarjeta .foto__img, .especie-tarjeta__foto { width: 88px; height: 88px; border-radius: var(--r-s); object-fit: cover; background: var(--c-superficie-2); }
+.especie-tarjeta__foto--vacia { display: grid; place-items: center; text-align: center; color: var(--c-texto-2); }
+.especie-tarjeta__texto { display: grid; gap: 2px; justify-items: start; min-width: 0; }
+.especie-tarjeta__comun { font-family: var(--fuente-display); font-weight: 700; font-size: var(--t-m); line-height: 1.2; }
+.especie-tarjeta__latin { color: var(--c-texto-2); overflow-wrap: anywhere; }
+
+.ficha-seccion { display: grid; gap: var(--esp-3); }
+.ficha-seccion__titulo { font-size: var(--t-m); }
+.ficha-seccion h3 { font-size: var(--t-base); margin-bottom: var(--esp-1); }
+.ficha-cabecera { display: grid; gap: var(--esp-2); }
+.ficha-cientifico .latin { font-size: var(--t-l); }
+.ficha-lista, .seguridad-lista { margin: 0; padding-left: 1.3em; display: grid; gap: var(--esp-2); }
+.seguridad-lista--sin { list-style: none; padding-left: 0; }
+.ficha-lista li, .seguridad-lista li { overflow-wrap: anywhere; }
+.ficha-nota { display: block; }
+.ficha-pie { display: grid; gap: var(--esp-3); justify-items: start; padding: var(--esp-4); border-radius: var(--r-m); background: var(--c-superficie-2); }
+.etiquetas { display: flex; flex-wrap: wrap; gap: var(--esp-2); align-items: center; }
+.etiquetas .etiqueta { white-space: normal; }
+
+.galeria { display: flex; gap: var(--esp-3); margin-inline: calc(var(--esp-4) * -1); padding: 2px var(--esp-4); overflow-x: auto; scroll-snap-type: x mandatory; }
+.foto { flex: none; width: min(88%, 420px); margin: 0; scroll-snap-align: start; }
+.galeria .foto:only-child { width: 100%; }
+.foto__img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-m); background: var(--c-superficie-2); }
+.foto__credito { display: grid; gap: 2px; margin-top: var(--esp-2); color: var(--c-texto-2); overflow-wrap: anywhere; }
+.foto__taxon, .foto__nota { font-weight: 700; color: var(--c-texto); }
+.foto-vacia { padding: var(--esp-6) var(--esp-4); border-radius: var(--r-m); background: var(--c-superficie-2); text-align: center; font-weight: 600; }
+
+.meses { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin: 0 0 var(--esp-2); padding: 0; list-style: none; }
+.mes { display: grid; place-items: center; height: 30px; border-radius: 6px; background: var(--c-superficie-2); color: var(--c-texto-3); font-size: var(--t-xs); font-weight: 700; }
+.mes--si { background: var(--c-acento); color: var(--c-sobre-acento, #fff); }
+
+.confusiones-caja, .seguridad-telefonos { padding: var(--esp-5); }
+.confusiones-caja h2, .seguridad-telefonos h2 { font-size: var(--t-m); margin-bottom: var(--esp-3); color: var(--c-peligro-fuerte); }
+.confusiones { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-4); }
+.confusion { display: grid; grid-template-columns: 72px 1fr; gap: var(--esp-3); align-items: start; padding-top: var(--esp-4); border-top: 1px solid color-mix(in srgb, var(--c-peligro) 35%, transparent); }
+.confusion:first-child { padding-top: 0; border-top: 0; }
+.confusion--menor { grid-template-columns: 1fr; }
+.confusion__foto { width: 72px; height: 72px; border-radius: var(--r-s); object-fit: cover; background: var(--c-superficie-2); }
+.confusion__texto { display: grid; gap: var(--esp-2); min-width: 0; overflow-wrap: anywhere; }
+.confusion__nombre { font-weight: 700; }
+.confusion__nombre .latin { font-size: var(--t-m); }
+.confusion__enlace { font-weight: 700; min-height: 44px; display: inline-flex; align-items: center; }
+.confusiones__sub { margin: var(--esp-4) 0 var(--esp-2); font-size: var(--t-base); }
+.seguridad-lista--descarte { list-style: none; padding-left: 0; }
+.seguridad-lista--descarte li { padding-left: var(--esp-3); box-shadow: inset 3px 0 0 var(--c-peligro); }
+.seguridad-telefonos a { font-weight: 800; }
