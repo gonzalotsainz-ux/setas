@@ -121,6 +121,32 @@ function popupPunto(zona, punto, nota) {
   return raiz;
 }
 
+const FECHA_LARGA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+export const fechaLarga = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(iso ?? '') ? FECHA_LARGA.format(new Date(`${iso.slice(0, 10)}T00:00:00Z`)) : 'Sin fecha');
+
+function popupSalida(s, datos) {
+  const zona = datos?.zonas?.find((z) => z.id === s.zona_id);
+  const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: fechaLarga(s.fecha) }), el('p', { clase: 'texto-2 texto-s', texto: zona ? nombreCorto(zona) : s.zona_id }));
+  const especies = (s.especies ?? []).map((e) => {
+    const sp = datos?.porId?.[e.especie_id];
+    return el('li', {}, sp ? (sp.comunes?.es?.[0] ?? sp.nombre) : e.especie_id, e.kg != null && e.kg !== '' ? el('span', { clase: 'tabular', texto: ` · ${e.kg} kg` }) : null);
+  });
+  if (especies.length) raiz.append(el('ul', { clase: 'mapa-popup__normas' }, especies));
+  raiz.append(el('p', { clase: 'mapa-popup__acciones' }, el('a', { clase: 'boton boton--compacto', href: '#diario', texto: 'Ver en el diario' })));
+  return raiz;
+}
+
+// Un marcador (rombo) por salida con coordenadas, con su popup: fecha, especies y enlace al diario.
+export function pintarSalidas(capa, salidas, datos) {
+  const L = window.L;
+  capa.clearLayers();
+  for (const s of salidas) {
+    if (typeof s.lat !== 'number' || typeof s.lon !== 'number') continue;
+    const icono = L.divIcon({ className: '', html: '<span class="marcador-salida"></span>', iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -14] });
+    L.marker([s.lat, s.lon], { icon: icono, title: `Salida del ${fechaLarga(s.fecha)}`, keyboard: true }).bindPopup(() => popupSalida(s, datos), POPUP).addTo(capa);
+  }
+}
+
 // crearMapa(elemento, { capas, datos, meteo, umbrales, vista, base, onVista }) → { mapa, enfocarZona, capaSalidas, destruir }
 export async function crearMapa(elemento, opciones = {}) {
   const { capas = ['zonas', 'cotos', 'lluvia', 'salidas'], datos, meteo = null, umbrales = {}, vista = null, base = null, activas = null, onCambio = () => {} } = opciones;
@@ -142,7 +168,7 @@ export async function crearMapa(elemento, opciones = {}) {
   mapa.createPane(PANE_PUNTOS).style.zIndex = 450;    // y los puntos, sobre la lluvia
   const lluvia = L.layerGroup();
   const cotos = L.layerGroup();
-  const salidas = L.layerGroup();   // la rellena la tarea 17 (diario)
+  const salidas = L.layerGroup();   // la rellena la pantalla del mapa con pintarSalidas (diario)
   const normas = new Map((datos?.normativa ?? []).map((n) => [n.id, n]));
 
   for (const z of datos?.zonas ?? []) {
@@ -191,7 +217,7 @@ export async function crearMapa(elemento, opciones = {}) {
 
   // Control de capas
   const superpuestas = {};
-  const ofrecidas = { zonas: ['Zonas y puntos', zonas], cotos: ['Cotos y prohibiciones', cotos], lluvia: ['Lluvia de 26 días', lluvia] };
+  const ofrecidas = { zonas: ['Zonas y puntos', zonas], cotos: ['Cotos y prohibiciones', cotos], lluvia: ['Lluvia de 26 días', lluvia], salidas: ['Salidas del diario', salidas] };
   for (const c of capas) if (ofrecidas[c]) superpuestas[ofrecidas[c][0]] = ofrecidas[c][1];
   L.control.layers(bases, superpuestas, { collapsed: true }).addTo(mapa);
   const porNombre = Object.fromEntries(Object.entries(ofrecidas).map(([id, [n, g]]) => [id, g]));
@@ -200,7 +226,6 @@ export async function crearMapa(elemento, opciones = {}) {
     const por = activas ? activas.includes(c) : c !== 'lluvia';   // por defecto: zonas y cotos encendidas, lluvia apagada
     if (por) porNombre[c].addTo(mapa);
   }
-  if (capas.includes('salidas')) salidas.addTo(mapa);
 
   let iniciado = false;   // al encender la capa por defecto (al cargar la vista) no se pide nada
   mapa.on('overlayadd', (e) => { if (iniciado && e.layer === cotos) asegurarCotos(); });

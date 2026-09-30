@@ -797,3 +797,60 @@
 .seguridad-lista--descarte { list-style: none; padding-left: 0; }
 .seguridad-lista--descarte li { padding-left: var(--esp-3); box-shadow: inset 3px 0 0 var(--c-peligro); }
 .seguridad-telefonos a { font-weight: 800; }
+
+/* ---------- Diario ---------- */
+.diario [hidden], .hoja [hidden] { display: none !important; }
+.diario-cabeza { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-3); margin-top: var(--esp-6); }
+.diario-autor { display: flex; align-items: center; justify-content: space-between; gap: var(--esp-3); flex-wrap: wrap; }
+.diario-lista { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-4); }
+.diario-lista:empty { display: none; }
+.diario-salida { display: grid; gap: var(--esp-3); }
+.diario-salida__cabeza { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-3); }
+.diario-salida--pendiente { box-shadow: inset 4px 0 0 var(--c-ocre); }
+.diario-especies { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-1); }
+.diario-especies li { display: flex; justify-content: space-between; gap: var(--esp-3); font-weight: 600; }
+.diario-notas { white-space: pre-wrap; overflow-wrap: anywhere; }
+.diario-indice { display: flex; align-items: center; flex-wrap: wrap; gap: var(--esp-1) var(--esp-2); }
+.diario-fila { display: flex; flex-wrap: wrap; gap: var(--esp-2); align-items: center; }
+.boton--borrar { color: var(--c-peligro-fuerte); }
+.diario-miniaturas { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: var(--esp-2); }
+.diario-miniaturas li { position: relative; aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: var(--c-superficie-2); }
+.diario-miniaturas img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.diario-miniaturas a { display: block; width: 100%; height: 100%; }
+.diario-miniaturas__quitar {
+  position: absolute; top: 4px; right: 4px; width: 44px; height: 44px; border: 0; border-radius: var(--r-pildora);
+  background: rgb(0 0 0 / 0.6); color: #fff; font-size: 24px; line-height: 1; cursor: pointer;
+}
+
+/* Hoja con formulario */
+.velo { position: fixed; inset: 0; z-index: calc(var(--z-hoja) - 1); background: rgb(var(--c-sombra) / 0.45); }
+.velo--encima { z-index: calc(var(--z-hoja) + 1); }
+.hoja--encima { z-index: calc(var(--z-hoja) + 2); }
+.hoja__cabeza { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-3); margin-bottom: var(--esp-4); }
+.hoja__cuerpo { display: grid; gap: var(--esp-4); }
+.diario-form { display: grid; gap: var(--esp-5); }
+.diario-grupo { display: grid; gap: var(--esp-3); margin: 0; padding: 0; border: 0; min-width: 0; }
+.diario-grupo legend { padding: 0; margin-bottom: var(--esp-2); font-weight: 700; font-size: var(--t-base); }
+.campo input[type="text"], .campo input[type="date"], .campo input[type="number"], .diario-elegidas input[type="number"] {
+  width: 100%; min-height: 48px; padding: 0 var(--esp-4); border-radius: 999px; border: 1.5px solid var(--c-borde-fuerte);
+  background: var(--c-superficie); color: var(--c-texto); font: inherit; font-size: var(--t-base);
+}
+.campo textarea {
+  width: 100%; padding: var(--esp-3) var(--esp-4); border-radius: var(--r-m); border: 1.5px solid var(--c-borde-fuerte);
+  background: var(--c-superficie); color: var(--c-texto); font: inherit; font-size: var(--t-base); resize: vertical;
+}
+.campo label { font-weight: 600; }
+.autor-botones { display: grid; grid-template-columns: 1fr 1fr; gap: var(--esp-3); }
+.autor-boton { min-height: 72px; font-size: var(--t-l); }
+.diario-resultados, .diario-elegidas { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-2); }
+.diario-resultado {
+  display: flex; flex-direction: column; align-items: flex-start; width: 100%; min-height: 48px; padding: var(--esp-2) var(--esp-4);
+  border: 1.5px solid var(--c-borde); border-radius: var(--r-m); background: var(--c-superficie); text-align: left; cursor: pointer;
+}
+.diario-elegidas li { display: grid; grid-template-columns: 1fr 96px auto auto; gap: var(--esp-2); align-items: center; }
+.diario-elegidas__nombre { font-weight: 600; overflow-wrap: anywhere; }
+.mapa--elegir { height: 260px; margin-top: var(--esp-2); }
+.marcador-salida {
+  display: block; width: 20px; height: 20px; margin: 3px; transform: rotate(45deg); border-radius: 4px;
+  background: #b27a0e; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
+}

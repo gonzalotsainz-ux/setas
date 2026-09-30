@@ -48,7 +48,7 @@ estar muy desviada: en una prueba, un punto de Guadarrama cayó a 2.097 m.
   parecidas** con los rasgos que las distinguen.
 - **Diario.** Lista y alta de salidas: fecha, zona, punto en el mapa, especies y kilos, fotos y notas. La meteo y el
   índice de ese día se guardan solos junto a la salida.
-- **Ajustes.** Sesión, umbrales del índice por especie (editables, con su valor original y fuente) y créditos y licencias.
+- **Ajustes.** Nombre del dispositivo, umbrales del índice por especie (editables, con su valor original y fuente) y créditos y licencias.
 
 Siempre visible: botón de **Toxicología** (teléfono del Servicio de Información Toxicológica) y el aviso
 «Ante la duda, no la comas».

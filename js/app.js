@@ -4,7 +4,7 @@ import { obtenerMeteo } from './meteo.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
 
-export const estado = { datos: null, meteo: null, sesion: null };
+export const estado = { datos: null, meteo: null };
 const pantallas = {
   hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
@@ -63,3 +63,9 @@ try {
 }
 await pintar();
 refrescarMeteo();
+
+// Borradores del diario pendientes: se suben al cargar y, desde ahí, en los eventos online y visibilitychange.
+try {
+  const { colaBorradores } = await import('./diario.js');
+  if (colaBorradores().todos().length) (await import('./pantallas/diario.js')).iniciarSincronizacion();
+} catch { /* sin diario no se rompe la app */ }
