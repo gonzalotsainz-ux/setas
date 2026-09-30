@@ -213,18 +213,24 @@ terceros. Cada foto va con su crédito. Se prefieren observaciones de España.
 
 ## 8. Diario compartido (Supabase)
 
-- **Proyecto:** Supabase nuevo `setas`, en la cuenta de Gonzalo, plan gratuito.
-- **Acceso:** Supabase Auth con email y contraseña. Solo existen 2 cuentas y el registro público está desactivado.
+- **Proyecto:** Supabase `ctgedeunquvmcfqsufjj`, en la cuenta de Gonzalo, plan gratuito.
+- **Acceso: sin login, abierto por decisión de la usuaria (2026-09-30).** No se usa Supabase Auth. La clave
+  publicable va en el código y el rol `anon` puede leer y escribir el diario. **Consecuencia:** cualquiera que
+  conozca la URL de la web (y por tanto la clave publicable) puede leer, editar y borrar salidas, fotos y umbrales.
+  La usuaria asumió este riesgo tras ser advertida. El «autor» es solo un nombre que se elige en el dispositivo.
 - **Tablas:**
   - `salidas`: `id`, `fecha`, `zona_id`, `lat`, `lon`, `especies` (jsonb `[{especie_id, kg}]`), `notas`,
-    `meteo` (jsonb, foto fija de la serie de ese día), `indice` (jsonb), `autor` (uuid), `creado`.
+    `meteo` (jsonb, foto fija de la serie de ese día), `indice` (jsonb), `autor` (text), `creado`.
   - `fotos`: `id`, `salida_id`, `ruta`, `ancho`, `alto`, `creado`.
-  - `ajustes_umbrales`: `especie_id`, `parametros` (jsonb), `autor`, `actualizado`.
-- **RLS:** los usuarios autenticados leen y escriben todo; los anónimos, nada.
-- **Storage:** bucket privado `fotos`. En el móvil se reducen a un máximo de 1.600 px y JPEG de calidad 0,8, lo que
-  deja unos 300 KB por foto; en 1 GB caben más de 3.000. Se muestran con URL firmadas.
+  - `ajustes_umbrales`: `especie_id`, `parametros` (jsonb), `autor` (text), `actualizado`.
+  - `aemet_cache`: sin políticas; solo la Edge Function (service role) la toca.
+- **RLS:** activado en todas las tablas, con políticas explícitas que permiten todo a `anon` y `authenticated`
+  en `salidas`, `fotos` y `ajustes_umbrales`.
+- **Storage:** bucket `fotos` de lectura pública, con límite de 2 MB y solo `image/jpeg` y `image/webp`; `anon`
+  puede subir, cambiar y borrar (solo rutas `.jpg`, `.jpeg` o `.webp`). En el móvil se reducen a un máximo de
+  1.600 px y JPEG de calidad 0,8 (unos 300 KB por foto; en 1 GB caben más de 3.000). Se muestran con URL públicas.
 - **Edge Function `aemet`:** intermediario con caché (sección 4).
-- **Sin conexión o sin sesión:** el alta de salida se guarda en borrador local y se sube después, con aviso visible.
+- **Sin conexión:** el alta de salida se guarda en borrador local y se sube después, con aviso visible.
 
 ## 9. Arquitectura del código
 
