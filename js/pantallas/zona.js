@@ -81,6 +81,10 @@ function detallePunto(p) {
   return partes.length ? el('div', { clase: 'pila' }, partes) : null;
 }
 
+const LEJOS_KM = 20;   // a partir de aquí la estación «es lejana» y se avisa
+const lejana = (est) => est?.distanciaKm != null && est.distanciaKm > LEJOS_KM ? ` · estación lejana (${Math.round(est.distanciaKm)}${nbsp}km)` : '';
+const lugarEstacion = (est) => (est?.distanciaKm != null && est?.altitud != null ? ` (a ${est.distanciaKm.toLocaleString('es-ES')}${nbsp}km, ${miles(est.altitud)}${nbsp}m)` : '');
+
 // Origen de la cifra de 26 días: cuántos días vienen de la estación y cuántos del modelo.
 function origenLluvia(serie, meteo, zona, id) {
   const dias = serie.origenPrecip?.slice(serie.hoy - 25, serie.hoy + 1) ?? [];
@@ -89,9 +93,8 @@ function origenLluvia(serie, meteo, zona, id) {
     const idEstacion = deEstacion[0].slice('estacion:'.length);
     const est = meteo.contrastePuntos?.[id]?.estacion ?? zona.estacionesAemet?.find((e) => e.id === idEstacion);
     const nombre = est?.nombre ?? idEstacion;
-    const lugar = est?.distanciaKm != null && est?.altitud != null ? ` (a ${est.distanciaKm.toLocaleString('es-ES')}${nbsp}km, ${miles(est.altitud)}${nbsp}m)` : '';
     const resto = dias.length - deEstacion.length;
-    return `Estación AEMET ${nombre}${lugar}: ${deEstacion.length} días${resto ? ` de estación + ${resto} de modelo (AEMET publica con unos 3 días de retraso)` : ''}`;
+    return `Estación AEMET ${nombre}${lugarEstacion(est)}${lejana(est)}: ${deEstacion.length} días${resto ? ` de estación + ${resto} de modelo (AEMET publica con unos 3 días de retraso)` : ''}`;
   }
   const sinEstacion = meteo.contrastePuntos && zona.estacionesAemet?.length && !meteo.contrastePuntos[id];
   return `Modelo: Open-Meteo best_match · actualizado a las ${hora(meteo.hora)}${sinEstacion ? ' · ninguna estación AEMET cercana con datos suficientes' : ''}`;
@@ -152,7 +155,7 @@ function cajaContraste(zona, meteo, id) {
     el('div', { clase: 'desacuerdo__cabeza' }, icono('i-aviso'),
       el('div', {}, el('h2', { id: 'titulo-contraste', texto: 'Estación y modelo no coinciden' }),
         el('p', { clase: 'texto-2', texto: `Estación ${c.estacion.nombre}: ${Math.round(P26estacion)}${nbsp}mm · Modelo: ${Math.round(P26modelo)}${nbsp}mm` }))),
-    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasCubiertos} días medidos: estación ${Math.round(estacionCubierta)}${nbsp}mm, modelo ${Math.round(modeloCubierto)}${nbsp}mm. La estación está a ${c.estacion.distanciaKm.toLocaleString('es-ES')}${nbsp}km y ${miles(c.estacion.altitud)}${nbsp}m. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
+    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasCubiertos} días medidos: estación ${Math.round(estacionCubierta)}${nbsp}mm, modelo ${Math.round(modeloCubierto)}${nbsp}mm. Estación ${c.estacion.nombre ?? c.estacion.id}${lugarEstacion(c.estacion)}${lejana(c.estacion)}. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
     el('div', { clase: 'chips' }, boton));
 }
 

@@ -670,7 +670,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Lista comprobada en la primera pasada. Canencia: la ordenanza definitiva está en BOCM 01/02/2022 (ficha madrid-canencia).es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF); su texto y tasas no se han leído. Convenio: https://www.comunidad.madrid/node/58396."
+      "notas": "Lista comprobada en la primera pasada. Canencia: la ordenanza definitiva se publicó en el BOCM de 01/02/2022 y tiene su ficha (madrid-canencia); antes solo se había visto el anuncio de aprobación provisional (BOCM 14/09/2021, https://www.bocm.es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF). Convenio de Rascafría: https://www.comunidad.madrid/node/58396."
     },
     {
       "id": "madrid-rascafria",
@@ -997,7 +997,7 @@
         ]
       },
       "cupoKgDia": 5,
-      "horario": "Temporada del 15 de julio al 1 de julio del año siguiente (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "horario": "Permisos anuales (locales) desde la solicitud hasta el 31 de diciembre del mismo año; foráneos de 1 o 2 días consecutivos. Prohibido recoger de noche, desde la puesta del sol hasta el amanecer. La temporada «15 de julio a 1 de julio» de otras ordenanzas no consta en el texto de 2025. Caza en domingos y festivos del 8 de octubre a finales de febrero.",
       "prohibiciones": [
         "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
         "Recoger de noche (desde la puesta hasta la salida del sol)",
@@ -1006,7 +1006,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Modificación de 2025 leída en el BOCM el 30/09/2026 (tabla de permisos, artículo 5, montes 66-70 y aviso de caza). Historia: la ordenanza de 2021 (https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF) daba al foráneo 5 kg, 5 € el día y 100 € de temporada, y al vinculado 15 € de temporada con 10 kg; la modificación de 2025 no los recoge, así que se retiran hasta comprobar si siguen vigentes. La tabla de 2021 era ambigua en el permiso foráneo de dos días (7 o 10 €); la de 2025 lo aclara: 8 €. Nota anterior: La tabla de tasas leída el 30/09/2026 es ambigua para el permiso de dos días del foráneo (aparecen 7 y 10 en la misma fila), por eso no se ha transcrito."
+      "notas": "Modificación de 2025 leída en el BOCM el 30/09/2026 (tabla de permisos, artículo 5, montes 66-70, aviso de caza y prohibición de recoger de noche). Historia: la ordenanza de 2021 (https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF) daba al foráneo 5 kg, 5 € el día y 100 € de temporada, y al vinculado 15 € de temporada con 10 kg; la modificación de 2025 no los recoge, así que se retiran hasta comprobar si siguen vigentes. La tabla de 2021 era ambigua en el permiso foráneo de dos días (7 o 10 €); la de 2025 lo aclara: 8 €."
     },
     {
       "id": "madrid-soto-del-real",
@@ -1974,8 +1974,8 @@
       "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
       "vigente": true,
       "resumen": [
-        "Foráneo: solo permiso recreativo de 1 o 2 días, 10 kg por persona y día, 5 € (1 día) y 10 € (2 días).",
-        "Local recreativo 10 kg e intensivo 30 kg; vinculado recreativo 15 € de temporada.",
+        "Foráneo: solo permiso recreativo de 1 o 2 días, 10 kg por persona y día (texto de la ordenanza). Tasa 5 € (1 día) y 10 € (2 días) según una tabla ilegible: sin confirmar.",
+        "Local recreativo 10 kg e intensivo 30 kg (texto). Tasas de local y vinculado: sin confirmar (misma tabla).",
         "Ámbito: Montes de Utilidad Pública del Parque Nacional y demás montes catalogados de utilidad pública del término. Quedan excluidas las zonas del PRUG (Reserva y Uso Restringido A), donde recoger está prohibido.",
         "No cita números de MUP. Según el catálogo de la Comunidad de Madrid (IDEM), en el término figuran «Perímetro de Canencia» (MUP 72) y «La Solana y otros» (MUP 73)."
       ],
@@ -1988,32 +1988,36 @@
             "precio": 5,
             "cupoKgDia": 10,
             "anio": 2022,
-            "verificado": true,
-            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+            "nota": "Tabla de tasas del BOCM sin cabecera legible tras extraer el texto: las filas son «Local Recreativo 3», «Vinculado intensivo 100», «Vinculado recreativo 15 3 7» y «Foráneo recreativo 5 10». Se interpreta como importes por temporada (local y vinculado) y por uno o dos días (foráneo), lo que coincide con la nota de la Comunidad y con Rascafría, pero no se ha podido confirmar cuál es cuál."
           },
           {
             "nombre": "Foráneo recreativo, dos días",
             "precio": 10,
             "cupoKgDia": 10,
             "anio": 2022,
-            "verificado": true,
-            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+            "nota": "Tabla de tasas del BOCM sin cabecera legible tras extraer el texto: las filas son «Local Recreativo 3», «Vinculado intensivo 100», «Vinculado recreativo 15 3 7» y «Foráneo recreativo 5 10». Se interpreta como importes por temporada (local y vinculado) y por uno o dos días (foráneo), lo que coincide con la nota de la Comunidad y con Rascafría, pero no se ha podido confirmar cuál es cuál."
           },
           {
             "nombre": "Vinculado recreativo, temporada",
             "precio": 15,
             "cupoKgDia": 10,
             "anio": 2022,
-            "verificado": true,
-            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+            "nota": "Tabla de tasas del BOCM sin cabecera legible tras extraer el texto: las filas son «Local Recreativo 3», «Vinculado intensivo 100», «Vinculado recreativo 15 3 7» y «Foráneo recreativo 5 10». Se interpreta como importes por temporada (local y vinculado) y por uno o dos días (foráneo), lo que coincide con la nota de la Comunidad y con Rascafría, pero no se ha podido confirmar cuál es cuál."
           },
           {
             "nombre": "Local recreativo, temporada",
             "precio": 3,
             "cupoKgDia": 10,
             "anio": 2022,
-            "verificado": true,
-            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF"
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/02/01/BOCM-20220201-55.PDF",
+            "nota": "Tabla de tasas del BOCM sin cabecera legible tras extraer el texto: las filas son «Local Recreativo 3», «Vinculado intensivo 100», «Vinculado recreativo 15 3 7» y «Foráneo recreativo 5 10». Se interpreta como importes por temporada (local y vinculado) y por uno o dos días (foráneo), lo que coincide con la nota de la Comunidad y con Rascafría, pero no se ha podido confirmar cuál es cuál."
           }
         ]
       },
@@ -2028,7 +2032,7 @@
       "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Texto, cupos y tabla de tasas leídos en el BOCM el 30/09/2026. La tabla de tasas es una fila de columnas sin cabecera clara («Foráneo recreativo _ _ 5 10»); se interpreta como 5 € por un día y 10 € por dos, como en la nota de la Comunidad y en Rascafría. Hay bando de la temporada 2024 (https://canencia.es/ciudadanos/tablon-municipal/877-bando-temporada-de-recogida-de-setas-2024); teléfono del ayuntamiento 918 687 511."
+      "notas": "Texto de la ordenanza y cupos leídos en el BOCM el 30/09/2026. TARIFAS SIN CONFIRMAR: Tabla de tasas del BOCM sin cabecera legible tras extraer el texto: las filas son «Local Recreativo 3», «Vinculado intensivo 100», «Vinculado recreativo 15 3 7» y «Foráneo recreativo 5 10». Se interpreta como importes por temporada (local y vinculado) y por uno o dos días (foráneo), lo que coincide con la nota de la Comunidad y con Rascafría, pero no se ha podido confirmar cuál es cuál. Hay bando de la temporada 2024 (https://canencia.es/ciudadanos/tablon-municipal/877-bando-temporada-de-recogida-de-setas-2024); teléfono del ayuntamiento 918 687 511, que puede confirmar los precios."
     },
     {
       "id": "madrid-pedriza-san-blas",

@@ -42,15 +42,15 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 69,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 59,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A1"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 16,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 31,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "F7"
         },
@@ -380,8 +380,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 27,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 24,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A2"
         },
@@ -401,8 +401,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "cuenca": {
@@ -613,16 +613,16 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A3"
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 12,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -842,8 +842,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 31,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 38,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
         },
@@ -863,8 +863,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 17,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -1026,8 +1026,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 44,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 39,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
         },
@@ -1046,9 +1046,9 @@
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "cuenca": {
@@ -1187,16 +1187,16 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 33,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 30,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 31,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
@@ -1370,8 +1370,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 68,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 55,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
@@ -1391,8 +1391,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 21,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 41,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "toledo": {
@@ -1536,8 +1536,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 65,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 60,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
@@ -1564,8 +1564,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 19,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 42,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         }
       },
@@ -1823,7 +1823,7 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9",
@@ -1841,7 +1841,7 @@
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "nota": "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus"
         },
@@ -1989,8 +1989,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
         },
@@ -2010,8 +2010,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -2179,8 +2179,8 @@
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
         },
@@ -2194,7 +2194,7 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -2341,8 +2341,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
@@ -2355,8 +2355,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 11,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
@@ -2578,7 +2578,7 @@
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A13"
         },
@@ -2592,7 +2592,7 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -2824,13 +2824,13 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "gredos": {
@@ -2990,7 +2990,7 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
@@ -2998,7 +2998,7 @@
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
@@ -3212,16 +3212,16 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
@@ -3435,8 +3435,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
@@ -3457,9 +3457,9 @@
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "guadarrama": {
-          "presencia": "confirmada",
-          "gbif": 5,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "cuenca": {
@@ -3714,7 +3714,7 @@
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -3844,15 +3844,15 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 144,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 136,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 42,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 55,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
@@ -4117,15 +4117,15 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 5,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
@@ -4316,15 +4316,15 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 8,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
@@ -4520,7 +4520,7 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 11,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
@@ -4528,7 +4528,7 @@
         "sierra-norte": {
           "presencia": "confirmada",
           "gbif": 5,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
@@ -4870,13 +4870,13 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "gredos": {
@@ -5011,16 +5011,16 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 31,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 29,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24",
           "taxonGbif": "Lepista nuda"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 9,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24",
           "taxonGbif": "Lepista nuda"
@@ -5251,14 +5251,14 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 3,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "taxonGbif": "Lepista personata"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "taxonGbif": "Lepista personata"
         },
@@ -5394,15 +5394,15 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 97,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 75,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 19,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
@@ -5636,14 +5636,14 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 51,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 44,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 8,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "gredos": {
@@ -5858,15 +5858,15 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 19,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 21,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 29,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
@@ -6021,13 +6021,13 @@
         "guadarrama": {
           "presencia": "confirmada",
           "gbif": 8,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -6181,14 +6181,14 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 40,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 24,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 29,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "soria": {
@@ -6345,7 +6345,7 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 2,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
@@ -6369,7 +6369,7 @@
         "sierra-norte": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
@@ -6626,13 +6626,13 @@
         "guadarrama": {
           "presencia": "orientativa",
           "gbif": 1,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": 0,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "gredos": {
@@ -6757,8 +6757,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 22,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 20,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
         },
@@ -6785,8 +6785,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 5,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "guadalajara": {
@@ -6976,15 +6976,15 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 13,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
@@ -7156,15 +7156,15 @@
       "zonas": {
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 4,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 15,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 23,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
@@ -7314,8 +7314,8 @@
         },
         "guadarrama": {
           "presencia": "confirmada",
-          "gbif": 54,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 48,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-4.25+40.65%2C-3.7701+40.65%2C-3.7701+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A36"
         },
@@ -7335,8 +7335,8 @@
         },
         "sierra-norte": {
           "presencia": "confirmada",
-          "gbif": 7,
-          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-09-30"
         },
         "cuenca": {

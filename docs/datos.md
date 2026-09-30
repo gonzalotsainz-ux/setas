@@ -116,8 +116,13 @@
   `docs/investigacion/04e-sitios-sierra-madrid.md` (puertos y pueblos de Wikipedia) y se movieron a bosque denso. Sin punto en ningún polígono `prohibido`
   (lo fija `tests/puntos-madrid.test.js`). Morcuera cae en el Parque Nacional (Uso Restringido, subzona C) y Miraflores en el Parque Regional de la Cuenca Alta
   del Manzanares: ambos con `proteccion`. No hay punto en Navacerrada (Parque Nacional sin ordenanza) ni abedular de Canencia (nadie lo sitúa).
-  El bbox de `sierra-norte` se amplió a `[-3.8, 40.8, -3.3, 41.35]` para contener Canencia y Bustarviejo; los recuentos GBIF de `especies.json` se hicieron con el
-  bbox antiguo y no se han repetido.
+  Los bbox de `guadarrama` y `sierra-norte` se repartieron sin solaparse, cortando en lon -3,77: `guadarrama` [-4.25, 40.65, -3.7701, 41.05] y `sierra-norte`
+  [-3.77, 40.8, -3.3, 41.35], de modo que cada zona contiene todos sus puntos. El acotado SG-50004 (Berrocal de Huebra, lon -3,77 a -3,739) pasó de zona
+  `guadarrama` a `sierra-norte` porque cae entero en ésta. Quedan fuera de su bbox, por su tamaño o por cruzar el corte: SG-50005 y PMSG-50001 (ya lo estaban)
+  y la cola de 250 m de la URA-A `pnsg-ura-los-reajos-reajo-alto` (lon hasta -3,767), que no se puede meter sin volver a solapar los bbox. El recuento de GBIF de
+  esas dos zonas se repitió con los bbox nuevos (`node scripts/gbif-presencia.mjs --zona=guadarrama,sierra-norte`, 30/09/2026; 52 recuentos cambiaron, 4 cambiaron
+  de `presencia`: hydnum-repandum y amanita-caesarea bajan a orientativa en guadarrama, y en sierra-norte sube a confirmada imleria-badia, hydnum-repandum,
+  agaricus-campestris y collybia-personata); ninguna otra zona cambió. `--zona=` sin valor conocido aborta.
 - **Laguna de cobertura en Guadarrama**: no hay melojar de piedemonte verificado. El único melojar comprobado (`guadarrama-navas-melojar`) está a
   1472 m. En el piedemonte de Valsaín, IDECyL da rebollar a 1215 m (40.8684, -4.0332, Q. pyrenaica 55 % con pino silvestre 45 %) y 1104 m, pero la
   ortofoto muestra dehesa abierta junto a embalse, pista o urbanización, sin masa densa; se descartaron. Queda pendiente.

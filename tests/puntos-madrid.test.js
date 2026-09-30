@@ -36,3 +36,17 @@ test('Rascafría (3104Y) está en las zonas madrileñas y en la lista blanca; to
     assert.ok(estaciones.has(e.id), `${e.id} no está en la lista blanca de la función`);
   }
 });
+
+test('los bbox de las zonas no se solapan y guadarrama y sierra-norte contienen sus cotos pequeños', () => {
+  const cruza = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+  for (const [i, a] of zonas.entries()) for (const b of zonas.slice(i + 1)) assert.ok(!cruza(a.bbox, b.bbox), `${a.id} y ${b.id} se solapan`);
+  const ext = (g) => { const v = []; const r = (x) => (typeof x[0] === 'number' ? v.push(x) : x.forEach(r)); r(g.coordinates); return [Math.min(...v.map((p) => p[0])), Math.min(...v.map((p) => p[1])), Math.max(...v.map((p) => p[0])), Math.max(...v.map((p) => p[1]))]; };
+  // SG-50005 y PMSG-50001 son enormes y salen de cualquier bbox; pnsg-ura-los-reajos-reajo-alto asoma 250 m (conocido, ver docs/datos.md).
+  const conocidos = new Set(['SG-50005', 'PMSG-50001', 'pnsg-ura-los-reajos-reajo-alto']);
+  for (const f of cotos.features) {
+    const z = zonas.find((q) => q.id === f.properties.zona);
+    if (!z || !['guadarrama', 'sierra-norte'].includes(z.id) || conocidos.has(f.properties.id)) continue;
+    const e = ext(f.geometry);
+    assert.ok(e[0] >= z.bbox[0] && e[1] >= z.bbox[1] && e[2] <= z.bbox[2] && e[3] <= z.bbox[3], `${f.properties.id} fuera del bbox de ${z.id}`);
+  }
+});

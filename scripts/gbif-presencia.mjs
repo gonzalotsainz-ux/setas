@@ -2,7 +2,11 @@
 // ≥ 3 registros → confirmada; 1–2 → orientativa; 0 → orientativa si el hábitat encaja, si no sin-registros.
 // Solo se cuenta si GBIF devuelve coincidencia EXACTA a rango especie; si no, se registra y no se confirma nada.
 import { readFileSync, writeFileSync } from 'node:fs';
-const zonas = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas;
+const todas = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas;
+// --zona=id[,id] limita el recuento a esas zonas (las demás no se tocan: ni recuento ni fecha).
+const soloZonas = process.argv.find((a) => a.startsWith('--zona='))?.slice('--zona='.length).split(',').filter(Boolean);
+if (soloZonas) for (const id of soloZonas) if (!todas.some((z) => z.id === id)) { console.error(`zona desconocida: ${id}`); process.exit(1); }
+const zonas = soloZonas ? todas.filter((z) => soloZonas.includes(z.id)) : todas;
 const datos = JSON.parse(readFileSync('data/especies.json', 'utf8'));
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 const hoy = new Date().toISOString().slice(0, 10);
