@@ -842,3 +842,29 @@
   display: block; width: 20px; height: 20px; margin: 3px; transform: rotate(45deg); border-radius: 4px;
   background: #b27a0e; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
 }
+
+/* Ajustes */
+.ajustes { display: grid; gap: var(--esp-5); padding-top: var(--esp-5); }
+.ajustes-seccion { display: grid; gap: var(--esp-3); }
+.ajustes-linea { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-2); }
+.ajustes-autor { display: grid; gap: var(--esp-3); }
+.ajustes-botones { display: flex; flex-wrap: wrap; gap: var(--esp-2); }
+.ajustes-lista { display: grid; gap: var(--esp-2); }
+.ajustes-especie { border: 1.5px solid var(--c-borde); border-radius: var(--r-m); background: var(--c-superficie); padding: 0 var(--esp-4); }
+.ajustes-especie > summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--esp-2); min-height: 48px; cursor: pointer; }
+.ajustes-especie__nombre { font-weight: 700; }
+.ajustes-especie[open] { padding-bottom: var(--esp-4); }
+.ajustes-especie[open] > summary { margin-bottom: var(--esp-2); }
+.ajustes-umbral { display: grid; gap: var(--esp-3); margin-top: var(--esp-2); }
+.ajustes-campos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--esp-3); }
+.ajustes-origen, .ajustes-editado { margin: 0; font-size: var(--t-s); overflow-wrap: anywhere; }
+.ajustes-editado { font-weight: 600; color: var(--c-ocre-texto); }
+.ajustes-errores { margin: 0; padding-left: var(--esp-5); color: var(--c-peligro-fuerte); font-weight: 600; font-size: var(--t-s); }
+.ajustes-calib h3 { margin: 0 0 var(--esp-2); font-size: var(--t-base); }
+.ajustes-tabla { width: 100%; border-collapse: collapse; font-size: var(--t-s); }
+.ajustes-tabla th, .ajustes-tabla td { text-align: left; padding: var(--esp-2); border-bottom: 1px solid var(--c-borde); }
+.ajustes-creditos { margin: 0; padding-left: var(--esp-5); display: grid; gap: var(--esp-2); font-size: var(--t-s); overflow-wrap: anywhere; }
+.ajustes-creditos a { color: var(--c-acento-fuerte); }
+.ajustes-pie { text-align: center; font-size: var(--t-s); margin: 0; }
+.ajustes input[type="number"] { width: 100%; min-height: 48px; padding: 0 var(--esp-3); border-radius: 999px; border: 1.5px solid var(--c-borde-fuerte); background: var(--c-superficie); color: var(--c-texto); font: inherit; font-size: var(--t-base); }
+.ajustes [hidden] { display: none !important; }

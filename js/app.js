@@ -6,7 +6,7 @@ import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
 
 // meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida en estaciones AEMET donde la hay.
-export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null };
+export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null, umbrales: {} };
 const pantallas = {
   hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
@@ -87,6 +87,11 @@ try {
   error(document.getElementById('app'), 'No se han podido cargar los datos de la app', e.message);
   throw e;
 }
+// Umbrales editados (compartidos): sin red o con error, los de la investigación. No bloquea más de 4 s el arranque.
+try {
+  const [{ supabase }, { cargarUmbrales }] = await Promise.all([import('./supabase.js'), import('./umbrales.js')]);
+  estado.umbrales = await Promise.race([cargarUmbrales(supabase), new Promise((r) => setTimeout(() => r({}), 4000))]);
+} catch { estado.umbrales = {}; }
 await pintar();
 refrescarMeteo();
 
