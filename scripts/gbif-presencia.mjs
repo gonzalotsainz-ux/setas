@@ -27,9 +27,11 @@ for (const e of datos.especies.filter((x) => x.categoria.startsWith('comestible'
   const binomio = (t) => /^[A-Z][a-z]+ [a-z]+/.exec(t)?.[0];
   const candidatos = [...new Set([e.nombre, ...e.sinonimos].map(binomio).filter((t) => t && !/ spp$/.test(t)))];
   let m = {};
+  let taxonBuscado = null;
   for (const c of candidatos) {
     m = await clave(c);
     if (m.matchType === 'EXACT' && m.rank === 'SPECIES') {
+      if (c !== binomio(e.nombre)) taxonBuscado = c;
       if (c !== binomio(e.nombre)) raros.push(`${e.id}: se busca por el sinónimo ${c} -> ${m.scientificName}`);
       break;
     }
@@ -42,13 +44,15 @@ for (const e of datos.especies.filter((x) => x.categoria.startsWith('comestible'
   }
   if (m.status !== 'ACCEPTED') raros.push(`${e.id}: GBIF lo trata como ${m.status} -> ${m.species ?? m.scientificName}`);
   for (const z of zonas) {
-    const q = new URLSearchParams({ taxonKey: k, geometry: wkt(z.bbox), hasCoordinate: 'true', country: 'ES', limit: '0' });
-    const n = (await pedir(`https://api.gbif.org/v1/occurrence/search?${q}`)).count;
+    const q = new URLSearchParams({ taxonKey: k, geometry: wkt(z.bbox), hasCoordinate: 'true', occurrenceStatus: 'PRESENT', country: 'ES' });
+    const n = (await pedir(`https://api.gbif.org/v1/occurrence/search?${q}&limit=0`)).count;
     const encaja = e.habitats.some((h) => z.habitats.includes(h));
     const presencia = n >= 3 ? 'confirmada' : n > 0 || encaja ? 'orientativa' : 'sin-registros';
     const previo = e.zonas[z.id];
     if (presencia === 'sin-registros' && !previo) { await esperar(150); continue; }
     const nuevo = { ...previo, presencia, gbif: n, fuente: `https://www.gbif.org/occurrence/search?${q}`, consultado: hoy };
+    if (taxonBuscado) nuevo.taxonGbif = taxonBuscado; else delete nuevo.taxonGbif;
+    if (e.id === "lactarius-sanguifluus") nuevo.nota = "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus";
     if (previo?.fuente && !previo.fuente.startsWith('http')) nuevo.fuenteInvestigacion = previo.fuenteInvestigacion ?? previo.fuente;
     e.zonas[z.id] = nuevo;
     await esperar(150);

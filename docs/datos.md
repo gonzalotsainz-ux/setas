@@ -220,8 +220,11 @@
 - `altitud`: rango de altitud (min, max, verificado) o `null` si el informe no da rango. Los rangos del informe son orientativos (`verificado: false`).
 - `zonas`: presencia por zona {"zoneId": {presencia, gbif, fuente}}
   - `presencia`: confirmada|orientativa|sin-registros
-  - `gbif`: URL o null si sin registros GBIF
-  - `fuente`: referencia a fuente (id o URL)
+  - `gbif`: nº de registros GBIF con coordenadas (occurrenceStatus=PRESENT, country=ES) dentro del bbox de la zona; `null` si no se consultó
+  - `fuente`: URL de la búsqueda GBIF (sin `limit=0`); `consultado`: fecha de la consulta
+  - `fuenteInvestigacion`: fuente del informe previa a GBIF (id o ruta), si la había
+  - `taxonGbif`: taxón realmente buscado en GBIF, solo si difiere de `nombre` (p. ej. `Lepista nuda` para `Collybia nuda`, cuyo nombre aceptado actual aún no está en el backbone de GBIF)
+  - `nota`: aclaración del recuento (p. ej. cuando solo se cuenta un miembro de un grupo de especies)
 - `temporada`: {meses: [1-12], tipo}. `tipo` es `otono`, `primavera` o `verano` (**lo comprueba el validador**); si el informe no da temporada, `meses: []` y `tipo: null`. Cuando el informe dice «primavera»/«otoño»/«verano y otoño» sin meses, se usan marzo–mayo, septiembre–noviembre, etc. (convención, anotada en `notas`).
 - `identificacion`: características diagnósticas
 - `valor`: calidad culinaria, texto del informe (`excelente`, `bueno`, `mediocre o bueno`, `limitado`…) o `null` en tóxicas. **Texto libre: no se comprueba.**
