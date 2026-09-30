@@ -8,20 +8,23 @@ import { crearMapa, fechaLarga } from '../mapa.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { buscarEspecies } from './especies.js';
 import { reducirFoto, aDataUrl } from '../fotos.js';
-import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, totalKg, fotoFijaDelDia } from '../diario.js';
+import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto } from '../diario.js';
+import { almacenIndexedDB } from '../almacen-fotos.js';
 
-const MAX_FOTOS = 6;   // los borradores llevan las fotos en localStorage (~300 KB cada una)
+const MAX_FOTOS = 6;
 const cola = colaBorradores();
+const almacenFotos = almacenIndexedDB();   // las fotos de los borradores van a IndexedDB; en localStorage solo metadatos
 const nombreEspecie = (datos, id) => { const e = datos.porId[id]; return e ? comun(e) : id; };
 const nombreZona = (datos, id) => { const z = datos.zonas.find((x) => x.id === id); return z ? nombreCorto(z) : id; };
 const kgTexto = (n) => `${String(Math.round(n * 100) / 100).replace('.', ',')} kg`;
-const nuevaId = () => globalThis.crypto?.randomUUID?.() ?? `b${Date.now()}${Math.random().toString(16).slice(2)}`;
+const AVISO_SIN_ESPACIO = 'Sin espacio local: no cierres la app hasta que se suba.';
+const quitarFotosLocales = (b) => Promise.all((b.fotos ?? []).filter((f) => f.clave).map((f) => almacenFotos.borrar(f.clave).catch(() => {})));
 
 // ---------- Sincronización (carga, online, visibilitychange) ----------
 const avisarCambio = () => window.dispatchEvent(new CustomEvent('diario-cambio'));
 export async function sincronizarYa() {
   if (!cola.todos().length) return { subidas: 0, fallidas: 0 };
-  const r = await sincronizar({ cola, subir: (b) => crearSalida(b, { supabase, persistir: (x) => cola.anadir(x) }) });
+  const r = await sincronizar({ cola, subir: (b) => crearSalida(b, { supabase, persistir: (x) => cola.actualizar(x), almacenFotos }) });
   if (r.subidas) avisarCambio();
   return r;
 }
@@ -96,7 +99,9 @@ function hojaNuevaSalida({ estado, alGuardar }) {
   const hoja = abrirHoja('Nueva salida');
   let punto = null, mapaElegir = null, marcador = null;
   const especies = [];   // [{ especie_id, kg }]
-  const fotos = [];      // [{ dataUrl, ancho, alto }]
+  const fotos = [];      // [{ blob, dataUrl, ancho, alto }]
+  let hayAlmacen = false, preparando = 0, guardando = false;
+  almacenFotos.disponible().then((v) => { hayAlmacen = v; });
   hoja.alCerrar = () => { mapaElegir?.destruir(); mapaElegir = null; };
 
   const fecha = el('input', { type: 'date', id: 'sal-fecha', value: hoyMadrid(), max: hoyMadrid(), required: true });
@@ -170,17 +175,22 @@ function hojaNuevaSalida({ estado, alGuardar }) {
   const pintarMiniaturas = () => miniaturas.replaceChildren(...fotos.map((f, k) => el('li', {},
     el('img', { src: f.dataUrl, alt: `Foto ${k + 1} de la salida`, width: f.ancho, height: f.alto }),
     el('button', { type: 'button', clase: 'diario-miniaturas__quitar', attrs: { 'aria-label': `Quitar la foto ${k + 1}` }, onclick: () => { fotos.splice(k, 1); pintarMiniaturas(); } }, '×'))));
+  const actualizarBoton = () => { guardar.disabled = guardando || preparando > 0; };
   async function anadirFotos(archivos) {
-    for (const f of archivos) {
-      if (fotos.length >= MAX_FOTOS) { estadoFotos.textContent = `Máximo ${MAX_FOTOS} fotos por salida.`; break; }
-      estadoFotos.textContent = 'Preparando foto…';
-      try {
-        const r = await reducirFoto(f);
-        fotos.push({ dataUrl: await aDataUrl(r.blob), ancho: r.ancho, alto: r.alto });
-        estadoFotos.textContent = '';
-      } catch (e) { estadoFotos.textContent = `No se pudo preparar una foto: ${e.message}`; }
-    }
-    pintarMiniaturas();
+    preparando++; actualizarBoton();
+    try {
+      for (const f of archivos) {
+        if (fotos.length >= MAX_FOTOS) { estadoFotos.textContent = `Máximo ${MAX_FOTOS} fotos por salida.`; break; }
+        estadoFotos.textContent = 'Preparando foto…';
+        try {
+          const r = await reducirFoto(f);
+          const nueva = { blob: r.blob, dataUrl: await aDataUrl(r.blob), ancho: r.ancho, alto: r.alto };
+          if (!hayAlmacen && !cabeEnPresupuesto(fotos, nueva)) { estadoFotos.textContent = 'No caben más fotos en la memoria de este dispositivo.'; break; }
+          fotos.push(nueva);
+          estadoFotos.textContent = '';
+        } catch (e) { estadoFotos.textContent = `No se pudo preparar una foto: ${e.message}`; }
+      }
+    } finally { preparando--; actualizarBoton(); pintarMiniaturas(); }
   }
   const entrada = (capture) => {
     const i = el('input', { type: 'file', multiple: true, accept: 'image/*', hidden: true, attrs: capture ? { capture: 'environment' } : {} });
@@ -212,21 +222,32 @@ function hojaNuevaSalida({ estado, alGuardar }) {
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     if (!fecha.value || !zona.value) { estadoGuardar.textContent = 'Indica la fecha y la zona.'; (fecha.value ? zona : fecha).focus(); return; }
-    guardar.disabled = true;
+    if (guardando || preparando) return;
+    guardando = true; actualizarBoton();
     try {
       const autor = autorActual() ?? await preguntarAutor();
       if (!autor) { estadoGuardar.textContent = 'Di quién eres para guardar la salida.'; return; }
       const z = datos.zonas.find((x) => x.id === zona.value);
       const foto = fotoFijaDelDia({ zona: z, lat: punto?.lat, lon: punto?.lon, datos, meteo: estado.meteo, umbrales: estado.umbrales ?? {} });
+      const id = nuevaId();
+      let prep;
+      try { prep = await prepararFotosBorrador(id, fotos, { almacen: almacenFotos }); } catch (e) { estadoGuardar.textContent = e.message; return; }
       const borrador = {
-        id: nuevaId(), fecha: fecha.value, zona_id: zona.value, lat: punto?.lat ?? null, lon: punto?.lon ?? null,
+        id, fecha: fecha.value, zona_id: zona.value, lat: punto?.lat ?? null, lon: punto?.lon ?? null,
         especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor,
-        meteo: foto.meteo, indice: foto.indice, fotos: fotos.map((f) => ({ ...f })),
+        meteo: foto.meteo, indice: foto.indice, fotos: prep.fotos,
       };
-      cola.anadir(borrador);
-      hoja.cerrar();
+      const guardado = cola.anadir(borrador);
       alGuardar(borrador);
-    } catch (e) { estadoGuardar.textContent = `No se pudo guardar: ${e.message}`; } finally { guardar.disabled = false; }
+      if (guardado) { hoja.cerrar(); return; }
+      // No se pudo guardar en el móvil: el aviso se ve ANTES de cerrar la hoja
+      estadoGuardar.textContent = AVISO_SIN_ESPACIO;
+      estadoGuardar.className = 'texto-s aviso-peligro';
+      guardar.textContent = 'Entendido';
+      guardar.type = 'button';
+      guardar.onclick = () => hoja.cerrar();
+      return;
+    } catch (e) { estadoGuardar.textContent = `No se pudo guardar: ${e.message}`; } finally { guardando = false; actualizarBoton(); }
   });
   hoja.cuerpo.append(form);
 }
@@ -244,12 +265,25 @@ function listaEspecies(datos, especies) {
     e.kg != null && e.kg !== '' ? el('span', { clase: 'tabular', texto: kgTexto(Number(e.kg)) }) : null)));
 }
 
+// Miniaturas de un borrador: dataUrl en línea, o el blob guardado en IndexedDB (se carga después).
+function miniaturasPendientes(b) {
+  const fotos = b.fotos ?? [];
+  if (!fotos.length) return null;
+  return el('ul', { clase: 'diario-miniaturas diario-miniaturas--lista' }, fotos.map((f, k) => {
+    const img = el('img', { alt: `Foto ${k + 1} del borrador` });
+    if (f.dataUrl) img.src = f.dataUrl;
+    else almacenFotos.get(f.clave).then((bl) => { if (bl) { img.src = URL.createObjectURL(bl); img.onload = () => URL.revokeObjectURL(img.src); } }).catch(() => {});
+    return el('li', {}, img);
+  }));
+}
+
 function tarjetaPendiente(b, datos, { reintentar, descartar }) {
   return el('li', { clase: 'tarjeta diario-salida diario-salida--pendiente' },
     el('div', { clase: 'diario-salida__cabeza' }, el('h3', { texto: fechaLarga(b.fecha) }), el('span', { clase: 'etiqueta etiqueta--ocre', texto: 'Pendiente de subir' })),
     el('p', { clase: 'texto-2 texto-s', texto: `${nombreZona(datos, b.zona_id)} · ${b.fotos?.length ?? 0} foto${b.fotos?.length === 1 ? '' : 's'}${b.remotoId ? ' · subida a medias' : ''}` }),
     listaEspecies(datos, b.especies),
-    miniaturasDe((b.fotos ?? []).map((f) => ({ mini: f.dataUrl, grande: f.dataUrl })), 'Borrador'),
+    b.ultimoError ? el('p', { clase: 'texto-s', texto: `Último intento: ${b.ultimoError}` }) : null,
+    miniaturasPendientes(b),
     el('div', { clase: 'diario-fila' },
       el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Subir ahora', onclick: reintentar }),
       el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Descartar', onclick: () => { if (confirm('¿Descartar este borrador? No se ha subido y se perderá.')) descartar(); } })));
@@ -292,7 +326,7 @@ async function alGuardar(borrador) {
   viva?.pintarPendientes(); viva?.pintarAutor();
   await sincronizarYa();
   const sigue = cola.todos().some((b) => b.id === borrador.id);
-  if (!cola.persistente && sigue) mensaje('Sin espacio local: no cierres la app hasta que se suba.', { peligro: true });
+  if (!cola.persistente && sigue) mensaje(AVISO_SIN_ESPACIO, { peligro: true });
   else mensaje(sigue ? 'Guardada en el móvil; se subirá al recuperar conexión.' : 'Subida ✓');
   viva?.refrescar();
 }
@@ -331,10 +365,10 @@ export function pintar({ estado }) {
     const pend = cola.todos();
     listaPend.replaceChildren(...pend.map((b) => tarjetaPendiente(b, datos, {
       reintentar: async () => { const r = await subirPendientes(); mensaje(r.fallidas ? 'Sigue sin conexión: se subirá al recuperarla.' : 'Subida ✓'); },
-      descartar: () => { cola.quitar(b.id); pintarPendientes(); },
+      descartar: () => { cola.quitar(b.id); quitarFotosLocales(b); pintarPendientes(); },
     })));
     actualizarVacio();
-    if (!cola.persistente) mensaje('Sin espacio local: no cierres la app hasta que se suba.', { peligro: true });
+    if (!cola.persistente) mensaje(AVISO_SIN_ESPACIO, { peligro: true });
   }
   function pintarSalidas() {
     listaSal.replaceChildren(...(cache ?? []).map((s) => tarjetaSalida(s, datos, {

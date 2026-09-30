@@ -5,68 +5,128 @@ import { especiesDeZona } from './datos.js';
 
 const CLAVE = 'setas:borradores';
 const BUCKET = 'fotos';
-// Campos que solo existen en el móvil y no deben viajar a la tabla `salidas`.
-const LOCALES = ['id', 'fotos', 'remotoId', 'fotosSubidas'];
+// Columnas de `salidas` que viajan desde el borrador; lo demás (fotos, remotoId, ultimoError…) es solo del móvil.
+const COLUMNAS = ['fecha', 'zona_id', 'lat', 'lon', 'especies', 'notas', 'meteo', 'indice', 'autor'];
 
 function almacenPorDefecto() {
   try { return globalThis.localStorage ?? null; } catch { return null; }
 }
 
-// Cola persistente y a prueba de fallos del almacén: si localStorage no va (lleno, bloqueado), sigue en memoria
-// y `persistente` pasa a false para que la pantalla avise.
+// Cola de borradores en localStorage (solo metadatos; las fotos van a IndexedDB, ver prepararFotosBorrador).
+// A prueba de fallos del almacén: `persistente` es el resultado de la ÚLTIMA escritura, así que se recupera solo
+// en cuanto una escritura vuelve a funcionar. Mientras la última escritura falló, la verdad es la memoria
+// (el almacén tendría datos viejos que podrían resucitar). JSON corrupto no fija nada: se sigue con la memoria.
 export function colaBorradores(almacen = almacenPorDefecto()) {
   let memoria = [], persistente = true;
-  const leer = () => {
-    try { memoria = JSON.parse(almacen.getItem(CLAVE) ?? '[]'); } catch { persistente = false; }
+  const leerAlmacen = () => {
+    try { const v = JSON.parse(almacen.getItem(CLAVE) ?? '[]'); return Array.isArray(v) ? v : null; } catch { return null; }
+  };
+  const actual = () => {
+    if (!persistente) return memoria;
+    const l = leerAlmacen();
+    if (l) memoria = l;
     return memoria;
   };
-  const escribir = (l) => { memoria = l; try { almacen.setItem(CLAVE, JSON.stringify(l)); } catch { persistente = false; } };
-  leer();
+  const escribir = (l) => {
+    memoria = l;
+    try { almacen.setItem(CLAVE, JSON.stringify(l)); persistente = true; } catch { persistente = false; }
+    return persistente;
+  };
+  memoria = leerAlmacen() ?? [];
   return {
     get persistente() { return persistente; },
-    todos: () => (persistente ? leer() : memoria),
-    anadir: (b) => escribir([...(persistente ? leer() : memoria).filter((x) => x.id !== b.id), b]),
-    quitar: (id) => escribir((persistente ? leer() : memoria).filter((x) => x.id !== id)),
+    todos: () => actual(),
+    // devuelve si quedó guardado en el almacén (false = solo en memoria: hay que avisar)
+    anadir: (b) => escribir([...actual().filter((x) => x.id !== b.id), b]),
+    // solo reemplaza un borrador que sigue en la cola (otra pestaña pudo subirlo y quitarlo ya)
+    actualizar: (b) => { const l = actual(); return l.some((x) => x.id === b.id) ? escribir(l.map((x) => (x.id === b.id ? b : x))) : persistente; },
+    quitar: (id) => escribir(actual().filter((x) => x.id !== id)),
   };
 }
 
-// Una sola sincronización a la vez por cola: la carga, `online` y `visibilitychange` pueden coincidir y,
-// sin este cerrojo, subirían dos veces el mismo borrador.
+export const nuevaId = () => globalThis.crypto?.randomUUID?.()
+  ?? 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => { const r = Math.floor(Math.random() * 16); return (c === 'x' ? r : (r & 3) | 8).toString(16); });
+
+// Guarda las fotos de un borrador fuera de localStorage: en IndexedDB (clave `<idBorrador>/<n>`) si hay almacén;
+// si no, como dataUrl dentro del borrador con un presupuesto total (~3 MB) para no reventar la cuota.
+// Devuelve los metadatos que van en el borrador. Las fotos de entrada son { blob, dataUrl, ancho, alto }.
+export const PRESUPUESTO = 3_000_000;
+export async function prepararFotosBorrador(id, fotos, { almacen = null, presupuesto = PRESUPUESTO } = {}) {
+  if (almacen && await almacen.disponible().catch(() => false)) {
+    const puestas = [];
+    try {
+      for (const [k, f] of fotos.entries()) { const clave = `${id}/${k + 1}`; await almacen.put(clave, f.blob); puestas.push(clave); }
+      return { fotos: fotos.map((f, k) => ({ clave: `${id}/${k + 1}`, ancho: f.ancho, alto: f.alto })), enAlmacen: true };
+    } catch { await Promise.all(puestas.map((c) => almacen.borrar(c).catch(() => {}))); }
+  }
+  const total = fotos.reduce((t, f) => t + f.dataUrl.length, 0);
+  if (total > presupuesto) throw new Error('Las fotos no caben en la memoria de este dispositivo: quita alguna.');
+  return { fotos: fotos.map((f) => ({ dataUrl: f.dataUrl, ancho: f.ancho, alto: f.alto })), enAlmacen: false };
+}
+export const cabeEnPresupuesto = (fotos, nueva, presupuesto = PRESUPUESTO) => fotos.reduce((t, f) => t + f.dataUrl.length, 0) + nueva.dataUrl.length <= presupuesto;
+
+// Una sola sincronización a la vez: por cola (la carga, `online` y `visibilitychange` coinciden) y entre
+// pestañas (Web Locks, si hay). Un borrador añadido mientras se sube se sube en la misma tanda, y una llamada
+// que llega durante una tanda espera a que acabe y vuelve a mirar.
 const enCurso = new WeakMap();
 export function sincronizar({ cola, subir }) {
-  if (enCurso.has(cola)) return enCurso.get(cola);
-  const p = (async () => {
+  if (enCurso.has(cola)) return enCurso.get(cola).then(() => sincronizar({ cola, subir }));
+  const trabajo = async () => {
     let subidas = 0, fallidas = 0;
-    for (const b of cola.todos()) {
-      try { await subir(b); cola.quitar(b.id); subidas++; } catch { fallidas++; }   // sin red o 5xx: el borrador se queda
+    const vistos = new Set();
+    for (;;) {
+      const pendientes = cola.todos().filter((b) => !vistos.has(b.id));
+      if (!pendientes.length) break;
+      for (const b of pendientes) {
+        vistos.add(b.id);
+        try { await subir(b); cola.quitar(b.id); subidas++; } catch (e) {   // sin red o 5xx: el borrador se queda
+          fallidas++;
+          cola.actualizar?.({ ...b, ultimoError: String(e?.message ?? e).slice(0, 200) });
+        }
+      }
     }
     return { subidas, fallidas };
-  })().finally(() => enCurso.delete(cola));
+  };
+  const locks = globalThis.navigator?.locks;
+  const p = (locks?.request ? locks.request('setas-sync', trabajo) : trabajo()).finally(() => enCurso.delete(cola));
   enCurso.set(cola, p);
   return p;
 }
 
-// Idempotente: tras el insert guarda `remotoId` en el borrador (vía `persistir`) y, si ya existe, no vuelve a
-// insertar; las fotos ya subidas (`fotosSubidas`) tampoco se repiten.
-export async function crearSalida(b, { supabase, persistir }) {
+// Idempotente de verdad: el `id` del borrador (uuid) es la clave primaria de la salida y el alta ignora duplicados,
+// así que una respuesta perdida no crea una segunda salida. Tras el alta guarda `remotoId` (vía `persistir`) y las
+// fotos ya subidas (`fotosSubidas`) no se repiten; la fila de `fotos` se comprueba antes de insertarla.
+export async function crearSalida(b, { supabase, persistir, almacenFotos = null }) {
   const marcar = (cambios) => { Object.assign(b, cambios); persistir?.(b); };
   if (!b.remotoId) {
-    const fila = Object.fromEntries(Object.entries(b).filter(([k]) => !LOCALES.includes(k)));
-    const { data, error } = await supabase.from('salidas').insert(fila).select('id').single();
+    const fila = Object.fromEntries(Object.entries(b).filter(([k]) => COLUMNAS.includes(k)));
+    const { error } = await supabase.from('salidas').upsert({ ...fila, id: b.id }, { onConflict: 'id', ignoreDuplicates: true });
     if (error) throw error;
-    marcar({ remotoId: data.id });
+    marcar({ remotoId: b.id });
   }
   const fotos = b.fotos ?? [];
-  for (let k = b.fotosSubidas ?? 0; k < fotos.length; k++) {
-    const f = fotos[k];
-    const ruta = `${b.remotoId}/${k + 1}.jpg`;
-    const blob = await (await fetch(f.dataUrl)).blob();
-    const up = await supabase.storage.from(BUCKET).upload(ruta, blob, { contentType: 'image/jpeg', upsert: true });
-    if (up.error) throw up.error;
-    const ins = await supabase.from('fotos').insert({ salida_id: b.remotoId, ruta, ancho: f.ancho, alto: f.alto });
-    if (ins.error) throw ins.error;
-    marcar({ fotosSubidas: k + 1 });
+  if (fotos.length && (b.fotosSubidas ?? 0) < fotos.length) {
+    const previas = await supabase.from('fotos').select('ruta').eq('salida_id', b.remotoId);
+    if (previas.error) throw previas.error;
+    const hechas = new Set((previas.data ?? []).map((f) => f.ruta));
+    for (let k = b.fotosSubidas ?? 0; k < fotos.length; k++) {
+      const f = fotos[k];
+      const ruta = `${b.remotoId}/${k + 1}.jpg`;
+      let blob;
+      if (f.clave) {
+        blob = await almacenFotos?.get(f.clave);
+        if (!blob) throw new Error('Falta una foto guardada en el móvil');
+      } else blob = await (await fetch(f.dataUrl)).blob();
+      const up = await supabase.storage.from(BUCKET).upload(ruta, blob, { contentType: 'image/jpeg', upsert: true });
+      if (up.error) throw up.error;
+      if (!hechas.has(ruta)) {
+        const ins = await supabase.from('fotos').insert({ salida_id: b.remotoId, ruta, ancho: f.ancho, alto: f.alto });
+        if (ins.error) throw ins.error;
+      }
+      marcar({ fotosSubidas: k + 1 });
+    }
   }
+  for (const f of fotos) if (f.clave) await almacenFotos?.borrar(f.clave).catch(() => {});
   return b.remotoId;
 }
 

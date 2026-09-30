@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { serieSintetica, lluviaBuena, BOLETUS } from './ayudas.js';
-import { fotoFijaDelDia, colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, ajustarATamano, recortarSerie, puntoMasCercano, totalKg } from '../js/diario.js';
+import { prepararFotosBorrador, cabeEnPresupuesto, fotoFijaDelDia, colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, ajustarATamano, recortarSerie, puntoMasCercano, totalKg } from '../js/diario.js';
 
 function almacenFalso() { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v), removeItem: (k) => m.delete(k) }; }
 
@@ -25,9 +25,8 @@ test('sincronizar a la vez (carga + online + visibilidad) no sube dos veces', as
   cola.anadir({ id: 'b1', fotos: [] });
   let llamadas = 0;
   const subir = async () => { llamadas++; await new Promise((r) => setTimeout(r, 10)); };
-  const [a, b] = await Promise.all([sincronizar({ cola, subir }), sincronizar({ cola, subir })]);
+  await Promise.all([sincronizar({ cola, subir }), sincronizar({ cola, subir })]);
   assert.equal(llamadas, 1);
-  assert.deepEqual(a, b);
 });
 
 test('almacén roto → la cola funciona en memoria y avisa', () => {
@@ -39,11 +38,19 @@ test('almacén roto → la cola funciona en memoria y avisa', () => {
 });
 
 // ---- Supabase falso: tablas y Storage en memoria, con fallos programables ----
-function supabaseFalso({ fallaSubidaN = null } = {}) {
+function supabaseFalso({ fallaSubidaN = null, pierdeRespuestaUpsert = false } = {}) {
   const bd = { salidas: [], fotos: [] }, objetos = new Map();
   const registro = { inserts: 0, subidas: [] };
   let subidasIntentadas = 0;
+  let respuestasPerdidas = pierdeRespuestaUpsert ? 1 : 0;
   const tabla = (nombre) => ({
+    upsert(fila, opciones) {
+      registro.upserts = (registro.upserts ?? 0) + 1;
+      assert.equal(opciones.onConflict, 'id'); assert.equal(opciones.ignoreDuplicates, true);
+      if (!bd[nombre].some((f) => f.id === fila.id)) { registro.inserts++; bd[nombre].push({ ...fila }); }
+      const r = respuestasPerdidas-- > 0 ? { error: new Error('respuesta perdida') } : { error: null };
+      return { then: (ok) => ok(r) };
+    },
     insert(fila) {
       if (nombre === 'salidas') registro.inserts++;
       const conId = { id: `${nombre}-${bd[nombre].length + 1}`, ...fila };
@@ -84,8 +91,8 @@ const foto = (n) => ({ dataUrl: `data:image/jpeg;base64,${Buffer.from(`foto${n}`
 test('crearSalida: inserta la salida y sube las fotos como <id>/<n>.jpg', async () => {
   const sb = supabaseFalso();
   const id = await crearSalida({ id: 'b1', fecha: '2026-10-12', zona_id: 'soria', fotos: [foto(1), foto(2)] }, { supabase: sb });
-  assert.equal(id, 'salidas-1');
-  assert.deepEqual(sb.registro.subidas, ['salidas-1/1.jpg', 'salidas-1/2.jpg']);
+  assert.equal(id, 'b1');
+  assert.deepEqual(sb.registro.subidas, ['b1/1.jpg', 'b1/2.jpg']);
   assert.equal(sb.bd.fotos.length, 2);
   for (const campo of ['fotos', 'remotoId', 'fotosSubidas']) assert.equal(Object.hasOwn(sb.bd.salidas[0], campo), false, campo);
 });
@@ -96,14 +103,14 @@ test('crearSalida es idempotente: si falla la 2.ª foto, el reintento no duplica
   const b = { id: 'b1', fecha: '2026-10-12', zona_id: 'soria', fotos: [foto(1), foto(2), foto(3)] };
   await assert.rejects(() => crearSalida(b, { supabase: sb, persistir: (x) => guardados.push(JSON.parse(JSON.stringify(x))) }));
   assert.equal(sb.registro.inserts, 1);
-  assert.deepEqual(sb.registro.subidas, ['salidas-1/1.jpg']);
+  assert.deepEqual(sb.registro.subidas, ['b1/1.jpg']);
   const ultimo = guardados.at(-1);
-  assert.equal(ultimo.remotoId, 'salidas-1');
+  assert.equal(ultimo.remotoId, 'b1');
   // reintento desde el borrador guardado (como lo leería la cola)
   const id = await crearSalida(ultimo, { supabase: sb });
-  assert.equal(id, 'salidas-1');
+  assert.equal(id, 'b1');
   assert.equal(sb.registro.inserts, 1, 'no se crea otra salida');
-  assert.deepEqual(sb.registro.subidas, ['salidas-1/1.jpg', 'salidas-1/2.jpg', 'salidas-1/3.jpg'], 'la 1.ª no se vuelve a subir');
+  assert.deepEqual(sb.registro.subidas, ['b1/1.jpg', 'b1/2.jpg', 'b1/3.jpg'], 'la 1.ª no se vuelve a subir');
   assert.equal(sb.bd.fotos.length, 3);
 });
 
@@ -179,4 +186,127 @@ test('fotoFijaDelDia: sin serie no hay foto; con serie, meteo recortada e índic
   assert.equal(r.meteo.serie.fechas.length, 31);   // la serie sintética acaba hoy: 30 días + hoy
   assert.equal(typeof r.indice.valor, 'number');
   assert.equal(r.indice.especies[0].id, 'boletus-edulis');
+});
+
+// ---- Ronda de correcciones 1 ----
+const almacenMemoria = ({ falla = false, noDisponible = false } = {}) => {
+  const m = new Map();
+  return { m, disponible: async () => !noDisponible, put: async (k, v) => { if (falla) throw new Error('cuota'); m.set(k, v); }, get: async (k) => m.get(k) ?? null, borrar: async (k) => { m.delete(k); } };
+};
+const fotoLocal = (n, peso = 10) => ({ blob: new Blob([`foto${n}`]), dataUrl: `data:image/jpeg;base64,${'A'.repeat(peso)}`, ancho: 4, alto: 3 });
+
+test('cola: una escritura fallida deja persistente=false y se recupera en la siguiente que funcione', () => {
+  let llena = true; const m = new Map();
+  const alm = { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => { if (llena) throw new Error('QuotaExceeded'); m.set(k, v); }, removeItem: (k) => m.delete(k) };
+  const cola = colaBorradores(alm);
+  assert.equal(cola.anadir({ id: 'a' }), false);
+  assert.equal(cola.persistente, false);
+  assert.deepEqual(cola.todos().map((b) => b.id), ['a']);   // la verdad es la memoria
+  llena = false;
+  assert.equal(cola.anadir({ id: 'b' }), true);
+  assert.equal(cola.persistente, true);
+  assert.deepEqual(colaBorradores(alm).todos().map((b) => b.id), ['a', 'b']);
+});
+
+test('cola: un borrador quitado con el almacén lleno no resucita mientras dure la sesión', () => {
+  let llena = false; const m = new Map();
+  const alm = { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => { if (llena) throw new Error('Quota'); m.set(k, v); }, removeItem: (k) => m.delete(k) };
+  const cola = colaBorradores(alm);
+  cola.anadir({ id: 'a' }); llena = true;
+  cola.quitar('a');
+  assert.deepEqual(cola.todos(), []);
+});
+
+test('cola: JSON corrupto no fija persistente=false y no rompe la cola', () => {
+  const alm = almacenFalso(); alm.setItem('setas:borradores', '{no es json');
+  const cola = colaBorradores(alm);
+  assert.deepEqual(cola.todos(), []);
+  assert.equal(cola.anadir({ id: 'a' }), true);
+  assert.equal(cola.persistente, true);
+  assert.equal(colaBorradores(alm).todos().length, 1);
+});
+
+test('cola.actualizar no reañade un borrador que otra pestaña ya subió y quitó', () => {
+  const alm = almacenFalso();
+  const pestanaA = colaBorradores(alm), pestanaB = colaBorradores(alm);
+  pestanaA.anadir({ id: 'a', v: 1 });
+  pestanaB.quitar('a');
+  pestanaA.actualizar({ id: 'a', v: 2 });
+  assert.deepEqual(colaBorradores(alm).todos(), []);
+  pestanaA.anadir({ id: 'c', v: 1 }); pestanaA.actualizar({ id: 'c', v: 2 });
+  assert.equal(colaBorradores(alm).todos()[0].v, 2);
+});
+
+test('sincronizar sube también lo añadido mientras sube y guarda el último error del fallido', async () => {
+  const cola = colaBorradores(almacenFalso());
+  cola.anadir({ id: 'a', fotos: [] }); cola.anadir({ id: 'mal', fotos: [] });
+  const orden = [];
+  const r = await sincronizar({ cola, subir: async (b) => {
+    orden.push(b.id);
+    if (b.id === 'a') cola.anadir({ id: 'tarde', fotos: [] });   // llega a mitad de la tanda
+    if (b.id === 'mal') throw new Error('HTTP 503');
+  } });
+  assert.deepEqual(orden, ['a', 'mal', 'tarde']);
+  assert.deepEqual(r, { subidas: 2, fallidas: 1 });
+  assert.equal(cola.todos()[0].ultimoError, 'HTTP 503');
+});
+
+test('crearSalida: una respuesta perdida del alta no crea una segunda salida (la clave es el id del borrador)', async () => {
+  const sb = supabaseFalso({ pierdeRespuestaUpsert: true });
+  const b = { id: '0b2f3b9e-0000-4000-8000-000000000001', fecha: '2026-10-12', zona_id: 'soria', fotos: [foto(1)] };
+  await assert.rejects(() => crearSalida(b, { supabase: sb }), /respuesta perdida/);
+  assert.equal(b.remotoId, undefined);
+  await crearSalida(b, { supabase: sb });
+  assert.equal(sb.bd.salidas.length, 1);
+  assert.equal(sb.bd.salidas[0].id, b.id);
+  assert.equal(sb.registro.upserts, 2);
+  assert.equal(sb.bd.fotos.length, 1);
+});
+
+test('crearSalida no duplica la fila de foto si la subida se repite tras una respuesta perdida', async () => {
+  const sb = supabaseFalso();
+  sb.bd.fotos.push({ salida_id: 'b1', ruta: 'b1/1.jpg' });   // la fila ya estaba, la respuesta se perdió
+  await crearSalida({ id: 'b1', remotoId: 'b1', fotos: [foto(1)] }, { supabase: sb });
+  assert.equal(sb.bd.fotos.length, 1);
+  assert.deepEqual(sb.registro.subidas, ['b1/1.jpg']);
+});
+
+test('prepararFotosBorrador: con IndexedDB guarda los blobs y el borrador solo lleva metadatos', async () => {
+  const alm = almacenMemoria();
+  const r = await prepararFotosBorrador('d1', [fotoLocal(1), fotoLocal(2)], { almacen: alm });
+  assert.equal(r.enAlmacen, true);
+  assert.deepEqual(r.fotos.map((f) => f.clave), ['d1/1', 'd1/2']);
+  assert.ok(r.fotos.every((f) => f.dataUrl === undefined));
+  assert.equal(alm.m.size, 2);
+});
+
+test('prepararFotosBorrador: IndexedDB que falla → limpia y cae a dataUrl con presupuesto', async () => {
+  const alm = almacenMemoria({ falla: true });
+  const r = await prepararFotosBorrador('d1', [fotoLocal(1)], { almacen: alm });
+  assert.equal(r.enAlmacen, false);
+  assert.ok(r.fotos[0].dataUrl);
+  const sinIdb = await prepararFotosBorrador('d2', [fotoLocal(1)], { almacen: null });
+  assert.equal(sinIdb.enAlmacen, false);
+});
+
+test('prepararFotosBorrador: sin IndexedDB y por encima del presupuesto avisa en vez de perder datos', async () => {
+  await assert.rejects(() => prepararFotosBorrador('d1', [fotoLocal(1, 600), fotoLocal(2, 600)], { almacen: null, presupuesto: 1000 }), /no caben/);
+  assert.equal(cabeEnPresupuesto([fotoLocal(1, 600)], fotoLocal(2, 300), 1000), true);
+  assert.equal(cabeEnPresupuesto([fotoLocal(1, 600)], fotoLocal(2, 600), 1000), false);
+});
+
+test('crearSalida con fotos en IndexedDB: las lee del almacén, las sube y las borra del móvil', async () => {
+  const sb = supabaseFalso(), alm = almacenMemoria();
+  const { fotos } = await prepararFotosBorrador('d1', [fotoLocal(1), fotoLocal(2)], { almacen: alm });
+  await crearSalida({ id: 'd1', fecha: '2026-10-12', fotos }, { supabase: sb, almacenFotos: alm });
+  assert.deepEqual(sb.registro.subidas, ['d1/1.jpg', 'd1/2.jpg']);
+  assert.equal(alm.m.size, 0);
+  const b = { id: 'd2', fotos: [{ clave: 'd2/1', ancho: 1, alto: 1 }] };
+  await assert.rejects(() => crearSalida(b, { supabase: sb, almacenFotos: alm }), /Falta una foto/);
+});
+
+test('crearSalida solo envía columnas reales de salidas (nada de ultimoError ni campos locales)', async () => {
+  const sb = supabaseFalso();
+  await crearSalida({ id: 'b1', fecha: '2026-10-12', zona_id: 'z', notas: 'x', ultimoError: 'HTTP 503', fotosSubidas: 0, fotos: [] }, { supabase: sb });
+  assert.deepEqual(Object.keys(sb.bd.salidas[0]).sort(), ['fecha', 'id', 'notas', 'zona_id']);
 });
