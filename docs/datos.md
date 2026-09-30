@@ -247,8 +247,10 @@
   - `analogo`: id de la especie cuyos parámetros térmicos y de lluvia se copian (`null` si la especie tiene fila propia); la temporada nunca se copia
   - `fuente`: referencia a investigación
 - `sinIndice`: motivo de no llevar índice (hipogeo, etc.)
-- `fotos`: fotografías [{archivo, autor, licencia, url}]
+- `fotos`: fotografías [{archivo, autor, licencia, url, taxonFoto?, nota?}]
   - `licencia`: CC0, PD, CC BY, CC BY-SA (sin NC ni ND)
+  - `taxonFoto` (opcional): taxón realmente fotografiado cuando no coincide con `nombre` de la ficha (fichas de género, sinónimos). La interfaz debe mostrarlo junto a la foto. Ej.: morchella → "Morchella esculenta"; tricholoma-flavovirens → "Tricholoma equestre (mismo taxón en iNaturalist)" (comparte archivo con tricholoma-equestre).
+  - `nota` (opcional): aviso libre sobre la foto.
 - `fuentes`: referencias bibliográficas [{id, url, titulo, consultado}] (**url y consultado obligatorios**). `urlVerificada: false` marca las fichas de Fungipedia que no existen con el patrón de URL del informe (comprobado el 2026-09-30; el informe las cita igualmente).
 - `zonas[id].verificado`: `false` si el informe marca la presencia en esa zona como `[NO VERIFICADO]` o si sale solo del hábitat; `presencia` es siempre `orientativa` hasta confirmarla con GBIF (tarea 7).
 

@@ -356,7 +356,7 @@
         },
         {
           "archivo": "img/especies/boletus-pinophilus-3.webp",
-          "autor": "no rights reserved",
+          "autor": "Ametsak",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/186405286"
         }
@@ -530,7 +530,7 @@
         },
         {
           "archivo": "img/especies/boletus-aereus-2.webp",
-          "autor": "no rights reserved",
+          "autor": "Eloi Iglesias",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/341434656"
         },
@@ -687,7 +687,7 @@
       "fotos": [
         {
           "archivo": "img/especies/boletus-reticulatus-1.webp",
-          "autor": "no rights reserved",
+          "autor": "Lucinda Costello",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/148253348"
         },
@@ -1528,7 +1528,7 @@
       "fotos": [
         {
           "archivo": "img/especies/lactarius-sanguifluus-1.webp",
-          "autor": "no rights reserved",
+          "autor": "Eloi Iglesias",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/340569314"
         }
@@ -2864,9 +2864,9 @@
         },
         {
           "archivo": "img/especies/amanita-caesarea-2.webp",
-          "autor": "no rights reserved",
-          "licencia": "CC0",
-          "url": "https://www.inaturalist.org/observations/171738886"
+          "autor": "(c) Pere Barnola, some rights reserved (CC BY-SA)",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://www.inaturalist.org/observations/245905155"
         }
       ],
       "fuentes": [
@@ -4964,7 +4964,7 @@
       "fotos": [
         {
           "archivo": "img/especies/cyclocybe-cylindracea-1.webp",
-          "autor": "no rights reserved",
+          "autor": "Cristina Gimeno Lozano",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/248734232"
         },
@@ -5131,7 +5131,7 @@
         },
         {
           "archivo": "img/especies/coprinus-comatus-3.webp",
-          "autor": "no rights reserved",
+          "autor": "José Antonio León Mangado",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/62490229"
         }
@@ -6251,7 +6251,8 @@
           "archivo": "img/especies/morchella-1.webp",
           "autor": "(c) Nico Hernandez, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/113861785"
+          "url": "https://www.inaturalist.org/observations/113861785",
+          "taxonFoto": "Morchella esculenta"
         }
       ],
       "fuentes": [
@@ -6947,9 +6948,15 @@
       "fotos": [
         {
           "archivo": "img/especies/amanita-virosa-1.webp",
-          "autor": "Cephas",
+          "autor": "Jerzy Opioła",
           "licencia": "CC BY-SA 4.0",
-          "url": "https://commons.wikimedia.org/wiki/File:Amanita_virosa_UL_01.jpg"
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_virosa_a1_(7).JPG"
+        },
+        {
+          "archivo": "img/especies/amanita-virosa-2.webp",
+          "autor": "Jose Angel Urquia Goitia",
+          "licencia": "CC BY-SA 4.0",
+          "url": "https://commons.wikimedia.org/wiki/File:Amanita_virosa_albotik.jpg"
         }
       ],
       "fuentes": [
@@ -7159,12 +7166,6 @@
         },
         {
           "archivo": "img/especies/lepiota-brunneoincarnata-2.webp",
-          "autor": "This image was created by user Murselin Guney (Beyrek) at Mushroom Observer, a source for mycological images.You can contact this user here.",
-          "licencia": "CC BY-SA 3.0",
-          "url": "https://commons.wikimedia.org/wiki/File:2015-10-11_Lepiota_brunneoincarnata_Chodat_%26_C._Mart%C3%ADn_564314.jpg"
-        },
-        {
-          "archivo": "img/especies/lepiota-brunneoincarnata-3.webp",
           "autor": "Strobilomyces",
           "licencia": "CC BY-SA 4.0",
           "url": "https://commons.wikimedia.org/wiki/File:Lepiota_brunneoincarnata_170929w.JPG"
@@ -8336,10 +8337,11 @@
       "sinIndice": null,
       "fotos": [
         {
-          "archivo": "img/especies/tricholoma-flavovirens-1.webp",
+          "archivo": "img/especies/tricholoma-equestre-1.webp",
           "autor": "(c) Jose Castro, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/99968495"
+          "url": "https://www.inaturalist.org/observations/99968495",
+          "taxonFoto": "Tricholoma equestre (mismo taxón en iNaturalist)"
         }
       ],
       "fuentes": [
@@ -10648,19 +10650,22 @@
           "archivo": "img/especies/scleroderma-1.webp",
           "autor": "(c) Gijs Romijn, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/234351148"
+          "url": "https://www.inaturalist.org/observations/234351148",
+          "taxonFoto": "Scleroderma citrinum"
         },
         {
           "archivo": "img/especies/scleroderma-2.webp",
           "autor": "(c) Daniel Castanhal García, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/316095322"
+          "url": "https://www.inaturalist.org/observations/316095322",
+          "taxonFoto": "Scleroderma citrinum"
         },
         {
           "archivo": "img/especies/scleroderma-3.webp",
           "autor": "(c) Jose Castro, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/304945771"
+          "url": "https://www.inaturalist.org/observations/304945771",
+          "taxonFoto": "Scleroderma citrinum"
         }
       ],
       "fuentes": [
@@ -10724,7 +10729,7 @@
         },
         {
           "archivo": "img/especies/chlorophyllum-brunneum-2.webp",
-          "autor": "no rights reserved",
+          "autor": "Sigrid Jakob",
           "licencia": "CC0",
           "url": "https://www.inaturalist.org/observations/26855923"
         },
@@ -11201,13 +11206,15 @@
           "archivo": "img/especies/helvella-1.webp",
           "autor": "(c) Jose Castro, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/330706657"
+          "url": "https://www.inaturalist.org/observations/330706657",
+          "taxonFoto": "Helvella crispa"
         },
         {
           "archivo": "img/especies/helvella-2.webp",
           "autor": "(c) Lídia Carrera, some rights reserved (CC BY)",
           "licencia": "CC BY 4.0",
-          "url": "https://www.inaturalist.org/observations/324386324"
+          "url": "https://www.inaturalist.org/observations/324386324",
+          "taxonFoto": "Helvella crispa"
         }
       ],
       "fuentes": [
