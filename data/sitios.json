@@ -140,7 +140,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "Hola pudo apoyarse en Vozpópuli, así que las dos fuentes turísticas pueden no ser independientes. La licencia sale de la nota oficial de la Comunidad. Fuentes de setas: 2 reales (Tuscasasrurales y Sierra Norte de Madrid); La Razón, El Español, 20minutos y El Mundo repiten lo mismo (04e). Cuerpo del puerto a unos 6 km de la Reserva o URA-A más cercana (comprobación geométrica sobre cotos.geojson). Wikipedia sitúa pinares en el puerto y un abedular en el término sin ubicarlo. El ayuntamiento confirma la licencia en el 918 687 511.",
+      "notas": "Hola pudo apoyarse en Vozpópuli, así que las dos fuentes turísticas pueden no ser independientes. La licencia sale de la nota oficial de la Comunidad. Fuentes de setas: 2 reales (Tuscasasrurales y Sierra Norte de Madrid); La Razón, El Español, 20minutos y El Mundo repiten lo mismo (04e). Cuerpo del puerto a unos 6 km de la Reserva o URA-A más cercana (comprobación geométrica sobre cotos.geojson). Wikipedia sitúa pinares en el puerto y un abedular en el término sin ubicarlo. El ayuntamiento confirma la licencia en el 918 687 511. Los dos mensajes de Forocoches de octubre de 2016 (m0yan0 y SparrowHawk) se listan, pero no suben el número de fuentes.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -163,7 +163,7 @@
         10,
         11
       ],
-      "consejo": "Pinares y robledales alrededor del puerto (1.524 m). Mejor entre semana: los fines de semana se llena. Entra solo en montes de utilidad pública del término y nunca en las zonas de Reserva o Uso Restringido A.",
+      "consejo": "Pinares y robledales alrededor del puerto (1.524 m). Mejor entre semana: los fines de semana se llena. Entra solo en montes de utilidad pública del término y nunca en las zonas de Reserva o Uso Restringido A. En octubre de 2016 dos foreros contaban que aún había poco níscalo por el puerto el día 22 y que en Madrid los champiñones salían ya en las praderas pero los níscalos no: a finales de octubre puede ser pronto.",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -196,13 +196,19 @@
           "titulo": "BOCM 01/02/2022: ordenanza de Canencia",
           "fecha": "2022-02-01",
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=24",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 24 (22/10/2016)",
+          "fecha": "2016-10-22",
+          "consultado": "2026-09-30"
         }
       ],
       "nFuentes": 2,
       "confianza": "media"
     },
     {
-      "notas": "Son cuatro fuentes, pero las dos normativas (Micocyl y El Jardín de la Hilaria) derivan de la misma orden, así que solo cuentan como una independiente más las turísticas.",
+      "notas": "Son cuatro fuentes, pero las dos normativas (Micocyl y El Jardín de la Hilaria) derivan de la misma orden, así que solo cuentan como una independiente más las turísticas. Un forero anunció en octubre de 2016 el coto «Las Matas y Pinares de Valsaín» y recordó que La Granja y El Espinar ya estaban regulados (Foro Micológico); solo confirma la regulación, sin consejos de setas.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -256,6 +262,12 @@
           "url": "https://www.hola.com/viajes/20221024219639/mejores-bosques-espana-coger-setas/",
           "titulo": "Hola: mejores bosques de España para coger setas",
           "fecha": "2022-10-24",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=29905.0",
+          "titulo": "Foro Micológico: aviso del nuevo coto de Valsaín (25/10/2016)",
+          "fecha": "2016-10-25",
           "consultado": "2026-09-30"
         }
       ],
@@ -458,14 +470,14 @@
       "confianza": "baja"
     },
     {
-      "notas": "Las dos páginas son de la misma web: cuentan como una fuente.",
+      "notas": "Las dos páginas son de la misma web: cuentan como una fuente. Los mensajes de foro son de 2015 (más de 10 años) y de dos usuarios con pareceres opuestos; se listan pero no suben el número de fuentes.",
       "lat": null,
       "lon": null,
       "verificado": false,
       "id": "riaza-ayllon",
       "zona": "sierra-norte",
       "nombre": "Alrededores de Riaza y Ayllón",
-      "municipio": "Riaza y Ayllón (Segovia)",
+      "municipio": "Riaza, Ayllón y Riofrío de Riaza (Segovia)",
       "tipo": "sitio",
       "especies": [
         "boletus-aereus",
@@ -484,13 +496,13 @@
         10,
         11
       ],
-      "consejo": "Terranostrum enumera las especies de la comarca sin dar parajes concretos. Sirve para saber qué esperar, no dónde.",
+      "consejo": "Terranostrum enumera las especies de la comarca sin dar parajes concretos. Sirve para saber qué esperar, no dónde. Un forero de 2015 cita Riofrío de Riaza, Somosierra (también cesáreas) y el Monte Abantos, en la parte alta del puerto, para boletus; otro recorrió la zona de Somosierra a primeros de noviembre de 2015 y trajo un solo níscalo: a esas alturas ya era tarde.",
       "legal": {
         "estado": "permiso",
         "normas": [
           "cyl-montes-de-segovia"
         ],
-        "texto": "Acotado SG-50002 «Montes de Segovia»: permiso de pago (5 kg; 3 kg de seta de cardo y perrechico). Riaza y Ayllón tienen tarifa local."
+        "texto": "Acotado SG-50002 «Montes de Segovia»: permiso de pago (5 kg; 3 kg de seta de cardo y perrechico). Riaza y Ayllón tienen tarifa local. Riofrío de Riaza está dentro del acotado SG-50002 (permiso)."
       },
       "fuentes": [
         {
@@ -503,6 +515,18 @@
           "url": "https://www.terranostrum.es/turismo/segovia/segovia-nordeste-riaza-y-duraton/ayllon/setas-en-segovia",
           "titulo": "Terranostrum: setas en Ayllón",
           "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=16",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 16 (03/11/2015)",
+          "fecha": "2015-11-03",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=17",
+          "titulo": "Forocoches, mismo hilo, página 17 (6 a 8/11/2015)",
+          "fecha": "2015-11-06",
           "consultado": "2026-09-30"
         }
       ],
@@ -1205,14 +1229,14 @@
       "confianza": "alta"
     },
     {
-      "notas": "Feria Micológica de Tierras Altas a finales de abril o principios de mayo.",
+      "notas": "Feria Micológica de Tierras Altas a finales de abril o principios de mayo. Tercera fuente de 2021 (turismo, Alberto Abad), no foro. El régimen legal sigue sin confirmar.",
       "lat": null,
       "lon": null,
       "verificado": false,
       "id": "soria-tierras-altas",
       "zona": "soria",
       "nombre": "Tierras Altas de Soria (Santa Cruz de Yanguas, Pinar de Taniñe, Magaña y Cerbón)",
-      "municipio": "Santa Cruz de Yanguas, Carrascosa de la Sierra, Aldealices y Villar del Río (Soria)",
+      "municipio": "Santa Cruz de Yanguas, Carrascosa de la Sierra, Aldealices y Villar del Río (Soria), con Puerto de Piqueras, Taniñe y Sarnago",
       "tipo": "sitio",
       "especies": [
         "lactarius-deliciosus",
@@ -1228,7 +1252,7 @@
         10,
         11
       ],
-      "consejo": "Taniñe va del pino laricio (abajo) al silvestre (arriba); Magaña y Cerbón dan seta de cardo; Carrascosa y Aldealices, boletus de calidad. Santa Cruz de Yanguas tiene ruta micológica señalizada.",
+      "consejo": "Taniñe va del pino laricio (abajo) al silvestre (arriba); Magaña y Cerbón dan seta de cardo; Carrascosa y Aldealices, boletus de calidad. Santa Cruz de Yanguas tiene ruta micológica señalizada. Un artículo de turismo de 2021 describe tres rutas: Puerto de Piqueras (pista forestal desde Santa Cruz de Yanguas, pino albar, hayedos y ribera, con itinerario micológico señalizado y rúsulas y níscalos), Alto del Ayedo y la ermita de San Fructuoso (desde Taniñe), y Sarnago (pastizales con perrechicos en primavera, y repoblaciones de pino albar).",
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
@@ -1248,10 +1272,16 @@
           "titulo": "Terranostrum: setas en Soria",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.sorianitelaimaginas.com/blog/tiempo-de-micologia-tres-senderos-donde-coger-setas-en-tierras-altas/",
+          "titulo": "Soria Ni Te Imaginas: tres senderos donde coger setas en Tierras Altas (23/09/2021)",
+          "fecha": "2021-09-23",
+          "consultado": "2026-09-30"
         }
       ],
-      "nFuentes": 2,
-      "confianza": "media"
+      "nFuentes": 3,
+      "confianza": "alta"
     },
     {
       "notas": "National Geographic dio error 403 al abrirla: solo se conoce el resumen del buscador.",
@@ -1338,7 +1368,7 @@
       "confianza": "media"
     },
     {
-      "notas": "La web de la Mancomunidad lista 14 municipios (sin Orea); otra página cita 17 (con Orea): comprueba Orea antes de ir. Henares al Día: no circules con vehículo por pistas forestales y conoce al propietario del monte; hubo 6 rescates de personas perdidas en 2021, así que lleva el móvil cargado y avisa del destino.",
+      "notas": "La web de la Mancomunidad lista 14 municipios (sin Orea); otra página cita 17 (con Orea): comprueba Orea antes de ir. Henares al Día: no circules con vehículo por pistas forestales y conoce al propietario del monte; hubo 6 rescates de personas perdidas en 2021, así que lleva el móvil cargado y avisa del destino. Hilos de Foro Micológico de 2012, 2015 y 2016 (algunos de más de 10 años), sobre todo de régimen: en 2015 un moderador decía que Guadalajara no tenía cotos; hoy manda la Mancomunidad. No suben el número de fuentes.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -1363,7 +1393,7 @@
         10,
         11
       ],
-      "consejo": "Orea y Checa se consideran un paraíso para recolectores con experiencia. La Mancomunidad ofrece una guía de identificación y mapas de zonas de recolección descargables.",
+      "consejo": "Orea y Checa se consideran un paraíso para recolectores con experiencia. La Mancomunidad ofrece una guía de identificación y mapas de zonas de recolección descargables. Orea es lugar de quedada anual de foreros; un incendio de unas 2.000 ha en Checa y Chequilla (agosto de 2012) y casi dos años de sequía hundieron aquellas cosechas y pudo cambiar el pinar. En 2016 los foreros dudaban de las tablillas de «coto» de Orea y del río Pelagallinas: no te fíes solo del cartel, pide el permiso oficial de la Mancomunidad y guárdalo.",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -1395,6 +1425,24 @@
           "url": "https://sierraaltotajo.es/micoturismo",
           "titulo": "Mancomunidad La Sierra: micoturismo",
           "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=16726.0",
+          "titulo": "Foro Micológico: quedada en Orea e incendio de Checa (02/08/2012)",
+          "fecha": "2012-08-02",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=29563.0",
+          "titulo": "Foro Micológico: «Orea ya es coto» (15/05/2016)",
+          "fecha": "2016-05-15",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=28439.0",
+          "titulo": "Foro Micológico: Peralejos y «Guadalajara sin cotos» (octubre de 2015)",
+          "fecha": "2015-10-18",
           "consultado": "2026-09-30"
         }
       ],
@@ -1491,7 +1539,7 @@
       "confianza": "media"
     },
     {
-      "notas": "Un catálogo científico cita Boletus edulis en Tejera Negra, pero no dice dónde recoger (solo se leyó el resumen del buscador).",
+      "notas": "Un catálogo científico cita Boletus edulis en Tejera Negra, pero no dice dónde recoger (solo se leyó el resumen del buscador). El hilo de 2010 no sube el número de fuentes (más de 10 años y sin PRUG). Los foreros también discuten si en un parque natural se puede recoger o si es solo coto.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -1503,7 +1551,7 @@
       "especies": [],
       "habitat": [],
       "epoca": [],
-      "consejo": "Parque Natural: no consta qué regula la recogida de setas. No recojas sin confirmarlo con el Parque y con el ayuntamiento (Cantalojas y Galve de Sorbe piden permiso municipal, según un blog).",
+      "consejo": "Parque Natural: no consta qué regula la recogida de setas. No recojas sin confirmarlo con el Parque y con el ayuntamiento (Cantalojas y Galve de Sorbe piden permiso municipal, según un blog). Un hilo de Foro Micológico de 2010 (28 respuestas de 7 usuarios) dice que la recogida está prohibida dentro del Parque y que el límite se marca con tablillas pequeñas a intervalos regulares, como las de coto de caza. Es un mensaje de hace más de 10 años y sin norma detrás: no recojas dentro del Parque.",
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
@@ -1522,6 +1570,12 @@
           "url": "https://researchgate.net/profile/Fermin-Pancorbo/publication/268810258",
           "titulo": "Pancorbo: catálogo de micobiota de la Sierra Norte de Guadalajara",
           "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=1483.0",
+          "titulo": "Foro Micológico: Tejera Negra (25 y 26/01/2010)",
+          "fecha": "2010-01-25",
           "consultado": "2026-09-30"
         }
       ],
@@ -1786,18 +1840,19 @@
       "confianza": "baja"
     },
     {
-      "notas": "El PDF no se pudo leer: el dato procede del resumen del buscador y no está verificado literalmente.",
+      "notas": "El PDF no se pudo leer: el dato procede del resumen del buscador y no está verificado literalmente. Segunda fuente independiente: la crónica de una salida de 24 personas con más de 50 especies (no es foro). Cardenete no tiene ordenanza comprobada; Cañete tampoco.",
       "lat": null,
       "lon": null,
       "verificado": false,
       "id": "cuenca-boniches-caniete-rodeno",
       "zona": "cuenca",
       "nombre": "Rodenales de Cañete y Boniches",
-      "municipio": "Cañete y Boniches (Cuenca)",
+      "municipio": "Cañete, Cardenete y Boniches (Cuenca)",
       "tipo": "sitio",
       "especies": [
         "lactarius-deliciosus",
-        "lactarius-sanguifluus"
+        "lactarius-sanguifluus",
+        "infundibulicybe-geotropa"
       ],
       "habitat": [
         "pinar-resinero",
@@ -1808,7 +1863,7 @@
         10,
         11
       ],
-      "consejo": "En Cuenca, el «mízcalo de rodeno» sale en los rodenales (pino resinero sobre arenas) y el de «negral» en pinar de laricio.",
+      "consejo": "En Cuenca, el «mízcalo de rodeno» sale en los rodenales (pino resinero sobre arenas) y el de «negral» en pinar de laricio. La Sociedad Micológica de Madrid eligió la zona de Cardenete, «pinares de rodeno y melojares ácidos», para el sábado 15 de noviembre de 2025 y llenó las cestas de «llanegas negras», níscalos y plateras: el rodeno sigue dando a mediados de noviembre (Cañete está a 1.075 m).",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -1822,10 +1877,16 @@
           "titulo": "MITECO: ficha de Lactarius deliciosus del Inventario Español de Conocimientos Tradicionales",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://sociedad-micologica-madrid.org/eventos/canete-cuenca/",
+          "titulo": "Sociedad Micológica de Madrid: salida a Cañete (14 a 16/11/2025)",
+          "fecha": "2025-11-14",
+          "consultado": "2026-09-30"
         }
       ],
-      "nFuentes": 1,
-      "confianza": "baja"
+      "nFuentes": 2,
+      "confianza": "media"
     },
     {
       "notas": "La fuente solo dice que el níscalo llegó con las repoblaciones de pino; el consejo de buscar en los pinares y no en el encinar es una inferencia de la investigación, no una afirmación de la fuente.",
@@ -2012,14 +2073,14 @@
       "confianza": "baja"
     },
     {
-      "notas": "Hola da el hayedo; Aranzadi registra el perretxiko en Urkabustaiz. Una Orden Foral de Zigoitia restringe accesos durante la berrea (no se leyó): https://zigoitia.eus/datos/contenido/documents/1784/Orden%20Foral%20de%20restricciones%20durante%20berrea.pdf. La asociación Gorbeiako Bazterra (Murgia) revisa tus setas cada lunes en su sede (Onda Vasca, una sola fuente).",
+      "notas": "CORRECCIÓN 30/09/2026: una versión anterior decía que Gorbeia era de recogida libre hasta 2 kg. Es falso dentro del parque micológico: hace falta permiso. La web oficial dice que, de los seis municipios de la Cuadrilla de Gorbeialdea, hoy solo Zuia forma el parque; un informe previo citaba también Urkabustaiz y Zigoitia y no se confirma (por eso el polígono de cotos.geojson es solo el MUP 734). Fuera de ese monte, por ejemplo en Urkabustaiz, no consta permiso del parque: confirma con el ayuntamiento y con la Diputación. Hola y Aranzadi sitúan el hayedo y el perretxiko en Urkabustaiz; la Casa del Parque de Sarría cae dentro del plano oficial. Comentarios de lectores de TurismoVasco (2016 a 2019) llaman a Gorbea «apuesta segura» para aereus: una sola fuente, sin verificar, y sin avisar del permiso. Una Orden Foral de Zigoitia restringe accesos durante la berrea (no se leyó): https://zigoitia.eus/datos/contenido/documents/1784/Orden%20Foral%20de%20restricciones%20durante%20berrea.pdf. La asociación Gorbeiako Bazterra (Murgia) revisa tus setas cada lunes en su sede (Onda Vasca, una sola fuente). La ordenanza lista las parcelas en un anexo que el PDF no deja leer.",
       "lat": null,
       "lon": null,
       "verificado": false,
       "id": "alava-gorbeia-urkabustaiz",
       "zona": "alava",
-      "nombre": "Gorbeia: hayedos de Urkabustaiz (Casa del Parque de Sarría)",
-      "municipio": "Urkabustaiz (Álava)",
+      "nombre": "Gorbeia: hayedos de Altube y Sarria (Parque Micológico de Gorbeialdea, Zuia)",
+      "municipio": "Zuia (Álava)",
       "tipo": "sitio",
       "especies": [
         "boletus-edulis",
@@ -2035,14 +2096,15 @@
         10,
         11
       ],
-      "consejo": "Empieza por la Casa del Parque de Sarría, a unos 20 km al noroeste de Vitoria: área recreativa con hayas grandes y pista asfaltada junto al río Baias. En primavera, perretxiko en los pastos.",
+      "consejo": "Empieza por la Casa del Parque de Sarría, a unos 20 km al noroeste de Vitoria: área recreativa con hayas grandes y pista asfaltada junto al río Baias. El plano oficial del parque micológico marca aparcamientos en Sarria (Parketxea y Puenteblanco) y en el puerto de Altube, y tres zonas de recogida sobre el monte 734 «Altube». Antes de entrar, compra el permiso en gorbeiamikologia.eus. En primavera, perretxiko en los pastos.",
       "legal": {
-        "estado": "libre",
+        "estado": "permiso",
         "normas": [
+          "alava-gorbeia-parque-micologico",
           "alava-foral",
           "eus-gorbeia-prug"
         ],
-        "texto": "Libre hasta 2 kg por persona y día (el PRUG de Gorbeia remite al Decreto Foral 89/2008). Solo navaja y cesta; nunca de noche. Salvo ordenanza del concejo o normas del parque."
+        "texto": "Permiso obligatorio en el Parque Micológico de Gorbeialdea (montes públicos de Zuia, sobre todo el MUP 734 «Altube y Gorbeia»): 10 € al día, 15 € a la semana o 50 € la temporada de 2026 (tarifas de la web oficial). Máximo 2 kg por persona y día (algunas especies, 1 kg), desde una hora después del amanecer hasta la puesta del sol, solo con cuchillo o navaja y en cesta, sin remover el suelo. Puede vedarse por caza, mal tiempo o por orden de la Diputación. Hay que llevar el permiso y un documento de identidad. En el Parque Natural rigen además su PRUG y la orden foral de la berrea."
       },
       "fuentes": [
         {
@@ -2061,6 +2123,24 @@
           "url": "https://www.ondavasca.com/una-jornada-dedicada-a-las-setas-en-murgia/",
           "titulo": "Onda Vasca: una jornada dedicada a las setas en Murgia",
           "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.gorbeiamikologia.eus/es/permisos/",
+          "titulo": "Gorbeia Mikologia: permisos y tarifas 2026 (web oficial del parque)",
+          "fecha": "2025-12-23",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.araba.eus/botha/Boletines/2023/095/2023_095_02442_C.pdf",
+          "titulo": "BOTHA n.º 95, 14/08/2023: ordenanza de Zuia del Parque Micológico de Gorbeialdea",
+          "fecha": "2023-08-14",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.gorbeiamikologia.eus/es/micoturismo/",
+          "titulo": "Gorbeia Mikologia: plano del parque (MUP 734 «Altube», zonas 1 a 3)",
+          "fecha": "2025-09-04",
           "consultado": "2026-09-30"
         }
       ],
@@ -2362,7 +2442,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "La investigación 04e cuenta 3 fuentes (Fungipedia 2019, Ciclolodge 2023 y La Mirada Norte 2026), todas vagas y una anecdótica; aquí se cuentan 2 (las dos guías generales) y el comentario del foro queda como testimonio aislado. Ninguna da coordenadas.",
+      "notas": "La investigación 04e cuenta 3 fuentes (Fungipedia 2019, Ciclolodge 2023 y La Mirada Norte 2026), todas vagas y una anecdótica; aquí se cuentan 2 (las dos guías generales) y el comentario del foro queda como testimonio aislado. Ninguna da coordenadas. Los mensajes de 2017 y 2020 son de foro, vagos en el paraje, y no suben el número de fuentes.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -2382,7 +2462,7 @@
       "nombre": "Valle del Paular y Valle del Lozoya (Rascafría)",
       "municipio": "Rascafría (Madrid)",
       "tipo": "sitio",
-      "consejo": "Las guías hablan en general de pinares, robledales y zonas húmedas del valle. Un forista cuenta muchas cosechas de Boletus edulis entre el 1 de octubre y primeros de noviembre (testimonio aislado). Solo se recoge en los tres MUP autorizados (Morcuera, El Pinganillo y Las Calderuelas) y en siete montes municipales; el resto del valle no consta autorizado. El permiso no da acceso en vehículo a las pistas forestales.",
+      "consejo": "Las guías hablan en general de pinares, robledales y zonas húmedas del valle. Un forista cuenta muchas cosechas de Boletus edulis entre el 1 de octubre y primeros de noviembre (testimonio aislado). Solo se recoge en los tres MUP autorizados (Morcuera, El Pinganillo y Las Calderuelas) y en siete montes municipales; el resto del valle no consta autorizado. El permiso no da acceso en vehículo a las pistas forestales. Otro forero cuenta que a finales de octubre de 2017, con tiempo seco, sacó anillados y lengua de gato (Hydnum rufescens) en un pinar junto a un arroyo de Rascafría, y un tercero dice que a primeros de diciembre de 2020 «pasó buen día pero poca cosa»: diciembre es tarde. No dicen en qué arroyo: los de la cabecera son Reserva.",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -2415,25 +2495,42 @@
           "titulo": "Ayuntamiento de Rascafría: información micológica",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=29",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 29 (mensaje 866, 29/10/2017)",
+          "fecha": "2017-10-29",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=39",
+          "titulo": "Forocoches, mismo hilo, página 39 (mensaje de Naleo sobre diciembre de 2020)",
+          "fecha": null,
+          "consultado": "2026-09-30"
         }
       ],
       "nFuentes": 2,
       "confianza": "media"
     },
     {
-      "notas": "Sin fuente de setas para este municipio. Hay MUP de Lozoya en el catálogo de la Comunidad, pero no se sabe cuáles incluye el coto. Ver también puerto-navafria-camino-horizontal.",
+      "notas": "Una sola fuente de setas (Fungipedia, 2019, un usuario). Hay MUP de Lozoya en el catálogo de la Comunidad, pero no se sabe cuáles incluye el coto. Ver también puerto-navafria-camino-horizontal.",
       "lat": null,
       "lon": null,
       "verificado": false,
-      "epoca": [],
-      "especies": [],
+      "epoca": [
+        10,
+        11
+      ],
+      "especies": [
+        "boletus-edulis"
+      ],
       "habitat": [],
       "id": "lozoya-coto-micologico",
       "zona": "guadarrama",
       "nombre": "Montes de Lozoya",
       "municipio": "Lozoya (Madrid)",
       "tipo": "sitio",
-      "consejo": "El ayuntamiento anuncia un «Coto micológico de Lozoya», pero no se ha abierto su enlace: mapa, montes y tasas actuales sin comprobar. Llama al ayuntamiento (91 869 30 29) antes de ir.",
+      "consejo": "El ayuntamiento anuncia un «Coto micológico de Lozoya», pero no se ha abierto su enlace: mapa, montes y tasas actuales sin comprobar. Llama al ayuntamiento (91 869 30 29) antes de ir. Un forero cuenta boletus abundantes en la Sierra Oeste y el Valle del Lozoya del 1 de octubre a primeros de noviembre de 2019, y otro dice que en su zona hay pocos y casi solo Boletus reticulatus (testimonio aislado, sin paraje).",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -2454,13 +2551,19 @@
           "titulo": "Ayuntamiento de Lozoya",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/72546-parte-micologico-en-madrid.html",
+          "titulo": "Fungipedia: «Parte micológico en Madrid» (05/11/2019)",
+          "fecha": "2019-11-05",
+          "consultado": "2026-09-30"
         }
       ],
-      "nFuentes": 0,
+      "nFuentes": 1,
       "confianza": "baja"
     },
     {
-      "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo).",
+      "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo). Un forero de 2015 (más de 10 años) recorrió Lozoya, Alameda del Valle, Canencia, La Acebeda y Somosierra en un día de noviembre y sacó un solo níscalo; otro cita Somosierra para boletus y cesáreas. Sin ordenanza localizada para Somosierra.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -2492,9 +2595,15 @@
           "titulo": "Sierra Norte Madrid: setas",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=17",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 17 (6 a 8/11/2015)",
+          "fecha": "2015-11-06",
+          "consultado": "2026-09-30"
         }
       ],
-      "nFuentes": 0,
+      "nFuentes": 1,
       "confianza": "baja"
     },
     {
@@ -2580,6 +2689,256 @@
       ],
       "nFuentes": 3,
       "confianza": "alta"
+    },
+    {
+      "id": "alava-valdegovia-valderejo",
+      "zona": "alava",
+      "nombre": "Valdegovía y Valderejo: rebozuelo y níscalo de sangre",
+      "municipio": "Valdegovía y Valderejo (Álava)",
+      "tipo": "sitio",
+      "especies": [
+        "cantharellus-cibarius",
+        "lactarius-sanguifluus",
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo",
+        "robledal-albar"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "En noviembre de 2010, un forero cuenta que los rebozuelos brotaban «de forma increíble» en los bosques del valle (pino, haya y roble sobre suelo amarillento) y otro que allí llenó sus cestas más grandes de níscalo de sangre, junto al Parque de Valderejo. Dato de hace 15 años. Otro forero elogia una zona de Burgos a unos 20 km en línea recta, no Valdegovía.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "alava-foral",
+          "eus-valderejo-prug"
+        ],
+        "texto": "Fuera de acotados y sin ordenanza de concejo, libre hasta 2 kg por persona y día (Decreto Foral 89/2008). Valdegovía no figura entre los acotados leídos, pero no hay comprobación oficial de que no tenga ordenanza: pregunta al ayuntamiento. En el Parque Natural de Valderejo el PRUG remite al mismo decreto y la recogida de hongos sin interés culinario necesita autorización."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=7222.0",
+          "titulo": "Foro Micológico: «valle de valdegobia» (hilo de noviembre a diciembre de 2010)",
+          "fecha": "2010-11-17",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.cestaysetas.com/lactarius-sanguifluus/",
+          "titulo": "Cesta y Setas: Lactarius sanguifluus (pinar calizo y cálido)",
+          "fecha": "2015-08-25",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "verificado": false,
+      "notas": "Mensajes de 2010 (más de 10 años). Los usuarios son aritza24 y Rubo; la pauta del níscalo de sangre en pinar calizo la apoya Cesta y Setas (2015). Sin coordenadas: los foreros no dan parajes."
+    },
+    {
+      "id": "alava-orduna-valle-ayala",
+      "zona": "alava",
+      "nombre": "Orduña y Valle de Ayala: rebozuelo, pero saturado",
+      "municipio": "Orduña (Bizkaia, enclave junto a Álava) y Valle de Ayala",
+      "tipo": "sitio",
+      "especies": [
+        "cantharellus-cibarius"
+      ],
+      "habitat": [],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Dos foreros dicen en 2010 que en Orduña se da el rebozuelo, pero que la zona suele estar llena de gente y con los setales esquilmados desde hace años; uno prefiere subir el puerto hacia Valdegovía. Aquí sirve como aviso de saturación, no como recomendación.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "alava-foral"
+        ],
+        "texto": "No se ha comprobado el régimen de Orduña (territorio de Bizkaia, regulado por su Diputación Foral, no por el Decreto Foral 89/2008 de Álava). Confirma en el ayuntamiento antes de recoger."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=5956.0",
+          "titulo": "Foro Micológico: «ORDUÑA-VALLE DE AYALA» (octubre a diciembre de 2010)",
+          "fecha": "2010-10-26",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=5156.0",
+          "titulo": "Foro Micológico: «Pais vasco» (octubre de 2010)",
+          "fecha": "2010-10-12",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "verificado": false,
+      "notas": "Mensajes de 2010 (más de 10 años). No es «no-ir»: es una nota de saturación. En el segundo hilo, según un informe previo, unai (13/10/2010) repite que Orduña rinde pero está lleno (no releído). El moderador del foro pide no dar zonas concretas, por eso no hay parajes."
+    },
+    {
+      "id": "alava-ordenanzas-sin-activar",
+      "zona": "alava",
+      "nombre": "Olabarri, Montevite y Nanclares de la Oca: ordenanza aprobada, coto sin activar (2023)",
+      "municipio": "Olabarri, Montevite y Nanclares de la Oca (Álava)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Los concejos aprobaron una ordenanza micológica publicada en el BOTHA el 3 de marzo de 2023 y hay carteles de ámbito restringido, pero en noviembre de 2023 la Junta de Olabarri decía que el coto no estaba en marcha y esperaba activarlo en 2024. No se sabe si hoy exige permiso: pregunta a la Junta antes de ir.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "alava-foral"
+        ],
+        "texto": "Ordenanza aprobada, pero según la prensa de noviembre de 2023 no exigía todavía autorización. Estado actual no comprobado: puede haberse activado."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://www.gasteizhoy.com/otono-coger-setas-hongos-alava/",
+          "titulo": "Gasteiz Hoy: dónde coger setas en Álava (25/11/2023)",
+          "fecha": "2023-11-25",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "verificado": false,
+      "notas": "Sin polígono ni norma propia en la app. No es una recomendación de recogida, sino un aviso de régimen en cambio."
+    },
+    {
+      "id": "gredos-alto-del-pico",
+      "zona": "gredos",
+      "nombre": "Puerto y Alto del Pico: pinares saturados (octubre de 2021)",
+      "municipio": "Puerto del Pico (Ávila), municipio sin confirmar",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "pinar-resinero"
+      ],
+      "epoca": [
+        10
+      ],
+      "consejo": "En octubre de 2021 dos foreros coinciden: todo el mundo con las cestas llenas en el Alto del Pico y un pinar antes del puerto «saturadísimo», seco y pisado (un kilo de boletus y 3 o 4 níscalos). Uno sugiere buscar donde haya puestos de compra y muchos coches; eso es precisamente lo que hay que evitar si buscas sitio tranquilo. Llévate el permiso: hay forestales.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-av-50003-gredos",
+          "cyl-av-50006-junta-avila",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Un forero sacó el permiso diario de 5 € en la web de Micocyl para este entorno. No consta a qué acotado pertenece el paraje (Gredos AV-50003 o Junta de Castilla y León AV-50006): confirma en micologiacyl.es. Fuera de acotados, el Decreto 31/2017 limita a 3 kg al día sin comercializar."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=39",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 39 (mensaje 1169, 12/10/2021)",
+          "fecha": "2021-10-12",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=40",
+          "titulo": "Forocoches, mismo hilo, página 40 (mensajes 1172 y 1174, 13 y 16/10/2021)",
+          "fecha": "2021-10-16",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "verificado": false,
+      "notas": "Dos usuarios (Mister Poppler y minjas) en un mismo hilo. El portal de permisos de Gredos mostraba «sin tarifa disponible» el 30/09/2026: confirma. No se da el municipio porque el foro no lo dice."
+    },
+    {
+      "id": "buitrago-del-lozoya-pinar",
+      "zona": "sierra-norte",
+      "nombre": "Buitrago del Lozoya: níscalos en pinar",
+      "municipio": "Buitrago del Lozoya (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10
+      ],
+      "consejo": "Un forero cuenta que en el otoño de 2020 pasó «buen día cogiendo níscalos» en Buitrago del Lozoya; en octubre de 2021 volvió a un pinar cercano y sacó poca cosa en un año seco. Es un testimonio aislado y sin paraje.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Buitrago no figura entre los municipios con licencia de la nota de la Comunidad de Madrid de 23/10/2024 y no se ha localizado ordenanza. En Madrid solo se recoge en monte público señalizado o con permiso del propietario; confirma en el ayuntamiento."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=39",
+          "titulo": "Forocoches, «El hilo de las setas y hongos», página 39 (mensaje 1165, 28/09/2021)",
+          "fecha": "2021-09-28",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=40",
+          "titulo": "Forocoches, mismo hilo, página 40 (mensaje 1176, 18/10/2021)",
+          "fecha": "2021-10-18",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "verificado": false,
+      "notas": "Un solo usuario (Naleo), dos mensajes. Sin coordenadas."
+    },
+    {
+      "id": "soria-asfoso-montes-privados",
+      "zona": "soria",
+      "nombre": "Montes privados de ASFOSO (Soria): los de fuera, sin permiso no",
+      "municipio": "Provincia de Soria",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "En 2014 los propietarios forestales privados de ASFOSO pusieron sus propias reglas: cada dueño decide si deja recoger solo a familia, solo a vecinos o a quien quiera, y en general los de fuera no pueden. No entres en un monte privado sin permiso del dueño y averigua antes de quién es.",
+      "legal": {
+        "estado": "privado",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Monte privado: las setas son del propietario, que puede vedar la recogida (Decreto 31/2017). Regla de ASFOSO de 2014 sin verificar para hoy."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=24850.0",
+          "titulo": "Foro Micológico: «ASFOSO. Importante para seteros por Soria» (31/05/2014)",
+          "fecha": "2014-05-31",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "verificado": false,
+      "notas": "Mensaje de 2014 (más de 10 años), sin contraste con la norma actual. Quinto de la Mata (quinto-de-la-mata) ya figura como privado."
     }
   ]
 }

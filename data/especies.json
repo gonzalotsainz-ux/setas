@@ -320,7 +320,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Si encuentras uno, hay más cerca porque es gregario. Es «vecero»: no da la misma cantidad cada año, aunque vuelve a los mismos sitios.",
+          "texto": "Si encuentras uno, hay más cerca porque es gregario. Es «vecero»: no da la misma cantidad cada año, aunque vuelve a los mismos sitios. Una plataforma de predicción añade que el micelio es fiel y conviene volver a los mismos sitios.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -332,10 +332,115 @@
               "url": "https://www.cestaysetas.com/el-boleto-boletus-edulis-el-rey-del-bosque/",
               "fecha": "2023-12-01",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://sporas.io/especies/boletus-edulis",
+              "fecha": "2026-08-07",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": false
+        },
+        {
+          "texto": "Los primeros boletus suelen verse unos 10 a 15 días después de una lluvia útil (cinco fuentes coinciden, tres de ellas foreros de un hilo de 2010). La condición es tiempo templado y suelo que sigue húmedo: no vale una lluvia fuerte seguida de calor extremo. Algunos dan 15 a 20 días, y una plataforma comercial dice que no hay regla fija de días porque depende de la lluvia acumulada y de la reserva de agua del suelo. Toma el número como aproximación y vuelve a mirar el mismo sitio.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=3719.0",
+              "fecha": "2010-09-03",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/cuanto-tardan-los-boletus-en-salir-despues-de-las-lluvias/",
+              "fecha": "2017-08-11",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.micoaficionados.es/boletus/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://sporas.io/especies/boletus-edulis",
+              "fecha": "2026-08-07",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Busca monte maduro pero abierto, claros, bordes de pista y márgenes, con hojarasca suelta sobre musgo, brezo, arándano y helecho. Antes de salir, fíjate en los pequeños bultos que levantan la hojarasca, y cuando encuentres uno trabaja a fondo unos 10 a 15 m alrededor en vez de avanzar deprisa.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://sporas.io/especies/boletus-edulis",
+              "fecha": "2026-08-07",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Según la época y el frío cambia dónde mirar. Una plataforma de predicción aconseja umbrías y fondos de valle en otoño seco, y lomas soleadas cuando hace frío. Un forero segoviano contaba en octubre de 2019, con mínimas de 2 a 3 °C en los pueblos de la sierra, que a 1.400 m en cara oeste ya estaba pasado y que llevaba dos semanas sacando boletus a 1.800 m en cara norte: el límite era el frío, no la lluvia.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://sporas.io/especies/boletus-edulis",
+              "fecha": "2026-08-07",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=36",
+              "fecha": "2019-10-06",
+              "consultado": "2026-09-30"
             }
           ],
           "confianza": "media",
-          "cifrasOrientativas": false
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "En un año seco, mira junto a arroyos, regatos húmedos y barrancos: donde persiste la humedad puede haber setas cuando el resto del monte está seco. Un forero sacó seis boletus en un pinar de Guadarrama, junto a regatos, en noviembre de 2009 sin que hubiera setas en el resto; en otro hilo de octubre de 2010, alguien solo vio setas en los barrancos y otro aconsejó mirar las barranqueras; y en Rascafría, con tiempo seco a finales de octubre de 2017, salieron anillados en un pinar junto a un arroyo.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1020.0",
+              "fecha": "2009-11-07",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=4847.0",
+              "fecha": "2010-10-07",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=29",
+              "fecha": "2017-10-29",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "alta",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "La humedad que cuenta es la del suelo, no solo la de la superficie: un forero volvió con poco de una salida a Álava porque el suelo estaba mojado arriba y seco debajo. No remuevas la tierra para comprobarlo: las ordenanzas (como la del Parque Micológico de Gorbeialdea) lo prohíben.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=5156.0",
+              "fecha": "2010-10-14",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://sporas.io/especies/boletus-edulis",
+              "fecha": "2026-08-07",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -563,6 +668,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": true
+        },
+        {
+          "texto": "En un hilo de mayo, un forero dice que el pinophilus es el primero en salir en pinar y otro da 10 a 15 días tras activarse el micelio; alguien solo encontró primordios pequeños a 1.300 m en pino silvestre. El año del hilo no está claro (2017 o 2021).",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=30912.0",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -754,16 +872,21 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Sale en verano, sobre todo de junio a septiembre, unos 7 a 10 días después de una tormenta fuerte tras el calor.",
+          "texto": "Sale en verano, sobre todo de junio a septiembre, unos 7 a 10 días después de una tormenta fuerte tras el calor. Un hilo de foro de 2010 también da unos 10 días tras un buen chaparrón de verano, sobre todo en carrascal y con calor.",
           "tipo": "tiempo",
           "fuentes": [
             {
               "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1844.0",
+              "fecha": "2010-03-19",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
+          "confianza": "media",
           "cifrasOrientativas": true
         },
         {
@@ -804,6 +927,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Si en un encinar o carrascal ves Rubroboletus satanas, el suelo es básico y ahí no busques aereus ni oronja, que según un forero moderador solo salen en suelo ácido. El satanás es tóxico: no lo recojas.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1844.0",
+              "fecha": "2010-03-23",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -1665,7 +1801,7 @@
       ],
       "trucos": [
         {
-          "texto": "Siempre en pinar. Le gustan los pinares jóvenes y con poco sotobosque, sobre todo claros por cortas forestales.",
+          "texto": "Siempre en pinar. Le gustan los pinares jóvenes y con poco sotobosque, sobre todo claros por cortas forestales. Trabaja también claros, cortafuegos, cunetas de pista y bordes de pinar aclarado, mira el bulto o la grieta en la pinocha y corta para ver el látex antes de recoger.",
           "tipo": "microhabitat",
           "fuentes": [
             {
@@ -1677,9 +1813,14 @@
               "url": "https://www.escapadarural.com/blog/cada-seta-en-su-bosque/",
               "fecha": "2025-10-15",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://sporas.io/especies/lactarius-deliciosus",
+              "fecha": "2026-08-11",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": false
         },
         {
@@ -1714,29 +1855,39 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "A finales de octubre de 2024, al bajar la temperatura, el níscalo tomó el relevo de los boletos de calor (B. edulis y B. aereus) en Castilla y León.",
+          "texto": "A finales de octubre de 2024, al bajar la temperatura, el níscalo tomó el relevo de los boletos de calor (B. edulis y B. aereus) en Castilla y León. Un forero segoviano daba el boletus por acabado a mediados de octubre de 2019, con mínimas de 2 a 3 °C, y esperaba los níscalos en cotas más bajas una o dos semanas después.",
           "tipo": "tiempo",
           "fuentes": [
             {
               "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
               "fecha": "2024-10-28",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=36",
+              "fecha": "2019-10-18",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
-          "cifrasOrientativas": false
+          "confianza": "media",
+          "cifrasOrientativas": true
         },
         {
-          "texto": "Rara vez sale solo: si ves uno, mira alrededor. Si vuelve a llover unos días después, vuelve a mirar el mismo sitio.",
+          "texto": "Rara vez sale solo: si ves uno, mira alrededor. Si vuelve a llover unos días después, vuelve a mirar el mismo sitio. Salen en grupos y corros.",
           "tipo": "indicador",
           "fuentes": [
             {
               "url": "https://www.cestaysetas.com/cogiendo-niscalos-por-guadalajara/",
               "fecha": "2018-10-31",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://sporas.io/especies/lactarius-deliciosus",
+              "fecha": "2026-08-11",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
+          "confianza": "media",
           "cifrasOrientativas": false
         },
         {
@@ -1764,6 +1915,37 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "En la meseta (Ávila, Segovia y Madrid) el níscalo no llega hasta mediados de octubre o primeros de noviembre: a primeros de septiembre salen antes oronjas y algún boletus negro o estival en roble. A finales de octubre de 2016, en el puerto de Canencia, aún se veía poco.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=46",
+              "fecha": "2024-09-09",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=3422306&page=24",
+              "fecha": "2016-10-22",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Ten un pinar bajo de reserva: un forero subió a por capuchinas en noviembre de 2013, encontró el monte con nieve, bajó a un pinar de níscalos que conocía y se llevó grandes corros. Mira al cortar por si hay colémbolos.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=23768.0",
+              "fecha": "2013-11-25",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -1931,16 +2113,21 @@
       ],
       "trucos": [
         {
-          "texto": "Prefiere el pinar sobre suelo calizo y ambiente cálido; el níscalo común, en suelos ácidos.",
+          "texto": "Prefiere el pinar sobre suelo calizo y ambiente cálido; el níscalo común, en suelos ácidos. Un forero de 2010 llenó sus cestas más grandes de níscalo de sangre en el valle de Valdegovía y junto al Parque de Valderejo (Álava).",
           "tipo": "microhabitat",
           "fuentes": [
             {
               "url": "https://www.cestaysetas.com/lactarius-sanguifluus/",
               "fecha": "2015-08-25",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=7222.0",
+              "fecha": "2010-11-19",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
+          "confianza": "media",
           "cifrasOrientativas": false
         },
         {
@@ -2543,6 +2730,37 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Camina siguiendo las curvas de nivel en vez de subir en recto, porque se reparte en bandas de altitud, y busca el musgo, no el árbol. En pleno verano, mira umbrías y márgenes de arroyo; en otoño, exposiciones más soleadas y cotas bajas. No hay regla de días: responde a humedad sostenida.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://sporas.io/especies/cantharellus-cibarius",
+              "fecha": "2026-08-10",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Hay quien asocia la salida de los rebozuelos con la fase de la luna. En los hilos de foro no hay datos que lo respalden y los propios foreros lo atribuyen al tiempo: no es un consejo para decidir cuándo salir.",
+          "tipo": "creencia",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=29391.0",
+              "fecha": "2016-03-10",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=30777.0",
+              "fecha": "2017-01-25",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -2762,6 +2980,19 @@
           ],
           "confianza": "media",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "En el otoño de 2024 un forero contó trompeta de los muertos muy abundante en el sur de Álava (haya y encinar arenoso) y en Navarra, La Rioja y otras provincias (haya, roble, melojo y encina). Es la observación de una sola temporada, no una regla.",
+          "tipo": "orientacion",
+          "fuentes": [
+            {
+              "url": "https://forocoches.com/foro/showthread.php?t=10160993",
+              "fecha": "2024-11-18",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -3638,7 +3869,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Aparece después de Boletus aereus: si ya han salido los boletos negros, empieza a mirar por oronjas.",
+          "texto": "Aparece después de Boletus aereus: si ya han salido los boletos negros, empieza a mirar por oronjas. Un hilo de 2010 sitúa la oronja unos 19 a 21 días después del mismo chaparrón que trae el aereus.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -3650,10 +3881,15 @@
               "url": "https://www.micoaragon.es/noticias/setas-de-primavera-y-verano/el-boleto-negro-el-magnifico",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1844.0",
+              "fecha": "2010-03-19",
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
-          "cifrasOrientativas": false
+          "confianza": "alta",
+          "cifrasOrientativas": true
         },
         {
           "texto": "Se dice que el gamón (Asphodelus) y las moscas atraídas por el olor delatan su presencia.",
@@ -3680,6 +3916,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Sigue al árbol (roble, alcornoque, castaño), no al bosque: solanas, bordes de dehesa, calveros y orillas de pista sobre suelo silíceo con brezal. Busca el abultamiento de la hojarasca con el naranja asomando, y evita los pinares, donde lo naranja suele ser Amanita muscaria. No hay regla de días: entre unas 2 y más de 6 semanas según la humedad previa.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "https://sporas.io/especies/amanita-caesarea",
+              "fecha": "2026-08-10",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -4700,16 +4949,21 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Otras plantas indicadoras: aulaga, enebro, lastón y musgos. Los linderos y muros de piedra retienen calor.",
+          "texto": "Otras plantas indicadoras: aulaga, enebro, lastón y musgos. Los linderos y muros de piedra retienen calor. También las canteras calizas protegidas y orientadas al sur, que guardan el calor de la piedra; endrino, majuelo, aulaga, enebro y primavera (Primula veris) indican buen terreno.",
           "tipo": "indicador",
           "fuentes": [
             {
               "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
               "fecha": "2018-05-16",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.valdorba.org/micovaldorba2/setas/calocybe_gambosa_seta_primavera.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
+          "confianza": "media",
           "cifrasOrientativas": false
         },
         {
@@ -4762,7 +5016,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Es muy fiel: fructifica cada año en el mismo sitio.",
+          "texto": "Es muy fiel: fructifica cada año en el mismo sitio. Los buenos sitios se guardan en secreto y se heredan de abuelos a nietos.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -4774,9 +5028,14 @@
               "url": "https://silvestresezcaray.com/los-escondites-de-la-seta-fina/",
               "fecha": "2018-05-16",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.perretxikoak.com/perretxikoak-2-es/setas-de-primavera/",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": false
         },
         {
@@ -4804,6 +5063,55 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Los días nublados con lluvia fina la hierba se aplasta y el perretxiko se ve mucho mejor. Los setales marcan la hierba y se repiten en el mismo sitio.",
+          "tipo": "microhabitat",
+          "fuentes": [
+            {
+              "url": "http://www.valdorba.org/micovaldorba2/setas/calocybe_gambosa_seta_primavera.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.perretxikoak.com/perretxikoak-2-es/setas-de-primavera/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "Tras una lluvia que empape bien, sale una o dos semanas después si el suelo sigue húmedo y fresco; la helada, el exceso de agua o el viento seco lo abortan. Los ejemplares de marzo y abril son los más caros, y los puertos y zonas altas dan hasta principios de julio.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://www.micomapa.com/es/especies/calocybe-gambosa",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "http://www.valdorba.org/micovaldorba2/setas/calocybe_gambosa_seta_primavera.html",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
+        },
+        {
+          "texto": "En Álava, el modelo de micomapa sitúa las zonas con bosque y prado adecuados para el perretxiko entre unos 500 y 950 m, sobre todo cerca de Arana, Villanueva de Valdegovía, Murgia y Agurain. Son áreas modeladas, no avistamientos.",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.micomapa.com/eu/probintziak/araba",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -5831,6 +6139,24 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "La seta sale sobre la raíz de cardos muertos de años anteriores, no sobre el cardo verde de este año: hay lugares con cardo de sobra y sin setas. Si el cardo muere con la raíz ya colonizada por el hongo, fructifica al año siguiente.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.fungipedia.org/comunidad/foro/5-fotografia-micologica/71359-setas-de-cardo-pleurotus-eryngii.html",
+              "fecha": "2017-11-28",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.cestaysetas.com/buscar-setas-de-cardo/",
+              "fecha": "2019-12-03",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -6504,7 +6830,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Sale 7 a 10 días tras lluvia o deshielo, con máximas diurnas de 4 a 10 °C. Necesita una buena nevada previa y deshielo con lluvia fina; se acaba hacia los 16 a 18 °C ambientales.",
+          "texto": "Sale 7 a 10 días tras lluvia o deshielo, con máximas diurnas de 4 a 10 °C. Necesita una buena nevada previa y deshielo con lluvia fina; se acaba hacia los 16 a 18 °C ambientales. La Casa de las Setas da unos 10 días tras el inicio del deshielo con temperaturas entre 0 y unos 15 °C.",
           "tipo": "tiempo",
           "fuentes": [
             {
@@ -6516,9 +6842,14 @@
               "url": "https://www.cestaysetas.com/el-marzuelo-una-exquisita-seta-poco-conocida-en-la-gastronomia/",
               "fecha": "2025-02-19",
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/los-secretos-del-marzuelo",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media",
+          "confianza": "alta",
           "cifrasOrientativas": true
         },
         {
@@ -6540,7 +6871,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática.",
+          "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática. La hepática (Hepatica nobilis) como señal la cita también La Casa de las Setas.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -6552,9 +6883,14 @@
               "url": "https://www.pinaresdeurbion.es/guia-setas/marzuelo/",
               "fecha": null,
               "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://lacasadelassetas.com/blog/los-secretos-del-marzuelo",
+              "fecha": null,
+              "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja",
+          "confianza": "media",
           "cifrasOrientativas": false
         },
         {
@@ -6574,6 +6910,24 @@
           ],
           "confianza": "media",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Dos hilos de foro coinciden en la subida por altitud. En el norte empiezan a mediados de febrero en pinar entre 600 y 800 m y suben hasta unos 1.400 m a finales de marzo. En otro hilo de febrero de 2011 avisan de que 1.500 m son demasiados para esas fechas y aconsejan mirar hacia 1.000 m. En hayedo son más difíciles de ver por la hojarasca; en pinar, más fáciles. Es un dato de foros de 2011 y 2012 (más de 10 años).",
+          "tipo": "altitud",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=15219.0",
+              "fecha": "2012-04-01",
+              "consultado": "2026-09-30"
+            },
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=9164.0",
+              "fecha": "2011-02-26",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -6948,6 +7302,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Según un moderador de foro (2009), donde salen capuchinas en masa suele ser buena zona para marzuelos en primavera y pinícolas en verano y otoño.",
+          "tipo": "indicador",
+          "fuentes": [
+            {
+              "url": "https://www.foromicologico.es/index.php?topic=1020.30",
+              "fecha": "2009-12-17",
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -7688,6 +8055,19 @@
           ],
           "confianza": "baja",
           "cifrasOrientativas": false
+        },
+        {
+          "texto": "Empiezan a salir cuando el suelo está a unos 8 a 10 °C. Cada zona dura solo 2 a 3 semanas: si encuentras un rodal de ejemplares pequeños, vuelve a los pocos días. Busca tierra removida, ramas y claros con luz y humedad, no bosque cerrado.",
+          "tipo": "tiempo",
+          "fuentes": [
+            {
+              "url": "https://lacasadelassetas.com/blog/colmenillas-trucos-encontrarlas/",
+              "fecha": null,
+              "consultado": "2026-09-30"
+            }
+          ],
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },

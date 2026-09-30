@@ -396,6 +396,10 @@ Formato GeoJSON FeatureCollection. Cada Feature es un Polygon o MultiPolygon:
 
 El bbox de `alava` se ensanchó de `lonMin -3.0` a `-3.25` para que contenga el coto de la Sierra de Árcena (lon -3.19…-3.06). Los recuentos GBIF de Álava en `data/especies.json` se calcularon con el bbox antiguo (`-3.0`) y no se han repetido: `scripts/gbif-presencia.mjs` no permite limitarse a una zona.
 
+### Nota sobre el Parque Micológico de Gorbeialdea (2026-09-30)
+
+`alava-gorbeia-altube` (tipo `parque-micologico`, precisión `derivado`) dibuja el MUP 734 «Altube y Gorbeia» del catálogo del MITECO. El plano oficial del parque (https://www.gorbeiamikologia.eus/es/micoturismo/) rotula «OMP / MUP 734 Altube» y traza el borde rojo del parque sobre ese monte, con pequeños enclaves que no se recortan. La norma es `alava-gorbeia-parque-micologico` (ordenanza de Zuia, BOTHA n.º 95, 14/08/2023; tarifas 2026 de la web oficial). La web oficial dice que hoy solo Zuia forma el parque: Urkabustaiz y Zigoitia no figuran. El polígono se añadió a `data/cotos.geojson` a mano (no se regeneró con `scripts/cotos/unir.mjs`, que pisaría ajustes posteriores de otros cotos); su origen está en `data/fuentes-cotos/alava-montes.json`, clave `gorbeia-altube`.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy ninguna).

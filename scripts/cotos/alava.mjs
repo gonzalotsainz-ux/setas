@@ -17,7 +17,7 @@ execFileSync('npx', ['mapshaper', '_fuentes/alava-montes.geojson', '-proj', 'wgs
 const fc = JSON.parse(readFileSync('_fuentes/alava-simple.geojson', 'utf8'));
 const features = fc.features.map((f) => {
   const c = montes[f.properties.coto];
-  return { type: 'Feature', geometry: f.geometry, properties: { id: `alava-${f.properties.coto}`, nombre: c.nombre, tipo: 'acotado', precision: 'derivado',
+  return { type: 'Feature', geometry: f.geometry, properties: { id: `alava-${f.properties.coto}`, nombre: c.nombre, tipo: c.tipo ?? 'acotado', precision: 'derivado',
     zona: 'alava', normas: c.normas, permisoUrl: c.permisoUrl, regimenConfirmado: false, nota: c.nota, fuente: c.fuente, revisado: '2026-09-30' } };
 });
 writeFileSync('_fuentes/cotos-alava-mup.json', JSON.stringify(features));

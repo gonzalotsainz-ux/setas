@@ -2118,6 +2118,70 @@
       "revisado": "2026-09-30",
       "verificado": true,
       "notas": "Web del coto y página de permisos leídas el 30/09/2026 (precios y cupos de la temporada 2026-27). No se ha conseguido el mapa del coto en formato vectorial, por eso no está en cotos.geojson: hay que descargarlo de la web antes de ir. Los sectores salen de Madrid Norte 24 Horas (15/10/2025), https://www.madridnorte24horas.com/articulo/tendencias/guia-practica-recolectar-setas-otono-donde-puede-donde-permisos-posibles-sanciones/20251015134538122750.html. Las ordenanzas madrid-manzanares y madrid-soto-del-real siguen siendo la base legal; los importes de Manzanares (2021) quedan superados por los del coto."
+    },
+    {
+      "id": "alava-gorbeia-parque-micologico",
+      "titulo": "Parque Micológico de Gorbeialdea (MUP 734 «Altube y Gorbeia», Zuia): ordenanza reguladora del aprovechamiento micológico del Ayuntamiento de Zuia (aprobación definitiva 13/07/2023, BOTHA n.º 95, 14/08/2023)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.araba.eus/botha/Boletines/2023/095/2023_095_02442_C.pdf",
+      "vigente": true,
+      "resumen": [
+        "Hace falta autorización nominativa (diaria, semanal o de temporada) para recoger setas en los montes públicos de Zuia integrados en el parque micológico, sobre todo el MUP 734 «Altube y Gorbeia». Se compra en la web oficial gorbeiamikologia.eus.",
+        "Máximo 2 kg por persona y día, y además el tope por especie del anexo II (1 kg en algunas, como cesárea, parasol o rúsula verdosa). Solo se pueden recoger las especies del anexo II, con tamaño mínimo de sombrero (2 a 10 cm según la especie).",
+        "Horario: todos los días desde una hora después del amanecer hasta la puesta del sol; puede prohibirse en días de caza incompatible, con clima adverso, en los días que fije la Diputación Foral de Álava o por el calendario anual de recolección.",
+        "Solo cuchillo o navaja; prohibidos rastrillos, ganchos, azadillas y remover el suelo o la hojarasca; cesta de mimbre o similar, no bolsas de plástico. No se pueden usar las pistas y caminos del MUP 734 con vehículo a motor; se recomienda chaleco reflectante por la caza.",
+        "Dentro del Parque Natural de Gorbeia rigen además su PRUG (eus-gorbeia-prug) y la orden foral anual de limitación de usos en el sector de berrea."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.gorbeiamikologia.eus/es/permisos/",
+        "tarifas": [
+          {
+            "nombre": "Diario",
+            "precio": 10,
+            "cupoKgDia": 2,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://www.gorbeiamikologia.eus/es/permisos/"
+          },
+          {
+            "nombre": "Semanal (lunes a domingo)",
+            "precio": 15,
+            "cupoKgDia": 2,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://www.gorbeiamikologia.eus/es/permisos/"
+          },
+          {
+            "nombre": "Temporada (1/01/2026 a 31/12/2026)",
+            "precio": 50,
+            "cupoKgDia": 2,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://www.gorbeiamikologia.eus/es/permisos/"
+          }
+        ]
+      },
+      "cupoKgDia": 2,
+      "horario": "Todos los días, desde una hora después del amanecer hasta la puesta del sol (art. 9.1).",
+      "prohibiciones": [
+        "Recoger sin autorización",
+        "Remover el suelo o la hojarasca, con herramienta, manos o pies",
+        "Llevar rastrillos, ganchos, hoces, azadas o alicates",
+        "Bolsas de plástico y mochilas para transportar setas",
+        "Especies fuera del anexo II y las de la lista roja (anexo III)",
+        "Circular con vehículo a motor por las pistas del MUP 734"
+      ],
+      "sanciones": "Título VII de la Norma Foral de Montes 11/2007 (la Diputación Foral de Álava tramita los expedientes); puede llevar revocación de la autorización y decomiso.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Leídos el 30/09/2026 la ordenanza en el BOTHA (PDF de gorbeiamikologia.eus), las páginas Permisos, Parque Micológico y Micoturismo y el plano del parque. Tarifas 2026 confirmadas en la web oficial (página actualizada el 23/12/2025); la ordenanza recoge las mismas cifras. La web oficial dice que, de los seis municipios de la Cuadrilla de Gorbeialdea, hoy solo Zuia forma el parque: Urkabustaiz y Zigoitia no aparecen, aunque un informe previo los citaba. Por eso el permiso no se da por exigido en los hayedos de Urkabustaiz fuera del MUP 734. La web oficial no indica tarifa distinta para empadronados. El polígono de cotos.geojson deriva del MUP 734 (aproximado al borde oficial) y la ordenanza lista las parcelas en un anexo I que el PDF no deja leer."
     }
   ]
 }
