@@ -29,7 +29,7 @@
           "lon": -3.9943,
           "altitud": 1561,
           "habitat": "pinar-silvestre",
-          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Moderado (zonificación OAPN, punto en polígono; no es Zona de Reserva). Recolección solo con plan de aprovechamiento y permiso de Valsaín (Orden AAA/1681/2016). También dentro del Parque Natural Sierra Norte de Guadarrama (Ley 18/2010); su zonificación interna no se ha podido comprobar.",
+          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Moderado (zonificación OAPN, punto en polígono; no es Zona de Reserva). Recolección solo con plan de aprovechamiento y permiso de Valsaín (Orden AAA/1681/2016). Art. 59.b del PRUG de Castilla y León (Decreto 16/2019, BOCyL 24/05/2019): recolección compatible todo el año en Uso Moderado, sin recolección episódica. También dentro del Parque Natural Sierra Norte de Guadarrama (PORN, Decreto 4/2010); su zonificación interna no se ha podido comprobar.",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=416171.72158879065,4522894.57593216,416211.72158879065,4522934.57593216&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         },
@@ -40,7 +40,7 @@
           "lon": -3.9348,
           "altitud": 1472,
           "habitat": "melojar",
-          "proteccion": "Dentro del Parque Natural Sierra Norte de Guadarrama (ENP 2025 del MITECO; Ley 18/2010, PORN Decreto 4/2010). El art. 49.3 del PORN exige autorización para la recolección comercial de hongos; no se ha leído el PRUG ni se ha podido comprobar la zonificación interna. Fuera del Parque Nacional (OAPN).",
+          "proteccion": "Dentro del Parque Natural Sierra Norte de Guadarrama (ENP 2025 del MITECO). El art. 49.3 del PORN (Decreto 4/2010, BOCyL 20/01/2010) exige autorización de la Administración del Espacio Natural para el aprovechamiento comercial de hongos; para la recolección recreativa rige el Decreto 31/2017. No se ha encontrado un PRUG con reglas propias para setas ni se ha podido comprobar la zonificación interna. Fuera del Parque Nacional (OAPN).",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=421351.29571382666,4538214.244087299,421391.29571382666,4538254.244087299&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         }
@@ -50,7 +50,16 @@
         "pn-guadarrama-prug",
         "valsain-orden-aaa-1681-2016",
         "cyl-decreto-31-2017",
-        "madrid-ordenanzas-sierra"
+        "madrid-ordenanzas-sierra",
+        "estatal-ley-43-2003-montes",
+        "cyl-porn-sierra-guadarrama-decreto-4-2010",
+        "cyl-montes-de-segovia",
+        "cyl-sg-50005-junta-segovia",
+        "madrid-rascafria",
+        "madrid-lozoya",
+        "madrid-miraflores",
+        "madrid-manzanares",
+        "madrid-soto-del-real"
       ],
       "avisos": [
         "Parque Nacional: solo donde haya plan de aprovechamiento micológico; prohibido en Zonas de Reserva y de Uso Restringido A",
@@ -130,7 +139,11 @@
       "normas": [
         "madrid-ordenanzas-sierra",
         "montejo-prohibicion",
-        "cyl-decreto-31-2017"
+        "cyl-decreto-31-2017",
+        "estatal-ley-43-2003-montes",
+        "cyl-montes-de-segovia",
+        "cyl-sg-50005-junta-segovia",
+        "madrid-bustarviejo"
       ],
       "avisos": [
         "Hayedo de Montejo: prohibido recolectar hongos; solo visitas guiadas",
@@ -215,7 +228,10 @@
       ],
       "estacionesAemet": [],
       "normas": [
-        "cyl-decreto-31-2017"
+        "cyl-decreto-31-2017",
+        "estatal-ley-43-2003-montes",
+        "cyl-montes-de-soria",
+        "cyl-so-50001-covaleda"
       ],
       "avisos": [
         "Permiso Micocyl obligatorio en los acotados (recreativo hasta 5 kg/día)",
@@ -286,7 +302,7 @@
           "lon": -5.0719,
           "altitud": 1240,
           "habitat": "pinar-resinero",
-          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO); normas de recolección sin verificar (PORN Decreto 36/1995, Ley 3/1996).",
+          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO; Ley 3/1996, PORN Decreto 36/1995). No se han encontrado reglas de setas específicas del parque (la ley de declaración solo habla de mantener los aprovechamientos tradicionales y no consta PRUG aprobado): se aplica el Decreto 31/2017 y el régimen de cada acotado.",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=323874.58281993214,4462295.616296301,323914.58281993214,4462335.616296301&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         },
@@ -297,14 +313,18 @@
           "lon": -5.0072,
           "altitud": 1334,
           "habitat": "pinar-silvestre",
-          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO); normas de recolección sin verificar (PORN Decreto 36/1995, Ley 3/1996).",
+          "proteccion": "Dentro del Parque Regional de la Sierra de Gredos (ENP 2025 del MITECO; Ley 3/1996, PORN Decreto 36/1995). No se han encontrado reglas de setas específicas del parque (la ley de declaración solo habla de mantener los aprovechamientos tradicionales y no consta PRUG aprobado): se aplica el Decreto 31/2017 y el régimen de cada acotado.",
           "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=329497.362041508,4467597.2267853925,329537.362041508,4467637.2267853925&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
           "revisado": "2026-09-30"
         }
       ],
       "estacionesAemet": [],
       "normas": [
-        "cyl-decreto-31-2017"
+        "cyl-decreto-31-2017",
+        "estatal-ley-43-2003-montes",
+        "cyl-av-50003-gredos",
+        "cyl-av-50006-junta-avila",
+        "cyl-gredos-parque-regional"
       ],
       "avisos": [
         "Montes regulados por Micocyl en Ávila: comprobar el monte concreto",
@@ -380,7 +400,11 @@
       ],
       "estacionesAemet": [],
       "normas": [
-        "clm-orden-2016-11-15"
+        "clm-orden-2016-11-15",
+        "estatal-ley-43-2003-montes",
+        "cuenca-boniches",
+        "cuenca-tragacete",
+        "cuenca-la-huerguina"
       ],
       "avisos": [
         "Orden de 15/11/2016 y ordenanzas municipales: los cotos son municipales",
@@ -458,7 +482,15 @@
       ],
       "estacionesAemet": [],
       "normas": [
-        "clm-orden-2016-11-15"
+        "clm-orden-2016-11-15",
+        "estatal-ley-43-2003-montes",
+        "guadalajara-mancomunidad-la-sierra",
+        "guadalajara-cobeta",
+        "guadalajara-rillo-de-gallo",
+        "guadalajara-herreria",
+        "guadalajara-torrecuadrada",
+        "guadalajara-arbancon",
+        "guadalajara-arroyo-de-las-fraguas"
       ],
       "avisos": [
         "Orden de 15/11/2016 y ordenanzas locales, que pueden exigir permiso",
@@ -545,7 +577,8 @@
       ],
       "estacionesAemet": [],
       "normas": [
-        "clm-orden-2016-11-15"
+        "clm-orden-2016-11-15",
+        "estatal-ley-43-2003-montes"
       ],
       "avisos": [
         "En primavera, riesgo de Amanita vidua (mortal) bajo encina, melojo o alcornoque",
@@ -624,7 +657,7 @@
           "lon": -2.4941,
           "altitud": 772,
           "habitat": "melojar",
-          "proteccion": "Dentro del Parque Natural de Izki (ENP 2025 del MITECO); normas de recolección sin verificar (PRUG Decreto 73/2018).",
+          "proteccion": "Dentro del Parque Natural de Izki (ENP 2025 del MITECO; PRUG Decreto 73/2018). No se ha podido leer el apartado de setas del PRUG (anexo ilegible en el BOPV). Los PRUG de Gorbeia y Valderejo remiten al Decreto Foral 89/2008 (2 kg por persona y día); el coto de Arraia-Maeztu regula el permiso en Izki (tarifas de 2017, sin confirmar para 2026).",
           "fuente": "https://www.geo.euskadi.eus/WMS_NEKAZARITZA?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=Espezien_banaketa_Distribucion_de_especies&QUERY_LAYERS=Espezien_banaketa_Distribucion_de_especies&CRS=EPSG:4326&BBOX=42.6821,-2.4944,42.682700000000004,-2.4938&WIDTH=101&HEIGHT=101&I=50&J=50&INFO_FORMAT=text/xml&STYLES=",
           "revisado": "2026-09-30"
         },
@@ -641,7 +674,15 @@
       ],
       "estacionesAemet": [],
       "normas": [
-        "alava-foral"
+        "alava-foral",
+        "estatal-ley-43-2003-montes",
+        "eus-gorbeia-prug",
+        "eus-valderejo-prug",
+        "eus-izki-prug",
+        "alava-coto-arraia",
+        "alava-parque-micologico-asparrena",
+        "alava-consierra-arcena",
+        "alava-legutio"
       ],
       "avisos": [
         "Libre hasta 2 kg por persona y día, salvo en terreno acotado y señalizado",

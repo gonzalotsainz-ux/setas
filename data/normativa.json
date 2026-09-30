@@ -2,6 +2,36 @@
   "version": 1,
   "normas": [
     {
+      "id": "estatal-ley-43-2003-montes",
+      "titulo": "Ley 43/2003, de 21 de noviembre, de Montes (BOE n.º 280, 22/11/2003)",
+      "tipo": "ley",
+      "ambito": {
+        "comunidad": "estatal",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte",
+          "soria",
+          "gredos",
+          "cuenca",
+          "guadalajara",
+          "toledo",
+          "alava"
+        ]
+      },
+      "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
+      "vigente": true,
+      "resumen": [
+        "Las setas son un aprovechamiento forestal (art. 6) y pertenecen al titular del monte (art. 36): sin permiso del propietario no se puede recoger en terreno acotado o privado.",
+        "Las normas autonómicas y las ordenanzas municipales concretan cupos, precios y horarios; esta ley fija el marco sancionador."
+      ],
+      "permiso": null,
+      "prohibiciones": [],
+      "sanciones": "Art. 74: infracciones leves de 100 a 1.000 €, graves de 1.001 a 100.000 € y muy graves de 100.001 a 1.000.000 €. Castilla y León se remite a este artículo (Ley 3/2009, art. 116).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Sanciones comprobadas en la primera pasada del 30/09/2026 (apartado 1 de docs/investigacion/01-normativa-cotos.md)."
+    },
+    {
       "id": "cyl-decreto-31-2017",
       "titulo": "Decreto 31/2017, de 5 de octubre, que regula el Recurso Micológico Silvestre de Castilla y León (BOCyL n.º 194, 09/10/2017)",
       "tipo": "decreto",
@@ -16,15 +46,35 @@
       },
       "url": "http://bocyl.jcyl.es/boletines/2017/10/09/pdf/BOCYL-D-09102017-1.pdf",
       "vigente": true,
-      "resumen": [],
-      "permiso": null,
-      "prohibiciones": [],
+      "resumen": [
+        "Terreno regulado (acotado o parque micológico): hace falta permiso del titular. Los permisos recreativos dan derecho, como máximo, a 5 kg por persona y día (art. 18.3).",
+        "Terreno episódico (ni acotado ni reservado): sin permiso, sin comercializar y como máximo 3 kg por persona y día; tampoco se pueden recoger trufas (art. 13.5).",
+        "Terreno reservado (señalizado por el titular) y vedado (por resolución de la Dirección General): recogida prohibida a terceros.",
+        "Según micologiacyl.es, solo se admiten cuchillo, navaja o tijera con hoja de menos de 11 cm, y hay que llevar DNI y permiso."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://micologiacyl.es/expedicion-de-permisos-micologicos",
+        "tarifas": []
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche, desde el ocaso hasta el orto (art. 8.2).",
+      "prohibiciones": [
+        "Remover el suelo o levantar el mantillo",
+        "Usar o llevar hoces, rastrillos, escardillos, azadas o herramientas parecidas",
+        "Recoger de noche, desde el ocaso hasta el orto",
+        "Recoger ejemplares por debajo de la talla mínima o pasados, o arrancar especies no recolectables",
+        "Recoger en la franja de dominio público de carreteras o de servidumbre del ferrocarril",
+        "Usar cubos, bolsas de plástico u otros recipientes no porosos (obligatorios recipientes rígidos o semirrígidos y porosos)"
+      ],
+      "sanciones": "Art. 32: se remite a la Ley 3/2009 de Montes de Castilla y León y, por ella, a la Ley 43/2003, art. 74 (100 € a 1.000.000 €). Recoger cualquier cantidad en un monte catalogado acotado sin licencia es infracción; en un monte catalogado no acotado lo es superar 3 kg sin licencia. Caben incautación y decomiso (art. 33).",
       "revisado": "2026-09-30",
-      "verificado": true
+      "verificado": true,
+      "notas": "Texto del PDF del BOCyL leído el 30/09/2026 (primera pasada)."
     },
     {
       "id": "pn-guadarrama-prug",
-      "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama: Decreto 18/2020, de 11 de febrero (Comunidad de Madrid, BOCM n.º 51, 29/02/2020) y Decreto 16/2019, de 23 de mayo (Castilla y León, BOCyL 24/05/2019)",
+      "titulo": "PRUG del Parque Nacional de la Sierra de Guadarrama: Decreto 18/2020, de 11 de febrero (Comunidad de Madrid, BOCM n.º 51, 29/02/2020) y Decreto 16/2019, de 23 de mayo (Castilla y León, BOCyL n.º 98, 24/05/2019)",
       "tipo": "decreto",
       "ambito": {
         "comunidad": "madrid-castilla-y-leon",
@@ -34,12 +84,52 @@
       },
       "url": "https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/bocm_cm_d_18_2020.pdf",
       "vigente": true,
-      "resumen": [],
-      "permiso": null,
-      "prohibiciones": [],
+      "resumen": [
+        "Art. 59.b de ambos decretos (texto idéntico en las dos vertientes): la recolección de setas es una actividad tradicional compatible para uso propio, salvo en Zonas de Reserva y de Uso Restringido tipo A, donde está prohibida.",
+        "Zonas de Uso Restringido tipo B: solo en temporada de otoño. Zonas de Uso Restringido tipo C y de Uso Moderado: todo el año.",
+        "Requiere autorización de la propiedad del terreno y está prohibida la recolección episódica: dentro del Parque siempre hace falta permiso.",
+        "Todo terreno donde se recoja debe tener un plan de aprovechamientos aprobado con informe favorable de la administración gestora.",
+        "Solo los empadronados en el Área de Influencia Socioeconómica pueden comercializar. La administración gestora puede fijar precio, especies, cuantías y número de permisos por día y hectárea."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": []
+      },
+      "prohibiciones": [
+        "Recoger en Zonas de Reserva y Zonas de Uso Restringido tipo A",
+        "Recoger fuera de la temporada de otoño en Zonas de Uso Restringido tipo B",
+        "Recolección episódica (sin permiso)"
+      ],
+      "sanciones": "Las ordenanzas municipales fijan leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €. La cifra de 1.001 a 3.000 € que cita la Comunidad de Madrid para recoger sin permiso en zonas reguladas del Parque no se ha comprobado en una nota oficial.",
       "revisado": "2026-09-30",
-      "verificado": false,
-      "notas": "Leído solo el art. 59.b del decreto de Madrid; el PRUG de Castilla y León no se ha leído literalmente."
+      "verificado": true,
+      "notas": "Art. 59.b del decreto de Madrid leído en la primera pasada; art. 59.b del decreto de Castilla y León (p. 25610 del BOCyL n.º 98) leído en la segunda pasada, en http://bocyl.jcyl.es/boletines/2019/05/24/pdf/BOCYL-D-24052019-1.pdf."
+    },
+    {
+      "id": "cyl-porn-sierra-guadarrama-decreto-4-2010",
+      "titulo": "Decreto 4/2010, de 14 de enero, que aprueba el PORN del Espacio Natural «Sierra de Guadarrama» (Segovia y Ávila) (BOCyL n.º 12, 20/01/2010)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://www.miteco.gob.es/content/dam/miteco/es/ceneam/recursos/mini-portales-tematicos/PORN%20DEL%20GUADARRAMA.%20Castilla%20y%20Le%C3%B3n_tcm30-65004.pdf",
+      "vigente": true,
+      "resumen": [
+        "Art. 49.3: la Administración del Espacio Natural puede dictar normas reguladoras de los aprovechamientos de hongos silvestres con fines comerciales, que en todo caso requieren su autorización.",
+        "Directriz sobre aprovechamientos no madereros: fomenta una explotación sostenible de los hongos y su consideración en los instrumentos de ordenación forestal.",
+        "Para la recolección recreativa rige el Decreto 31/2017; no se ha encontrado un PRUG del Parque Natural con reglas propias para setas."
+      ],
+      "permiso": null,
+      "prohibiciones": [
+        "Aprovechamiento comercial de hongos sin autorización de la Administración del Espacio Natural"
+      ],
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOCyL leído en la segunda pasada (copia en MITECO). Afecta a los puntos de zonas.json marcados como Parque Natural Sierra Norte de Guadarrama. La zonificación interna sigue sin comprobarse."
     },
     {
       "id": "valsain-orden-aaa-1681-2016",
@@ -53,15 +143,504 @@
       },
       "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2016-9680",
       "vigente": true,
-      "resumen": [],
+      "resumen": [
+        "Ámbito: MUP n.º 1 y 2 «Matas» y «Pinar de Valsaín» (10.668 ha; 3.326 ha dentro del Parque Nacional y 7.011 ha en su zona periférica). Excluida la zona entre el arroyo del Telégrafo, la cumbrera de Siete Picos y el camino Schmidt.",
+        "Permiso recreativo: hasta 5 kg por persona y día. Intensivo local: hasta 25 kg por día, solo para empadronados en el Real Sitio de San Ildefonso.",
+        "Se remite al Decreto 31/2017 y al Real Decreto 30/2009 para lo no previsto."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.miteco.gob.es/content/dam/miteco/es/parques-nacionales-oapn/centros-fincas/valsain/setas-2017_tcm30-432288.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, permiso diario",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          },
+          {
+            "nombre": "Foráneo recreativo, permiso de fin de semana",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          },
+          {
+            "nombre": "Local intensivo, temporada",
+            "precio": 25,
+            "cupoKgDia": 25,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          },
+          {
+            "nombre": "Provincial recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": 2016,
+            "verificado": true,
+            "fuente": "https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (según el informe de la primera pasada; ver notas).",
+      "prohibiciones": [
+        "Llevar rastrillos, hoces o azadas",
+        "Recoger de noche",
+        "Comercializar dentro de Valsaín",
+        "Acceder en vehículo al monte (solo a pie)"
+      ],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Importes y cupos releídos en el BOE el 30/09/2026 (segunda pasada). No consta orden posterior: el borrador de MITECO de 09/2022 (diario 5 € y 2 días 8 € para foráneos) no se ha visto aprobado. Las prohibiciones de noche, rastrillo y acceso en vehículo, y la talla mínima (Boletus 4 cm, resto 2 cm), proceden del informe de la primera pasada. Puntos de venta (Boca del Asno y Centro de Montes de Valsaín) según el folleto de MITECO de 2017, sin confirmar para 2026. Texto: https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf."
+    },
+    {
+      "id": "cyl-montes-de-soria",
+      "titulo": "Parque Micológico «Montes de Soria» (PMSO-50001) y acotados SO-50002 y SO-50003: permisos 2026 de la Asociación Montes de Soria (Orden FYM/1229/2021, de 11 de octubre)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "soria"
+        ]
+      },
+      "url": "https://asociacionmontesdesoria.com/permiso-de-recoleccion-de-setas/",
+      "vigente": true,
+      "resumen": [
+        "Parque Micológico de 127.909,88 ha (84 propietarios; incluye el MUP n.º 172 «Pinar Grande» y partes de los parques naturales de Urbión y Cañón del Río Lobos). Los permisos valen también para SO-50002 y SO-50003.",
+        "El foráneo solo puede sacar el permiso de 2 días consecutivos; no hay temporada para foráneos.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/montes-de-soria",
+        "tarifas": [
+          {
+            "nombre": "General (foráneo) recreativo, 2 días consecutivos",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+          },
+          {
+            "nombre": "Local recreativo, temporada (hasta el 31/12)",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+          },
+          {
+            "nombre": "Local comercial, temporada",
+            "precio": 10,
+            "cupoKgDia": 30,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+          },
+          {
+            "nombre": "Vinculado comercial, temporada",
+            "precio": 50,
+            "cupoKgDia": 30,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-soria"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas releídas en el portal oficial el 30/09/2026 y contrastadas con la web de la asociación (actualizada el 01/04/2026). Ficha del parque: https://micologiacyl.es/parque/pmso-50001. El plano de zonas reguladas en PDF (2025) no se ha descargado. Tierras Altas (Yanguas, San Pedro Manrique) queda dentro o junto al parque según un cálculo propio sobre el WFS de la Junta; conviene confirmarlo en el plano."
+    },
+    {
+      "id": "cyl-so-50001-covaleda",
+      "titulo": "Acotado SO-50001 «Acotado de Covaleda» (Ayuntamiento de Covaleda y Asociación Pinares de Urbión; Covaleda, Duruelo y Vinuesa)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "soria"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/so-50001",
+      "vigente": true,
+      "resumen": [
+        "Emite permisos de acceso público. Venta en https://www.pinaresdeurbion.es/licencias/ (teléfono 975 37 00 00).",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.pinaresdeurbion.es/licencias/",
+        "tarifas": [
+          {
+            "nombre": "Ficha oficial de micologiacyl: recreativo 2 días",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://micologiacyl.es/areas/so-50001",
+            "nota": "Sin fecha en la ficha; no coincide con la web del acotado"
+          },
+          {
+            "nombre": "Ficha oficial de micologiacyl: recreativo 7 días",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://micologiacyl.es/areas/so-50001",
+            "nota": "Sin fecha en la ficha; no coincide con la web del acotado"
+          },
+          {
+            "nombre": "Web del acotado: 2 días (visitante)",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://www.pinaresdeurbion.es/licencias/",
+            "nota": "Sin fecha; no coincide con la ficha de micologiacyl"
+          },
+          {
+            "nombre": "Web del acotado: 7 días consecutivos (visitante)",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://www.pinaresdeurbion.es/licencias/",
+            "nota": "Sin fecha; no coincide con la ficha de micologiacyl"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "La web del acotado anuncia multas administrativas de 300 a 10.000 € sin autorización (no contrastado con la ley).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Los precios de la ficha de micologiacyl.es y los de la web de Pinares de Urbión son distintos y ninguno lleva fecha: no se puede afirmar cuál rige en 2026. Llamar al 975 37 00 00 antes de ir."
+    },
+    {
+      "id": "cyl-montes-de-segovia",
+      "titulo": "Acotado SG-50002 «Montes de Segovia» (unas 40.500 ha; Riaza, Ayllón, Navafría, El Espinar…)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte"
+        ]
+      },
+      "url": "https://permisos.micologiacyl.es/acotado/montes-de-segovia",
+      "vigente": true,
+      "resumen": [
+        "Reconocimiento mutuo de permisos con SG-50005 (Montes de la Comunidad de Castilla y León en Segovia).",
+        "Cupos de la ficha: 5 kg/día de boletus, níscalo y resto, 3 kg/día de cardo y perrechico; comercial 50 kg (10 kg de cardo y perrechico). La ficha es anterior a 2024; el tope de 5 kg recreativos lo fija el Decreto 31/2017.",
+        "Pagan tarifa local los empadronados en Aldealengua de Pedraza, Ayllón, Boceguillas, Casla, Cerezo de Abajo y de Arriba, El Espinar, Matabuena, Navafría, Prádena, Riaza, Riofrío de Riaza, Santo Tomé del Puerto, entre otros."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/montes-de-segovia",
+        "tarifas": [
+          {
+            "nombre": "Tarifa general (foráneo) recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Tarifa general (foráneo) recreativo, 2 días",
+            "precio": 8,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Tarifa general (foráneo) recreativo, temporada",
+            "precio": 40,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Tarifa general comercial, temporada",
+            "precio": 250,
+            "cupoKgDia": 50,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Vinculado o provincial recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Vinculado o provincial comercial, temporada",
+            "precio": 70,
+            "cupoKgDia": 50,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          },
+          {
+            "nombre": "Local comercial, temporada",
+            "precio": 25,
+            "cupoKgDia": 50,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-segovia"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Precios releídos en el portal oficial el 30/09/2026 (el portal no indica año de validez). Cupos de la ficha https://www.micocyl.es/print/areas/montes-de-segovia (menciona una temporada hasta 31-12-2023). En el WFS de la Junta este acotado no aparece; la geometría probable es PMSG-50001 (no verificado)."
+    },
+    {
+      "id": "cyl-sg-50005-junta-segovia",
+      "titulo": "Acotado SG-50005 «Montes de la Comunidad de Castilla y León en Segovia» (Junta; 9.325 ha)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte"
+        ]
+      },
+      "url": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia",
+      "vigente": true,
+      "resumen": [
+        "Reconocimiento mutuo de permisos con SG-50002.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia",
+        "tarifas": [
+          {
+            "nombre": "Tarifa general recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia"
+          },
+          {
+            "nombre": "Tarifa general recreativo, 2 días",
+            "precio": 8,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia"
+          },
+          {
+            "nombre": "Tarifa general recreativo, temporada",
+            "precio": 40,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia"
+          },
+          {
+            "nombre": "Tarifa general comercial, temporada",
+            "precio": 250,
+            "cupoKgDia": null,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Precios releídos en el portal oficial el 30/09/2026. Otros acotados menores de Segovia (SG-50003, 50004, 50006 a 50013) tienen permiso propio cuyo precio no se ha verificado."
+    },
+    {
+      "id": "cyl-av-50006-junta-avila",
+      "titulo": "Acotado AV-50006 «Montes de la Comunidad de Castilla y León en Ávila» (Junta; 7.477 ha)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "gredos"
+        ]
+      },
+      "url": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila",
+      "vigente": true,
+      "resumen": [
+        "Reciprocidad: el permiso recreativo de Gredos (AV-50003) vale aquí y viceversa, según la ficha.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila",
+        "tarifas": [
+          {
+            "nombre": "Tarifa general recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila"
+          },
+          {
+            "nombre": "Tarifa general recreativo, temporada",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila"
+          },
+          {
+            "nombre": "Tarifa general comercial, temporada",
+            "precio": 150,
+            "cupoKgDia": null,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Precios releídos en el portal oficial el 30/09/2026. Ficha: https://www.micocyl.es/print/areas/av-50006. No aparece en el WFS de la Junta."
+    },
+    {
+      "id": "cyl-av-50003-gredos",
+      "titulo": "Acotado AV-50003 «Gredos» (39.900,71 ha; Hoyos del Espino, Becedas y otros)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "gredos"
+        ]
+      },
+      "url": "https://permisos.micologiacyl.es/acotado/gredos",
+      "vigente": true,
+      "resumen": [
+        "Máximo de 12.592 permisos. Modalidades: local, vinculado, provincial y general; diario, 2 días y temporada. Recreativo 5 kg/día y comercial 50 kg/día según la ficha.",
+        "El 30/09/2026 el portal oficial no ofrece ninguna tarifa: no se sabe si hay permiso a la venta."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/gredos",
+        "tarifas": [
+          {
+            "nombre": "Ficha Micocyl: general recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.micocyl.es/print/areas/gredos",
+            "nota": "Precio de la ficha, que habla de la temporada hasta 31/12/2021"
+          },
+          {
+            "nombre": "Ficha Micocyl: general recreativo, 2 días",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.micocyl.es/print/areas/gredos",
+            "nota": "Precio de la ficha, que habla de la temporada hasta 31/12/2021"
+          },
+          {
+            "nombre": "Ficha Micocyl: general recreativo, temporada",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.micocyl.es/print/areas/gredos",
+            "nota": "Precio de la ficha, que habla de la temporada hasta 31/12/2021"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Los precios son de 2021 (ficha antigua) y el portal de permisos muestra «Actualmente no existe ninguna tarifa disponible» (comprobado de nuevo el 30/09/2026). Antes de ir, llamar a Micocyl: 975 23 96 70, micocyl@micocyl.es."
+    },
+    {
+      "id": "cyl-gredos-parque-regional",
+      "titulo": "Parque Regional de la Sierra de Gredos: Ley 3/1996, de 20 de junio (BOE n.º 176, 22/07/1996) y PORN (Decreto 36/1995)",
+      "tipo": "ley",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "gredos"
+        ]
+      },
+      "url": "https://boe.es/boe/dias/1996/07/22/pdfs/A22901-22902.pdf",
+      "vigente": true,
+      "resumen": [
+        "La ley de declaración solo habla de mantener los aprovechamientos tradicionales; no contiene reglas de setas.",
+        "No se ha encontrado ninguna regla de setas específica del parque: se aplica el Decreto 31/2017 y el régimen de cada acotado."
+      ],
       "permiso": null,
       "prohibiciones": [],
       "revisado": "2026-09-30",
-      "verificado": true
+      "verificado": false,
+      "notas": "No se ha localizado el texto del Decreto 36/1995 ni un PRUG aprobado (fuentes parlamentarias de las Cortes de Castilla y León hasta 2019 dicen que el PRUG seguía sin aprobar; no se ha comprobado que siga así en 2026)."
     },
     {
       "id": "madrid-ordenanzas-sierra",
-      "titulo": "Ordenanzas municipales de recolección micológica de la sierra de Madrid (Rascafría, Lozoya, Miraflores de la Sierra, Bustarviejo, Canencia…)",
+      "titulo": "Ordenanzas municipales de recolección micológica de la sierra de Madrid: municipios con licencia obligatoria según la Comunidad de Madrid (nota de 23/10/2024)",
       "tipo": "ordenanza",
       "ambito": {
         "comunidad": "madrid",
@@ -72,31 +651,406 @@
       },
       "url": "https://www.comunidad.madrid/node/70372",
       "vigente": true,
-      "resumen": [],
-      "permiso": null,
+      "resumen": [
+        "Licencia obligatoria dentro del Parque Nacional: Rascafría, Miraflores de la Sierra y Lozoya. Fuera del Parque: Bustarviejo y Canencia.",
+        "No existe decreto micológico autonómico: la Comunidad cita la Ley 43/2003, la Ley 16/1995 Forestal de Madrid y la Orden de 27 de mayo de 1992. Recoger solo en montes públicos señalizados o con permiso del propietario.",
+        "Convenio de 21/11/2020: recogida autorizada en 7.286,70 ha del Parque Nacional en Rascafría (MUP Morcuera, El Pinganillo y Las Calderuelas más siete montes municipales).",
+        "Cada ordenanza tiene su ficha: madrid-rascafria, madrid-lozoya, madrid-miraflores, madrid-manzanares, madrid-bustarviejo y madrid-soto-del-real."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": []
+      },
       "prohibiciones": [],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
-      "verificado": false,
-      "notas": "Lista de municipios con licencia según la nota de la Comunidad de Madrid de 23/10/2024; cada ordenanza (BOCM) se detalla en la tarea 9."
+      "verificado": true,
+      "notas": "Lista comprobada en la primera pasada. Canencia: solo se ha visto el anuncio de aprobación provisional (BOCM 14/09/2021, https://www.bocm.es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF); su texto y tasas no se han leído. Convenio: https://www.comunidad.madrid/node/58396."
     },
     {
-      "id": "montejo-prohibicion",
-      "titulo": "Normas de visita del Hayedo de Montejo (Reserva de la Biosfera Sierra del Rincón, sept. 2024): prohibido recolectar plantas, hongos o minerales",
-      "tipo": "circular",
+      "id": "madrid-rascafria",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Rascafría (BOCM n.º 316, 29/12/2020) y tasa",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2020/12/29/BOCM-20201229-58.PDF",
+      "vigente": true,
+      "resumen": [
+        "Foráneo: solo permiso recreativo de 1 o 2 días, 10 kg por persona y día.",
+        "Local y vinculado: recreativo 10 kg; intensivo hasta 30 kg en total (10 kg de cardo y perrechico, 20 kg de boletus y níscalo).",
+        "Solo cuchillo, navaja o tijera de menos de 11 cm; grupos de más de 3 personas en paralelo prohibidos."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2020/12/29/BOCM-20201229-58.PDF"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2020/12/29/BOCM-20201229-58.PDF"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 10,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2020/12/29/BOCM-20201229-58.PDF"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 10,
+            "anio": 2020,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2020/12/29/BOCM-20201229-58.PDF"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto y tabla de tasas leídos en el BOCM el 30/09/2026 (la tabla de la primera pasada era ambigua; aquí queda resuelta). Importes de 2020, sin actualizaciones vistas."
+    },
+    {
+      "id": "madrid-lozoya",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Lozoya (BOCM n.º 96, 23/04/2021) y tasa",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/23/BOCM-20210423-57.PDF",
+      "vigente": true,
+      "resumen": [
+        "Recreativo 10 kg por persona y día; intensivo hasta 30 kg en total.",
+        "El anuncio cita por error el término municipal de Rascafría."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/23/BOCM-20210423-57.PDF"
+          },
+          {
+            "nombre": "Vinculado recreativo, un día",
+            "precio": 3,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/23/BOCM-20210423-57.PDF"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 20,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/23/BOCM-20210423-57.PDF"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tabla de tasas leída en el BOCM el 30/09/2026."
+    },
+    {
+      "id": "madrid-miraflores",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Miraflores de la Sierra (BOCM n.º 12, 15/01/2021; tasa) y modificación (BOCM 16/11/2022)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+      "vigente": true,
+      "resumen": [
+        "Recreativo 10 kg por persona y día; intensivo hasta 30 kg en total."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 80,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+            "nota": "Importe de 2021; hay una modificación posterior sin leer"
+          },
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+            "nota": "Importe de 2021; hay una modificación posterior sin leer"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+            "nota": "Importe de 2021; hay una modificación posterior sin leer"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+            "nota": "Importe de 2021; hay una modificación posterior sin leer"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-46.PDF",
+            "nota": "Importe de 2021; hay una modificación posterior sin leer"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Tasas de 2021 leídas en el BOCM. La modificación de noviembre de 2022 (https://bocm.es/boletin/CM_Orden_BOCM/2022/11/16/BOCM-20221116-87.PDF) no se ha leído, así que puede haber cambiado importes o cupos. Ordenanza: https://bocm.es/boletin/CM_Orden_BOCM/2021/01/15/BOCM-20210115-45.PDF."
+    },
+    {
+      "id": "madrid-manzanares",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Manzanares el Real (BOCM n.º 21, 26/01/2021) y tasa",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2021/01/26/BOCM-20210126-58.PDF",
+      "vigente": true,
+      "resumen": [
+        "Recreativo 10 kg por persona y día; intensivo hasta 30 kg en total."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 80,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2021/01/26/BOCM-20210126-58.PDF",
+            "nota": "Importe de la ordenanza de 2021; no consta que se aplique hoy"
+          },
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2021/01/26/BOCM-20210126-58.PDF",
+            "nota": "Importe de la ordenanza de 2021; no consta que se aplique hoy"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2021/01/26/BOCM-20210126-58.PDF",
+            "nota": "Importe de la ordenanza de 2021; no consta que se aplique hoy"
+          }
+        ]
+      },
+      "cupoKgDia": 10,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "La Comunidad de Madrid no cita Manzanares en su lista de municipios con licencia de 2024, así que no se sabe si la ordenanza se aplica hoy. Ordenanza: https://www.bocm.es/boletin/CM_Orden_BOCM/2021/01/26/BOCM-20210126-57.PDF. Dónde sacar el permiso: sin confirmar."
+    },
+    {
+      "id": "madrid-bustarviejo",
+      "titulo": "Ordenanza municipal del aprovechamiento micológico de Bustarviejo (BOCM n.º 100, 28/04/2021) y tasa",
+      "tipo": "ordenanza",
       "ambito": {
         "comunidad": "madrid",
         "zonas": [
           "sierra-norte"
         ]
       },
-      "url": "https://sierradelrincon.org/wp-content/uploads/2024/09/2409NormasSeptiembre2024Maquetadas.pdf",
+      "url": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF",
       "vigente": true,
-      "resumen": [],
-      "permiso": null,
-      "prohibiciones": [],
+      "resumen": [
+        "Foráneo recreativo limitado a 5 kg por persona y día (la tabla de tasas lo indica expresamente); local y vinculado recreativo 10 kg."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 100,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+          },
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 15,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 10,
+            "anio": 2021,
+            "verificado": true,
+            "fuente": "https://bocm.es/boletin/CM_Orden_BOCM/2021/04/28/BOCM-20210428-72.PDF"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
       "revisado": "2026-09-30",
-      "verificado": false,
-      "notas": "Fuente secundaria: normas de visita, no el texto normativo."
+      "verificado": true,
+      "notas": "La tabla de tasas leída el 30/09/2026 es ambigua para el permiso de dos días del foráneo (aparecen 7 y 10 en la misma fila), por eso no se ha transcrito."
+    },
+    {
+      "id": "madrid-soto-del-real",
+      "titulo": "Modificación de la ordenanza del aprovechamiento micológico de Soto del Real (BOCM n.º 287, 02/12/2024)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama"
+        ]
+      },
+      "url": "https://bocm.es/boletin/CM_Orden_BOCM/2024/12/02/BOCM-20241202-98.PDF",
+      "vigente": true,
+      "resumen": [
+        "El permiso recreativo baja a 5 kg por persona y día; el intensivo llega a 25 kg (en las ordenanzas de 2020-2021 de la zona el recreativo era de 10 kg)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.comunidad.madrid/node/70372",
+        "tarifas": []
+      },
+      "cupoKgDia": 5,
+      "horario": "Temporada del 15 de julio al 1 de julio (según ordenanza). Prohibido recoger de noche, desde la puesta del sol hasta su salida.",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas o cualquier herramienta que altere el mantillo",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Bolsas de plástico (recipiente poroso obligatorio)"
+      ],
+      "sanciones": "Ordenanza municipal: leves hasta 100 €, graves de 101 a 1.000 € y muy graves de 1.001 a 3.000 €; decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Cupos leídos en el BOCM el 30/09/2026. La modificación no incluye tasas y no se ha localizado la ordenanza fiscal, así que no hay precios. Soto del Real no figura en la lista de municipios con licencia de la Comunidad de Madrid de 2024."
+    },
+    {
+      "id": "montejo-prohibicion",
+      "titulo": "Resolución n.º 2213/2025, de la Dirección General de Biodiversidad y Gestión Forestal (Comunidad de Madrid), que fija las normas de acceso y visita al Hayedo de Montejo (MUP n.º 89)",
+      "tipo": "resolucion",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "sierra-norte"
+        ]
+      },
+      "url": "https://www.sierradelrincon.org/wp-content/uploads/2025/11/022Resolucion-2213_2025-DG-Biodiversidad-y-Gestion-Forestal.pdf",
+      "vigente": true,
+      "resumen": [
+        "Norma de comportamiento 3.6: no se permite recolectar plantas, hongos o minerales ni capturar animales en el Hayedo de Montejo. La visita es solo en grupo por los itinerarios establecidos."
+      ],
+      "permiso": null,
+      "prohibiciones": [
+        "Recolectar plantas, hongos o minerales",
+        "Salirse de los itinerarios de visita"
+      ],
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto de la resolución leído el 30/09/2026 (segunda pasada); la página de la Comunidad la fecha el 03/11/2025 (https://www.comunidad.madrid/node/6065). Sustituye a las normas de visita de septiembre de 2024 citadas en la primera pasada. Montejo de la Sierra fuera del Hayedo y Somosierra: no se ha encontrado ordenanza micológica."
     },
     {
       "id": "clm-orden-2016-11-15",
@@ -112,12 +1066,561 @@
       },
       "url": "https://vlex.es/vid/orden-15-11-2016-774565357",
       "vigente": true,
-      "resumen": [],
-      "permiso": null,
+      "resumen": [
+        "Recolección libre de autoconsumo sin ánimo comercial: máximo 5 kg de setas o un volumen aparente de 10 litros por persona y día (art. 3.3, según el texto reproducido por vLex).",
+        "Quedan fuera las setas cultivadas y las trufas. La recolección científica requiere autorización (art. 5).",
+        "Art. 8: en espacios naturales protegidos y Red Natura 2000 rige esta orden, salvo medidas de mayor protección en su normativa específica.",
+        "Las setas son del propietario del monte; en montes con ordenanza municipal hace falta su permiso."
+      ],
+      "permiso": {
+        "obligatorio": false,
+        "donde": "https://medionatural.castillalamancha.es/",
+        "tarifas": []
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [
+        "Recoger de noche",
+        "Rastrillar o remover el suelo o el mantillo",
+        "Bolsas o cubos de plástico (cesta obligatoria)",
+        "Herramientas distintas de cuchillo o navaja"
+      ],
+      "sanciones": "Régimen sancionador remitido a la Ley 3/2008 de Montes de Castilla-La Mancha (decomiso según su art. 94) y a la Ley 43/2003, según la cláusula que reproduce la ordenanza de Boniches.",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "No se ha leído el texto del DOCM: el PDF de la Junta (areasprotegidas.castillalamancha.es, ahora medionatural.castillalamancha.es) da error 404 y no se ha localizado la URL de descarga del DOCM. El art. 3.3 se ha leído en vLex (copia del texto) y la cláusula de sanciones en la ordenanza de Boniches (BOP de Cuenca 04/09/2024). Las prohibiciones (noche, rastrillo, bolsas de plástico, solo cuchillo) proceden de prensa y de las ordenanzas que la reproducen. Borrador de 2016: https://castillalamancha.es/sites/default/files/documentos/pdf/20160819/borradorordensetasclm_2016_08_08_2016.pdf. Reglas de los parques naturales de CLM (Alto Tajo, Serranía de Cuenca, Sierra Norte de Guadalajara) y del Parque Nacional de Cabañeros: no encontradas."
+    },
+    {
+      "id": "guadalajara-mancomunidad-la-sierra",
+      "titulo": "Mancomunidad «La Sierra» (Alto Tajo y Señorío de Molina): condiciones y permisos de micoturismo",
+      "tipo": "mancomunidad",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://sierraaltotajo.es/micoturismo/condiciones-permisos",
+      "vigente": true,
+      "resumen": [
+        "17 municipios: Adobes, Alcoroches, Alustante, Baños de Tajo, Checa, Chequilla, Megina, Motos, Orea, Peralejos de las Truchas, Pinilla de Molina, Piqueras, Taravilla, Terzaga, Tordellego, Tordesilos y Traid.",
+        "Temporada del 1 de septiembre al 31 de agosto. Menores de 14 años exentos si van acompañados.",
+        "Permisos en los ayuntamientos, comercios adheridos y www.sierraaltotajo.es (tel. 949 83 62 66). No ofrece mapas descargables."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://sierraaltotajo.es/micoturismo/condiciones-permisos",
+        "tarifas": [
+          {
+            "nombre": "Turista, diario (desde 14 años)",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://sierraaltotajo.es/micoturismo/condiciones-permisos"
+          },
+          {
+            "nombre": "Turista, fin de semana (sábado y domingo)",
+            "precio": 7,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://sierraaltotajo.es/micoturismo/condiciones-permisos"
+          },
+          {
+            "nombre": "Turista, temporada",
+            "precio": 60,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://sierraaltotajo.es/micoturismo/condiciones-permisos"
+          },
+          {
+            "nombre": "Vecino empadronado, temporada",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://sierraaltotajo.es/micoturismo/condiciones-permisos"
+          },
+          {
+            "nombre": "Propietario o arrendatario, temporada",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://sierraaltotajo.es/micoturismo/condiciones-permisos"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (de la puesta a la salida del sol).",
+      "prohibiciones": [
+        "Bolsas de plástico",
+        "Rastrillos y palas",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Grupos de más de 3 personas en paralelo",
+        "Usar otra herramienta que no sea un cuchillo o navaja"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Página releída el 30/09/2026; no indica año de los importes (se presentan como vigentes). El permiso comercial (20 € por temporada, solo vecinos) no se incluye porque no es recreativo. No se ha localizado el texto de la ordenanza de la mancomunidad en el BOP."
+    },
+    {
+      "id": "guadalajara-cobeta",
+      "titulo": "Ordenanza fiscal del aprovechamiento micológico de Cobeta (BOP de Guadalajara n.º 85, 06/05/2025)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf",
+      "vigente": true,
+      "resumen": [
+        "Recreativo 5 kg por persona y día; intensivo local 25 kg. El foráneo solo puede sacar permiso de 1 o 2 días.",
+        "Temporada del 15 de julio al 1 de julio. Prohibido recoger en días de caza."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2025,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2025,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf"
+          },
+          {
+            "nombre": "Vinculado recreativo, un día",
+            "precio": 2,
+            "cupoKgDia": 5,
+            "anio": 2025,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2025,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tabla leída el 30/09/2026 (la de la primera pasada era ambigua; aquí queda resuelta)."
+    },
+    {
+      "id": "guadalajara-rillo-de-gallo",
+      "titulo": "Ordenanza fiscal del aprovechamiento de hongos y setas de Rillo de Gallo (BOP de Guadalajara n.º 146, 03/08/2026; modificación provisional de julio de 2026)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2086.pdf",
+      "vigente": true,
+      "resumen": [
+        "Foráneo: permiso diario recreativo de 10 € y límite de 5 kg por día (desde 14 años).",
+        "Vecinos (más de 6 meses empadronados) 10 € al año; «hijos de Rillo de Gallo» 20 € al año; ambos 5 kg por día.",
+        "Se prohíbe la compraventa y el comercio ambulante en montes en régimen especial."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2086.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo general, diario",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2086.pdf"
+          },
+          {
+            "nombre": "Hijos de Rillo de Gallo, anual",
+            "precio": 20,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2086.pdf"
+          },
+          {
+            "nombre": "Vecino empadronado, anual",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2086.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Es una modificación aprobada provisionalmente por el Pleno el 09/07/2026 y en exposición pública: pasa a definitiva si no hay reclamaciones. Antes de la modificación los importes pueden ser otros."
+    },
+    {
+      "id": "guadalajara-herreria",
+      "titulo": "Ordenanza fiscal del aprovechamiento de hongos y setas de Herrería (BOP de Guadalajara n.º 146, 03/08/2026; modificación provisional)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2077.pdf",
+      "vigente": true,
+      "resumen": [
+        "Mismo esquema que Rillo de Gallo: foráneo 10 € al día con límite de 5 kg; vecinos e hijos del pueblo con permiso anual."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2077.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo general, diario",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_2077.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Modificación provisional publicada en el mismo BOP que la de Rillo de Gallo (exposición pública). Importes de vecinos no transcritos."
+    },
+    {
+      "id": "guadalajara-torrecuadrada",
+      "titulo": "Ordenanza fiscal del aprovechamiento de hongos y setas de Torrecuadrada de Molina (BOP de Guadalajara n.º 67, 10/04/2026; MUP n.º 205)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf",
+      "vigente": true,
+      "resumen": [
+        "Foráneo: permiso diario recreativo de 25 € con límite de 5 kg por día. Hijos del pueblo 1 € al año con límite de 10 kg; acompañantes de hijos 2 € al día."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo general, diario",
+            "precio": 25,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf"
+          },
+          {
+            "nombre": "Hijos de Torrecuadrada, anual",
+            "precio": 1,
+            "cupoKgDia": 10,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_964.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Aprobación definitiva tras exposición pública (anuncio en el BOP n.º 34 de 19/02/2026)."
+    },
+    {
+      "id": "guadalajara-arbancon",
+      "titulo": "Ordenanza fiscal del aprovechamiento micológico de Arbancón (BOP de Guadalajara n.º 8, 14/01/2026)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_99.pdf",
+      "vigente": true,
+      "resumen": [
+        "No residentes: permiso diario recreativo de 5 € y hasta 5 kg por día (mayores de 18 años).",
+        "Residentes: permiso anual exento con hasta 10 kg por día. Comercial residente: temporada 100 € con hasta 50 kg por día; comercial no residente 200 € por temporada.",
+        "Se prohíbe el uso de rastrillos, hoces, azadas, picos, palas o similares. En caza señalizada, limitación en la mancha y 500 m de seguridad."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_99.pdf",
+        "tarifas": [
+          {
+            "nombre": "No residente recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2026_99.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Sanción de 100 a 1.000 € anotada en la primera pasada; no se ha releído el artículo."
+    },
+    {
+      "id": "guadalajara-arroyo-de-las-fraguas",
+      "titulo": "Ordenanza fiscal del aprovechamiento micológico de Arroyo de las Fraguas (BOP de Guadalajara n.º 246, 27/12/2024)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "guadalajara"
+        ]
+      },
+      "url": "https://boletin.dguadalajara.es/boletin/pdf/pdf2024_4150.pdf",
+      "vigente": true,
+      "resumen": [
+        "Foráneos: 5 € al día, 20 € por 10 días o 50 € al año, con hasta 5 kg por día. Vecinos: permiso anual exento con hasta 10 kg; vinculados: exento con hasta 5 kg.",
+        "Prohibido en días de batida y en los 5 días anteriores, en una franja de 500 m. Sombrero mínimo de 4 cm (2 cm en rebozuelos y senderuela)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://boletin.dguadalajara.es/boletin/pdf/pdf2024_4150.pdf",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2024,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2024_4150.pdf"
+          },
+          {
+            "nombre": "Foráneo recreativo, 10 días",
+            "precio": 20,
+            "cupoKgDia": 5,
+            "anio": 2024,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2024_4150.pdf"
+          },
+          {
+            "nombre": "Foráneo recreativo, anual",
+            "precio": 50,
+            "cupoKgDia": 5,
+            "anio": 2024,
+            "verificado": true,
+            "fuente": "https://boletin.dguadalajara.es/boletin/pdf/pdf2024_4150.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Prohibido recoger de noche (desde la puesta del sol hasta su salida).",
+      "prohibiciones": [
+        "Rastrillos, hoces, escardillos, azadas y herramientas similares",
+        "Recoger de noche (desde la puesta hasta la salida del sol)",
+        "Recoger en la mancha de una jornada de caza señalizada"
+      ],
+      "sanciones": "Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003 (ver esas normas); decomiso de lo recolectado.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Importes leídos el 30/09/2026."
+    },
+    {
+      "id": "cuenca-boniches",
+      "titulo": "Ordenanza fiscal del aprovechamiento micológico de Boniches (BOP de Cuenca n.º 103, 04/09/2024)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "cuenca"
+        ]
+      },
+      "url": "https://www.dipucuenca.es/documents/34525/1514036/29.pdf/7a0f6e25-97f9-18f2-403e-9d1fe66b1117?t=1725430278238",
+      "vigente": true,
+      "resumen": [
+        "Recreativo: máximo 5 kg o volumen aparente de 10 litros por persona y día (mayores de 18 años).",
+        "Vecinos (más de 6 meses empadronados) 2 € al año; hijos de Boniches 4 € al año."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.dipucuenca.es/documents/34525/1514036/29.pdf/7a0f6e25-97f9-18f2-403e-9d1fe66b1117?t=1725430278238",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, diario",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2024,
+            "verificado": true,
+            "fuente": "https://www.dipucuenca.es/documents/34525/1514036/29.pdf/7a0f6e25-97f9-18f2-403e-9d1fe66b1117?t=1725430278238"
+          },
+          {
+            "nombre": "Foráneo recreativo, anual",
+            "precio": 20,
+            "cupoKgDia": 5,
+            "anio": 2024,
+            "verificado": true,
+            "fuente": "https://www.dipucuenca.es/documents/34525/1514036/29.pdf/7a0f6e25-97f9-18f2-403e-9d1fe66b1117?t=1725430278238"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Incumplimientos de la Orden de 15/11/2016: Ley 3/2008 de Montes de Castilla-La Mancha y Ley 43/2003; decomiso de las setas y medios empleados (art. 94 de la Ley 3/2008).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Anuncio del BOP de Cuenca leído el 30/09/2026 (aprobación provisional de 01/07/2024, definitiva si no hubo reclamaciones). Lugar donde sacar el permiso: no indicado en el anuncio."
+    },
+    {
+      "id": "cuenca-tragacete",
+      "titulo": "Ordenanza de Tragacete (Cuenca) sobre el aprovechamiento micológico del MUP n.º 150 «La Fuenseca y otros» y fincas Poyal y Vasallo (prensa, 08/09/2021)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "cuenca"
+        ]
+      },
+      "url": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+      "vigente": true,
+      "resumen": [
+        "Vecinos (más de 6 meses empadronados) y «hijos de Tragacete» 5 € al año. Ticket turístico de 1 € al día con consumo mínimo de 25 € en el pueblo y 2 kg por día.",
+        "Cupo 5 kg por persona y día."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+        "tarifas": [
+          {
+            "nombre": "Foráneo, diario",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+            "nota": "Dato de prensa de 2021; no se ha leído el BOP"
+          },
+          {
+            "nombre": "Foráneo, anual",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": 2021,
+            "verificado": false,
+            "fuente": "https://www.vocesdecuenca.com/provincia/serrania/tragacete-aprueba-una-tasa-para-la-recogida-de-hongos-de-5-euros-anuales-para-vecinos-y-30-para-foraneos/",
+            "nota": "Dato de prensa de 2021; no se ha leído el BOP"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
       "prohibiciones": [],
       "revisado": "2026-09-30",
       "verificado": false,
-      "notas": "El PDF oficial de la Junta da error 404; el contenido viene de resúmenes, sin leer el DOCM."
+      "notas": "Solo fuente secundaria (Voces de Cuenca, 08/09/2021; también https://www.elespanol.com/eldigitalcastillalamancha/region/cuenca/20210912/pueblo-cuenca-limita-recoleccion-setas-euros-no/611439122_0.html). El BOP de Cuenca no se ha localizado con buscador web; importes posiblemente cambiados desde 2021."
+    },
+    {
+      "id": "cuenca-la-huerguina",
+      "titulo": "Ordenanza de La Huérguina (Cuenca) sobre la recogida de setas y hongos en el MUP n.º 48 (prensa, 30/08/2020)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "castilla-la-mancha",
+        "zonas": [
+          "cuenca"
+        ]
+      },
+      "url": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+      "vigente": true,
+      "resumen": [
+        "Empadronados y oriundos 3 € por temporada; máximo 100 pases diarios; 7 kg por persona y día.",
+        "Prohibidos rastrillos y hoces; cesta obligatoria."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+        "tarifas": [
+          {
+            "nombre": "Resto de mayores de 16 años, diario",
+            "precio": 5,
+            "cupoKgDia": 7,
+            "anio": 2020,
+            "verificado": false,
+            "fuente": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+            "nota": "Dato de prensa de 2020; no se ha leído el BOP"
+          },
+          {
+            "nombre": "Resto de mayores de 16 años, pase de temporada",
+            "precio": 30,
+            "cupoKgDia": 7,
+            "anio": 2020,
+            "verificado": false,
+            "fuente": "https://www.vocesdecuenca.com/provincia/serrania/la-huerguina-aprueba-una-ordenanza-municipal-para-prevenir-los-abusos-en-la-recogida-de-setas-y-hongos/",
+            "nota": "Dato de prensa de 2020; no se ha leído el BOP"
+          }
+        ]
+      },
+      "cupoKgDia": 7,
+      "prohibiciones": [
+        "Rastrillos y hoces",
+        "Recoger sin cesta"
+      ],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Solo fuente secundaria (Voces de Cuenca, 30/08/2020). El BOP de Cuenca no se ha localizado. Valdemeca, Beteta, Uña, Huélamo, Cuenca capital y Las Majadas: no se ha encontrado ordenanza micológica en ninguna fuente oficial."
     },
     {
       "id": "alava-foral",
@@ -131,12 +1634,313 @@
       },
       "url": "https://www.araba.eus/botha/Boletines/2008/121/2008_121_06859.pdf",
       "vigente": true,
-      "resumen": [],
+      "resumen": [
+        "Art. 2: el aprovechamiento de hongos es libre hasta 2 kg por persona y día, salvo en terrenos donde la entidad titular lo reserve o acote mediante ordenanza propia. La Diputación puede limitar cada año los días de la semana de recogida.",
+        "Art. 3: por encima de esos límites, o en terrenos no acotados con fines comerciales, hace falta autorización expresa de la entidad propietaria.",
+        "Art. 5: en los montes públicos de espacios naturales protegidos rigen además las prescripciones de sus PORN y PRUG.",
+        "Art. 6: prohibido remover el suelo o alterar la capa vegetal con rastrillos, hoces u otras herramientas; solo cuchillo o navaja (prohibido arrancar); solo ejemplares desplegados; cestas o recipientes que permitan la aireación, con bolsas de plástico y mochilas expresamente prohibidas; prohibida la recogida de noche."
+      ],
+      "permiso": {
+        "obligatorio": false,
+        "donde": "https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres",
+        "tarifas": []
+      },
+      "cupoKgDia": 2,
+      "horario": "Prohibida la recogida desde la puesta del sol hasta la salida (art. 6).",
+      "prohibiciones": [
+        "Remover el suelo o alterar la capa vegetal; rastrillos, hoces u otras herramientas",
+        "Arrancar las setas (solo cuchillo o navaja)",
+        "Bolsas de plástico y mochilas",
+        "Recoger ejemplares sin desplegar o deteriorados",
+        "Recoger de noche"
+      ],
+      "sanciones": "Art. 7: régimen sancionador del Título VII de la Norma Foral 11/2007, de 26 de marzo, de Montes. La Diputación resume sanciones de 30 a 250 €, más decomiso e indemnización.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOTHA (copia publicada por el Ayuntamiento de Arraia-Maeztu) leído el 30/09/2026 en la segunda pasada. La cifra de sanciones de 30 a 250 € procede del resumen oficial de la Diputación (https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres), no del decreto."
+    },
+    {
+      "id": "eus-gorbeia-prug",
+      "titulo": "Decreto 169/2019, de 29 de octubre, que aprueba la parte normativa del II PRUG del Parque Natural de Gorbeia (BOPV n.º 220, 19/11/2019)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2019/11/1905333a.shtml",
+      "vigente": true,
+      "resumen": [
+        "Apartado 2.7.1.4: en Álava la recolección se regula por el Decreto Foral 89/2008; en Bizkaia, máximo 2 kg de hongos o setas por persona y día para autoconsumo, y el aprovechamiento comercial necesita autorización del órgano gestor.",
+        "El órgano gestor puede imponer medidas más restrictivas según el estado de las poblaciones. La recogida de hongos sin interés culinario (colección) necesita su autorización."
+      ],
+      "permiso": null,
+      "cupoKgDia": 2,
+      "prohibiciones": [
+        "Recogida de hongos sin interés culinario sin autorización del órgano gestor"
+      ],
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOPV leído el 30/09/2026 (segunda pasada)."
+    },
+    {
+      "id": "eus-valderejo-prug",
+      "titulo": "Decreto 72/2018, de 15 de mayo, que aprueba la parte normativa del PRUG del Parque Natural de Valderejo (BOPV n.º 98, 23/05/2018)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.euskadi.eus/web01-bopv/es/bopv2/datos/2018/05/1802719a.pdf",
+      "vigente": true,
+      "resumen": [
+        "En el apartado de actividades recreativas: el aprovechamiento de setas, hongos, plantas, flores y frutos silvestres se regula por el Decreto Foral 89/2008 (2 kg por persona y día).",
+        "El órgano gestor puede imponer medidas más restrictivas; la recogida de hongos sin interés culinario necesita su autorización."
+      ],
+      "permiso": null,
+      "cupoKgDia": 2,
+      "prohibiciones": [
+        "Recogida de hongos sin interés culinario sin autorización del órgano gestor"
+      ],
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOPV leído el 30/09/2026 (segunda pasada)."
+    },
+    {
+      "id": "eus-izki-prug",
+      "titulo": "Decreto 73/2018, de 15 de mayo, que aprueba la parte normativa del PRUG del Parque Natural de Izki (BOPV n.º 106, 04/06/2018)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2018/06/1802901a.shtml",
+      "vigente": true,
+      "resumen": [
+        "No se ha podido leer el apartado de recolección: el PDF y el ePub del BOPV publican el anexo como imagen o con fuente ilegible."
+      ],
       "permiso": null,
       "prohibiciones": [],
       "revisado": "2026-09-30",
       "verificado": false,
-      "notas": "PDF enlazado desde la Diputación pero no descargado; resumen oficial verificado en https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres"
+      "notas": "Los PRUG de Gorbeia y Valderejo (mismo Departamento) remiten todo al Decreto Foral 89/2008; es razonable que Izki haga lo mismo, pero no está comprobado. El coto de Arraia cubre Izki: ver alava-coto-arraia."
+    },
+    {
+      "id": "alava-coto-arraia",
+      "titulo": "Coto de setas de Arraia-Maeztu (Izki): información y tarifas del Ayuntamiento, vigentes desde el 01/04/2017",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.arraia-maeztu.eus/servicios/coto-de-setas/",
+      "vigente": true,
+      "resumen": [
+        "Pueblos incluidos: Apellaniz, Azazeta, Korres, Maestu, Onraita, Aletxa, Arenaza, Cicujano, Ibisate, Leorza, Musitu, Roitegui, Virgala Mayor, Virgala Menor y San Vicente de Arana (solo Bitigarra).",
+        "Puntos de venta: Ayuntamiento de Arraia-Maeztu (945 41 00 33), restaurantes Izki, Los Roturos, Virgala y Obenkun y Parketxe de Korres. Rige el Decreto Foral 89/2008 (2 kg por persona y día)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf",
+        "tarifas": [
+          {
+            "nombre": "No empadronado, diario",
+            "precio": 5,
+            "cupoKgDia": 2,
+            "anio": 2017,
+            "verificado": false,
+            "fuente": "https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf",
+            "nota": "Tarifa de 2017 en la web oficial; 2026 no confirmado"
+          },
+          {
+            "nombre": "No empadronado, semanal",
+            "precio": 20,
+            "cupoKgDia": 2,
+            "anio": 2017,
+            "verificado": false,
+            "fuente": "https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf",
+            "nota": "Tarifa de 2017; 2026 no confirmado"
+          },
+          {
+            "nombre": "No empadronado, abono anual",
+            "precio": 80,
+            "cupoKgDia": 2,
+            "anio": 2017,
+            "verificado": false,
+            "fuente": "https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf",
+            "nota": "Tarifa de 2017; 2026 no confirmado"
+          }
+        ]
+      },
+      "cupoKgDia": 2,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Los documentos de tarifas del Ayuntamiento son de 2017 (cartel https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-29-kartela.pdf) y el convenio del coto se publicó en el BOTHA de 21/10/2016. No se han encontrado tarifas de 2026: confirmar en el 945 41 00 33. La ordenanza de precios públicos de 2024 (BOTHA n.º 78, 12/07/2024) no incluye el coto. Plano: https://www.arraia-maeztu.eus/wp-content/uploads/2019/01/coto-setas-maeztu-17-03-29-Plano.jpg."
+    },
+    {
+      "id": "alava-parque-micologico-asparrena",
+      "titulo": "Parque Micológico Asparrena-Apota (Entzia y Aizkorri-Aratz): ordenanza reguladora del aprovechamiento en los MUP 305, 306, 307, 311 y 632 y Monte Alto de Ametzaga",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.arabakolautada.eus/site_media/uploads/84160698391126867.pdf",
+      "vigente": true,
+      "resumen": [
+        "Autorización del alcalde de Asparrena o de la entidad gestora (Museo del Mitxarro o Parketxe; en 2026 hay permisos diarios, semanales y de temporada en Entradium, desde la web del ayuntamiento).",
+        "Se puede recoger todos los días del amanecer a la puesta del sol; el gestor puede cerrar días por caza o clima adversa.",
+        "Prohibido remover el suelo con herramientas. Tamaño mínimo de sombrero 4 cm (2 cm en rebozuelos, trompeta y senderuela).",
+        "Dentro del Parque Natural Aizkorri-Aratz rigen además su PORN y PRUG."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.asparrena.eus/ocio-y-turismo/parque-micologico-asparrena-san-millan",
+        "tarifas": [
+          {
+            "nombre": "No empadronado, diario (precio 2023 según prensa)",
+            "precio": 5,
+            "cupoKgDia": 2,
+            "anio": 2023,
+            "verificado": false,
+            "fuente": "https://www.gasteizhoy.com/otono-coger-setas-hongos-alava/",
+            "nota": "Fuente secundaria de 2023; la web municipal ofrece permisos 2026 pero no muestra el precio"
+          },
+          {
+            "nombre": "No empadronado, temporada (precio 2023 según prensa)",
+            "precio": 52,
+            "cupoKgDia": 2,
+            "anio": 2023,
+            "verificado": false,
+            "fuente": "https://www.gasteizhoy.com/otono-coger-setas-hongos-alava/",
+            "nota": "Fuente secundaria de 2023; 2026 no confirmado"
+          }
+        ]
+      },
+      "cupoKgDia": 2,
+      "horario": "Todos los días, del amanecer a la puesta del sol (art. 9.1).",
+      "prohibiciones": [
+        "Remover el suelo con cualquier herramienta",
+        "Recoger ejemplares con sombrero menor de 4 cm (2 cm en rebozuelos, trompeta y senderuela)",
+        "Llevar rastrillos, ganchos u hoces (según el informe de la primera pasada)"
+      ],
+      "sanciones": "Título VII de la Norma Foral 11/2007, de Montes.",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Extracto de la ordenanza leído el 30/09/2026; no contiene precios. La web municipal https://www.asparrena.eus/ocio-y-turismo/parque-micologico-asparrena-san-millan confirma permisos de 2026 (diario, semanal y temporada) en Entradium, sin importes en el texto. Cupo de 2 kg por el Decreto Foral 89/2008."
+    },
+    {
+      "id": "alava-consierra-arcena",
+      "titulo": "Ordenanza reguladora del aprovechamiento de frutos, setas, plantas y flores de la Consierra de Árcena (Sierra de Árcena; BOTHA n.º 146, 24/12/2014)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.araba.eus/botha/Boletines/2014/146/2014_146_05987_C.pdf",
+      "vigente": true,
+      "resumen": [
+        "Monte de utilidad pública n.º 134 y montes propios de los concejos de Barrio, Nograro, Quejo, Gurendes, Bachicabo y Sobrón.",
+        "Permisos diarios, semanales y de temporada para no vecinos en número limitado; valen solo para el acotado.",
+        "Menores de 14 años sin permiso si van con un adulto con permiso; de 14 a 16 años, con autorización de los padres."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres",
+        "tarifas": [
+          {
+            "nombre": "No vecino, diario",
+            "precio": 5,
+            "cupoKgDia": 2,
+            "anio": 2014,
+            "verificado": false,
+            "fuente": "https://www.araba.eus/botha/Boletines/2014/146/2014_146_05987_C.pdf",
+            "nota": "Importe de la ordenanza de 2014, con tabla mal maquetada; la prensa de 2023 cita 5 € diarios"
+          },
+          {
+            "nombre": "No vecino, anual (temporada)",
+            "precio": 100,
+            "cupoKgDia": 2,
+            "anio": 2014,
+            "verificado": false,
+            "fuente": "https://www.araba.eus/botha/Boletines/2014/146/2014_146_05987_C.pdf",
+            "nota": "Importe de 2014 según la tabla del BOTHA; la prensa de 2023 cita 75 €, así que ha cambiado; 2026 no confirmado"
+          }
+        ]
+      },
+      "cupoKgDia": 2,
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Tabla de tasas de 2014 ambigua en el PDF (5 €, 20 €, 100 € y gratuito científico para diario, semanal, anual y científico). Plano orientativo: https://web.araba.eus/documents/1247685/1248298/Sierra+Arcena.pdf/affa9c4a-f370-71c1-b671-4c305e8fba30?t=1570428548587. Tarifas de 2026 no encontradas."
+    },
+    {
+      "id": "alava-legutio",
+      "titulo": "Ordenanza reguladora del aprovechamiento de hongos, plantas, flores y frutos silvestres en los montes públicos de Legutio (junto a Gorbeia)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "euskadi",
+        "zonas": [
+          "alava"
+        ]
+      },
+      "url": "https://www.legutio.eus/sites/default/files/archivos3046a.pdf",
+      "vigente": true,
+      "resumen": [
+        "Vecinos: permiso de temporada de 5 €. No residentes: 5 € al día, 20 € a la semana u 80 € por temporada, todos los días del amanecer a la puesta del sol.",
+        "Adecuada al Decreto Foral 89/2008. No figura en la lista de terrenos acotados de la Diputación."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.legutio.eus/sites/default/files/archivos3046a.pdf",
+        "tarifas": [
+          {
+            "nombre": "No residente, diario",
+            "precio": 5,
+            "cupoKgDia": 2,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://www.legutio.eus/sites/default/files/archivos3046a.pdf",
+            "nota": "El PDF no lleva fecha legible"
+          },
+          {
+            "nombre": "No residente, semanal",
+            "precio": 20,
+            "cupoKgDia": 2,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://www.legutio.eus/sites/default/files/archivos3046a.pdf",
+            "nota": "El PDF no lleva fecha legible"
+          },
+          {
+            "nombre": "No residente, temporada",
+            "precio": 80,
+            "cupoKgDia": 2,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://www.legutio.eus/sites/default/files/archivos3046a.pdf",
+            "nota": "El PDF no lleva fecha legible"
+          }
+        ]
+      },
+      "cupoKgDia": 2,
+      "horario": "Todos los días, del amanecer a la puesta del sol.",
+      "prohibiciones": [],
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Importes leídos en el PDF el 30/09/2026, pero sin fecha de la ordenanza ni confirmación de que sigan vigentes en 2026."
     }
   ]
 }

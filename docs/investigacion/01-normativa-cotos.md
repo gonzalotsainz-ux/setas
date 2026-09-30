@@ -482,3 +482,64 @@ En La Huérguina se prohíben los rastrillos y las hoces, y la cesta es obligato
 **Copias locales guardadas hoy** en `investigacion/datos/`:
 - `cyl_zonas_micologicas_reguladas_EPSG4326_20260930.geojson` (37 MB, 247 polígonos, WGS84)
 - `oapn_zonificacion_prug_ppnn_EPSG4326_20260930.geojson` (23 MB, 1.915 polígonos, WGS84)
+
+---
+
+## 14. Segunda pasada (30/09/2026): lagunas, hallazgos y callejones sin salida
+
+Método: descarga de los PDF oficiales y lectura del texto, o relectura de las páginas oficiales en vivo. Lo que sigue se ha volcado en `data/normativa.json` (39 normas). **Lo no confirmado queda con `verificado: false` y el motivo en `notas`.**
+
+### 14.1 Confirmado en esta pasada
+
+| Tema | Resultado | Fuente leída |
+|------|-----------|--------------|
+| PRUG del Parque Nacional (vertiente de Castilla y León) | **Art. 59.b del Decreto 16/2019** (BOCyL n.º 98, 24/05/2019, p. 25610): mismo texto que el de Madrid. Recolección compatible para uso propio salvo en Zonas de Reserva y de Uso Restringido A; tipo B solo en otoño; tipos C y Moderado todo el año; autorización de la propiedad; prohibida la recolección episódica; plan de aprovechamientos obligatorio. Queda resuelto el [NO VERIFICADO] del apartado 3.1. | http://bocyl.jcyl.es/boletines/2019/05/24/pdf/BOCYL-D-24052019-1.pdf |
+| Parque Natural Sierra Norte de Guadarrama (punto `guadarrama-navas-melojar`) | **Art. 49.3 del PORN** (Decreto 4/2010, BOCyL n.º 12, 20/01/2010): solo regula el aprovechamiento **comercial** de hongos, que exige autorización de la Administración del Espacio Natural. No hay PRUG con reglas propias para la recolección recreativa. | https://www.miteco.gob.es/content/dam/miteco/es/ceneam/recursos/mini-portales-tematicos/PORN%20DEL%20GUADARRAMA.%20Castilla%20y%20Le%C3%B3n_tcm30-65004.pdf |
+| Hayedo de Montejo | **Resolución n.º 2213/2025** de la Dirección General de Biodiversidad y Gestión Forestal, norma 3.6: no se permite recolectar plantas, hongos o minerales. Sustituye a la fuente secundaria de la primera pasada. La Comunidad la fecha el 03/11/2025. | https://www.sierradelrincon.org/wp-content/uploads/2025/11/022Resolucion-2213_2025-DG-Biodiversidad-y-Gestion-Forestal.pdf · https://www.comunidad.madrid/node/6065 |
+| Decreto Foral 89/2008 (Álava) | Texto íntegro leído en el BOTHA (copia del Ayuntamiento de Arraia-Maeztu): 2 kg por persona y día (art. 2), herramientas y recipientes (art. 6), prohibido de noche, sanciones por el Título VII de la Norma Foral 11/2007. Las sanciones de 30 a 250 € son del resumen de la Diputación, no del decreto. | https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Norma.pdf |
+| PRUG de Gorbeia | **Decreto 169/2019** (BOPV n.º 220, 19/11/2019), apartado 2.7.1.4: en Álava remite al DF 89/2008; en Bizkaia, 2 kg por persona y día. | https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2019/11/1905333a.pdf |
+| PRUG de Valderejo | **Decreto 72/2018** (BOPV n.º 98, 23/05/2018): remite al DF 89/2008. | https://www.euskadi.eus/web01-bopv/es/bopv2/datos/2018/05/1802719a.pdf |
+| Valsaín | Precios y cupos de la Orden AAA/1681/2016 releídos en el BOE: diario 10 €, fin de semana 15 €, local 3 € o 25 €, vinculado 5 €, provincial 15 €. Sigue sin constar orden posterior. | https://boe.es/boe/dias/2016/10/22/pdfs/BOE-A-2016-9680.pdf |
+| Ordenanzas de Madrid (tasas) | Tablas leídas en el BOCM. Rascafría: foráneo 5 € (1 día) y 10 € (2 días), lo que resuelve la ambigüedad del apartado 3.2. Lozoya: foráneo 5 €. Miraflores y Manzanares: foráneo 80 € temporada, 5 € día, 10 € dos días. Bustarviejo: foráneo 100 € temporada con **5 kg**, 5 € día. Soto del Real: sin tasas en la modificación de 2024 (recreativo 5 kg). | BOCM-20201229-58, BOCM-20210423-57, BOCM-20210115-46, BOCM-20210126-58, BOCM-20210428-72 y BOCM-20241202-98 (enlaces en el apartado 3.2) |
+| Ordenanzas de Guadalajara (tasas) | Cobeta: foráneo 3 € (1 día) y 5 € (2 días), lo que resuelve la ambigüedad del apartado 9. Torrecuadrada: foráneo 25 € al día. Arbancón: no residente 5 € al día, 5 kg. Arroyo de las Fraguas: 5 € al día, 20 € por 10 días, 50 € al año. Rillo de Gallo y Herrería: foráneo 10 € al día (modificación **provisional**). | Enlaces del apartado 9 |
+| **Boniches (Cuenca)** | Ordenanza en el **BOP de Cuenca n.º 103, 04/09/2024**: foráneo 3 € al día o 20 € al año, 5 kg o 10 L. Es la primera ordenanza oficial de la provincia que se ha leído. | https://www.dipucuenca.es/documents/34525/1514036/29.pdf/7a0f6e25-97f9-18f2-403e-9d1fe66b1117?t=1725430278238 |
+| Acotados de CyL (precios del portal) | Montes de Segovia SG-50002 (general: 5 €, 8 € y 40 €), SG-50005 (igual), AV-50006 (5 € y 30 €) y Montes de Soria (foráneo 10 € por 2 días) releídos en el portal oficial. Gredos AV-50003: sigue sin tarifa. | https://permisos.micologiacyl.es/acotado/montes-de-segovia · https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-segovia · https://permisos.micologiacyl.es/acotado/montes-comunidad-castilla-y-leon-en-avila · https://permisos.micologiacyl.es/acotado/montes-de-soria · https://permisos.micologiacyl.es/acotado/gredos |
+| Mancomunidad La Sierra | Releída: turista 5 € día, 7 € fin de semana, 60 € temporada; 5 kg. | https://sierraaltotajo.es/micoturismo/condiciones-permisos |
+| Castilla-La Mancha, art. 3.3 | «5 kg de setas, o un volumen aparente de 10 litros» por persona y día, leído en el texto que reproduce vLex. La cláusula de sanciones (Ley 3/2008 y Ley 43/2003, decomiso) está en la ordenanza de Boniches. | https://vlex.es/vid/orden-15-11-2016-653557269 |
+
+### 14.2 Hallazgos parciales o inciertos (quedan `verificado: false`)
+
+- **Covaleda (SO-50001).** Dos tablas de precios que no coinciden y ninguna con fecha: la ficha de micologiacyl (2 días 10 €, 7 días 30 €) y la web de Pinares de Urbión (2 días 5 €, 7 días 15 €). Fuentes: https://micologiacyl.es/areas/so-50001 · https://www.pinaresdeurbion.es/licencias/
+- **Coto de Arraia (Izki).** Las tarifas oficiales del Ayuntamiento son de **2017** (diario 5 €, semanal 20 €, anual 80 € para no empadronados); no hay tarifa de 2026. Fuentes: https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-22-Informacion.pdf · https://www.arraia-maeztu.eus/wp-content/uploads/2017/03/coto-setas-maeztu-17-03-29-kartela.pdf
+- **Sierra de Árcena.** La ordenanza de 2014 trae una tabla mal maquetada (5 €, 20 €, 100 €) que no coincide con los 75 € de temporada de la prensa de 2023, así que los importes cambiaron. Sin tarifa de 2026. https://www.araba.eus/botha/Boletines/2014/146/2014_146_05987_C.pdf
+- **Asparrena-Apota.** La web municipal confirma permisos diarios, semanales y de temporada **de 2026** vendidos en Entradium, pero el texto no da importes; el extracto de la ordenanza tampoco. Quedan los 5 € y 52 € de la prensa de 2023. https://www.asparrena.eus/ocio-y-turismo/parque-micologico-asparrena-san-millan · https://www.arabakolautada.eus/site_media/uploads/84160698391126867.pdf
+- **Legutio.** Importes leídos (5 €, 20 €, 80 €), pero el PDF no lleva fecha. https://www.legutio.eus/sites/default/files/archivos3046a.pdf
+- **Miraflores de la Sierra.** Existe una modificación de la ordenanza (BOCM 16/11/2022) que no se ha leído: https://bocm.es/boletin/CM_Orden_BOCM/2022/11/16/BOCM-20221116-87.PDF
+- **Canencia.** Solo el anuncio de aprobación provisional (BOCM 14/09/2021), sin texto ni tasas: https://www.bocm.es/boletin/CM_Orden_BOCM/2021/09/14/BOCM-20210914-50.PDF
+- **Tragacete y La Huérguina.** Solo prensa (2021 y 2020); no se ha encontrado el BOP.
+- **Gredos AV-50003.** Precios de la ficha de 2021 y portal sin tarifa hoy.
+
+### 14.3 Lo que no se ha encontrado
+
+- **Orden de 15/11/2016 (DOCM).** El PDF oficial sigue dando 404: https://areasprotegidas.castillalamancha.es/sites/areasprotegidas.castillalamancha.es/files/documentos/legislacion/20230929/orden_de_setas_clm.pdf redirige a https://medionatural.castillalamancha.es/sites/areasprotegidas.castillalamancha.es/files/documentos/legislacion/20230929/orden_de_setas_clm.pdf, que también da 404. No he localizado el enlace del DOCM: probé una URL de descarga con un número de fichero supuesto (docm.castillalamancha.es/portaldocm/descargarArchivo.do?ruta=2016/11/21/pdf/2016_11181.pdf, que redirige a docm.jccm.es y responde «No se ha encontrado el fichero»). La orden sigue con `verificado: false`.
+- **PRUG de Izki (Decreto 73/2018).** El PDF del BOPV (https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2018/06/1802901a.pdf) y el ePub (https://www.euskadi.eus/web01-bopv/es/bopv2/datos/2018/06/1802901a.epub) publican el anexo como imagen o con una fuente ilegible: no se puede leer el apartado de setas. Por analogía con Gorbeia y Valderejo remitiría al DF 89/2008, pero no está comprobado.
+- **Parque Regional de Gredos.** La Ley 3/1996 (https://boe.es/boe/dias/1996/07/22/pdfs/A22901-22902.pdf) no contiene reglas de setas; el texto del PORN (Decreto 36/1995) no aparece en los buscadores; fuentes de las Cortes de Castilla y León hasta 2019 dicen que el PRUG seguía sin aprobar (https://sirdoc.ccyl.es/SIRDOC/PDF/PUBLOFI/BO/CCL/9L/BOCCL0900297/BOCCL-09-018569.pdf, no descargado).
+- **Parques naturales de Castilla-La Mancha (Alto Tajo, Serranía de Cuenca, Sierra Norte de Guadalajara).** Las búsquedas del PORN y del PRUG no dieron resultados útiles, y las páginas de areasprotegidas.castillalamancha.es ya redirigen a medionatural.castillalamancha.es, donde las que probé dan 404 (p. ej. https://medionatural.castillalamancha.es/print/57).
+- **Parque Nacional de Cabañeros.** Una búsqueda del PRUG y las normas de uso público sin resultado; no hay regla de setas localizada.
+- **Ordenanzas de Valdemeca, Beteta y Cuenca capital en el BOP de Cuenca.** Las búsquedas (Valdemeca, Beteta, Cuenca capital, Tragacete y La Huérguina) solo devuelven ordenanzas de Guadalajara, Ávila y Burgos. No he podido usar el buscador de bop.dipucuenca.es. La única ordenanza de Cuenca hallada es la de Boniches.
+- **Montejo de la Sierra (fuera del Hayedo) y Somosierra.** Ninguna ordenanza micológica en el BOCM (búsqueda «ordenanza micológica Montejo de la Sierra Somosierra BOCM»).
+- **Tarifas 2026 de Álava** (Arraia, Asparrena, Árcena) **y de Covaleda.** Ver 14.2.
+
+### 14.4 Direcciones comprobadas y descartadas
+
+- `https://www.boe.es/buscar/doc.php?id=DOCM-2016-...`: 404 (el DOCM no está en el BOE).
+- `https://vlex.es/vid/orden-15-11-2016-774565357` y `https://vlex.es/vid/orden-15-11-2016-653557269`: sirven el texto parcial (el art. 12 requiere suscripción).
+- `https://boletin.dguadalajara.es/boletin/pdf/pdf2025_1386.pdf` (Cobeta): el lector web no extrae las tablas; se leyó descargando el PDF.
+- `https://www.arraia-maeztu.eus/wp-content/uploads/2024/07/240712-ordenanza-precios-publicos-servicios-actividades.pdf` (BOTHA n.º 78, 12/07/2024): precios públicos del ayuntamiento, sin coto de setas.
+- `https://www.arraia-maeztu.eus/wp-content/uploads/2026/01/2026_010_00125_C.pdf`: padrón del impuesto de vehículos, sin relación.
+- `https://web.araba.eus/es/montes/aprovechamiento-de-hongos-flores-y-frutos-silvestres`: lista los cuatro acotados oficiales (Asparrena-Apota, Arraia, Árcena y Gordoa), sin tarifas.
+- `https://permisos.micologiacyl.es/acotado/acotado-de-covaleda`: HTTP 400 (la ficha correcta es https://micologiacyl.es/areas/so-50001).
+- `https://www.dipucuenca.es/documents/34525/1514036/29.pdf/...` (Boniches): el acceso directo con curl da 403; se leyó a través del lector web.
+- `https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2018/06/1802901a.shtml`: solo contiene el decreto de aprobación; el PRUG está en el PDF ilegible.
+- `https://www.boe.es/buscar/act.php?id=BOE-A-1996-16688`: no es la Ley 3/1996 de Gredos (es una resolución de lotería); la ley se leyó en `https://boe.es/boe/dias/1996/07/22/pdfs/A22901-22902.pdf`.
+- `https://www.comunidad.madrid/sites/default/files/doc/medio-ambiente/cma_consejoma_01_prug_informefavorable_propuesta.pdf`: no es un PDF válido al descargarlo.
