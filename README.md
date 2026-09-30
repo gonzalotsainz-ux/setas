@@ -1,7 +1,7 @@
 # Setas
 
-Previsión y cuaderno de campo para salir a por setas en ocho zonas del centro y norte de la península
-(Guadarrama, Sierra Norte, Soria, Gredos, Cuenca, Guadalajara, Toledo y Álava). Web personal en HTML, CSS y JS
+Previsión y cuaderno de campo para salir a por setas en once zonas del centro, norte y oeste de la península
+(Guadarrama, Sierra Norte, Soria, Burgos, norte de Burgos, Gredos, Cuenca, Guadalajara, Toledo, Álava y Extremadura). Web personal en HTML, CSS y JS
 sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gonzalotsainz-ux.github.io/setas/
 
 - **Hoy y Zona:** índice 0 a 100 por zona y especie a partir de la lluvia (modelos de Open-Meteo contrastados con
@@ -31,7 +31,7 @@ npm run gancho                           # instala el gancho pre-push
 - **Sin login, abierto por decisión de la usuaria.** Cualquiera que tenga la URL puede ver y editar el diario.
   No guardes nada que no quieras compartir.
 - **Supabase** (proyecto `ctgedeunquvmcfqsufjj`): diario, fotos y umbrales. La clave publicable está en
-  `js/supabase.js` y es pública por diseño. Migraciones en `supabase/migrations/`.
+  `js/config.js` y es pública por diseño. Migraciones en `supabase/migrations/`.
 - **Edge Function `aemet`:** lluvia medida en estaciones AEMET con caché de 6 h y lista blanca de estaciones.
   Detalles, despliegue y retrasos reales de AEMET en [docs/supabase.md](docs/supabase.md).
 - **Open-Meteo:** se llama desde el navegador con caché de 3 h (evita los 429).

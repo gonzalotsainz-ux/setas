@@ -9,7 +9,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const RAIZ = new URL('../', import.meta.url);
 const SUPABASE_URL = 'https://ctgedeunquvmcfqsufjj.supabase.co';
-const ANON = readFileSync(new URL('js/supabase.js', RAIZ), 'utf8').match(/SUPABASE_ANON = '([^']+)'/)[1];
+// La clave publicable vive en js/config.js (antes estaba en js/supabase.js).
+const ANON = readFileSync(new URL('js/config.js', RAIZ), 'utf8').match(/SUPABASE_ANON = '([^']+)'/)[1];
 const FUNCION = `${SUPABASE_URL}/functions/v1/aemet`;
 const MAX_KM = 30, MAX_DESNIVEL = 400;
 

@@ -79,7 +79,7 @@
 
 ### Notas sobre los datos actuales de `zonas.json`
 
-- `comunidad`: `madrid-castilla-y-leon` (guadarrama y sierra-norte), `castilla-y-leon`, `castilla-la-mancha` o `euskadi`.
+- `comunidad`: `madrid-castilla-y-leon` (guadarrama y sierra-norte), `castilla-y-leon`, `castilla-la-mancha`, `euskadi` o `extremadura`.
 - `estacionesAemet` ya está rellena (tarea 18). Cada estación lleva `lat`/`lon` (inventario de AEMET) para que `aplicarContraste` elija, **para cada punto**, la más cercana de las de su zona (`distanciaKm` del inventario es la distancia al centro de la zona; la del punto se calcula al vuelo). `3104Y` Rascafría está en `guadarrama` y en `sierra-norte`.
 - `altitud` de cada punto es la del terreno (API de elevación de Open-Meteo); la meteo se pide con `elevation=` igual a ese valor.
 - Cómo se comprobó que cada punto está sobre bosque real del hábitat indicado (30/09/2026):
@@ -123,6 +123,35 @@
   esas dos zonas se repitió con los bbox nuevos (`node scripts/gbif-presencia.mjs --zona=guadarrama,sierra-norte`, 30/09/2026; 52 recuentos cambiaron, 4 cambiaron
   de `presencia`: hydnum-repandum y amanita-caesarea bajan a orientativa en guadarrama, y en sierra-norte sube a confirmada imleria-badia, hydnum-repandum,
   agaricus-campestris y collybia-personata); ninguna otra zona cambió. `--zona=` sin valor conocido aborta.
+- **Zonas nuevas `burgos`, `merindades` y `extremadura` (tarea 19, 30/09/2026)**, a partir de `docs/investigacion/07a-zona-burgos.md` y
+  `07b-zona-extremadura.md`. Bbox sin solapes (lo fija `tests/puntos-madrid.test.js`):
+  - `soria` se recortó a `[-3.04, 41.7, -2.5, 42.15]` (sus 3 puntos siguen dentro) y `burgos` es `[-3.68, 41.7, -3.0401, 42.5]` (Pinares, Demanda y
+    Montes de Oca). Las Merindades no caben en `burgos` sin solapar con `alava` (lon ≥ -3,25, lat ≤ 43,06): van en la zona `merindades`
+    `[-4.0, 42.6, -3.2501, 43.25]`. El este del Valle de Losa, San Zadornil y Bozoó quedan geográficamente dentro del bbox de `alava`; sus acotados
+    llevan `zona: merindades` igualmente. Neila y Regumiel (Burgos) caen al este de -3,04, en el bbox de `soria`: límite del esquema de un bbox por zona.
+  - `extremadura` es una sola zona `[-7.45, 39.3, -5.3001, 40.35]`. Para que el castañar de las Villuercas (lon -5,35) cupiera sin solapar,
+    `gredos` pasó de lon mín. -5,4 a **-5,3** (sus puntos están al este de -5,08; la franja quitada es sobre todo de Cáceres). Los recuentos GBIF de
+    `soria` y `gredos` se repitieron con los bbox nuevos.
+  - Puntos de Burgos (P1 a P5 de 07a): comprobados de nuevo el 30/09/2026 con IDECyL (`gesfor_cyl_tipmas` y `montes_cyl_mup_vw`), la capa oficial de
+    zonas reguladas, la ENP 2025, la ortofoto PNOA y la elevación de Open-Meteo; coinciden con 07a. No se añadió la alternativa P2b (Neila, 1.705 m).
+  - Puntos de Extremadura (4 de 07b): MFE50 de Cáceres (`mfe50_10`), ENP 2025, catálogo de MUP del IEPF y ortofoto PNOA. Tres se movieron dentro de su
+    mismo polígono del MFE50: Villuercas 90 m (caía en una franja rocosa), Hervás 120 m (borde de un claro) y San Martín de Trevejo 170 m, porque el
+    punto de 07b quedaba a 0,7 m del Corredor Ecocultural «Camino de Trevejo a Jálama» (espacio protegido de la ENP 2025). Ninguno cae en un espacio
+    protegido ni en un MUP; el de Salorino es, casi seguro, finca privada. Las notas de cada punto guardan el polígono y la especie usados.
+  - Estaciones AEMET: `burgos` usa `2298` Palacios de la Sierra (ya estaba en la lista blanca; sigue también en `soria`, porque es la más cercana a
+    Navaleno). Las demás que proponen 07a y 07b (`2302N` Monterrubio; `3504X` Hervás, `4245X` Guadalupe, `3536X` Hoyos, `3576X` Valencia de Alcántara)
+    **no están dadas de alta**: hay que meterlas en `supabase/functions/aemet/estaciones.json`, redesplegar la función, pasar la sonda y después
+    añadirlas a `zonas.json`, en ese orden (la app pide todas las estaciones en una sola llamada y la función devuelve 403 a toda la llamada si una no
+    está en la lista blanca). `merindades` no tiene estación útil en la misma vertiente (Medina de Pomar, 9051, está 450 m más baja): va sin AEMET.
+  - Cotos de Burgos: los 69 polígonos `BU-`/`PMBU-` de la capa oficial se asignan a `burgos` o `merindades` (por la mayoría de vértices al sur o al norte
+    de lat 42,55), salvo `BU-50021` (Treviño), que sigue en `alava`. Los nombres son los del portal micologiacyl.es (07a §2.2). Los cuatro `PMBU` no tienen
+    nombre oficial: su relación con los acotados de Micocyl (Montes de Oca, Demanda-San Millán, Valle de Mena y Fresneda) es una inferencia por los MUP
+    que contienen; llevan `regimenConfirmado: false` y la inferencia en `nota`. Se añadieron a mano (sin `scripts/cotos/unir.mjs`); los nombres de las
+    claves `BU-` también están en `data/fuentes-cotos/cyl-nombres.json` para una futura regeneración.
+  - Cotos de Extremadura: 17 montes de utilidad pública de 07b §1.3 dibujados con el catálogo del IEPF (tipo `regulado`, precisión `derivado`, «monte
+    público: comprobar si exige licencia»), el MUP «Dehesa Boyal» de Mirabel como `acotado` (el número 132 no viene en la capa: se deduce por nombre y
+    término) y el Parque Nacional de Monfragüe como `prohibido` (límite de la ENP 2025; el PRUG solo permite setas con autorización en un monte de
+    Serradilla). No se dibujó la Dehesa Boyal de Piornal: no se pudo identificar con seguridad en la capa.
 - **Laguna de cobertura en Guadarrama**: no hay melojar de piedemonte verificado. El único melojar comprobado (`guadarrama-navas-melojar`) está a
   1472 m. En el piedemonte de Valsaín, IDECyL da rebollar a 1215 m (40.8684, -4.0332, Q. pyrenaica 55 % con pino silvestre 45 %) y 1104 m, pero la
   ortofoto muestra dehesa abierta junto a embalse, pista o urbanización, sin masa densa; se descartaron. Queda pendiente.
@@ -438,16 +467,16 @@ Regla de `dispersion()`: para cada modelo se cuenta el alcance (días consecutiv
 
 ### Peticiones y su peso (estimación, 2026-09-30)
 
-Open-Meteo cuenta como varias llamadas una petición de más de 10 variables o de más de 2 semanas por punto, con fracciones: «Requests for data covering more than 10 weather variables or extending over a period of more than 2 weeks for a single location are considered multiple API calls» ([open-meteo.com/en/pricing](https://open-meteo.com/en/pricing), consultado el 2026-09-30). Estimación usada aquí: `puntos × max(1, variables/10) × max(1, días/14)`, con los **26 puntos** actuales. Límites gratuitos: 600 llamadas/min, 5.000/h, 10.000/día. Es una estimación (Open-Meteo no publica la fórmula exacta para varios puntos).
+Open-Meteo cuenta como varias llamadas una petición de más de 10 variables o de más de 2 semanas por punto, con fracciones: «Requests for data covering more than 10 weather variables or extending over a period of more than 2 weeks for a single location are considered multiple API calls» ([open-meteo.com/en/pricing](https://open-meteo.com/en/pricing), consultado el 2026-09-30). Estimación usada aquí: `puntos × max(1, variables/10) × max(1, días/14)`, con los **35 puntos** actuales (26 hasta la tarea 19). Límites gratuitos: 600 llamadas/min, 5.000/h, 10.000/día. Es una estimación (Open-Meteo no publica la fórmula exacta para varios puntos).
 
 | Petición | Qué pide | Cuándo | Peso estimado |
 |---|---|---|---|
-| Serie principal (`urlPrincipal`) | 7 diarias + 2 horarias, 70 días | como mucho cada 3 h | 26 × 1 × 5 ≈ **130** |
-| Contraste de modelos (`urlModelos`) | lluvia de 3 modelos, 8 días | con la principal | 26 × 1 × 1 ≈ **26** |
-| Lluvia desde el 1-ago (`urlLluviaArchivo`) | solo `precipitation_sum`, del 1-ago de la temporada al día antes de la serie | hace falta de octubre a julio (cuando la serie de 60 días empieza después del 1-ago), una vez al día (caché por día); si falta, se reintenta a los 20 min; nada en agosto y septiembre | crece con los días: 1-oct: 26 × 1 × 1 = **26**; 31-dic ≈ 26 × 6,6 ≈ **170**; finales de julio (1-ago del año anterior a ~31-may, ~304 días) ≈ 26 × 22 ≈ **570** |
+| Serie principal (`urlPrincipal`) | 7 diarias + 2 horarias, 70 días | como mucho cada 3 h | 35 × 1 × 5 ≈ **175** |
+| Contraste de modelos (`urlModelos`) | lluvia de 3 modelos, 8 días | con la principal | 35 × 1 × 1 ≈ **35** |
+| Lluvia desde el 1-ago (`urlLluviaArchivo`) | solo `precipitation_sum`, del 1-ago de la temporada al día antes de la serie | hace falta de octubre a julio (cuando la serie de 60 días empieza después del 1-ago), una vez al día (caché por día); si falta, se reintenta a los 20 min; nada en agosto y septiembre | crece con los días: 1-oct: 35 × 1 × 1 = **35**; 31-dic ≈ 35 × 6,6 ≈ **231**; finales de julio (1-ago del año anterior a ~31-may, ~304 días) ≈ 35 × 22 ≈ **770** |
 | Lluvia desde el 1-ago de respaldo (`urlLluviaPrevision`) | lo mismo al forecast (guarda unos 2 meses atrás) | solo si el archivo falla o no llega | como la anterior, solo con los puntos que falten |
-| Climatología del suelo (`urlClimatologia`) | solo `soil_moisture_0_to_7cm_mean`, 2 años hasta el día antes de la serie | una vez cada 30 días (clave: solo el conjunto de puntos), siempre después de la serie principal; si falla, espera creciente guardada en el almacén (20 min → 1 h → 6 h → 24 h, se reinicia con un éxito) y no se pide ni en el refresco de 3 h mientras dura | 26 × 1 × 52 ≈ **1.360** |
+| Climatología del suelo (`urlClimatologia`) | solo `soil_moisture_0_to_7cm_mean`, 2 años hasta el día antes de la serie | una vez cada 30 días (clave: solo el conjunto de puntos), siempre después de la serie principal; si falla, espera creciente guardada en el almacén (20 min → 1 h → 6 h → 24 h, se reinicia con un éxito) y no se pide ni en el refresco de 3 h mientras dura | 35 × 1 × 52 ≈ **1.820** |
 
 Antes (hasta la v1) la climatología pedía 2 variables desde el 1-ene-2023, ≈ 26 × 1 × 93 ≈ **2.430** llamadas, en cada refresco con una clave que cambiaba cada día (causa probable de los 429). La climatología solo alimenta `fS` (humedad del suelo): si no llega, el índice se calcula sin ese factor y lo explica. La lluvia desde el 1-ago, en cambio, es imprescindible para las especies de otoño desde el 1-oct: si no llega ni del archivo ni del forecast, esas especies salen «sin datos» y la zona, «sin datos» o «N especies sin datos suficientes», nunca con una nota inventada.
 
-Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago se piden después de la serie principal, no a la vez, para no competir con ella. Ojo: la climatología (~1.360) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, entra en la espera creciente y, mientras, el índice va sin humedad del suelo.
+Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago se piden después de la serie principal, no a la vez, para no competir con ella. Ojo: la climatología (~1.820) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, entra en la espera creciente y, mientras, el índice va sin humedad del suelo.

@@ -2949,6 +2949,928 @@
       "confianza": "baja",
       "verificado": false,
       "notas": "Mensaje de 2014 (más de 10 años), sin contraste con la norma actual. Quinto de la Mata (quinto-de-la-mata) ya figura como privado."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Cotos de Setas (la misma web vende los permisos) cuenta dos de las fuentes: se cuentan como una. Lo de dejar que corzos y ardillas marquen los primeros marzuelos es de esa web (2018), sin contrastar. En octubre de 2015 se intervinieron 173 kg de hongo y 24 kg de níscalo recogidos sin permiso en Huerta del Rey y Salas.",
+      "id": "burgos-hontoria-pinares-sur",
+      "zona": "burgos",
+      "nombre": "Pinares de Hontoria del Pinar (coto Pinares Sur)",
+      "municipio": "Hontoria del Pinar, Pinilla de los Barruecos y Huerta del Rey (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "hygrophorus-marzuolus",
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "tricholoma-portentosum"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "pinar-resinero"
+      ],
+      "epoca": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "consejo": "MUP 223 «El Pinar» y 222 «La Sierra y Costalago»: pino silvestre, negral y laricio con sabina. Marzuelo de febrero a abril en umbrías de pino silvestre; hongo, níscalo y capuchina en otoño.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50004-pinares-sur",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Coto Pinares Sur de Burgos (BU-50004): permiso en cotosdesetas.es; tarifas sin año confirmado y compra desactivada el 30/09/2026."
+      },
+      "fuentes": [
+        {
+          "url": "https://cotosdesetas.es/2018/04/5-montes-superproductores-de-marzuelos-en-burgos-y-soria.html",
+          "titulo": "Cotos de Setas: 5 montes superproductores de marzuelos en Burgos y Soria",
+          "fecha": "2018-04-06",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos",
+          "titulo": "Cotos de Setas: coto micológico Pinares Sur de Burgos",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.agronewscastillayleon.com/intervenidos-197-kilos-de-setas-recolectadas-ilegalmente-en-la-demanda-burgalesa",
+          "titulo": "Agronews Castilla y León: intervenidos 197 kilos de setas en la Demanda burgalesa",
+          "fecha": "2015-10-07",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241028.pdf",
+          "titulo": "Micocyl: parte micológico",
+          "fecha": "2024-10-28",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Si siguiera sin regular sería terreno episódico (Decreto 31/2017: hasta 3 kg/día, sin comercializar) [NO VERIFICADO].",
+      "id": "burgos-quintanar-revenga",
+      "zona": "burgos",
+      "nombre": "La Dehesa y Revenga (Quintanar de la Sierra)",
+      "municipio": "Quintanar de la Sierra (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "hygrophorus-marzuolus",
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "amanita-caesarea",
+        "collybia-nuda"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "consejo": "MUP 251 «La Dehesa» (unas 5.500 ha de pino silvestre) y el Comunero de Revenga, junto a la ermita de Revenga. Jornadas Micológicas en octubre y noviembre.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-bu-quintanar-de-la-sierra",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Sin polígono regulado en la capa oficial; en 2018 se citaba como régimen «libre». Régimen actual sin confirmar: llama al ayuntamiento."
+      },
+      "fuentes": [
+        {
+          "url": "https://cotosdesetas.es/2018/04/5-montes-superproductores-de-marzuelos-en-burgos-y-soria.html",
+          "titulo": "Cotos de Setas: 5 montes superproductores de marzuelos en Burgos y Soria",
+          "fecha": "2018-04-06",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.burgos.es/sites/default/files/file/page/1ruta_de_las_setas.pdf",
+          "titulo": "Ayuntamiento de Burgos: Ruta de las Setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "La web de la asociación se leyó con un resumen automático. Especies: hongo blanco, negro y rojo, colmenilla, rebozuelo, níscalo y oronja según la asociación.",
+      "id": "burgos-canicosa-montes-de-soria",
+      "zona": "burgos",
+      "nombre": "Pinar de Canicosa de la Sierra (Parque Micológico Montes de Soria)",
+      "municipio": "Canicosa de la Sierra (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "boletus-aereus",
+        "boletus-pinophilus",
+        "morchella",
+        "cantharellus-cibarius",
+        "lactarius-deliciosus",
+        "amanita-caesarea"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "MUP 212 «El Pinar» (2.265 ha) y 211. Las Jornadas Micológicas y la feria Mico-Agroalimentaria (finales de octubre) organizan rutas por el monte con guías.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-montes-de-soria",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Parque Micológico Montes de Soria (PMSO-50001): el mismo permiso que en Soria; en Canicosa se vende en el ayuntamiento, el telecentro, la Casa de la Madera y el Bar Cabrero."
+      },
+      "fuentes": [
+        {
+          "url": "https://asociacionmontesdesoria.com/portfolio/canicosa-de-la-sierra/",
+          "titulo": "Asociación Montes de Soria: Canicosa de la Sierra",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micocyl.es/sites/default/files/noticias_docs/diptico_canicosa_2024.pdf",
+          "titulo": "Micocyl: díptico de las Jornadas Micológicas de Canicosa (28/10-3/11/2024)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.burgos.es/sites/default/files/file/page/1ruta_de_las_setas.pdf",
+          "titulo": "Ayuntamiento de Burgos: Ruta de las Setas",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Terranostrum se leyó con un resumen automático.",
+      "id": "burgos-rabanera-ruta-boletus",
+      "zona": "burgos",
+      "nombre": "Ruta del Boletus de Rabanera del Pinar",
+      "municipio": "Rabanera del Pinar (Burgos)",
+      "tipo": "ruta",
+      "especies": [
+        "lactarius-deliciosus",
+        "suillus-luteus",
+        "hygrophorus-marzuolus"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "consejo": "Ruta de 12,5 km y 105 m de desnivel que sale de la pista deportiva hacia Aldea del Pinar, por el pinar del MUP 254 «Las Cuadrillas»: níscalos y Suillus luteus en otoño; marzuelo en primavera.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-bu-50074-rabanera",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado propio del ayuntamiento (BU-50074) desde 2023; tarifas y régimen actual sin confirmar."
+      },
+      "fuentes": [
+        {
+          "url": "https://cotosdesetas.es/2018/04/5-montes-superproductores-de-marzuelos-en-burgos-y-soria.html",
+          "titulo": "Cotos de Setas: 5 montes superproductores de marzuelos en Burgos y Soria",
+          "fecha": "2018-04-06",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.terranostrum.es/senderismo/ruta-del-boletus-rabanera-del-pinar",
+          "titulo": "Terranostrum: Ruta del Boletus (Rabanera del Pinar)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "El Correo de Burgos (1/11/2025) y Burgos Conecta (21/11/2025) citan la zona, pero no se guardó su enlace.",
+      "id": "burgos-demanda-suroeste-pineda",
+      "zona": "burgos",
+      "nombre": "Pineda de la Sierra y Barbadillo de Herreros (coto Demanda Suroeste)",
+      "municipio": "Pineda de la Sierra, Barbadillo de Herreros, Monterrubio de la Demanda y Riocavado (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "boletus-pinophilus",
+        "boletus-aereus",
+        "lactarius-deliciosus",
+        "amanita-caesarea"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Montes «Ahedo de la Pared», «Barranco Malo», «Peguera» y «Lomomediano» (5.721 ha); rebollar de «La Umbría» en Monterrubio.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50067-demanda-suroeste",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Coto Demanda Suroeste (BU-50067): foráneo 10 € el día, 15 € dos días o 60 € la temporada, 5 kg/día; permiso en cotosdesetas.es."
+      },
+      "fuentes": [
+        {
+          "url": "https://cotosdesetas.es/coto-micologico-demanda-suroeste",
+          "titulo": "Cotos de Setas: coto micológico Demanda Suroeste",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "",
+      "id": "burgos-fresneda-monte-agudo",
+      "zona": "burgos",
+      "nombre": "Monte Agudo y montes de Fresneda de la Sierra Tirón",
+      "municipio": "Fresneda de la Sierra Tirón (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "lactarius-deliciosus",
+        "tricholoma-portentosum"
+      ],
+      "habitat": [
+        "hayedo",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        9,
+        10,
+        11,
+        12,
+        1
+      ],
+      "consejo": "Monte Agudo (MUP 15, hayedo), Hondonada, Las Zarras y Zarzabala. Capuchina hasta enero según Micocyl.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50073-fresneda-tiron",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado BU-50073 de Micocyl: general recreativo 10 € el día, 60 € la temporada. Dentro de la Reserva de Caza de la Demanda: mira el calendario de cacerías."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.micocyl.es/print/areas/fresneda-de-la-sierra-tiron-bu-50073",
+          "titulo": "Micocyl: acotado Fresneda de la Sierra Tirón",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "El hilo de Fungipedia (2011) es antiguo: hablaba de «ausencia de boletus» ese año y de precios que ya no rigen.",
+      "id": "burgos-montes-de-oca",
+      "zona": "burgos",
+      "nombre": "Montes de Oca",
+      "municipio": "Villafranca Montes de Oca, Arraya de Oca, Atapuerca, Belorado, Villambistia y otros (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "calocybe-gambosa",
+        "boletus-edulis",
+        "boletus-aereus",
+        "boletus-pinophilus",
+        "lactarius-deliciosus",
+        "hygrophorus-latitabundus",
+        "tricholoma-portentosum",
+        "hygrophorus-marzuolus",
+        "cantharellus-cibarius",
+        "morchella",
+        "amanita-caesarea"
+      ],
+      "habitat": [
+        "melojar",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Rebollar (44 %) y pinar de montaña (29 %): Monte Mayor, Mataterrazos, Monte Costorrios, Valdefuentes, La Junta y Monte Grande. Hay especie casi todo el año; perretxico en abril y mayo.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50015-montes-de-oca",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado BU-50015 de Micocyl: general recreativo 15 € el día, 120 € la temporada; sin permiso comercial."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.micocyl.es/print/areas/montes-de-oca",
+          "titulo": "Micocyl: acotado Montes de Oca",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.fungipedia.org/setas-informacion-y-consultas/6-foro-general/21462-coto-burgos.html",
+          "titulo": "Fungipedia: hilo «Coto Burgos»",
+          "fecha": "2011-10-30",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "",
+      "id": "burgos-valdelaguna-demanda",
+      "zona": "burgos",
+      "nombre": "Ahedo y Dehesa de Valle de Valdelaguna (Demanda-San Millán)",
+      "municipio": "Valle de Valdelaguna (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "calocybe-gambosa",
+        "hygrophorus-latitabundus",
+        "tricholoma-portentosum",
+        "hygrophorus-marzuolus"
+      ],
+      "habitat": [
+        "hayedo"
+      ],
+      "epoca": [
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "consejo": "MUP 271 «Ahedo y Dehesa» (hayedo), Sierra Campiña, Río Baraja y La Dehesa: perretxico de abril a junio, hongo en otoño y capuchina en noviembre y diciembre.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50017-demanda-san-millan",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado Demanda-San Millán (BU-50017) de Micocyl. Cacerías colectivas en el Valle de Valdelaguna el 22/11/2026 y el 3/01/2027."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.micocyl.es/areas/demanda-san-millan",
+          "titulo": "Micocyl: acotado Demanda-San Millán",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "La web del coto da coordenadas de los aparcamientos; la app no las guarda. El pinar de Dosante no se ha comprobado en la capa forestal. Los pluviómetros SAIH Ebro P058 (Espinosa) y P074 (Lunada) que enlaza el coto sirven para saber si ha llovido.",
+      "id": "merindades-la-engana",
+      "zona": "merindades",
+      "nombre": "Coto La Engaña–Merindades Norte: Lunada, Cerneja, La Cueva y Dosante",
+      "municipio": "Espinosa de los Monteros, Merindad de Montija, Merindad de Sotoscueva y Merindad de Valdeporres (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "calocybe-gambosa",
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "hayedo",
+        "pinar-silvestre",
+        "pastizal-montana"
+      ],
+      "epoca": [
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Aparcamientos oficiales del coto: Alto el Caballo (MUP 388), Pico del Ángel y Fuente el Soto (Sotoscueva), La Cubilla y La Naviciada (Montija), Área recreativa La Engaña y Pinar Dosante (Valdeporres). En coche, solo hasta ellos. Perretxico en primavera, con cupo propio de 2 kg/día.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50008-la-engana",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Coto La Engaña–Merindades Norte (BU-50008): foráneo 10 € el día, 15 € dos días, 60 € la temporada 2026; 4 kg/día de setas o 2 kg de perretxico."
+      },
+      "fuentes": [
+        {
+          "url": "https://micologiamerindadesnorte.es/areas-reguladas/",
+          "titulo": "Coto La Engaña–Merindades Norte: áreas reguladas (mapa del 19/07/2017)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=21061.0",
+          "titulo": "Foro Micológico: hilo sobre setas en Las Merindades y Valle de Losa",
+          "fecha": "2013-04-29",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Las dos fuentes son de Micocyl: cuentan como una.",
+      "id": "merindades-valle-de-mena",
+      "zona": "merindades",
+      "nombre": "Sierra de Ordunte y Montes de la Peña (Valle de Mena)",
+      "municipio": "Valle de Mena (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "calocybe-gambosa",
+        "lactarius-deliciosus",
+        "boletus-edulis",
+        "morchella"
+      ],
+      "habitat": [
+        "hayedo",
+        "melojar",
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Dehesa de Ordunte (MUP 540 a 546), Montes de la Peña, Sierra de Arrate y El Acebal: perretxico en abril y mayo, níscalo y hongo blanco en otoño.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50019-valle-de-mena",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado Valle de Mena (BU-50019) de Micocyl: general recreativo 5 € el día o 20 € la temporada."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.micocyl.es/print/areas/valle-de-mena",
+          "titulo": "Micocyl: acotado Valle de Mena",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.micocyl.es/print/turismo-micologico-valle-de-mena",
+          "titulo": "Micocyl: turismo micológico en el Valle de Mena",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "",
+      "id": "merindades-san-zadornil",
+      "zona": "merindades",
+      "nombre": "Arcena y Valdelosa (Jurisdicción de San Zadornil)",
+      "municipio": "Jurisdicción de San Zadornil (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "hayedo",
+        "melojar"
+      ],
+      "epoca": [
+        9,
+        10,
+        11
+      ],
+      "consejo": "Pinar de montaña (50 %) y robles y hayas (20 %) en los montes Arcena y Valdelosa: Boletus edulis de septiembre a noviembre.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "cyl-bu-50003-san-zadornil",
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotado San Zadornil (BU-50003) de Micocyl: 10 € el día, 100 € la temporada. Casi todo dentro del Parque Natural Montes Obarenes-San Zadornil (norma del parque sin verificar)."
+      },
+      "fuentes": [
+        {
+          "url": "https://permisos.micologiacyl.es/acotado/san-zadornil",
+          "titulo": "Portal oficial de permisos micológicos: San Zadornil",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Precios de 2013 (de 50 a unos 500 € la temporada según la junta), leídos con un resumen automático [MENSAJE ANTIGUO] [NO VERIFICADO vigente].",
+      "id": "merindades-valle-de-losa",
+      "zona": "merindades",
+      "nombre": "Juntas vecinales del Valle de Losa",
+      "municipio": "Valle de Losa y Junta de Villalba de Losa (Burgos)",
+      "tipo": "sitio",
+      "especies": [
+        "calocybe-gambosa",
+        "boletus-edulis"
+      ],
+      "habitat": [
+        "hayedo",
+        "quejigar",
+        "pastizal-montana"
+      ],
+      "epoca": [
+        4,
+        9,
+        10,
+        11
+      ],
+      "consejo": "Unas 20 juntas vecinales tienen su propio acotado (BU-50025 a BU-50056 en el mapa): perretxico en abril y hongo en otoño.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "cyl-decreto-31-2017"
+        ],
+        "texto": "Acotados de juntas vecinales sin tarifas publicadas: hace falta permiso de cada junta; pregunta antes de ir."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.foromicologico.es/index.php?topic=21061.0",
+          "titulo": "Foro Micológico: hilo sobre setas en Las Merindades y Valle de Losa",
+          "fecha": "2013-04-29",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Un excursionista vio «menos variedad de la esperada» en el castañar un 12-13 de noviembre (año no indicado). El blog alarecercadelboletperdut recoge lo mismo (recopilación, no cuenta aparte).",
+      "id": "extremadura-ambroz-hervas",
+      "zona": "extremadura",
+      "nombre": "Castañares del Valle del Ambroz (Hervás)",
+      "municipio": "Hervás, Segura de Toro y Baños de Montemayor (Cáceres)",
+      "tipo": "sitio",
+      "especies": [
+        "cantharellus-cibarius",
+        "boletus-edulis",
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "castanar",
+        "melojar"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Rebozuelos en los castañares; boletus en prados y níscalos en pinar según el turismo. Jornadas micológicas en el «Otoño Mágico» (octubre y noviembre).",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "ex-sin-decreto-autonomico",
+          "ex-fincas-privadas"
+        ],
+        "texto": "Sin decreto autonómico confirmado. El Castañar Gallego es Paisaje Protegido (norma de setas sin verificar) y muchos castañares son fincas privadas: pregunta al ayuntamiento o al dueño."
+      },
+      "fuentes": [
+        {
+          "url": "https://planvex.es/web/2015/10/a-mycological-autumn-at-the-north-of-extremadura/",
+          "titulo": "Planvex: A mycological autumn at the north of Extremadura (octubre de 2015)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.turismoenextremadura.es/setas-extremadura/",
+          "titulo": "Turismo en Extremadura: setas",
+          "fecha": "2015-08-28",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "Las fuentes hablan de «boletus» sin especie. Lo de «más de 30 kg al día» en épocas buenas es un comentario de contexto, no un cupo.",
+      "id": "extremadura-vera-cuacos",
+      "zona": "extremadura",
+      "nombre": "La Vera: Cuacos de Yuste y Ruta de Carlos V",
+      "municipio": "Cuacos de Yuste y La Vera (Cáceres)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "castanar",
+        "melojar"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Castañares y robledales de la Ruta de Carlos V. El Centro de Educación Ambiental de Cuacos organiza jornadas micológicas en noviembre; el turismo sitúa en La Vera la mayor abundancia de setas de la región.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "ex-sin-decreto-autonomico",
+          "ex-fincas-privadas"
+        ],
+        "texto": "Sin decreto autonómico confirmado; mucha finca privada: pregunta al ayuntamiento o al dueño."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.juntaex.es/w/jornadas-micologicas-centro-de-educacion-ambiental-de-cuacos-de-yuste",
+          "titulo": "Junta de Extremadura: jornadas micológicas del CEA de Cuacos de Yuste",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.turismoenextremadura.es/setas-extremadura/",
+          "titulo": "Turismo en Extremadura: setas",
+          "fecha": "2015-08-28",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "",
+      "id": "extremadura-sierra-de-gata",
+      "zona": "extremadura",
+      "nombre": "Sierra de Gata (Robledillo de Gata, Hoyos, Acebo)",
+      "municipio": "Sierra de Gata (Cáceres)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "boletus-aereus",
+        "macrolepiota-procera"
+      ],
+      "habitat": [
+        "alcornocal",
+        "melojar",
+        "encinar",
+        "castanar",
+        "pinar-resinero"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Níscalos, boletus negro y parasoles entre alcornoques, robles, encinas, castaños y pinos. El mayor castañar de Extremadura está en los Ojestos (San Martín de Trevejo), pero ninguna fuente dice qué setas salen allí.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "ex-sin-decreto-autonomico",
+          "ex-fincas-privadas"
+        ],
+        "texto": "Según el turismo, algunos municipios de Sierra de Gata cobran permisos y tasas (no dice cuáles): pregunta en el ayuntamiento."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.turismoenextremadura.es/setas-extremadura/",
+          "titulo": "Turismo en Extremadura: setas",
+          "fecha": "2015-08-28",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://norteextremadura.es/como-y-donde-recoger-setas-en-el-norte-de-caceres/natural/",
+          "titulo": "Norte Extremadura: cómo y dónde recoger setas en el norte de Cáceres (noviembre de 2024)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "La fuente cita también Amanita pantherina y Rubroboletus satanas, tóxicas, junto a los castañares.",
+      "id": "extremadura-villuercas",
+      "zona": "extremadura",
+      "nombre": "Castañares de Aguanfría y El Viborejo (Las Villuercas)",
+      "municipio": "Las Villuercas (Cáceres)",
+      "tipo": "sitio",
+      "especies": [
+        "boletus-edulis",
+        "boletus-aereus",
+        "boletus-pinophilus",
+        "macrolepiota-procera"
+      ],
+      "habitat": [
+        "castanar"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Castañares con boletus y parasoles «después de la lluvia»; con poca lluvia lo más fiable fue el parasol.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "ex-sin-decreto-autonomico",
+          "ex-fincas-privadas"
+        ],
+        "texto": "Sin decreto autonómico confirmado; no se sabe si es monte público o finca privada."
+      },
+      "fuentes": [
+        {
+          "url": "https://alarecercadelboletperdut.wordpress.com/acerca-de/extremadura/localidades/las-villuercas/",
+          "titulo": "A la recerca del bolet perdut: Las Villuercas (entrada de octubre de 2010 del blog Taller Unión)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "notas": "La ordenanza no dice qué setas salen ni qué hábitat tiene el monte: no se asigna hábitat.",
+      "id": "extremadura-mirabel-dehesa-boyal",
+      "zona": "extremadura",
+      "nombre": "Dehesa Boyal de Mirabel (MUP 132)",
+      "municipio": "Mirabel (Cáceres)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Único monte extremeño con ordenanza de setas localizada: se recoge todo el año según la época de cada especie, con permiso municipal.",
+      "legal": {
+        "estado": "permiso",
+        "normas": [
+          "ex-mirabel-ordenanza-2020"
+        ],
+        "texto": "Ordenanza de 2020: permiso en el Ayuntamiento de Mirabel (3 € el día, 5 € el fin de semana, 15 € la temporada), 7 kg por persona y día; prohibido de noche."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf",
+          "titulo": "BOP de Cáceres n.º 58: ordenanza de recolección micológica de Mirabel",
+          "fecha": "2020-03-24",
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": true,
+      "notas": "Polígono ex-monfrague-parque-nacional en data/cotos.geojson.",
+      "id": "extremadura-monfrague",
+      "zona": "extremadura",
+      "nombre": "Parque Nacional de Monfragüe",
+      "municipio": "Serradilla, Torrejón el Rubio, Villarreal de San Carlos y otros (Cáceres)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Prohibido recolectar sin autorización del Parque. La única excepción prevista para setas es el MUP «Dehesa Boyal y Cuarto de los Arroyos» (Serradilla), sin fines comerciales y con autorización.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "ex-monfrague-prug-decreto-13-2014"
+        ],
+        "texto": "PRUG del Parque Nacional (Decreto 13/2014): recolección prohibida salvo aprovechamientos tradicionales en las fincas; setas solo con autorización del Parque en un monte de Serradilla."
+      },
+      "fuentes": [
+        {
+          "url": "https://doe.juntaex.es/pdfs/doe/2014/370o/14040023.pdf",
+          "titulo": "DOE n.º 37: Decreto 13/2014, PRUG del Parque Nacional de Monfragüe",
+          "fecha": "2014-02-24",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/servicios/banco-datos-naturaleza/enp/Enp2025_geojson.zip",
+          "titulo": "MITECO: Espacios Naturales Protegidos 2025 (límite del Parque)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "notas": "",
+      "id": "extremadura-bodonal-gurumelo",
+      "zona": "extremadura",
+      "nombre": "Fincas privadas de Bodonal de la Sierra (gurumelo)",
+      "municipio": "Bodonal de la Sierra (Badajoz)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [
+        "encinar",
+        "jaral"
+      ],
+      "epoca": [],
+      "consejo": "La Sociedad Micológica Extremeña hace aquí su salida de primavera en dos fincas privadas, con permiso de los dueños. La app no recomienda el gurumelo: se confunde con Amanita verna y A. vidua, mortales, que salen a la vez y en el mismo sitio.",
+      "legal": {
+        "estado": "privado",
+        "normas": [
+          "ex-fincas-privadas"
+        ],
+        "texto": "Fincas privadas: solo con permiso de los propietarios (y sin perros sueltos, por deseo expreso de los dueños)."
+      },
+      "fuentes": [
+        {
+          "url": "https://micoex.org/wp-content/uploads/2025/03/Dia-de-la-Seta-de-Primavera-2025.pdf",
+          "titulo": "Sociedad Micológica Extremeña: Día de la Seta de Primavera (marzo de 2025)",
+          "fecha": null,
+          "consultado": "2026-09-30"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja"
     }
   ]
 }

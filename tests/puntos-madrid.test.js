@@ -50,3 +50,20 @@ test('los bbox de las zonas no se solapan y guadarrama y sierra-norte contienen 
     assert.ok(e[0] >= z.bbox[0] && e[1] >= z.bbox[1] && e[2] <= z.bbox[2] && e[3] <= z.bbox[3], `${f.properties.id} fuera del bbox de ${z.id}`);
   }
 });
+
+test('zonas nuevas (Burgos, norte de Burgos y Extremadura): cada punto dentro de su bbox, con nota y hábitat de la zona', () => {
+  for (const id of ['burgos', 'merindades', 'extremadura']) {
+    const z = zonas.find((q) => q.id === id);
+    assert.ok(z?.puntos.length, id);
+    const [x0, y0, x1, y1] = z.bbox;
+    for (const p of z.puntos) {
+      assert.ok(p.lon >= x0 && p.lon <= x1 && p.lat >= y0 && p.lat <= y1, `${p.id} fuera del bbox de ${id}`);
+      assert.ok(z.habitats.includes(p.habitat), p.id);
+      assert.match(p.nota, id === 'extremadura' ? /MFE50/ : /IDECyL/);
+      assert.match(p.nota, /ENP 2025/);
+    }
+  }
+  // Los acotados de Burgos ya no cuelgan de soria (el bbox de soria se recortó en lon -3,04).
+  for (const f of cotos.features) if (/^P?M?BU-/.test(f.properties.id)) assert.notEqual(f.properties.zona, 'soria', f.properties.id);
+  assert.ok(zonas.find((z) => z.id === 'soria').bbox[0] >= -3.04);
+});

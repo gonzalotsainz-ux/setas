@@ -2,7 +2,7 @@
 
 - **Proyecto:** `ctgedeunquvmcfqsufjj` (`https://ctgedeunquvmcfqsufjj.supabase.co`), cuenta de Gonzalo, plan gratuito.
 - **Sin login, abierto por decisión de la usuaria (2026-09-30).** Cualquiera con la URL de la web puede leer y
-  editar el diario (salidas, fotos, umbrales). La clave publicable (`sb_publishable_…`) está en `js/supabase.js`
+  editar el diario (salidas, fotos, umbrales). La clave publicable (`sb_publishable_…`) está en `js/config.js` (la reexporta `js/supabase.js`)
   y es pública por diseño. El autor de cada salida es un nombre elegido en el dispositivo (`elegirAutor`).
 - `aemet_cache` tiene RLS sin políticas: solo la Edge Function (Tarea 18) la usa, con la clave de servicio.
 
@@ -48,3 +48,8 @@ claves `sb_publishable_`).
   Navahermosa (Toledo) solo tenía 12 días, no llega al mínimo y Montes de Toledo usa el modelo.
 
 - Estación `3104Y` (Rascafría) añadida a la lista blanca el 30/09/2026 (27 de 27 días con lluvia, último dato D-3). La app elige, para cada punto, la estación más cercana de su zona entre las de `data/zonas.json`.
+- **Pendiente (tarea 19, 30/09/2026):** dar de alta `2302N` (Monterrubio de la Demanda, para `burgos`) y `3504X` Hervás, `4245X` Guadalupe,
+  `3536X` Hoyos y `3576X` Valencia de Alcántara (para `extremadura`). El despliegue no se pudo hacer desde la sesión. Orden: añadirlas a
+  `estaciones.json`, desplegar, `node scripts/estaciones-aemet.mjs sonda 2302N,3504X,4245X,3536X,3576X` y solo entonces meter las que tengan datos en
+  `estacionesAemet` de `data/zonas.json` (si una estación de `zonas.json` no está en la lista blanca desplegada, la función responde 403 a la llamada
+  entera y ninguna zona tiene lluvia medida).

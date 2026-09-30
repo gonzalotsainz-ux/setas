@@ -293,7 +293,7 @@
         "Soria"
       ],
       "bbox": [
-        -3.2,
+        -3.04,
         41.7,
         -2.5,
         42.15
@@ -391,6 +391,212 @@
       ]
     },
     {
+      "id": "burgos",
+      "nombre": "Burgos (Pinares, Sierra de la Demanda, Montes de Oca)",
+      "comunidad": "castilla-y-leon",
+      "provincias": [
+        "Burgos"
+      ],
+      "bbox": [
+        -3.68,
+        41.7,
+        -3.0401,
+        42.5
+      ],
+      "habitats": [
+        "pinar-silvestre",
+        "pinar-resinero",
+        "melojar",
+        "hayedo",
+        "sabinar",
+        "quejigar",
+        "encinar",
+        "pastizal-montana"
+      ],
+      "puntos": [
+        {
+          "id": "burgos-hontoria-pinar",
+          "nombre": "Pinar de Hontoria del Pinar (Pinares Sur)",
+          "lat": 41.8896,
+          "lon": -3.1398,
+          "altitud": 1160,
+          "habitat": "pinar-silvestre",
+          "nota": "IDECyL gesfor_cyl_tipmas: Pinar de P. sylvestris, ocupación 100 %, sin dato de cobertura (tesela de 149 ha). Ortofoto PNOA: pinar semiabierto con claros y roca, el menos denso de la zona. MUP 223 «El Pinar» (Ayto. de Hontoria del Pinar, capa montes_cyl_mup_vw). Dentro del acotado BU-50004 (Pinares Sur). Fuera de la capa ENP 2025 (Parque Natural Cañón del Río Lobos a 5,0 km).",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=488382.1044374584,4637508.204896262,488422.1044374584,4637548.204896262&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "burgos-palacios-pinar",
+          "nombre": "Pinar de Palacios de la Sierra",
+          "lat": 41.9994,
+          "lon": -3.0805,
+          "altitud": 1271,
+          "habitat": "pinar-silvestre",
+          "nota": "IDECyL gesfor_cyl_tipmas: Pinar de P. sylvestris 75 % con Q. pyrenaica 25 %, arbolado cerrado (tesela de 1.872 ha); ortofoto PNOA densa. MUP 244 «La Campiña y Bañuelos» (Ayto. de Palacios de la Sierra). No cae en ningún polígono de la capa oficial de zonas reguladas (BU-50011 a 0,8 km): régimen sin confirmar. Fuera de la capa ENP 2025 (Parque Natural Lagunas Glaciares de Neila a 4,8 km).",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=493313.11862499994,4649692.741198659,493353.11862499994,4649732.741198659&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "burgos-monte-agudo-hayedo",
+          "nombre": "Hayedo de Monte Agudo (Fresneda de la Sierra Tirón)",
+          "lat": 42.2755,
+          "lon": -3.1525,
+          "altitud": 1478,
+          "habitat": "hayedo",
+          "nota": "IDECyL gesfor_cyl_tipmas: Hayedo (Fagus sylvatica) 100 %, sin dato de cobertura (tesela de 1.306 ha); ortofoto PNOA densa (plantaciones en filas al sur). MUP 15 «Monte Agudo» (Ayto. de Fresneda de la Sierra Tirón). Dentro del polígono PMBU-50020 de la capa oficial, que por cruce propio parece el acotado Fresneda de la Sierra Tirón (BU-50073) de Micocyl [inferencia, sin confirmar]. Fuera de la capa ENP 2025 (Red Natura «Sierras de Demanda, Urbión, Cebollera y Cameros» a 4,7 km). Zona de cacerías colectivas de la Reserva Regional de Caza de la Demanda.",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=487404.9351818335,4680356.6685716165,487444.9351818335,4680396.6685716165&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "burgos-umbria-rebollar",
+          "nombre": "Rebollar de La Umbría (Monterrubio de la Demanda)",
+          "lat": 42.173,
+          "lon": -3.1152,
+          "altitud": 1366,
+          "habitat": "melojar",
+          "nota": "IDECyL gesfor_cyl_tipmas: Rebollar (Q. pyrenaica) 100 %, sin dato de cobertura (tesela de 105 ha); ortofoto PNOA densa. MUP 242 «La Umbría» (Ayto. de Monterrubio de la Demanda). Dentro del acotado BU-50067 (Demanda Suroeste). Fuera de la capa ENP 2025, a 0,4 km del Parque Natural Alto Najerilla (La Rioja).",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=490465.294861789,4668970.928846787,490505.294861789,4669010.928846787&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [
+        {
+          "id": "2298",
+          "nombre": "Palacios de la Sierra",
+          "altitud": 1080,
+          "distanciaKm": 13.9,
+          "lat": 41.9597,
+          "lon": -3.1317
+        }
+      ],
+      "normas": [
+        "cyl-decreto-31-2017",
+        "estatal-ley-43-2003-montes",
+        "cyl-bu-50004-pinares-sur",
+        "cyl-bu-50067-demanda-suroeste",
+        "cyl-bu-50017-demanda-san-millan",
+        "cyl-bu-50015-montes-de-oca",
+        "cyl-bu-50073-fresneda-tiron",
+        "cyl-montes-de-soria",
+        "cyl-bu-50013-neila",
+        "cyl-bu-50011-vilviestre",
+        "cyl-bu-50058-palacios",
+        "cyl-bu-50059-huerta-de-arriba",
+        "cyl-bu-50074-rabanera",
+        "cyl-bu-quintanar-de-la-sierra"
+      ],
+      "avisos": [
+        "Permiso obligatorio en casi todos los montes de Pinares, la Demanda y los Montes de Oca (acotados de Micocyl, Pinares Sur, Demanda Suroeste y cotos municipales); recreativo hasta 5 kg/día (Decreto 31/2017)",
+        "Cacerías colectivas autorizadas en la Reserva Regional de Caza de la Sierra de la Demanda del 17/10/2026 al 16/01/2027 (Pradoluengo, Tolbaños, Huerta de Abajo y Valle de Valdelaguna): esos días no se puede recoger en esas zonas; mira el calendario de Micocyl antes de ir",
+        "Quintanar, Palacios, Neila, Vilviestre y Rabanera: régimen actual sin confirmar; llama al ayuntamiento antes de ir",
+        "Prohibido recolectar de noche y las oronjas cerradas"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.micocyl.es/sites/default/files/area/docs/calendario_cacerias_colectivas_autorizadas_2026_demanda.pdf",
+          "titulo": "Micocyl: calendario de cacerías colectivas autorizadas 2026/27, Reserva Regional de Caza Sierra de la Demanda",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/07a-zona-burgos.md",
+          "titulo": "Investigación del proyecto: zona de Burgos (Pinares, Demanda, Merindades)",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "merindades",
+      "nombre": "Norte de Burgos (Merindades, La Engaña, Valle de Mena)",
+      "comunidad": "castilla-y-leon",
+      "provincias": [
+        "Burgos"
+      ],
+      "bbox": [
+        -4,
+        42.6,
+        -3.2501,
+        43.25
+      ],
+      "habitats": [
+        "hayedo",
+        "melojar",
+        "pinar-silvestre",
+        "quejigar",
+        "encinar",
+        "pastizal-montana"
+      ],
+      "puntos": [
+        {
+          "id": "merindades-cerneja-hayedo",
+          "nombre": "Hayedo de Cerneja (Merindad de Montija, coto La Engaña)",
+          "lat": 43.127,
+          "lon": -3.4875,
+          "altitud": 1031,
+          "habitat": "hayedo",
+          "nota": "IDECyL gesfor_cyl_tipmas: Hayedo (Fagus sylvatica) 100 %, arbolado semicerrado (tesela de 141 ha); ortofoto PNOA densa. MUP 469 «Cerneja» (Ayto. de Merindad de Montija). Dentro del acotado BU-50008 (coto La Engaña–Merindades Norte). Fuera de la capa ENP 2025 (Red Natura «Río Asón» a 4,6 km). Sin estación AEMET útil en la misma vertiente: la lluvia es solo la del modelo.",
+          "fuente": "https://idecyl.jcyl.es/geoserver/montes/wms?service=WMS&version=1.1.1&request=GetFeatureInfo&layers=montes:gesfor_cyl_tipmas&query_layers=montes:gesfor_cyl_tipmas&srs=EPSG:25830&bbox=460326.581882359,4775013.411489224,460366.581882359,4775053.411489224&width=101&height=101&x=50&y=50&info_format=application/json&feature_count=3",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "cyl-decreto-31-2017",
+        "estatal-ley-43-2003-montes",
+        "cyl-bu-50008-la-engana",
+        "cyl-bu-50019-valle-de-mena",
+        "cyl-bu-50003-san-zadornil",
+        "cyl-bu-50054-bozoo"
+      ],
+      "avisos": [
+        "Coto La Engaña–Merindades Norte (Espinosa, Montija, Sotoscueva y Valdeporres): permiso obligatorio; en coche solo hasta los aparcamientos señalizados",
+        "Muchos montes del Valle de Losa, Medina de Pomar y Valdebezana son acotados de juntas vecinales sin tarifa publicada: pregunta en la junta o en el ayuntamiento",
+        "San Zadornil y Bozoó están dentro del Parque Natural Montes Obarenes-San Zadornil: normas del parque sin verificar",
+        "Prohibido recolectar de noche y las oronjas cerradas"
+      ],
+      "fuentes": [
+        {
+          "url": "https://idecyl.jcyl.es/geoserver/montes/wms?Service=WMS&Request=GetCapabilities",
+          "titulo": "IDECyL: Tipos de masa forestal (capa montes:gesfor_cyl_tipmas), Junta de Castilla y León",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micologiamerindadesnorte.es/areas-reguladas/",
+          "titulo": "Coto micológico La Engaña–Merindades Norte: áreas reguladas y aparcamientos",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/07a-zona-burgos.md",
+          "titulo": "Investigación del proyecto: zona de Burgos (Pinares, Demanda, Merindades)",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
       "id": "gredos",
       "nombre": "Gredos y Valle del Tiétar",
       "comunidad": "castilla-y-leon",
@@ -398,7 +604,7 @@
         "Ávila"
       ],
       "bbox": [
-        -5.4,
+        -5.3,
         40.15,
         -4.4,
         40.5
@@ -927,6 +1133,120 @@
         {
           "url": "https://www.gorbeiamikologia.eus/es/",
           "titulo": "Gorbeia Mikologia: portada (proyecto de 2022 de Urkabustaiz, Zigoitia y Zuia)",
+          "consultado": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "extremadura",
+      "nombre": "Extremadura (Sierra de San Pedro, Villuercas, Ambroz y Gata)",
+      "comunidad": "extremadura",
+      "provincias": [
+        "Cáceres"
+      ],
+      "bbox": [
+        -7.45,
+        39.3,
+        -5.3001,
+        40.35
+      ],
+      "habitats": [
+        "alcornocal",
+        "castanar",
+        "melojar",
+        "encinar",
+        "pinar-resinero",
+        "jaral"
+      ],
+      "puntos": [
+        {
+          "id": "extremadura-salorino-alcornocal",
+          "nombre": "Alcornocal de la Sierra de San Pedro (Salorino)",
+          "lat": 39.43489,
+          "lon": -7.03565,
+          "altitud": 452,
+          "habitat": "alcornocal",
+          "nota": "MFE50 polígono 299234 (provincia 10, Cáceres): Bosque, Alcornocales, Quercus suber (código 46) 8/10 y código 68 1/10, FCC 70 %, 340 ha. Ortofoto PNOA: alcornocal denso con pistas y cortafuegos. Fuera de la capa ENP 2025 (Parque Natural Tajo Internacional a 6,5 km). Ningún monte del catálogo del MITECO (MUP) en el punto; el más cercano, a 3,5 km: casi seguro finca privada. Es solo un termómetro del hábitat, no un sitio donde entrar sin permiso del dueño.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_extremadura.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "extremadura-villuercas-castanar",
+          "nombre": "Castañar de las Villuercas (Castañar de Ibor)",
+          "lat": 39.4801,
+          "lon": -5.35165,
+          "altitud": 914,
+          "habitat": "castanar",
+          "nota": "MFE50 polígono 275572 (provincia 10, Cáceres): Bosque, Castañares, Castanea sativa (código 72) 9/10 y Q. pyrenaica (43) 1/10, FCC 80 %, 350 ha. Se movió 90 m al este del punto de la investigación (39.4801, -5.3527), que caía en una franja rocosa sin copa, hasta dosel cerrado en la ortofoto PNOA. Fuera de la capa ENP 2025 (Corredor Ecológico del Río Guadalupejo a 3,7 km). Sin MUP en el punto (el más cercano a 4,3 km): régimen sin confirmar, probablemente finca privada. Término (Castañar de Ibor o Alía) sin confirmar.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_extremadura.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "extremadura-hervas-castanar",
+          "nombre": "Castañar del Valle del Ambroz (Hervás)",
+          "lat": 40.25486,
+          "lon": -5.85655,
+          "altitud": 968,
+          "habitat": "castanar",
+          "nota": "MFE50 polígono 301589 (provincia 10, Cáceres): Bosque, Castañares, Castanea sativa (72) 8/10 y código 46 1/10, FCC 90 %, 176 ha. Se movió 120 m al sur del punto de la investigación (40.25594, -5.85655), que caía al borde de un claro con plantación joven, hasta dosel cerrado en la ortofoto PNOA. Fuera de la capa ENP 2025: a 0,42 km del Paisaje Protegido Castañar de Gallego. Sin MUP en el punto: el MUP «Cruces de la Sierra, Forquito y Pinajarro» está a 0,37 km y «Castañar Gallego» a 0,42 km.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_extremadura.html",
+          "revisado": "2026-09-30"
+        },
+        {
+          "id": "extremadura-trevejo-castanar",
+          "nombre": "Castañar de San Martín de Trevejo (Sierra de Gata)",
+          "lat": 40.2315,
+          "lon": -6.7882,
+          "altitud": 785,
+          "habitat": "castanar",
+          "nota": "MFE50 polígono 307108 (provincia 10, Cáceres): Bosque, Castañares, Castanea sativa (72) 9/10, FCC 85 %, 70 ha. El punto de la investigación (40.23195, -6.7863) quedaba a 0,7 m del Corredor Ecocultural «Camino de Trevejo a Jálama» (ENP 2025); se movió dentro del mismo polígono a 115 m del corredor y a 400 m del Árbol Singular «Castaño del Cobijo», sobre dosel cerrado en la ortofoto PNOA. Sin MUP en el punto (MUP «Jálama» a 0,7 km). Que sea el Castañar de los Ojestos de los folletos está sin confirmar.",
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_extremadura.html",
+          "revisado": "2026-09-30"
+        }
+      ],
+      "estacionesAemet": [],
+      "normas": [
+        "ex-sin-decreto-autonomico",
+        "ex-fincas-privadas",
+        "estatal-ley-43-2003-montes",
+        "ex-mirabel-ordenanza-2020",
+        "ex-monfrague-prug-decreto-13-2014"
+      ],
+      "avisos": [
+        "La mayoría de dehesas y alcornocales son fincas privadas: sin permiso del dueño, no",
+        "Sin permiso autonómico confirmado: no se ha encontrado un decreto de recolección vigente (solo un borrador de 2014). En montes públicos pregunta al ayuntamiento por ordenanzas",
+        "Monfragüe (Parque Nacional): prohibido recolectar sin autorización del Parque",
+        "En primavera, riesgo de Amanita verna y Amanita vidua (mortales), que se confunden con el gurumelo (Amanita ponderosa): la app no recomienda recoger gurumelos"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_extremadura.html",
+          "titulo": "MITECO: Mapa Forestal de España 1:50.000 (MFE50), Extremadura",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/servicios/banco-datos-naturaleza/enp/Enp2025_geojson.zip",
+          "titulo": "MITECO: Espacios Naturales Protegidos 2025 (capa ENP)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://servicios.idee.es/wms-inspire/ocupacion-suelo?SERVICE=WMS&REQUEST=GetCapabilities",
+          "titulo": "IGN/CNIG: SIOSE, ocupación del suelo de España (WMS INSPIRE)",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://micoex.org/intoxicaciones/",
+          "titulo": "Sociedad Micológica Extremeña: intoxicaciones",
+          "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/07b-zona-extremadura.md",
+          "titulo": "Investigación del proyecto: zona de Extremadura",
           "consultado": "2026-09-30"
         }
       ]

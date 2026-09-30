@@ -146,5 +146,469 @@
       "cyl-decreto-31-2017"
     ],
     "permisoUrl": "https://micologiacyl.es/acotados"
+  },
+  "BU-50004": {
+    "nombre": "Coto micológico Pinares Sur de Burgos",
+    "normas": [
+      "cyl-bu-50004-pinares-sur",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://www.cotosdesetas.es"
+  },
+  "BU-50058": {
+    "nombre": "Palacios de la Sierra",
+    "normas": [
+      "cyl-bu-50058-palacios",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50011": {
+    "nombre": "Vilviestre del Pinar",
+    "normas": [
+      "cyl-bu-50011-vilviestre",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50059": {
+    "nombre": "Huerta de Arriba",
+    "normas": [
+      "cyl-bu-50059-huerta-de-arriba",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50026": {
+    "nombre": "Junta de Ledanías (Salas de los Infantes)",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50021": {
+    "nombre": "Villanueva Tobera",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50013": {
+    "nombre": "Neila",
+    "normas": [
+      "cyl-bu-50013-neila",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50067": {
+    "nombre": "Coto micológico Demanda Suroeste (Barbadillo de Herreros y otros)",
+    "normas": [
+      "cyl-bu-50067-demanda-suroeste",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+  },
+  "BU-50022": {
+    "nombre": "Monasterio de Rodilla",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50029": {
+    "nombre": "J.V de Pérex de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50072": {
+    "nombre": "Arija",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50007": {
+    "nombre": "Merindad de Cuesta Urria",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50032": {
+    "nombre": "J.V de Villabasil de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50042": {
+    "nombre": "Junta de Estrada",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50045": {
+    "nombre": "Acotado Criales",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50001": {
+    "nombre": "J.V de Alarcia",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50064": {
+    "nombre": "Junta Administrativa de Arnedo y otros",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50018": {
+    "nombre": "Villanueva de Carazo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50070": {
+    "nombre": "J.V de Virtus y Cilleruelo de Bezana",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50044": {
+    "nombre": "J.V de Castresana de Losa y otros",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50055": {
+    "nombre": "Junta Administrativa de Oteo de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50049": {
+    "nombre": "J.V de Lastras de la Torre y otros",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50009": {
+    "nombre": "Caleruega",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50053": {
+    "nombre": "J.V de San Martín de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50028": {
+    "nombre": "J.V de Castrobarto",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50038": {
+    "nombre": "J.V de Castriciones de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50002": {
+    "nombre": "Alfoz de Santa Gadea",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50066": {
+    "nombre": "Fresno de Rodilla",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50003": {
+    "nombre": "San Zadornil",
+    "normas": [
+      "cyl-bu-50003-san-zadornil",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+  },
+  "BU-50014": {
+    "nombre": "Villanueva de Gumiel",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50052": {
+    "nombre": "Junta Administrativa de Paresotas",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50034": {
+    "nombre": "Junta Administrativa de Río de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50025": {
+    "nombre": "Entidad Local Menor de San Llorente de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50054": {
+    "nombre": "Bozoó",
+    "normas": [
+      "cyl-bu-50054-bozoo",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+  },
+  "BU-50043": {
+    "nombre": "Ciruelos de Cervera",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50010": {
+    "nombre": "Espinosa de Cervera",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50060": {
+    "nombre": "Contreras",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50031": {
+    "nombre": "J.V de Villacián de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50036": {
+    "nombre": "J.V de Villaño de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50012": {
+    "nombre": "J.V de Montejo de Bricia",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50016": {
+    "nombre": "Villasur de Herreros",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50020": {
+    "nombre": "Cabezón de la Sierra",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50033": {
+    "nombre": "Junta Administrativa de Quincoces de Yuso",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50006": {
+    "nombre": "Santo Domingo de Silos",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50050": {
+    "nombre": "J.V de Cubillos del Rojo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50039": {
+    "nombre": "J.V de Lastras de Teza",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50008": {
+    "nombre": "Coto La Engaña–Merindades Norte (Merindad de Montija en el portal)",
+    "normas": [
+      "cyl-bu-50008-la-engana",
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiamerindadesnorte.es/permisos/"
+  },
+  "BU-50040": {
+    "nombre": "J.V de Teza de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50027": {
+    "nombre": "Entidad Local Menor de Terradillos de Sedano",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50035": {
+    "nombre": "J.V de Mambliga de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50037": {
+    "nombre": "J.V de Fresno de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50041": {
+    "nombre": "J.V de Barriga de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50063": {
+    "nombre": "Covarrubias",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50030": {
+    "nombre": "Valle de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50071": {
+    "nombre": "San Millán de Lara",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50069": {
+    "nombre": "J.V de Bezana",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50051": {
+    "nombre": "Quintanapalla",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50023": {
+    "nombre": "Carazo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50056": {
+    "nombre": "Junta Administrativa de Momediano",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50046": {
+    "nombre": "Junta de Villalba de Losa",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50024": {
+    "nombre": "J.V de Santa Gadea de Alfoz",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50068": {
+    "nombre": "J.V de Montoto",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50057": {
+    "nombre": "Covarrubias (BU-50057)",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50061": {
+    "nombre": "Torres de Abajo",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
+  },
+  "BU-50005": {
+    "nombre": "Villalacre",
+    "normas": [
+      "cyl-decreto-31-2017"
+    ],
+    "permisoUrl": "https://micologiacyl.es/areas"
   }
 }

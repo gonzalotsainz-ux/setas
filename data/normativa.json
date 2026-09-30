@@ -15,7 +15,10 @@
           "cuenca",
           "guadalajara",
           "toledo",
-          "alava"
+          "alava",
+          "burgos",
+          "merindades",
+          "extremadura"
         ]
       },
       "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
@@ -41,7 +44,9 @@
           "guadarrama",
           "sierra-norte",
           "soria",
-          "gredos"
+          "gredos",
+          "burgos",
+          "merindades"
         ]
       },
       "url": "http://bocyl.jcyl.es/boletines/2017/10/09/pdf/BOCYL-D-09102017-1.pdf",
@@ -226,13 +231,15 @@
       "ambito": {
         "comunidad": "castilla-y-leon",
         "zonas": [
-          "soria"
+          "soria",
+          "burgos"
         ]
       },
       "url": "https://asociacionmontesdesoria.com/permiso-de-recoleccion-de-setas/",
       "vigente": true,
       "resumen": [
         "Parque Micológico de 127.909,88 ha (84 propietarios; incluye el MUP n.º 172 «Pinar Grande» y partes de los parques naturales de Urbión y Cañón del Río Lobos). Los permisos valen también para SO-50002 y SO-50003.",
+        "Incluye dos municipios de Burgos, Canicosa de la Sierra y Regumiel de la Sierra: sus montes de pinar (MUP 211 y 212 de Canicosa; 213 y 612 de Regumiel) son del parque y el permiso es el mismo. En Canicosa se vende en el ayuntamiento, el telecentro, la Casa de la Madera y el Bar Cabrero.",
         "El foráneo solo puede sacar el permiso de 2 días consecutivos; no hay temporada para foráneos.",
         "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día)."
       ],
@@ -287,7 +294,7 @@
       "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
       "revisado": "2026-09-30",
       "verificado": true,
-      "notas": "Tarifas releídas en el portal oficial el 30/09/2026 y contrastadas con la web de la asociación (actualizada el 01/04/2026). Ficha del parque: https://micologiacyl.es/parque/pmso-50001. El plano de zonas reguladas en PDF (2025) no se ha descargado. Tierras Altas (Yanguas, San Pedro Manrique) queda dentro o junto al parque según un cálculo propio sobre el WFS de la Junta; conviene confirmarlo en el plano. Las tarifas conservan anio 2026 porque la web de la asociación, que las publica como permisos de la temporada 2026, está fechada el 01/04/2026."
+      "notas": "Tarifas releídas en el portal oficial el 30/09/2026 y contrastadas con la web de la asociación (actualizada el 01/04/2026). Ficha del parque: https://micologiacyl.es/parque/pmso-50001. El plano de zonas reguladas en PDF (2025) no se ha descargado. Tierras Altas (Yanguas, San Pedro Manrique) queda dentro o junto al parque según un cálculo propio sobre el WFS de la Junta; conviene confirmarlo en el plano. Las tarifas conservan anio 2026 porque la web de la asociación, que las publica como permisos de la temporada 2026, está fechada el 01/04/2026. Canicosa y Regumiel (Burgos) figuran como municipios del parque en la web de la asociación (https://asociacionmontesdesoria.com/permiso-de-recoleccion-de-setas/ y /portfolio/canicosa-de-la-sierra/, consultadas el 30/09/2026 con un resumen automático; conviene abrir el original): ver docs/investigacion/07a-zona-burgos.md, apartado 2.3 k."
     },
     {
       "id": "cyl-so-50001-covaleda",
@@ -2182,6 +2189,1152 @@
       "revisado": "2026-09-30",
       "verificado": true,
       "notas": "Leídos el 30/09/2026 la ordenanza en el BOTHA (PDF de gorbeiamikologia.eus), las páginas Permisos, Parque Micológico y Micoturismo y el plano del parque. Tarifas 2026 confirmadas en la web oficial (página actualizada el 23/12/2025); la ordenanza recoge las mismas cifras. La web oficial no indica tarifa distinta para empadronados. El polígono de cotos.geojson deriva del MUP 734 (aproximado al borde oficial) y la ordenanza lista las parcelas en un anexo I que el PDF no deja leer. AMBIGÜEDAD OFICIAL sobre los municipios: la portada (https://www.gorbeiamikologia.eus/es/) dice que en 2022 Urkabustaiz, Zigoitia y Zuia pusieron en marcha el proyecto; la página https://www.gorbeiamikologia.eus/es/parque-micologico/ dice que actualmente lo forma Zuia. La ordenanza leída es solo la de Zuia. En Urkabustaiz y Zigoitia la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger."
+    },
+    {
+      "id": "cyl-bu-50017-demanda-san-millan",
+      "titulo": "Acotado BU-50017 «Demanda-San Millán» (Ayuntamiento de Arlanzón y otros; Micocyl)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://www.micocyl.es/areas/demanda-san-millan",
+      "vigente": true,
+      "resumen": [
+        "11.736 ha en Pradoluengo, Valle de Valdelaguna, Villasur de Herreros, Ibeas y San Adrián de Juarros, Palazuelos de la Sierra y Villamiel de la Sierra. Rebollares 38 %, robles y hayas 17 %, pinares de montaña 16 %.",
+        "Cupos: recreativo 2 kg/día de perretxico o 5 kg/día de setas; comercial 10 kg de perretxico o 20 kg de setas; comercial Plus 50 kg.",
+        "Tamaños mínimos: boletus más de 4 cm, Lactarius más de 2 cm, perretxico más de 2 cm (en 2025 Micocyl habló de 3 cm para el perretxico: vale el cartel del día). Níscalos, setas de cardo, llanegas, negrillas y capuchinas, cortadas con navaja.",
+        "Cacerías colectivas de la Reserva Regional de Caza de la Demanda en 2026/27: 17/10, 18/10, 24/10, 7/11, 21/11, 22/11, 28/11, 5/12, 12/12, 13/12, 19/12, 3/01, 9/01 y 16/01 (según cuartel): no se recoge en esas zonas y horas.",
+        "Online en el portal oficial de permisos (también app Micocyl) y en puntos de venta físicos de la zona. Contacto: micocyl@micocyl.es, 975 23 96 70 (laborables de 10 a 13 h)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/demanda-san-millan",
+        "tarifas": [
+          {
+            "nombre": "General recreativo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "General recreativo, 2 días",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "General recreativo, temporada",
+            "precio": 60,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "General comercial, temporada",
+            "precio": 250,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "Local recreativo",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "Local comercial",
+            "precio": 20,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "Local comercial Plus",
+            "precio": 50,
+            "cupoKgDia": 50,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "Vinculado recreativo",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          },
+          {
+            "nombre": "Vinculado comercial",
+            "precio": 250,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/demanda-san-millan"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en el portal oficial el 30/09/2026; la tabla no lleva año (el pie dice «© 2026»). Puntos de venta: Taberna Arlanzón (947 421 556), Cantina Mozoncillo (Ibeas de Juarros), Cantina de Salgüero de Juarros (947 421 074). Calendario de cacerías: https://www.micocyl.es/sites/default/files/area/docs/calendario_cacerias_colectivas_autorizadas_2026_demanda.pdf . La capa oficial no trae el polígono BU-50017; por cruce propio con los MUP parece el PMBU-50050 [inferencia]."
+    },
+    {
+      "id": "cyl-bu-50015-montes-de-oca",
+      "titulo": "Acotado BU-50015 «Montes de Oca» (Ayuntamiento de Villafranca Montes de Oca y otros; Micocyl)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://www.micocyl.es/print/areas/montes-de-oca",
+      "vigente": true,
+      "resumen": [
+        "12.461 ha: rebollares 44 %, pinares de montaña 29 %. Parajes: Monte Mayor (Arraya de Oca), Mataterrazos (Atapuerca), Monte Costorrios (Alarzón), Monte Grande (Villambistia), Montesuso (Belorado y Villafranca), entre otros.",
+        "No hay permiso comercial. La tarifa general de temporada subió de 60 € (folleto de 2024) a 120 €.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día; prohibido de noche).",
+        "Online en el portal oficial de permisos (también app Micocyl) y en puntos de venta físicos de la zona. Contacto: micocyl@micocyl.es, 975 23 96 70 (laborables de 10 a 13 h)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/montes-de-oca",
+        "tarifas": [
+          {
+            "nombre": "General recreativo, 1 día",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-oca"
+          },
+          {
+            "nombre": "General recreativo, 2 días",
+            "precio": 25,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-oca"
+          },
+          {
+            "nombre": "General recreativo, temporada",
+            "precio": 120,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-oca"
+          },
+          {
+            "nombre": "Local recreativo",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-oca"
+          },
+          {
+            "nombre": "Vinculado recreativo",
+            "precio": 25,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/montes-de-oca"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en el portal oficial el 30/09/2026; la tabla no lleva año (el pie dice «© 2026»). Puntos de expedición: Nueva Cantina (Alarcia, 643 826 669), Mesón Alba (Villafranca Montes de Oca), Taberna Arlanzón. Según Burgos Conecta (28/04/2025, resumen automático), el permiso se activa al día siguiente. La capa oficial no trae el polígono BU-50015; por cruce propio parecen PMBU-50010 y PMBU-50040 [inferencia]."
+    },
+    {
+      "id": "cyl-bu-50019-valle-de-mena",
+      "titulo": "Acotado BU-50019 «Valle de Mena» (Ayuntamiento de Valle de Mena y otros; Micocyl)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "merindades"
+        ]
+      },
+      "url": "https://www.micocyl.es/print/areas/valle-de-mena",
+      "vigente": true,
+      "resumen": [
+        "7.331 ha: robles y hayas 18 %, pinares de montaña 10 %, rebollares 6 %. Parajes: Dehesa de Ordunte (MUP 540 a 546), Montepeña, Sierra de Arrate, El Acebal, Entrambasaguas, entre otros.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día; prohibido de noche).",
+        "Online en el portal oficial de permisos (también app Micocyl) y en puntos de venta físicos de la zona. Contacto: micocyl@micocyl.es, 975 23 96 70 (laborables de 10 a 13 h)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/valle-de-mena",
+        "tarifas": [
+          {
+            "nombre": "General recreativo, 1 día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "General recreativo, 2 días",
+            "precio": 7,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "General recreativo, temporada",
+            "precio": 20,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "General comercial, temporada",
+            "precio": 100,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "Local recreativo",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "Local comercial",
+            "precio": 20,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "Vinculado recreativo",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          },
+          {
+            "nombre": "Vinculado comercial",
+            "precio": 100,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/valle-de-mena"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en el portal oficial el 30/09/2026; la tabla no lleva año (el pie dice «© 2026»). La capa oficial no trae el polígono BU-50019; por cruce propio parece la parte norte del PMBU-50020 [inferencia]."
+    },
+    {
+      "id": "cyl-bu-50073-fresneda-tiron",
+      "titulo": "Acotado BU-50073 «Fresneda de la Sierra Tirón» (Ayuntamiento de Fresneda de la Sierra Tirón; Micocyl)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://www.micocyl.es/print/areas/fresneda-de-la-sierra-tiron-bu-50073",
+      "vigente": true,
+      "resumen": [
+        "5.408 ha: pinares de montaña 30 %, robles y hayas 26 %. Montes: Hondonada (MUP 14), Monte Agudo (MUP 15), Las Zarras (MUP 16) y Zarzabala (MUP 17).",
+        "Dentro de la Reserva Regional de Caza de la Demanda: consulta el calendario de cacerías colectivas.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día; prohibido de noche).",
+        "Online en el portal oficial de permisos (también app Micocyl) y en puntos de venta físicos de la zona. Contacto: micocyl@micocyl.es, 975 23 96 70 (laborables de 10 a 13 h)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron",
+        "tarifas": [
+          {
+            "nombre": "General recreativo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          },
+          {
+            "nombre": "General recreativo, 2 días",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          },
+          {
+            "nombre": "General recreativo, temporada",
+            "precio": 60,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          },
+          {
+            "nombre": "General comercial, temporada",
+            "precio": 250,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          },
+          {
+            "nombre": "Local recreativo",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          },
+          {
+            "nombre": "Local comercial",
+            "precio": 20,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/fresneda-de-la-sierra-tiron"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en el portal oficial el 30/09/2026; la tabla no lleva año (el pie dice «© 2026»). La capa oficial no trae el polígono BU-50073; por cruce propio parece la parte sur del PMBU-50020 [inferencia]."
+    },
+    {
+      "id": "cyl-bu-50003-san-zadornil",
+      "titulo": "Acotado BU-50003 «San Zadornil» (Ayuntamiento de la Jurisdicción de San Zadornil; Micocyl)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "merindades"
+        ]
+      },
+      "url": "https://permisos.micologiacyl.es/acotado/san-zadornil",
+      "vigente": true,
+      "resumen": [
+        "2.234 ha: pinares de montaña 50 %, robles y hayas 20 %; montes Arcena y Valdelosa. Especie destacada: Boletus edulis (septiembre a noviembre).",
+        "El 99 % del acotado está dentro del Parque Natural Montes Obarenes-San Zadornil (cruce propio); la norma de recolección del parque no se ha leído.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día; prohibido de noche).",
+        "Online en el portal oficial de permisos (también app Micocyl) y en puntos de venta físicos de la zona. Contacto: micocyl@micocyl.es, 975 23 96 70 (laborables de 10 a 13 h)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://permisos.micologiacyl.es/acotado/san-zadornil",
+        "tarifas": [
+          {
+            "nombre": "General recreativo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+          },
+          {
+            "nombre": "General recreativo, 2 días",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+          },
+          {
+            "nombre": "General recreativo, temporada",
+            "precio": 100,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+          },
+          {
+            "nombre": "Local recreativo",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+          },
+          {
+            "nombre": "Vinculado recreativo",
+            "precio": 40,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://permisos.micologiacyl.es/acotado/san-zadornil"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en el portal oficial el 30/09/2026; la tabla no lleva año (el pie dice «© 2026»). Sin permiso comercial. El teléfono de la ficha (975 239 670) coincide con el del programa Micocyl y puede ser un error."
+    },
+    {
+      "id": "cyl-bu-50004-pinares-sur",
+      "titulo": "Coto micológico Pinares Sur de Burgos (BU-50004; consorcio de Huerta del Rey, Hontoria del Pinar, Arauzo de Miel, Pinilla de los Barruecos, La Gallega, Mamolar e Hinojar del Rey)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos",
+      "vigente": true,
+      "resumen": [
+        "18 montes de utilidad pública (unas 18.900 ha) de pino silvestre, negral y laricio y sabina. Rabanera del Pinar salió del consorcio en 2023.",
+        "Permiso en la web y la app «Cotos de Setas»; los locales y vinculados, en su ayuntamiento. El 30/09/2026 la web decía «compra de permisos temporalmente no disponible».",
+        "El 22 % del coto está en el Parque Natural Sabinares del Arlanza-La Yecla y el 16 % en el Cañón del Río Lobos (cruce propio): normas de los parques sin leer.",
+        "Rige el Decreto 31/2017 (máximo 5 kg recreativos por persona y día; prohibido de noche)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://www.cotosdesetas.es",
+        "tarifas": [
+          {
+            "nombre": "Foráneo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos"
+          },
+          {
+            "nombre": "Foráneo, fin de semana",
+            "precio": 15,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos"
+          },
+          {
+            "nombre": "Foráneo, temporada",
+            "precio": 80,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos"
+          },
+          {
+            "nombre": "Local (empadronado) comercial, temporada (sin cupo según la web)",
+            "precio": 10,
+            "cupoKgDia": null,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos"
+          },
+          {
+            "nombre": "Vinculado comercial, temporada",
+            "precio": 20,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": false,
+            "fuente": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos"
+          }
+        ]
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "La web no dice el año de las tarifas y tenía la compra desactivada el 30/09/2026: sin confirmar para esta temporada. El cupo de 20 kg/día de la web choca con el máximo recreativo de 5 kg del Decreto 31/2017; manda el decreto para lo recreativo. La ordenanza vieja que aloja Rabanera (10/20/150 €) es antigua y no se usa. Aviso del Ayuntamiento de Hontoria (18/09/2024): cambios en el procedimiento; teléfono 947 386 141."
+    },
+    {
+      "id": "cyl-bu-50067-demanda-suroeste",
+      "titulo": "Coto micológico Demanda Suroeste (BU-50067; Barbadillo de Herreros, Pineda de la Sierra, Riocavado de la Sierra y Monterrubio de la Demanda)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://cotosdesetas.es/coto-micologico-demanda-suroeste",
+      "vigente": true,
+      "resumen": [
+        "Montes: Ahedo de la Pared, Barranco Malo, Dehesa Boyal y Peguera (Pineda), Lomomediano (Barbadillo de Herreros), La Dehesa y La Umbría (Monterrubio), La Dehesa (Riocavado).",
+        "Compra online en cotosdesetas.es; los permisos locales y vinculados los aprueba el ayuntamiento. Cupos: 5 kg/día recreativo y 30 kg/día comercial.",
+        "La web avisa de las cacerías colectivas (Decreto 31/2017): consúltalas en el ayuntamiento."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://cotosdesetas.es/coto-micologico-demanda-suroeste",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Foráneo recreativo, 2 días",
+            "precio": 15,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 60,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Foráneo comercial, temporada",
+            "precio": 300,
+            "cupoKgDia": 30,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Local comercial, temporada",
+            "precio": 30,
+            "cupoKgDia": 30,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          },
+          {
+            "nombre": "Vinculado comercial, temporada",
+            "precio": 70,
+            "cupoKgDia": 30,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-demanda-suroeste"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en la web de venta del coto el 30/09/2026, sin año."
+    },
+    {
+      "id": "cyl-bu-50008-la-engana",
+      "titulo": "Coto micológico La Engaña–Merindades Norte (BU-50008; Espinosa de los Monteros, Merindad de Montija, Merindad de Sotoscueva y Merindad de Valdeporres)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "merindades"
+        ]
+      },
+      "url": "https://micologiamerindadesnorte.es",
+      "vigente": true,
+      "resumen": [
+        "22.621 ha de montes de utilidad pública. En el portal oficial figura como «Merindad de Montija» (por el titular).",
+        "Cupos: recreativo 2 kg/día de perretxico o 4 kg/día de setas; comercial 10 kg o 20 kg. Menores de 14 años con un adulto, exentos.",
+        "En coche solo hasta los aparcamientos marcados dentro de los MUP, por las pistas señalizadas.",
+        "Empadronados, vinculados y foráneo comercial: solo en el ayuntamiento (Montija 947 740 736, Espinosa 947 120 002, Sotoscueva 947 138 681, Valdeporres 947 130 010). La web avisa de que los puntos de venta «adicionales» de su lista no están operativos."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://micologiamerindadesnorte.es/permisos/",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, 1 día",
+            "precio": 10,
+            "cupoKgDia": 4,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://micologiamerindadesnorte.es/permisos/"
+          },
+          {
+            "nombre": "Foráneo recreativo, 2 días",
+            "precio": 15,
+            "cupoKgDia": 4,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://micologiamerindadesnorte.es/permisos/"
+          },
+          {
+            "nombre": "Foráneo recreativo, temporada 2026",
+            "precio": 60,
+            "cupoKgDia": 4,
+            "anio": 2026,
+            "verificado": true,
+            "fuente": "https://micologiamerindadesnorte.es/permisos/"
+          },
+          {
+            "nombre": "Empadronado recreativo, anual (ordenanza)",
+            "precio": 10,
+            "cupoKgDia": 4,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://espinosadelosmonteros.es/wp-content/uploads/2024/03/ANUNCIO-APROBACION-DEFINITIVA-ORDENANZA-APROVECHAMIENTO-MICOLOGICO-BOB-45-DE-4-DE-MARZO-DE-2024.pdf"
+          },
+          {
+            "nombre": "Vinculado recreativo, anual (ordenanza)",
+            "precio": 30,
+            "cupoKgDia": 4,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://espinosadelosmonteros.es/wp-content/uploads/2024/03/ANUNCIO-APROBACION-DEFINITIVA-ORDENANZA-APROVECHAMIENTO-MICOLOGICO-BOB-45-DE-4-DE-MARZO-DE-2024.pdf"
+          },
+          {
+            "nombre": "Comercial anual: empadronado 30 €, vinculado y foráneo 300 € (ordenanza)",
+            "precio": 300,
+            "cupoKgDia": 20,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://espinosadelosmonteros.es/wp-content/uploads/2024/03/ANUNCIO-APROBACION-DEFINITIVA-ORDENANZA-APROVECHAMIENTO-MICOLOGICO-BOB-45-DE-4-DE-MARZO-DE-2024.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 4,
+      "prohibiciones": [
+        "Oronja (Amanita caesarea) en huevo y parasol cerrado",
+        "Vender, cambiar o regalar setas dentro del monte"
+      ],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Web oficial leída el 30/09/2026: solo la temporada lleva año («Permiso de Temporada 2026»). Ordenanza de Espinosa: BOPBUR n.º 45, 4/03/2024 (permisos válidos desde la expedición hasta el 31/12; +2 € si el foráneo lo saca en el ayuntamiento; no se aplica a la trufa). Pluviómetros que enlaza la web: SAIH Ebro P058 (Espinosa) y P074 (Lunada), que no son de AEMET."
+    },
+    {
+      "id": "cyl-bu-50054-bozoo",
+      "titulo": "Acotado BU-50054 «Bozoó» (Ayuntamiento de Bozoó; Sierra de Besantes, MUP 690)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "merindades"
+        ]
+      },
+      "url": "https://cotosdesetas.es/coto-micologico-de-bozoo",
+      "vigente": true,
+      "resumen": [
+        "Níscalo, marzuelo y carbonera. Sin permiso comercial; recreativo 5 kg/día.",
+        "El acotado está entero dentro del Parque Natural Montes Obarenes-San Zadornil (cruce propio): norma del parque sin leer."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://cotosdesetas.es/coto-micologico-de-bozoo",
+        "tarifas": [
+          {
+            "nombre": "Foráneo, 1 día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          },
+          {
+            "nombre": "Foráneo, 2 días",
+            "precio": 8,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          },
+          {
+            "nombre": "Foráneo, semana",
+            "precio": 24,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          },
+          {
+            "nombre": "Foráneo, temporada",
+            "precio": 60,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          },
+          {
+            "nombre": "Local o vinculado, 1 día",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          },
+          {
+            "nombre": "Local o vinculado, temporada",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-micologico-de-bozoo"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Tarifas leídas en la web de venta del coto el 30/09/2026, sin año."
+    },
+    {
+      "id": "cyl-bu-50013-neila",
+      "titulo": "Acotado BU-50013 «Neila» (Ayuntamiento de Neila): régimen actual sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/bu-50013",
+      "vigente": true,
+      "resumen": [
+        "Acotado municipal (MUP 243 «Ahedo o Pinar», 5.535 ha). Hace falta permiso: tarifas actuales no encontradas; llama al ayuntamiento (947 395 464).",
+        "El acotado está entero dentro del Parque Natural Lagunas Glaciares de Neila (cruce propio): norma de recolección del parque sin leer."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": [
+          {
+            "nombre": "Visitante, 1 día (dato de 2018)",
+            "precio": 10,
+            "cupoKgDia": 15,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          },
+          {
+            "nombre": "Vinculado, temporada (dato de 2018)",
+            "precio": 20,
+            "cupoKgDia": 15,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          },
+          {
+            "nombre": "Empadronado, temporada (dato de 2018)",
+            "precio": 10,
+            "cupoKgDia": 15,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          }
+        ]
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Tarifas de 2018 (Tu Voz en Pinares, 13/10/2018): antiguas. El cupo de 15 kg de esa fuente choca con el máximo recreativo de 5 kg del Decreto 31/2017."
+    },
+    {
+      "id": "cyl-bu-50011-vilviestre",
+      "titulo": "Acotado BU-50011 «Vilviestre del Pinar» (Ayuntamiento de Vilviestre del Pinar): régimen actual sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/bu-50011",
+      "vigente": true,
+      "resumen": [
+        "Acotado municipal (MUP 289 «Matarrucha» y 290 «El Monte»). Hace falta permiso: tarifas actuales no encontradas; llama al ayuntamiento (947 390 651)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": [
+          {
+            "nombre": "Visitante, 1 día (dato de 2018)",
+            "precio": 10,
+            "cupoKgDia": null,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          },
+          {
+            "nombre": "Visitante, temporada (dato de 2018)",
+            "precio": 100,
+            "cupoKgDia": null,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          },
+          {
+            "nombre": "Vinculado, temporada (dato de 2018)",
+            "precio": 20,
+            "cupoKgDia": 10,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          },
+          {
+            "nombre": "Empadronado, temporada (dato de 2018)",
+            "precio": 10,
+            "cupoKgDia": 10,
+            "anio": 2018,
+            "verificado": false,
+            "fuente": "https://www.tuvozenpinares.com/articulo/sociedad/pinares-gran-coctel-regulaciones-micologicas/20181013202308015375.html"
+          }
+        ]
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Tarifas de 2018 (Tu Voz en Pinares, 13/10/2018): antiguas."
+    },
+    {
+      "id": "cyl-bu-50058-palacios",
+      "titulo": "Acotado BU-50058 «Palacios de la Sierra»: régimen actual sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/bu-50058",
+      "vigente": true,
+      "resumen": [
+        "El portal oficial lista la clave BU-50058 sin titular; «sin regulación» en 2016 y «pendiente» en 2018 según la prensa. Hace falta permiso dentro del polígono oficial; fuera de él (p. ej. el MUP 244), régimen sin confirmar: llama al ayuntamiento."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Sin tarifas publicadas. Fuentes antiguas: El Correo de Burgos 25/09/2016 y Tu Voz en Pinares 13/10/2018."
+    },
+    {
+      "id": "cyl-bu-50059-huerta-de-arriba",
+      "titulo": "Acotado BU-50059 «Huerta de Arriba» (Ayuntamiento de Huerta de Arriba): tarifas sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/bu-50059",
+      "vigente": true,
+      "resumen": [
+        "Acotado municipal (MUP 274 «La Dehesa» y 279 «Santa Engracia», pinar de silvestre). Hace falta permiso: tarifas no encontradas; pregunta en el ayuntamiento."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Sin tarifas publicadas encontradas el 30/09/2026."
+    },
+    {
+      "id": "cyl-bu-50074-rabanera",
+      "titulo": "Acotado BU-50074 «Rabanera del Pinar» (Ayuntamiento de Rabanera del Pinar): régimen actual sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://micologiacyl.es/areas/bu-50074",
+      "vigente": true,
+      "resumen": [
+        "Acotado propio del ayuntamiento desde que salió del coto Pinares Sur en 2023 (MUP 254 «Las Cuadrillas» y 615). Tarifas no encontradas; pregunta en el ayuntamiento.",
+        "La capa oficial de zonas reguladas no trae su polígono: el mapa no lo marca."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Salida de Pinares Sur: Burgos Conecta, 15/12/2023 (resumen automático)."
+    },
+    {
+      "id": "cyl-bu-quintanar-de-la-sierra",
+      "titulo": "Quintanar de la Sierra (MUP 251 «La Dehesa», 252 y 253 «Revenga»): régimen actual sin confirmar",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "burgos"
+        ]
+      },
+      "url": "https://cotosdesetas.es/2018/04/5-montes-superproductores-de-marzuelos-en-burgos-y-soria.html",
+      "vigente": true,
+      "resumen": [
+        "Sin polígono en la capa oficial de zonas reguladas. «Sin regulación» en 2016, «pendiente» en 2018 y el MUP 251 como régimen «libre» en 2018 (prensa y cotosdesetas).",
+        "Si siguiera sin regular sería terreno episódico del Decreto 31/2017: hasta 3 kg/día, sin comercializar. No confirmado: llama al ayuntamiento antes de ir."
+      ],
+      "permiso": {
+        "obligatorio": null,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Fuentes antiguas (2016 y 2018); no se ha encontrado ninguna actual."
+    },
+    {
+      "id": "ex-sin-decreto-autonomico",
+      "titulo": "Extremadura: sin decreto de recolección de setas localizado (borrador de 2014; tasa de licencias micológicas de la Ley 6/2015)",
+      "tipo": "situación normativa",
+      "ambito": {
+        "comunidad": "extremadura",
+        "zonas": [
+          "extremadura"
+        ]
+      },
+      "url": "https://www.boe.es/eli/es-ex/l/2015/03/24/6",
+      "vigente": true,
+      "resumen": [
+        "No se ha encontrado ningún decreto ni orden vigente de la Junta que regule la recogida de setas (búsqueda del 30/09/2026). El borrador de 2014 (CAFOR, 09/09/2014) no consta publicado en el DOE: sus cupos de 5 kg recreativos y 40 kg intensivos no están en vigor.",
+        "La Ley 6/2015, Agraria de Extremadura (disposición adicional 13.ª, BOE-A-2015-4102), creó la «tasa por expedición de licencias micológicas» para los montes de la Comunidad y los de utilidad pública de entidades locales. No se ha encontrado cómo se pide esa licencia ni si se cobra hoy.",
+        "Sin cupo autonómico confirmado. En montes públicos pregunta al ayuntamiento por ordenanzas (ej.: Mirabel); en espacios protegidos manda su propia norma."
+      ],
+      "permiso": {
+        "obligatorio": null,
+        "donde": null,
+        "tarifas": [
+          {
+            "nombre": "Licencia clase A (mayores de 16, UE), texto original de la ley",
+            "precio": 4.9,
+            "cupoKgDia": null,
+            "anio": 2015,
+            "verificado": false,
+            "fuente": "https://www.boe.es/eli/es-ex/l/2015/03/24/6"
+          },
+          {
+            "nombre": "Licencia clase B (menores de 16, UE), texto original de la ley",
+            "precio": 2.13,
+            "cupoKgDia": null,
+            "anio": 2015,
+            "verificado": false,
+            "fuente": "https://www.boe.es/eli/es-ex/l/2015/03/24/6"
+          },
+          {
+            "nombre": "Licencia clase C (fuera de la UE), texto original de la ley",
+            "precio": 12.43,
+            "cupoKgDia": null,
+            "anio": 2015,
+            "verificado": false,
+            "fuente": "https://www.boe.es/eli/es-ex/l/2015/03/24/6"
+          }
+        ]
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Sin régimen propio localizado: se aplica la Ley 43/2003 de Montes (art. 74).",
+      "revisado": "2026-09-30",
+      "verificado": false,
+      "notas": "Cuantías leídas en el BOE (texto de 2015; pueden haberse actualizado). Borrador: https://www.fungipedia.org/media/kunena/attachments/1750/BORRADORLEYRECOLECCIONSETAS.pdf . El Decreto 134/2019 excluye los hongos de su ámbito (https://doe.juntaex.es/pdfs/doe/2019/1740o/19040148C.pdf). La ordenanza de Mirabel (BOP de Cáceres, 24/03/2020) dice que se adapta «al futuro decreto que la Junta de Extremadura prevé sacar». Confirmar con la Dirección General de Gestión Forestal. Ver docs/investigacion/07b-zona-extremadura.md, apartado 2."
+    },
+    {
+      "id": "ex-fincas-privadas",
+      "titulo": "Fincas privadas en Extremadura: las setas son del dueño del monte (Ley 43/2003, de Montes, art. 36)",
+      "tipo": "ley",
+      "ambito": {
+        "comunidad": "extremadura",
+        "zonas": [
+          "extremadura"
+        ]
+      },
+      "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
+      "vigente": true,
+      "resumen": [
+        "El titular del monte es el propietario de sus productos forestales, setas incluidas (art. 36): en una finca privada hace falta permiso del dueño.",
+        "La mayoría de dehesas y alcornocales de Extremadura son fincas privadas: sin permiso del dueño, no se recoge. Respeta cerramientos y cancillas y no entres en manchas de montería o batida."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [],
+      "sanciones": "Las de la Ley 43/2003 (art. 74).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Extremadura no tiene, que se sepa, una figura como el «terreno episódico» de Castilla y León (recogida limitada sin permiso): no verificado jurídicamente. El consejo de cerramientos y monterías sale del borrador de 2014, que no está en vigor. La Sociedad Micológica Extremeña pide permiso a los dueños en sus salidas (Bodonal de la Sierra, 2025)."
+    },
+    {
+      "id": "ex-mirabel-ordenanza-2020",
+      "titulo": "Ordenanza de Mirabel: recolección de hongos en el MUP n.º 132 «Dehesa Boyal» (BOP de Cáceres n.º 58, 24/03/2020)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "extremadura",
+        "zonas": [
+          "extremadura"
+        ]
+      },
+      "url": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf",
+      "vigente": true,
+      "resumen": [
+        "Solo el MUP 132 «Dehesa Boyal» de Mirabel. Autorización municipal nominativa, en el Ayuntamiento de Mirabel, previo pago de la tasa.",
+        "Recreativa: 7 kg por persona y día, sumando todas las especies. Intensiva: hasta 30 kg y solo especies comercializables (RD 30/2009), con permisos limitados que fija el ayuntamiento.",
+        "Se puede recoger todo el año, según la época de cada especie. El ayuntamiento puede reducir cupos o limitar permisos."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": [
+          {
+            "nombre": "Recreativa, 1 día",
+            "precio": 3,
+            "cupoKgDia": 7,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf"
+          },
+          {
+            "nombre": "Recreativa, fin de semana",
+            "precio": 5,
+            "cupoKgDia": 7,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf"
+          },
+          {
+            "nombre": "Recreativa, temporada",
+            "precio": 15,
+            "cupoKgDia": 7,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf"
+          },
+          {
+            "nombre": "Intensiva, temporada",
+            "precio": 150,
+            "cupoKgDia": 30,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://www.bandomovil.com/userFiles/QJ/QJZ00Ordenanzarecoleccinmicolgica.pdf"
+          }
+        ]
+      },
+      "cupoKgDia": 7,
+      "horario": "Prohibido recoger de noche: desde una hora antes de la puesta de sol hasta una hora después de la salida.",
+      "prohibiciones": [
+        "Remover el suelo o usar herramientas que levanten la hojarasca o la pinocha",
+        "Recoger fuera de la época natural de cada especie",
+        "Dañar vallas o muros de piedra"
+      ],
+      "sanciones": "Leves: apercibimiento o hasta 100 €; graves: 101 a 1.000 €; muy graves: 1.001 a 3.000 €.",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Texto del BOP leído el 30/09/2026 (CVE BOP-2020-1111, verificable en http://bop.dip-caceres.es). Las tarifas son las de la ordenanza de 2020; no se ha comprobado si han cambiado. Es la única ordenanza extremeña localizada y vale solo para ese monte."
+    },
+    {
+      "id": "ex-monfrague-prug-decreto-13-2014",
+      "titulo": "Parque Nacional de Monfragüe: Plan Rector de Uso y Gestión (Decreto 13/2014, de 18 de febrero; DOE n.º 37, 24/02/2014)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "extremadura",
+        "zonas": [
+          "extremadura"
+        ]
+      },
+      "url": "https://doe.juntaex.es/pdfs/doe/2014/370o/14040023.pdf",
+      "vigente": true,
+      "resumen": [
+        "Prohibida la recolección de elementos propios del Parque, vivos o inertes, salvo los aprovechamientos tradicionales compatibles en fincas públicas y privadas, la propia gestión del Parque y la investigación autorizada.",
+        "La recolección de setas sin fines comerciales solo es actividad autorizable en el MUP «Dehesa Boyal y Cuarto de los Arroyos» (Serradilla), en la Zona de Uso Restringido. Hasta que Serradilla apruebe su plan micológico, las zonas, fechas y kilos por persona y día los fija el Parque en cada autorización.",
+        "Para la app: no ir a recoger a Monfragüe sin autorización escrita del Parque."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": null,
+        "tarifas": []
+      },
+      "cupoKgDia": null,
+      "prohibiciones": [
+        "Recoger setas en el Parque sin autorización"
+      ],
+      "sanciones": "Las de la legislación de espacios naturales y de montes (no leídas en detalle).",
+      "revisado": "2026-09-30",
+      "verificado": true,
+      "notas": "Leídos el 30/09/2026 el apartado de normas generales y el 5.5.1 (Zona de Uso Restringido). El PRUG tenía 10 años de vigencia y se entiende prorrogado hasta que entre en vigor el que lo sustituya (apartado 1.6); no se ha comprobado si ya hay uno nuevo. El resto de la zonificación no se ha leído."
     }
   ]
 }
