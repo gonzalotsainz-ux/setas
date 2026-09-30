@@ -34,29 +34,57 @@
       },
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "F7"
+          "presencia": "confirmada",
+          "gbif": 28,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "F7"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A1"
+          "presencia": "confirmada",
+          "gbif": 69,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A1"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "F7"
+          "presencia": "confirmada",
+          "gbif": 16,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "F7"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A1"
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A1"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 36,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A1"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A1"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -182,24 +210,56 @@
       },
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A2"
+          "presencia": "confirmada",
+          "gbif": 28,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A2"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A2"
+          "presencia": "confirmada",
+          "gbif": 27,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A2"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A2"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A2"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "F5"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "F5"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -315,21 +375,57 @@
       "zonas": {
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A3",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A3"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A3",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A3"
         },
         "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A3"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A3",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "confirmada",
+          "gbif": 18,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -430,24 +526,56 @@
       "altitud": null,
       "zonas": {
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A4"
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A4"
+          "presencia": "confirmada",
+          "gbif": 31,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A4"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 32,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "confirmada",
+          "gbif": 13,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A4"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -541,24 +669,56 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A5"
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A5"
+          "presencia": "confirmada",
+          "gbif": 44,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A5"
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A5"
+        },
+        "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A5"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -658,52 +818,68 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 33,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 31,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A6",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 58,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         }
       },
       "temporada": {
@@ -791,34 +967,58 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "presencia": "confirmada",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "presencia": "confirmada",
+          "gbif": 68,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 26,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A7"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A7"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -914,39 +1114,59 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "F7"
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "F7"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 13,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 65,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A8"
+          "presencia": "confirmada",
+          "gbif": 22,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A8"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 19,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1053,33 +1273,61 @@
       "zonas": {
         "soria": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A9",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A9",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A9",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9"
         },
         "guadarrama": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A9",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A9",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A9"
+        },
+        "sierra-norte": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1168,24 +1416,50 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A10"
+          "presencia": "confirmada",
+          "gbif": 72,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A10"
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A10"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A10"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1292,23 +1566,49 @@
       "zonas": {
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A11"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A11"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A11"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 23,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
+        },
+        "guadarrama": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A11"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1406,24 +1706,56 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A12"
+          "presencia": "confirmada",
+          "gbif": 41,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A12"
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A12"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
         "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
+        },
+        "soria": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A12"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1528,19 +1860,49 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A13"
+          "presencia": "confirmada",
+          "gbif": 27,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A13"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A13"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A13"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A13"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A13"
+        },
+        "guadarrama": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1640,27 +2002,53 @@
       "zonas": {
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A14",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A14"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A14",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A14"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A14",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A14"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 27,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A14"
+        },
+        "guadarrama": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A14",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -1759,52 +2147,68 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A15",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         }
       },
       "temporada": {
@@ -1915,44 +2319,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A16"
+          "presencia": "confirmada",
+          "gbif": 58,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         }
       },
       "temporada": {
@@ -2051,33 +2471,61 @@
       },
       "zonas": {
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A17",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A17",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A17",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A17",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A17"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -2187,9 +2635,47 @@
       "zonas": {
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A18",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A18"
+        },
+        "sierra-norte": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -2280,44 +2766,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 144,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 42,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 48,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A19"
+          "presencia": "confirmada",
+          "gbif": 57,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         }
       },
       "temporada": {
@@ -2452,24 +2954,50 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A20"
+          "presencia": "confirmada",
+          "gbif": 27,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A20"
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A20"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
         "soria": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
+        },
+        "gredos": {
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A20"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -2590,46 +3118,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A21",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         }
       },
       "temporada": {
@@ -2758,39 +3300,57 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22"
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
+        },
+        "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A22",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -2918,28 +3478,60 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A23",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A23"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A23",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 20,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A23"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A23",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A23"
         },
         "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A23"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A23",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -3053,44 +3645,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 31,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A24"
+          "presencia": "confirmada",
+          "gbif": 33,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24"
         }
       },
       "temporada": {
@@ -3204,28 +3812,60 @@
       "altitud": null,
       "zonas": {
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A25",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A25"
         },
         "soria": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A25",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A25"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A25",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A25"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A25",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A25"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -3331,44 +3971,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 97,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 19,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A26"
+          "presencia": "confirmada",
+          "gbif": 27,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         }
       },
       "temporada": {
@@ -3471,34 +4127,62 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A27",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A27"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A27",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A27"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A27",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A27"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A27",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 17,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A27"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A27",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A27"
+        },
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 51,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -3587,44 +4271,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "confirmada",
+          "gbif": 19,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "confirmada",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "soria": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "sin-registros",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "toledo": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "sin-registros",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A28"
+          "presencia": "confirmada",
+          "gbif": 52,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         }
       },
       "temporada": {
@@ -3718,7 +4418,56 @@
         "chopera"
       ],
       "altitud": null,
-      "zonas": {},
+      "zonas": {
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        }
+      },
       "temporada": {
         "meses": [
           3,
@@ -3811,7 +4560,56 @@
       "rd30_2009": "B",
       "habitats": [],
       "altitud": null,
-      "zonas": {},
+      "zonas": {
+        "guadarrama": {
+          "presencia": "confirmada",
+          "gbif": 40,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 24,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "soria": {
+          "presencia": "confirmada",
+          "gbif": 18,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 10,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "confirmada",
+          "gbif": 34,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        }
+      },
       "temporada": {
         "meses": [
           3,
@@ -3909,27 +4707,59 @@
       "zonas": {
         "guadarrama": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A31",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A31",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A31",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
         },
         "sierra-norte": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A31",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
+        },
+        "cuenca": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -4028,22 +4858,52 @@
       "altitud": null,
       "zonas": {
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A32",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A32"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A32",
-          "verificado": false
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A32"
         },
         "soria": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A32",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A32"
+        },
+        "guadarrama": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "sierra-norte": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "gredos": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -4134,29 +4994,57 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A33"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A33"
+          "presencia": "confirmada",
+          "gbif": 22,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A33"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A33"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 14,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A33"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A33"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -4262,44 +5150,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 13,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "gredos": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "cuenca": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "guadalajara": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A34"
+          "presencia": "confirmada",
+          "gbif": 32,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         }
       },
       "temporada": {
@@ -4404,44 +5308,60 @@
       "altitud": null,
       "zonas": {
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "sierra-norte": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "presencia": "confirmada",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "soria": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "toledo": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "alava": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A35"
+          "presencia": "confirmada",
+          "gbif": 40,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         }
       },
       "temporada": {
@@ -4532,24 +5452,56 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A36"
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A36"
         },
         "guadarrama": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A36"
+          "presencia": "confirmada",
+          "gbif": 54,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-4.25+40.65%2C-3.75+40.65%2C-3.75+41.05%2C-4.25+41.05%2C-4.25+40.65%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A36"
         },
         "gredos": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A36"
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A36"
         },
         "alava": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A36"
+        },
+        "sierra-norte": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3.75+40.95%2C-3.3+40.95%2C-3.3+41.35%2C-3.75+41.35%2C-3.75+40.95%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A36"
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "guadalajara": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
@@ -4799,22 +5751,46 @@
       "altitud": null,
       "zonas": {
         "soria": {
-          "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A38",
-          "verificado": false
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-3.2+41.7%2C-2.5+41.7%2C-2.5+42.15%2C-3.2+42.15%2C-3.2+41.7%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A38"
         },
         "cuenca": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A38",
-          "verificado": false
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-2.1+39.8%2C-1.5+39.8%2C-1.5+40.45%2C-2.1+40.45%2C-2.1+39.8%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A38"
         },
         "guadalajara": {
           "presencia": "orientativa",
-          "gbif": null,
-          "fuente": "docs/investigacion/02-especies.md#A38",
-          "verificado": false
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-2.4+40.45%2C-1.6+40.45%2C-1.6+41.05%2C-2.4+41.05%2C-2.4+40.45%29%29&hasCoordinate=true&country=ES&limit=0",
+          "verificado": false,
+          "consultado": "2026-09-30",
+          "fuenteInvestigacion": "docs/investigacion/02-especies.md#A38"
+        },
+        "gredos": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-5.4+40.15%2C-4.4+40.15%2C-4.4+40.5%2C-5.4+40.5%2C-5.4+40.15%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "toledo": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-5.05+39.35%2C-4+39.35%2C-4+39.8%2C-5.05+39.8%2C-5.05+39.35%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
+        },
+        "alava": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-3+42.55%2C-2.25+42.55%2C-2.25+43.05%2C-3+43.05%2C-3+42.55%29%29&hasCoordinate=true&country=ES&limit=0",
+          "consultado": "2026-09-30"
         }
       },
       "temporada": {
