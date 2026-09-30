@@ -1063,7 +1063,8 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "media"
+          "confianza": "media",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -2456,7 +2457,7 @@
             }
           ],
           "confianza": "media",
-          "cifrasOrientativas": false
+          "cifrasOrientativas": true
         },
         {
           "texto": "En Cuenca, el «mízcalo de negral» sale en pinar de laricio (pino salgareño).",
@@ -2659,7 +2660,7 @@
       ],
       "trucos": [
         {
-          "texto": "Sale bajo árboles de hoja ancha, sobre todo haya y roble, desde el verano hasta mediados de otoño.",
+          "texto": "Sale bajo árboles de hoja ancha, sobre todo haya y roble, desde el verano hasta mediados de otoño. Aviso: Amanita phalloides (mortal) también puede verse verdosa; antes de cogerla mira la base del pie (la carbonera no tiene volva) y el pie (no tiene anillo).",
           "tipo": "microhabitat",
           "fuentes": [
             {
@@ -3911,7 +3912,8 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja"
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },
@@ -4147,7 +4149,8 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja"
+          "confianza": "baja",
+          "cifrasOrientativas": true
         },
         {
           "texto": "Aguanta heladas por debajo de unos -5 °C bajo sotobosque denso, y la especie Hydnum albidum fructifica cada año en los mismos lugares.",
@@ -5878,7 +5881,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Un forero avisa de que en la misma pradera hay setas tóxicas muy parecidas; esa fuente no detalla cuáles, así que no cojas perretxiko sin estar seguro y consulta las confusiones de la ficha.",
+          "texto": "Un forero avisa de que en la misma pradera hay setas tóxicas muy parecidas (sin decir cuáles). Las confusiones peligrosas del perretxiko son Entoloma sinuatum e Inocybe erubescens (hoy Inosperma erubescens, potencialmente mortal): no cojas perretxiko sin estar seguro y repasa las confusiones de la ficha.",
           "tipo": "recoleccion",
           "fuentes": [
             {
@@ -7945,7 +7948,7 @@
             }
           ],
           "confianza": "baja",
-          "cifrasOrientativas": false
+          "cifrasOrientativas": true
         },
         {
           "texto": "Los restos comidos por ardillas, ciervos o corzos delatan su presencia. Forma hileras y corros; busca palpando la hojarasca. Indicadoras: jaras, brezos, gayuba y hepática. La hepática (Hepatica nobilis) como señal la cita también La Casa de las Setas. La Casa de las Setas repite el artículo de Cesta y Setas de 2015, así que no cuenta como fuente aparte para la hepática.",
@@ -7968,7 +7971,7 @@
             }
           ],
           "confianza": "media",
-          "cifrasOrientativas": false
+          "cifrasOrientativas": true
         },
         {
           "texto": "Se recomienda arrancarlo con torsión y tapar el hueco, sin navaja, por riesgo de infección del micelio. No cojas los menores de 4 cm.",
@@ -8210,7 +8213,8 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "alta"
+          "confianza": "alta",
+          "cifrasOrientativas": true
         },
         {
           "texto": "Sale con el frío: desde finales de septiembre por encima de unos 1.000 m y hasta diciembre o enero (la ventana central es de octubre a enero). Micocyl la cita entre las especies que aparecen con las bajadas de temperatura de finales de otoño y todavía en fructificación el 17 de noviembre de 2022.",
@@ -8571,7 +8575,7 @@
           "ziza arrea"
         ]
       },
-      "categoria": "comestible",
+      "categoria": "comestible-precaucion",
       "rd30_2009": "A",
       "habitats": [
         "pinar-silvestre",
@@ -8668,10 +8672,10 @@
         "Láminas blanco-grisáceas.",
         "Carne frágil, sabor suave."
       ],
-      "valor": "bueno",
+      "valor": null,
       "precauciones": [
+        "Micocyl desaconseja recogerla y comerla (parte del 02/12/2022, https://www.micocyl.es/noticias/puente-de-setas): estudios publicados hallan en ella toxinas que pueden causar rabdomiólisis, como Tricholoma equestre. El RD 30/2009 (Parte A) todavía permite comercializarla, pero eso no la hace segura: no la recojas para comer.",
         "Es frágil y hay que consumirla pronto.",
-        "Hay trabajos que han planteado miotoxicidad en ratones [NO VERIFICADO; en España sigue siendo comercializable por el RD 30/2009].",
         "Probar una pizca (sin tragar) de las grises: si pica o amarga, descartar."
       ],
       "confusiones": [
@@ -8694,26 +8698,8 @@
         }
       ],
       "sindrome": null,
-      "indice": {
-        "topt": 8,
-        "trango": [
-          4,
-          12
-        ],
-        "usarSuelo": false,
-        "pmin": 30,
-        "pfull": 80,
-        "desfase": [
-          10,
-          20
-        ],
-        "helada": "media",
-        "confianza": "media",
-        "base": "cualitativo",
-        "analogo": null,
-        "fuente": "docs/investigacion/03-fructificacion-datos.md#14"
-      },
-      "sinIndice": null,
+      "indice": null,
+      "sinIndice": "Micocyl desaconseja recogerla y comerla (riesgo de rabdomiólisis): no se calcula cuándo sale.",
       "notas": [
         "Pinares, en bordes y claros; a veces forma alfombras. «Mediados de octubre a principios de invierno»."
       ],
@@ -8737,82 +8723,13 @@
           "url": "https://www.fungipedia.org/hongos/tricholoma-terreum.html",
           "titulo": "Fungipedia: ficha por especie",
           "consultado": "2026-09-30"
-        }
-      ],
-      "trucos": [
-        {
-          "texto": "Micocyl desaconseja recolectar y consumir la negrilla, porque hay estudios que hallan en ella toxinas que pueden provocar rabdomiólisis, igual que Tricholoma equestre (parte del 2 de diciembre de 2022). Tenlo en cuenta antes de seguir los consejos de hábitat de esta ficha.",
-          "tipo": "recoleccion",
-          "fuentes": [
-            {
-              "url": "https://www.micocyl.es/noticias/puente-de-setas",
-              "fecha": "2022-12-02",
-              "consultado": "2026-09-30"
-            }
-          ],
-          "confianza": "media",
-          "cifrasOrientativas": true
         },
         {
-          "texto": "Aparece en grupos grandes, en límites de prado y pinar.",
-          "tipo": "microhabitat",
-          "fuentes": [
-            {
-              "url": "http://guiahongosnavarra1garciabona.blogspot.com/2014/03/tricholoma-terreum-schaeff-p-kumm.html",
-              "fecha": null,
-              "consultado": "2026-09-30"
-            }
-          ],
-          "confianza": "baja",
-          "cifrasOrientativas": false
-        },
-        {
-          "texto": "Crece en claros y bordes de pinar, en la base de los pinos y en bordes de caminos, en sitios umbríos y húmedos, de octubre a enero y en pinares de más de 30 años. Micocyl la citaba muy abundante en los pinares a principios de diciembre de 2022.",
-          "tipo": "microhabitat",
-          "fuentes": [
-            {
-              "url": "https://www.micoaragon.es/setas/comunidad-de-albarracin/negrilla",
-              "fecha": null,
-              "consultado": "2026-09-30"
-            },
-            {
-              "url": "http://guiahongosnavarra1garciabona.blogspot.com/2014/03/tricholoma-terreum-schaeff-p-kumm.html",
-              "fecha": null,
-              "consultado": "2026-09-30"
-            },
-            {
-              "url": "https://www.micocyl.es/noticias/puente-de-setas",
-              "fecha": "2022-12-02",
-              "consultado": "2026-09-30"
-            }
-          ],
-          "confianza": "media",
-          "cifrasOrientativas": true
-        },
-        {
-          "texto": "Una fuente dice que sale pronto entre unos 1.200 y 1.800 m y que va bajando hacia el nivel del mar según avanza el invierno, en pinar calcáreo; otra fuente da suelo ácido, y no se ha resuelto la contradicción.",
-          "tipo": "altitud",
-          "fuentes": [
-            {
-              "url": "https://lacasadelassetas.com/blog/fredolic-negrilla-tricholoma-terreum/",
-              "fecha": null,
-              "consultado": "2026-09-30"
-            }
-          ],
-          "confianza": "baja",
-          "cifrasOrientativas": true
-        },
-        {
-          "texto": "Aviso: la negrilla se confunde con Tricholoma pardinum (tóxico, más robusto, sombrero escamoso, en abetal y hayedo). Si dudas, no la cojas.",
-          "tipo": "recoleccion",
-          "fuentes": [
-            {
-              "url": "https://www.cestaysetas.com/la-capuchina-tricholoma-portentosum-especie-comestible-bastante-resistente-a-las-heladas/",
-              "fecha": "2020-12-15",
-              "consultado": "2026-09-30"
-            }
-          ],
-          "confianza": "baja"
+          "id": "F3",
+          "url": "https://www.micocyl.es/noticias/puente-de-setas",
+          "titulo": "Micocyl: «Puente de setas» (parte del 02/12/2022), aviso sobre Tricholoma terreum",
+          "fecha": "2022-12-02",
+          "consultado": "2026-09-30"
         }
       ]
     },
@@ -9331,7 +9248,7 @@
       ],
       "trucos": [
         {
-          "texto": "Prefiere riberas de choperas, plátanos y alisos, y también pinares de alta montaña, encinares y bosques mixtos.",
+          "texto": "Prefiere riberas de choperas, plátanos y alisos, y también pinares de alta montaña, encinares y bosques mixtos. No confundir con Gyromitra; nunca cruda.",
           "tipo": "microhabitat",
           "fuentes": [
             {
@@ -9354,7 +9271,7 @@
           "cifrasOrientativas": false
         },
         {
-          "texto": "No busca el bosque perfecto, sino zonas removidas: quemados de hace 2 o 3 años, talas y suelo con madera muerta.",
+          "texto": "No busca el bosque perfecto, sino zonas removidas: quemados de hace 2 o 3 años, talas y suelo con madera muerta. No confundir con Gyromitra; nunca cruda.",
           "tipo": "indicador",
           "fuentes": [
             {
@@ -9367,7 +9284,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Sale primero en cotas bajas y riberas (Guadalajara, Soria) bajo chopos y álamos, y después en alta montaña.",
+          "texto": "Sale primero en cotas bajas y riberas (Guadalajara, Soria) bajo chopos y álamos, y después en alta montaña. No confundir con Gyromitra; nunca cruda.",
           "tipo": "altitud",
           "fuentes": [
             {
@@ -9429,7 +9346,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "En los quemados, el pico de las colmenillas pirófilas llega la primera primavera tras el incendio del verano anterior, y la segunda da solo una fructificación residual; otras fuentes hablan de 2 o 3 años. Mira ahí primero y no esperes más allá. (El artículo de 2012 y el mensaje de 2016 tienen unos diez años o más.)",
+          "texto": "En los quemados, el pico de las colmenillas pirófilas llega la primera primavera tras el incendio del verano anterior, y la segunda da solo una fructificación residual; otras fuentes hablan de 2 o 3 años. Mira ahí primero y no esperes más allá. (El artículo de 2012 y el mensaje de 2016 tienen unos diez años o más.) No confundir con Gyromitra; nunca cruda.",
           "tipo": "tiempo",
           "fuentes": [
             {
@@ -9452,7 +9369,7 @@
           "cifrasOrientativas": true
         },
         {
-          "texto": "Aviso en zonas quemadas: las colmenillas pirófilas pueden acumular metales pesados y restos de los retardantes que lanzan los aviones, y suele haber restricciones de acceso y de recogida. Comprueba antes el régimen del lugar (no verificado en Álava ni en el centro) y modera lo que comas.",
+          "texto": "Aviso en zonas quemadas: las colmenillas pirófilas pueden acumular metales pesados y restos de los retardantes que lanzan los aviones, y suele haber restricciones de acceso y de recogida. Comprueba antes el régimen del lugar (no verificado en Álava ni en el centro) y modera lo que comas. No confundir con Gyromitra; nunca cruda.",
           "tipo": "recoleccion",
           "fuentes": [
             {
@@ -9464,7 +9381,7 @@
           "confianza": "baja"
         },
         {
-          "texto": "En las riberas busca bajo fresno, chopo, avellano, álamo, olmo y alisos, en las zonas más arenosas y en tramos limpios del río, donde se acumula madera. Un hilo antiguo de Fungipedia concluye que pesa más la humedad del suelo que la cercanía del agua. (Mensajes de 2014 y 2015: más de diez años.)",
+          "texto": "En las riberas busca bajo fresno, chopo, avellano, álamo, olmo y alisos, en las zonas más arenosas y en tramos limpios del río, donde se acumula madera. Un hilo antiguo de Fungipedia concluye que pesa más la humedad del suelo que la cercanía del agua. (Mensajes de 2014 y 2015: más de diez años.) No confundir con Gyromitra; nunca cruda.",
           "tipo": "microhabitat",
           "fuentes": [
             {
@@ -9493,10 +9410,11 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "alta"
+          "confianza": "alta",
+          "cifrasOrientativas": true
         },
         {
-          "texto": "Según un artículo, en las riberas entre unos 400 y 800 m suelen salir entre mediados de abril y primeros de mayo; en 2016 ya había colmenillas el 3 de abril en Álava y Burgos. Las plantas en flor en ese momento serían indicadoras, pero el autor no dice cuáles.",
+          "texto": "Según un artículo, en las riberas entre unos 400 y 800 m suelen salir entre mediados de abril y primeros de mayo; en 2016 ya había colmenillas el 3 de abril en Álava y Burgos. Las plantas en flor en ese momento serían indicadoras, pero el autor no dice cuáles. No confundir con Gyromitra; nunca cruda.",
           "tipo": "altitud",
           "fuentes": [
             {
@@ -9552,7 +9470,8 @@
               "consultado": "2026-09-30"
             }
           ],
-          "confianza": "baja"
+          "confianza": "baja",
+          "cifrasOrientativas": true
         }
       ]
     },

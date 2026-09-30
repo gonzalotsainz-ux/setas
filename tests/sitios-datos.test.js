@@ -30,7 +30,11 @@ test('segunda pasada: sitios nuevos con fuente, zona por provincia y NO IR donde
   // Las dehesas privadas y los montes dentro de espacios protegidos no se recomiendan
   assert.equal(porId['extremadura-criadillas-dehesas'].tipo, 'no-ir');
   assert.equal(porId['extremadura-criadillas-dehesas'].legal.estado, 'privado');
-  for (const id of ['extremadura-monte-valcorchero', 'extremadura-monte-castanar-gallego', 'extremadura-monte-baldio-de-la-umbria']) assert.equal(porId[id].tipo, 'no-ir', id);
+  for (const id of ['extremadura-monte-valcorchero', 'extremadura-monte-castanar-gallego', 'extremadura-monte-baldio-de-la-umbria', 'hoyocasero-pinar-mup-43']) {
+    assert.equal(porId[id].tipo, 'no-ir', id);
+    assert.equal(porId[id].legal.estado, 'sin-confirmar', id);
+    assert.match(porId[id].legal.texto, /^Espacio protegido/, id);
+  }
   // Honrubia de la Cuesta es de Segovia (el informe lo situaba en Cuenca)
   assert.equal(porId['honrubia-de-la-cuesta-mup-279-280'].zona, 'sierra-norte');
   assert.match(porId['honrubia-de-la-cuesta-mup-279-280'].municipio, /Segovia/);
@@ -52,6 +56,7 @@ test('Mirabel: el número de MUP se deduce por nombre y municipio y el polígono
   const f = cotos.features.find((x) => x.properties.id === 'ex-mirabel-mup-132');
   assert.equal(f.properties.regimenConfirmado, false);
   assert.match(f.properties.nota, /se deduce por nombre y municipio/);
+  assert.equal(f.properties.nota.match(/se deduce/g).length, 1, 'la frase no se repite');
   assert.match(porId['extremadura-mirabel-dehesa-boyal'].notas, /nombre y término/);
 });
 
@@ -68,8 +73,7 @@ test('trucos de la segunda pasada: alta solo con varias fuentes, avisos de confu
   // Perretxiko: «corro de hierba quemada» baja y anotada como señal de la senderuela
   const pg = t('calocybe-gambosa').find((x) => /hierba quemada/.test(x.texto));
   assert.equal(pg.confianza, 'baja'); assert.match(pg.texto, /senderuela/);
-  // Negrilla: Micocyl la desaconseja; capuchina y pie azul llevan su aviso de confusión
-  assert.match(t('tricholoma-terreum')[0].texto, /Micocyl desaconseja/);
+  // Capuchina y pie azul llevan su aviso de confusión (la negrilla ya no lleva trucos: ver su prueba)
   assert.ok(t('tricholoma-portentosum').some((x) => /phalloides/.test(x.texto)));
   assert.ok(t('collybia-nuda').some((x) => /Cortinarius/.test(x.texto)));
   assert.ok(t('morchella').some((x) => /Gyromitra/.test(x.texto) && x.tipo === 'creencia'));
@@ -128,4 +132,50 @@ test('solo comestibles llevan trucos y las creencias van rotuladas como tales', 
   const creencias = conTrucos.flatMap((e) => e.trucos.filter((t) => t.tipo === 'creencia'));
   assert.ok(creencias.length >= 2);
   for (const t of creencias) assert.equal(t.confianza, 'baja');
+});
+
+test('negrilla: Micocyl la desaconseja (rabdomiólisis); sin índice ni trucos, y el aviso va en el banner', () => {
+  const n = especies.find((e) => e.id === 'tricholoma-terreum');
+  assert.equal(n.categoria, 'comestible-precaucion');
+  assert.equal(n.indice, null);
+  assert.equal(n.trucos, undefined);
+  const p0 = n.precauciones[0];
+  assert.match(p0, /Micocyl desaconseja/);
+  assert.ok(p0.includes('https://www.micocyl.es/noticias/puente-de-setas'));
+  assert.ok(p0.includes('02/12/2022'));
+  assert.match(p0, /rabdomiólisis/);
+  assert.ok(p0.includes('RD 30/2009 (Parte A) todavía permite comercializarla'));
+  assert.ok(!n.precauciones.some((p) => /NO VERIFICADO/.test(p)));
+  // Ningún sitio la propone
+  for (const s of sitios) assert.ok(!(s.especies ?? []).includes('tricholoma-terreum'), s.id);
+});
+
+test('sitios fuera del bbox de su zona: marcados con fueraDeZonaMeteo', () => {
+  const bbox = Object.fromEntries(zonas.map((z) => [z.id, z.bbox]));
+  const dentro = (s) => { const [x0, y0, x1, y1] = bbox[s.zona]; return s.lon >= x0 && s.lon <= x1 && s.lat >= y0 && s.lat <= y1; };
+  // Los 12 puntos con coordenadas caen dentro del bbox de su zona o llevan la marca
+  const con = sitios.filter((s) => s.lat != null);
+  assert.equal(con.length, 12);
+  for (const s of con) assert.ok(dentro(s) || s.fueraDeZonaMeteo === true, s.id);
+  // Todo sitio cuyas notas dicen que queda fuera del bbox (o en el de otra zona) lleva la marca
+  for (const s of sitios.filter((x) => /fuera del bbox|al este del bbox|cae (geográficamente )?en el bbox de (?!su)/.test(x.notas ?? ''))) assert.equal(s.fueraDeZonaMeteo, true, s.id);
+  for (const id of ['soria-moncayo-soriano', 'cuenca-landete-niscalo-boletus', 'cuenca-moya-niscalo-boletus', 'cuenca-talayuelas-niscalo-boletus',
+    'solana-de-avila-hoya-rana', 'bohoyo-ruta-micologica', 'las-navas-del-marques-amagredos', 'honrubia-de-la-cuesta-mup-279-280']) assert.equal(porId[id].fueraDeZonaMeteo, true, id);
+  // La marca es booleana y solo se pone a true
+  for (const s of sitios) assert.ok(s.fueraDeZonaMeteo === undefined || s.fueraDeZonaMeteo === true, s.id);
+});
+
+test('ronda 1: avisos de confusión en colmenilla, carbonera y perretxiko; Alustante sin «ante la duda»', () => {
+  const t = (id) => especies.find((e) => e.id === id).trucos;
+  const mor = t('morchella').filter((x) => /quemad|ribera/i.test(x.texto) && x.tipo !== 'creencia');
+  assert.ok(mor.length >= 4);
+  for (const x of mor) assert.match(x.texto, /No confundir con Gyromitra; nunca cruda./, x.texto);
+  assert.ok(t('russula-cyanoxantha').some((x) => /Amanita phalloides/.test(x.texto) && /volva/.test(x.texto) && /anillo/.test(x.texto)));
+  const cg = t('calocybe-gambosa').find((x) => /setas tóxicas muy parecidas/.test(x.texto));
+  assert.match(cg.texto, /Entoloma sinuatum/); assert.match(cg.texto, /Inocybe erubescens/);
+  assert.equal(t('hygrophorus-latitabundus').find((x) => x.tipo === 'microhabitat').cifrasOrientativas, true);
+  const n = leer('data/normativa.json').normas.find((x) => x.id === 'guadalajara-alustante-2017');
+  assert.equal(n.cupoKgDia, 10);
+  assert.ok(!/ante la duda/i.test(n.notas));
+  assert.ok(!/si dudas, no pases de 5 kg/.test(porId['guadalajara-alustante-ordenanza'].legal.texto));
 });

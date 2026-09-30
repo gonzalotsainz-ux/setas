@@ -210,3 +210,12 @@ test('trucos: con fuentes, tipo y confianza válidos; solo comestibles', () => {
   e.especies.especies[0].indice = null; e.especies.especies[0].trucos = [truco()];
   assert.match(validar(e).join('\n'), /comestibles llevan trucos/);
 });
+
+test('fueraDeZonaMeteo es opcional y, si está, booleano', () => {
+  const a = sitio(); a.fueraDeZonaMeteo = true;
+  assert.deepEqual(validar(conSitios(a)), []);
+  const b = sitio(); b.fueraDeZonaMeteo = false;
+  assert.deepEqual(validar(conSitios(b)), []);
+  const c = sitio(); c.fueraDeZonaMeteo = 'sí';
+  assert.match(validar(conSitios(c)).join('\n'), /fueraDeZonaMeteo debe ser booleano/);
+});

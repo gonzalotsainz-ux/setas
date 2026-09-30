@@ -142,6 +142,7 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
     for (const n of x.legal?.normas ?? []) if (!idsNormas.has(n)) err(`${q}: norma inexistente ${n}`);
     if (x.tipo !== 'no-ir' && ['prohibido', 'privado'].includes(x.legal?.estado)) err(`${q}: un sitio ${x.legal.estado} solo puede ser de tipo no-ir`);
     if (!fuentesOk(x.fuentes)) err(`${q}: falta fuente con url y consultado`);
+    if (x.fueraDeZonaMeteo !== undefined && typeof x.fueraDeZonaMeteo !== 'boolean') err(`${q}: fueraDeZonaMeteo debe ser booleano`);
     const n = x.nFuentes;
     if (!Number.isInteger(n) || n < 0) err(`${q}: nFuentes inválido`);
     else if ((x.confianza === 'alta' && n < 3) || (x.confianza === 'media' && n !== 2) || (x.confianza === 'baja' && n > 1)) {

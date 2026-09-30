@@ -41,7 +41,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "CONTRADICCIÓN: el artículo de Hola (2022) dice que «en Madrid no se requería permiso». Es incorrecto o está desactualizado: el PRUG del Parque Nacional (art. 59) y la nota de la Comunidad de Madrid de 23/10/2024 exigen licencia en Lozoya. El campo legal sigue la norma oficial.",
@@ -205,7 +206,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Son cuatro fuentes, pero las dos normativas (Micocyl y El Jardín de la Hilaria) derivan de la misma orden, así que solo cuentan como una independiente más las turísticas. Un forero anunció en octubre de 2016 el coto «Las Matas y Pinares de Valsaín» y recordó que La Granja y El Espinar ya estaban regulados (Foro Micológico); solo confirma la regulación, sin consejos de setas.",
@@ -1274,7 +1276,8 @@
         }
       ],
       "nFuentes": 3,
-      "confianza": "alta"
+      "confianza": "alta",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Feria Micológica de Tierras Altas a finales de abril o principios de mayo. Tercera fuente de 2021 (turismo, Alberto Abad), no foro. El régimen legal sigue sin confirmar.",
@@ -1335,7 +1338,8 @@
         }
       ],
       "nFuentes": 3,
-      "confianza": "alta"
+      "confianza": "alta",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "National Geographic dio error 403 al abrirla: solo se conoce el resumen del buscador.",
@@ -1590,7 +1594,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Un catálogo científico cita Boletus edulis en Tejera Negra, pero no dice dónde recoger (solo se leyó el resumen del buscador). El hilo de 2010 no sube el número de fuentes (más de 10 años y sin PRUG). Los foreros también discuten si en un parque natural se puede recoger o si es solo coto.",
@@ -1646,7 +1651,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Una sola fuente (blog de senderismo).",
@@ -1676,7 +1682,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Casi todas son blogs personales (fiabilidad media). Un blog dice que las setas salen entre 800 y 1.950 m de altitud. Colmenillas en primavera.",
@@ -2071,7 +2078,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "Es una regla de prudencia de la investigación, no una prohibición confirmada. Ver 01-normativa-cotos.md (apartado 14.3).",
@@ -2523,7 +2531,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "notas": "La investigación 04e cuenta 3 fuentes (Fungipedia 2019, Ciclolodge 2023 y La Mirada Norte 2026), todas vagas y una anecdótica; aquí se cuentan 2 (las dos guías generales) y el comentario del foro queda como testimonio aislado. Ninguna da coordenadas. Los mensajes de 2017 y 2020 son de foro, vagos en el paraje, y no suben el número de fuentes. La nota oficial de la Comunidad de Madrid es una tercera fuente independiente sobre dónde vale la licencia (no sobre especies).",
@@ -3610,7 +3619,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -3654,7 +3664,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4067,12 +4078,12 @@
       "lat": null,
       "lon": null,
       "verificado": false,
-      "notas": "Los hallazgos con fecha son de 1998 (más de 10 años y de un año seco). La noticia de la quedada (18-19/10/2014) también es antigua. Paisaje Protegido según el estudio.",
+      "notas": "Los hallazgos con fecha son de 1998 (más de 10 años y de un año seco). La noticia de la quedada (18-19/10/2014) también es antigua. Paisaje Protegido según el estudio. Pasa a NO IR con la misma regla que Valcorchero y los demás montes en espacio protegido sin norma de setas leída.",
       "id": "hoyocasero-pinar-mup-43",
       "zona": "gredos",
-      "nombre": "Pinar de Hoyocasero (MUP 43): níscalo hasta mediados de noviembre",
+      "nombre": "Pinar de Hoyocasero (MUP 43): dentro de un Paisaje Protegido",
       "municipio": "Hoyocasero (Ávila)",
-      "tipo": "sitio",
+      "tipo": "no-ir",
       "especies": [
         "lactarius-deliciosus",
         "macrolepiota-procera",
@@ -4091,14 +4102,14 @@
         10,
         11
       ],
-      "consejo": "Monte de utilidad pública de 370 ha entre 1.250 y 1.415 m: pino silvestre de repoblación con melojar joven y heladas seguras 7 u 8 meses al año. A esta altura la temporada del níscalo llega hasta noviembre y las heladas la cortan pronto. En el catálogo de 1998 (año muy seco) salieron níscalo el 11 de noviembre, parasol, pie azul y Sparassis; no salió boletus otoñal. El catálogo cita también Tricholoma equestre, que hoy se considera tóxica: no la recojas.",
+      "consejo": "Monte de utilidad pública de 370 ha entre 1.250 y 1.415 m, de pino silvestre de repoblación con melojar joven, dentro de un espacio protegido (Paisaje Protegido, según el catálogo micológico de 2000). No se ha leído la norma de setas del espacio: no recojas hasta confirmarlo con la Junta de Castilla y León o el ayuntamiento. El catálogo de 1998 citaba níscalo, parasol, pie azul y Sparassis, y también Tricholoma equestre, que hoy se considera tóxica.",
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
           "cyl-decreto-31-2017",
           "cyl-av-50003-gredos"
         ],
-        "texto": "No se ha confirmado el régimen del monte. Está junto a Hoyos del Espino (acotado AV-50003 «Gredos») y la noticia de 2014 pide el permiso preceptivo: trátalo como de permiso de Micocyl hasta confirmarlo en micologiacyl.es. Fuera de acotado rige el Decreto 31/2017 (3 kg al día, sin comercializar)."
+        "texto": "Espacio protegido (Paisaje Protegido, según el catálogo de Studia Botanica de 2000): la norma de setas del espacio no está verificada y manda sobre la regla general (Decreto 31/2017). Está junto al acotado AV-50003 «Gredos», pero no consta que el monte forme parte de él. No ir hasta confirmarlo."
       },
       "fuentes": [
         {
@@ -4211,7 +4222,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4255,7 +4267,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4329,7 +4342,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4406,7 +4420,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4444,7 +4459,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4482,7 +4498,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4520,7 +4537,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4566,7 +4584,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4650,7 +4669,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4690,13 +4710,14 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
       "lon": null,
       "verificado": false,
-      "notas": "Una sola fuente, sin fecha. El pueblo queda fuera del bbox de soria pero es de la provincia.",
+      "notas": "Una sola fuente, sin fecha. El valle (Molinos de Razón, Sotillo del Rincón) queda dentro del bbox de soria (OpenStreetMap, 30/09/2026); la nota anterior decía lo contrario.",
       "id": "soria-valle-del-razon-robledal",
       "zona": "soria",
       "nombre": "Valle del Razón: robledal de oronjas",
@@ -4769,7 +4790,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4808,7 +4830,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4847,7 +4870,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -4883,13 +4907,14 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
       "lon": null,
       "verificado": false,
-      "notas": "Una sola fuente, sin fecha. El pueblo queda fuera del bbox de soria pero es de la provincia.",
+      "notas": "Una sola fuente, sin fecha. El pueblo queda dentro del bbox de soria, a menos de 1 km de su borde sur (OpenStreetMap, 30/09/2026); la nota anterior decía lo contrario.",
       "id": "soria-camparanon-encinar",
       "zona": "soria",
       "nombre": "Camparañón: encinar de pie azul y rúsulas",
@@ -4965,7 +4990,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5121,7 +5147,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5188,7 +5215,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5224,7 +5252,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5247,7 +5276,7 @@
           "guadalajara-mancomunidad-la-sierra",
           "clm-orden-2016-11-15"
         ],
-        "texto": "Ordenanza de Alustante (BOP de Guadalajara n.º 220, 20/11/2017): turista 5 € al día, 10 € a la semana o 60 € la temporada, hasta 10 kg al día; vecino 5 € la temporada, hasta 12 kg. La Orden autonómica de 2016 fija 5 kg en recogida libre y la Mancomunidad, 5 kg: si dudas, no pases de 5 kg. Importes de 2017: confirma que siguen vigentes."
+        "texto": "Ordenanza de Alustante (BOP de Guadalajara n.º 220, 20/11/2017): turista 5 € al día, 10 € a la semana o 60 € la temporada, hasta 10 kg al día; vecino 5 € la temporada, hasta 12 kg. Los 5 kg de la Orden autonómica de 2016 y de la Mancomunidad La Sierra son el cupo general fuera de este acotado; dentro, con permiso de Alustante, rige su ordenanza. Importes de 2017: confirma que siguen vigentes."
       },
       "fuentes": [
         {
@@ -5325,7 +5354,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5363,7 +5393,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5525,7 +5556,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5563,7 +5595,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -5601,7 +5634,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -6002,7 +6036,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -6097,7 +6132,8 @@
         }
       ],
       "nFuentes": 2,
-      "confianza": "media"
+      "confianza": "media",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -6741,7 +6777,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": 39.446027,
@@ -6853,7 +6890,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
@@ -7766,7 +7804,8 @@
         }
       ],
       "nFuentes": 1,
-      "confianza": "baja"
+      "confianza": "baja",
+      "fueraDeZonaMeteo": true
     },
     {
       "lat": null,
