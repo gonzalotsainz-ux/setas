@@ -1,7 +1,13 @@
 # Diseño visual de Setas
 
-> **Estado: pendiente de la aprobación de la usuaria.** Las maquetas `maqueta/hoy.html` y `maqueta/zona.html`
-> son una propuesta. Si hay cambios, se apuntan aquí antes de construir las pantallas (tareas 12 a 19).
+> **Estado: aprobadas por la usuaria el 2026-09-30**, sin cambios. Las maquetas `maqueta/hoy.html` y
+> `maqueta/zona.html` son la referencia para construir las pantallas (tareas 12 a 19).
+
+## Decisiones tomadas en la aprobación
+
+- **Toxicología en la cabecera:** el botón dice solo «Toxicología» y llama con `tel:+34915620420` (el número va
+  en su `aria-label`). El número completo, **91 562 04 20**, se ve en el pie de cada pantalla junto al 112.
+- **Cero con barra:** se mantiene el de Atkinson Hyperlegible, a propósito, por legibilidad.
 
 ## Dirección
 
