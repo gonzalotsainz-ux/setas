@@ -2812,7 +2812,7 @@
       "confusiones": [
         {
           "especie": "inosperma-erubescens",
-          "riesgo": "alto",
+          "riesgo": "mortal",
           "diferencias": "Muscarínica y potencialmente mortal: sale en primavera y verano, sombrero cónico fibroso y manchas rojizas en sombrero, láminas y pie. Láminas pardas de adulto."
         },
         {
@@ -4708,7 +4708,8 @@
       "precauciones": [
         "TÓXICA CRUDA O POCO COCINADA.",
         "Hay un síndrome neurológico documentado por los centros antivenenos franceses: temblor, ataxia y trastornos visuales unas 12 h después de comer grandes cantidades o morillas poco cocinadas.",
-        "Cocinar bien, no comer en exceso y no probar crudas."
+        "Cocinar bien, no comer en exceso y no probar crudas.",
+        "Según el RD 30/2009 (Parte C) solo se comercializa tras tratamiento."
       ],
       "confusiones": [
         {
@@ -4739,8 +4740,7 @@
       },
       "sinIndice": null,
       "notas": [
-        "Primavera, en riberas (fresno, olmo, chopo), zonas quemadas, bosques, parques y jardines; también pinares quemados. Solo «chopera» entra en los hábitats de la lista del proyecto.",
-        "Según el RD 30/2009 (Parte C) solo se comercializa tras tratamiento."
+        "Primavera, en riberas (fresno, olmo, chopo), zonas quemadas, bosques, parques y jardines; también pinares quemados. Solo «chopera» entra en los hábitats de la lista del proyecto."
       ],
       "fotos": [],
       "fuentes": [
@@ -6829,7 +6829,7 @@
       "confusiones": [
         {
           "especie": "calocybe-gambosa",
-          "riesgo": "alto",
+          "riesgo": "mortal",
           "diferencias": "Se confunde con el perrechico."
         }
       ],

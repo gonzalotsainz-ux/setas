@@ -71,8 +71,9 @@ test('los índices heurísticos por análogo son de confianza baja y citan su an
 // --- ronda de correcciones 1 ---
 const NIVEL = ['bajo', 'medio', 'alto', 'mortal'];
 const GRAV = { mortal: 'mortal', grave: 'alto', moderada: 'medio', leve: 'bajo' };
-const nivel = (e) => NIVEL.indexOf(e.sindrome ? GRAV[sindromes.find((s) => s.id === e.sindrome).gravedad]
-  : ['toxica', 'no-recomendada'].includes(e.categoria) ? 'medio' : e.categoria === 'mortal' ? 'mortal' : 'bajo');
+const CAT = { mortal: 'mortal', toxica: 'medio', 'no-recomendada': 'medio' };
+// nivel de una especie = el mayor entre el de su síndrome y el de su categoría
+const nivel = (e) => Math.max(NIVEL.indexOf(e.sindrome ? GRAV[sindromes.find((s) => s.id === e.sindrome).gravedad] : 'bajo'), NIVEL.indexOf(CAT[e.categoria] ?? 'bajo'));
 test('el riesgo de cada confusión con ficha con síndrome sigue la gravedad del síndrome (el peor de los dos)', () => {
   let n = 0;
   for (const e of especies) for (const c of e.confusiones) {
@@ -98,4 +99,15 @@ test('galerina cubre los 12 meses e Inosperma incluye prado', () => {
 });
 test('precauciones no lleva descripciones de hábitat', () => {
   for (const e of especies) for (const p of e.precauciones) assert.doesNotMatch(p, /^(Crece|Sale|Coníferas|Frondosas|Tocones|Pinares)\b/, `${e.id}: ${p}`);
+});
+test('ninguna confusión tiene riesgo por debajo del nivel de sus dos especies (salvo las de T. felleus, amargo, que son `bajo`)', () => {
+  for (const e of especies) for (const c of e.confusiones) {
+    if (c.especie === 'tylopilus-felleus' || e.id === 'tylopilus-felleus') { assert.equal(c.riesgo, 'bajo', `${e.id} -> ${c.especie}`); continue; }
+    assert.ok(NIVEL.indexOf(c.riesgo) >= Math.max(nivel(e), nivel(porId[c.especie])), `${e.id} -> ${c.especie}`);
+  }
+});
+test('inosperma ↔ perrechico es riesgo mortal y Morchella advierte del tratamiento', () => {
+  assert.equal(porId['calocybe-gambosa'].confusiones.find((c) => c.especie === 'inosperma-erubescens').riesgo, 'mortal');
+  assert.equal(porId['inosperma-erubescens'].confusiones.find((c) => c.especie === 'calocybe-gambosa').riesgo, 'mortal');
+  assert.match(porId['morchella'].precauciones.join(' '), /tratamiento/);
 });
