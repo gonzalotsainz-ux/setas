@@ -625,3 +625,66 @@
 .norma a { color: var(--c-acento); }
 .normas { margin-top: var(--esp-3); }
 .aviso-fijo { margin-top: var(--esp-3); font-weight: 600; }
+
+/* ---------- Mapa (Leaflet) ---------- */
+.mapa-titulo { margin-top: var(--esp-6); }
+.mapa {
+  height: clamp(340px, 62dvh, 640px);
+  border: 1px solid var(--c-borde);
+  border-radius: var(--r-l);
+  background: var(--c-superficie-2);
+  overflow: hidden;
+  box-shadow: var(--tarjeta-sombra);
+  font-family: var(--fuente-texto);
+  isolation: isolate;
+}
+.mapa .leaflet-pane > svg { max-width: none !important; max-height: none !important; }   /* base.css limita svg al 100 %: las capas propias (lluvia, puntos) quedarían aplastadas */
+.mapa-avisos:empty { display: none; }
+.mapa .leaflet-control-layers,
+.mapa .leaflet-bar a {
+  background: var(--c-superficie);
+  color: var(--c-texto);
+  border-color: var(--c-borde);
+}
+.mapa .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; }
+.mapa .leaflet-control-layers-toggle { width: 44px; height: 44px; }
+.mapa .leaflet-control-layers-expanded { padding: var(--esp-3) var(--esp-4); font-size: var(--t-s); }
+.mapa .leaflet-control-layers label { display: block; padding: 6px 0; }
+.mapa .leaflet-bar, .mapa .leaflet-control-layers { border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-m); box-shadow: var(--tarjeta-sombra); }
+.mapa .leaflet-bar a:first-child { border-radius: var(--r-m) var(--r-m) 0 0; }
+.mapa .leaflet-bar a:last-child { border-radius: 0 0 var(--r-m) var(--r-m); }
+.mapa .leaflet-control-attribution {
+  background: color-mix(in srgb, var(--c-superficie) 88%, transparent);
+  color: var(--c-texto-2);
+  font-size: 11px;
+}
+.mapa .leaflet-control-attribution a { color: var(--c-acento-fuerte); }
+.mapa .leaflet-tooltip {
+  background: var(--c-superficie); color: var(--c-texto); border-color: var(--c-borde-fuerte);
+  font-family: var(--fuente-texto); font-size: var(--t-s);
+}
+.mapa .leaflet-popup-content-wrapper, .mapa .leaflet-popup-tip {
+  background: var(--c-superficie); color: var(--c-texto);
+  box-shadow: 0 12px 32px -12px rgb(var(--c-sombra) / 0.5);
+}
+.mapa .leaflet-popup-content-wrapper { border-radius: var(--r-m); }
+.mapa .leaflet-popup-content { margin: var(--esp-4); font-size: var(--t-s); line-height: 1.45; max-height: 50dvh; overflow-y: auto; }
+.mapa .leaflet-popup-close-button { width: 44px; height: 44px; font-size: 24px; line-height: 44px; color: var(--c-texto-2); }
+.mapa .leaflet-popup-content a:not(.boton) { color: var(--c-acento-fuerte); }
+.mapa .leaflet-popup-content a.boton { color: var(--_texto, var(--boton-texto)); }
+.mapa-popup { display: grid; gap: var(--esp-2); padding-right: var(--esp-4); }
+.mapa-popup h3 { font-size: var(--t-m); }
+.mapa-popup h4 { font-size: var(--t-s); margin-top: var(--esp-1); }
+.mapa-popup p { margin: 0; }
+.mapa-popup .etiqueta--peligro { background: var(--c-peligro-suave); color: var(--c-peligro-fuerte); }
+.mapa-popup__etiquetas { display: flex; flex-wrap: wrap; gap: var(--esp-2); align-items: center; }
+.mapa-popup__aviso { padding: var(--esp-2) var(--esp-3); border-radius: var(--r-s); background: var(--c-peligro-suave); box-shadow: inset 3px 0 0 var(--c-peligro); font-weight: 600; }
+.mapa-popup__normas { margin: 0; padding-left: 1.1em; display: grid; gap: var(--esp-1); }
+.mapa-popup__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-1) !important; }
+.mapa-leyenda { margin-top: var(--esp-4); }
+.mapa-leyenda h3 { font-size: var(--t-s); margin: var(--esp-4) 0 var(--esp-2); color: var(--c-texto-2); }
+.mapa-leyenda__titulo { margin-bottom: 0; }
+.mapa-leyenda__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--esp-2); }
+.mapa-leyenda__item { display: flex; align-items: center; gap: var(--esp-3); font-size: var(--t-s); }
+.mapa-leyenda__muestra { width: 28px; height: 18px; flex: none; }
+.mapa-leyenda__punto { width: 16px; height: 16px; border-radius: 50%; flex: none; border: 2px solid var(--c-superficie); box-shadow: 0 0 0 1px var(--c-borde-fuerte); margin-inline: 6px; }
