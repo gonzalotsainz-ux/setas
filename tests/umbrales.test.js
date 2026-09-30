@@ -27,3 +27,31 @@ test('guardarUmbral guarda el autor', async () => {
   await guardarUmbral(sb, 'x', { topt: 12 });
   assert.equal(fila.autor, 'desconocido');
 });
+
+import { cargarUmbrales } from '../js/umbrales.js';
+import { especiesDeZona } from '../js/datos.js';
+import { calcularIndice } from '../js/indice.js';
+import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
+const zona = { id: 'soria', habitats: ['pinar-silvestre'] };
+const esp = { ...BOLETUS, categoria: 'comestible', habitats: ['pinar-silvestre'], zonas: { soria: { presencia: 'confirmada' } } };
+test('valores extremos aceptados dan un índice finito', () => {
+  const p = { topt: 13, trango: [0, 1e-9], pmin: 30, pfull: 30 + 1e-9, desfase: [7, 21] };
+  assert.deepEqual(validarUmbral(p), []);
+  const [m] = especiesDeZona(zona, [esp], { 'boletus-edulis': p });
+  const r = calcularIndice(serieSintetica({ precip: lluviaBuena }), 59, m);
+  assert.ok(Number.isFinite(r.valor));
+});
+test('una fila parcial inválida se ignora (pfull < pmin de la original)', () => {
+  const orig = console.warn; console.warn = () => {};
+  try {
+    const [m] = especiesDeZona(zona, [esp], { 'boletus-edulis': { pfull: 10 } });
+    assert.deepEqual(m.indice, esp.indice);
+    const [n] = especiesDeZona(zona, [esp], { 'boletus-edulis': { topt: NaN } });
+    assert.deepEqual(n.indice, esp.indice);
+  } finally { console.warn = orig; }
+});
+test('cargarUmbrales devuelve {} ante error', async () => {
+  const sb = { from: () => ({ select: async () => ({ data: null, error: new Error('x') }) }) };
+  assert.deepEqual(await cargarUmbrales(sb), {});
+  assert.deepEqual(await cargarUmbrales({ from: () => { throw new Error('caído'); } }), {});
+});

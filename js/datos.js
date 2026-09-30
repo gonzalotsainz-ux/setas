@@ -1,3 +1,4 @@
+import { validarUmbral } from './umbrales.js';
 // Carga del conocimiento investigado y utilidades de consulta.
 let cache = null;
 export async function cargarDatos() {
@@ -17,7 +18,14 @@ export function especiesDeZona(zona, especies, umbrales = {}) {
   return especies
     .filter((e) => e.categoria === 'comestible' && e.indice && e.zonas[zona.id] && e.zonas[zona.id].presencia !== 'sin-registros'
       && e.habitats.some((h) => zona.habitats.includes(h)))
-    .map((e) => (umbrales[e.id] ? { ...e, indice: { ...e.indice, ...umbrales[e.id] } } : e));
+    .map((e) => {
+      const fila = umbrales?.[e.id];
+      if (!fila) return e;
+      const indice = { ...e.indice, ...fila };
+      const errores = validarUmbral(indice);   // RLS abierto: una fila a mano no puede romper el índice
+      if (errores.length) { console.warn(`Umbral de ${e.id} ignorado: ${errores.join('; ')}`); return e; }
+      return { ...e, indice };
+    });
 }
 // «Soria (Pinar Grande, Tierras Altas)» → «Soria»: el nombre sin el paréntesis de detalle.
 export const nombreCorto = (zona) => zona.nombre.replace(/\s*\([^)]*\)\s*$/, '');

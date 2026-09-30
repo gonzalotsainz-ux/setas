@@ -87,13 +87,17 @@ try {
   error(document.getElementById('app'), 'No se han podido cargar los datos de la app', e.message);
   throw e;
 }
-// Umbrales editados (compartidos): sin red o con error, los de la investigación. No bloquea más de 4 s el arranque.
-try {
-  const [{ supabase }, { cargarUmbrales }] = await Promise.all([import('./supabase.js'), import('./umbrales.js')]);
-  estado.umbrales = await Promise.race([cargarUmbrales(supabase), new Promise((r) => setTimeout(() => r({}), 4000))]);
-} catch { estado.umbrales = {}; }
 await pintar();
 refrescarMeteo();
+
+// Umbrales editados (compartidos): no bloquean el primer pintado; al llegar (aunque tarden) se repinta.
+(async () => {
+  try {
+    const [{ supabase }, { cargarUmbrales }] = await Promise.all([import('./supabase.js'), import('./umbrales.js')]);
+    const u = await cargarUmbrales(supabase);
+    if (Object.keys(u).length) { estado.umbrales = u; pintar(false); }
+  } catch { /* sin red: valen los de la investigación */ }
+})();
 
 // Borradores del diario pendientes: se suben al cargar y, desde ahí, en los eventos online y visibilitychange.
 try {

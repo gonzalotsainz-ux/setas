@@ -1,13 +1,14 @@
 // Umbrales del índice editados (compartidos en Supabase, sin login: cualquiera con la web puede editarlos).
+const NOMBRE = { topt: 'temperatura óptima', pmin: 'lluvia mínima', pfull: 'lluvia de pleno', trango: 'rango de temperatura', desfase: 'desfase' };
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 
 // Mismas reglas que scripts/validar-datos.mjs para `indice` (pfull > pmin, trango y desfase crecientes) más los
 // límites físicos. Devuelve la lista de mensajes; vacía = válido. Solo mira los campos presentes.
 export function validarUmbral(p) {
   const e = [];
-  for (const k of ['topt', 'pmin', 'pfull']) if (p[k] != null && !num(p[k])) e.push(`El valor de «${k}» debe ser un número`);
+  for (const k of ['topt', 'pmin', 'pfull']) if (p[k] != null && !num(p[k])) e.push(`La ${NOMBRE[k]} debe ser un número`);
   for (const k of ['trango', 'desfase']) {
-    if (p[k] != null && !(Array.isArray(p[k]) && p[k].length === 2 && p[k].every(num))) e.push(`El valor de «${k}» debe ser dos números`);
+    if (p[k] != null && !(Array.isArray(p[k]) && p[k].length === 2 && p[k].every(num))) e.push(`El ${NOMBRE[k]} debe ser dos números (de menor a mayor)`);
   }
   if (e.length) return e;
   if (p.topt != null && (p.topt < -5 || p.topt > 35)) e.push('La temperatura óptima debe estar entre −5 y 35 °C');
