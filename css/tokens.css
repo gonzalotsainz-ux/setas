@@ -1,0 +1,301 @@
+/* =====================================================================
+   Setas · tokens de diseño
+   Tres capas: primitivos (valores en bruto) → semánticos (significado,
+   cambian con el tema) → componente (cada pieza lee de los semánticos).
+   Los componentes nunca usan un hex directamente.
+   Tema: claro por defecto, oscuro por preferencia del sistema o con
+   <html data-theme="dark">; <html data-theme="light"> fuerza el claro.
+   Contrastes comprobados (AA o más): tabla en docs/diseno.md.
+   ===================================================================== */
+
+/* ---------- 1. Primitivos ---------- */
+:root {
+  /* Bosque: verde de pinar, de la sombra al liquen */
+  --p-bosque-950: #0c1510;
+  --p-bosque-900: #121e17;
+  --p-bosque-850: #17251c;
+  --p-bosque-800: #1d2e23;
+  --p-bosque-750: #24382b;
+  --p-bosque-700: #1f4a33;
+  --p-bosque-600: #245a3d;
+  --p-bosque-500: #2f7350;
+  --p-bosque-300: #7fbf95;
+  --p-bosque-200: #a9d6b6;
+  --p-bosque-100: #d5e8da;
+
+  /* Hueso: papel de cuaderno con un punto de verde (no crema) */
+  --p-hueso-50: #fbfbf6;
+  --p-hueso-100: #f1f2ea;
+  --p-hueso-200: #e5e7dc;
+  --p-hueso-300: #d3d6c8;
+
+  /* Tinta: casi negro verdoso para texto */
+  --p-tinta-900: #142019;
+  --p-tinta-700: #3d4a41;
+  --p-tinta-500: #5d6a61;
+  --p-niebla-300: #b9c3bb;
+  --p-niebla-100: #e4e9e4;
+
+  /* Tierra y ocre */
+  --p-ocre-700: #7a5206;
+  --p-ocre-500: #b27a0e;
+  --p-ocre-300: #e2ad48;
+  --p-ocre-100: #f5e8c8;
+
+  /* Semáforo (claro): de la piedra al bosque */
+  --p-piedra-700: #4f4a44;
+  --p-piedra-500: #7a736b;
+  --p-piedra-100: #ebe8e3;
+  --p-oxido-700: #8a3915;
+  --p-oxido-500: #b8542a;
+  --p-oxido-100: #f6e2d6;
+  --p-musgo-700: #2d5c1f;
+  --p-musgo-500: #4c8a37;
+  --p-musgo-100: #dfecd5;
+  --p-pinar-700: #16482c;
+  --p-pinar-500: #1d5e3a;
+  --p-pinar-100: #d0e5d6;
+
+  /* Peligro */
+  --p-rojo-700: #9e1c16;
+  --p-rojo-600: #b3261e;
+  --p-rojo-100: #f9e1de;
+  --p-rojo-300: #ff9c92;
+
+  /* Espaciado (base 4 px) */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-7: 32px;
+  --esp-8: 40px;
+  --esp-9: 56px;
+
+  /* Radios: tarjetas 24/18 (bisel concéntrico), controles en píldora */
+  --r-s: 10px;
+  --r-m: 18px;
+  --r-l: 24px;
+  --r-pildora: 999px;
+
+  /* Tipografías (Google Fonts) */
+  --fuente-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --fuente-texto: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
+  --fuente-latin: "Newsreader", Georgia, "Times New Roman", serif;
+  --fuente-cifras: "Atkinson Hyperlegible Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Escala tipográfica (móvil primero; base 17 px) */
+  --t-xs: 0.875rem;   /* 14 px: solo rótulos de la barra de navegación y ejes */
+  --t-s: 0.9375rem;   /* 15 px: pies y etiquetas, nunca texto corrido */
+  --t-base: 1.0625rem;/* 17 px */
+  --t-m: 1.1875rem;   /* 19 px */
+  --t-l: 1.4375rem;   /* 23 px */
+  --t-xl: 1.875rem;   /* 30 px */
+  --t-2xl: 2.5rem;    /* 40 px */
+  --t-cifra: 3.5rem;  /* 56 px: nota grande */
+
+  /* Movimiento */
+  --curva: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-corta: 160ms;
+  --dur-media: 320ms;
+
+  /* Capas */
+  --z-cabecera: 20;
+  --z-nav: 30;
+  --z-hoja: 40;
+  --z-grano: 50;
+}
+
+/* ---------- 2. Semánticos: tema claro ---------- */
+:root {
+  color-scheme: light;
+
+  --c-fondo: var(--p-hueso-100);
+  --c-superficie: var(--p-hueso-50);
+  --c-superficie-2: var(--p-hueso-200);
+  --c-bisel: rgb(20 32 25 / 0.05);
+  --c-texto: var(--p-tinta-900);
+  --c-texto-2: var(--p-tinta-700);
+  --c-texto-3: var(--p-tinta-500);
+  --c-borde: var(--p-hueso-300);
+  --c-borde-fuerte: #858f86;
+
+  --c-acento: var(--p-bosque-600);
+  --c-acento-fuerte: var(--p-bosque-700);
+  --c-sobre-acento: var(--p-hueso-50);
+  --c-acento-suave: var(--p-bosque-100);
+  --c-ocre: var(--p-ocre-500);
+  --c-ocre-texto: var(--p-ocre-700);
+  --c-ocre-suave: var(--p-ocre-100);
+
+  --c-peligro: var(--p-rojo-600);
+  --c-peligro-fuerte: var(--p-rojo-700);
+  --c-peligro-suave: var(--p-rojo-100);
+  --c-sobre-peligro: #ffffff;
+
+  --c-foco: var(--p-ocre-500);
+  --c-sombra: 20 36 26;
+
+  /* Semáforo: color de trazo (barras, ≥3:1), fondo del distintivo y texto (≥4.5:1) */
+  --c-sem-nulo: var(--p-piedra-500);
+  --c-sem-nulo-fondo: var(--p-piedra-100);
+  --c-sem-nulo-texto: var(--p-piedra-700);
+  --c-sem-bajo: var(--p-oxido-500);
+  --c-sem-bajo-fondo: var(--p-oxido-100);
+  --c-sem-bajo-texto: var(--p-oxido-700);
+  --c-sem-posible: var(--p-ocre-500);
+  --c-sem-posible-fondo: var(--p-ocre-100);
+  --c-sem-posible-texto: var(--p-ocre-700);
+  --c-sem-bueno: var(--p-musgo-500);
+  --c-sem-bueno-fondo: var(--p-musgo-100);
+  --c-sem-bueno-texto: var(--p-musgo-700);
+  --c-sem-muy-bueno: var(--p-pinar-500);
+  --c-sem-muy-bueno-fondo: var(--p-pinar-100);
+  --c-sem-muy-bueno-texto: var(--p-pinar-700);
+  --c-sin-datos: #7d827e;
+  --c-sin-datos-fondo: var(--p-niebla-100);
+  --c-sin-datos-texto: #4c524e;
+
+  /* Gráfico de lluvia */
+  --c-lluvia: var(--p-bosque-500);
+  --c-lluvia-prevista: var(--p-ocre-500);
+  --c-acumulado: var(--p-tinta-900);
+  --c-rejilla: var(--p-hueso-300);
+}
+
+/* ---------- 2b. Semánticos: tema oscuro ---------- */
+/* Se repite el bloque en los dos selectores porque no hay paso de compilación. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --c-fondo: var(--p-bosque-950);
+    --c-superficie: var(--p-bosque-900);
+    --c-superficie-2: var(--p-bosque-800);
+    --c-bisel: rgb(233 239 231 / 0.05);
+    --c-texto: #edf1ea;
+    --c-texto-2: #bfcac1;
+    --c-texto-3: #9aa79d;
+    --c-borde: var(--p-bosque-750);
+    --c-borde-fuerte: #62756a;
+
+    --c-acento: var(--p-bosque-300);
+    --c-acento-fuerte: var(--p-bosque-200);
+    --c-sobre-acento: var(--p-bosque-950);
+    --c-acento-suave: #1d3627;
+    --c-ocre: var(--p-ocre-300);
+    --c-ocre-texto: var(--p-ocre-300);
+    --c-ocre-suave: #3a2d12;
+
+    --c-peligro: #ff8a7e;
+    --c-peligro-fuerte: #ffb3aa;
+    --c-peligro-suave: #3b1714;
+    --c-sobre-peligro: #2a0d0a;
+
+    --c-foco: var(--p-ocre-300);
+    --c-sombra: 0 0 0;
+
+    --c-sem-nulo: #a39c93;
+    --c-sem-nulo-fondo: #2a2825;
+    --c-sem-nulo-texto: #d6d0c8;
+    --c-sem-bajo: #e5825a;
+    --c-sem-bajo-fondo: #3a2118;
+    --c-sem-bajo-texto: #f4b99f;
+    --c-sem-posible: #e2ad48;
+    --c-sem-posible-fondo: #372a10;
+    --c-sem-posible-texto: #f1cf8a;
+    --c-sem-bueno: #93c877;
+    --c-sem-bueno-fondo: #1f3119;
+    --c-sem-bueno-texto: #bfe0ab;
+    --c-sem-muy-bueno: #5fd08f;
+    --c-sem-muy-bueno-fondo: #123524;
+    --c-sem-muy-bueno-texto: #a6ecc1;
+    --c-sin-datos: #8f9791;
+    --c-sin-datos-fondo: #232a26;
+    --c-sin-datos-texto: #c3cac5;
+
+    --c-lluvia: var(--p-bosque-300);
+    --c-lluvia-prevista: var(--p-ocre-300);
+    --c-acumulado: #edf1ea;
+    --c-rejilla: var(--p-bosque-750);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-fondo: var(--p-bosque-950);
+  --c-superficie: var(--p-bosque-900);
+  --c-superficie-2: var(--p-bosque-800);
+  --c-bisel: rgb(233 239 231 / 0.05);
+  --c-texto: #edf1ea;
+  --c-texto-2: #bfcac1;
+  --c-texto-3: #9aa79d;
+  --c-borde: var(--p-bosque-750);
+  --c-borde-fuerte: #62756a;
+
+  --c-acento: var(--p-bosque-300);
+  --c-acento-fuerte: var(--p-bosque-200);
+  --c-sobre-acento: var(--p-bosque-950);
+  --c-acento-suave: #1d3627;
+  --c-ocre: var(--p-ocre-300);
+  --c-ocre-texto: var(--p-ocre-300);
+  --c-ocre-suave: #3a2d12;
+
+  --c-peligro: #ff8a7e;
+  --c-peligro-fuerte: #ffb3aa;
+  --c-peligro-suave: #3b1714;
+  --c-sobre-peligro: #2a0d0a;
+
+  --c-foco: var(--p-ocre-300);
+  --c-sombra: 0 0 0;
+
+  --c-sem-nulo: #a39c93;
+  --c-sem-nulo-fondo: #2a2825;
+  --c-sem-nulo-texto: #d6d0c8;
+  --c-sem-bajo: #e5825a;
+  --c-sem-bajo-fondo: #3a2118;
+  --c-sem-bajo-texto: #f4b99f;
+  --c-sem-posible: #e2ad48;
+  --c-sem-posible-fondo: #372a10;
+  --c-sem-posible-texto: #f1cf8a;
+  --c-sem-bueno: #93c877;
+  --c-sem-bueno-fondo: #1f3119;
+  --c-sem-bueno-texto: #bfe0ab;
+  --c-sem-muy-bueno: #5fd08f;
+  --c-sem-muy-bueno-fondo: #123524;
+  --c-sem-muy-bueno-texto: #a6ecc1;
+  --c-sin-datos: #8f9791;
+  --c-sin-datos-fondo: #232a26;
+  --c-sin-datos-texto: #c3cac5;
+
+  --c-lluvia: var(--p-bosque-300);
+  --c-lluvia-prevista: var(--p-ocre-300);
+  --c-acumulado: #edf1ea;
+  --c-rejilla: var(--p-bosque-750);
+}
+
+/* ---------- 3. Tokens de componente ---------- */
+:root {
+  --tarjeta-fondo: var(--c-superficie);
+  --tarjeta-borde: var(--c-borde);
+  --tarjeta-radio: var(--r-l);
+  --tarjeta-relleno: var(--esp-5);
+  --tarjeta-sombra: 0 1px 0 rgb(var(--c-sombra) / 0.04), 0 12px 32px -18px rgb(var(--c-sombra) / 0.35);
+
+  --boton-alto: 48px;
+  --boton-radio: var(--r-pildora);
+  --boton-fondo: var(--c-acento);
+  --boton-texto: var(--c-sobre-acento);
+
+  --chip-alto: 44px;
+  --chip-fondo: var(--c-superficie);
+  --chip-borde: var(--c-borde-fuerte);
+  --chip-activo-fondo: var(--c-texto);
+  --chip-activo-texto: var(--c-fondo);
+
+  --nav-alto: 64px;
+  --nav-fondo: color-mix(in srgb, var(--c-superficie) 90%, transparent);
+
+  --semaforo-alto: 32px;
+}

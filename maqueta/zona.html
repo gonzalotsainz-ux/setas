@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Setas · Soria (maqueta)</title>
+  <meta name="theme-color" content="#f1f2ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c1510" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;700&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <style>
+    /* Composición propia de la maqueta (pasará a js/ui en las tareas siguientes) */
+    .maqueta-aviso { display: flex; justify-content: center; padding: var(--esp-2) 0 0; }
+    .volver { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; margin-left: -6px; padding-right: var(--esp-3); color: var(--c-texto-2); font-weight: 700; text-decoration: none; }
+    .volver .icono { width: 20px; height: 20px; }
+    .portada { padding: var(--esp-2) 0 var(--esp-2); }
+    .portada__sub { margin-top: var(--esp-2); color: var(--c-texto-2); }
+    .portada__meta { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
+
+    .resumen .tarjeta__nucleo { padding: var(--esp-5); }
+    .resumen__fila { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--esp-4); }
+    .resumen__frase { margin-top: var(--esp-4); font-size: var(--t-m); line-height: 1.4; }
+    .resumen__puntos { display: grid; gap: 6px; margin: var(--esp-4) 0 0; padding: var(--esp-4) 0 0; list-style: none; border-top: 1px dashed var(--c-borde); }
+    .resumen__puntos li { display: flex; justify-content: space-between; gap: var(--esp-3); }
+    .resumen__puntos .cifra { font-weight: 700; }
+
+    .cifras { display: grid; grid-template-columns: 1fr 1fr; gap: var(--esp-3); margin-bottom: var(--esp-4); }
+    .cifras__valor { font-family: var(--fuente-display); font-weight: 800; font-size: var(--t-xl); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .cifras__valor small { font-size: 0.5em; font-weight: 700; letter-spacing: 0; }
+    .cifras__rotulo { font-weight: 700; margin-top: 4px; }
+    .cifras__origen { color: var(--c-texto-2); font-size: var(--t-s); }
+    .resumen-grafico { margin-top: var(--esp-3); color: var(--c-texto-2); }
+
+    .desacuerdo { border-color: color-mix(in srgb, var(--c-ocre) 55%, var(--c-borde)); }
+    .desacuerdo__cabeza { display: flex; gap: var(--esp-3); align-items: flex-start; margin-bottom: var(--esp-4); }
+    .desacuerdo__cabeza .icono { width: 26px; height: 26px; color: var(--c-ocre-texto); margin-top: 2px; }
+    .desacuerdo__nota { margin-top: var(--esp-4); padding-top: var(--esp-3); border-top: 1px dashed var(--c-borde); color: var(--c-texto-2); }
+    .desacuerdo__escala { display: grid; grid-template-columns: 7.5rem 1fr 3.75rem; gap: var(--esp-3); margin-top: 2px; color: var(--c-texto-3); font-size: var(--t-xs); }
+    .desacuerdo__escala span:nth-child(2) { display: flex; justify-content: space-between; }
+
+    .especie { padding: 0; overflow: hidden; }
+    .especie__foto { position: relative; height: 132px; }
+    .especie__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+    .credito-foto { position: absolute; right: 8px; bottom: 6px; color: #fff; font-size: 12px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.7); }
+    .credito-foto a { color: inherit; }
+    .especie__cuerpo { padding: var(--esp-5); }
+    .especie__cabeza { display: flex; justify-content: space-between; gap: var(--esp-3); align-items: flex-start; }
+    .especie__nombre { font-family: var(--fuente-latin); font-style: italic; font-weight: 500; font-size: var(--t-xl); letter-spacing: -0.01em; line-height: 1.05; }
+    .especie__comun { color: var(--c-texto-2); margin-top: 2px; }
+    .especie__meta { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
+    .formula { margin-top: var(--esp-3); padding: var(--esp-3); border-radius: var(--r-s); background: var(--c-superficie-2); font-family: var(--fuente-cifras); font-size: var(--t-xs); line-height: 1.6; color: var(--c-texto-2); overflow-wrap: anywhere; }
+    .especie__pie { margin-top: var(--esp-4); }
+
+    .lista { padding: 0; overflow: hidden; }
+    .lista .latin.fila-zona__nombre { font-family: var(--fuente-latin); font-weight: 500; font-size: var(--t-l); letter-spacing: 0; }
+
+    .permiso__fila { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--esp-3); }
+    .permiso p + p { margin-top: var(--esp-2); }
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<!-- Iconos: Phosphor Icons (regular), licencia MIT, phosphoricons.com -->
+<symbol id="i-telefono" viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></symbol>
+<symbol id="i-atras" viewBox="0 0 256 256"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></symbol>
+<symbol id="i-ir" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></symbol>
+<symbol id="i-abrir" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="i-hoy" viewBox="0 0 256 256"><path d="M240,152H199.55a73.54,73.54,0,0,0,.45-8,72,72,0,0,0-144,0,73.54,73.54,0,0,0,.45,8H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM72,144a56,56,0,1,1,111.41,8H72.59A56.13,56.13,0,0,1,72,144Zm144,56a8,8,0,0,1-8,8H48a8,8,0,0,1,0-16H208A8,8,0,0,1,216,200ZM72.84,43.58a8,8,0,0,1,14.32-7.16l8,16a8,8,0,0,1-14.32,7.16Zm-56,48.84a8,8,0,0,1,10.74-3.57l16,8a8,8,0,0,1-7.16,14.31l-16-8A8,8,0,0,1,16.84,92.42Zm192,15.16a8,8,0,0,1,3.58-10.73l16-8a8,8,0,1,1,7.16,14.31l-16,8a8,8,0,0,1-10.74-3.58Zm-48-55.16,8-16a8,8,0,0,1,14.32,7.16l-8,16a8,8,0,1,1-14.32-7.16Z"/></symbol>
+<symbol id="i-mapa" viewBox="0 0 256 256"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM104,52.94l48,24V203.06l-48-24ZM40,62.25l48-12v127.5l-48,12Zm176,131.5-48,12V78.25l48-12Z"/></symbol>
+<symbol id="i-diario" viewBox="0 0 256 256"><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></symbol>
+<symbol id="i-ajustes" viewBox="0 0 256 256"><path d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"/></symbol>
+<symbol id="i-aviso" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"/></symbol>
+<symbol id="i-lluvia" viewBox="0 0 256 256"><path d="M158.66,196.44l-32,48a8,8,0,1,1-13.32-8.88l32-48a8,8,0,0,1,13.32,8.88ZM232,92a76.08,76.08,0,0,1-76,76H132.28l-29.62,44.44a8,8,0,1,1-13.32-8.88L113.05,168H76A52,52,0,0,1,76,64a53.26,53.26,0,0,1,8.92.76A76.08,76.08,0,0,1,232,92Zm-16,0A60.06,60.06,0,0,0,96,88.46a8,8,0,0,1-16-.92q.21-3.66.77-7.23A38.11,38.11,0,0,0,76,80a36,36,0,0,0,0,72h80A60.07,60.07,0,0,0,216,92Z"/></symbol>
+<symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol>
+<symbol id="i-sello" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></symbol>
+<symbol id="i-pinar" viewBox="0 0 256 256"><path d="M230.32,187.09l-46-59.09H208a8,8,0,0,0,6.34-12.88l-80-104a8,8,0,0,0-12.68,0l-80,104A8,8,0,0,0,48,128H71.64l-46,59.09A8,8,0,0,0,32,200h88v40a8,8,0,0,0,16,0V200h88a8,8,0,0,0,6.32-12.91ZM48.36,184l46-59.09A8,8,0,0,0,88,112H64.25L128,29.12,191.75,112H168a8,8,0,0,0-6.31,12.91L207.64,184Z"/></symbol>
+<symbol id="i-temp" viewBox="0 0 256 256"><path d="M136,153V88a8,8,0,0,0-16,0v65a32,32,0,1,0,16,0Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,128,200Zm40-66V48a40,40,0,0,0-80,0v86a64,64,0,1,0,80,0Zm-40,98a48,48,0,0,1-27.42-87.4A8,8,0,0,0,104,138V48a24,24,0,0,1,48,0v90a8,8,0,0,0,3.42,6.56A48,48,0,0,1,128,232Z"/></symbol>
+<symbol id="i-flecha" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+<symbol id="i-especies" viewBox="0 0 64 64"><path fill-rule="evenodd" d="M8 34C8 20.7 18.7 10 32 10s24 10.7 24 24c0 2.2-1.8 4-4 4H12c-2.2 0-4-1.8-4-4ZM32 13.2c-.9 1.1-8.2 10.2-8.2 14.9a8.2 8.2 0 0 0 16.4 0c0-4.7-7.3-13.8-8.2-14.9Z"/><path d="M24.6 41h14.8c.9 4 2.1 8.3 2.1 11 0 4-4.2 6-9.5 6s-9.5-2-9.5-6c0-2.7 1.2-7 2.1-11Z"/></symbol>
+</svg>
+<div class="pantalla">
+  <header class="cabecera">
+    <a class="marca" href="hoy.html" aria-label="Setas, inicio">
+      <svg class="marca__simbolo" viewBox="0 0 64 64" aria-hidden="true">
+        <path class="sombrero" fill-rule="evenodd" d="M8 34C8 20.7 18.7 10 32 10s24 10.7 24 24c0 2.2-1.8 4-4 4H12c-2.2 0-4-1.8-4-4ZM32 13.2c-.9 1.1-8.2 10.2-8.2 14.9a8.2 8.2 0 0 0 16.4 0c0-4.7-7.3-13.8-8.2-14.9Z"/>
+        <path class="gota" d="M32 18.4c-1.6 2.1-5.3 7.1-5.3 9.8a5.3 5.3 0 0 0 10.6 0c0-2.7-3.7-7.7-5.3-9.8Z"/>
+        <path class="pie-seta" d="M24.6 41h14.8c.9 4 2.1 8.3 2.1 11 0 4-4.2 6-9.5 6s-9.5-2-9.5-6c0-2.7 1.2-7 2.1-11Z"/>
+      </svg>
+      Setas
+    </a>
+    <a class="boton boton--peligro boton--compacto" href="tel:+34915620420" aria-label="Llamar a Toxicología: 91 562 04 20, 24 horas">
+      <svg class="icono" aria-hidden="true"><use href="#i-telefono"/></svg>
+      Toxicología
+    </a>
+  </header>
+
+  <div class="maqueta-aviso"><span class="etiqueta etiqueta--ocre">Maqueta con datos inventados</span></div>
+
+  <main id="zona">
+    <a class="volver" href="hoy.html"><svg class="icono" aria-hidden="true"><use href="#i-atras"/></svg>Hoy</a>
+    <section class="portada" aria-labelledby="titulo-zona">
+      <h1 id="titulo-zona">Soria</h1>
+      <p class="portada__sub">Pinar Grande, Tierras Altas y Montes de Soria</p>
+      <div class="portada__meta">
+        <span class="etiqueta"><svg class="icono" aria-hidden="true"><use href="#i-pinar"/></svg>Pinar silvestre y melojar</span>
+        <span class="etiqueta tabular">3 puntos, 1.050 a 1.450&nbsp;m</span>
+      </div>
+    </section>
+
+    <div class="pila-l" style="margin-top: var(--esp-5)">
+      <!-- Resumen -->
+      <section class="tarjeta tarjeta--bisel resumen" data-nivel="muy-bueno" aria-label="Resumen de la zona">
+        <div class="tarjeta__nucleo">
+          <div class="resumen__fila">
+            <div>
+              <p class="texto-2" style="font-weight:700">Índice de la zona</p>
+              <p class="indice indice--grande" style="margin-top:6px">85<span class="indice__max">/100</span></p>
+            </div>
+            <span class="semaforo" data-nivel="muy-bueno"><span class="semaforo__icono" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Muy bueno</span>
+          </div>
+          <p class="resumen__frase">La mejor especie ahora es <span class="latin">Boletus edulis</span>. Llovió bien a mediados de septiembre y el suelo sigue templado.</p>
+          <ul class="resumen__puntos" aria-label="Nota por punto de referencia">
+            <li><span>Pinar Grande <span class="texto-2 tabular">1.120&nbsp;m</span></span><span class="cifra">85</span></li>
+            <li><span>Montes de Soria <span class="texto-2 tabular">1.050&nbsp;m</span></span><span class="cifra">79</span></li>
+            <li><span>Tierras Altas <span class="texto-2 tabular">1.450&nbsp;m</span></span><span class="cifra">71</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Lluvia -->
+      <section class="tarjeta" aria-labelledby="titulo-lluvia">
+        <div class="tarjeta__titulo">
+          <h2 id="titulo-lluvia">Lluvia</h2>
+          <span class="texto-2 texto-s">60 días y 10 de previsión</span>
+        </div>
+        <div class="cifras">
+          <div>
+            <p class="cifras__valor">74<small> mm</small></p>
+            <p class="cifras__rotulo">Últimos 26 días</p>
+            <p class="cifras__origen">Estación AEMET Soria</p>
+          </div>
+          <div>
+            <p class="cifras__valor">14<small> mm</small></p>
+            <p class="cifras__rotulo">Próximos 7 días</p>
+            <p class="cifras__origen">Media de 3 modelos</p>
+          </div>
+        </div>
+        <figure class="grafico" style="margin-block:0">
+          <svg viewBox="0 0 340 250" role="img" aria-labelledby="graf-titulo graf-desc">
+<title id="graf-titulo">Lluvia de los últimos 60 días y previsión de 10 días en Soria</title>
+<desc id="graf-desc">Arriba, lluvia acumulada en 26 días: hoy 74 mm. Abajo, lluvia diaria: episodios del 13 al 15 de agosto, del 5 al 7 y del 17 al 19 de septiembre, con 24 mm el día 18. Previsión: 14 mm en 7 días, con mucha diferencia entre modelos.</desc>
+<defs><pattern id="rayado" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="rayado-linea" x1="0" y1="0" x2="0" y2="4"/></pattern></defs>
+<rect class="zona-prevision" x="288.3" y="12" width="45.7" height="210" rx="4"/>
+<text class="rotulo-fuerte" x="26" y="14">Acumulado de 26 días, mm</text><line class="rejilla" x1="26" x2="332" y1="82" y2="82"/><text x="20" y="86" text-anchor="end">0</text><line class="rejilla" x1="26" x2="332" y1="54" y2="54"/><text x="20" y="58" text-anchor="end">50</text><line class="rejilla" x1="26" x2="332" y1="26" y2="26"/><text x="20" y="30" text-anchor="end">100</text>
+<polyline class="acumulado" points="28.2,82 32.6,82 36.9,82 41.3,82 45.7,82 50,82 54.4,82 58.8,82 63.2,82 67.5,82 71.9,82 76.3,79.8 80.6,73.6 85,69.7 89.4,69.7 93.8,69.7 98.1,69.7 102.5,69.7 106.9,69.7 111.2,69.7 115.6,69.7 120,69.7 124.4,69.7 128.7,69.7 133.1,69.7 137.5,69.7 141.8,68.6 146.2,68.6 150.6,68.6 155,68.6 159.3,68.6 163.7,68.6 168.1,68.6 172.4,68.6 176.8,65.8 181.2,59 185.6,54.6 189.9,56.8 194.3,63 198.7,66.9 203,66.9 207.4,66.9 211.8,66.9 216.2,66.9 220.5,66.9 224.9,66.9 229.3,59 233.6,45.6 238,42.2 242.4,42.2 246.8,42.2 251.1,42.2 255.5,43.4 259.9,42.2 264.2,42.2 268.6,42.2 273,40.6 277.4,40.6 281.7,40.6 286.1,40.6"/>
+<polyline class="acumulado-previsto" points="286.1,40.6 290.5,43.4 294.8,49.2 299.2,50.5 303.6,49.2 308,48.8 312.3,48.8 316.7,48.8 321.1,48.2 325.4,47.1 329.8,46.6"/>
+<circle class="punto-acumulado" cx="286.1" cy="40.6" r="3.5"/><text class="rotulo-fuerte" x="279.9" y="33.6" text-anchor="end">74&nbsp;mm</text>
+<text class="rotulo-fuerte" x="26" y="100">Lluvia diaria, mm</text><line class="rejilla" x1="26" x2="332" y1="222" y2="222"/><text x="20" y="226" text-anchor="end">0</text><line class="rejilla" x1="26" x2="332" y1="178" y2="178"/><text x="20" y="182" text-anchor="end">10</text><line class="rejilla" x1="26" x2="332" y1="134" y2="134"/><text x="20" y="138" text-anchor="end">20</text>
+<rect class="barra-pasada" x="74.6" y="204.4" width="3.4" height="17.6" rx="1"/><rect class="barra-pasada" x="79" y="173.6" width="3.4" height="48.4" rx="1"/><rect class="barra-pasada" x="83.3" y="191.2" width="3.4" height="30.8" rx="1"/><rect class="barra-pasada" x="140.2" y="213.2" width="3.4" height="8.8" rx="1"/><rect class="barra-pasada" x="175.1" y="200" width="3.4" height="22" rx="1"/><rect class="barra-pasada" x="179.5" y="169.2" width="3.4" height="52.8" rx="1"/><rect class="barra-pasada" x="183.9" y="186.8" width="3.4" height="35.2" rx="1"/><rect class="barra-pasada" x="227.6" y="160.4" width="3.4" height="61.6" rx="1"/><rect class="barra-pasada" x="232" y="116.4" width="3.4" height="105.6" rx="1"/><rect class="barra-pasada" x="236.3" y="195.6" width="3.4" height="26.4" rx="1"/><rect class="barra-pasada" x="258.2" y="213.2" width="3.4" height="8.8" rx="1"/><rect class="barra-pasada" x="271.3" y="208.8" width="3.4" height="13.2" rx="1"/>
+<line class="horquilla" x1="294.8" x2="294.8" y1="222" y2="200"/><line class="horquilla" x1="292.8" x2="296.8" y1="200" y2="200"/><rect class="barra-prevista" x="293.2" y="213.2" width="3.4" height="8.8" rx="1"/><line class="horquilla" x1="299.2" x2="299.2" y1="213.2" y2="160.4"/><line class="horquilla" x1="297.2" x2="301.2" y1="160.4" y2="160.4"/><rect class="barra-prevista" x="297.5" y="191.2" width="3.4" height="30.8" rx="1"/><line class="horquilla" x1="303.6" x2="303.6" y1="217.6" y2="182.4"/><line class="horquilla" x1="301.6" x2="305.6" y1="182.4" y2="182.4"/><rect class="barra-prevista" x="301.9" y="204.4" width="3.4" height="17.6" rx="1"/><line class="horquilla" x1="308" x2="308" y1="222" y2="208.8"/><line class="horquilla" x1="306" x2="310" y1="208.8" y2="208.8"/><rect class="barra-prevista" x="306.3" y="217.6" width="3.4" height="4.4" rx="1"/><line class="horquilla" x1="312.3" x2="312.3" y1="222" y2="217.6"/><line class="horquilla" x1="310.3" x2="314.3" y1="217.6" y2="217.6"/><line class="horquilla" x1="321.1" x2="321.1" y1="222" y2="186.8"/><line class="horquilla" x1="319.1" x2="323.1" y1="186.8" y2="186.8"/><rect class="barra-prevista" x="319.4" y="208.8" width="3.4" height="13.2" rx="1"/><line class="horquilla" x1="325.4" x2="325.4" y1="217.6" y2="173.6"/><line class="horquilla" x1="323.4" x2="327.4" y1="173.6" y2="173.6"/><rect class="barra-prevista" x="323.8" y="200" width="3.4" height="22" rx="1"/><line class="horquilla" x1="329.8" x2="329.8" y1="222" y2="195.6"/><line class="horquilla" x1="327.8" x2="331.8" y1="195.6" y2="195.6"/><rect class="barra-prevista" x="328.1" y="213.2" width="3.4" height="8.8" rx="1"/>
+<line class="hoy" x1="288.3" x2="288.3" y1="12" y2="226"/><text class="rotulo-fuerte" x="288.3" y="240" text-anchor="middle">hoy</text><text x="26" y="240">2 ago</text><text x="157.1" y="240" text-anchor="middle">1 sep</text><text class="rotulo-fuerte" x="332" y="100" text-anchor="end">previsión</text>
+</svg>
+        </figure>
+        <ul class="leyenda">
+          <li><span class="muestra muestra--pasada"></span>Lluvia medida</li>
+          <li><span class="muestra muestra--prevista"></span>Prevista, con horquilla</li>
+          <li><span class="muestra muestra--acumulado"></span>Acumulado (discontinuo: con previsión)</li>
+        </ul>
+        <p class="resumen-grafico">El último episodio fue del 17 al 19 de septiembre, con <span class="tabular">24&nbsp;mm</span> el día 18. Desde el 1 de agosto han caído <span class="tabular">98&nbsp;mm</span>.</p>
+      </section>
+
+      <!-- Desacuerdo entre modelos -->
+      <section class="tarjeta desacuerdo" aria-labelledby="titulo-modelos">
+        <div class="desacuerdo__cabeza">
+          <svg class="icono" aria-hidden="true"><use href="#i-aviso"/></svg>
+          <div>
+            <h2 id="titulo-modelos">Los modelos no coinciden</h2>
+            <p class="texto-2">Lluvia de los próximos 7 días</p>
+          </div>
+        </div>
+        <ul class="modelos">
+          <li class="modelo"><span class="modelo__nombre">ECMWF</span><span class="modelo__eje"><span class="modelo__media" style="--v:.56"></span><span class="modelo__punto" style="--v:.84"></span></span><span class="modelo__valor">21&nbsp;mm</span></li>
+          <li class="modelo"><span class="modelo__nombre">Météo-France</span><span class="modelo__eje"><span class="modelo__media" style="--v:.56"></span><span class="modelo__punto" style="--v:.56"></span></span><span class="modelo__valor">14&nbsp;mm</span></li>
+          <li class="modelo"><span class="modelo__nombre">ICON</span><span class="modelo__eje"><span class="modelo__media" style="--v:.56"></span><span class="modelo__punto" style="--v:.28"></span></span><span class="modelo__valor">7&nbsp;mm</span></li>
+        </ul>
+        <p class="desacuerdo__escala" aria-hidden="true"><span></span><span><span>0</span><span>25&nbsp;mm</span></span><span></span></p>
+        <p class="desacuerdo__nota">La raya vertical es la media (<span class="tabular">14&nbsp;mm</span>). Entre el que más y el que menos hay <span class="tabular">14&nbsp;mm</span>: más de la mitad de la media y más de 10&nbsp;mm, así que la previsión es <strong>incierta</strong>.</p>
+      </section>
+
+      <!-- Índice por especie -->
+      <section aria-labelledby="titulo-especies">
+        <div class="tarjeta__titulo">
+          <h2 id="titulo-especies">Índice por especie</h2>
+          <span class="texto-2 texto-s">en temporada aquí</span>
+        </div>
+
+        <article class="tarjeta especie" data-nivel="muy-bueno" aria-labelledby="especie-nombre">
+          <div class="especie__foto">
+            <img src="../img/especies/boletus-edulis-2.webp" alt="Boletus edulis de sombrero pardo entre hierba y hojas de castaño" width="1024" height="768">
+            <span class="credito-foto">Foto: <a href="https://www.inaturalist.org/observations/98777899">franciscodocampo</a>, CC BY 4.0</span>
+          </div>
+          <div class="especie__cuerpo">
+            <div class="especie__cabeza">
+              <div>
+                <h3 id="especie-nombre" class="especie__nombre">Boletus edulis</h3>
+                <p class="especie__comun">hongo blanco, boleto</p>
+              </div>
+              <p class="indice indice--grande">85</p>
+            </div>
+            <div class="especie__meta">
+              <span class="semaforo" data-nivel="muy-bueno"><span class="semaforo__icono" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Muy bueno</span>
+              <span class="etiqueta etiqueta--acento"><svg class="icono" aria-hidden="true"><use href="#i-sello"/></svg>Confianza alta</span>
+            </div>
+
+            <h4 style="margin-top: var(--esp-5); font-size: var(--t-base)">Por qué sale 85</h4>
+            <ul class="factores">
+              <li class="factor"><span class="factor__codigo">f<sub>W</sub></span><span class="factor__nombre">Lluvia de 26 días</span><span class="factor__valor">0,93</span><span class="factor__frase">74&nbsp;mm: casi en el pleno de la especie.</span><span class="factor__barra" style="--v:.93"></span></li>
+              <li class="factor"><span class="factor__codigo">f<sub>R</sub></span><span class="factor__nombre">Episodio de lluvia</span><span class="factor__valor">0,88</span><span class="factor__frase">44&nbsp;mm en 3 días, hace 12: dentro de su desfase.</span><span class="factor__barra" style="--v:.88"></span></li>
+              <li class="factor"><span class="factor__codigo">f<sub>T</sub></span><span class="factor__nombre">Temperatura</span><span class="factor__valor">0,81</span><span class="factor__frase">Media de 20 días: 14,2&nbsp;°C, cerca de su óptimo.</span><span class="factor__barra" style="--v:.81"></span></li>
+              <li class="factor"><span class="factor__codigo">f<sub>S</sub></span><span class="factor__nombre">Humedad del suelo</span><span class="factor__valor">0,76</span><span class="factor__frase">Percentil 71 de los tres últimos otoños.</span><span class="factor__barra" style="--v:.76"></span></li>
+              <li class="factor"><span class="factor__codigo">f<sub>A</sub></span><span class="factor__nombre">Arranque de temporada</span><span class="factor__valor">1,00</span><span class="factor__frase">98&nbsp;mm desde el 1 de agosto; hacían falta 50.</span><span class="factor__barra" style="--v:1"></span></li>
+              <li class="factor"><span class="factor__codigo">f<sub>C</sub></span><span class="factor__nombre">Calendario</span><span class="factor__valor">1,00</span><span class="factor__frase">Octubre es plena temporada.</span><span class="factor__barra" style="--v:1"></span></li>
+              <li class="factor"><span class="factor__codigo">pen</span><span class="factor__nombre">Penalizaciones</span><span class="factor__valor">1,00</span><span class="factor__frase">Ni heladas, ni viento seco, ni calor persistente.</span><span class="factor__barra" style="--v:1"></span></li>
+            </ul>
+            <p class="formula">I = 100 · f<sub>W</sub><sup>0,35</sup> · f<sub>T</sub><sup>0,25</sup> · f<sub>S</sub><sup>0,20</sup> · f<sub>R</sub><sup>0,20</sup> · f<sub>A</sub> · f<sub>C</sub> · pen</p>
+
+            <div class="aviso-peligro especie__pie" role="note">
+              <svg class="icono" aria-hidden="true"><use href="#i-aviso"/></svg>
+              <p><strong>Tiene parecidas tóxicas.</strong> Repasa su ficha antes de cogerlo.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="tarjeta lista" style="margin-top: var(--esp-4)">
+          <ul class="lista-zonas" aria-label="Otras especies">
+            <li><a class="fila-zona" data-nivel="bueno" href="#especie/lactarius-deliciosus">
+              <span class="fila-zona__nombre-linea"><span class="latin fila-zona__nombre">Lactarius deliciosus</span></span><span class="indice">71</span>
+              <span class="fila-zona__estado"><span class="semaforo" data-nivel="bueno"><span class="semaforo__icono" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Bueno</span><span class="etiqueta">Confianza media</span></span>
+              <span class="fila-zona__frase">Níscalo. Pinar con buena humedad de suelo.</span>
+            </a></li>
+            <li><a class="fila-zona" data-nivel="posible" href="#especie/cantharellus-cibarius">
+              <span class="fila-zona__nombre-linea"><span class="latin fila-zona__nombre">Cantharellus cibarius</span></span><span class="indice">49</span>
+              <span class="fila-zona__estado"><span class="semaforo" data-nivel="posible"><span class="semaforo__icono" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Posible</span><span class="etiqueta">Confianza baja</span></span>
+              <span class="fila-zona__frase">Rebozuelo. Le falta algo de lluvia reciente en el melojar.</span>
+            </a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Permisos -->
+      <section class="tarjeta permiso" aria-labelledby="titulo-permiso">
+        <div class="permiso__fila">
+          <h2 id="titulo-permiso">Cotos y permisos</h2>
+          <span class="etiqueta etiqueta--ocre">Orientativo</span>
+        </div>
+        <p style="margin-top: var(--esp-3)">Casi todo el monte está en coto regulado: hace falta permiso de recolección.</p>
+        <p class="texto-2 texto-s">Fuente y fecha de revisión en la ficha de normativa.</p>
+        <a class="boton boton--suave" href="#normativa/soria" style="margin-top: var(--esp-4); width: 100%">Dónde sacar el permiso</a>
+      </section>
+    </div>
+
+    <footer class="pie">
+      <p>El índice mide la <strong>oportunidad meteorológica</strong>, no la producción del monte.</p>
+      <p>Toxicología (INTCF, 24 h): <a class="tabular" href="tel:+34915620420">91 562 04 20</a>. Emergencias: <a href="tel:112">112</a>.</p>
+      <p><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a> (CC BY 4.0). Lluvia observada: AEMET OpenData.</p>
+    </footer>
+  </main>
+</div>
+
+<nav class="barra-nav" aria-label="Secciones">
+  <p class="barra-nav__seguridad"><svg class="icono" aria-hidden="true"><use href="#i-aviso"/></svg>Ante la duda, no la comas.</p>
+  <ul>
+    <li><a href="hoy.html" aria-current="page"><svg class="icono" aria-hidden="true"><use href="#i-hoy"/></svg>Hoy</a></li>
+    <li><a href="#mapa"><svg class="icono" aria-hidden="true"><use href="#i-mapa"/></svg>Mapa</a></li>
+    <li><a href="#especies"><svg class="icono" aria-hidden="true"><use href="#i-especies"/></svg>Especies</a></li>
+    <li><a href="#diario"><svg class="icono" aria-hidden="true"><use href="#i-diario"/></svg>Diario</a></li>
+    <li><a href="#ajustes"><svg class="icono" aria-hidden="true"><use href="#i-ajustes"/></svg>Ajustes</a></li>
+  </ul>
+</nav>
+</body>
+</html>
