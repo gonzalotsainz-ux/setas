@@ -344,3 +344,17 @@ test('totalKg: especies que no son una lista no rompen', () => {
   assert.equal(totalKg({ a: 1 }), 0);
   assert.equal(totalKg(null), 0);
 });
+
+import { urlNuevaSalida, leerNuevaSalida } from '../js/diario.js';
+
+test('«Guardar en el diario» desde el mapa: ida y vuelta del parámetro', () => {
+  const u = urlNuevaSalida({ lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
+  assert.equal(u, '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama');
+  assert.deepEqual(leerNuevaSalida(decodeURIComponent(u.split('/')[1])), { lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
+  assert.deepEqual(leerNuevaSalida('nueva?zona=soria'), { lat: null, lon: null, zona: 'soria' });
+  assert.deepEqual(leerNuevaSalida('nueva'), { lat: null, lon: null, zona: null });
+  assert.equal(leerNuevaSalida('nueva?lat=abc&lon=1'), null);
+  assert.equal(leerNuevaSalida('nueva?lat=95&lon=1'), null);
+  assert.equal(leerNuevaSalida(undefined), null);
+  assert.equal(leerNuevaSalida('otra'), null);
+});

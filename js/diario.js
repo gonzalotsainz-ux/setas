@@ -205,3 +205,16 @@ export function fotoFijaDelDia({ zona, lat, lon, fecha, datos, meteo, umbrales =
       ...(res.fueraDeTemporada ? { fueraDeTemporada: true } : {}), ...(res.incompleta ? { faltan: res.faltan } : {}) },
   };
 }
+
+// «Guardar en el diario» desde el mapa: #diario/nueva?lat=…&lon=…&zona=… abre la hoja «Nueva salida» rellena.
+export const urlNuevaSalida = ({ lat, lon, zona }) => `#diario/nueva?${new URLSearchParams({
+  ...(Number.isFinite(lat) && Number.isFinite(lon) ? { lat: lat.toFixed(5), lon: lon.toFixed(5) } : {}), ...(zona ? { zona } : {}) })}`;
+export function leerNuevaSalida(param) {
+  if (typeof param !== 'string' || !param.startsWith('nueva')) return null;
+  const q = new URLSearchParams(param.slice(param.indexOf('?') + 1));
+  const zona = q.get('zona') || null;
+  if (!q.has('lat') && !q.has('lon')) return { lat: null, lon: null, zona };
+  const lat = Number(q.get('lat')), lon = Number(q.get('lon'));
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+  return { lat, lon, zona };
+}
