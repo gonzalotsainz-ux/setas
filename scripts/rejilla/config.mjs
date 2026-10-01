@@ -19,7 +19,7 @@ export const CONFIG = {
       Guadalajara: '_fuentes/mfe50/Guadalajara.geojson', Toledo: '_fuentes/mfe50/Toledo.geojson', 'Álava': '_fuentes/mfe50/Álava.geojson',
       'Cáceres': '_fuentes/mfe50/Cáceres.geojson', Badajoz: '_fuentes/mfe50/Badajoz.geojson',
     },
-    campos: { especies: ['SP1', 'SP2'], fcc: 'TFCCARB', tipo: 'TIPESTR' },
+    campos: { especies: ['SP1', 'SP2'], ocupacion: ['O1', 'O2'], fcc: 'TFCCARB', tipo: 'TIPESTR' },
     tipos: { arbolado: ['1', '2', '3', '11', '12'], herbazal: ['9', '24', '34', '35'], matorral: ['8'] }, matorralJaral: [],
   },
   pueblos: {

@@ -61,3 +61,28 @@ test('la muestra real del MFE50 (tarea 0) se lee con la configuración del sonde
   for (const t of leidas) assert.ok(['arbolado', 'herbazal', 'matorral', 'otro'].includes(t.tipo));
   assert.ok(leidas.some((t) => habitatDeTesela(t, 1200, CONFIG.mfe)), 'ninguna tesela de la muestra da hábitat: revisa CONFIG.mfe');
 });
+
+test('nombres de grupo o solo de género no dan hábitat', () => {
+  for (const n of ['Quercus', 'Juniperus spp.', 'Otros quercus', 'Mezcla de coníferas', 'Pinos']) assert.equal(habitatDeEspecie(n), null, n);
+});
+
+// Hábitats con alguna especie con índice, calculados como en scripts/rejilla/generar.mjs (tarea 8).
+const especiesJson = JSON.parse(readFileSync('data/especies.json', 'utf8'));
+const habitatsConIndice = new Set((especiesJson.especies ?? especiesJson).filter((s) => s.indice).flatMap((s) => s.habitats));
+
+test('mezclas: gana la especie cuyo hábitat tiene setas con índice, si la segunda ocupa al menos 3 décimas', () => {
+  assert.ok(!habitatsConIndice.has('sabinar') && habitatsConIndice.has('pinar-negral'), 'premisa: el sabinar no tiene especies con índice');
+  const muestra = JSON.parse(readFileSync('scripts/rejilla/mfe-muestra.json', 'utf8'));
+  const diccionario = JSON.parse(readFileSync('scripts/rejilla/mfe-diccionario.json', 'utf8'));
+  const real = muestra.find((m) => m.properties.POLIGON === 431299);   // Cuenca: J. thurifera 5 décimas + P. nigra 4
+  const t = leerTeselaMfe(real.properties, CONFIG.mfe, diccionario);
+  assert.deepEqual(t, { tipo: 'arbolado', especies: ['Juniperus thurifera', 'Pinus nigra'], fcc: 50, ocupacion: [5, 4] });
+  assert.equal(habitatDeTesela(t, 1100, { ...CONFIG.mfe, habitatsConIndice }), 'pinar-negral');
+  assert.equal(habitatDeTesela(t, 1100, CONFIG.mfe), 'sabinar');                       // sin el conjunto: regla de siempre
+  const poco = { ...t, ocupacion: [9, 1] };                                            // el pino solo ocupa 1 décima
+  assert.equal(habitatDeTesela(poco, 1100, { ...CONFIG.mfe, habitatsConIndice }), 'sabinar');
+  const sinDato = { ...t, ocupacion: [5, null] };                                      // sin ocupación: la segunda no desplaza
+  assert.equal(habitatDeTesela(sinDato, 1100, { ...CONFIG.mfe, habitatsConIndice }), 'sabinar');
+  const ambas = { tipo: 'arbolado', especies: ['Pinus sylvestris', 'Pinus nigra'], fcc: 60, ocupacion: [6, 4] };
+  assert.equal(habitatDeTesela(ambas, 1100, { habitatsConIndice }), 'pinar-silvestre'); // las dos con índice: la primera
+});

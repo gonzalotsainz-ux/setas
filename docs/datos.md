@@ -461,13 +461,25 @@ Tipos de estructura (`TIPESTR`, en `CONFIG.mfe.tipos`; justificación en el apar
 - Arbolado: 1 Bosque, 2 Bosque Plantación, 3 Dehesa, 11 Riberas, 12 Bosquetes.
 - Herbazal o pastizal: 9 Herbazal, 24 Prado con sebes, 34 Prado, 35 Pastizal-Matorral.
 - Matorral: 8 Matorral.
-- Todo lo demás cuenta como «otro» y no da hábitat; entre ellos, los mosaicos 25 (arbolado sobre cultivo) y 26
-  (arbolado sobre forestal desarbolado), aunque traigan especie y cabida cubierta, por prudencia.
+- Todo lo demás cuenta como «otro» y no da hábitat.
 
 Reglas (criterios propios, no de la fuente):
-- **Arbolado:** hábitat de la primera de las dos especies dominantes que esté en la tabla, si la fracción de cabida
-  cubierta arbórea (`TFCCARB`) es de al menos el 20 % (`FCC_MINIMA`). Sin cabida cubierta: sin monte (nunca se
-  colorea a ciegas). `SP1`/`SP2` = 0 significa «sin especie» y no cuenta.
+- **Arbolado:** hace falta una fracción de cabida cubierta arbórea (`TFCCARB`) de al menos el 20 % (`FCC_MINIMA`).
+  Es el mismo corte que usa el MFE50 entre «Monte arbolado» y «Monte con arbolado ralo» (campo `USOS_SUELO`, en las
+  11 provincias: el arbolado ralo va del 10 % al 15 % y el disperso del 5 % al 9 %; el monte arbolado empieza en el
+  20 %, salvo 139 teselas de riberas, `TIPESTR` 11, de 75.372). Deja fuera las dehesas con menos del 20 %: en Badajoz,
+  56.390 ha de `TIPESTR` 3 (suma de `Shape_Area` de la provincia entera, sin recortar a la zona). Sin cabida cubierta:
+  sin monte (nunca se colorea a ciegas). `SP1`/`SP2` = 0 significa «sin especie» y no cuenta.
+- **Qué especie manda en el arbolado:** de las dos dominantes (`SP1`, `SP2`), la primera cuyo hábitat tenga alguna
+  seta con índice en `data/especies.json`; la segunda solo puede ganar si ocupa al menos 3 décimas de la tesela
+  (`O2` ≥ `OCUPACION_MINIMA_SEGUNDA`; `O1`/`O2` son el «grado de presencia» de cada especie en la tesela, de 0 a 10,
+  según la tabla 9 del documentador del IFN3). Si ninguna cumple, la primera de las dos que esté en la tabla. Así un
+  sabinar con 4 décimas de pino negral cuenta como pinar negral (el sabinar no tiene setas con índice y el pinar
+  negral sí), pero uno con 1 décima de pino sigue siendo sabinar. El conjunto de hábitats con índice lo calcula el
+  generador: `new Set(especies.filter((s) => s.indice).flatMap((s) => s.habitats))`.
+- **Mosaicos fuera:** los `TIPESTR` 25 (arbolado sobre cultivo) y 26 (arbolado sobre forestal desarbolado) no cuentan
+  como arbolado aunque traigan especie y cabida cubierta, por prudencia: el arbolado está salpicado entre cultivos o
+  raso y la celda no sería de monte.
 - **Herbazal o pastizal:** `pastizal-montana` desde 1.000 m (`ALTITUD_PASTIZAL_MONTANA`) y `prado` por debajo. Sin
   altitud: sin monte.
 - **Matorral:** `jaral` solo si su especie es una jara de `CONFIG.mfe.matorralJaral`. El MFE50 no detalla el matorral
@@ -476,7 +488,8 @@ Reglas (criterios propios, no de la fuente):
 - Sin hábitat (código 0): *Pinus halepensis*, *P. uncinata* y demás pinos, abetos, eucaliptos, *Quercus pubescens*,
   *Q. lusitanica*, sabinas y enebros que no son *J. thurifera*, alisos, fresnos, sauces, mezclas, cultivos,
   improductivo y agua. `data/especies.json` no tiene un hábitat que les corresponda, así que se prefiere dejar la
-  celda sin monte a colorearla con un bosque que no es.
+  celda sin monte a colorearla con un bosque que no es. **Hueco conocido:** *Pinus radiata* (pino insigne), con
+  13.968 ha en Álava como especie dominante (suma de `Shape_Area` de las teselas con `SP1` = 28), queda sin monte.
 - Criterio general: ante la duda, sin monte. Colorear un monte donde no está el bosque del que viven las setas manda a
   la gente al sitio equivocado; dejarlo en blanco solo pierde una celda.
 
