@@ -279,3 +279,20 @@ test('validarRejillas: celda gruesa con hábitat desconocido', async () => {
   c.gruesa.celdas[0].habitats = ['pinar-silvestre', 32];
   assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /hábitats vacíos o desconocidos/);
 });
+
+import { validarPueblos } from '../scripts/validar-datos.mjs';
+const pueblosOk = () => ({ version: 1, fuente: { nombre: 'NGBE', url: 'https://www.ign.es/wfs-inspire/ngbe', licencia: 'CC BY 4.0', fecha: '2026-10-01' },
+  pueblos: [{ n: 'Rascafría', p: 'Madrid', lat: 40.90405, lon: -3.88041 }] });
+
+test('validarPueblos: archivo correcto sin errores', () => {
+  assert.deepEqual(validarPueblos(pueblosOk()), []);
+});
+
+test('validarPueblos: sin licencia o con un pueblo sin coordenadas', () => {
+  const d = pueblosOk();
+  delete d.fuente.licencia;
+  assert.match(validarPueblos(d).join('\n'), /sin fuente con url, fecha y licencia/);
+  const m = pueblosOk();
+  m.pueblos.push({ n: 'Sin sitio', p: 'Soria', lat: null, lon: -2.5 });
+  assert.match(validarPueblos(m).join('\n'), /«Sin sitio» sin nombre o coordenadas/);
+});

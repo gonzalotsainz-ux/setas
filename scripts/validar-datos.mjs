@@ -183,6 +183,13 @@ export async function validarRejillas({ indice, gruesa, zonas, leer, maxBytes = 
   return e;
 }
 
+export function validarPueblos(d) {
+  const e = [];
+  if (d?.version !== 1 || !URL_OK.test(d.fuente?.url ?? '') || !FECHA.test(d.fuente?.fecha ?? '') || !d.fuente?.licencia) e.push('pueblos: sin versión 1 o sin fuente con url, fecha y licencia');
+  for (const p of d?.pueblos ?? []) if (!p.n || typeof p.lat !== 'number' || typeof p.lon !== 'number') { e.push(`pueblos: «${p.n}» sin nombre o coordenadas`); break; }
+  return e;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const leer = (f) => JSON.parse(readFileSync(f, 'utf8'));
   const errores = validar({ zonas: leer('data/zonas.json'), especies: leer('data/especies.json'),
@@ -193,6 +200,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       gruesa: existsSync('data/rejilla/gruesa.json') ? leer('data/rejilla/gruesa.json') : null, zonas: leer('data/zonas.json'),
       leer: (f) => (existsSync(f) ? new Uint8Array(readFileSync(f)) : null) }));
   }
+  if (existsSync('data/pueblos.json')) errores.push(...validarPueblos(leer('data/pueblos.json')));
   if (errores.length) { console.error(errores.map((x) => `✗ ${x}`).join('\n')); process.exit(1); }
   console.log('✓ Datos válidos');
 }

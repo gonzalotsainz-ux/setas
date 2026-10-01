@@ -754,6 +754,16 @@ pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `ll
 
 Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
 
+## data/pueblos.json (buscador del mapa)
+
+`{ version: 1, fuente: { nombre, url, licencia, fecha }, pueblos: [{ n, p, lat, lon }] }`: nombre, provincia y coordenadas (grados ETRS89, 5 decimales) de los núcleos de población dentro del bbox de alguna zona con 0,05° de margen. Lo genera `node scripts/rejilla/pueblos.mjs` (con `--descargar` vuelve a bajar los datos; la descarga se guarda en `_fuentes/pueblos/ngbe-nucleos.csv`, fuera del repo) y lo comprueba `validarPueblos` de `scripts/validar-datos.mjs`.
+
+- **Fuente (consultada el 2026-10-01):** WFS INSPIRE del Nomenclátor Geográfico Básico de España del IGN, https://www.ign.es/wfs-inspire/ngbe (lugares `populatedPlace` de tipo «Entidad singular», «Núcleos de población» o «Capital de municipio»), y WFS de unidades administrativas del IGN, https://www.ign.es/wfs-inspire/unidades-administrativas (provincias, para asignar la provincia de cada núcleo por punto en polígono). Ambos sin captcha.
+- **Licencia:** CC BY 4.0. Atribución: «Obra derivada de NGBE CC-BY 4.0 ign.es».
+- Por qué no el NGMEP del CNIG (el previsto en la tarea 0): su descarga exige reCAPTCHA (ver `docs/investigacion/08-rejilla-fuentes.md`, D5).
+- La provincia es el nombre oficial del IGN («Araba/Álava», «Bizkaia»); un núcleo con varios nombres los lleva todos separados por « / » («Agurain / Salvatierra») y el buscador encuentra cualquiera. Un núcleo repetido en el mismo punto (el NGBE lo da a la vez como entidad singular, capital y núcleo) queda una sola vez. Mismo nombre y provincia en dos puntos: solo el primero (orden del servicio).
+- 3.871 pueblos (generado el 2026-10-01). Entran también los de provincias vecinas que caen en los bbox.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).

@@ -153,6 +153,8 @@ Alternativa automática (no elegida): el WFS INSPIRE del Nomenclátor Geográfic
 
 **Decisión:** `CONFIG.pueblos = { nombre: 'Nomenclátor Geográfico de Municipios y Entidades de Población (NGMEP), IGN', url: 'https://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=NGMEN', licencia: 'CC BY 4.0 (Obra derivada de NGMEP CC-BY 4.0 ign.es)', fecha: '2026-10-01', archivo: '_fuentes/pueblos/ENTIDADES.csv', columnas: { nombre: 'NOMBRE', provincia: 'PROVINCIA', lat: 'LATITUD_ETRS89_REGCAN95', lon: 'LONGITUD_ETRS89_REGCAN95' } }`. El archivo y los nombres de columna salen de la memoria y faltan por comprobar con la descarga **[NO VERIFICADO]**.
 
+**Actualización (tarea 18, 2026-10-01): se usa la alternativa automática.** Por el captcha del NGMEP, `scripts/rejilla/pueblos.mjs` baja los núcleos del WFS INSPIRE del Nomenclátor Geográfico Básico (`https://www.ign.es/wfs-inspire/ngbe`, `GN:NamedPlace` filtrado en el servidor por `gn:type` = `populatedPlace` y por el bbox de cada zona más 0,05°; `AccessConstraints` «CC BY 4.0 ign.es», `Fees` «No se aplican condiciones»; consultado el 2026-10-01) y se queda con los tipos locales «Entidad singular», «Núcleos de población» y «Capital de municipio» (fuera «Barrio»). El NGBE no trae provincia: se pone por punto en polígono con las provincias (`AU:AdministrativeUnit`, `nationalLevel` = `3rdOrder`) del WFS de unidades administrativas del IGN (`https://www.ign.es/wfs-inspire/unidades-administrativas`, «CC BY 4.0 ign.es»). Resultado: 3.871 pueblos en `data/pueblos.json`, todos con provincia (nombre oficial del IGN, p. ej. «Araba/Álava»); los nombres bilingües se guardan juntos («Agurain / Salvatierra»). Coordenadas tal cual las da el IGN (ETRS89, redondeadas a 5 decimales), nunca inventadas. **[EVIDENCIA]** `CONFIG.pueblos` queda con `nombre` «Nomenclátor Geográfico Básico de España (NGBE) y unidades administrativas, IGN (servicios WFS)», `url` del WFS del NGBE, `licencia` «CC BY 4.0 (Obra derivada de NGBE CC-BY 4.0 ign.es)», `archivo` `_fuentes/pueblos/ngbe-nucleos.csv` (la descarga, en CSV propio) y columnas `NOMBRE`, `PROVINCIA`, `LATITUD`, `LONGITUD`. La atribución de D6 pasa a «Obra derivada de NGBE CC-BY 4.0 ign.es» [CRITERIO PROPIO: misma fórmula del CNIG que para el NGMEP]. No hace falta ningún paso manual de la usuaria.
+
 ---
 
 ## D6. Atribuciones
@@ -163,7 +165,7 @@ Texto que debe verse en el mapa (control de atribución de Leaflet) y en Ajustes
 - **IGN (MTN, PNOA):** como hasta ahora en `js/mapa.js` y en Ajustes («IGN / CNIG … CC BY 4.0 (© Instituto Geográfico Nacional de España)»).
 - **MDT elegido (rejilla):** «Obra derivada de MDT25 CC BY 4.0 scne.es».
 - **MFE50 (rejilla):** «Mapa Forestal de España 1:50.000 (MFE50) © Ministerio para la Transición Ecológica y el Reto Demográfico», con la fecha de los datos (proyecto 1997-2006; archivos de 2013) para cumplir la condición de indicar la última actualización.
-- **Pueblos (buscador):** «Obra derivada de NGMEP CC-BY 4.0 ign.es».
+- **Pueblos (buscador):** «Obra derivada de NGBE CC-BY 4.0 ign.es» (era NGMEP; cambia en la tarea 18, ver la actualización de D5).
 - **CARTO:** no se usa (D7). Si algún día se usa: «© OpenStreetMap contributors, © CARTO».
 - **Open-Meteo:** se mantiene la línea actual de Ajustes (CC BY 4.0).
 

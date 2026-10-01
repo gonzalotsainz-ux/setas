@@ -42,12 +42,14 @@ export const CONFIG = {
     tipos: { arbolado: ['1', '2', '3', '11', '12'], herbazal: ['9', '24', '34', '35'], matorral: ['8'] }, matorralJaral: [],
   },
   pueblos: {
-    nombre: 'Nomenclátor Geográfico de Municipios y Entidades de Población (NGMEP), IGN',
-    url: 'https://centrodedescargas.cnig.es/CentroDescargas/catalogo.do?Serie=NGMEN',
-    licencia: 'CC BY 4.0 (Obra derivada de NGMEP CC-BY 4.0 ign.es)', fecha: '2026-10-01',
-    // Descarga manual (reCAPTCHA). Archivo y columnas según la memoria del NGMEP: comprobar con el CSV antes de la tarea 18.
-    archivo: '_fuentes/pueblos/ENTIDADES.csv',
-    columnas: { nombre: 'NOMBRE', provincia: 'PROVINCIA', lat: 'LATITUD_ETRS89_REGCAN95', lon: 'LONGITUD_ETRS89_REGCAN95' },
+    // Tarea 18: el NGMEP del CNIG exige reCAPTCHA (tarea 0, D5); se usa el WFS del Nomenclátor Geográfico Básico del IGN
+    // (núcleos de población) y el WFS de unidades administrativas del IGN (provincia por punto en polígono), sin captcha.
+    // scripts/rejilla/pueblos.mjs los baja a `archivo` (CSV propio, fuera del repo) y de ahí genera data/pueblos.json.
+    nombre: 'Nomenclátor Geográfico Básico de España (NGBE) y unidades administrativas, IGN (servicios WFS)',
+    url: 'https://www.ign.es/wfs-inspire/ngbe',
+    licencia: 'CC BY 4.0 (Obra derivada de NGBE CC-BY 4.0 ign.es)', fecha: '2026-10-01',
+    archivo: '_fuentes/pueblos/ngbe-nucleos.csv',
+    columnas: { nombre: 'NOMBRE', provincia: 'PROVINCIA', lat: 'LATITUD', lon: 'LONGITUD' },
   },
   openMeteo: { trozo: 200, maxPasados: 92 },
   supabase: { lotes: 1 },
