@@ -42,15 +42,32 @@ export function leerCabecera(entrada) {
   if (b.length < 9 || new TextDecoder().decode(b.subarray(0, 4)) !== MAGIA) throw new Error('no es una rejilla de Setas');
   if (b[4] !== VERSION) throw new Error(`versión de rejilla ${b[4]} desconocida`);
   const largo = new DataView(b.buffer, b.byteOffset, b.byteLength).getUint32(5, true);
-  return { cabecera: JSON.parse(new TextDecoder().decode(b.subarray(9, 9 + largo))), inicio: 9 + largo };
+  if (9 + largo > b.length) throw new Error('rejilla dañada: cabecera incompleta');
+  let cabecera;
+  try { cabecera = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(b.subarray(9, 9 + largo))); }
+  catch { throw new Error('rejilla dañada: cabecera ilegible'); }
+  const entero = (v, min) => Number.isInteger(v) && v >= min;
+  if (!cabecera || !entero(cabecera.ancho, 1) || !entero(cabecera.alto, 1) || !entero(cabecera.tam, 1)
+    || !entero(cabecera.col0, 0) || !entero(cabecera.fila0, 0) || !Array.isArray(cabecera.habitats)) {
+    throw new Error('rejilla dañada: cabecera con ancho, alto, tam, col0, fila0 o hábitats inválidos');
+  }
+  return { cabecera, inicio: 9 + largo };
 }
 
 export async function decodificarRejilla(entrada) {
   const b = comoBytes(entrada);
   const { cabecera, inicio } = leerCabecera(b);
   const { ancho, alto } = cabecera, n = ancho * alto;
-  const carga = await pasar(b.subarray(inicio), new DecompressionStream('gzip'));
+  let carga;
+  try { carga = await pasar(b.subarray(inicio), new DecompressionStream('gzip')); }
+  catch { throw new Error('rejilla dañada: carga ilegible o incompleta'); }
   if (carga.length !== n * 4) throw new Error('rejilla dañada: la carga no tiene el tamaño de la cabecera');
+  for (let k = 0; k < n; k++) {
+    const v = carga[k];
+    if (v & 0x60 || (v & CODIGO) > cabecera.habitats.length) {
+      throw new Error(`rejilla dañada: código de hábitat ${v & 0x60 ? v : v & CODIGO} fuera de la cabecera`);
+    }
+  }
   const vista = new DataView(carga.buffer, carga.byteOffset, carga.byteLength);
   const altitud = new Int16Array(n);
   for (let f = 0; f < alto; f++) {

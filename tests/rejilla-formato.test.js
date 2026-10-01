@@ -45,3 +45,19 @@ test('los tramos de pendiente llevan espacio duro entre número y unidad', () =>
   assert.equal(TRAMOS_PENDIENTE.length, 4);
   assert.deepEqual(TRAMOS_PENDIENTE, ['menos del 5\u00a0%', 'del 5 al 15\u00a0%', 'del 15 al 30\u00a0%', '30\u00a0% o más']);
 });
+
+test('archivos rotos: cabecera cortada o ilegible, cabecera inválida, carga cortada, byte alterado y código de hábitat inválido', async () => {
+  const bytes = await codificarRejilla(cabeceraPrueba(), planos());
+  const { inicio } = leerCabecera(bytes);
+  assert.throws(() => leerCabecera(bytes.slice(0, 20)), /rejilla dañada: cabecera incompleta/);
+  const ilegible = bytes.slice(); ilegible[9] = 0x7b; ilegible[10] = 0x7b;
+  assert.throws(() => leerCabecera(ilegible), /rejilla dañada: cabecera ilegible/);
+  await assert.rejects(codificarRejilla(cabeceraPrueba({ ancho: 0, alto: 0 }), { habitat: new Uint8Array(0), terreno: new Uint8Array(0), altitud: new Int16Array(0) }).then(decodificarRejilla), /rejilla dañada: cabecera con ancho/);
+  await assert.rejects(decodificarRejilla(bytes.slice(0, bytes.length - 5)), /rejilla dañada: carga ilegible o incompleta/);
+  const alterado = bytes.slice(); alterado[inicio + 12] ^= 0xff;
+  await assert.rejects(decodificarRejilla(alterado), /rejilla dañada/);
+  const p = planos(); p.habitat[0] = 7;
+  await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), p)), /código de hábitat 7 fuera de la cabecera/);
+  const q = planos(); q.habitat[0] = 0x21;
+  await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), q)), /código de hábitat 33 fuera de la cabecera/);
+});

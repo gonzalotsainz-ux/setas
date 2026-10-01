@@ -235,21 +235,31 @@ async function casoRejilla() {
 
 test('validarRejillas: una rejilla bien hecha no da errores', async () => {
   const c = await casoRejilla();
-  assert.deepEqual(validarRejillas({ ...c, leer: () => c.bytes }), []);
+  assert.deepEqual(await validarRejillas({ ...c, leer: () => c.bytes }), []);
 });
 
 test('validarRejillas: archivo que falta, que pesa demasiado o que no es una rejilla', async () => {
   const c = await casoRejilla();
-  assert.match(validarRejillas({ ...c, leer: () => null }).join('\n'), /falta el archivo/);
-  assert.match(validarRejillas({ ...c, leer: () => c.bytes, maxBytes: 20 }).join('\n'), /KB, más de/);
-  assert.match(validarRejillas({ ...c, leer: () => new TextEncoder().encode('no soy una rejilla') }).join('\n'), /no es una rejilla/);
+  assert.match((await validarRejillas({ ...c, leer: () => null })).join('\n'), /falta el archivo/);
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes, maxBytes: 20 })).join('\n'), /KB, más de/);
+  assert.match((await validarRejillas({ ...c, leer: () => new TextEncoder().encode('no soy una rejilla') })).join('\n'), /no es una rejilla/);
 });
 
 test('validarRejillas: zona inexistente en la cabecera y celda gruesa sin altitud de referencia', async () => {
   const c = await casoRejilla();
   c.zonas.zonas[0].id = 'cuenca';
   c.gruesa.celdas[0].altRef = null;
-  const e = validarRejillas({ ...c, leer: () => c.bytes }).join('\n');
+  const e = (await validarRejillas({ ...c, leer: () => c.bytes })).join('\n');
   assert.match(e, /zona inexistente soria/);
   assert.match(e, /sin altRef/);
+});
+
+test('validarRejillas: carga truncada, código de hábitat inválido y tamaño distinto del de indice.json', async () => {
+  const c = await casoRejilla();
+  const cortado = c.bytes.slice(0, c.bytes.length - 6);
+  assert.match((await validarRejillas({ ...c, leer: () => cortado })).join('\n'), /rejilla dañada: carga ilegible o incompleta/);
+  const malo = await codificarRejilla(cabR, { habitat: Uint8Array.from([7, 0]), terreno: new Uint8Array(2), altitud: new Int16Array(2) });
+  assert.match((await validarRejillas({ ...c, leer: () => malo })).join('\n'), /código de hábitat 7 fuera de la cabecera/);
+  c.indice.archivos[0].bytes += 1;
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /indice\.json dice \d+ bytes y el archivo tiene/);
 });
