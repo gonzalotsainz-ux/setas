@@ -133,6 +133,8 @@ Documentación oficial, leída con resumen automático el 2026-10-01 **[RESUMEN 
 
 **Decisión:** `CONFIG.supabase = { lotes: 1 }`.
 
+**Medida de la tarea 12 (Node 24.14, esta máquina, 01/10/2026):** una ejecución completa de `ejecutar` (manejador de la función `rejilla`) con las 355 celdas reales de `data/rejilla/gruesa.json`, el Open-Meteo falso y el almacén en memoria de `tests/dobles-rejilla.js`, en la segunda ejecución del día (todo el histórico ya guardado; 2 días atrás + previsión; peso 341): **174, 196 y 179 ms** en tres tandas. Incluye fabricar las respuestas falsas y el almacén en memoria, así que sobrestima la CPU propia. Con margen ×4 para la CPU del servidor da unos 800 ms, por debajo de la mitad del límite de 2 s (1.000 ms). **[EVIDENCIA]** Se mantiene `lotes: 1`. El reloj (150 s) lo vigila el propio manejador: deja de pedir a los 120 s y no publica si no le da tiempo (`PLAZO_EJECUCION` = 140 s, `RESERVA_PUBLICAR` = 20 s).
+
 ---
 
 ## D5. Pueblos para el buscador

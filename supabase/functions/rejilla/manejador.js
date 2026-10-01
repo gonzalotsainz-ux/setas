@@ -1,0 +1,133 @@
+// supabase/functions/rejilla/manejador.js
+// Una ejecución de la Edge Function «rejilla» con dependencias inyectadas (almacén, fetch, reloj): planifica las
+// peticiones a Open-Meteo dentro del presupuesto, guarda la meteo y la climatología, reconstruye la serie de cada
+// celda gruesa, resume sus agregados y publica el índice si hay datos en el 90 % de las celdas.
+import { hoyMadrid, FUTUROS, sumarDias } from '../_shared/meteo.js';
+import { resumirCelda, diaConDatos, VERSION_SALIDA } from '../_shared/salida-indice.js';
+import { selloDe, tocaEjecutar, inicioSerie, planificar, filasDePrincipal, filasDeArchivoLluvia, filasDeClima, serieDesdeFilas,
+  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION } from './nucleo.js';
+
+// Supabase corta una función a los 150 s de reloj (plan gratuito, informe 08 D4), también en segundo plano. La ejecución
+// entera tiene que acabar antes de PLAZO_EJECUCION; las peticiones (con sus reintentos y esperas) dejan
+// RESERVA_PUBLICAR para leer las series, resumir y subir. Si el plazo no alcanza, no se publica.
+export const PLAZO_EJECUCION = 140000;
+export const RESERVA_PUBLICAR = 20000;
+const MAX_ESPERA_FETCH = 60000;
+
+class PlazoAgotado extends Error { constructor() { super('plazo agotado'); } }
+const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+const idsDe = (c) => [c.id, ...(c.iguales ?? [])];
+
+export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, lote = 0, lotes = 1, forzar = false, esperar = dormir,
+  trozo = TROZO, presupuesto = PRESUPUESTO_EJECUCION, reloj = () => Date.now(), plazo = PLAZO_EJECUCION }) {
+  const limite = reloj() + plazo;
+  const sello = forzar ? selloDe(ahora) : tocaEjecutar(ahora);
+  if (!sello) return { estado: 'fuera-de-hora' };
+  // Un sello (y lote) se ejecuta una vez: reintentos de pg_net, la segunda hora UTC o un «forzar» repetido salen aquí.
+  if (!(await almacen.reservarEjecucion(sello, lote))) return { estado: 'repetido', sello, lote };
+
+  const hoy = hoyMadrid(ahora);
+  const celdas = celdasDelLote(gruesa.celdas, lote, lotes), ids = celdas.map((c) => c.id);
+  const altitud = altitudConsulta(celdas);
+  const [resumen, climaAntes] = await Promise.all([almacen.resumen(ids), almacen.clima(ids)]);
+  const plan = planificar({ celdas, resumen, clima: climaAntes, hoy, presupuesto: presupuesto / lotes, trozo });
+
+  // Margen para pedir: lo que queda hasta el límite menos la reserva de publicación.
+  const margen = () => limite - RESERVA_PUBLICAR - reloj();
+  const esperarConPlazo = async (ms) => { if (ms >= margen()) throw new PlazoAgotado(); await esperar(ms); };
+  const errores = [], climaPorTrozo = new Map(), frescas = new Set();
+  let agotado = false;
+  for (const p of plan.peticiones) {
+    if (margen() <= 0) { agotado = true; break; }
+    try {
+      const json = await pedirConReintento(fetchFn, p.url, { esperar: esperarConPlazo, limite: Math.min(MAX_ESPERA_FETCH, margen()) });
+      if (p.tipo === 'principal') {
+        await almacen.guardarFilas(filasDePrincipal(json, p.celdas, hoy, ahora));
+        for (const c of p.celdas) for (const id of idsDe(c)) frescas.add(id);
+      } else if (p.tipo === 'archivo') await almacen.guardarFilas(filasDeArchivoLluvia(json, p.celdas, p.desde, p.hasta, ahora));
+      else {
+        if (!climaPorTrozo.has(p.trozo)) climaPorTrozo.set(p.trozo, { celdas: p.celdas, partes: [] });
+        climaPorTrozo.get(p.trozo).partes.push(json);
+      }
+    } catch (e) {
+      if (e instanceof PlazoAgotado) { agotado = true; break; }
+      errores.push(`${p.tipo}: ${e.message}`);
+    }
+  }
+  for (const { celdas: cs, partes } of climaPorTrozo.values()) if (partes.length === 2) await almacen.guardarClima(filasDeClima(partes, cs, hoy, ahora));
+  if (agotado) {
+    errores.push('plazo agotado: no se publica');
+    return { estado: 'sin-publicar', sello, conDatos: 0, total: gruesa.celdas.length, peso: plan.peso, errores };
+  }
+
+  // Solo salen en el índice las celdas cuya petición principal fue bien en esta ejecución; de las demás no hay previsión
+  // renovada (el móvil las pinta en gris) y no cuentan para el 90 %.
+  const desde = inicioSerie(hoy), hasta = sumarDias(hoy, FUTUROS - 1);
+  const fechas = Array.from({ length: FUTUROS }, (_, k) => sumarDias(hoy, k));
+  const [filas, clima] = await Promise.all([almacen.series(ids, desde), almacen.clima(ids)]);
+  const parte = {};
+  for (const c of celdas) {
+    const fila = filas.get(c.id);
+    if (!fila || !frescas.has(c.id)) continue;
+    const serie = aplicarClimaCelda(serieDesdeFilas(fila, desde, hasta, hoy, ahora), clima.get(c.id));
+    parte[c.id] = resumirCelda({ altRef: altitud.get(c.id), serie, fechas });
+  }
+
+  let todas = parte;
+  if (lotes > 1) {
+    await almacen.subir(`parcial/${sello}/${lote}.json`, parte, '3600');
+    const hechos = await almacen.listar(`parcial/${sello}`);
+    if (hechos.length < lotes) return { estado: 'parcial', sello, lote, peso: plan.peso, errores };
+    todas = {};
+    for (const n of hechos) Object.assign(todas, await almacen.leerJson(`parcial/${sello}/${n}`));
+    await almacen.borrar(hechos.map((n) => `parcial/${sello}/${n}`));
+  }
+  const total = gruesa.celdas.length;
+  const conDatos = Object.values(todas).filter((c) => diaConDatos(c.dias[0])).length;
+  if (!decidirPublicacion(conDatos, total)) return { estado: 'sin-publicar', sello, conDatos, total, peso: plan.peso, errores };
+  if (reloj() >= limite) {
+    errores.push('plazo agotado al resumir: no se publica');
+    return { estado: 'sin-publicar', sello, conDatos, total, peso: plan.peso, errores };
+  }
+  const generado = ahora.toISOString(), archivo = `${sello}.json`;
+  await almacen.subir(archivo, { version: VERSION_SALIDA, sello, generado, hoy, fechas, celdas: todas }, '86400');
+  await almacen.subir('ultimo.json', { version: VERSION_SALIDA, sello, archivo, generado, conDatos, total }, '60');
+  await almacen.borrar(archivosABorrar(await almacen.listar('')));
+  return { estado: 'publicado', sello, conDatos, total, peso: plan.peso, errores };
+}
+
+// Comparación de la cabecera x-rejilla-clave con el secreto REJILLA_CLAVE sin cortar en el primer carácter distinto.
+// Sin secreto (o con uno corto) no entra nadie.
+export function claveValida(recibida, secreto) {
+  if (typeof secreto !== 'string' || secreto.length < 32 || typeof recibida !== 'string') return false;
+  const a = new TextEncoder().encode(recibida), b = new TextEncoder().encode(secreto);
+  let distinto = a.length ^ b.length;
+  for (let k = 0; k < b.length; k++) distinto |= (a[k] ?? 0) ^ b[k];
+  return distinto === 0;
+}
+
+// Almacén real: tablas meteo_celdas, clima_celdas y rejilla_ejecuciones, la vista meteo_celdas_resumen, la función
+// series_celdas y el bucket público «indice». Se lee todo (son unas 350 filas) para no meter cientos de ids en la URL.
+export function almacenSupabase(admin) {
+  const datos = ({ data, error }) => { if (error) throw new Error(error.message); return data; };
+  const bucket = () => admin.storage.from('indice');
+  return {
+    async reservarEjecucion(sello, lote) {
+      const { error } = await admin.from('rejilla_ejecuciones').insert({ sello, lote });
+      if (!error) return true;
+      if (error.code === '23505') return false;   // ya existía: otra llamada tiene (o tuvo) este sello
+      throw new Error(error.message);
+    },
+    async resumen(ids) { const s = new Set(ids); return new Map(datos(await admin.from('meteo_celdas_resumen').select('celda, desde, hasta, dias')).filter((r) => s.has(r.celda)).map((r) => [r.celda, r])); },
+    async clima(ids) { const s = new Set(ids); return new Map(datos(await admin.from('clima_celdas').select('celda, por_mes, meses, actualizado')).filter((r) => s.has(r.celda)).map((r) => [r.celda, r])); },
+    async guardarFilas(filas) { for (let k = 0; k < filas.length; k += 1000) datos(await admin.from('meteo_celdas').upsert(filas.slice(k, k + 1000), { onConflict: 'celda,fecha,modelo' })); },
+    async guardarClima(filas) { if (filas.length) datos(await admin.from('clima_celdas').upsert(filas)); },
+    async series(ids, desde) { return new Map(datos(await admin.rpc('series_celdas', { p_celdas: ids, p_desde: desde })).map((r) => [r.celda, r])); },
+    async subir(nombre, json, cacheControl) {
+      datos(await bucket().upload(nombre, new Blob([JSON.stringify(json)], { type: 'application/json' }), { upsert: true, contentType: 'application/json', cacheControl }));
+    },
+    async leerJson(nombre) { const { data, error } = await bucket().download(nombre); return error ? null : JSON.parse(await data.text()); },
+    async listar(prefijo) { return datos(await bucket().list(prefijo, { limit: 1000 })).filter((f) => f.id).map((f) => f.name); },
+    async borrar(nombres) { if (nombres.length) datos(await bucket().remove(nombres)); },
+  };
+}
