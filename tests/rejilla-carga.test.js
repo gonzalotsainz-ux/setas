@@ -3,12 +3,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { cargarIndice, avisoIndice, selloEsperado, diasDisponibles, archivosVisibles, archivoDeCelda, crearCargadorRejillas, rejillasSoportadas, cargarDatosRejilla, ZOOM_MIN_FINA, BASE_INDICE } from '../js/rejilla/carga.js';
 import { codificarRejilla } from '../js/rejilla/formato.js';
+import { almacenFalso } from './ayudas.js';
 
-function almacenFalso() {
-  const m = new Map();
-  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k),
-    key: (i) => [...m.keys()][i] ?? null, get length() { return m.size; } };
-}
 const fechas = (desde) => Array.from({ length: 10 }, (_, k) => new Date(Date.parse(`${desde}T00:00:00Z`) + k * 864e5).toISOString().slice(0, 10));
 const salidaDe = (sello) => ({ version: 1, sello, generado: '2026-10-01T05:03:00.000Z', hoy: sello.slice(0, 10), fechas: fechas(sello.slice(0, 10)),
   celdas: { 'z:1:1': { altRef: 1000, incompleta: false, lluvia: { desde: '2026-08-03', hoy: 59, mm: [] }, dias: Array(10).fill(null) } } });

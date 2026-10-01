@@ -128,7 +128,7 @@ foco visible ocre de 3 px; sin guiones largos en los textos; la pestaña Especie
 
 **Iconos:** Phosphor Icons (regular, licencia MIT) en un solo sprite, `img/iconos.svg`. Ids: `i-telefono`, `i-atras`,
 `i-ir`, `i-abrir`, `i-hoy`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
-`i-temp`, `i-flecha` e `i-especies`. La app, servida por http(s), los usa así:
+`i-temp`, `i-flecha`, `i-especies`, `i-capas`, `i-ubicacion` e `i-buscar`. La app, servida por http(s), los usa así:
 `<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-mapa"/></svg>`. Las maquetas llevan una copia en
 línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cuando la página se abre con `file://`
 (comprobado: con `file://` no pinta nada; por http, sí).

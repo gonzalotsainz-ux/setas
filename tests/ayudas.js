@@ -20,3 +20,10 @@ export const MORCHELLA = { id: 'morchella', temporada: { meses: [3, 4, 5], tipo:
   indice: { topt: 12, trango: [10, 15.5], usarSuelo: true, pmin: 20, pfull: 50, desfase: [5, 15], helada: 'media', confianza: 'alta' } };
 // Tormenta de 20 mm/día los días 40–42 sobre una base de 2 mm/día: P26 = 106 mm; el mayor P3 es de 60 mm, a 17 días de i = 59.
 export const lluviaBuena = (k) => (k >= 40 && k <= 42 ? 20 : 2);
+
+// Almacén en memoria con la forma de localStorage.
+export function almacenFalso() {
+  const m = new Map();
+  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k),
+    key: (i) => [...m.keys()][i] ?? null, get length() { return m.size; } };
+}
