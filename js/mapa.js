@@ -5,6 +5,7 @@ import { indiceZona } from './indice.js';
 import { especiesDeZona, nombreCorto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
 import { hoyMadrid } from './meteo.js';
+import { COLOR, NIVEL_COLOR } from './mapa/colores.js';
 
 const IGN = (capa, fmt) => `https://www.ign.es/wmts/${capa.servicio}?service=WMTS&request=GetTile&version=1.0.0&layer=${capa.layer}&style=default&format=image/${fmt}&tilematrixset=GoogleMapsCompatible&tilematrix={z}&tilerow={y}&tilecol={x}`;
 const ATR_IGN = '© <a href="https://www.scne.es">Instituto Geográfico Nacional</a> CC BY 4.0';
@@ -13,10 +14,8 @@ export const BASES = {
   'Ortofoto PNOA': [IGN({ servicio: 'pnoa-ma', layer: 'OI.OrthoimageCoverage' }, 'jpeg'), `PNOA cedido por ${ATR_IGN}`],
   'OpenStreetMap': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'],
 };
-// Las capas vectoriales van sobre teselas IGN/PNOA, siempre claras, en cualquier tema: por eso sus colores
-// son fijos (los primitivos del tema claro, oscuros) y no siguen el tema. Cada trazo lleva además un halo blanco.
-export const COLOR = { peligro: '#9e1c16', acento: '#1f4a33', texto: '#3d4a41', lluvia: '#0b5394', halo: '#ffffff' };
-export const NIVEL_COLOR = { nulo: '#7a736b', bajo: '#b8542a', posible: '#b27a0e', bueno: '#4c8a37', 'muy-bueno': '#1d5e3a', 'sin-datos': '#7d827e' };
+// Colores fijos de las capas (siempre sobre teselas claras): en js/mapa/colores.js, sin DOM, para el Web Worker del pintado.
+export { COLOR, NIVEL_COLOR };
 export const ESTILO_COTO = {
   prohibido: { color: COLOR.peligro, fillOpacity: 0.25, weight: 2 },
   acotado: { color: COLOR.acento, fillOpacity: 0.12, weight: 1.5 },

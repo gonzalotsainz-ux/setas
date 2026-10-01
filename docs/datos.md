@@ -558,6 +558,21 @@ abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
   polígono `prohibido` de `data/cotos.geojson` (criterio conservador: no se colorean celdas de borde).
   `tests/rejilla-datos.test.js` lo comprueba sobre los archivos generados.
 
+**Pintado en el mapa** (`js/rejilla/pintor.js`, `js/mapa/capa-rejilla.js`). Cada archivo se colorea en una imagen de
+`ancho × alto` píxeles (1 celda = 1 píxel) que la capa dibuja escalada sin suavizado. Solo llevan color las celdas con
+código de hábitat y sin el bit `PROHIBIDO`; el bit `FUERA_PROVINCIAS` no cambia el color (la marca la pone la hoja).
+Celda gruesa sin datos en el índice, sin altitud de referencia o celda fina fuera de toda celda gruesa: gris
+(`#7d827e`), nunca un color de nivel. Hábitat sin especies en temporada (o fuera del chip elegido): transparente. Por
+debajo de `ZOOM_MIN_FINA` (9) se pinta una nota por celda gruesa (la mejor de sus hábitats a su altitud media). La capa
+lleva la atribución del MFE50 y del MDT con los textos de `scripts/rejilla/config.mjs`.
+
+**Medida del pintado** (`node scripts/rejilla/medir-pintado.mjs`, 2026-10-01, Node 24.14 en el portátil de desarrollo):
+el archivo más grande, `extremadura-1.bin` (959 × 276 celdas, unas 99.900 con monte y 21.200 combinaciones distintas de
+celda gruesa, hábitat, altitud y orientación), tarda unos 160 ms en `notasDeArchivo` + `colorear` (tres ejecuciones:
+159, 160 y 163 ms). Por 4 (la ralentización de CPU con la que Lighthouse simula un móvil medio) son unos 640 ms, más
+de los 200 ms del criterio: **el cálculo va en un Web Worker** (`USAR_TRABAJADOR = true` en
+`js/rejilla/notas-async.js`). Es una estimación (Node × 4), no una medida en un móvil real.
+
 **Cómo se genera.**
 
 1. `node scripts/rejilla/recortar-mfe.mjs` recorta el shapefile del MFE50 al bbox de cada zona, con 0,01° de margen.

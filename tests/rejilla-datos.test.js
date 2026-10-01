@@ -8,6 +8,10 @@ import { decodificarRejilla, PROHIBIDO, CODIGO } from '../js/rejilla/formato.js'
 import { centroFina, aGrados, ORIGEN, TAM_FINA } from '../js/rejilla/geo.js';
 import { indiceEspacial } from '../scripts/rejilla/generar.mjs';
 import { HABITATS } from '../scripts/validar-datos.mjs';
+import { gruesasDeArchivo, notasDeArchivo, colorear } from '../js/rejilla/pintor.js';
+import { resumirCelda } from '../js/rejilla/salida.js';
+import { especiesDeZona } from '../js/datos.js';
+import { serieSintetica, lluviaBuena } from './ayudas.js';
 
 const hay = existsSync('data/rejilla/indice.json');
 const leer = (f) => JSON.parse(readFileSync(f, 'utf8'));
@@ -43,4 +47,25 @@ test('ninguna celda que toque un polígono prohibido tiene hábitat (y todas lle
 
 test('la Edge Function lleva la misma lista de celdas gruesas', { skip: !hay }, () => {
   assert.equal(readFileSync('supabase/functions/rejilla/gruesa.json', 'utf8'), readFileSync('data/rejilla/gruesa.json', 'utf8'));
+});
+
+test('con los datos reales, ninguna celda prohibida o sin hábitat sale con color', { skip: !hay }, async () => {
+  const gruesa = leer('data/rejilla/gruesa.json'), zonas = leer('data/zonas.json').zonas, especies = leer('data/especies.json').especies;
+  const serie = serieSintetica({ dias: 70, hoy: 59, precip: lluviaBuena }), fechas = serie.fechas.slice(59, 69);
+  const resumen = resumirCelda({ altRef: 1200, serie, fechas });
+  const salida = { version: 1, sello: '2026-10-18T07', hoy: fechas[0], fechas, celdas: Object.fromEntries(gruesa.celdas.map((g) => [g.id, { ...resumen, altRef: g.altRef }])) };
+  let coloreadas = 0, prohibidasGuadarrama = 0;
+  for (const a of leer('data/rejilla/indice.json').archivos) {
+    const r = await decodificarRejilla(readFileSync(`data/rejilla/${a.archivo}`));
+    const zona = zonas.find((z) => z.id === r.cabecera.zona);
+    const rgba = colorear(notasDeArchivo({ rejilla: r, gruesas: gruesasDeArchivo(r, gruesa), gruesa, salida, fecha: fechas[0], especies: especiesDeZona(zona, especies) }));
+    for (let k = 0; k < r.habitat.length; k++) {
+      const h = r.habitat[k], alfa = rgba[4 * k + 3];
+      if (h & PROHIBIDO && r.cabecera.zona === 'guadarrama') prohibidasGuadarrama++;
+      if (h & PROHIBIDO || !(h & CODIGO)) assert.equal(alfa, 0, `${a.archivo} celda ${k}: color sin monte apropiado o en prohibido`);
+      else if (alfa) coloreadas++;
+    }
+  }
+  assert.ok(prohibidasGuadarrama > 0, 'guadarrama debería tener celdas prohibidas con las que probar');
+  assert.ok(coloreadas > 0);
 });

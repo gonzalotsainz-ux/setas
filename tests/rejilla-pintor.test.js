@@ -1,0 +1,113 @@
+// tests/rejilla-pintor.test.js
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { gruesasDeArchivo, notasDeArchivo, colorear, notaGruesa, colorDeNota, SIN_COLOR, SIN_DATOS } from '../js/rejilla/pintor.js';
+import { resumirCelda } from '../js/rejilla/salida.js';
+import { PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
+import { NIVEL_COLOR as NIVEL_COLOR_MAPA, COLOR as COLOR_MAPA } from '../js/mapa.js';
+import { NIVEL_COLOR, COLOR } from '../js/mapa/colores.js';
+import { ATRIBUCION_REJILLA } from '../js/mapa/capa-rejilla.js';
+import { CONFIG } from '../scripts/rejilla/config.mjs';
+import { HABITATS } from '../scripts/validar-datos.mjs';
+import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
+
+const fuente = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
+const rejilla = { cabecera: { version: 1, zona: 'guadarrama', tam: 250, col0: 78361, fila0: 60161, ancho: 4, alto: 1, habitats: HABITATS, fuentes: { mfe: fuente, mdt: fuente }, generado: '2026-10-01' },
+  habitat: Uint8Array.from([HABITATS.indexOf('pinar-silvestre') + 1, PROHIBIDO, 0, HABITATS.indexOf('chopera') + 1]),
+  terreno: new Uint8Array(4), altitud: Int16Array.from([1500, 0, 0, 1500]) };
+const gruesa = { pasos: { guadarrama: 0.09 }, celdas: [{ id: 'guadarrama:66:65', zona: 'guadarrama', lon: -4.015, lat: 40.895, altRef: 1500, habitats: ['chopera', 'pinar-silvestre'], nFinas: 2 }] };
+const serie = serieSintetica({ dias: 70, hoy: 59, precip: lluviaBuena });
+const fechas = serie.fechas.slice(59, 69);
+const salida = { version: 1, sello: '2026-10-18T07', generado: '2026-10-18T05:00:00.000Z', hoy: fechas[0], fechas,
+  celdas: { 'guadarrama:66:65': resumirCelda({ altRef: 1500, serie, fechas }) } };
+const especies = [{ ...BOLETUS, habitats: ['pinar-silvestre'] }];
+const pixel = (rgba, k) => [...rgba.slice(4 * k, 4 * k + 4)];
+
+test('celda gruesa de cada celda fina (solo las que tienen hábitat)', () => {
+  assert.deepEqual([...gruesasDeArchivo(rejilla, gruesa)], [0, -1, -1, 0]);
+});
+
+test('notas y colores: monte con especie, prohibido, sin monte y hábitat sin especies en temporada', () => {
+  const notas = notasDeArchivo({ rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida, fecha: fechas[0], especies });
+  assert.deepEqual([...notas], [96, SIN_COLOR, SIN_COLOR, SIN_COLOR]);
+  const rgba = colorear(notas);
+  assert.deepEqual(pixel(rgba, 0), [29, 94, 58, 150]);   // muy bueno, #1d5e3a
+  for (const k of [1, 2, 3]) assert.equal(pixel(rgba, k)[3], 0, `celda ${k} sin color`);
+});
+
+test('celda gruesa sin datos en el índice: gris, nunca un color inventado', () => {
+  const notas = notasDeArchivo({ rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida: { ...salida, celdas: {} }, fecha: fechas[0], especies });
+  assert.equal(notas[0], SIN_DATOS);
+  assert.deepEqual(pixel(colorear(notas), 0), [125, 130, 126, 110]);   // #7d827e
+});
+
+test('celda gruesa sin altitud de referencia en el índice: gris, sin suponer la de la celda fina', () => {
+  const sinAlt = { ...salida, celdas: { 'guadarrama:66:65': { ...salida.celdas['guadarrama:66:65'], altRef: null } } };
+  const notas = notasDeArchivo({ rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida: sinAlt, fecha: fechas[0], especies });
+  assert.equal(notas[0], SIN_DATOS);
+  assert.equal(notaGruesa(gruesa.celdas[0], { salida: sinAlt, fecha: fechas[0], especies }), SIN_DATOS);
+});
+
+test('celda fina con hábitat pero fuera de toda celda gruesa: gris', () => {
+  const notas = notasDeArchivo({ rejilla, gruesas: Int32Array.from([-1, -1, -1, -1]), gruesa, salida, fecha: fechas[0], especies });
+  assert.equal(notas[0], SIN_DATOS);
+});
+
+test('el bit de provincia vecina no cambia la nota ni el color (la marca la pone la hoja)', () => {
+  const vecina = { ...rejilla, habitat: Uint8Array.from([rejilla.habitat[0] | FUERA_PROVINCIAS, PROHIBIDO, 0, rejilla.habitat[3]]) };
+  const notas = notasDeArchivo({ rejilla: vecina, gruesas: gruesasDeArchivo(vecina, gruesa), gruesa, salida, fecha: fechas[0], especies });
+  assert.deepEqual([...notas], [96, SIN_COLOR, SIN_COLOR, SIN_COLOR]);
+});
+
+test('una celda con la marca de prohibido nunca recibe hábitat ni color, aunque traiga un código', () => {
+  const rara = { ...rejilla, habitat: Uint8Array.from([rejilla.habitat[0] | PROHIBIDO, PROHIBIDO, 0, 0]) };
+  assert.equal(gruesasDeArchivo(rara, gruesa)[0], -1);
+  const notas = notasDeArchivo({ rejilla: rara, gruesas: Int32Array.from([0, 0, 0, 0]), gruesa, salida, fecha: fechas[0], especies });
+  assert.equal(notas[0], SIN_COLOR);
+  assert.equal(pixel(colorear(notas), 0)[3], 0);
+});
+
+test('con chip de otra especie, el pinar no se colorea', () => {
+  const notas = notasDeArchivo({ rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida, fecha: fechas[0], especies, filtro: new Set(['lactarius-deliciosus']) });
+  assert.equal(notas[0], SIN_COLOR);
+});
+
+test('vista lejana: una nota por celda gruesa', () => {
+  const g = gruesa.celdas[0];
+  assert.equal(notaGruesa(g, { salida, fecha: fechas[0], especies }), 96);
+  assert.equal(notaGruesa(g, { salida: { ...salida, celdas: {} }, fecha: fechas[0], especies }), SIN_DATOS);
+  assert.equal(notaGruesa(g, { salida, fecha: fechas[0], especies: [] }), SIN_COLOR);
+  assert.equal(colorDeNota(96), '#1d5e3a');
+  assert.equal(colorDeNota(SIN_COLOR), null);
+  assert.equal(colorDeNota(SIN_DATOS), '#7d827e');
+});
+
+test('los colores del mapa viven en js/mapa/colores.js y js/mapa.js los reexporta', () => {
+  assert.equal(NIVEL_COLOR_MAPA, NIVEL_COLOR);
+  assert.equal(COLOR_MAPA, COLOR);
+});
+
+test('la capa de la rejilla cita el MFE50 y el MDT con el texto de la configuración', () => {
+  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mfe.atribucion));
+  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mdt.atribucion));
+  assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mfe.url}"`));
+  assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mdt.url}"`));
+});
+
+test('el Web Worker carga sin DOM y devuelve las mismas notas que el hilo principal', async () => {
+  const enviados = [];
+  globalThis.self = { postMessage: (m, transferir) => enviados.push({ m, transferir }) };
+  try {
+    await import('../js/rejilla/trabajador.js');
+    const args = { rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida, fecha: fechas[0], especies };
+    globalThis.self.onmessage({ data: { id: 7, args } });
+    globalThis.self.onmessage({ data: { id: 8, args: { ...args, rejilla: null } } });
+    assert.equal(enviados[0].m.id, 7);
+    assert.deepEqual([...enviados[0].m.notas], [...notasDeArchivo(args)]);
+    assert.deepEqual(enviados[0].transferir, [enviados[0].m.notas.buffer]);
+    assert.equal(enviados[1].m.id, 8);
+    assert.match(enviados[1].m.error, /./);
+  } finally {
+    delete globalThis.self;
+  }
+});
