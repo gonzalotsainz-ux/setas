@@ -51,7 +51,7 @@
           "presencia": "confirmada",
           "gbif": 31,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "F7"
         },
         "gredos": {
@@ -566,7 +566,7 @@
           "presencia": "confirmada",
           "gbif": 6,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "cuenca": {
           "presencia": "confirmada",
@@ -810,7 +810,7 @@
           "gbif": 15,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A3"
         },
         "guadarrama": {
@@ -1105,7 +1105,7 @@
           "presencia": "confirmada",
           "gbif": 38,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A4"
         },
         "toledo": {
@@ -1328,7 +1328,7 @@
           "presencia": "confirmada",
           "gbif": 8,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "cuenca": {
           "presencia": "orientativa",
@@ -1495,7 +1495,7 @@
           "gbif": 34,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A6"
         },
         "soria": {
@@ -1708,7 +1708,7 @@
           "presencia": "confirmada",
           "gbif": 41,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "toledo": {
           "presencia": "orientativa",
@@ -1899,7 +1899,7 @@
           "presencia": "confirmada",
           "gbif": 42,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "burgos": {
           "presencia": "confirmada",
@@ -2332,7 +2332,7 @@
           "presencia": "orientativa",
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "nota": "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus"
         },
         "toledo": {
@@ -2507,7 +2507,7 @@
           "presencia": "confirmada",
           "gbif": 8,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A10"
         },
         "gredos": {
@@ -2727,7 +2727,7 @@
           "presencia": "orientativa",
           "gbif": 2,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A11"
         },
         "alava": {
@@ -2925,7 +2925,7 @@
           "presencia": "confirmada",
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A12"
         },
         "gredos": {
@@ -3210,7 +3210,7 @@
           "presencia": "orientativa",
           "gbif": 1,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A13"
         },
         "gredos": {
@@ -3506,7 +3506,7 @@
           "presencia": "orientativa",
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "gredos": {
           "presencia": "orientativa",
@@ -3693,7 +3693,7 @@
           "gbif": 2,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A15"
         },
         "soria": {
@@ -3958,7 +3958,7 @@
           "presencia": "confirmada",
           "gbif": 6,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A16"
         },
         "soria": {
@@ -4218,7 +4218,7 @@
           "gbif": 12,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A17"
         },
         "soria": {
@@ -4551,7 +4551,7 @@
           "presencia": "orientativa",
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "soria": {
           "presencia": "orientativa",
@@ -4707,7 +4707,7 @@
           "presencia": "confirmada",
           "gbif": 55,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A19"
         },
         "soria": {
@@ -5029,7 +5029,7 @@
           "presencia": "confirmada",
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A20"
         },
         "soria": {
@@ -5277,7 +5277,7 @@
           "gbif": 5,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A21"
         },
         "soria": {
@@ -5499,7 +5499,7 @@
           "gbif": 5,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A22"
         },
         "cuenca": {
@@ -5964,7 +5964,7 @@
           "presencia": "confirmada",
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "gredos": {
           "presencia": "confirmada",
@@ -6152,7 +6152,7 @@
           "presencia": "confirmada",
           "gbif": 14,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A24",
           "taxonGbif": "Lepista nuda"
         },
@@ -6441,7 +6441,7 @@
           "presencia": "confirmada",
           "gbif": 5,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "taxonGbif": "Lepista personata"
         },
         "gredos": {
@@ -6632,7 +6632,7 @@
           "presencia": "confirmada",
           "gbif": 34,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A26"
         },
         "soria": {
@@ -6891,7 +6891,7 @@
           "presencia": "confirmada",
           "gbif": 14,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "gredos": {
           "presencia": "confirmada",
@@ -7150,7 +7150,7 @@
           "presencia": "confirmada",
           "gbif": 29,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A28"
         },
         "soria": {
@@ -7355,7 +7355,7 @@
           "presencia": "confirmada",
           "gbif": 11,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "soria": {
           "presencia": "orientativa",
@@ -7534,7 +7534,7 @@
           "presencia": "confirmada",
           "gbif": 29,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "soria": {
           "presencia": "confirmada",
@@ -7749,7 +7749,7 @@
           "gbif": 1,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "verificado": false,
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A31"
         },
         "cuenca": {
@@ -8082,7 +8082,7 @@
           "presencia": "orientativa",
           "gbif": 2,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "gredos": {
           "presencia": "orientativa",
@@ -8336,7 +8336,7 @@
           "presencia": "confirmada",
           "gbif": 8,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "guadalajara": {
           "presencia": "orientativa",
@@ -8595,7 +8595,7 @@
           "presencia": "confirmada",
           "gbif": 12,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A34"
         },
         "soria": {
@@ -8767,7 +8767,7 @@
           "presencia": "confirmada",
           "gbif": 23,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30",
+          "consultado": "2026-10-01",
           "fuenteInvestigacion": "docs/investigacion/02-especies.md#A35"
         },
         "soria": {
@@ -8957,7 +8957,7 @@
           "presencia": "confirmada",
           "gbif": 17,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-3.77+40.8%2C-3.3+40.8%2C-3.3+41.35%2C-3.77+41.35%2C-3.77+40.8%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
-          "consultado": "2026-09-30"
+          "consultado": "2026-10-01"
         },
         "cuenca": {
           "presencia": "orientativa",
