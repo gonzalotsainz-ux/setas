@@ -17,6 +17,7 @@ export function crearCapaRejilla(L) {
       this._mapa = mapa;
       this._canvas = L.DomUtil.create('canvas', 'capa-rejilla');
       this._canvas.setAttribute('aria-hidden', 'true');
+      this._canvas.style.pointerEvents = 'none';   // los toques van al mapa y a los marcadores
       mapa.getPane('rejilla').append(this._canvas);
       mapa.on('moveend zoomend resize viewreset', this._dibujar, this);
       mapa.on('zoomstart', this._ocultar, this);
@@ -28,13 +29,17 @@ export function crearCapaRejilla(L) {
       this._canvas.remove();
       this._canvas = null; this._mapa = null;
     },
-    ponerImagen(archivo, cabecera, rgba) {
+    // `clave` (p. ej. archivo + día + chip + sello): si coincide con la de la imagen guardada, no se rehace el lienzo.
+    // Sin clave se usa el propio `rgba`. tieneImagen permite saltarse el cálculo de las notas.
+    tieneImagen(archivo, clave) { return clave != null && this._imagenes.get(archivo)?.clave === clave; },
+    ponerImagen(archivo, cabecera, rgba, clave = rgba) {
+      if (this._imagenes.get(archivo)?.clave === clave) return;
       const lienzo = document.createElement('canvas');
       lienzo.width = cabecera.ancho; lienzo.height = cabecera.alto;
       lienzo.getContext('2d').putImageData(new ImageData(rgba, cabecera.ancho, cabecera.alto), 0, 0);
       const no = aGrados(cabecera.col0 * cabecera.tam - ORIGEN, ORIGEN - cabecera.fila0 * cabecera.tam);
       const se = aGrados((cabecera.col0 + cabecera.ancho) * cabecera.tam - ORIGEN, ORIGEN - (cabecera.fila0 + cabecera.alto) * cabecera.tam);
-      this._imagenes.set(archivo, { lienzo, limites: L.latLngBounds([se.lat, no.lon], [no.lat, se.lon]) });
+      this._imagenes.set(archivo, { clave, lienzo, limites: L.latLngBounds([se.lat, no.lon], [no.lat, se.lon]) });
       this._dibujar();
     },
     quitarTodo() { this._imagenes.clear(); this._dibujar(); },
@@ -43,10 +48,15 @@ export function crearCapaRejilla(L) {
       const m = this._mapa, c = this._canvas;
       if (!m || !c) return;
       const tam = m.getSize(), dpr = window.devicePixelRatio || 1;
-      c.width = Math.round(tam.x * dpr); c.height = Math.round(tam.y * dpr);
-      c.style.width = `${tam.x}px`; c.style.height = `${tam.y}px`;
+      const ancho = Math.round(tam.x * dpr), alto = Math.round(tam.y * dpr);
+      if (c.width !== ancho || c.height !== alto) {
+        c.width = ancho; c.height = alto;
+        c.style.width = `${tam.x}px`; c.style.height = `${tam.y}px`;
+      }
       L.DomUtil.setPosition(c, m.containerPointToLayerPoint([0, 0]));
       const ctx = c.getContext('2d');
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, ancho, alto);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.imageSmoothingEnabled = false;
       const vista = m.getBounds();

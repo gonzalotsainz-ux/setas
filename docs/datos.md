@@ -571,7 +571,8 @@ el archivo más grande, `extremadura-1.bin` (959 × 276 celdas, unas 99.900 con 
 celda gruesa, hábitat, altitud y orientación), tarda unos 160 ms en `notasDeArchivo` + `colorear` (tres ejecuciones:
 159, 160 y 163 ms). Por 4 (la ralentización de CPU con la que Lighthouse simula un móvil medio) son unos 640 ms, más
 de los 200 ms del criterio: **el cálculo va en un Web Worker** (`USAR_TRABAJADOR = true` en
-`js/rejilla/notas-async.js`). Es una estimación (Node × 4), no una medida en un móvil real.
+`js/rejilla/notas-async.js`). Es una estimación (Node × 4), no una medida en un móvil real. Si el Worker falla
+(no carga, error, mensaje ilegible o 20 s sin contestar), se descarta para la sesión y se calcula en el hilo principal.
 
 **Cómo se genera.**
 

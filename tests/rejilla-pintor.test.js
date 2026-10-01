@@ -6,7 +6,8 @@ import { resumirCelda } from '../js/rejilla/salida.js';
 import { PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
 import { NIVEL_COLOR as NIVEL_COLOR_MAPA, COLOR as COLOR_MAPA } from '../js/mapa.js';
 import { NIVEL_COLOR, COLOR } from '../js/mapa/colores.js';
-import { ATRIBUCION_REJILLA } from '../js/mapa/capa-rejilla.js';
+import { ATRIBUCION_REJILLA, crearCapaRejilla } from '../js/mapa/capa-rejilla.js';
+import { crearCalculador } from '../js/rejilla/notas-async.js';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
@@ -109,5 +110,87 @@ test('el Web Worker carga sin DOM y devuelve las mismas notas que el hilo princi
     assert.match(enviados[1].m.error, /./);
   } finally {
     delete globalThis.self;
+  }
+});
+
+// Worker falso: `fallo` = 'crear' (el constructor lanza), 'onerror', 'onmessageerror', 'calculo' o 'mudo' (no contesta).
+function workerFalso(fallo = null) {
+  const w = { recibidos: [], terminado: false, postMessage(m) {
+    w.recibidos.push(m);
+    if (m.fijos) { w.fijos = { ...w.fijos, ...m.fijos }; return; }
+    queueMicrotask(() => {
+      if (fallo === 'onerror') w.onerror({ message: 'módulo no encontrado', preventDefault() {} });
+      else if (fallo === 'onmessageerror') w.onmessageerror({});
+      else if (fallo === 'calculo') w.onmessage({ data: { id: m.id, error: 'roto' } });
+      else if (fallo !== 'mudo') w.onmessage({ data: { id: m.id, notas: notasDeArchivo({ ...w.fijos, ...m.args }) } });
+    });
+  }, terminate() { w.terminado = true; } };
+  return w;
+}
+const argsWorker = () => ({ rejilla, gruesas: gruesasDeArchivo(rejilla, gruesa), gruesa, salida, fecha: fechas[0], especies });
+const esperadas = () => [...notasDeArchivo(argsWorker())];
+
+test('calcularNotas con Worker: mismas notas, y gruesa y salida se mandan solo una vez', async () => {
+  const w = workerFalso();
+  const calcular = crearCalculador({ crearWorker: () => w });
+  assert.deepEqual([...await calcular(argsWorker())], esperadas());
+  assert.deepEqual([...await calcular(argsWorker())], esperadas());
+  const fijos = w.recibidos.filter((m) => m.fijos);
+  assert.equal(fijos.length, 1);
+  assert.ok(w.recibidos.filter((m) => m.args).every((m) => !('gruesa' in m.args) && !('salida' in m.args)));
+  const otra = { ...salida };
+  await calcular({ ...argsWorker(), salida: otra });
+  assert.equal(w.recibidos.filter((m) => m.fijos).length, 2);
+  assert.equal(w.recibidos.at(-2).fijos.salida, otra);
+  assert.equal('gruesa' in w.recibidos.at(-2).fijos, false);
+});
+
+for (const fallo of ['crear', 'onerror', 'onmessageerror', 'calculo', 'mudo']) {
+  test(`si el Worker falla (${fallo}), se calcula en el hilo principal y no se vuelve a usar`, async () => {
+    let creados = 0;
+    const w = workerFalso(fallo);
+    const calcular = crearCalculador({ plazo: 30, crearWorker: () => { creados++; if (fallo === 'crear') throw new Error('sin Worker'); return w; } });
+    const [a, b] = await Promise.all([calcular(argsWorker()), calcular(argsWorker())]);   // dos pendientes a la vez
+    assert.deepEqual([...a], esperadas());
+    assert.deepEqual([...b], esperadas());
+    const enviados = w.recibidos.length;
+    assert.deepEqual([...await calcular(argsWorker())], esperadas());
+    assert.equal(creados, 1);
+    assert.equal(w.recibidos.length, enviados, 'tras el fallo no se manda nada más al Worker');
+    if (fallo !== 'crear') assert.equal(w.terminado, true);
+  });
+}
+
+test('si el cálculo falla también en el hilo principal, la promesa se rechaza (no queda pendiente)', async () => {
+  const calcular = crearCalculador({ crearWorker: () => workerFalso('calculo') });
+  await assert.rejects(calcular({ ...argsWorker(), rejilla: null }));
+});
+
+test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captura los toques', () => {
+  let lienzos = 0;
+  const lienzo = () => ({ style: {}, setAttribute() {}, remove() {}, getContext: () => ({ putImageData() {}, setTransform() {}, clearRect() {}, drawImage() {} }) });
+  globalThis.document = { createElement: () => { lienzos++; return lienzo(); } };
+  globalThis.ImageData = class {};
+  globalThis.window = { devicePixelRatio: 1 };
+  const canvas = lienzo();
+  const L = { Layer: { extend: (o) => function Capa(op) { Object.assign(this, o); this.initialize(op); } }, setOptions() {},
+    DomUtil: { create: () => canvas, setPosition() {} },
+    latLngBounds: () => ({ getNorthWest: () => ({}), getSouthEast: () => ({}) }) };
+  const mapa = { getPane: () => ({ append() {} }), on() {}, off() {}, getSize: () => ({ x: 10, y: 10 }), containerPointToLayerPoint: () => ({}),
+    getBounds: () => ({ intersects: () => true }), latLngToContainerPoint: () => ({ x: 0, y: 0 }) };
+  try {
+    const capa = new (crearCapaRejilla(L))();
+    capa.onAdd(mapa);
+    assert.equal(canvas.style.pointerEvents, 'none');
+    const cab = rejilla.cabecera, rgba = new Uint8ClampedArray(16);
+    capa.ponerImagen('a.bin', cab, rgba, 'a|d1');
+    capa.ponerImagen('a.bin', cab, rgba, 'a|d1');
+    assert.equal(lienzos, 1);
+    assert.equal(capa.tieneImagen('a.bin', 'a|d1'), true);
+    capa.ponerImagen('a.bin', cab, rgba, 'a|d2');
+    assert.equal(lienzos, 2);
+    assert.equal(capa.tieneImagen('a.bin', 'a|d1'), false);
+  } finally {
+    delete globalThis.document; delete globalThis.ImageData; delete globalThis.window;
   }
 });
