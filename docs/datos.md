@@ -429,6 +429,57 @@ El bbox de `alava` se ensanchó de `lonMin -3.0` a `-3.25` para que contenga el 
 
 `alava-gorbeia-altube` (tipo `parque-micologico`, precisión `derivado`) dibuja el MUP 734 «Altube y Gorbeia» del catálogo del MITECO. El plano oficial del parque (https://www.gorbeiamikologia.eus/es/micoturismo/) rotula «OMP / MUP 734 Altube» y traza el borde rojo del parque sobre ese monte, con pequeños enclaves que no se recortan. La norma es `alava-gorbeia-parque-micologico` (ordenanza de Zuia, BOTHA n.º 95, 14/08/2023; tarifas 2026 de la web oficial). La web oficial es ambigua sobre los municipios: la página «Parque Micológico» (https://www.gorbeiamikologia.eus/es/parque-micologico/) dice que actualmente lo forma Zuia, y la portada (https://www.gorbeiamikologia.eus/es/) dice que en 2022 Urkabustaiz, Zigoitia y Zuia pusieron en marcha el proyecto. La ordenanza leída es solo la de Zuia y el polígono es solo el MUP 734; para Urkabustaiz y Zigoitia la app dice «la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger». El bbox de `alava` llega a latMax 43.06 para contener el polígono (sin solaparse con otras zonas). El polígono se añadió a `data/cotos.geojson` a mano (no se regeneró con `scripts/cotos/unir.mjs`, que pisaría ajustes posteriores de otros cotos); su origen está en `data/fuentes-cotos/alava-montes.json`, clave `gorbeia-altube`.
 
+## Rejilla fina: del MFE50 al hábitat
+
+Fuente: Mapa Forestal de España 1:50.000 (MFE50), MITECO, por provincia (detalles, licencia y campos en
+`docs/investigacion/08-rejilla-fuentes.md`). Código: `scripts/rejilla/mfe-habitat.mjs`.
+
+La tabla va por **nombre científico**, no por código: el código del MFE50 (`SP1`, `SP2`, códigos del IFN) se traduce
+con `scripts/rejilla/mfe-diccionario.json`. Se busca el nombre exacto, luego género + especie (sin subespecie ni
+variedad) y luego «Género spp.» (así *Betula alba* y *B. pendula* dan `abedular`, y *Populus alba*, *P. nigra* y
+*P. tremula*, `chopera`). Un nombre solo de género («Quercus», «Juniperus spp.») o un grupo («Otros quercus»,
+«Mezcla de coníferas») no da hábitat.
+
+| Especie dominante (MFE50) | Hábitat |
+|---|---|
+| *Pinus sylvestris* | pinar-silvestre |
+| *Pinus nigra* | pinar-negral |
+| *Pinus pinaster* | pinar-resinero |
+| *Pinus pinea* | pinar-pinonero |
+| *Fagus sylvatica* | hayedo |
+| *Quercus pyrenaica* | melojar |
+| *Quercus petraea*, *Q. robur* (aproximación) | robledal-albar |
+| *Quercus faginea* | quejigar |
+| *Quercus ilex*, *Q. rotundifolia* | encinar |
+| *Quercus suber* | alcornocal |
+| *Castanea sativa* | castanar |
+| *Juniperus thurifera* | sabinar |
+| *Betula* spp. | abedular |
+| *Populus* spp. | chopera |
+
+Tipos de estructura (`TIPESTR`, en `CONFIG.mfe.tipos`; justificación en el apartado D1 del informe 08):
+- Arbolado: 1 Bosque, 2 Bosque Plantación, 3 Dehesa, 11 Riberas, 12 Bosquetes.
+- Herbazal o pastizal: 9 Herbazal, 24 Prado con sebes, 34 Prado, 35 Pastizal-Matorral.
+- Matorral: 8 Matorral.
+- Todo lo demás cuenta como «otro» y no da hábitat; entre ellos, los mosaicos 25 (arbolado sobre cultivo) y 26
+  (arbolado sobre forestal desarbolado), aunque traigan especie y cabida cubierta, por prudencia.
+
+Reglas (criterios propios, no de la fuente):
+- **Arbolado:** hábitat de la primera de las dos especies dominantes que esté en la tabla, si la fracción de cabida
+  cubierta arbórea (`TFCCARB`) es de al menos el 20 % (`FCC_MINIMA`). Sin cabida cubierta: sin monte (nunca se
+  colorea a ciegas). `SP1`/`SP2` = 0 significa «sin especie» y no cuenta.
+- **Herbazal o pastizal:** `pastizal-montana` desde 1.000 m (`ALTITUD_PASTIZAL_MONTANA`) y `prado` por debajo. Sin
+  altitud: sin monte.
+- **Matorral:** `jaral` solo si su especie es una jara de `CONFIG.mfe.matorralJaral`. El MFE50 no detalla el matorral
+  (`SP1` = 0 en 25.581 de las 25.582 teselas de matorral de las 11 provincias), así que esa lista está vacía y **el
+  jaral no sale en la rejilla**.
+- Sin hábitat (código 0): *Pinus halepensis*, *P. uncinata* y demás pinos, abetos, eucaliptos, *Quercus pubescens*,
+  *Q. lusitanica*, sabinas y enebros que no son *J. thurifera*, alisos, fresnos, sauces, mezclas, cultivos,
+  improductivo y agua. `data/especies.json` no tiene un hábitat que les corresponda, así que se prefiere dejar la
+  celda sin monte a colorearla con un bosque que no es.
+- Criterio general: ante la duda, sin monte. Colorear un monte donde no está el bosque del que viven las setas manda a
+  la gente al sitio equivocado; dejarlo en blanco solo pierde una celda.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).
