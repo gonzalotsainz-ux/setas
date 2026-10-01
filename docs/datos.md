@@ -496,3 +496,15 @@ Open-Meteo cuenta como varias llamadas una petición de más de 10 variables o d
 Antes (hasta la v1) la climatología pedía 2 variables desde el 1-ene-2023, ≈ 26 × 1 × 93 ≈ **2.430** llamadas, en cada refresco con una clave que cambiaba cada día (causa probable de los 429). La climatología solo alimenta `fS` (humedad del suelo): si no llega, el índice se calcula sin ese factor y lo explica. La lluvia desde el 1-ago, en cambio, es imprescindible para las especies de otoño desde el 1-oct: si no llega ni del archivo ni del forecast, esas especies salen «sin datos» y la zona, «sin datos» o «N especies sin datos suficientes», nunca con una nota inventada.
 
 Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago se piden después de la serie principal, no a la vez, para no competir con ella. Ojo: la climatología (~1.820) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, entra en la espera creciente y, mientras, el índice va sin humedad del suelo.
+
+**Cambio de modelo (01/10/2026): Météo-France → GFS.** A petición de la usuaria, que lo veía «falsear mucho», el tercer modelo del contraste pasa de `meteofrance_seamless` a `gfs_seamless` (NOAA). Comprobación hecha ese día con la Previous Runs API de Open-Meteo (previsiones hechas 1–4 días antes) frente a la lluvia diaria de las 23 estaciones AEMET de la app, del 05 al 27/09/2026 (510 pares estación-día por modelo y antelación):
+
+| modelo | MAE +1/+2/+3 d (mm/día) | total previsto / real +1/+2/+3 d | alcance |
+|---|---|---|---|
+| ECMWF IFS | 0,52 / 0,43 / 0,42 | 1,39 / 1,05 / 0,89 | 8 d |
+| ICON | 0,37 / 0,32 / 0,31 | 0,57 / 0,48 / 0,28 | ~7 d |
+| Météo-France | 0,33 / 0,36 / 0,43 | 0,91 / 0,71 / 0,63 | ~3–4 d |
+| GFS | 0,35 / 0,34 / 0,37 | 0,78 / 0,62 / 0,63 | 16 d |
+| UKMO | 0,56 / 0,50 / 0,48 | 1,50 / 1,19 / 1,18 | — |
+
+En esta muestra (septiembre seco, 23 días) Météo-France no era el peor a 1 día, pero empeoraba con la antelación y solo llegaba a 3–4 días, así que quedaba fuera del contraste a 7 días. GFS tiene un error parecido o menor a +2/+3 d y cubre los 8 días. DMI y KNMI «seamless» dan en España los mismos números que ECMWF (fuera de su dominio caen a él), así que no aportan. Muestra pequeña: repetir con más semanas (`node scripts/comparar-modelos.mjs ecmwf_ifs,icon_seamless,gfs_seamless,meteofrance_seamless`, cambiando las fechas) antes de sacar conclusiones fuertes.

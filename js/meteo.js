@@ -9,7 +9,7 @@ const ARCHIVO = 'https://archive-api.open-meteo.com/v1/archive';
 export const DIARIAS = ['precipitation_sum', 'temperature_2m_mean', 'temperature_2m_min', 'temperature_2m_max',
   'et0_fao_evapotranspiration', 'wind_speed_10m_max', 'relative_humidity_2m_mean'];
 export const HORARIAS = ['soil_moisture_0_to_7cm', 'soil_temperature_0_to_7cm'];
-export const MODELOS = ['ecmwf_ifs', 'icon_seamless', 'meteofrance_seamless'];
+export const MODELOS = ['ecmwf_ifs', 'icon_seamless', 'gfs_seamless'];
 export const PASADOS = 60, FUTUROS = 10;
 const TRES_HORAS = 3 * 3600e3;
 const ZONA = 'Europe/Madrid';
@@ -69,7 +69,7 @@ export function parsearPrincipal(json, puntos, hoy) {
   return series;
 }
 
-// Contraste sobre el horizonte común: cada modelo llega a un alcance distinto (Météo-France ~4 d, ICON ~7 d, ECMWF 8 d),
+// Contraste sobre el horizonte común: cada modelo llega a un alcance distinto (ICON ~7 d, ECMWF y GFS 8 d; Météo-France, ya retirado, ~4 d),
 // así que se compara la lluvia acumulada de hoy+1…hoy+h, con h = el mayor (3–7) al que llegan al menos 2 modelos.
 export function dispersion(r, hoy) {
   const d = r.daily, i0 = d.time.indexOf(hoy);

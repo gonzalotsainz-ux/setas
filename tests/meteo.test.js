@@ -56,9 +56,9 @@ test('hoy fuera de la serie → error', () => {
 test('dispersión entre modelos', () => {
   const time = Array.from({ length: 8 }, (_, k) => `2026-10-0${k + 1}`);
   const r = { daily: { time, precipitation_sum_ecmwf_ifs: time.map(() => 5), precipitation_sum_icon_seamless: time.map(() => 1),
-    precipitation_sum_meteofrance_seamless: time.map(() => 3) } };
+    precipitation_sum_gfs_seamless: time.map(() => 3) } };
   const d = dispersion(r, '2026-10-01');
-  assert.deepEqual(d.modelos, { ecmwf_ifs: 35, icon_seamless: 7, meteofrance_seamless: 21 });
+  assert.deepEqual(d.modelos, { ecmwf_ifs: 35, icon_seamless: 7, gfs_seamless: 21 });
   assert.equal(d.media, 21);
   assert.equal(d.rango, 28);
   assert.equal(d.incierta, true);
@@ -73,17 +73,17 @@ const serieModelo = (alcance, v) => Array.from({ length: 8 }, (_, k) => (k === 0
 const conAlcances = (a) => ({ daily: { time: Array.from({ length: 8 }, (_, k) => `2026-10-0${k + 1}`),
   ...Object.fromEntries(Object.entries(a).map(([m, [al, v]]) => [`precipitation_sum_${m}`, serieModelo(al, v)])) } });
 
-test('dispersión: caso real, contraste sobre el horizonte común (ICON hasta +6, Météo-France hasta +3)', () => {
-  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [6, 1], meteofrance_seamless: [3, 4] }), '2026-10-01');
+test('dispersión: caso real, contraste sobre el horizonte común (ICON hasta +6, tercer modelo cortado en +3)', () => {
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [6, 1], gfs_seamless: [3, 4] }), '2026-10-01');
   assert.equal(d.horizonte, 6);
   assert.deepEqual(d.modelos, { ecmwf_ifs: 12, icon_seamless: 6 });
-  assert.deepEqual(d.excluidos, ['meteofrance_seamless']);
+  assert.deepEqual(d.excluidos, ['gfs_seamless']);
   assert.equal(d.media, 9);
   assert.equal(d.rango, 6);
 });
 
 test('dispersión: un solo modelo con alcance ≥ 3 → sin contraste', () => {
-  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [2, 1], meteofrance_seamless: [1, 4] }), '2026-10-01');
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [2, 1], gfs_seamless: [1, 4] }), '2026-10-01');
   assert.deepEqual(d.modelos, {});
   assert.equal(d.horizonte, null);
   assert.equal(d.media, null);
@@ -92,9 +92,9 @@ test('dispersión: un solo modelo con alcance ≥ 3 → sin contraste', () => {
 });
 
 test('dispersión: dos modelos con alcance 3 y uno con 7 → horizonte 3 con los tres', () => {
-  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [3, 1], meteofrance_seamless: [3, 4] }), '2026-10-01');
+  const d = dispersion(conAlcances({ ecmwf_ifs: [7, 2], icon_seamless: [3, 1], gfs_seamless: [3, 4] }), '2026-10-01');
   assert.equal(d.horizonte, 3);
-  assert.deepEqual(d.modelos, { ecmwf_ifs: 6, icon_seamless: 3, meteofrance_seamless: 12 });
+  assert.deepEqual(d.modelos, { ecmwf_ifs: 6, icon_seamless: 3, gfs_seamless: 12 });
   assert.deepEqual(d.excluidos, []);
 });
 

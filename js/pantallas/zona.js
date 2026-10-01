@@ -14,7 +14,7 @@ import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 const ZONA_HORARIA = 'Europe/Madrid';
 const nbsp = ' ';
 const ui = { punto: {}, abierta: {}, enfocarModelo: null };   // punto elegido y especie desplegada, por zona; se conservan al repintar
-const MODELOS = { ecmwf_ifs: 'ECMWF', icon_seamless: 'ICON', meteofrance_seamless: 'Météo-France' };
+const MODELOS = { ecmwf_ifs: 'ECMWF', icon_seamless: 'ICON', gfs_seamless: 'GFS (NOAA)' };
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
 const habitat = (h) => mayus(h.replaceAll('-', ' '));
