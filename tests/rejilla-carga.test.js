@@ -1,7 +1,7 @@
 // tests/rejilla-carga.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cargarIndice, avisoIndice, selloEsperado, diasDisponibles, archivosVisibles, archivoDeCelda, crearCargadorRejillas, rejillasSoportadas, BASE_INDICE } from '../js/rejilla/carga.js';
+import { cargarIndice, avisoIndice, selloEsperado, diasDisponibles, archivosVisibles, archivoDeCelda, crearCargadorRejillas, rejillasSoportadas, cargarDatosRejilla, ZOOM_MIN_FINA, BASE_INDICE } from '../js/rejilla/carga.js';
 import { codificarRejilla } from '../js/rejilla/formato.js';
 
 function almacenFalso() {
@@ -148,4 +148,67 @@ test('avisos: el 25/10 el cambio de hora no adelanta ni retrasa el aviso (se usa
   assert.equal(selloEsperado(new Date('2026-10-24T05:45:00Z')), '2026-10-24T07');   // 07:45 CEST
   assert.equal(avisoIndice(s, new Date('2026-10-25T06:30:00Z')), null);
   assert.equal(avisoIndice({ sello: '2026-10-25T07' }, new Date('2026-10-25T18:30:00Z')), null);   // 19:30 CET, margen de 45 min
+});
+
+const esperaConSenal = (ms) => (url, { signal } = {}) => new Promise((_, rechazar) => {
+  signal?.addEventListener('abort', () => rechazar(new Error('abortado')));
+});
+
+test('zoom bajo: sin rejillas finas; Guadalupe (39,4528 N; 5,3278 O) a zoom 9 baja solo las bandas 2 y 3', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const indice = JSON.parse(await readFile(new URL('../data/rejilla/indice.json', import.meta.url), 'utf8'));
+  assert.equal(ZOOM_MIN_FINA, 9);
+  const entera = [-7.6, 38.0, -4.6, 40.5];
+  assert.ok(archivosVisibles(indice, entera, 9).length > 1);
+  assert.deepEqual(archivosVisibles(indice, entera, 7), []);
+  assert.deepEqual(archivosVisibles(indice, entera, 8.99), []);
+  const guadalupe = [-5.4278, 39.3528, -5.2278, 39.5528];   // ±0,1° alrededor del monasterio
+  assert.deepEqual(archivosVisibles(indice, guadalupe, 9).map((a) => a.archivo).sort(), ['extremadura-2.bin', 'extremadura-3.bin']);
+});
+
+test('caché: más vieja que la ejecución esperada, del futuro, corrupta o de otra versión, no se sirve sin mirar', async () => {
+  const mk = () => servidor({ actual: '2026-10-01T19' });
+  // sello 07 guardado a las 10:00 Madrid; a las 19:50 (3 h no cumplidas desde las 17:00) ya debería haber otro
+  const almacen = almacenFalso();
+  const guardado = (hora, sello) => almacen.setItem('setas:indice', JSON.stringify({ datos: salidaDe(sello), hora }));
+  guardado('2026-10-01T17:00:00.000Z', '2026-10-01T07');
+  let s = mk();
+  const r = await cargarIndice({ fetchFn: s.fetchFn, ahora: new Date('2026-10-01T18:30:00Z'), almacen });   // 20:30 Madrid
+  assert.equal(r.salida.sello, '2026-10-01T19');
+  assert.equal(s.registro.length, 2);
+  // reloj adelantado: hora guardada en el futuro
+  guardado('2026-10-02T10:00:00.000Z', '2026-10-01T19');
+  s = mk();
+  await cargarIndice({ fetchFn: s.fetchFn, ahora: new Date('2026-10-01T18:30:00Z'), almacen });
+  assert.ok(s.registro.length >= 1);
+  // caché corrupta y de versión antigua
+  for (const crudo of ['{no es json', JSON.stringify({ datos: { ...salidaDe('2026-10-01T19'), version: 0 }, hora: '2026-10-01T18:00:00.000Z' })]) {
+    const alm = almacenFalso(); alm.setItem('setas:indice', crudo);
+    s = mk();
+    const o = await cargarIndice({ fetchFn: s.fetchFn, ahora: new Date('2026-10-01T18:30:00Z'), almacen: alm });
+    assert.equal(o.salida.sello, '2026-10-01T19');
+    assert.equal(o.desdeCache, false);
+    assert.equal(s.registro.length, 2);
+  }
+});
+
+test('cambio de hora de primavera (28/03/2027, CEST desde las 02:00 locales)', () => {
+  assert.equal(selloEsperado(new Date('2027-03-28T05:30:00Z')), '2027-03-27T19');   // 07:30 CEST
+  assert.equal(selloEsperado(new Date('2027-03-28T05:45:00Z')), '2027-03-28T07');   // 07:45 CEST
+  assert.equal(avisoIndice({ sello: '2027-03-27T19' }, new Date('2027-03-28T05:30:00Z')), null);
+  assert.match(avisoIndice({ sello: '2027-03-27T19' }, new Date('2027-03-28T05:45:00Z')), /^Datos de ayer a las 19:00\./);
+});
+
+test('plazo de descarga: una rejilla que no llega se aborta y se puede reintentar; igual con indice/gruesa', async () => {
+  const fuente = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
+  const bytes = await codificarRejilla({ version: 1, zona: 'soria', tam: 250, col0: 1, fila0: 1, ancho: 1, alto: 1, habitats: ['hayedo'], fuentes: { mfe: fuente, mdt: fuente }, generado: '2026-10-01' },
+    { habitat: Uint8Array.of(1), terreno: Uint8Array.of(0), altitud: Int16Array.of(1300) });
+  let colgar = true, n = 0;
+  const fetchFn = (url, o) => { n++; return colgar ? esperaConSenal()(url, o) : Promise.resolve({ ok: true, arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) }); };
+  const c = crearCargadorRejillas({ fetchFn, base: 'x/', espera: 20 });
+  await assert.rejects(c.cargar('soria.bin'), /abortado/);
+  colgar = false;
+  assert.equal((await c.cargar('soria.bin')).altitud[0], 1300);
+  assert.equal(n, 2);
+  await assert.rejects(cargarDatosRejilla({ fetchFn: esperaConSenal(), base: 'x/', espera: 20 }), /abortado/);
 });
