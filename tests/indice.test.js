@@ -165,24 +165,33 @@ test('indiceDesdeAgregados: explicar=false da la misma nota sin frases', () => {
   assert.deepEqual(r.explicacion, []);
 });
 
-test('indiceDesdeAgregados: el ajuste de humedad multiplica la lluvia de 26 días antes de fW', () => {
+test('indiceDesdeAgregados: el ajuste de humedad multiplica la lluvia de 26 días, con fW acotado a ±15 %', () => {
   const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);   // P26 = 52; BOLETUS: pmin 30, pfull 90
-  const sin = indiceDesdeAgregados(ag, BOLETUS), N = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 1.15 });
-  const S = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 0.85 });
-  assert.ok(Math.abs(sin.factores.fW - 22 / 60) < 1e-12);
-  assert.ok(Math.abs(N.factores.fW - (52 * 1.15 - 30) / 60) < 1e-12);   // 29,8 / 60, no 22 / 60 × 1,15
-  assert.ok(Math.abs(S.factores.fW - (52 * 0.85 - 30) / 60) < 1e-12);
-  assert.ok(N.valor > sin.valor && sin.valor > S.valor);
-  // La umbría llega antes a fW = 1: 80 mm × 1,15 = 92 ≥ 90, sin ajuste 80 mm se queda en 50 / 60.
-  const ochenta = { ...ag, P26: 80 };
-  assert.equal(indiceDesdeAgregados(ochenta, BOLETUS, { ajusteHumedad: 1.15 }).factores.fW, 1);
-  assert.ok(indiceDesdeAgregados(ochenta, BOLETUS).factores.fW < 1);
-  // Con lluvia abundante N y S dan el mismo fW (1); con lluvia 0, fW = 0 en cualquier ladera.
+  const fW = (a, x = ag, sp = BOLETUS) => indiceDesdeAgregados(x, sp, { ajusteHumedad: a }).factores.fW;
+  assert.ok(Math.abs(fW(1) - 22 / 60) < 1e-12);
+  assert.ok(Math.abs(fW(1.15) - (22 / 60) * 1.15) < 1e-12);   // lluvia efectiva 59,8 mm daría 29,8 / 60: tope +15 %
+  assert.ok(Math.abs(fW(0.85) - (22 / 60) * 0.85) < 1e-12);   // 44,2 mm daría 14,2 / 60: tope −15 %
+  assert.ok(Math.abs(fW(1.05) - (52 * 1.05 - 30) / 60) < 1e-12);   // dentro del tope manda la lluvia efectiva
+  // La umbría llega antes a fW = 1: con 85 mm, 97,75 mm efectivos y 55 / 60 × 1,15 ≥ 1; sin ajuste, 55 / 60.
+  const casiLleno = { ...ag, P26: 85 };
+  assert.equal(fW(1.15, casiLleno), 1);
+  assert.ok(fW(1, casiLleno) < 1);
+  // Con lluvia abundante N y S dan fW = 1; con lluvia 0, 0 en cualquier ladera.
   const humedo = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
-  assert.equal(indiceDesdeAgregados(humedo, BOLETUS, { ajusteHumedad: 1.15 }).factores.fW, 1);
-  assert.equal(indiceDesdeAgregados(humedo, BOLETUS, { ajusteHumedad: 0.85 }).factores.fW, 1);
-  const seco = { ...ag, P26: 0 };
-  for (const a of [0.85, 1, 1.15]) assert.equal(indiceDesdeAgregados(seco, BOLETUS, { ajusteHumedad: a }).factores.fW, 0);
+  assert.equal(fW(1.15, humedo), 1);
+  assert.equal(fW(0.85, humedo), 1);
+  for (const a of [0.85, 1, 1.15]) assert.equal(fW(a, { ...ag, P26: 0 }), 0);
+});
+
+test('indiceDesdeAgregados: cerca del mínimo de lluvia la orientación mueve la nota como mucho un 5,5 %', () => {
+  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);
+  const conLluvia = (sp, pmin, pfull) => ({ ...sp, indice: { ...sp.indice, pmin, pfull } });   // tolerancia: ±5,5 % más 1 punto por los dos redondeos
+  const casos = [[conLluvia(BOLETUS, 40, 100), 47], [conLluvia(BOLETUS, 25, 60), 26], [conLluvia(BOLETUS, 25, 60), 25]];   // níscalo y parasol
+  for (const [sp, P26] of casos) {
+    const x = { ...ag, P26 }, nota = (a) => indiceDesdeAgregados(x, sp, { ajusteHumedad: a }).valor;
+    const v0 = nota(1);
+    for (const a of [0.85, 1.15]) assert.ok(Math.abs(nota(a) - v0) <= 0.055 * v0 + 1, `${sp.indice.pmin}/${P26} mm, ${a}: ${nota(a)} frente a ${v0}`);
+  }
 });
 
 test('indiceDesdeAgregados: sin temperatura del suelo falla Morchella pero no el boletus', () => {

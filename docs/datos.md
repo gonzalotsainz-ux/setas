@@ -496,11 +496,20 @@ Reglas (criterios propios, no de la fuente):
 ## Ajuste por orientación (orientativo)
 
 `js/rejilla/orientacion.js` multiplica la lluvia de 26 días (`P26`) según la orientación de la ladera (umbría N, NE,
-NO; solana S, SE, SO) **antes** de calcular `fW`: `fW = clamp01((P26 × ajuste − pmin) / (pfull − pmin))`
-(`indiceDesdeAgregados`, `supabase/functions/_shared/indice.js`). Así es simétrico: con lluvia abundante las dos laderas
-llegan a `fW = 1`, con lluvia 0 las dos dan 0, y con ajuste 1 la nota es la de siempre. (Hasta el 2026-10-01 el plan
-decía «multiplica `fW`»; se cambió por el ruling de la tarea 7, porque multiplicar `fW` solo restaba en solana y no
-sumaba en umbría cuando `fW` ya estaba en 1.) **Orientativo:** no hay calibración con datos de estas zonas; la hoja del
+NO; solana S, SE, SO) **antes** de calcular `fW`, y el efecto en `fW` se acota al ±15 % del `fW` sin ajuste
+(`indiceDesdeAgregados`, `supabase/functions/_shared/indice.js`):
+
+    fW0  = (P26 − pmin) / (pfull − pmin)              sin ajuste
+    fWef = (P26 × ajuste − pmin) / (pfull − pmin)     lluvia efectiva
+    fW   = clamp01(min(max(fWef, fW0 × 0,85), fW0 × 1,15))
+
+El tope 0,85–1,15 es `TOPE_AJUSTE_HUMEDAD` del mismo módulo; `AJUSTE_ORIENTACION` toma de ahí sus extremos (N y S).
+Así es simétrico: con lluvia abundante las dos laderas llegan a `fW = 1`, con lluvia 0 las dos dan 0, y con ajuste 1
+la nota es la de siempre. Con el peso de `fW` (0,35), la nota de una ladera se aparta como mucho un **+5,0 % / −5,5 %**
+de la neutra (1,15^0,35 y 0,85^0,35); si falta la climatología (`fS` sin dato, el peso de `fW` sube a 0,44),
++6,3 % / −6,9 %. (Historia: hasta el 2026-10-01 el plan decía «multiplica `fW`»; el ruling de la tarea 7 lo cambió a
+«multiplica la lluvia», porque multiplicar `fW` no sumaba en umbría cuando ya estaba en 1, y la ronda 2 del mismo día
+añadió el tope, porque sin él la solana podía dejar `fW` en 0 junto a `pmin` y mover la nota hasta 47 puntos.) **Orientativo:** no hay calibración con datos de estas zonas; la hoja del
 mapa lo marca así cuando el ajuste no es 1. Criterio y búsqueda: `docs/investigacion/08-rejilla-fuentes.md`, apartado D8.
 
 | Orientación | Ajuste de la lluvia de 26 días | Fuente |
@@ -521,10 +530,9 @@ del Prepirineo (Estaña, 2005-2006), la humedad superficial no mostró tendencia
 muy húmedo (López-Vicente et al. 2009, apartado D8); no es un resultado general, pero va en la misma línea: con lluvia
 abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
 
-**Efecto real en la nota** (cuenta sobre la fórmula, con los demás factores a 1): a media lluvia, *Boletus edulis* con
-60 mm pasa de 78 a 86 en umbría y a 69 en solana. El efecto máximo está junto al mínimo de lluvia (`pmin`), donde la
-solana puede dejar `fW` en 0: *Lactarius deliciosus* con 47 mm baja hasta 47 puntos y *Macrolepiota procera* con 25 mm
-sube hasta 46 en umbría.
+**Efecto real en la nota** (cuenta sobre la fórmula, con los demás factores a 1): *Boletus edulis* con 60 mm pasa de
+78 a 82 en umbría y a 74 en solana; con 80 mm, de 94 a 98 y a 89. El tope se cumple también junto al mínimo de lluvia
+(`pmin`), donde sin él la solana dejaba `fW` en 0.
 
 ## data/sitios.json (sitios conocidos)
 

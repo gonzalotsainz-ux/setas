@@ -10,6 +10,9 @@ const CORTES = [[80, 'muy bueno'], [60, 'bueno'], [40, 'posible'], [20, 'bajo'],
 export const etiqueta = (v) => CORTES.find(([m]) => v >= m)[1];
 export const pesoPrevision = (d) => (d <= 0 ? 1 : d <= 3 ? 0.8 : d <= 7 ? 0.6 : 0.4);
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
+// Tope del ajuste por orientación (js/rejilla/orientacion.js toma de aquí sus extremos): el ajuste multiplica la
+// lluvia de 26 días, pero fW nunca se aparta más de este factor del fW sin ajuste (≈ ±5 % en la nota, con el peso 0,35).
+export const TOPE_AJUSTE_HUMEDAD = Object.freeze({ min: 0.85, max: 1.15 });
 const r1 = (x) => Math.round(x * 10) / 10;
 
 function dato(serie, campo, j) {
@@ -78,7 +81,8 @@ export function agregadosDia(serie, i) {
 }
 
 // Paso 2: la nota de una especie a partir de los agregados. `ajusteHumedad` (orientación de la ladera, orientativo)
-// multiplica la lluvia de 26 días antes de calcular fW; 1 = sin ajuste, como en Hoy y Zona. `explicar: false` no construye las frases (pintado del mapa).
+// multiplica la lluvia de 26 días antes de calcular fW, con fW acotado a ±15 % del fW sin ajuste
+// (TOPE_AJUSTE_HUMEDAD); 1 = sin ajuste, como en Hoy y Zona. `explicar: false` no construye las frases (pintado del mapa).
 export function indiceDesdeAgregados(ag, especie, { ajusteHumedad = 1, explicar = true } = {}) {
   const sp = especie.indice;
   const base = { confianza: sp.confianza, prevision: ag.prevision };
@@ -92,8 +96,9 @@ export function indiceDesdeAgregados(ag, especie, { ajusteHumedad = 1, explicar 
   const decir = (f) => { if (explicar) explicacion.push(f()); };
 
   if (ag.P26 == null || ag.P3 == null) falta('precip');
-  const P26 = ag.P26, P26ef = P26 * ajusteHumedad;
-  const fW = clamp01((P26ef - sp.pmin) / (sp.pfull - sp.pmin));
+  const P26 = ag.P26, rangoW = sp.pfull - sp.pmin;
+  const fW0 = (P26 - sp.pmin) / rangoW, fWef = (P26 * ajusteHumedad - sp.pmin) / rangoW;   // sin recortar a 0–1
+  const fW = clamp01(Math.min(Math.max(fWef, fW0 * TOPE_AJUSTE_HUMEDAD.min), fW0 * TOPE_AJUSTE_HUMEDAD.max));
   decir(() => `${Math.round(P26)} mm en 26 días (mínimo ${sp.pmin}, pleno ${sp.pfull})`);
 
   const { P3, lag } = ag;

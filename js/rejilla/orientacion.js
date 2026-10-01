@@ -3,11 +3,13 @@
 // No hay calibración local. Valores y fuentes: docs/datos.md («Ajuste por orientación») y
 // docs/investigacion/08-rejilla-fuentes.md, apartado D8. Sin fuente, todo vale 1.
 // N y S son el punto medio entre 1 y la razón publicada, recortado al tope 0,85–1,15; las diagonales llevan
-// la mitad del efecto de su rumbo principal; E, O y llano (código 0) quedan neutros.
+// la mitad del efecto de su rumbo principal; E, O y llano (código 0) quedan neutros. El tope (0,85–1,15) es
+// TOPE_AJUSTE_HUMEDAD de js/indice.js, que además acota el efecto en fW.
 import { ORIENTACIONES } from './formato.js';
+import { TOPE_AJUSTE_HUMEDAD as TOPE } from '../indice.js';
 
 export const AJUSTE_ORIENTACION = Object.freeze({
-  llano: 1, N: 1.15, NE: 1.075, E: 1, SE: 0.925, S: 0.85, SO: 0.925, O: 1, NO: 1.075,
+  llano: 1, N: TOPE.max, NE: 1.075, E: 1, SE: 0.925, S: TOPE.min, SO: 0.925, O: 1, NO: 1.075,
 });
 
 export const FUENTES_ORIENTACION = Object.freeze([
