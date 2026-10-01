@@ -108,13 +108,16 @@ export function crearBuscador({ buscar, alElegir }) {
 // Cada aviso es [icono, texto]. `viejo` es avisoIndice(salida) y `otroDia`, avisoOtroDia(meteo): se calculan fuera.
 export const AVISO_SIN_INDICE = 'No hay mapa por laderas ahora mismo: se ven los puntos de cada zona con su nota.';
 export const AVISO_ACERCATE = 'Acércate para ver cada ladera.';
+// El gris de «Nulo» (#7a736b) y el de «Sin datos» (#7d827e) casi no se distinguen: en modo de puntos se dice qué es.
+export const AVISO_GRIS = 'Gris: nota «Nulo» (menos de 20 sobre 100). Toca un punto para ver su nota.';
 export const AVISO_CARGANDO = 'Cargando el mapa por laderas: mientras, se ven los puntos de cada zona.';
-export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null }) {
+export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null, puntosNulos = 0 }) {
   const lista = [];
   if (!salida) {
     lista.push(cargando ? ['i-info', AVISO_CARGANDO] : ['i-aviso', sinDescompresion ? AVISO_SIN_DESCOMPRESION : AVISO_SIN_INDICE]);
     if (!meteo?.series) lista.push(['i-aviso', meteo?.error ? 'No hay previsión: los puntos salen sin nota.' : 'Esperando la previsión: los puntos saldrán con su nota en unos segundos.']);
     else if (otroDia) lista.push(['i-info', otroDia]);
+    if (meteo?.series && puntosNulos > 0) lista.push(['i-info', AVISO_GRIS]);
   } else {
     if (viejo) lista.push(['i-info', viejo]);
     if (diasDesdeHoy > 0 && pesoPrevision(diasDesdeHoy) < 0.8) lista.push(['i-info', `Previsión a ${diasDesdeHoy} días: menos fiable.`]);

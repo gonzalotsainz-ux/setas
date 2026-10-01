@@ -148,3 +148,15 @@ test('mientras llegan la rejilla y el índice, el aviso dice que se está cargan
   const a = avisosMapa({ salida: null, cargando: true, meteo: { series: {} } });
   assert.deepEqual(a, [['i-info', AVISO_CARGANDO]]);
 });
+
+import { AVISO_GRIS } from '../js/mapa/controles.js';
+test('sin índice, si algún punto sale en «Nulo» se dice qué es el gris (no es falta de datos)', () => {
+  assert.match(AVISO_GRIS, /Nulo/);
+  const conNulos = avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 3 });
+  assert.deepEqual(conNulos, [['i-aviso', AVISO_SIN_INDICE], ['i-info', AVISO_GRIS]]);
+  assert.deepEqual(textos(avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 0 })), [AVISO_SIN_INDICE]);
+  // Sin previsión no hay notas: no se habla del gris de «Nulo».
+  assert.ok(!textos(avisosMapa({ salida: null, meteo: null, puntosNulos: 3 })).includes(AVISO_GRIS));
+  // Con índice, las manchas tienen su propia leyenda de colores: tampoco.
+  assert.ok(!textos(avisosMapa({ salida: { sello: 'x' }, zoom: 12, puntosNulos: 3 })).includes(AVISO_GRIS));
+});

@@ -71,3 +71,18 @@ test('créditos de Ajustes: MFE50 con su actualización, MDT25 y pueblos del NGB
   assert.match(src, /entre 1997 y 2006 \(archivos de 2013\)/);
   assert.doesNotMatch(src, /NGMEP|CARTO/);   // pueblos del NGBE; CARTO no se usa mientras CARTO_URL sea null
 });
+
+import { estiloPunto, NIVEL_COLOR } from '../js/mapa.js';
+test('punto «Sin datos» no se confunde con «Nulo»: hueco y con borde discontinuo; con nota, relleno y halo blanco', () => {
+  // NIVEL_COLOR.nulo (#7a736b) y NIVEL_COLOR['sin-datos'] (#7d827e) son casi el mismo gris: el color solo no basta.
+  const sin = estiloPunto(null), nulo = estiloPunto(0), bueno = estiloPunto(70);
+  assert.equal(nulo.fillColor, NIVEL_COLOR.nulo);
+  assert.equal(nulo.fillOpacity, 1);
+  assert.equal(nulo.color, COLOR.halo);
+  assert.equal(nulo.dashArray, undefined);
+  assert.equal(bueno.fillColor, NIVEL_COLOR.bueno);
+  assert.ok(sin.fillOpacity < 0.5, 'sin datos: relleno claro');
+  assert.ok(sin.dashArray, 'sin datos: borde discontinuo');
+  assert.notEqual(sin.color, COLOR.halo);
+  for (const e of [sin, nulo, bueno]) assert.equal(e.radius, 9);
+});

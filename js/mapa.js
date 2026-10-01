@@ -67,6 +67,14 @@ export const cargarCotos = () => (cacheCotos ??= fetch('data/cotos.geojson').the
 }).catch((e) => { cacheCotos = null; throw e; }));
 
 // Nota del día de un punto: mejor especie de la zona con la serie de ese punto.
+// Estilo del círculo de un punto. «Sin datos» va hueco y con borde discontinuo (como las celdas gruesas sin datos):
+// su gris y el de «Nulo» son casi iguales y, solo con el color, un mapa en «Nulo» parece un mapa sin notas.
+export function estiloPunto(valor) {
+  const nivel = nivelDe(valor);
+  if (nivel === 'sin-datos') return { radius: 9, weight: 2, dashArray: '3 3', color: COLOR.texto, fillColor: NIVEL_COLOR[nivel], fillOpacity: 0.3 };
+  return { radius: 9, weight: 2.5, color: COLOR.halo, fillColor: NIVEL_COLOR[nivel], fillOpacity: 1 };
+}
+
 export function notaPunto(zona, punto, datos, meteo, umbrales) {
   const serie = meteo?.series?.[punto.id];
   if (!serie) return { valor: null, mejor: null, mm: null };
@@ -190,7 +198,7 @@ export async function crearMapa(elemento, opciones = {}) {
     rect.addTo(zonas);
     for (const p of z.puntos) {
       const nota = notaPunto(z, p, datos, meteo, umbrales);
-      const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, radius: 9, weight: 2.5, fillOpacity: 1, color: COLOR.halo, fillColor: NIVEL_COLOR[nivelDe(nota.valor)] });
+      const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, ...estiloPunto(nota.valor) });
       m.bindPopup(() => popupPunto(z, p, nota, meteo), POPUP);
       m.addTo(zonas);
       if (nota.mm != null) {

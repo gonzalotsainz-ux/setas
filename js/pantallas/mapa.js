@@ -4,7 +4,7 @@
 // Sin índice, sin red o sin DecompressionStream, los puntos de siempre con la nota de zona y un aviso (§3.4).
 // Hoy, Zona y las fichas no cambian.
 import { el, icono } from '../ui/dom.js';
-import { cargarLeaflet, cargarCotos, popupCoto, notaPunto, avisoOtroDia, NIVEL_COLOR, COLOR, estiloCoto, estiloHalo, pintarSalidas, radioLluvia } from '../mapa.js';
+import { cargarLeaflet, cargarCotos, popupCoto, notaPunto, estiloPunto, avisoOtroDia, NIVEL_COLOR, COLOR, estiloCoto, estiloHalo, pintarSalidas, radioLluvia } from '../mapa.js';
 import { nivelDe, semaforo } from '../ui/semaforo.js';
 import { especiesDeZona, nombreCorto } from '../datos.js';
 import { hoyMadrid } from '../meteo.js';
@@ -163,8 +163,10 @@ async function montar(estadoInicial) {
       alPulsar: () => { ui.fecha = d.fecha; cambio(); }, nota: d.menosFiable ? 'menos fiable' : null })));
     dias.hidden = !salida;
   }
+  // Puntos en «Nulo» (sin índice): su gris casi no se distingue del de «Sin datos» y el aviso lo explica.
+  const puntosNulos = () => (salida ? 0 : datos.zonas.reduce((n, z) => n + z.puntos.filter((p) => nivelDe(notaPunto(z, p, datos, estado.meteo, estado.umbrales ?? {}).valor) === 'nulo').length, 0));
   function pintarAvisos() {
-    const lista = avisosMapa({ salida, sinDescompresion, cargando: cargandoLaderas, meteo: estado.meteo, otroDia: avisoOtroDia(estado.meteo), viejo: salida && avisoIndice(salida),
+    const lista = avisosMapa({ puntosNulos: puntosNulos(), salida, sinDescompresion, cargando: cargandoLaderas, meteo: estado.meteo, otroDia: avisoOtroDia(estado.meteo), viejo: salida && avisoIndice(salida),
       diasDesdeHoy: fechas().indexOf(ui.fecha), zoom: mapa.getZoom(), error });
     avisos.replaceChildren(...lista.map(([i, t]) => el('div', { clase: 'aviso', attrs: { role: 'note' } }, icono(i), el('p', { texto: t }))));
     medirBarras(raiz);
@@ -254,7 +256,7 @@ async function montar(estadoInicial) {
     puntos.clearLayers();
     for (const z of datos.zonas) for (const p of z.puntos) {
       const nota = notaPunto(z, p, datos, estado.meteo, estado.umbrales ?? {});
-      const marca = L.circleMarker([p.lat, p.lon], { pane: 'puntos', radius: 9, weight: 2.5, fillOpacity: 1, color: COLOR.halo, fillColor: NIVEL_COLOR[nivelDe(nota.valor)], bubblingMouseEvents: false });
+      const marca = L.circleMarker([p.lat, p.lon], { pane: 'puntos', ...estiloPunto(nota.valor), bubblingMouseEvents: false });
       marca.bindPopup(() => el('div', { clase: 'mapa-popup' }, el('h3', { texto: p.nombre }), el('p', { clase: 'texto-2 texto-s', texto: nombreCorto(z) }),
           el('p', { clase: 'mapa-popup__etiquetas' }, semaforo(nota.valor, nota.fueraDeTemporada ? 'Fuera de temporada' : null),
             nota.valor == null ? null : el('b', { clase: 'tabular', texto: `${nota.valor}/100` })),
