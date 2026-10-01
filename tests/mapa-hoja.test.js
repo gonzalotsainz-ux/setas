@@ -55,7 +55,7 @@ test('especies del hábitat sin datos: la hoja lo dice aunque haya nota', () => 
 
 test('celda fuera de las provincias de la zona: aviso de normativa no revisada', () => {
   const m = modeloHoja({ celda: { ...celda, fueraProvincias: true }, nota, ag, zona });
-  assert.equal(AVISO_FUERA_PROVINCIAS, 'Fuera de las provincias de la zona: normativa no revisada en la app.');
+  assert.equal(AVISO_FUERA_PROVINCIAS, 'Fuera de las provincias de la zona: la app no conoce sus prohibiciones ni sus cotos. Compruébalos antes de recoger.');
   assert.deepEqual(m.avisos, [{ texto: AVISO_FUERA_PROVINCIAS, peligro: true }]);
 });
 
@@ -74,6 +74,18 @@ test('zona prohibida: hoja roja con la norma y sin botón de ruta', () => {
   assert.deepEqual(m.normas, [{ titulo: 'PRUG del Parque Nacional', url: 'https://boe.es/x' }, { titulo: 'otra', url: null }]);
   assert.equal(m.acciones, undefined);
   assert.equal(clasesHoja(m), 'hoja hoja--mapa hoja--prohibido');
+});
+
+test('zona prohibida sin nota: texto por defecto que no repite el titular', () => {
+  const m = modeloHoja({ prohibido: { nombre: 'Reserva X' }, celda });
+  assert.equal(m.texto, 'Esta celda está dentro o en el borde de una zona prohibida: no recojas aquí.');
+  assert.deepEqual(m.normas, []);
+});
+
+test('sin hábitat conocido no hay hoja de monte', () => {
+  assert.equal(modeloHoja({ celda: { ...celda, habitat: undefined }, nota, ag, zona }), null);
+  assert.equal(modeloHoja({ celda: { ...celda, habitat: 'inventado' }, nota, ag, zona }), null);
+  assert.equal(modeloHoja({ celda: null }), null);
 });
 
 test('textos de coto y nombres de todos los hábitats', () => {

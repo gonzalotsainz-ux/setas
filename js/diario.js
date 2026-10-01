@@ -210,11 +210,15 @@ export function fotoFijaDelDia({ zona, lat, lon, fecha, datos, meteo, umbrales =
 export const urlNuevaSalida = ({ lat, lon, zona }) => `#diario/nueva?${new URLSearchParams({
   ...(Number.isFinite(lat) && Number.isFinite(lon) ? { lat: lat.toFixed(5), lon: lon.toFixed(5) } : {}), ...(zona ? { zona } : {}) })}`;
 export function leerNuevaSalida(param) {
-  if (typeof param !== 'string' || !param.startsWith('nueva')) return null;
-  const q = new URLSearchParams(param.slice(param.indexOf('?') + 1));
+  if (typeof param !== 'string' || !(param === 'nueva' || param.startsWith('nueva?'))) return null;
+  const q = new URLSearchParams(param.slice('nueva?'.length));
   const zona = q.get('zona') || null;
   if (!q.has('lat') && !q.has('lon')) return { lat: null, lon: null, zona };
-  const lat = Number(q.get('lat')), lon = Number(q.get('lon'));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+  // Las dos, en decimal (nada de «0x10», «1e2» ni vacías) y dentro de rango; si no, no se rellena nada.
+  const decimal = /^-?\d+(\.\d+)?$/;
+  const tLat = q.get('lat'), tLon = q.get('lon');
+  if (!decimal.test(tLat ?? '') || !decimal.test(tLon ?? '')) return null;
+  const lat = Number(tLat), lon = Number(tLon);
+  if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
   return { lat, lon, zona };
 }

@@ -10,8 +10,9 @@ import { urlSegura } from '../ui/normativa.js';
 import { ORIENTACIONES, TRAMOS_PENDIENTE } from '../rejilla/formato.js';
 import { esOrientativo } from '../rejilla/orientacion.js';
 import { urlNuevaSalida } from '../diario.js';
+import { textoFaltan } from '../pantallas/hoy.js';
 
-const nbsp = ' ';   // espacio duro entre número y unidad (docs/diseno.md)
+const nbsp = '\u00a0';   // espacio duro entre número y unidad (docs/diseno.md)
 const r1 = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
 export const NOMBRE_HABITAT = {
   'pinar-silvestre': 'Pinar silvestre', 'pinar-negral': 'Pinar negral', 'pinar-resinero': 'Pinar resinero', 'pinar-pinonero': 'Pinar piñonero',
@@ -21,10 +22,9 @@ export const NOMBRE_HABITAT = {
 export const TEXTO_ORIENTACION = { llano: 'Llano', N: 'Norte (umbría)', NE: 'Noreste (umbría)', E: 'Este', SE: 'Sureste (solana)', S: 'Sur (solana)', SO: 'Suroeste (solana)', O: 'Oeste', NO: 'Noroeste (umbría)' };
 
 // Monte de una provincia vecina (bit FUERA_PROVINCIAS): sus normas no están en la app.
-export const AVISO_FUERA_PROVINCIAS = 'Fuera de las provincias de la zona: normativa no revisada en la app.';
+export const AVISO_FUERA_PROVINCIAS = 'Fuera de las provincias de la zona: la app no conoce sus prohibiciones ni sus cotos. Compruébalos antes de recoger.';
 // MFE 24/34: los prados suelen ser fincas de siega cerradas, no monte libre.
 export const AVISO_PRADO = 'Prado: suele ser finca privada (prado de siega cerrado), no monte libre. Entra solo con permiso del dueño.';
-const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
 
 export const urlComoLlegar = (lat, lon) => `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
 
@@ -45,12 +45,12 @@ function avisosDe(celda, nota) {
 
 export function modeloHoja({ prohibido = null, normas = new Map(), celda = null, nota = null, ag = null, coto = null, zona = null }) {
   if (prohibido) {
-    return { tipo: 'prohibido', titulo: prohibido.nombre ?? 'Zona prohibida', texto: prohibido.nota ?? 'Recogida de setas prohibida.',
+    return { tipo: 'prohibido', titulo: prohibido.nombre ?? 'Zona prohibida', texto: prohibido.nota ?? 'Esta celda está dentro o en el borde de una zona prohibida: no recojas aquí.',
       normas: (prohibido.normas ?? []).map((id) => { const n = normas.get(id); return { titulo: n?.titulo ?? id, url: urlSegura(n?.url) ? n.url : null }; }) };
   }
-  if (!celda) return null;
+  if (!celda || !NOMBRE_HABITAT[celda.habitat]) return null;   // sin hábitat conocido no hay hoja de monte
   const filas = [
-    { etiqueta: 'Bosque', valor: NOMBRE_HABITAT[celda.habitat] ?? celda.habitat },
+    { etiqueta: 'Bosque', valor: NOMBRE_HABITAT[celda.habitat] },
     { etiqueta: 'Altitud', valor: `${celda.altitud}${nbsp}m` },
     { etiqueta: 'Orientación', valor: TEXTO_ORIENTACION[ORIENTACIONES[celda.orientacion]] ?? 'Llano' },
     { etiqueta: 'Pendiente', valor: TRAMOS_PENDIENTE[celda.tramo] ?? 'sin dato' },
@@ -61,7 +61,7 @@ export function modeloHoja({ prohibido = null, normas = new Map(), celda = null,
       { etiqueta: 'Humedad del suelo', valor: ag.pct == null ? 'sin climatología' : `percentil ${Math.round(ag.pct)}` },
       { etiqueta: 'Temperatura', valor: ag.T20aire == null ? 'sin dato' : `${r1(ag.T20aire)}${nbsp}°C de media en 20 días` });
   }
-  const base = { titulo: NOMBRE_HABITAT[celda.habitat] ?? 'Monte', filas, coto: textoCoto(coto), orientativo: esOrientativo(celda.orientacion),
+  const base = { titulo: NOMBRE_HABITAT[celda.habitat], filas, coto: textoCoto(coto), orientativo: esOrientativo(celda.orientacion),
     avisos: avisosDe(celda, nota),
     acciones: { comoLlegar: urlComoLlegar(celda.lat, celda.lon), detalle: zona ? `#zona/${encodeURIComponent(zona.id)}` : null, diario: urlNuevaSalida({ lat: celda.lat, lon: celda.lon, zona: zona?.id ?? null }) } };
   if (!nota || nota.valor == null) return { tipo: 'sinDatos', ...base, texto: 'Sin datos suficientes para este día.' };
@@ -122,15 +122,23 @@ export function abrirHojaMapa({ modelo, desglose = null, grafico = null, alCerra
   };
   const poner = (e) => { if (e === 'cerrada') { api.cerrar(); return; } estado = e; pintar(); };
   asa.addEventListener('click', () => { if (arrastrado) { arrastrado = false; return; } poner(estado === 'completa' ? 'resumen' : 'completa'); });
-  asa.addEventListener('pointerdown', (e) => { y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
+  asa.addEventListener('pointerdown', (e) => { arrastrado = false; y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
   asa.addEventListener('pointerup', (e) => {
     if (y0 == null) return;
     const dy = e.clientY - y0; y0 = null;
-    if (Math.abs(dy) > 10) { arrastrado = true; poner(estadoTrasArrastre(estado, dy)); }
+    if (Math.abs(dy) > 10) {
+      arrastrado = true;   // el «click» que sigue al arrastre no cuenta; el siguiente toque, sí
+      setTimeout(() => { arrastrado = false; }, 0);
+      poner(estadoTrasArrastre(estado, dy));
+    }
   });
   asa.addEventListener('pointercancel', () => { y0 = null; });
   cerrar.addEventListener('click', () => api.cerrar());
-  const tecla = (e) => { if (e.key === 'Escape') api.cerrar(); };
+  // Escape ya atendido por otro (o pulsado dentro del panel de capas del mapa) no cierra la hoja.
+  const tecla = (e) => {
+    if (e.key !== 'Escape' || e.defaultPrevented || document.activeElement?.closest?.('.mapa-panel')) return;
+    api.cerrar();
+  };
   document.addEventListener('keydown', tecla);
   const api = {
     actualizar(m, x = {}) { modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null }; estado = 'resumen'; pintar(); titulo.focus({ preventScroll: true }); },

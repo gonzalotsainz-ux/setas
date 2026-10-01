@@ -357,4 +357,10 @@ test('«Guardar en el diario» desde el mapa: ida y vuelta del parámetro', () =
   assert.equal(leerNuevaSalida('nueva?lat=95&lon=1'), null);
   assert.equal(leerNuevaSalida(undefined), null);
   assert.equal(leerNuevaSalida('otra'), null);
+  assert.deepEqual(leerNuevaSalida('nueva?lat=-3.5&lon=-180'), { lat: -3.5, lon: -180, zona: null });
+});
+
+test('leerNuevaSalida: coordenadas incompletas, vacías, no decimales o fuera de rango → null', () => {
+  for (const p of ['nueva?lat=40', 'nueva?lon=-3', 'nueva?lat=&lon=', 'nueva?lat=0x10&lon=1', 'nueva?lat=1e1&lon=1', 'nueva?lat= 1&lon=1',
+    'nuevaXYZ?lat=1&lon=1', 'nuevas', 'nueva?lat=95&lon=1', 'nueva?lat=1&lon=181']) assert.equal(leerNuevaSalida(p), null, p);
 });
