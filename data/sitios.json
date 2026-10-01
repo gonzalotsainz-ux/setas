@@ -3006,6 +3006,161 @@
       "notas": "Un solo usuario (Naleo), dos mensajes. Sin coordenadas."
     },
     {
+      "id": "pinuecar-gandullas-mup-158-perimetro-de-paredes",
+      "zona": "sierra-norte",
+      "nombre": "Perímetro de Paredes (MUP 158): pinar de repoblación entre Gandullas y Paredes de Buitrago",
+      "municipio": "Gandullas (Piñuécar-Gandullas y Puentes Viejas, Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "macrolepiota-procera",
+        "sparassis-crispa"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "pinar-negral",
+        "encinar"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Monte de utilidad pública de la Comunidad de Madrid (406 ha según el catálogo) que comparten Piñuécar-Gandullas y Puentes Viejas, al este de Gandullas y al norte del embalse de Puentes Viejas. Según el Mapa de Terreno Forestal de la Comunidad es sobre todo pinar de pino resinero (Pinus pinaster) y salgareño (P. nigra), con manchas de encinar y algo de jara. En iNaturalist hay níscalo (15/11/2018), parasol (28/10/2018) y Sparassis crispa (13/11/2022) dentro del monte, en la parte de Puentes Viejas. Ojo: cerca, en Madarcos, hay una Amanita phalloides (mortal) observada en encinar denso el 21/10/2024; en las manchas de encina no cojas nada que no conozcas sin duda. Un blog de senderismo de 2014 (más de 10 años) cuenta una salida desde Paredes de Buitrago hacia Las Coronillas con níscalos en abundancia en el pinar y setas de cardo, sin decir el paraje exacto.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "No se ha localizado ordenanza micológica de Piñuécar-Gandullas ni de Puentes Viejas, y ninguno de los dos figura entre los municipios con licencia de la nota de la Comunidad de Madrid de 23/10/2024 (resultado de búsqueda, no confirmación oficial). El monte es de la Comunidad de Madrid. Regla general de Madrid: recoger solo en monte público señalizado o con permiso del propietario; confirma en el ayuntamiento o con los agentes forestales. Una parte (alrededor del 13 %, cruce de capas) está en la ZEC «Cuenca del río Lozoya y Sierra Norte»: su plan de gestión (Decreto 103/2014) no prohíbe las setas, pero no permite intensificar los aprovechamientos tradicionales que perjudiquen a los hábitats."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/194291809",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 158 (15/11/2018, grado de investigación)",
+          "fecha": "2018-11-15",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/194416929",
+          "titulo": "iNaturalist: Macrolepiota procera en el MUP 158 (28/10/2018, grado de investigación)",
+          "fecha": "2018-10-28",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/143737025",
+          "titulo": "iNaturalist: Sparassis crispa en Puentes Viejas, dentro del MUP 158 (13/11/2022, grado de investigación)",
+          "fecha": "2022-11-13",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/332011007",
+          "titulo": "iNaturalist: Tricholoma terreum en el MUP 158 (08/12/2025, grado de investigación)",
+          "fecha": "2025-12-08",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/248473748",
+          "titulo": "iNaturalist: Amanita phalloides en Madarcos, «en un encinar denso» (21/10/2024, grado de investigación)",
+          "fecha": "2024-10-21",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://bgmsma.blogspot.com/2014/11/frente-del-agua.html",
+          "titulo": "Grupo Mágico de Senderismo: «Excursión 211: El Frente del Agua», desde Paredes de Buitrago (26/11/2014)",
+          "fecha": "2014-11-26",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Zonas:IDEM_MA_MONTES_UP&bbox=-3.65,40.98,-3.55,41.06,EPSG:4326&outputFormat=application/json",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (MUP 158 «Perímetro de Paredes»)",
+          "fecha": null,
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=UsoDelSuelo:IDEM_MA_MTFOREST_MADRID&bbox=-3.595,40.99,-3.558,41.037,EPSG:4326&outputFormat=application/json",
+          "titulo": "IDEM Comunidad de Madrid: Mapa de Terreno Forestal (especies arbóreas dentro del MUP 158)",
+          "fecha": null,
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.comunidad.madrid/node/70372",
+          "titulo": "Comunidad de Madrid: recogida de setas y ordenanzas municipales",
+          "fecha": "2024-10-23",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2014/09/08/BOCM-20140908-3.PDF",
+          "titulo": "BOCM 08/09/2014: Decreto 103/2014, ZEC «Cuenca del río Lozoya y Sierra Norte» y su Plan de Gestión",
+          "fecha": "2014-09-08",
+          "consultado": "2026-10-01"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "verificado": false,
+      "notas": "Hallazgos: una sola fuente (iNaturalist). Las tres comestibles las observó la misma persona (Natalia Rojas-Estevez) y caen dentro del polígono del MUP 158 en la parte de Puentes Viejas, no en el término de Piñuécar-Gandullas; dentro del término no hay en GBIF ninguna comestible de la app (consulta del 01/10/2026). Tricholoma terreum (otra persona, 08/12/2025) no se lista: Micocyl desaconseja recogerla. El blog de 2014 tiene más de 10 años y habla de otro paraje (hacia Las Coronillas y la carretera de Prádena): se lista y no cuenta. Wikipedia dice que en el término predomina Pinus sylvestris; el Mapa de Terreno Forestal da pino resinero y salgareño dentro del monte, y se sigue el mapa. Porcentaje en ZEC y especies del monte: cruce de capas de la IDEM por muestreo (01/10/2026), aproximado. Ningún polígono de data/cotos.geojson toca el término ni el monte. Sin coordenadas. La usuaria conoce la zona de Piñuécar-Gandullas como «súper buena»: es un testimonio propio, no una fuente, y no sube el número de fuentes ni añade especies."
+    },
+    {
+      "id": "pinuecar-gandullas-dehesa-boyal-mup-103",
+      "zona": "sierra-norte",
+      "nombre": "Dehesa Boyal de Piñuécar-Gandullas (MUP 103): encinar con rebollo",
+      "municipio": "Piñuécar (Piñuécar-Gandullas, Madrid)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "encinar"
+      ],
+      "epoca": [],
+      "consejo": "Monte de utilidad pública del Ayuntamiento de Piñuécar-Gandullas (47 ha según el catálogo), al este de Piñuécar. Según el Mapa de Terreno Forestal de la Comunidad es encinar, en buena parte con rebollo (Quercus pyrenaica) como segunda especie, y fresneda en los arroyos. Ninguna fuente micológica lo cita como setal: es un monte público con hábitat donde preguntar al ayuntamiento. Ojo: a unos 600 m al norte, en Madarcos, hay una Amanita phalloides (mortal) observada en encinar denso el 21/10/2024.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "No se ha localizado ordenanza micológica de Piñuécar-Gandullas (resultado de búsqueda, no confirmación oficial). Monte del ayuntamiento: pregunta allí antes de recoger. Regla general de Madrid: recoger solo en monte público señalizado o con permiso del propietario. Una parte (alrededor del 29 %, cruce de capas) está en la ZEC «Cuenca del río Lozoya y Sierra Norte» (Decreto 103/2014), cuyo plan no prohíbe las setas pero no permite intensificar los aprovechamientos tradicionales que perjudiquen a los hábitats."
+      },
+      "lat": null,
+      "lon": null,
+      "fuentes": [
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Zonas:IDEM_MA_MONTES_UP&bbox=-3.65,40.98,-3.55,41.06,EPSG:4326&outputFormat=application/json",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (MUP 103 «Dehesa Boyal»)",
+          "fecha": null,
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=UsoDelSuelo:IDEM_MA_MTFOREST_MADRID&bbox=-3.595,40.99,-3.558,41.037,EPSG:4326&outputFormat=application/json",
+          "titulo": "IDEM Comunidad de Madrid: Mapa de Terreno Forestal (especies arbóreas dentro del MUP 103)",
+          "fecha": null,
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/248473748",
+          "titulo": "iNaturalist: Amanita phalloides en Madarcos, «en un encinar denso» (21/10/2024, grado de investigación)",
+          "fecha": "2024-10-21",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.comunidad.madrid/node/70372",
+          "titulo": "Comunidad de Madrid: recogida de setas y ordenanzas municipales",
+          "fecha": "2024-10-23",
+          "consultado": "2026-10-01"
+        },
+        {
+          "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2014/09/08/BOCM-20140908-3.PDF",
+          "titulo": "BOCM 08/09/2014: Decreto 103/2014, ZEC «Cuenca del río Lozoya y Sierra Norte» y su Plan de Gestión",
+          "fecha": "2014-09-08",
+          "consultado": "2026-10-01"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "verificado": false,
+      "notas": "Dato derivado del cruce de dos capas oficiales de la IDEM (01/10/2026), no de una fuente micológica; porcentajes aproximados. En GBIF el herbario MA-Fungi tiene una Amanita verna (mortal) del 17/05/2003 con localidad «Pirinecar», «bajo Quercus suber, Quercus ilex ballota»: más de 10 años, coordenadas redondeadas y localidad dudosa (https://www.gbif.org/occurrence/78473010). Ningún polígono de data/cotos.geojson toca el monte. Sin coordenadas. La usuaria conoce la zona de Piñuécar-Gandullas como «súper buena»: es un testimonio propio, no una fuente, y no sube el número de fuentes ni añade especies."
+    },
+    {
       "id": "soria-asfoso-montes-privados",
       "zona": "soria",
       "nombre": "Montes privados de ASFOSO (Soria): los de fuera, sin permiso no",

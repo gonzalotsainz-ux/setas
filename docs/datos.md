@@ -806,6 +806,15 @@ A partir de `docs/investigacion/06a` a `06d`, `07a` y `07b`: 98 sitios nuevos (d
 - **Valle de Losa, San Zadornil y Bozoó**: sus cotos y sitios siguen en `merindades` aunque su geometría cae en el bbox de `alava`. Es lo más coherente: son de Burgos (rige el Decreto 31/2017 de Castilla y León, no el Decreto Foral 89/2008 de Álava) y la zona `alava` muestra las normas y avisos de Álava. El solape es solo de bbox y afecta nada más al recuento de GBIF, no al régimen que se enseña. Es un límite del esquema de un bbox por zona, como el de Neila y Regumiel (Burgos, dentro del bbox de `soria`).
 - **Lo que quedó fuera** (motivo en `docs/investigacion/` y en el informe de la tarea): Fuente del Cura (no se pudo situar), Piedralaves y la Sierra Norte sin fuente, los vídeos de YouTube (solo títulos), Puente de Vadillos y Beteta (senderismo, sin setas), El Hosquillo y Ciudad Encantada (sin regla ni fuente de setas), Monterrubio de la Demanda y los Obarenes (sin fuente micológica), Villanueva Tobera (sin enlace verificable), Amurrio, las rutas guiadas de Alegría-Dulantzi y las jornadas de El Royo y El Burgo de Osma (eventos sin paraje).
 
+### Piñuécar-Gandullas (01/10/2026)
+
+Dos sitios nuevos en `sierra-norte` (de 178 a 180), a petición de la usuaria, que conoce la zona como «súper buena» (testimonio propio: no cuenta como fuente). Los dos son `sin-confirmar` y de confianza baja.
+
+- `pinuecar-gandullas-mup-158-perimetro-de-paredes`: MUP 158 de la Comunidad de Madrid (Piñuécar-Gandullas y Puentes Viejas), pinar de *P. pinaster* y *P. nigra* según el Mapa de Terreno Forestal de la IDEM. Especies solo de observaciones de iNaturalist con grado de investigación que caen dentro del monte (níscalo, parasol, *Sparassis crispa*); *Tricholoma terreum* no se lista.
+- `pinuecar-gandullas-dehesa-boyal-mup-103`: monte municipal de encinar con rebollo, sin fuente micológica (sin especies).
+- Avisos: *Amanita phalloides* con grado de investigación en Madarcos (21/10/2024, encinar), a unos 600 m de la Dehesa Boyal; *A. verna* de MA-Fungi (2003, «Pirinecar», localidad dudosa). Parte de los dos montes está en la ZEC ES3110002 (Decreto 103/2014: no prohíbe las setas). Ninguna ordenanza localizada. Ningún polígono de `cotos.geojson` toca el término.
+- `municipio` se escribe «Piñuécar (Piñuécar-Gandullas, Madrid)» y «Gandullas (…)» para que el buscador del mapa sitúe el sitio en un núcleo de `pueblos.json`, que no tiene el nombre compuesto del municipio.
+
 ## Meteorología (Open-Meteo)
 
 Comprobado en vivo el 2026-09-30: con el modelo por defecto (best_match) el suelo horario (`soil_moisture_0_to_7cm`, `soil_temperature_0_to_7cm`) llega relleno (1.680 valores por punto en 70 días), y la humedad de suelo del archivo histórico coincide con la del forecast (sesgo medio < 0,001 m³/m³ en 52 días solapados; rango histórico 0,093–0,429). No se usa `models=ecmwf_ifs` en la serie principal ni en el archivo. `models=` solo se usa en la llamada de contraste de lluvia (`urlModelos`).
