@@ -118,3 +118,65 @@ test('nulos al final de previsión (día 69) → sinDatos solo en ese día, no a
   assert.equal(z69.sinDatos, true);
   assert.equal(z69.valor, null);
 });
+
+import { agregadosDia, indiceDesdeAgregados } from '../js/indice.js';
+import { readFileSync } from 'node:fs';
+import { casosIndice } from './casos-indice.js';
+
+test('agregadosDia: lo que no depende de la especie, con números exactos', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  assert.equal(ag.fecha, '2026-10-18');
+  assert.equal(ag.prevision, false);
+  assert.equal(ag.P26, 106);
+  assert.equal(ag.P3, 60);
+  assert.equal(ag.lag, 17);
+  assert.equal(ag.pct, 60);
+  assert.equal(ag.Pagosto, 194);            // 20 mm antes de la serie + 57 × 2 + 3 × 20
+  assert.equal(ag.secante, false);
+  assert.equal(ag.T20aire, 13);
+  assert.equal(ag.T20suelo, 13);
+  assert.deepEqual(ag.tmin7, [6, 6, 6, 6, 6, 6, 6]);
+});
+
+test('agregadosDia: un hueco deja null en lo que lo usa, sin lanzar', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena, tsuelo: (k) => (k === 50 ? null : 13), tmin: (k) => (k === 58 ? null : 6) }), 59);
+  assert.equal(ag.T20suelo, null);
+  assert.equal(ag.T20aire, 13);
+  assert.equal(ag.tmin7[5], null);
+  assert.throws(() => agregadosDia(serieSintetica(), 10), DatosIncompletos);
+});
+
+test('los dos pasos (agregadosDia + indiceDesdeAgregados) dan la nota de la referencia fijada con el código anterior', () => {
+  const referencia = JSON.parse(readFileSync(new URL('./fixtures/indice-referencia.json', import.meta.url), 'utf8'));
+  let comparados = 0;
+  for (const c of casosIndice()) {
+    const esperado = referencia[c.clave];
+    if (esperado.error) { assert.throws(() => indiceDesdeAgregados(agregadosDia(c.serie, c.i), c.especie), DatosIncompletos, c.clave); continue; }
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(indiceDesdeAgregados(agregadosDia(c.serie, c.i), c.especie))), esperado, c.clave);
+    comparados++;
+  }
+  assert.equal(comparados, 173);
+});
+
+test('indiceDesdeAgregados: explicar=false da la misma nota sin frases', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  const r = indiceDesdeAgregados(ag, BOLETUS, { explicar: false });
+  assert.equal(r.valor, 96);
+  assert.deepEqual(r.explicacion, []);
+});
+
+test('indiceDesdeAgregados: el ajuste de humedad multiplica fW y lo recorta a 1', () => {
+  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);   // P26 = 52 → fW = (52 − 30) / 60
+  const sin = indiceDesdeAgregados(ag, BOLETUS), con = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 1.1 });
+  assert.ok(Math.abs(sin.factores.fW - 22 / 60) < 1e-12);
+  assert.ok(Math.abs(con.factores.fW - (22 / 60) * 1.1) < 1e-12);
+  assert.ok(con.valor > sin.valor);
+  const humedo = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  assert.equal(indiceDesdeAgregados(humedo, BOLETUS, { ajusteHumedad: 1.15 }).factores.fW, 1);
+});
+
+test('indiceDesdeAgregados: sin temperatura del suelo falla Morchella pero no el boletus', () => {
+  const ag = { ...agregadosDia(serieSintetica({ inicio: '2026-02-15', precip: lluviaBuena, lluviaAntes: null }), 59), T20suelo: null };
+  assert.throws(() => indiceDesdeAgregados(ag, MORCHELLA), DatosIncompletos);
+  assert.doesNotThrow(() => indiceDesdeAgregados({ ...agregadosDia(serieSintetica({ precip: lluviaBuena }), 59), T20suelo: null }, BOLETUS));
+});

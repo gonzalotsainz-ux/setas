@@ -47,60 +47,90 @@ function lluviaDesdeAgosto(s, i) {
   return mm + sumaLluvia(s, j0, i);
 }
 
-export function calcularIndice(serie, i, especie) {
-  const sp = especie.indice;
-  if (i < HISTORIA_MINIMA - 1 || i >= serie.fechas.length) throw new DatosIncompletos(`faltan días de historia para ${serie.fechas[i] ?? i}`);
-  const fecha = serie.fechas[i];
-  const explicacion = [];
-  const base = { confianza: sp.confianza, prevision: i > serie.hoy };
+const intento = (f) => { try { return f(); } catch (e) { if (e instanceof DatosIncompletos) return null; throw e; } };
 
-  const fC = calendario(fecha, especie.temporada.meses);
+// Paso 1 (no depende de la especie): agregados del día i. Cada uno es null si le faltan datos; la especie que lo
+// necesite dará DatosIncompletos en el paso 2. Es lo que publica el precálculo de Supabase por celda gruesa.
+export function agregadosDia(serie, i) {
+  if (i < HISTORIA_MINIMA - 1 || i >= serie.fechas.length) throw new DatosIncompletos(`faltan días de historia para ${serie.fechas[i] ?? i}`);
+  const P26 = intento(() => sumaLluvia(serie, i - 25, i));
+  const tanda = intento(() => {
+    let P3 = 0, lag = 99;
+    for (let k = 0; k < 28; k++) { const j = i - k, p = sumaLluvia(serie, j - 2, j); if (p > P3) { P3 = p; lag = k; } }
+    return { P3, lag };
+  });
+  const secante = intento(() => {
+    let et7 = 0, p7 = 0, hr7 = 0, ventosos = 0;
+    for (let j = i - 6; j <= i; j++) {
+      et7 += dato(serie, 'et0', j); p7 += lluvia(serie, j); hr7 += dato(serie, 'hr', j) / 7;
+      if (dato(serie, 'viento', j) > 35) ventosos++;
+    }
+    return et7 - p7 > 15 && (hr7 < 55 || ventosos >= 3);
+  });
+  const tmin7 = [];
+  for (let j = i - 6; j <= i; j++) { const v = serie.tmin?.[j]; tmin7.push(v == null || Number.isNaN(v) ? null : v); }
+  return {
+    fecha: serie.fechas[i], prevision: i > serie.hoy,
+    P26, P3: tanda?.P3 ?? null, lag: tanda?.lag ?? null, pct: serie.hsueloPct?.[i] ?? null,
+    Pagosto: intento(() => lluviaDesdeAgosto(serie, i)), secante,
+    T20aire: intento(() => media(serie, 'tmedia', i - 19, i)), T20suelo: intento(() => media(serie, 'tsuelo', i - 19, i)), tmin7,
+  };
+}
+
+// Paso 2: la nota de una especie a partir de los agregados. `ajusteHumedad` (orientación de la ladera, orientativo)
+// multiplica fW; 1 = sin ajuste, como en Hoy y Zona. `explicar: false` no construye las frases (pintado del mapa).
+export function indiceDesdeAgregados(ag, especie, { ajusteHumedad = 1, explicar = true } = {}) {
+  const sp = especie.indice;
+  const base = { confianza: sp.confianza, prevision: ag.prevision };
+  const fC = calendario(ag.fecha, especie.temporada.meses);
   if (fC === 0) {
     return { ...base, valor: 0, etiqueta: 'nulo', factores: { fW: null, fR: null, fT: null, fS: null, fA: null, fC, pen: null },
       datos: {}, explicacion: ['Fuera de temporada'] };
   }
+  const falta = (campo) => { throw new DatosIncompletos(`${campo} sin dato el ${ag.fecha}`); };
+  const explicacion = [];
+  const decir = (f) => { if (explicar) explicacion.push(f()); };
 
-  const P26 = sumaLluvia(serie, i - 25, i);
-  const fW = clamp01((P26 - sp.pmin) / (sp.pfull - sp.pmin));
-  explicacion.push(`${Math.round(P26)} mm en 26 días (mínimo ${sp.pmin}, pleno ${sp.pfull})`);
+  if (ag.P26 == null || ag.P3 == null) falta('precip');
+  const P26 = ag.P26, fW0 = clamp01((P26 - sp.pmin) / (sp.pfull - sp.pmin));
+  const fW = ajusteHumedad === 1 ? fW0 : clamp01(fW0 * ajusteHumedad);
+  decir(() => `${Math.round(P26)} mm en 26 días (mínimo ${sp.pmin}, pleno ${sp.pfull})`);
 
-  let P3 = 0, lag = 99;
-  for (let k = 0; k < 28; k++) { const j = i - k, p = sumaLluvia(serie, j - 2, j); if (p > P3) { P3 = p; lag = k; } }
+  const { P3, lag } = ag;
   const [d0, d1] = sp.desfase;
   const dist = lag < d0 ? d0 - lag : lag > d1 ? lag - d1 : 0;
   const fR = clamp01(P3 / 30) * Math.exp(-((dist / 5) ** 2) / 2);
-  explicacion.push(P3 > 0 ? `Mayor tanda de lluvia: ${Math.round(P3)} mm hace ${lag} días (ideal ${d0}–${d1})` : 'Sin tandas de lluvia en el último mes');
+  decir(() => (P3 > 0 ? `Mayor tanda de lluvia: ${Math.round(P3)} mm hace ${lag} días (ideal ${d0}–${d1})` : 'Sin tandas de lluvia en el último mes'));
 
-  const T20 = media(serie, sp.usarSuelo ? 'tsuelo' : 'tmedia', i - 19, i);
+  const T20 = sp.usarSuelo ? ag.T20suelo : ag.T20aire;
+  if (T20 == null) falta(sp.usarSuelo ? 'tsuelo' : 'tmedia');
   const sigma = (sp.trango[1] - sp.trango[0]) / 2;
   const fT = Math.exp(-(((T20 - sp.topt) / sigma) ** 2) / 2);
-  explicacion.push(`${sp.usarSuelo ? 'Suelo' : 'Aire'} a ${r1(T20)} °C de media en 20 días (óptimo ${sp.topt} °C)`);
+  decir(() => `${sp.usarSuelo ? 'Suelo' : 'Aire'} a ${r1(T20)} °C de media en 20 días (óptimo ${sp.topt} °C)`);
 
-  const pct = serie.hsueloPct?.[i] ?? null;
+  const pct = ag.pct;
   const fS = pct == null ? null : clamp01((pct - 20) / 50);
-  explicacion.push(pct == null ? 'Sin climatología: no se ha tenido en cuenta la humedad del suelo' : `Humedad del suelo en el percentil ${Math.round(pct)}`);
+  decir(() => (pct == null ? 'Sin climatología: no se ha tenido en cuenta la humedad del suelo' : `Humedad del suelo en el percentil ${Math.round(pct)}`));
 
   let fA = 1, Pagosto = null;
   if (especie.temporada.tipo === 'otono') {
-    Pagosto = lluviaDesdeAgosto(serie, i);
+    if (ag.Pagosto == null) throw new DatosIncompletos('falta la lluvia desde el 1 de agosto');
+    Pagosto = ag.Pagosto;
     fA = Pagosto >= 50 ? 1 : 0.3;
-    if (fA < 1) explicacion.push(`Temporada sin arrancar: ${Math.round(Pagosto)} mm desde el 1 de agosto (hacen falta 50)`);
+    if (fA < 1) decir(() => `Temporada sin arrancar: ${Math.round(Pagosto)} mm desde el 1 de agosto (hacen falta 50)`);
   }
 
   let pen = 1;
   if (sp.helada !== 'alta') {
+    if (ag.tmin7.some((t) => t == null)) falta('tmin');
     let noches = 0, fuerte = false;
-    for (let j = i - 6; j <= i; j++) { const t = dato(serie, 'tmin', j); if (t <= 0) noches++; if (t < -3) fuerte = true; }
-    if (noches) { pen *= 0.85 ** noches; explicacion.push(`${noches} noche(s) de helada en 7 días`); }
-    if (fuerte) { pen *= sp.helada === 'media' ? 0.5 : 0.2; explicacion.push('Helada fuerte (< −3 °C): corta la fructificación'); }
+    for (const t of ag.tmin7) { if (t <= 0) noches++; if (t < -3) fuerte = true; }
+    if (noches) { pen *= 0.85 ** noches; decir(() => `${noches} noche(s) de helada en 7 días`); }
+    if (fuerte) { pen *= sp.helada === 'media' ? 0.5 : 0.2; decir(() => 'Helada fuerte (< −3 °C): corta la fructificación'); }
   }
-  let et7 = 0, p7 = 0, hr7 = 0, ventosos = 0;
-  for (let j = i - 6; j <= i; j++) {
-    et7 += dato(serie, 'et0', j); p7 += lluvia(serie, j); hr7 += dato(serie, 'hr', j) / 7;
-    if (dato(serie, 'viento', j) > 35) ventosos++;
-  }
-  if (et7 - p7 > 15 && (hr7 < 55 || ventosos >= 3)) { pen *= 0.75; explicacion.push('Ambiente secante: evaporación alta, aire seco o viento'); }
-  if (T20 > sp.trango[1] + 4) { pen *= 0.6; explicacion.push('Demasiado calor para la especie'); }
+  if (ag.secante == null) falta('et0');
+  if (ag.secante) { pen *= 0.75; decir(() => 'Ambiente secante: evaporación alta, aire seco o viento'); }
+  if (T20 > sp.trango[1] + 4) { pen *= 0.6; decir(() => 'Demasiado calor para la especie'); }
 
   const factores = { fW, fT, fS, fR };
   const usados = Object.keys(PESOS).filter((k) => factores[k] != null);
@@ -110,6 +140,10 @@ export function calcularIndice(serie, i, especie) {
 
   return { ...base, valor, etiqueta: etiqueta(valor), factores: { fW, fR, fT, fS, fA, fC, pen },
     datos: { P26, P3, lag, T20, pct, Pagosto }, explicacion };
+}
+
+export function calcularIndice(serie, i, especie) {
+  return indiceDesdeAgregados(agregadosDia(serie, i), especie);
 }
 
 // Nota de zona (spec §5): el máximo de las especies EN TEMPORADA, con el mejor punto de cada una.
