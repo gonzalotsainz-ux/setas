@@ -174,3 +174,33 @@ Texto que debe verse en el mapa (control de atribución de Leaflet) y en Ajustes
 - Base IGN `IGNBaseTodo` responde 200 con 61.381 bytes en z12 (misma tesela) y es CC BY 4.0 sin clave. **[EVIDENCIA]**
 
 **Decisión** (ya tomada; ruling del 01/10/2026 en el ledger): fondo «Mapa» = **Base IGN** (`ign-base`, `IGNBaseTodo`); `CARTO_URL = null` en `js/mapa/fondos.js` (tarea 16). Si un día se quiere CARTO, basta con pedir la clave y cambiar esa constante.
+
+---
+
+## D8. Orientación
+
+Ajuste orientativo de `fW` (lluvia de 26 días) por umbría o solana, en `js/rejilla/orientacion.js` (tarea 7). Búsquedas del 2026-10-01 (WebSearch): «aspect sporocarp production Mediterranean pine forest Spain», «orientación umbría solana producción micológica pinares Soria Cesefor», «soil moisture north-facing south-facing slopes Mediterranean mountain Spain», «Pre-Pyrenees topsoil moisture northern slopes southern slopes», «Martínez-Peña Ágreda Pinar Grande modelo producción setas orientación».
+
+**Criterio** (del plan): vale una fuente revisada por pares o un informe técnico oficial con un número (razón de producción, de humedad del suelo o de días con setas entre umbría y solana) en bosques comparables. Valor = punto medio entre 1 y la razón publicada, dentro de 0,85–1,15; diagonales (NE, NO, SE, SO) con la mitad del efecto de su rumbo principal; E, O y llano (código 0, ruling de la tarea 6) en 1.
+
+**Fuente que cumple:**
+- **Bonet, Pukkala, Fischer, Palahí, Martínez de Aragón y Colinas (2008).** «Empirical models for predicting the production of wild mushrooms in Scots pine (*Pinus sylvestris* L.) forests in the Central Pyrenees». *Annals of Forest Science* 65: 206, doi:10.1051/forest:2007089. Texto completo en https://hal.science/hal-00884160v1 (PDF `hal-00884160.pdf`, descargado y leído con `pdftotext` el 2026-10-01). **[EVIDENCIA]**
+  - Datos: «mushroom production data from 24 Scots pine plots over 3 years» (1995-1997), Prepirineo, «Elevations ranged from 900–1500 m».
+  - Ecuación 8, producción total: «ln(yij) = 0.981 + 2.483ln(G) − 0.128G + 0.934 cos(Asp) − 0.0135Slo1.5 + ui + uj + eij», «Asp is aspect (rad)»; «All the regression coefficients of predictors were significant (p < 0.05)».
+  - Ecuación 9, comestibles: «+ 0.636 cos(Asp)»; ecuación 11, *Lactarius* comercializados: «+ 1.489 cos(Asp)». En los comercializados (ec. 10) «the effect of aspect was not statistically significant».
+  - Texto: «Aspect is another factor which strongly affects the predicted production so that northern aspects have the highest productions and southern the lowest»; en la discusión: «Elevation, aspect and slope, in the Prepyrenees range, also reflect water availability […] Northern-facing slopes are characteristically more shaded and protected from the intense afternoon solar exposure that south-facing slopes experience in late summer and early autumn months».
+  - Cuenta: con la ec. 8, norte (cos = 1) frente a este u oeste (cos = 0) = e^0,934 ≈ **2,54**; sur (cos = −1) = e^−0,934 ≈ **0,39** (norte frente a sur ≈ 6,5). Punto medio con 1: 1,77 y 0,70. **Recortados al tope: N = 1,15, S = 0,85**; NE y NO = 1,075; SE y SO = 0,925. **[CRITERIO PROPIO]** tomar E/O (cos = 0) como referencia 1, que es lo que pide el plan; usar la ecuación de producción total y no la de *Lactarius* (1,489), que es un solo grupo.
+
+**Contexto que no da número pero matiza:**
+- **López-Vicente, Navas y Machín (2009).** «Effect of physiographic conditions on the spatial variation of seasonal topsoil moisture in Mediterranean soils». *Soil Research* 47: 498-507, doi:10.1071/SR08250 (resumen leído vía la API de Crossref, `https://api.crossref.org/works/10.1071/SR08250`, 2026-10-01). Cuenca de Estaña (Prepirineo), humedad a 80 mm en 2005-2006: «Steep northern slopes presented the highest values of θR in spring, summer, and winter, and topsoil moisture progressively decreased from steep northern slopes to gentle slopes and from gentle slopes to steep southern slopes […] Any topographical trend was observed in autumn when values of θR were very high within the whole catchment» (el original dice «Any», se entiende «no»). El resumen no da la razón umbría/solana. **[EVIDENCIA]** del resumen, sin texto completo.
+- Dehesa de Sierra Morena (Córdoba), 32 sensores en dos laderas opuestas, 2016-2019 (https://helvia.uco.es/xmlui/handle/10396/31679 y nota de prensa https://www.uco.es/ucci/es/noticias-ingles/item/3351-rock-humidity-in-spain-s-forested-pasturelands-dehesas-an-additional-source-of-water-for-vegetation-in-times-of-drought): según el resumen del buscador, «similar moisture dynamics» en ambas laderas y biomasa un 29 % mayor en la de umbría. **[RESUMEN AUTOMÁTICO]** (la página del repositorio no se pudo leer); dehesa, no bosque de setas: no se usa.
+- Bonet, Fischer y Colinas (2004), *Forest Ecology and Management* 203: 157-175, doi:10.1016/j.foreco.2004.07.063 («The relationship between forest age and aspect on the production of sporocarps of ectomycorrhizal fungi…»): de pago, no leído. **[NO VERIFICADO]**
+- Bonet et al. (2010), *Canadian Journal of Forest Research* 40: 347-356, doi:10.1139/X09-198: de pago (403), no leído. **[NO VERIFICADO]**
+- No se encontró ninguna cifra por orientación de Cesefor/Micocyl ni de Pinar Grande (Soria): los modelos de Martínez-Peña et al. hablan de área basimétrica y meteorología.
+
+**Límites** (para que nadie lea más de lo que hay):
+- La razón es de **producción de setas**, no de humedad: mezcla agua, temperatura y luz. Se aplica a `fW` porque el artículo lo explica por la disponibilidad de agua y la insolación de final de verano. **[CRITERIO PROPIO]**
+- Es un solo bosque (pino silvestre del Prepirineo, 24 parcelas, 3 años). Se aplica igual a todos los hábitats y zonas (también Álava o la sierra de Guadarrama) sin calibrar. Por eso se queda en el tope, una fracción del efecto publicado.
+- En otoño húmedo la orientación no cambia la humedad superficial (López-Vicente et al. 2009) y `fW` ya está topado en 1 (`clamp01` en `supabase/functions/_shared/indice.js`): el ajuste solo pesa cuando falta lluvia, que es cuando la umbría aguanta mejor.
+
+**Decisión:** `AJUSTE_ORIENTACION = { llano: 1, N: 1.15, NE: 1.075, E: 1, SE: 0.925, S: 0.85, SO: 0.925, O: 1, NO: 1.075 }`, con Bonet et al. 2008 en `FUENTES_ORIENTACION`. La hoja del mapa lo marca como orientativo (`esOrientativo`).

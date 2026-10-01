@@ -493,6 +493,29 @@ Reglas (criterios propios, no de la fuente):
 - Criterio general: ante la duda, sin monte. Colorear un monte donde no está el bosque del que viven las setas manda a
   la gente al sitio equivocado; dejarlo en blanco solo pierde una celda.
 
+## Ajuste por orientación (orientativo)
+
+`js/rejilla/orientacion.js` multiplica el factor de lluvia de 26 días (`fW`) según la orientación de la ladera
+(umbría N, NE, NO; solana S, SE, SO). **Orientativo:** no hay calibración con datos de estas zonas; la hoja del mapa lo
+marca así cuando el ajuste no es 1. Criterio y búsqueda: `docs/investigacion/08-rejilla-fuentes.md`, apartado D8.
+
+| Orientación | Ajuste de fW | Fuente |
+|---|---|---|
+| Llano | 1 | neutro por definición (celdas con orientación 0) |
+| N | 1,15 | Bonet et al. 2008, *Annals of Forest Science* 65: 206, https://hal.science/hal-00884160v1 (punto medio de 2,54 = 1,77, recortado al tope 1,15) |
+| NE | 1,075 | Bonet et al. 2008 (mitad del efecto de N) |
+| E | 1 | neutro por definición |
+| SE | 0,925 | Bonet et al. 2008 (mitad del efecto de S) |
+| S | 0,85 | Bonet et al. 2008, https://hal.science/hal-00884160v1 (punto medio de 0,39 = 0,70, recortado al tope 0,85) |
+| SO | 0,925 | Bonet et al. 2008 (mitad del efecto de S) |
+| O | 1 | neutro por definición |
+| NO | 1,075 | Bonet et al. 2008 (mitad del efecto de N) |
+
+La razón publicada es de **producción total de setas** en pinares de pino silvestre del Prepirineo (24 parcelas, 3
+años), no de humedad del suelo; el ajuste se queda en el tope, muy por debajo del efecto del artículo. En otoño, con el
+suelo húmedo, la humedad superficial no cambia con la orientación (López-Vicente et al. 2009, apartado D8): por eso
+el ajuste solo multiplica `fW`, que ya está topado en 1, y apenas cuenta cuando ha llovido bien.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).
