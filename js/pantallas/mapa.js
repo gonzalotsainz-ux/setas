@@ -217,7 +217,7 @@ async function montar(estadoInicial) {
         if (!gruesasPorArchivo.has(a.archivo)) gruesasPorArchivo.set(a.archivo, gruesasDeArchivo(r, rej.gruesa));
         let notas;
         try {
-          notas = await calcularNotas({ rejilla: r, gruesas: gruesasPorArchivo.get(a.archivo), gruesa: rej.gruesa, salida, fecha,
+          notas = await calcularNotas({ archivo: a.archivo, rejilla: r, gruesas: gruesasPorArchivo.get(a.archivo), gruesa: rej.gruesa, salida, fecha,
             especies: especiesZona.get(r.cabecera.zona) ?? [], filtro: f });
         } catch (e) {
           if (mia === turno) avisar(`No se ha podido calcular el mapa por laderas (${e.message}).`);

@@ -10,6 +10,7 @@ import { notasDeArchivo } from './pintor.js';
 
 export const USAR_TRABAJADOR = true;
 export const PLAZO_MS = 20000;
+export const MAX_ARCHIVOS = 6;   // archivos que el Worker conserva (LRU); el Worker usa el mismo tope y el mismo orden de uso
 const FIJOS = ['gruesa', 'salida'];
 
 const enHilo = (args) => new Promise((ok) => ok(notasDeArchivo(args)));   // un error del cálculo rechaza, no lanza
@@ -55,8 +56,11 @@ export function crearCalculador({ crearWorker = () => new Worker(new URL('./trab
       const ya = porArchivo.get(args.archivo);
       if (ya?.rejilla !== args.rejilla || ya?.gruesas !== args.gruesas) {
         deArchivo = { nombre: args.archivo, rejilla: args.rejilla, gruesas: args.gruesas };
-        porArchivo.set(args.archivo, { rejilla: args.rejilla, gruesas: args.gruesas });
       }
+      // Mismo orden de uso que el Worker: lo recién usado va al final y, pasado el tope, se expulsa lo más antiguo.
+      porArchivo.delete(args.archivo);
+      porArchivo.set(args.archivo, { rejilla: args.rejilla, gruesas: args.gruesas });
+      if (porArchivo.size > MAX_ARCHIVOS) porArchivo.delete(porArchivo.keys().next().value);
       delete resto.rejilla; delete resto.gruesas;
     }
     return new Promise((ok, ko) => {

@@ -7,7 +7,7 @@ import { PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
 import { NIVEL_COLOR as NIVEL_COLOR_MAPA, COLOR as COLOR_MAPA } from '../js/mapa.js';
 import { NIVEL_COLOR, COLOR } from '../js/mapa/colores.js';
 import { ATRIBUCION_REJILLA, crearCapaRejilla } from '../js/mapa/capa-rejilla.js';
-import { crearCalculador } from '../js/rejilla/notas-async.js';
+import { crearCalculador, MAX_ARCHIVOS } from '../js/rejilla/notas-async.js';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
@@ -118,12 +118,19 @@ function workerFalso(fallo = null) {
   const w = { recibidos: [], terminado: false, postMessage(m) {
     w.recibidos.push(m);
     if (m.fijos) { w.fijos = { ...w.fijos, ...m.fijos }; return; }
-    if (m.archivo) { (w.archivos ??= new Map()).set(m.archivo.nombre, { rejilla: m.archivo.rejilla, gruesas: m.archivo.gruesas }); return; }
+    const usar = (n) => { const d = w.archivos?.get(n); if (d) { w.archivos.delete(n); w.archivos.set(n, d); } return d; };   // LRU como el Worker real
+    if (m.archivo) {
+      w.archivos ??= new Map(); w.archivos.delete(m.archivo.nombre);
+      w.archivos.set(m.archivo.nombre, { rejilla: m.archivo.rejilla, gruesas: m.archivo.gruesas });
+      if (w.archivos.size > MAX_ARCHIVOS) w.archivos.delete(w.archivos.keys().next().value);
+      return;
+    }
+    const datos = m.args && usar(m.args.archivo);
     queueMicrotask(() => {
       if (fallo === 'onerror') w.onerror({ message: 'módulo no encontrado', preventDefault() {} });
       else if (fallo === 'onmessageerror') w.onmessageerror({});
       else if (fallo === 'calculo') w.onmessage({ data: { id: m.id, error: 'roto' } });
-      else if (fallo !== 'mudo') w.onmessage({ data: { id: m.id, notas: notasDeArchivo({ ...w.fijos, ...w.archivos?.get(m.args.archivo), ...m.args }) } });
+      else if (fallo !== 'mudo') w.onmessage({ data: { id: m.id, notas: notasDeArchivo({ ...w.fijos, ...datos, ...m.args }) } });
     });
   }, terminate() { w.terminado = true; } };
   return w;
@@ -155,6 +162,41 @@ test('calcularNotas con Worker: la rejilla y las gruesas de un archivo se mandan
   assert.ok(w.recibidos.filter((m) => m.args).every((m) => !('rejilla' in m.args) && !('gruesas' in m.args)));
   await calcular({ ...args, gruesas: gruesasDeArchivo(rejilla, gruesa) });   // otras gruesas (objeto nuevo): se vuelven a mandar
   assert.equal(w.recibidos.filter((m) => m.archivo).length, 2);
+});
+
+test('calcularNotas con archivo: tope LRU de archivos, y un objeto recargado se reenvía', async () => {
+  const w = workerFalso(), calcular = crearCalculador({ crearWorker: () => w });
+  const enviosDe = (n) => w.recibidos.filter((m) => m.archivo?.nombre === n).length;
+  const base = argsWorker(), de = (n, extra = {}) => ({ ...base, archivo: n, ...extra });
+  assert.equal(MAX_ARCHIVOS, 6);
+  assert.deepEqual([...await calcular(de('f0.bin'))], esperadas());
+  assert.deepEqual([...await calcular(de('f0.bin'))], esperadas());   // mismo objeto: no se reenvía
+  assert.equal(enviosDe('f0.bin'), 1);
+  for (let i = 1; i <= 6; i++) await calcular(de(`f${i}.bin`));   // 7 archivos distintos: f0 expulsado
+  assert.equal(w.archivos.size, MAX_ARCHIVOS);
+  assert.equal(w.archivos.has('f0.bin'), false);
+  assert.deepEqual([...await calcular(de('f0.bin'))], esperadas());   // se reenvía y calcula bien
+  assert.equal(enviosDe('f0.bin'), 2);
+  const r2 = { ...rejilla }, previo = enviosDe('f6.bin');   // mismo nombre, objeto nuevo: se reenvía, sin datos viejos
+  await calcular(de('f6.bin', { rejilla: r2 }));
+  assert.equal(enviosDe('f6.bin'), previo + 1);
+  assert.equal(w.archivos.get('f6.bin').rejilla, r2);
+});
+
+test('el Worker real expulsa el archivo menos usado pasado el tope', async () => {
+  const enviados = [];
+  globalThis.self = { postMessage: (m) => enviados.push(m) };
+  try {
+    await import('../js/rejilla/trabajador.js?lru');
+    const { rejilla: r, gruesas, ...resto } = argsWorker();
+    globalThis.self.onmessage({ data: { fijos: { gruesa: resto.gruesa, salida: resto.salida } } });
+    for (let i = 0; i <= MAX_ARCHIVOS; i++) globalThis.self.onmessage({ data: { archivo: { nombre: `f${i}.bin`, rejilla: r, gruesas } } });
+    const pide = (id, archivo) => globalThis.self.onmessage({ data: { id, args: { archivo, fecha: resto.fecha, especies: resto.especies } } });
+    pide(1, 'f0.bin');   // expulsado: sin rejilla, error
+    pide(2, `f${MAX_ARCHIVOS}.bin`);
+    assert.match(enviados[0].error, /./);
+    assert.deepEqual([...enviados[1].notas], esperadas());
+  } finally { delete globalThis.self; }
 });
 
 test('el Worker guarda la rejilla de cada archivo y calcula con ella', async () => {
