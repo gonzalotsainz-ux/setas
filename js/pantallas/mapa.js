@@ -108,6 +108,7 @@ async function montar(estadoInicial) {
   const capaRejilla = rej ? new CapaRejilla() : null;   // se añade al mapa solo con índice (lleva la atribución del MFE50 y del MDT)
   const capaGruesa = L.layerGroup().addTo(mapa);
   const imagenes = new Map(), gruesasPorArchivo = new Map();
+  let vivo = true;   // false tras destruir(): lo que aún esté en curso (un toque, una descarga) ya no toca nada
   let turno = 0, toque = 0, version = 0, claveGruesas = null, enfocada = null, hoja = null, pueblos = [], cotos = null, error = null;
   cargarPueblos().then((p) => { pueblos = p; }).catch(() => {});
 
@@ -124,20 +125,31 @@ async function montar(estadoInicial) {
   ponerModo();
 
   // ---------- Controles ----------
-  const chip = (texto, pulsado, alPulsar, nota = null) => {
-    const b = el('button', { type: 'button', clase: 'chip', attrs: { 'aria-pressed': String(pulsado) } }, texto, nota ? el('span', { clase: 'chip__nota', texto: ` · ${nota}` }) : null);
+  const chip = (clave, texto, pulsado, alPulsar, nota = null) => {
+    const b = el('button', { type: 'button', clase: 'chip', attrs: { 'aria-pressed': String(pulsado), 'data-clave': clave } }, texto, nota ? el('span', { clase: 'chip__nota', texto: ` · ${nota}` }) : null);
     b.addEventListener('click', alPulsar);
     return b;
   };
+  // Una fila de chips solo se rehace si cambia su contenido o el pulsado; si se rehace con el foco dentro, el foco pasa
+  // al chip equivalente (misma especie o mismo día).
+  function ponerFila(fila, items) {
+    const firma = JSON.stringify(items.map((x) => [x.clave, x.texto, x.pulsado, x.nota]));
+    if (fila.dataset.firma === firma) return;
+    fila.dataset.firma = firma;
+    const enfocado = fila.contains(document.activeElement) ? document.activeElement.dataset.clave : null;
+    fila.replaceChildren(...items.map((x) => chip(x.clave, x.texto, x.pulsado, x.alPulsar, x.nota)));
+    if (enfocado != null) [...fila.children].find((b) => b.dataset.clave === enfocado)?.focus({ preventScroll: true });
+  }
   function pintarControles() {
     const fs = fechas();
     if (!fs.includes(ui.fecha)) ui.fecha = fs[0] ?? hoy();
     const lista = listaChips();
     ui.chip = chipVigente(ui.chip, lista);
     // Sin índice los puntos llevan la nota de zona (todas las especies): los chips no cambiarían nada y no se enseñan.
-    chips.replaceChildren(...(salida ? lista : []).map((c) => chip(c.texto, c.id === ui.chip, () => { ui.chip = c.id; cambio(); })));
+    ponerFila(chips, (salida ? lista : []).map((c) => ({ clave: c.id, texto: c.texto, pulsado: c.id === ui.chip, alPulsar: () => { ui.chip = c.id; cambio(); } })));
     chips.hidden = !salida;
-    dias.replaceChildren(...(salida ? barraDias(fs, hoy(), ui.fecha) : []).map((d) => chip(d.texto, d.pulsado, () => { ui.fecha = d.fecha; cambio(); }, d.menosFiable ? 'menos fiable' : null)));
+    ponerFila(dias, (salida ? barraDias(fs, hoy(), ui.fecha) : []).map((d) => ({ clave: d.fecha, texto: d.texto, pulsado: d.pulsado,
+      alPulsar: () => { ui.fecha = d.fecha; cambio(); }, nota: d.menosFiable ? 'menos fiable' : null })));
     dias.hidden = !salida;
   }
   function pintarAvisos() {
@@ -146,16 +158,22 @@ async function montar(estadoInicial) {
     avisos.replaceChildren(...lista.map(([i, t]) => el('div', { clase: 'aviso', attrs: { role: 'note' } }, icono(i), el('p', { texto: t }))));
     medirBarras(raiz);
   }
-  const avisar = (t) => { error = t; pintarAvisos(); };
+  const avisar = (t) => { if (!vivo) return; error = t; pintarAvisos(); };
+  let claveVista = null;
   function cambio() {
+    if (!vivo) return;
     error = null;
-    capaRejilla?.quitarTodo();   // las rejillas fuera de la vista no se quedan con el día o la especie de antes
-    claveGruesas = null;
-    pintarControles(); pintarAvisos(); repintar();
+    pintarControles();
+    // Las rejillas fuera de la vista no se quedan con el día o la especie de antes; si nada de eso cambia (llega la
+    // meteo), no se vacían: así no parpadean.
+    const clave = `${ui.fecha}|${ui.chip}|${salida?.sello}|${version}`;
+    if (clave !== claveVista) { claveVista = clave; capaRejilla?.quitarTodo(); }
+    pintarAvisos(); repintar();
     if (!salida) pintarPuntos(); else puntos.clearLayers();   // los puntos solo aquí: repintarlos al mover cerraría su popup
     if (mapa.hasLayer(capas.lluvia)) pintarLluvia();
     const c = listaChips().find((x) => x.id === ui.chip), d = barraDias(fechas(), hoy(), ui.fecha).find((x) => x.pulsado);
-    anuncio.textContent = salida ? `Mapa: ${c?.texto ?? 'Mejor hoy'}, ${d?.texto ?? 'hoy'}.` : 'Mapa: puntos de cada zona con su nota de hoy.';
+    const texto = salida ? `Mapa: ${c?.texto ?? 'Mejor hoy'}, ${d?.texto ?? 'hoy'}.` : 'Mapa: puntos de cada zona con su nota de hoy.';
+    if (anuncio.textContent !== texto) anuncio.textContent = texto;   // el lector no lo repite en cada llegada de la meteo
   }
 
   // ---------- Pintado ----------
@@ -252,6 +270,7 @@ async function montar(estadoInicial) {
         const ag = agregadosDeCelda(salida, g.id, ui.fecha);
         if (ag?.P26 == null) continue;
         const [o, s, e, n] = limitesGruesa(g.id, rej.gruesa.pasos[g.zona]);
+        // Interactivos para que el tooltip enseñe los mm; el toque sigue hasta el mapa (bubbling) y abre la hoja igual.
         L.rectangle([[s, o], [n, e]], { pane: 'lluvia', stroke: false, fillColor: COLOR.lluvia, fillOpacity: Math.min(0.45, ag.P26 / 200) })
           .bindTooltip(`${Math.round(ag.P26)} mm en 26 días`).addTo(capas.lluvia);
       }
@@ -297,6 +316,7 @@ async function montar(estadoInicial) {
   }
   const cerrarHoja = () => hoja?.cerrar();
   function abrir(modelo, extra = {}) {
+    if (!vivo) return;
     if (!modelo) { cerrarHoja(); return; }
     mapa.closePopup();
     if (hoja) hoja.actualizar(modelo, extra);
@@ -305,10 +325,11 @@ async function montar(estadoInicial) {
   const grafico = (celdaSalida) => () => { const fig = el('figure', { clase: 'grafico' }); fig.innerHTML = graficoLluvia({ serie: serieLluvia(celdaSalida), altura: 220 }); return fig; };
   // Fuera de una mancha (sin índice, lejos o sin monte apropiado) se ve la ficha del coto si la capa Cotos está encendida.
   async function sinMancha(latlng) {
+    if (!vivo) return;
     cerrarHoja();
     if (!mapa.hasLayer(capas.cotos)) return;
     const coto = await poligonoEn(latlng.lng, latlng.lat, (p) => p.tipo !== 'prohibido');
-    if (coto) L.popup(POPUP).setLatLng(latlng).setContent(popupCoto(coto.properties, normas)).openOn(mapa);
+    if (coto && vivo) L.popup(POPUP).setLatLng(latlng).setContent(popupCoto(coto.properties, normas)).openOn(mapa);
   }
   async function tocar(latlng) {
     const mio = ++toque, vigente = () => mio === toque;
@@ -371,12 +392,12 @@ async function montar(estadoInicial) {
 
   // El índice se publica a las 07 y a las 19: con el mapa abierto mucho rato se vuelve a pedir (cargarIndice usa su caché de 3 h).
   async function refrescarIndice() {
-    if (!rej || recargando || Date.now() - cargadoEn < TRES_HORAS) return;
+    if (!vivo || !rej || recargando || Date.now() - cargadoEn < TRES_HORAS) return;
     recargando = true;
     try {
       const nuevo = await cargarIndice();
       cargadoEn = Date.now();
-      if (nuevo.salida && nuevo.salida.sello !== salida?.sello) { salida = nuevo.salida; imagenes.clear(); ponerModo(); cambio(); }
+      if (vivo && nuevo.salida && nuevo.salida.sello !== salida?.sello) { salida = nuevo.salida; imagenes.clear(); ponerModo(); cambio(); }
     } finally { recargando = false; }
   }
   const reloj = setInterval(() => { refrescarIndice().catch(() => {}); }, 10 * 60e3);
@@ -393,6 +414,7 @@ async function montar(estadoInicial) {
       refrescarIndice().catch(() => {});
     },
     destruir() {
+      vivo = false; toque++; turno++;
       clearInterval(reloj);
       medida.disconnect();
       cerrarHoja();

@@ -8,7 +8,7 @@ sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gon
   estaciones de AEMET), temperatura y hábitat. Mide la **oportunidad meteorológica**, no la producción del monte.
 - **Mapa:** a pantalla completa, con manchas de color solo sobre el monte apropiado según la nota por ladera (bosque,
   altitud y orientación cada 250 m) de hoy y de los próximos días; buscador, chips de especie, capas (mapa, relieve,
-  topográfico, satélite, cotos, prohibido, lluvia, sitios y diario) y hoja con «Cómo llegar». Sin índice publicado (o sin
+  topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el fondo «Mapa» es la Base IGN mientras CARTO pida clave) y hoja con «Cómo llegar». Sin índice publicado (o sin
   red), los puntos de cada zona con su nota y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
 - **Diario:** salidas con foto, compartidas en Supabase, con borrador local si no hay cobertura.
