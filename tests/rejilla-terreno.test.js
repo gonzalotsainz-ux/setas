@@ -18,14 +18,6 @@ test('orientación: la ladera mira hacia donde baja', () => {
   assert.deepEqual(centro(orientacionPendiente(plano(5, 5, () => 1000), 5, 5, 250)), { o: 'llano', t: 0 });
 });
 
-test('orientación: una celda sin dato no rompe a sus vecinas', () => {
-  const a = plano(5, 5, (c, f) => 1000 + f * 25);
-  a[2 * 5 + 1] = NaN;
-  const r = orientacionPendiente(a, 5, 5, 250);
-  assert.equal(ORIENTACIONES[r.orientacion[2 * 5 + 2]], 'N');
-  assert.equal(r.orientacion[2 * 5 + 1], 0);
-});
-
 test('Terrarium: decodificación y teselas de una ventana de una celda (Valsaín, z12)', () => {
   assert.equal(altitudTerrarium(131, 232, 0), 1000);
   assert.deepEqual(teselasDeVentana({ col0: 78371, fila0: 60187, ancho: 1, alto: 1 }, 12), [{ tx: 2002, ty: 1537 }]);
@@ -51,4 +43,22 @@ test('el 0 exacto del WCS (fuera de España) es sin dato, solo si se pide', () =
   assert.ok(Number.isNaN(mediasDe(a)[0]));
   const b = nuevoAcumulador(1); acumularPunto(b, v, x, y, 0);
   assert.equal(mediasDe(b)[0], 0);
+});
+
+test('orientación: sin los 8 vecinos (borde o sin dato) la celda queda en llano', () => {
+  const r = orientacionPendiente(plano(5, 5, (c) => 1000 - c * 50), 5, 5, 250);   // baja al este, 20 %
+  assert.deepEqual(centro(r), { o: 'E', t: 2 });
+  assert.deepEqual([r.orientacion[2 * 5], r.tramo[2 * 5]], [0, 0]);   // columna 0
+  const a = plano(5, 5, (c) => 1000 - c * 50);
+  a[2 * 5 + 1] = NaN;
+  const s = orientacionPendiente(a, 5, 5, 250);
+  assert.deepEqual([s.orientacion[2 * 5 + 2], s.tramo[2 * 5 + 2]], [0, 0]);
+});
+
+test('pendiente: el paso va en metros de suelo (20 % a 40° con 191,5 m da tramo 2)', () => {
+  const tramo = (dz, paso) => orientacionPendiente(plano(5, 5, (c) => 1000 + c * dz), 5, 5, paso).tramo[12];
+  assert.equal(tramo(38.3, 191.5), 2);   // 38,3 / 191,5 = 20 %
+  assert.equal(tramo(38.3, 250), 2);     // sin corregir: 15,3 %, aún tramo 2 (justo en el corte)
+  assert.equal(tramo(32.55, 191.5), 2);  // 17 % real...
+  assert.equal(tramo(32.55, 250), 1);    // ...que sin corregir sería 13 %: tramo 1
 });

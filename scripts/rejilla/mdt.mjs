@@ -2,6 +2,7 @@
 // Modelo digital del terreno elegido en el sondeo (CONFIG.mdt) → altitud media de cada celda fina de 250 m.
 // Las descargas se guardan en _fuentes/ (no van al repo) y no se repiten.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { ORIGEN, TAM_FINA, aMercator, aGrados } from '../../js/rejilla/geo.js';
 
 export const nuevoAcumulador = (n) => ({ suma: new Float64Array(n), cuenta: new Uint32Array(n) });
@@ -18,15 +19,19 @@ export const mediasDe = (acc) => Float32Array.from(acc.suma, (s, k) => (acc.cuen
 
 async function descargar(url, ruta, fetchFn) {
   if (existsSync(ruta)) return readFileSync(ruta);
-  let r;
-  for (let intento = 1; intento <= 3; intento++) {   // el WCS del IGN devuelve algún 500 suelto: se repite
-    r = await fetchFn(url, { signal: AbortSignal.timeout(120000) });
-    if (r.ok || r.status < 500) break;
-    await new Promise((fin) => setTimeout(fin, 2000 * intento));
+  let r, fallo;
+  for (let intento = 1; intento <= 3; intento++) {   // el WCS del IGN devuelve algún 500 suelto, y la red falla: se repite
+    try {
+      r = await fetchFn(url, { signal: AbortSignal.timeout(120000) });
+      fallo = null;
+      if (r.ok || r.status < 500) break;
+    } catch (e) { fallo = e; }
+    if (intento < 3) await new Promise((fin) => setTimeout(fin, 2000 * intento));
   }
+  if (fallo) throw fallo;
   if (!r.ok) throw new Error(`${url}: ${r.status}`);
   const b = Buffer.from(await r.arrayBuffer());
-  mkdirSync(ruta.slice(0, ruta.lastIndexOf('/')), { recursive: true });
+  mkdirSync(dirname(ruta), { recursive: true });
   writeFileSync(ruta, b);
   return b;
 }
@@ -68,7 +73,7 @@ const BLOQUE = 400;   // celdas por lado de cada petición WCS (100 km)
 async function leerTiff(buffer) {
   const { fromArrayBuffer } = await import('geotiff');
   const img = await (await fromArrayBuffer(buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength))).getImage();
-  return { img, valores: (await img.readRasters({ interleave: true })), ancho: img.getWidth(), alto: img.getHeight(), bbox: img.getBoundingBox() };
+  return { valores: (await img.readRasters({ interleave: true })), ancho: img.getWidth(), alto: img.getHeight(), bbox: img.getBoundingBox() };
 }
 async function altitudesGeoTiff(ventana, { fuente, plantillaUrl, carpeta = '_fuentes/mdt', fetchFn = fetch }) {
   const acc = nuevoAcumulador(ventana.ancho * ventana.alto);
