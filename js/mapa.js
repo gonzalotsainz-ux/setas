@@ -6,12 +6,11 @@ import { especiesDeZona, nombreCorto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
 import { hoyMadrid } from './meteo.js';
 import { COLOR, NIVEL_COLOR } from './mapa/colores.js';
+import { IGN_TOPOGRAFICO, IGN_PNOA } from './mapa/wmts.js';
 
-const IGN = (capa, fmt) => `https://www.ign.es/wmts/${capa.servicio}?service=WMTS&request=GetTile&version=1.0.0&layer=${capa.layer}&style=default&format=image/${fmt}&tilematrixset=GoogleMapsCompatible&tilematrix={z}&tilerow={y}&tilecol={x}`;
-const ATR_IGN = '© <a href="https://www.scne.es">Instituto Geográfico Nacional</a> CC BY 4.0';
 export const BASES = {
-  'Topográfico IGN': [IGN({ servicio: 'mapa-raster', layer: 'MTN' }, 'jpeg'), ATR_IGN],
-  'Ortofoto PNOA': [IGN({ servicio: 'pnoa-ma', layer: 'OI.OrthoimageCoverage' }, 'jpeg'), `PNOA cedido por ${ATR_IGN}`],
+  'Topográfico IGN': [IGN_TOPOGRAFICO.url, IGN_TOPOGRAFICO.atribucion],
+  'Ortofoto PNOA': [IGN_PNOA.url, IGN_PNOA.atribucion],
   'OpenStreetMap': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'],
 };
 // Colores fijos de las capas (siempre sobre teselas claras): en js/mapa/colores.js, sin DOM, para el Web Worker del pintado.

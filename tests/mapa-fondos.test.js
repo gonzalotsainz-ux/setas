@@ -20,6 +20,8 @@ test('relieve = fondo claro + relieve del IDEE en multiply; topográfico MTN y s
   assert.equal(FONDOS.relieve.capas[0].url, FONDOS.mapa.capas[0].url);
   assert.match(FONDOS.relieve.capas[1].url, /servicios\.idee\.es\/wmts\/mdt\?.*layer=Relieve/);
   assert.equal(FONDOS.relieve.capas[1].opciones.className, 'capa-multiply');
+  assert.equal(FONDOS.relieve.capas[1].opciones.maxNativeZoom, 16);
+  assert.match(textoAtribucion(FONDOS.relieve), /Relieve IDEE/);
   assert.match(FONDOS.topografico.capas[0].url, /ign\.es\/wmts\/mapa-raster\?.*layer=MTN/);
   assert.match(FONDOS.satelite.capas[0].url, /ign\.es\/wmts\/pnoa-ma\?.*layer=OI\.OrthoimageCoverage/);
   for (const f of Object.values(FONDOS)) for (const c of f.capas) assert.ok(c.opciones.attribution, f.nombre);
@@ -77,10 +79,29 @@ test('panel de capas: Escape lo cierra (alCerrar) y solo Escape', () => conDom((
   assert.doesNotThrow(() => panelCapas({ fondo: 'mapa', activas: [], alCambiar() {} }).emitir('keydown', { key: 'Escape', preventDefault() {} }));
 }));
 
+test('panel de capas: botón Cerrar propio que llama a alCerrar', () => conDom(() => {
+  let cerrado = 0;
+  const p = panelCapas({ fondo: 'mapa', activas: [], alCambiar() {}, alCerrar: () => { cerrado++; } });
+  const b = todos(p).find((n) => n.tag === 'button');
+  assert.equal(b.textContent, 'Cerrar');
+  assert.equal(b.type, 'button');
+  b.emitir('click');
+  assert.equal(cerrado, 1);
+}));
+
+test('js/mapa.js y fondos.js comparten las capas del IGN (una sola copia)', async () => {
+  const { BASES } = await import('../js/mapa.js');
+  assert.equal(BASES['Topográfico IGN'][0], FONDOS.topografico.capas[0].url);
+  assert.equal(BASES['Ortofoto PNOA'][0], FONDOS.satelite.capas[0].url);
+  assert.equal(BASES['Ortofoto PNOA'][1], FONDOS.satelite.capas[0].opciones.attribution);
+  for (const f of ['../js/mapa.js', '../js/mapa/fondos.js']) assert.ok(!/const (WMTS|ATR_IGN|IGN) =/.test(leerRepo(f)), f);
+});
+
 test('estilos: opciones del panel de 44 px, multiply del relieve, sin animación propia; foco visible y reduced-motion globales', () => {
   const css = leerRepo('../css/componentes.css');
   const regla = (sel) => css.match(new RegExp(`^${sel.replace(/\./g, '\\.')}\\s*\\{([^}]*)\\}`, 'm'))?.[1] ?? '';
   assert.match(regla('.mapa-panel__opcion'), /min-height:\s*44px/);
+  assert.match(css, /\.boton--compacto\s*\{[^}]*min-height:\s*44px/);
   assert.match(regla('.capa-multiply'), /mix-blend-mode:\s*multiply/);
   const bloque = css.slice(css.indexOf('/* ---------- Panel de capas'), css.indexOf('/* ---------- Especies y seguridad'));
   assert.ok(bloque.length > 100);
