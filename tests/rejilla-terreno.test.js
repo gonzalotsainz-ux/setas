@@ -62,3 +62,10 @@ test('pendiente: el paso va en metros de suelo (20 % a 40° con 191,5 m da tramo
   assert.equal(tramo(32.55, 191.5), 2);  // 17 % real...
   assert.equal(tramo(32.55, 250), 1);    // ...que sin corregir sería 13 %: tramo 1
 });
+
+test('pendiente: el paso puede ir por fila (metros de suelo según la latitud de cada fila)', () => {
+  const a = plano(5, 5, (c) => 1000 + c * 32.55);
+  const r = orientacionPendiente(a, 5, 5, (f) => (f === 2 ? 191.5 : 250));
+  assert.equal(r.tramo[12], 2);   // fila 2 con 191,5 m: 17 %
+  assert.equal(r.tramo[17], 1);   // fila 3 con 250 m: 13 %
+});

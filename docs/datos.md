@@ -534,6 +534,134 @@ abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
 78 a 82 en umbría y a 74 en solana; con 80 mm, de 94 a 98 y a 89. El tope se cumple también junto al mínimo de lluvia
 (`pmin`), donde sin él la solana dejaba `fW` en 0.
 
+## Formato de la rejilla (data/rejilla/)
+
+- `indice.json`: lista de archivos (`zona`, `archivo`, `col0`, `fila0`, `ancho`, `alto`, `bytes`), fuentes y fecha.
+- `<zona>.bin` o `<zona>-<n>.bin`: formato `SETR` v1 (`js/rejilla/formato.js`). Celdas de 250 m de Web Mercator
+  (EPSG:3857; en estas latitudes, unos 190 m sobre el terreno) alineadas con la malla de teselas; columna y fila
+  globales desde la esquina noroeste del mundo. Una zona se parte en bandas de filas si pasa de 300 KB.
+- `gruesa.json`: celdas gruesas con monte (id `zona:col:fila` en pasos de `pasos[zona]` grados desde 10° O y 35° N),
+  su centro (donde se pide la meteo) y su altitud de referencia (media de sus celdas finas con monte). La Edge Function
+  lleva una copia idéntica (`supabase/functions/rejilla/gruesa.json`, una prueba lo comprueba).
+- Orientación por el método de Horn sobre la rejilla de 250 m, con el lado de celda en metros de suelo según la latitud
+  de cada fila; «llano» si la pendiente es menor del 5 % o si falta alguno de los 8 vecinos (borde o sin dato). Tramos de
+  pendiente: menos del 5 %, del 5 al 15 %, del 15 al 30 % y 30 % o más (criterio propio).
+- Prohibido: una celda lleva la marca y se queda sin hábitat si su centro **o cualquiera de sus 4 esquinas** cae en un
+  polígono `prohibido` de `data/cotos.geojson` (criterio conservador: no se colorean celdas de borde).
+  `tests/rejilla-datos.test.js` lo comprueba sobre los archivos generados.
+
+**Cómo se genera.** `node scripts/rejilla/recortar-mfe.mjs` recorta el shapefile del MFE50 de cada provincia al bbox
+de cada zona (con 0,01° de margen) en `_fuentes/mfe50-recorte/<zona>/<provincia>.geojson`, con mapshaper en un proceso
+por recorte. Después, `node scripts/rejilla/generar.mjs` genera una zona por proceso (`--zona <id>`, con tope de memoria
+de Node de 3 GB) y al final junta `indice.json` y `gruesa.json` (`--unir`). El generador lee el GeoJSON feature a feature
+y guarda la geometría en forma compacta: el proceso más grande (Álava) se quedó en unos 390 MB.
+
+Generado el 2026-10-01 con `scripts/rejilla/generar.mjs` (MFE50 consultado el 2026-10-01, datos del proyecto 1997-2006;
+MDT: Modelo Digital del Terreno MDT25 (IGN, PNOA-LiDAR), servicio WCS):
+
+| Archivo | Celdas | KB |
+|---|---|---|
+| guadarrama.bin | 215 × 236 | 70 |
+| sierra-norte.bin | 210 × 326 | 74 |
+| soria.bin | 241 × 270 | 73 |
+| burgos.bin | 286 × 481 | 145 |
+| merindades.bin | 335 × 396 | 132 |
+| gredos.bin | 401 × 205 | 92 |
+| cuenca.bin | 269 × 380 | 143 |
+| guadalajara.bin | 357 × 353 | 146 |
+| toledo.bin | 468 × 261 | 103 |
+| alava.bin | 447 × 311 | 129 |
+| extremadura-1.bin | 959 × 276 | 195 |
+| extremadura-2.bin | 959 × 276 | 274 |
+| extremadura-3.bin | 959 × 276 | 209 |
+| extremadura-4.bin | 959 × 276 | 178 |
+| extremadura-5.bin | 959 × 275 | 158 |
+
+Celdas gruesas: **328 con paso 0,18°**. Recuento por candidato: 0,09° → 1.092; 0,12° → 651; 0,15° → 441; 0,18° → 328.
+El máximo es 350, así que sale el paso más grueso.
+
+| Zona | Celdas finas | Con monte | Prohibidas | Gruesas |
+|---|---|---|---|---|
+| guadarrama | 50.740 | 29.471 | 2.535 | 12 |
+| sierra-norte | 68.460 | 28.454 | 118 | 14 |
+| soria | 65.070 | 37.865 | 0 | 11 |
+| burgos | 137.566 | 57.954 | 0 | 20 |
+| merindades | 132.660 | 45.812 | 0 | 19 |
+| gredos | 82.205 | 32.714 | 0 | 16 |
+| cuenca | 102.220 | 65.854 | 0 | 22 |
+| guadalajara | 126.021 | 64.058 | 0 | 19 |
+| toledo | 122.148 | 35.105 | 0 | 21 |
+| alava | 139.017 | 43.209 | 0 | 22 |
+| extremadura | 1.322.461 | 508.074 | 5.205 | 152 |
+
+Celdas con monte por hábitat:
+
+- guadarrama: pinar-silvestre 10.940, pastizal-montana 8.031, melojar 4.136, encinar 2.975, prado 2.059, pinar-resinero 905, chopera 192, pinar-negral 183, pinar-pinonero 25, quejigar 25.
+- sierra-norte: melojar 8.513, pastizal-montana 7.474, pinar-silvestre 5.165, encinar 2.881, prado 1.485, sabinar 856, pinar-resinero 853, pinar-negral 698, chopera 354, quejigar 113, hayedo 37, pinar-pinonero 13, robledal-albar 12.
+- soria: pinar-silvestre 16.728, sabinar 5.087, melojar 5.085, pastizal-montana 4.498, pinar-resinero 3.135, encinar 1.718, pinar-negral 651, hayedo 602, quejigar 217, chopera 96, robledal-albar 26, abedular 21, prado 1.
+- burgos: melojar 16.269, pinar-silvestre 12.301, encinar 7.904, sabinar 5.398, pinar-resinero 3.979, pastizal-montana 3.539, hayedo 2.354, quejigar 2.128, pinar-negral 1.852, chopera 1.136, prado 884, robledal-albar 161, pinar-pinonero 49.
+- merindades: encinar 14.900, pinar-silvestre 5.636, quejigar 5.188, pinar-resinero 5.111, prado 3.556, hayedo 3.207, melojar 2.687, pastizal-montana 2.682, pinar-negral 1.098, chopera 1.016, robledal-albar 654, sabinar 61, abedular 15, castanar 1.
+- gredos: pinar-resinero 10.361, pastizal-montana 8.343, encinar 4.423, melojar 3.394, prado 2.411, pinar-silvestre 2.152, pinar-pinonero 935, chopera 266, castanar 243, pinar-negral 186.
+- cuenca: pinar-negral 36.748, pinar-silvestre 9.772, pinar-resinero 5.947, encinar 5.925, sabinar 3.568, quejigar 1.894, pastizal-montana 1.496, chopera 387, pinar-pinonero 67, melojar 33, prado 17.
+- guadalajara: pinar-negral 14.845, sabinar 9.335, pinar-silvestre 8.993, pastizal-montana 8.643, encinar 8.191, pinar-resinero 7.995, quejigar 2.830, melojar 2.772, chopera 352, prado 102.
+- toledo: encinar 18.397, pinar-resinero 5.227, melojar 5.042, prado 3.619, pinar-pinonero 980, alcornocal 956, quejigar 554, pastizal-montana 193, chopera 106, pinar-silvestre 12, pinar-negral 12, castanar 7.
+- alava: hayedo 9.628, prado 9.084, encinar 6.013, quejigar 5.933, pinar-silvestre 5.290, melojar 3.731, robledal-albar 1.241, pinar-negral 1.067, pastizal-montana 707, chopera 235, pinar-resinero 226, castanar 31, pinar-pinonero 12, abedular 11.
+- extremadura: encinar 295.328, prado 125.243, alcornocal 37.833, melojar 23.569, pinar-resinero 16.190, pastizal-montana 3.061, castanar 2.202, pinar-pinonero 2.197, chopera 1.861, quejigar 356, pinar-silvestre 210, pinar-negral 14, abedular 10.
+
+Notas:
+
+- En extremadura, 155.243 celdas no tienen altitud: el WCS del IGN devuelve 0 fuera de España y ese 0 cuenta como sin
+  dato. Casi todas quedan al oeste de 6,9° O, en el lado portugués del bbox; el MFE50 tampoco cubre esa parte. El resto
+  de zonas no tiene ninguna celda sin altitud.
+- «prado» (herbazal por debajo de 1.000 m, tipos 24 y 34 del MFE50) suele ser fincas de siega cerradas, sobre todo en
+  extremadura y álava. La hoja del mapa no debe presentarlo como monte libre.
+
+**Comprobación con los puntos de `zonas.json`** (celda de 250 m que contiene cada punto):
+
+```
+guadarrama-valsain-pinar pinar-silvestre → pinar-silvestre 1552 m (punto: 1561 m)
+guadarrama-navas-melojar melojar → melojar 1452 m (punto: 1472 m)
+guadarrama-morcuera-pinar pinar-silvestre → pinar-silvestre 1583 m (punto: 1580 m)
+guadarrama-miraflores-pinar pinar-silvestre → pinar-silvestre 1566 m (punto: 1591 m)
+guadarrama-canencia-pinar pinar-silvestre → pinar-silvestre 1375 m (punto: 1382 m)
+sierra-norte-riaza-melojar melojar → melojar 1494 m (punto: 1505 m)
+sierra-norte-sepulveda-pinar pinar-silvestre → pinar-silvestre 1309 m (punto: 1324 m)
+sierra-norte-canencia-melojar melojar → melojar 1319 m (punto: 1336 m)
+sierra-norte-bustarviejo-melojar melojar → melojar 1258 m (punto: 1271 m)
+soria-pinar-grande-covaleda pinar-silvestre → pinar-silvestre 1532 m (punto: 1540 m)
+soria-navaleno-resinero pinar-resinero → pinar-resinero 1168 m (punto: 1177 m)
+soria-cidones-melojar melojar → melojar 1135 m (punto: 1134 m)
+burgos-hontoria-pinar pinar-silvestre → pinar-silvestre 1156 m (punto: 1160 m)
+burgos-palacios-pinar pinar-silvestre → pinar-silvestre 1258 m (punto: 1271 m)
+burgos-monte-agudo-hayedo hayedo → hayedo 1443 m (punto: 1478 m)
+burgos-umbria-rebollar melojar → melojar 1364 m (punto: 1366 m)
+merindades-cerneja-hayedo hayedo → hayedo 1016 m (punto: 1031 m)
+gredos-navahondilla-castanar castanar → castanar 816 m (punto: 832 m)
+gredos-arenal-resinero pinar-resinero → pinar-resinero 1233 m (punto: 1240 m)
+gredos-villarejo-silvestre pinar-silvestre → pinar-silvestre 1338 m (punto: 1334 m)
+cuenca-serrania-negral pinar-negral → pinar-negral 1247 m (punto: 1250 m)
+cuenca-boniches-resinero pinar-resinero → pinar-resinero 1074 m (punto: 1088 m)
+guadalajara-poveda-negral pinar-negral → pinar-negral 1386 m (punto: 1360 m)
+guadalajara-tierzo-sabinar sabinar → sabinar 1320 m (punto: 1314 m)
+toledo-navalucillos-encinar encinar → melojar 999 m (punto: 972 m)
+toledo-menasalbas-melojar melojar → melojar 943 m (punto: 941 m)
+toledo-sevilleja-alcornocal alcornocal → alcornocal 552 m (punto: 550 m)
+alava-gorbeia-hayedo hayedo → hayedo 728 m (punto: 760 m)
+alava-entzia-hayedo hayedo → hayedo 939 m (punto: 934 m)
+alava-izki-marojal melojar → melojar 751 m (punto: 772 m)
+alava-entzia-pastizal pastizal-montana → pastizal-montana 1010 m (punto: 1011 m)
+extremadura-salorino-alcornocal alcornocal → alcornocal 447 m (punto: 452 m)
+extremadura-villuercas-castanar castanar → castanar 907 m (punto: 914 m)
+extremadura-hervas-castanar castanar → castanar 969 m (punto: 968 m)
+extremadura-trevejo-castanar castanar → castanar 784 m (punto: 785 m)
+```
+
+Coinciden 34 de los 35 puntos y ninguno sale «sin monte». La única discrepancia de hábitat es
+`toledo-navalucillos-encinar`: el MFE50 da melojar en esa celda. No se corrige a mano, porque la rejilla dice lo que dice
+el MFE50; si la usuaria confirma que ahí hay encinar, habría que revisar el punto o la tesela.
+Ninguna diferencia de altitud pasa de 100 m: la mayor es de 35 m (`burgos-monte-agudo-hayedo`). Es la media de una celda
+de 250 m frente a un punto.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).

@@ -13,6 +13,9 @@ export const CONFIG = {
     licencia: 'Reutilización con cita de la fuente (Real Decreto 1495/2011, aviso legal del MITECO)',
     atribucion: 'Mapa Forestal de España 1:50.000 (MFE50) © Ministerio para la Transición Ecológica y el Reto Demográfico',
     fecha: '2026-10-01', carpeta: '_fuentes/mfe50',
+    // Recortes por zona del shapefile (scripts/rejilla/recortar-mfe.mjs): es lo que lee generar.mjs.
+    recortes: '_fuentes/mfe50-recorte',
+    // GeoJSON provinciales de la tarea 0 (recorte por unión de zonas); el generador ya usa `recortes`.
     archivos: {
       Madrid: '_fuentes/mfe50/Madrid.geojson', Segovia: '_fuentes/mfe50/Segovia.geojson', Soria: '_fuentes/mfe50/Soria.geojson',
       Burgos: '_fuentes/mfe50/Burgos.geojson', 'Ávila': '_fuentes/mfe50/Ávila.geojson', Cuenca: '_fuentes/mfe50/Cuenca.geojson',
