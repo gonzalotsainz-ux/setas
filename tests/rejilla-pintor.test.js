@@ -1,7 +1,7 @@
 // tests/rejilla-pintor.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { gruesasDeArchivo, notasDeArchivo, colorear, notaGruesa, colorDeNota, SIN_COLOR, SIN_DATOS } from '../js/rejilla/pintor.js';
+import { gruesasDeArchivo, notasDeArchivo, colorear, notaGruesa, colorDeNota, SIN_COLOR, SIN_DATOS, ALFA_GRIS, ALFA_TRAMA } from '../js/rejilla/pintor.js';
 import { resumirCelda } from '../js/rejilla/salida.js';
 import { PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
 import { NIVEL_COLOR as NIVEL_COLOR_MAPA, COLOR as COLOR_MAPA } from '../js/mapa.js';
@@ -118,11 +118,12 @@ function workerFalso(fallo = null) {
   const w = { recibidos: [], terminado: false, postMessage(m) {
     w.recibidos.push(m);
     if (m.fijos) { w.fijos = { ...w.fijos, ...m.fijos }; return; }
+    if (m.archivo) { (w.archivos ??= new Map()).set(m.archivo.nombre, { rejilla: m.archivo.rejilla, gruesas: m.archivo.gruesas }); return; }
     queueMicrotask(() => {
       if (fallo === 'onerror') w.onerror({ message: 'módulo no encontrado', preventDefault() {} });
       else if (fallo === 'onmessageerror') w.onmessageerror({});
       else if (fallo === 'calculo') w.onmessage({ data: { id: m.id, error: 'roto' } });
-      else if (fallo !== 'mudo') w.onmessage({ data: { id: m.id, notas: notasDeArchivo({ ...w.fijos, ...m.args }) } });
+      else if (fallo !== 'mudo') w.onmessage({ data: { id: m.id, notas: notasDeArchivo({ ...w.fijos, ...w.archivos?.get(m.args.archivo), ...m.args }) } });
     });
   }, terminate() { w.terminado = true; } };
   return w;
@@ -143,6 +144,30 @@ test('calcularNotas con Worker: mismas notas, y gruesa y salida se mandan solo u
   assert.equal(w.recibidos.filter((m) => m.fijos).length, 2);
   assert.equal(w.recibidos.at(-2).fijos.salida, otra);
   assert.equal('gruesa' in w.recibidos.at(-2).fijos, false);
+});
+
+test('calcularNotas con Worker: la rejilla y las gruesas de un archivo se mandan una sola vez', async () => {
+  const w = workerFalso(), args = { ...argsWorker(), archivo: 'guadarrama.bin' };
+  const calcular = crearCalculador({ crearWorker: () => w });
+  assert.deepEqual([...await calcular(args)], esperadas());
+  assert.deepEqual([...await calcular({ ...args, fecha: fechas[0] })], esperadas());
+  assert.equal(w.recibidos.filter((m) => m.archivo).length, 1);
+  assert.ok(w.recibidos.filter((m) => m.args).every((m) => !('rejilla' in m.args) && !('gruesas' in m.args)));
+  await calcular({ ...args, gruesas: gruesasDeArchivo(rejilla, gruesa) });   // otras gruesas (objeto nuevo): se vuelven a mandar
+  assert.equal(w.recibidos.filter((m) => m.archivo).length, 2);
+});
+
+test('el Worker guarda la rejilla de cada archivo y calcula con ella', async () => {
+  const enviados = [];
+  globalThis.self = { postMessage: (m) => enviados.push(m) };
+  try {
+    await import('../js/rejilla/trabajador.js?archivo');
+    const { rejilla: r, gruesas, ...resto } = argsWorker();
+    globalThis.self.onmessage({ data: { fijos: { gruesa: resto.gruesa, salida: resto.salida } } });
+    globalThis.self.onmessage({ data: { archivo: { nombre: 'a.bin', rejilla: r, gruesas } } });
+    globalThis.self.onmessage({ data: { id: 1, args: { archivo: 'a.bin', fecha: resto.fecha, especies: resto.especies } } });
+    assert.deepEqual([...enviados[0].notas], esperadas());
+  } finally { delete globalThis.self; }
 });
 
 for (const fallo of ['crear', 'onerror', 'onmessageerror', 'calculo', 'mudo']) {
@@ -193,4 +218,11 @@ test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captu
   } finally {
     delete globalThis.document; delete globalThis.ImageData; delete globalThis.window;
   }
+});
+
+test('«sin datos» va en damero con el ancho del archivo (no se confunde con «Nulo», liso); las notas, lisas', () => {
+  const notas = Uint8Array.from([SIN_DATOS, SIN_DATOS, SIN_DATOS, SIN_DATOS, 0, 0]);   // 3 columnas × 2 filas
+  const alfa = (px) => Array.from({ length: notas.length }, (_, k) => px[4 * k + 3]);
+  assert.deepEqual(alfa(colorear(notas, 3)), [ALFA_GRIS, ALFA_TRAMA, ALFA_GRIS, ALFA_TRAMA, 150, 150]);
+  assert.deepEqual(alfa(colorear(notas)), [ALFA_GRIS, ALFA_GRIS, ALFA_GRIS, ALFA_GRIS, 150, 150]);   // sin ancho, como antes
 });

@@ -151,11 +151,13 @@ atribución de Leaflet quedan por encima de los avisos (las alturas se miden en 
 | `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
 
 Las manchas usan `NIVEL_COLOR` de `js/mapa/colores.js` con alfa 150/255; las celdas con monte apropiado pero sin datos
-suficientes, el gris `NIVEL_COLOR['sin-datos']` con alfa 110/255. Las celdas gruesas de la vista lejana usan las
-mismas opacidades. Nunca se colorea una celda sin hábitat ni prohibida.
+suficientes, el gris `NIVEL_COLOR['sin-datos']` en damero (celdas alternas con alfa 110/255 y 35/255), para no
+confundirlo con el gris liso de «Nulo»; la leyenda del panel lo enseña igual. En la vista lejana, las celdas gruesas
+van con alfa 150/255 y las «sin datos», con alfa 35/255 y borde punteado; encima, siempre el contorno de los prohibidos. Nunca se colorea una celda sin hábitat ni prohibida.
 
 Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
 
+- Mientras llegan la rejilla y el índice: «Cargando el mapa por laderas: mientras, se ven los puntos de cada zona.»
 - Sin índice: «No hay mapa por laderas ahora mismo: se ven los puntos de cada zona con su nota.»
 - Navegador sin `DecompressionStream`: «Este navegador no puede leer el mapa por laderas; se muestran solo los puntos. Actualiza el navegador para verlo.»
 - Previsión de los puntos: «Esperando la previsión: los puntos saldrán con su nota en unos segundos.» o «No hay previsión: los puntos salen sin nota.»

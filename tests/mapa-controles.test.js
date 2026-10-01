@@ -142,3 +142,9 @@ test('avisos del mapa con índice: antigüedad, previsión lejana, zoom y error'
   assert.deepEqual(todo.map(([i]) => i), ['i-info', 'i-aviso']);
   assert.deepEqual(textos(todo), ['Datos de ayer a las 19:00.', 'No se pudo cargar x.bin (404)']);
 });
+
+import { AVISO_CARGANDO } from '../js/mapa/controles.js';
+test('mientras llegan la rejilla y el índice, el aviso dice que se está cargando (no que no hay mapa)', () => {
+  const a = avisosMapa({ salida: null, cargando: true, meteo: { series: {} } });
+  assert.deepEqual(a, [['i-info', AVISO_CARGANDO]]);
+});

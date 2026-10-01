@@ -68,7 +68,9 @@ claves `sb_publishable_`).
   datos frescos, no publica y sigue valiendo el índice anterior (el móvil avisa). El primer relleno del histórico (desde el
   1 de agosto) tarda unas 6 ejecuciones (unos 3 días) en octubre y algo más desde noviembre; mientras, no hay `ultimo.json`
   y el mapa enseña los puntos de siempre.
-- Forzar una ejecución (usa otro sello): `curl -X POST -H "x-rejilla-clave: <clave>" ".../functions/v1/rejilla?forzar=1"`.
+- Forzar una ejecución: `curl -X POST -H "x-rejilla-clave: <clave>" ".../functions/v1/rejilla?forzar=1"`. El sello es la hora de
+  Madrid en ese momento (`AAAA-MM-DDTHH`): fuera de las horas 07 y 19 es un sello propio, pero dentro de ellas coincide con
+  el del cron y, si el cron ya corrió, contesta «repetido» y no hace nada. Para forzar, hazlo en otra hora.
   La clave no está apuntada en ningún sitio; si hace falta, se genera otra y se actualizan el secreto y Vault
   (`select vault.update_secret(id, '<nueva>') from vault.secrets where name = 'rejilla_clave'`).
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy rejilla --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.

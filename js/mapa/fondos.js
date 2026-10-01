@@ -42,7 +42,9 @@ export function leerPreferencias(almacen = almacenPorDefecto()) {
 export const guardarPreferencias = (p, almacen = almacenPorDefecto()) => guardar(CLAVE, { fondo: p.fondo, activas: p.activas }, undefined, almacen);
 
 function leyendaManchas() {
-  const punto = (nivel) => { const s = el('span', { clase: 'mapa-leyenda__punto', attrs: { 'aria-hidden': 'true' } }); s.style.background = NIVEL_COLOR[nivel]; return s; };
+  // «Sin datos», en damero como en el mapa (js/rejilla/pintor.js): no se confunde con el gris liso de «Nulo».
+  const punto = (nivel) => { const s = el('span', { clase: 'mapa-leyenda__punto', attrs: { 'aria-hidden': 'true' } });
+    s.style.background = nivel === 'sin-datos' ? `repeating-conic-gradient(${NIVEL_COLOR[nivel]} 0 25%, transparent 0 50%) 0 0 / 6px 6px` : NIVEL_COLOR[nivel]; return s; };
   return el('div', { clase: 'mapa-panel__leyenda' },
     el('h3', { texto: 'Manchas' }),
     el('ul', { clase: 'mapa-leyenda__lista' }, [...NIVELES, 'sin-datos'].map((n) => el('li', { clase: 'mapa-leyenda__item' }, punto(n), el('span', { texto: n === 'sin-datos' ? 'Sin datos suficientes' : palabraDe(n) })))),

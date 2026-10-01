@@ -2,7 +2,7 @@
 // Edge Function «rejilla» (spec §3.2): la lanza pg_cron con pg_net a las 05, 06, 17 y 18 UTC; solo trabaja a las 07:00 y
 // 19:00 de Madrid. Protegida con la cabecera x-rejilla-clave (secreto REJILLA_CLAVE; se despliega con --no-verify-jwt).
 // Contesta 202 enseguida y sigue en segundo plano (EdgeRuntime.waitUntil); el plazo de la ejecución lo vigila el manejador.
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';   // la misma versión que js/supabase.js
 import GRUESA from './gruesa.json' with { type: 'json' };
 import { ejecutar, almacenSupabase, claveValida } from './manejador.js';
 

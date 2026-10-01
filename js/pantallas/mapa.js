@@ -12,7 +12,7 @@ import { aMercator, celdaFina, limitesGruesa, puntoEnGeometria, bboxDe } from '.
 import { PROHIBIDO, CODIGO, FUERA_PROVINCIAS } from '../rejilla/formato.js';
 import { cargarIndice, avisoIndice, diasDisponibles, cargarDatosRejilla, archivosVisibles, archivoDeCelda, crearCargadorRejillas,
   rejillasSoportadas, ZOOM_MIN_FINA } from '../rejilla/carga.js';
-import { gruesasDeArchivo, colorear, notaGruesa, colorDeNota, ALFA, ALFA_GRIS } from '../rejilla/pintor.js';
+import { gruesasDeArchivo, colorear, notaGruesa, colorDeNota, ALFA, ALFA_TRAMA } from '../rejilla/pintor.js';
 import { calcularNotas } from '../rejilla/notas-async.js';
 import { notaCelda, corregirAltitud } from '../rejilla/nota.js';
 import { agregadosDeCelda, serieLluvia } from '../rejilla/salida.js';
@@ -101,16 +101,27 @@ async function montar(estadoInicial) {
   // Sin DecompressionStream (Safari < 16.4) no se leen las rejillas: ni se pide el índice, modo de puntos con su aviso.
   const sinDescompresion = !rejillasSoportadas();
   const cargador = crearCargadorRejillas();
-  const [rej, ind] = sinDescompresion ? [null, { salida: null }]
-    : await Promise.all([cargarDatosRejilla().catch(() => null), cargarIndice()]);
-  let salida = rej ? ind.salida : null, cargadoEn = Date.now(), recargando = false;
+  // El mapa se monta ya en modo de puntos; la rejilla y el índice llegan después (con mala cobertura pueden tardar
+  // decenas de segundos) y, al llegar, pasa a manchas. Ver la carga al final de montar().
+  let rej = null, salida = null, cargadoEn = Date.now(), recargando = false, cargandoLaderas = !sinDescompresion;
   const CapaRejilla = crearCapaRejilla(L);
-  const capaRejilla = rej ? new CapaRejilla() : null;   // se añade al mapa solo con índice (lleva la atribución del MFE50 y del MDT)
+  let capaRejilla = null;   // se crea al llegar la rejilla y se añade al mapa solo con índice (lleva la atribución del MFE50 y del MDT)
   const capaGruesa = L.layerGroup().addTo(mapa);
+  const contornos = L.layerGroup();   // contorno de los prohibidos en la vista lejana, aunque la capa Prohibido esté apagada
+  let contornosPedidos = null;
   const imagenes = new Map(), gruesasPorArchivo = new Map();
   let vivo = true;   // false tras destruir(): lo que aún esté en curso (un toque, una descarga) ya no toca nada
   let turno = 0, toque = 0, version = 0, claveGruesas = null, enfocada = null, hoja = null, pueblos = [], cotos = null, error = null;
-  cargarPueblos().then((p) => { pueblos = p; }).catch(() => {});
+  // Los pueblos (data/pueblos.json) se piden al usar el buscador, no al abrir el mapa.
+  let pidiendoPueblos = null;
+  function pedirPueblos() {
+    pidiendoPueblos ??= cargarPueblos().then((p) => {
+      pueblos = p;
+      if (vivo && document.activeElement === buscador.input && buscador.input.value) buscador.input.dispatchEvent(new Event('input'));
+    }).catch(() => { pidiendoPueblos = null; });
+  }
+  buscador.input.addEventListener('focus', pedirPueblos);
+  buscador.input.addEventListener('input', pedirPueblos);
 
   const especiesPorZona = () => { const m = new Map(); for (const z of datos.zonas) m.set(z.id, especiesDeZona(z, datos.especies, estado.umbrales ?? {})); return m; };
   let especiesZona = especiesPorZona();
@@ -153,7 +164,7 @@ async function montar(estadoInicial) {
     dias.hidden = !salida;
   }
   function pintarAvisos() {
-    const lista = avisosMapa({ salida, sinDescompresion, meteo: estado.meteo, otroDia: avisoOtroDia(estado.meteo), viejo: salida && avisoIndice(salida),
+    const lista = avisosMapa({ salida, sinDescompresion, cargando: cargandoLaderas, meteo: estado.meteo, otroDia: avisoOtroDia(estado.meteo), viejo: salida && avisoIndice(salida),
       diasDesdeHoy: fechas().indexOf(ui.fecha), zoom: mapa.getZoom(), error });
     avisos.replaceChildren(...lista.map(([i, t]) => el('div', { clase: 'aviso', attrs: { role: 'note' } }, icono(i), el('p', { texto: t }))));
     medirBarras(raiz);
@@ -177,8 +188,19 @@ async function montar(estadoInicial) {
   }
 
   // ---------- Pintado ----------
+  function ponerContornos() {
+    const ver = salida && mapa.getZoom() < ZOOM_MIN_FINA && !mapa.hasLayer(capas.prohibido);
+    if (!ver) { if (mapa.hasLayer(contornos)) mapa.removeLayer(contornos); return; }
+    if (!mapa.hasLayer(contornos)) contornos.addTo(mapa);
+    contornosPedidos ??= cargarCotos().then((g) => {
+      const col = { type: 'FeatureCollection', features: g.features.filter((x) => x.properties.tipo === 'prohibido') };
+      contornos.addLayer(L.geoJSON(col, { style: (x) => ({ ...estiloHalo(x.properties), weight: 3 }), interactive: false }));
+      contornos.addLayer(L.geoJSON(col, { style: (x) => ({ ...estiloCoto(x.properties), weight: 1.5, fill: false }), interactive: false }));
+    }).catch(() => { contornosPedidos = null; });
+  }
   async function repintar() {
     const mia = ++turno;
+    ponerContornos();
     if (!salida) { capaGruesa.clearLayers(); return; }
     const zoom = mapa.getZoom();
     if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); pintarGruesas(); return; }
@@ -202,7 +224,7 @@ async function montar(estadoInicial) {
           continue;
         }
         if (mia !== turno) return;   // resultado de un día, una especie o una vista que ya no se ven
-        rgba = colorear(notas);
+        rgba = colorear(notas, r.cabecera.ancho);   // «sin datos» en damero
         imagenes.set(clave, rgba);
         if (imagenes.size > MAX_IMAGENES) imagenes.delete(imagenes.keys().next().value);
       }
@@ -219,7 +241,10 @@ async function montar(estadoInicial) {
       const color = colorDeNota(notaGruesa(g, { salida, fecha: ui.fecha, especies: especiesZona.get(g.zona) ?? [], filtro: f }));
       if (!color) continue;
       const [o, s, e, n] = limitesGruesa(g.id, rej.gruesa.pasos[g.zona]);
-      L.rectangle([[s, o], [n, e]], { pane: 'rejilla', stroke: false, fillColor: color, fillOpacity: (color === NIVEL_COLOR['sin-datos'] ? ALFA_GRIS : ALFA) / 255, interactive: false }).addTo(capaGruesa);
+      // «Sin datos»: más claro y con borde punteado, para no confundirlo con «Nulo».
+      const sinDatos = color === NIVEL_COLOR['sin-datos'];
+      L.rectangle([[s, o], [n, e]], { pane: 'rejilla', stroke: sinDatos, color, weight: 1, dashArray: '3 3', fillColor: color,
+        fillOpacity: (sinDatos ? ALFA_TRAMA : ALFA) / 255, interactive: false }).addTo(capaGruesa);
     }
   }
   // Si un popup de punto estaba abierto, se vuelve a abrir tras repintar (llega la meteo o cambian los umbrales).
@@ -292,7 +317,11 @@ async function montar(estadoInicial) {
         .addTo(capas.sitios);
     }
   }
-  async function activar(id, si) { if (!si) { mapa.removeLayer(capas[id]); return; } capas[id].addTo(mapa); await rellenar(id); }
+  async function activar(id, si) {
+    if (!si) mapa.removeLayer(capas[id]); else capas[id].addTo(mapa);
+    if (id === 'prohibido') ponerContornos();
+    if (si) await rellenar(id);
+  }
   function alCambiar(c) {
     if (c.fondo) { mapa.removeLayer(fondo); fondo = crearFondo(L, c.fondo).addTo(mapa); prefs.fondo = c.fondo; }
     if (c.capa) { prefs.activas = c.activa ? [...new Set([...prefs.activas, c.capa])] : prefs.activas.filter((x) => x !== c.capa); activar(c.capa, c.activa); }
@@ -354,12 +383,14 @@ async function montar(estadoInicial) {
     const ag = enSalida ? agregadosDeCelda(salida, g.id, ui.fecha) : null;
     const altRef = enSalida?.altRef;   // sin ella, la nota queda «sin datos», igual que la mancha gris
     const zona = datos.zonas.find((z) => z.id === r.cabecera.zona) ?? null;
-    const nota = notaCelda({ ag, ...celda, altRef, especies: especiesZona.get(zona?.id) ?? [], fecha: ui.fecha, filtro: filtro() });
+    // La nota con la altitud en tramos de 10 m, igual que el pintor (así hoja y mancha coinciden); la exacta, en «Altitud».
+    const altitud = Math.round(celda.altitud / 10) * 10;
+    const nota = notaCelda({ ag, ...celda, altitud, altRef, especies: especiesZona.get(zona?.id) ?? [], fecha: ui.fecha, filtro: filtro() });
     if (nota.sinEspecies) { await sinMancha(latlng); return; }
     const coto = await poligonoEn(lon, lat, (p) => p.tipo !== 'prohibido');
     if (!vigente()) return;
     let agHoja = null;
-    try { agHoja = ag && corregirAltitud(ag, celda.altitud - altRef); } catch { agHoja = null; }
+    try { agHoja = ag && corregirAltitud(ag, altitud - altRef); } catch { agHoja = null; }
     abrir(modeloHoja({ celda, nota, ag: agHoja, coto: coto?.properties ?? null, zona }),
       { desglose: nota.resultado ? () => desglose(nota.resultado) : null, grafico: enSalida?.lluvia ? grafico(enSalida) : null });
   }
@@ -399,6 +430,15 @@ async function montar(estadoInicial) {
       cargadoEn = Date.now();
       if (vivo && nuevo.salida && nuevo.salida.sello !== salida?.sello) { salida = nuevo.salida; imagenes.clear(); ponerModo(); cambio(); }
     } finally { recargando = false; }
+  }
+  // Carga de la rejilla y del índice sin bloquear el montaje.
+  if (!sinDescompresion) {
+    Promise.all([cargarDatosRejilla().catch(() => null), cargarIndice()]).then(([r, ind]) => {
+      cargandoLaderas = false; cargadoEn = Date.now();
+      if (!vivo) return;
+      if (r) { rej = r; capaRejilla = new CapaRejilla(); salida = ind?.salida ?? null; imagenes.clear(); ponerModo(); }
+      cambio();
+    }).catch(() => { cargandoLaderas = false; if (vivo) cambio(); });
   }
   const reloj = setInterval(() => { refrescarIndice().catch(() => {}); }, 10 * 60e3);
 

@@ -12,6 +12,9 @@ import { nivelDe } from '../ui/semaforo.js';
 
 export const SIN_COLOR = 255, SIN_DATOS = 254;
 export const ALFA = 150, ALFA_GRIS = 110;
+// «Sin datos» en damero (una celda con ALFA_GRIS y la vecina con ALFA_TRAMA): así no se confunde con «Nulo», que es
+// un gris parecido pero liso. La paleta de Hoy y Zona no cambia.
+export const ALFA_TRAMA = 35;
 
 // Solo una celda con código de hábitat y sin la marca de prohibido puede llevar nota.
 const conMonte = (h) => (h & CODIGO) !== 0 && (h & PROHIBIDO) === 0;
@@ -61,11 +64,13 @@ const PALETA = (() => {
   p.set([...rgb(NIVEL_COLOR['sin-datos']), ALFA_GRIS], SIN_DATOS * 4);
   return p;
 })();
-export function colorear(notas) {
+// Con `ancho` (columnas del archivo), las celdas sin datos van en damero.
+export function colorear(notas, ancho = 0) {
   const px = new Uint8ClampedArray(notas.length * 4);
   for (let k = 0; k < notas.length; k++) {
     const o = notas[k] * 4;
     px[4 * k] = PALETA[o]; px[4 * k + 1] = PALETA[o + 1]; px[4 * k + 2] = PALETA[o + 2]; px[4 * k + 3] = PALETA[o + 3];
+    if (ancho > 0 && notas[k] === SIN_DATOS && ((k % ancho) + Math.floor(k / ancho)) % 2 === 1) px[4 * k + 3] = ALFA_TRAMA;
   }
   return px;
 }

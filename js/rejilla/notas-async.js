@@ -4,7 +4,8 @@
 // Si el Worker falla (no se puede crear, error de carga, mensaje ilegible, error en el cálculo o no contesta en
 // PLAZO_MS), se descarta para el resto de la sesión y las peticiones pendientes y las siguientes se calculan en el hilo
 // principal: ninguna promesa se queda pendiente para siempre.
-// `gruesa` y `salida` (grandes y casi fijos) se mandan al Worker solo cuando cambian, no en cada llamada.
+// `gruesa` y `salida` (grandes y casi fijos) se mandan al Worker solo cuando cambian, no en cada llamada. Con `archivo`
+// (nombre del .bin), `rejilla` y `gruesas` se mandan una vez por archivo y el Worker las guarda (no se reclonan).
 import { notasDeArchivo } from './pintor.js';
 
 export const USAR_TRABAJADOR = true;
@@ -16,7 +17,7 @@ const enHilo = (args) => new Promise((ok) => ok(notasDeArchivo(args)));   // un 
 export function crearCalculador({ crearWorker = () => new Worker(new URL('./trabajador.js', import.meta.url), { type: 'module' }),
   usar = USAR_TRABAJADOR, plazo = PLAZO_MS } = {}) {
   let trabajador = null, roto = !usar, siguiente = 0;
-  const pendientes = new Map(), enviados = {};
+  const pendientes = new Map(), enviados = {}, porArchivo = new Map();
 
   function descartar() {
     roto = true;
@@ -38,6 +39,7 @@ export function crearCalculador({ crearWorker = () => new Worker(new URL('./trab
     trabajador.onerror = (e) => { e?.preventDefault?.(); descartar(); };
     trabajador.onmessageerror = () => descartar();
     for (const k of FIJOS) delete enviados[k];
+    porArchivo.clear();
     return true;
   }
 
@@ -48,11 +50,21 @@ export function crearCalculador({ crearWorker = () => new Worker(new URL('./trab
       if (enviados[k] !== args[k]) { fijos[k] = args[k]; enviados[k] = args[k]; }
       delete resto[k];
     }
+    let deArchivo = null;
+    if (args.archivo != null) {
+      const ya = porArchivo.get(args.archivo);
+      if (ya?.rejilla !== args.rejilla || ya?.gruesas !== args.gruesas) {
+        deArchivo = { nombre: args.archivo, rejilla: args.rejilla, gruesas: args.gruesas };
+        porArchivo.set(args.archivo, { rejilla: args.rejilla, gruesas: args.gruesas });
+      }
+      delete resto.rejilla; delete resto.gruesas;
+    }
     return new Promise((ok, ko) => {
       const reloj = setTimeout(descartar, plazo);
       pendientes.set(id, { ok, ko, args, reloj });
       try {
         if (Object.keys(fijos).length) trabajador.postMessage({ fijos });
+        if (deArchivo) trabajador.postMessage({ archivo: deArchivo });
         trabajador.postMessage({ id, args: resto });
       } catch { descartar(); }   // p. ej. datos que no se pueden clonar
     });
