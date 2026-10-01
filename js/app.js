@@ -32,7 +32,8 @@ async function pintar(cambioDePantalla = false) {
     const m = await cargar();
     const nodo = await m.pintar({ estado, param: param && decodeURIComponent(param), refrescarMeteo });
     if (!carrera.vigente(ficha)) return;
-    raiz.replaceChildren(nodo);
+    // El mapa devuelve siempre el mismo nodo: volver a insertarlo le quitaría el foco (buscador) y cerraría sus popups.
+    if (raiz.childNodes.length !== 1 || raiz.firstChild !== nodo) raiz.replaceChildren(nodo);
   } catch (e) {
     if (!carrera.vigente(ficha)) return;
     error(raiz, 'No se ha podido abrir esta pantalla', e.message);

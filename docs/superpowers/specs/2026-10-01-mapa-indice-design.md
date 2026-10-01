@@ -62,7 +62,7 @@ Fondos, comprobados el 01/10/2026 (todos responden 200):
   - si falta el histórico, el primer relleno se hace desde el 1 de agosto con la API de archivo, troceado en varias ejecuciones si hace falta;
   - **presupuesto**: a lo sumo unas 1.000 llamadas ponderadas al día, frente al límite gratuito de 10.000.
 - **Salida:** un archivo `indice/<fecha>T<hora>.json`, más `indice/ultimo.json` como puntero, en un bucket público de Storage. Por celda gruesa, especie y día trae:
-  - los factores que no dependen de la ladera: fW, fS, fR, fA, fC y penalizaciones;
+  - los factores que no dependen de la ladera: fS, fR, fA, fC y penalizaciones, y los agregados de lluvia, entre ellos P26 (`CAMPOS_DIA`). fW sí depende de la ladera, porque el ajuste por orientación multiplica P26 antes de calcularlo (corrección del 2026-10-01, tarea 7), así que el móvil lo recalcula por celda desde P26;
   - la temperatura a la altitud de referencia;
   - la marca de dato incompleto.
 
@@ -74,7 +74,7 @@ Fondos, comprobados el 01/10/2026 (todos responden 200):
 - Para cada celda fina con hábitat calcula:
   - la temperatura corregida por altitud: −0,65 °C por cada 100 m respecto a la de referencia;
   - fT, con esa temperatura;
-  - un modificador de humedad por orientación, umbría frente a solana. Es **orientativo**, sale de la bibliografía, con valores y fuentes en `docs/datos.md`, y se marca así en la hoja;
+  - un modificador de humedad por orientación, umbría frente a solana. Es **orientativo**, sale de la bibliografía, con valores y fuentes en `docs/datos.md`, y se marca así en la hoja. Multiplica la lluvia de 26 días antes de calcular fW, con el efecto en fW acotado al ±15 % del fW sin ajuste (≈ ±5 % en la nota). Cambio del 2026-10-01, rulings de la tarea 7 (rondas 1 y 2): antes decía «multiplica fW»; así es simétrico entre umbría y solana, no cambia nada con ajuste 1 y no puede mover la nota decenas de puntos junto al mínimo de lluvia;
   - la nota final con la misma `calcularIndice` y `nivelDe`.
 
   Solo se calculan las especies cuyo `habitat` encaja con la celda y que están en temporada.

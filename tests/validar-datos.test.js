@@ -219,3 +219,80 @@ test('fueraDeZonaMeteo es opcional y, si está, booleano', () => {
   const c = sitio(); c.fueraDeZonaMeteo = 'sí';
   assert.match(validar(conSitios(c)).join('\n'), /fueraDeZonaMeteo debe ser booleano/);
 });
+
+import { validarRejillas } from '../scripts/validar-datos.mjs';
+import { codificarRejilla, PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
+
+const fuenteR = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
+const cabR = { version: 1, zona: 'soria', tam: 250, col0: 10, fila0: 20, ancho: 2, alto: 1, habitats: ['pinar-silvestre'],
+  fuentes: { mfe: fuenteR, mdt: fuenteR }, generado: '2026-10-01' };
+async function casoRejilla() {
+  const bytes = await codificarRejilla(cabR, { habitat: Uint8Array.from([1, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  return { indice: { version: 1, archivos: [{ zona: 'soria', archivo: 'soria.bin', col0: 10, fila0: 20, ancho: 2, alto: 1, bytes: bytes.length }] },
+    gruesa: { version: 1, pasos: { soria: 0.09 }, celdas: [{ id: 'soria:80:75', zona: 'soria', lon: -2.755, lat: 41.795, altRef: 1200, habitats: ['pinar-silvestre'], nFinas: 1 }] },
+    zonas: { zonas: [zona()] }, bytes };
+}
+
+test('validarRejillas: una rejilla bien hecha no da errores', async () => {
+  const c = await casoRejilla();
+  assert.deepEqual(await validarRejillas({ ...c, leer: () => c.bytes }), []);
+});
+
+test('validarRejillas: archivo que falta, que pesa demasiado o que no es una rejilla', async () => {
+  const c = await casoRejilla();
+  assert.match((await validarRejillas({ ...c, leer: () => null })).join('\n'), /falta el archivo/);
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes, maxBytes: 20 })).join('\n'), /KB, más de/);
+  assert.match((await validarRejillas({ ...c, leer: () => new TextEncoder().encode('no soy una rejilla') })).join('\n'), /no es una rejilla/);
+});
+
+test('validarRejillas: zona inexistente en la cabecera y celda gruesa sin altitud de referencia', async () => {
+  const c = await casoRejilla();
+  c.zonas.zonas[0].id = 'cuenca';
+  c.gruesa.celdas[0].altRef = null;
+  const e = (await validarRejillas({ ...c, leer: () => c.bytes })).join('\n');
+  assert.match(e, /zona inexistente soria/);
+  assert.match(e, /sin altRef/);
+});
+
+test('validarRejillas: carga truncada, código de hábitat inválido y tamaño distinto del de indice.json', async () => {
+  const c = await casoRejilla();
+  const cortado = c.bytes.slice(0, c.bytes.length - 6);
+  assert.match((await validarRejillas({ ...c, leer: () => cortado })).join('\n'), /rejilla dañada: carga ilegible o incompleta/);
+  const malo = await codificarRejilla(cabR, { habitat: Uint8Array.from([7, 0]), terreno: new Uint8Array(2), altitud: new Int16Array(2) });
+  assert.match((await validarRejillas({ ...c, leer: () => malo })).join('\n'), /código de hábitat 7 fuera de la cabecera/);
+  c.indice.archivos[0].bytes += 1;
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /indice\.json dice \d+ bytes y el archivo tiene/);
+});
+
+test('validarRejillas: el bit 5 (monte de provincias vecinas) es válido; el bit 6 sigue reservado', async () => {
+  const fuera = await codificarRejilla(cabR, { habitat: Uint8Array.from([FUERA_PROVINCIAS | 1, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  const c = await casoRejilla();
+  c.indice.archivos[0].bytes = fuera.length;
+  assert.deepEqual(await validarRejillas({ ...c, leer: () => fuera }), []);
+  const raro = await codificarRejilla(cabR, { habitat: Uint8Array.from([0x41, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  c.indice.archivos[0].bytes = raro.length;
+  assert.match((await validarRejillas({ ...c, leer: () => raro })).join('\n'), /código de hábitat 65/);
+});
+
+test('validarRejillas: celda gruesa con hábitat desconocido', async () => {
+  const c = await casoRejilla();
+  c.gruesa.celdas[0].habitats = ['pinar-silvestre', 32];
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /hábitats vacíos o desconocidos/);
+});
+
+import { validarPueblos } from '../scripts/validar-datos.mjs';
+const pueblosOk = () => ({ version: 1, fuente: { nombre: 'NGBE', url: 'https://www.ign.es/wfs-inspire/ngbe', licencia: 'CC BY 4.0', fecha: '2026-10-01' },
+  pueblos: [{ n: 'Rascafría', p: 'Madrid', lat: 40.90405, lon: -3.88041 }] });
+
+test('validarPueblos: archivo correcto sin errores', () => {
+  assert.deepEqual(validarPueblos(pueblosOk()), []);
+});
+
+test('validarPueblos: sin licencia o con un pueblo sin coordenadas', () => {
+  const d = pueblosOk();
+  delete d.fuente.licencia;
+  assert.match(validarPueblos(d).join('\n'), /sin fuente con url, fecha y licencia/);
+  const m = pueblosOk();
+  m.pueblos.push({ n: 'Sin sitio', p: 'Soria', lat: null, lon: -2.5 });
+  assert.match(validarPueblos(m).join('\n'), /«Sin sitio» sin nombre o coordenadas/);
+});

@@ -429,6 +429,341 @@ El bbox de `alava` se ensanchó de `lonMin -3.0` a `-3.25` para que contenga el 
 
 `alava-gorbeia-altube` (tipo `parque-micologico`, precisión `derivado`) dibuja el MUP 734 «Altube y Gorbeia» del catálogo del MITECO. El plano oficial del parque (https://www.gorbeiamikologia.eus/es/micoturismo/) rotula «OMP / MUP 734 Altube» y traza el borde rojo del parque sobre ese monte, con pequeños enclaves que no se recortan. La norma es `alava-gorbeia-parque-micologico` (ordenanza de Zuia, BOTHA n.º 95, 14/08/2023; tarifas 2026 de la web oficial). La web oficial es ambigua sobre los municipios: la página «Parque Micológico» (https://www.gorbeiamikologia.eus/es/parque-micologico/) dice que actualmente lo forma Zuia, y la portada (https://www.gorbeiamikologia.eus/es/) dice que en 2022 Urkabustaiz, Zigoitia y Zuia pusieron en marcha el proyecto. La ordenanza leída es solo la de Zuia y el polígono es solo el MUP 734; para Urkabustaiz y Zigoitia la app dice «la web oficial se contradice: confirma con el ayuntamiento o con el parque antes de recoger». El bbox de `alava` llega a latMax 43.06 para contener el polígono (sin solaparse con otras zonas). El polígono se añadió a `data/cotos.geojson` a mano (no se regeneró con `scripts/cotos/unir.mjs`, que pisaría ajustes posteriores de otros cotos); su origen está en `data/fuentes-cotos/alava-montes.json`, clave `gorbeia-altube`.
 
+## Rejilla fina: del MFE50 al hábitat
+
+Fuente: Mapa Forestal de España 1:50.000 (MFE50), MITECO, por provincia (detalles, licencia y campos en
+`docs/investigacion/08-rejilla-fuentes.md`). Código: `scripts/rejilla/mfe-habitat.mjs`.
+
+La tabla va por **nombre científico**, no por código: el código del MFE50 (`SP1`, `SP2`, códigos del IFN) se traduce
+con `scripts/rejilla/mfe-diccionario.json`. Se busca el nombre exacto, luego género + especie (sin subespecie ni
+variedad) y luego «Género spp.» (así *Betula alba* y *B. pendula* dan `abedular`, y *Populus alba*, *P. nigra* y
+*P. tremula*, `chopera`). Un nombre solo de género («Quercus», «Juniperus spp.») o un grupo («Otros quercus»,
+«Mezcla de coníferas») no da hábitat.
+
+| Especie dominante (MFE50) | Hábitat |
+|---|---|
+| *Pinus sylvestris* | pinar-silvestre |
+| *Pinus nigra* | pinar-negral |
+| *Pinus pinaster* | pinar-resinero |
+| *Pinus pinea* | pinar-pinonero |
+| *Fagus sylvatica* | hayedo |
+| *Quercus pyrenaica* | melojar |
+| *Quercus petraea*, *Q. robur* (aproximación) | robledal-albar |
+| *Quercus faginea* | quejigar |
+| *Quercus ilex*, *Q. rotundifolia* | encinar |
+| *Quercus suber* | alcornocal |
+| *Castanea sativa* | castanar |
+| *Juniperus thurifera* | sabinar |
+| *Betula* spp. | abedular |
+| *Populus* spp. | chopera |
+
+Tipos de estructura (`TIPESTR`, en `CONFIG.mfe.tipos`; justificación en el apartado D1 del informe 08):
+- Arbolado: 1 Bosque, 2 Bosque Plantación, 3 Dehesa, 11 Riberas, 12 Bosquetes.
+- Herbazal o pastizal: 9 Herbazal, 24 Prado con sebes, 34 Prado, 35 Pastizal-Matorral.
+- Matorral: 8 Matorral.
+- Todo lo demás cuenta como «otro» y no da hábitat.
+
+Reglas (criterios propios, no de la fuente):
+- **Arbolado:** hace falta una fracción de cabida cubierta arbórea (`TFCCARB`) de al menos el 20 % (`FCC_MINIMA`).
+  Es el mismo corte que usa el MFE50 entre «Monte arbolado» y «Monte con arbolado ralo» (campo `USOS_SUELO`, en las
+  11 provincias: el arbolado ralo va del 10 % al 15 % y el disperso del 5 % al 9 %; el monte arbolado empieza en el
+  20 %, salvo 139 teselas de riberas, `TIPESTR` 11, de 75.372). Deja fuera las dehesas con menos del 20 %: en Badajoz,
+  56.390 ha de `TIPESTR` 3 (suma de `Shape_Area` de la provincia entera, sin recortar a la zona). Sin cabida cubierta:
+  sin monte (nunca se colorea a ciegas). `SP1`/`SP2` = 0 significa «sin especie» y no cuenta.
+- **Qué especie manda en el arbolado:** de las dos dominantes (`SP1`, `SP2`), la primera cuyo hábitat tenga alguna
+  seta con índice en `data/especies.json`; la segunda solo puede ganar si ocupa al menos 3 décimas de la tesela
+  (`O2` ≥ `OCUPACION_MINIMA_SEGUNDA`; `O1`/`O2` son el «grado de presencia» de cada especie en la tesela, de 0 a 10,
+  según la tabla 9 del documentador del IFN3). Si ninguna cumple, la primera de las dos que esté en la tabla. Así un
+  sabinar con 4 décimas de pino negral cuenta como pinar negral (el sabinar no tiene setas con índice y el pinar
+  negral sí), pero uno con 1 décima de pino sigue siendo sabinar. El conjunto de hábitats con índice lo calcula el
+  generador: `new Set(especies.filter((s) => s.indice).flatMap((s) => s.habitats))`.
+- **Mosaicos fuera:** los `TIPESTR` 25 (arbolado sobre cultivo) y 26 (arbolado sobre forestal desarbolado) no cuentan
+  como arbolado aunque traigan especie y cabida cubierta, por prudencia: el arbolado está salpicado entre cultivos o
+  raso y la celda no sería de monte.
+- **Herbazal o pastizal:** `pastizal-montana` desde 1.000 m (`ALTITUD_PASTIZAL_MONTANA`) y `prado` por debajo. Sin
+  altitud: sin monte.
+- **Matorral:** `jaral` solo si su especie es una jara de `CONFIG.mfe.matorralJaral`. El MFE50 no detalla el matorral
+  (`SP1` = 0 en 25.581 de las 25.582 teselas de matorral de las 11 provincias), así que esa lista está vacía y **el
+  jaral no sale en la rejilla**.
+- Sin hábitat (código 0): *Pinus halepensis*, *P. uncinata* y demás pinos, abetos, eucaliptos, *Quercus pubescens*,
+  *Q. lusitanica*, sabinas y enebros que no son *J. thurifera*, alisos, fresnos, sauces, mezclas, cultivos,
+  improductivo y agua. `data/especies.json` no tiene un hábitat que les corresponda, así que se prefiere dejar la
+  celda sin monte a colorearla con un bosque que no es. **Hueco conocido:** *Pinus radiata* (pino insigne), con
+  13.968 ha en Álava como especie dominante (suma de `Shape_Area` de las teselas con `SP1` = 28), queda sin monte.
+- Criterio general: ante la duda, sin monte. Colorear un monte donde no está el bosque del que viven las setas manda a
+  la gente al sitio equivocado; dejarlo en blanco solo pierde una celda.
+
+## Ajuste por orientación (orientativo)
+
+`js/rejilla/orientacion.js` multiplica la lluvia de 26 días (`P26`) según la orientación de la ladera (umbría N, NE,
+NO; solana S, SE, SO) **antes** de calcular `fW`, y el efecto en `fW` se acota al ±15 % del `fW` sin ajuste
+(`indiceDesdeAgregados`, `supabase/functions/_shared/indice.js`):
+
+    fW0  = (P26 − pmin) / (pfull − pmin)              sin ajuste
+    fWef = (P26 × ajuste − pmin) / (pfull − pmin)     lluvia efectiva
+    fW   = clamp01(min(max(fWef, fW0 × 0,85), fW0 × 1,15))
+
+El tope 0,85–1,15 es `TOPE_AJUSTE_HUMEDAD` del mismo módulo; `AJUSTE_ORIENTACION` toma de ahí sus extremos (N y S).
+Así es simétrico: con lluvia abundante las dos laderas llegan a `fW = 1`, con lluvia 0 las dos dan 0, y con ajuste 1
+la nota es la de siempre. Con el peso de `fW` (0,35), la nota de una ladera se aparta como mucho un **+5,0 % / −5,5 %**
+de la neutra (1,15^0,35 y 0,85^0,35); si falta la climatología (`fS` sin dato, el peso de `fW` sube a 0,44),
++6,3 % / −6,9 %. (Historia: hasta el 2026-10-01 el plan decía «multiplica `fW`»; el ruling de la tarea 7 lo cambió a
+«multiplica la lluvia», porque multiplicar `fW` no sumaba en umbría cuando ya estaba en 1, y la ronda 2 del mismo día
+añadió el tope, porque sin él la solana podía dejar `fW` en 0 junto a `pmin` y mover la nota hasta 47 puntos.) **Orientativo:** no hay calibración con datos de estas zonas; la hoja del
+mapa lo marca así cuando el ajuste no es 1. Criterio y búsqueda: `docs/investigacion/08-rejilla-fuentes.md`, apartado D8.
+
+| Orientación | Ajuste de la lluvia de 26 días | Fuente |
+|---|---|---|
+| Llano | 1 | neutro por definición (celdas con orientación 0) |
+| N | 1,15 | Bonet et al. 2008, *Annals of Forest Science* 65: 206, https://hal.science/hal-00884160v1 (punto medio de 2,54 = 1,77, recortado al tope 1,15) |
+| NE | 1,075 | regla del plan (mitad del efecto de N) |
+| E | 1 | neutro por definición |
+| SE | 0,925 | regla del plan (mitad del efecto de S) |
+| S | 0,85 | Bonet et al. 2008, https://hal.science/hal-00884160v1 (punto medio de 0,39 = 0,70, recortado al tope 0,85) |
+| SO | 0,925 | regla del plan (mitad del efecto de S) |
+| O | 1 | neutro por definición |
+| NO | 1,075 | regla del plan (mitad del efecto de N) |
+
+La razón publicada es de **producción total de setas** en pinares de pino silvestre del Prepirineo (24 parcelas, 3
+años), no de humedad del suelo; el ajuste se queda en el tope, muy por debajo del efecto del artículo. En una cuenca
+del Prepirineo (Estaña, 2005-2006), la humedad superficial no mostró tendencia por orientación en otoño, con el suelo
+muy húmedo (López-Vicente et al. 2009, apartado D8); no es un resultado general, pero va en la misma línea: con lluvia
+abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
+
+**Efecto real en la nota** (cuenta sobre la fórmula, con los demás factores a 1): *Boletus edulis* con 60 mm pasa de
+78 a 82 en umbría y a 74 en solana; con 80 mm, de 94 a 98 y a 89. El tope se cumple también junto al mínimo de lluvia
+(`pmin`), donde sin él la solana dejaba `fW` en 0.
+
+## Formato de la rejilla (data/rejilla/)
+
+- `indice.json`: lista de archivos (`zona`, `archivo`, `col0`, `fila0`, `ancho`, `alto`, `bytes`), fuentes y fecha.
+- `<zona>.bin` o `<zona>-<n>.bin`: formato `SETR` v1 (`js/rejilla/formato.js`). Celdas de 250 m de Web Mercator
+  (EPSG:3857; en estas latitudes, unos 190 m sobre el terreno) alineadas con la malla de teselas; columna y fila
+  globales desde la esquina noroeste del mundo. Una zona se parte en bandas de filas si pasa de 300 KB.
+- Byte de hábitat de cada celda:
+  - bits 0 a 4: código del hábitat (posición en `cabecera.habitats` + 1; 0 = sin monte);
+  - bit 5 (`FUERA_PROVINCIAS`, 0x20): el monte es de una **provincia vecina** que entra en el bbox de la zona pero no
+    está en `zona.provincias`. Su normativa no está revisada y la hoja del mapa lo avisa. Solo puede ir con un código
+    de hábitat;
+  - bit 6: reservado, siempre 0 (si no, el decodificador rechaza el archivo);
+  - bit 7 (`PROHIBIDO`): celda en zona prohibida, sin hábitat.
+- `gruesa.json`: celdas gruesas con monte (id `zona:col:fila` en pasos de `pasos[zona]` grados desde 10° O y 35° N),
+  su centro (donde se pide la meteo) y su altitud de referencia (media de sus celdas finas con monte, también las de
+  provincias vecinas). La Edge Function lleva una copia idéntica (`supabase/functions/rejilla/gruesa.json`, una prueba
+  lo comprueba).
+- Orientación por el método de Horn sobre la rejilla de 250 m, con el lado de celda en metros de suelo según la latitud
+  de cada fila; «llano» si la pendiente es menor del 5 % o si falta alguno de los 8 vecinos (borde o sin dato). Tramos de
+  pendiente: menos del 5 %, del 5 al 15 %, del 15 al 30 % y 30 % o más (criterio propio).
+- Prohibido: una celda lleva la marca y se queda sin hábitat si su centro **o cualquiera de sus 4 esquinas** cae en un
+  polígono `prohibido` de `data/cotos.geojson` (criterio conservador: no se colorean celdas de borde).
+  `tests/rejilla-datos.test.js` lo comprueba sobre los archivos generados.
+
+**Pintado en el mapa** (`js/rejilla/pintor.js`, `js/mapa/capa-rejilla.js`). Cada archivo se colorea en una imagen de
+`ancho × alto` píxeles (1 celda = 1 píxel) que la capa dibuja escalada sin suavizado. Solo llevan color las celdas con
+código de hábitat y sin el bit `PROHIBIDO`; el bit `FUERA_PROVINCIAS` no cambia el color (la marca la pone la hoja).
+Celda gruesa sin datos en el índice, sin altitud de referencia o celda fina fuera de toda celda gruesa: gris
+(`#7d827e`), nunca un color de nivel. Hábitat sin especies en temporada (o fuera del chip elegido): transparente. Por
+debajo de `ZOOM_MIN_FINA` (9) se pinta una nota por celda gruesa (la mejor de sus hábitats a su altitud media). La capa
+lleva la atribución del MFE50 y del MDT con los textos de `scripts/rejilla/config.mjs`.
+
+**Medida del pintado** (`node scripts/rejilla/medir-pintado.mjs`, 2026-10-01, Node 24.14 en el portátil de desarrollo):
+el archivo más grande, `extremadura-1.bin` (959 × 276 celdas, unas 99.900 con monte y 21.200 combinaciones distintas de
+celda gruesa, hábitat, altitud y orientación), tarda unos 160 ms en `notasDeArchivo` + `colorear` (tres ejecuciones:
+159, 160 y 163 ms). Por 4 (la ralentización de CPU con la que Lighthouse simula un móvil medio) son unos 640 ms, más
+de los 200 ms del criterio: **el cálculo va en un Web Worker** (`USAR_TRABAJADOR = true` en
+`js/rejilla/notas-async.js`). Es una estimación (Node × 4), no una medida en un móvil real. Si el Worker falla
+(no carga, error, mensaje ilegible o 20 s sin contestar), se descarta para la sesión y se calcula en el hilo principal.
+
+**Cómo se genera.**
+
+1. `node scripts/rejilla/recortar-mfe.mjs` recorta el shapefile del MFE50 al bbox de cada zona, con 0,01° de margen.
+   Recorta las provincias de la zona y las vecinas de `CONFIG.mfe.vecinas`, y deja el resultado en
+   `_fuentes/mfe50-recorte/<zona>/<provincia>.geojson`.
+   - Junto a cada recorte deja `<provincia>.recorte.json` con el bbox usado y el número de teselas. Si ese bbox no
+     cubre el que pide la zona, el recorte se rehace.
+   - Si falta el shapefile, baja el ZIP del MITECO (`CONFIG.mfe.zips`, el mismo método de la tarea 0) y lo descomprime.
+   - Usa mapshaper en un proceso por recorte.
+2. `node scripts/rejilla/generar.mjs` genera una zona por proceso (`--zona <id>`, con un tope de memoria de Node de
+   3 GB). Al final junta `indice.json` y `gruesa.json` (`--unir`).
+   - Falla si un recorte no cubre la ventana de celdas finas.
+   - Lee primero las provincias de la zona: si dos teselas se solapan en la raya, gana la de la zona.
+   - Lee el GeoJSON feature a feature y guarda la geometría en forma compacta. El proceso más grande se quedó en unos
+     440 MB.
+
+**Provincias vecinas descargadas** (2026-10-01): Ciudad Real, Cantabria, Bizkaia, Gipuzkoa, La Rioja, Navarra, Teruel,
+Zaragoza, Palencia, Salamanca, Huelva, Sevilla y Córdoba, además de las 11 de la tarea 0 cuando hacen de vecinas.
+Los recortes que quedan vacíos no aportan nada: Soria en sierra-norte, Segovia en burgos, Cáceres en gredos y Ciudad
+Real en extremadura. Soria en guadalajara deja 1 tesela sin celdas.
+
+Generado el 2026-10-01 con `scripts/rejilla/generar.mjs` (MFE50 consultado el 2026-10-01, datos del proyecto 1997-2006;
+MDT: Modelo Digital del Terreno MDT25 (IGN, PNOA-LiDAR), servicio WCS):
+
+| Archivo | Celdas | KB |
+|---|---|---|
+| guadarrama.bin | 215 × 236 | 71 |
+| sierra-norte.bin | 210 × 326 | 98 |
+| soria.bin | 241 × 270 | 104 |
+| burgos.bin | 286 × 481 | 165 |
+| merindades.bin | 335 × 396 | 176 |
+| gredos.bin | 401 × 205 | 114 |
+| cuenca.bin | 269 × 380 | 164 |
+| guadalajara.bin | 357 × 353 | 187 |
+| toledo.bin | 468 × 261 | 145 |
+| alava.bin | 447 × 311 | 193 |
+| extremadura-1.bin | 959 × 276 | 233 |
+| extremadura-2.bin | 959 × 276 | 274 |
+| extremadura-3.bin | 959 × 276 | 209 |
+| extremadura-4.bin | 959 × 276 | 183 |
+| extremadura-5.bin | 959 × 275 | 263 |
+
+Celdas gruesas: **355 con paso 0,18°**. Recuento por candidato: 0,09° → 1245; 0,12° → 729; 0,15° → 494; 0,18° → 355.
+El máximo es 350 y ni el paso más grueso baja de ahí: **lo pasa por 5** (el generador lo avisa).
+Hay unas pocas gruesas repetidas entre zonas vecinas (mismo `col:fila`), que se pueden pedir una sola vez (tareas 11 y 12).
+
+**Cobertura del MFE50.** Celdas con altitud y fuera de prohibidos que no caen en ninguna tesela del MFE50 descargado:
+
+| Zona | Celdas finas | Con monte | De ellas, de provincias vecinas | Prohibidas | Sin altitud | Con altitud sin tesela | Cobertura MFE50 | Gruesas |
+|---|---|---|---|---|---|---|---|---|
+| guadarrama | 50.740 | 30.293 | 822 | 2535 | 0 | 0 | 100 % | 12 |
+| sierra-norte | 68.460 | 37.098 | 8644 | 118 | 0 | 0 | 100 % | 16 |
+| soria | 65.070 | 51.890 | 14.025 | 0 | 0 | 0 | 100 % | 12 |
+| burgos | 137.566 | 66.973 | 9019 | 0 | 0 | 0 | 100 % | 20 |
+| merindades | 132.660 | 61.331 | 15.519 | 0 | 0 | 0 | 100 % | 20 |
+| gredos | 82.205 | 42.830 | 10.116 | 0 | 0 | 0 | 100 % | 18 |
+| cuenca | 102.220 | 75.249 | 9395 | 0 | 0 | 0 | 100 % | 25 |
+| guadalajara | 126.021 | 85.671 | 21.613 | 0 | 0 | 0 | 100 % | 20 |
+| toledo | 122.148 | 49.592 | 14.487 | 0 | 0 | 0 | 100 % | 21 |
+| alava | 139.017 | 67.494 | 24.285 | 0 | 0 | 0 | 100 % | 25 |
+| extremadura | 1.322.461 | 576.280 | 68.206 | 5205 | 155.243 | 48.768 | 95,8 % | 166 |
+
+Antes de añadir las provincias vecinas faltaba entre el 11 % y el 43 % de cada ventana.
+
+Lo que sigue sin cubrir:
+
+- **Portugal**, en extremadura:
+  - 48.768 celdas tienen altitud y no tienen tesela. Están todas al oeste de unos 7,0° O, en el lado
+    portugués del bbox, donde no llega el MFE50.
+  - 155.243 celdas no tienen altitud: el WCS del IGN devuelve 0 fuera de España y ese 0 cuenta como sin
+    dato.
+  - Ninguna de las dos lleva color. En el formato son «sin monte» (hábitat 0), igual que una celda española sin bosque.
+    El bit 6 no se usa para distinguirlas; si hace falta, el visor puede recortarlas con el contorno de España.
+- En las demás zonas no queda ninguna celda con altitud y sin tesela.
+
+Celdas por provincia (celdas de la ventana que caen en una tesela de cada provincia; «vecina» = bit 5 si hay monte):
+
+- guadarrama: Madrid 20.664, Segovia 26.607, Ávila (vecina) 934.
+- sierra-norte: Madrid 26.632, Segovia 23.185, Guadalajara (vecina) 18.525.
+- soria: Soria 46.043, La Rioja (vecina) 14.522, Burgos (vecina) 4505.
+- burgos: Burgos 121.946, Soria (vecina) 10.560, La Rioja (vecina) 5060.
+- merindades: Burgos 97.436, Cantabria (vecina) 30.874, Bizkaia (vecina) 3923, Palencia (vecina) 59, Álava (vecina) 368.
+- gredos: Ávila 66.970, Toledo (vecina) 10.501, Madrid (vecina) 4734.
+- cuenca: Cuenca 88.146, Teruel (vecina) 13.259, Guadalajara (vecina) 815.
+- guadalajara: Guadalajara 97.866, Cuenca (vecina) 21.569, Teruel (vecina) 3969, Zaragoza (vecina) 2617.
+- toledo: Toledo 86.134, Ciudad Real (vecina) 30.408, Badajoz (vecina) 4151, Cáceres (vecina) 1455.
+- alava: Álava 78.867, Burgos (vecina) 32.480, La Rioja (vecina) 7443, Bizkaia (vecina) 2942, Gipuzkoa (vecina) 10.015, Navarra (vecina) 7270.
+- extremadura: Cáceres 500.502, Badajoz 496.665, Huelva (vecina) 29.041, Sevilla (vecina) 22.799, Córdoba (vecina) 34.805, Salamanca (vecina) 10.304, Ávila (vecina) 14.329, Toledo (vecina) 4800.
+
+Celdas con monte por hábitat (de la zona y de vecinas):
+
+- guadarrama: pinar-silvestre 11.687, pastizal-montana 8106, melojar 4136, encinar 2975, prado 2059, pinar-resinero 905, chopera 192, pinar-negral 183, pinar-pinonero 25, quejigar 25.
+- sierra-norte: melojar 10.405, pastizal-montana 8123, pinar-silvestre 7518, encinar 4295, pinar-resinero 2211, prado 1681, pinar-negral 894, sabinar 856, chopera 606, quejigar 349, hayedo 135, pinar-pinonero 13, robledal-albar 12.
+- soria: pinar-silvestre 23.719, melojar 7400, pastizal-montana 6780, sabinar 5087, pinar-resinero 3196, hayedo 2300, encinar 2156, pinar-negral 651, quejigar 312, chopera 138, robledal-albar 108, prado 22, abedular 21.
+- burgos: melojar 16.983, pinar-silvestre 13.780, encinar 8655, sabinar 6884, pinar-resinero 5510, pastizal-montana 3953, hayedo 3238, pinar-negral 3201, quejigar 2256, chopera 1288, prado 1009, robledal-albar 166, pinar-pinonero 50.
+- merindades: encinar 15.975, prado 8592, pinar-silvestre 6913, hayedo 5737, quejigar 5320, pinar-resinero 5111, melojar 4088, robledal-albar 3917, pastizal-montana 2957, pinar-negral 1322, chopera 1099, castanar 201, sabinar 61, abedular 38.
+- gredos: pinar-resinero 11.018, encinar 10.906, pastizal-montana 8361, prado 4158, melojar 3774, pinar-silvestre 2152, pinar-pinonero 1360, castanar 499, chopera 299, pinar-negral 186, alcornocal 117.
+- cuenca: pinar-negral 37.431, pinar-silvestre 16.352, encinar 6215, pinar-resinero 5947, sabinar 4110, pastizal-montana 2710, quejigar 1921, chopera 446, pinar-pinonero 67, melojar 33, prado 17.
+- guadalajara: pinar-negral 26.222, pinar-silvestre 14.697, encinar 10.184, pastizal-montana 9905, sabinar 9437, pinar-resinero 8639, quejigar 3183, melojar 2793, chopera 481, prado 130.
+- toledo: encinar 26.127, pinar-resinero 7235, melojar 5799, prado 4365, alcornocal 2940, quejigar 1535, pinar-pinonero 1227, pastizal-montana 219, chopera 114, pinar-silvestre 12, pinar-negral 12, castanar 7.
+- alava: hayedo 14.127, encinar 12.934, prado 11.859, quejigar 9383, pinar-silvestre 8197, melojar 4100, pinar-negral 2968, robledal-albar 1564, pastizal-montana 1287, chopera 668, pinar-resinero 313, castanar 47, pinar-pinonero 26, abedular 21.
+- extremadura: encinar 335.917, prado 133.199, alcornocal 42.113, melojar 29.278, pinar-resinero 18.974, pastizal-montana 6108, pinar-pinonero 4549, castanar 2565, chopera 2114, pinar-silvestre 995, quejigar 414, pinar-negral 44, abedular 10.
+
+Notas:
+
+- «prado» (herbazal por debajo de 1.000 m, tipos 24 y 34 del MFE50) suele ser fincas de siega cerradas, sobre todo en
+  extremadura, álava y merindades. La hoja del mapa no debe presentarlo como monte libre.
+
+**Comprobación con los puntos de `zonas.json`** (celda de 250 m que contiene cada punto):
+
+```
+guadarrama-valsain-pinar pinar-silvestre → pinar-silvestre 1552 m (punto: 1561 m)
+guadarrama-navas-melojar melojar → melojar 1452 m (punto: 1472 m)
+guadarrama-morcuera-pinar pinar-silvestre → pinar-silvestre 1583 m (punto: 1580 m)
+guadarrama-miraflores-pinar pinar-silvestre → pinar-silvestre 1566 m (punto: 1591 m)
+guadarrama-canencia-pinar pinar-silvestre → pinar-silvestre 1375 m (punto: 1382 m)
+sierra-norte-riaza-melojar melojar → melojar 1494 m (punto: 1505 m)
+sierra-norte-sepulveda-pinar pinar-silvestre → pinar-silvestre 1309 m (punto: 1324 m)
+sierra-norte-canencia-melojar melojar → melojar 1319 m (punto: 1336 m)
+sierra-norte-bustarviejo-melojar melojar → melojar 1258 m (punto: 1271 m)
+soria-pinar-grande-covaleda pinar-silvestre → pinar-silvestre 1532 m (punto: 1540 m)
+soria-navaleno-resinero pinar-resinero → pinar-resinero 1168 m (punto: 1177 m)
+soria-cidones-melojar melojar → melojar 1135 m (punto: 1134 m)
+burgos-hontoria-pinar pinar-silvestre → pinar-silvestre 1156 m (punto: 1160 m)
+burgos-palacios-pinar pinar-silvestre → pinar-silvestre 1258 m (punto: 1271 m)
+burgos-monte-agudo-hayedo hayedo → hayedo 1443 m (punto: 1478 m)
+burgos-umbria-rebollar melojar → melojar 1364 m (punto: 1366 m)
+merindades-cerneja-hayedo hayedo → hayedo 1016 m (punto: 1031 m)
+gredos-navahondilla-castanar castanar → castanar 816 m (punto: 832 m)
+gredos-arenal-resinero pinar-resinero → pinar-resinero 1233 m (punto: 1240 m)
+gredos-villarejo-silvestre pinar-silvestre → pinar-silvestre 1338 m (punto: 1334 m)
+cuenca-serrania-negral pinar-negral → pinar-negral 1247 m (punto: 1250 m)
+cuenca-boniches-resinero pinar-resinero → pinar-resinero 1074 m (punto: 1088 m)
+guadalajara-poveda-negral pinar-negral → pinar-negral 1386 m (punto: 1360 m)
+guadalajara-tierzo-sabinar sabinar → sabinar 1320 m (punto: 1314 m)
+toledo-navalucillos-encinar encinar → melojar 999 m (punto: 972 m)
+toledo-menasalbas-melojar melojar → melojar 943 m (punto: 941 m)
+toledo-sevilleja-alcornocal alcornocal → alcornocal 552 m (punto: 550 m)
+alava-gorbeia-hayedo hayedo → hayedo 728 m (punto: 760 m)
+alava-entzia-hayedo hayedo → hayedo 939 m (punto: 934 m)
+alava-izki-marojal melojar → melojar 751 m (punto: 772 m)
+alava-entzia-pastizal pastizal-montana → pastizal-montana 1010 m (punto: 1011 m)
+extremadura-salorino-alcornocal alcornocal → alcornocal 447 m (punto: 452 m)
+extremadura-villuercas-castanar castanar → castanar 907 m (punto: 914 m)
+extremadura-hervas-castanar castanar → castanar 969 m (punto: 968 m)
+extremadura-trevejo-castanar castanar → castanar 784 m (punto: 785 m)
+```
+
+Coinciden 34 de los 35 puntos y ninguno sale «sin monte». La única discrepancia de hábitat es
+`toledo-navalucillos-encinar`, y no es un error del MFE50:
+
+- El punto cae en una tesela de encinar (polígono 574949: *Quercus ilex* 7/10).
+- Está a unos 15 m del borde de esa tesela.
+- El centro de su celda de 250 m, a unos 47 m del punto, cae ya en la tesela vecina de melojar (*Q. pyrenaica* 8/10).
+
+La rejilla toma el hábitat del centro de la celda. No se corrige a mano. Para que el punto represente bien su encinar
+habría que moverlo unos 150 m hacia dentro de la tesela, y eso lo decide la usuaria.
+
+Ninguna diferencia de altitud pasa de 100 m: la mayor es de 35 m (`burgos-monte-agudo-hayedo`). Es la media de una celda
+de 250 m frente a un punto.
+
+## Índice diario precalculado (bucket `indice`)
+
+Archivo `indice/<sello>.json` (`sello` = `AAAA-MM-DDTHH`, hora de Madrid), formato en `supabase/functions/_shared/salida-indice.js`:
+
+```json
+{ "version": 1, "sello": "2026-10-01T07", "generado": "2026-10-01T05:03:12.000Z", "hoy": "2026-10-01",
+  "fechas": ["2026-10-01", "…10 días…"],
+  "celdas": { "guadarrama:66:65": { "altRef": 1480, "incompleta": false,
+      "lluvia": { "desde": "2026-08-03", "hoy": 59, "mm": [2, 0, "…"] },
+      "dias": [[106, 60, 17, 60, 194, 0, 13, 13, 6, 6, 6, 6, 6, 6, 6], null, "…"] } } }
+```
+
+Cada día es una lista de 15 números a la altitud de referencia, redondeados a 2 decimales:
+`[P26, P3, lag, pct, Pagosto, secante (0/1), T20aire, T20suelo, tmin × 7]`; `null` en un hueco o en todo el día si no se
+pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `lluvia.hoy` = hoy) para la gráfica.
+`indice/ultimo.json = { version, sello, archivo, generado, conDatos, total }`.
+
+Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
+
+## data/pueblos.json (buscador del mapa)
+
+`{ version: 1, fuente: { nombre, url, licencia, fecha }, pueblos: [{ n, p, lat, lon }] }`: nombre, provincia y coordenadas (grados ETRS89, 5 decimales) de los núcleos de población dentro del bbox de alguna zona con 0,05° de margen. Lo genera `node scripts/rejilla/pueblos.mjs` (con `--descargar` vuelve a bajar los datos; la descarga se guarda en `_fuentes/pueblos/ngbe-nucleos.csv`, fuera del repo) y lo comprueba `validarPueblos` de `scripts/validar-datos.mjs`.
+
+- **Fuente (consultada el 2026-10-01):** WFS INSPIRE del Nomenclátor Geográfico Básico de España del IGN, https://www.ign.es/wfs-inspire/ngbe (lugares `populatedPlace` de tipo «Entidad singular», «Núcleos de población» o «Capital de municipio»), y WFS de unidades administrativas del IGN, https://www.ign.es/wfs-inspire/unidades-administrativas (provincias, para asignar la provincia de cada núcleo por punto en polígono). Ambos sin captcha.
+- **Licencia:** CC BY 4.0. Atribución: «Obra derivada de NGBE CC-BY 4.0 ign.es».
+- Por qué no el NGMEP del CNIG (el previsto en la tarea 0): su descarga exige reCAPTCHA (ver `docs/investigacion/08-rejilla-fuentes.md`, D5).
+- La provincia es el nombre oficial del IGN («Araba/Álava», «Bizkaia»); un núcleo con varios nombres los lleva todos separados por « / » («Agurain / Salvatierra») y el buscador encuentra cualquiera. Un núcleo repetido en el mismo punto (el NGBE lo da a la vez como entidad singular, capital y núcleo) queda una sola vez. Mismo nombre y provincia en dos puntos: solo el primero (orden del servicio).
+- 3.871 pueblos (generado el 2026-10-01). Entran también los de provincias vecinas que caen en los bbox.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).

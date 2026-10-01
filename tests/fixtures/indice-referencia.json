@@ -1,0 +1,7388 @@
+{
+ "humeda|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 96,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "humeda|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "humeda|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "humeda|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "humeda|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "humeda|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 30, pleno 90)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 30, pleno 90)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 30, pleno 90)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sequia|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sequia|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sequia|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sequia|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sequia|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sequia|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "sequia|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0,
+   "fR": 0,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 0.3,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 0,
+   "P3": 0,
+   "lag": 99,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 20
+  },
+  "explicacion": [
+   "0 mm en 26 días (mínimo 40, pleno 100)",
+   "Sin tandas de lluvia en el último mes",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Temporada sin arrancar: 20 mm desde el 1 de agosto (hacen falta 50)"
+  ]
+ },
+ "sequia|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "constante|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "constante|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 112
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 140
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "constante|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "constante|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 112
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 140
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "constante|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "constante|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "constante|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "constante|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "constante|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "constante|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "constante|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "constante|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "constante|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 112
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 140
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "constante|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "helada|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "helada|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 14,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.1445
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días",
+   "Helada fuerte (< −3 °C): corta la fructificación"
+  ]
+ },
+ "helada|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "helada|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "helada|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 32,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.36124999999999996
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días",
+   "Helada fuerte (< −3 °C): corta la fructificación"
+  ]
+ },
+ "helada|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "helada|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "helada|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "helada|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "helada|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "helada|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "helada|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "helada|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 13,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.1445
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días",
+   "Helada fuerte (< −3 °C): corta la fructificación"
+  ]
+ },
+ "helada|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "helada|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "helada|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "helada|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "calor|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "calor|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 5,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 0.001533810679324463,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 22 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 11,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 0.001533810679324463,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 22 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 11,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.001533810679324463,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 22 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "calor|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "calor|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 3,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 15,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 19,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "calor|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "calor|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calor|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calor|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calor|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "calor|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "calor|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 27,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.32465246735834974,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 22 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calor|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 71,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.32465246735834974,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 22 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calor|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 71,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.32465246735834974,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 22 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calor|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "calor|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "calor|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 3,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 15,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 19,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.011108996538242306,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 22,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 22 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calor|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "secante|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "secante|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 30,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "secante|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 72,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "secante|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "secante|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "secante|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 67,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "secante|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "secante|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "secante|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "secante|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "secante|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "secante|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "secante|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "secante|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 66,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "secante|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "secante|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "secante|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 67,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "secante|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 34,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 92,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 100,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 72,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 92,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinSuelo|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinSuelo|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinSuelo|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 27,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinSuelo|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 72,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 92,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": null,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": null,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Sin climatología: no se ha tenido en cuenta la humedad del suelo"
+  ]
+ },
+ "sinSuelo|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|boletus-edulis|29": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|boletus-edulis|45": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|boletus-edulis|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|lactarius-deliciosus|29": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|lactarius-deliciosus|45": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|lactarius-deliciosus|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinAgosto|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinAgosto|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinAgosto|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinAgosto|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinAgosto|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinAgosto|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|helada-alta|29": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|helada-alta|45": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|helada-alta|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinAgosto|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 96,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinTsuelo|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinTsuelo|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinTsuelo|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinTsuelo|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinTsuelo|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 63,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.1213061319425267,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 12,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 20, pleno 50)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Suelo a 12 °C de media en 20 días (óptimo 12 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "primavera|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 94,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 12,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 20, pleno 50)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Suelo a 12 °C de media en 20 días (óptimo 12 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "primavera|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 94,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 12,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 20, pleno 50)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Suelo a 12 °C de media en 20 días (óptimo 12 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "primavera|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "primavera|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primavera|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 96,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|boletus-edulis|66": {
+  "confianza": "alta",
+  "prevision": true,
+  "valor": 92,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.835270211411272,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 112.4,
+   "P3": 60,
+   "lag": 24,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 232.40000000000006
+  },
+  "explicacion": [
+   "112 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 24 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|lactarius-deliciosus|66": {
+  "confianza": "media",
+  "prevision": true,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 112.4,
+   "P3": 60,
+   "lag": 24,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 232.40000000000006
+  },
+  "explicacion": [
+   "112 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 24 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "prevision|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "prevision|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "prevision|morchella|66": {
+  "confianza": "alta",
+  "prevision": true,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "prevision|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|verano-prueba|66": {
+  "confianza": "media",
+  "prevision": true,
+  "valor": 64,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.19789869908361465,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 112.4,
+   "P3": 60,
+   "lag": 24,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "112 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 24 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "prevision|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "prevision|helada-alta|66": {
+  "confianza": "media",
+  "prevision": true,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 112.4,
+   "P3": 60,
+   "lag": 24,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 232.40000000000006
+  },
+  "explicacion": [
+   "112 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 24 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|boletus-edulis|59": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|lactarius-deliciosus|59": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "huecoTmin|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "huecoTmin|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "huecoTmin|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|verano-prueba|59": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "huecoTmin|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "huecoTmin|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 30,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "ventoso|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 72,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "ventoso|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 67,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "ventoso|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "ventoso|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "ventoso|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "ventoso|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 66,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "ventoso|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 9,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "ventoso|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 67,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.75
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Ambiente secante: evaporación alta, aire seco o viento"
+  ]
+ },
+ "ventoso|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|boletus-edulis|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|lactarius-deliciosus|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinEt0|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinEt0|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "sinEt0|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|verano-prueba|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "sinEt0|helada-alta|59": {
+  "error": "DatosIncompletos"
+ },
+ "sinEt0|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 40,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 90,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 69,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.7224999999999999
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 13 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días"
+  ]
+ },
+ "heladaCero|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 64,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.7224999999999999
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días"
+  ]
+ },
+ "heladaCero|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "heladaCero|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "heladaCero|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "heladaCero|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 63,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.7224999999999999
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 13 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60",
+   "2 noche(s) de helada en 7 días"
+  ]
+ },
+ "heladaCero|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "heladaCero|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 73,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 89,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 13,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 13 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "heladaCero|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 20,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 0.056134762834133725,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 19 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 44,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 0.056134762834133725,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 19 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 47,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.056134762834133725,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 19 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 4,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 30,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimite|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimite|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimite|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 33,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 19 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 19 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 88,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.7548396019890073,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 19 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimite|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimite|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 4,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 25,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 30,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.07955950871822769,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 19,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 19 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimite|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 2,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.36666666666666664,
+   "fR": 0.07506221977027992,
+   "fT": 0.00006252150377482015,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 7–21)",
+   "Aire a 24 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 5,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.7261490370736909,
+   "fT": 0.00006252150377482015,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 7–21)",
+   "Aire a 24 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 5,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.00006252150377482015,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 30, pleno 90)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 7–21)",
+   "Aire a 24 °C de media en 20 días (óptimo 13 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 2,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 10,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimiteVerano|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimiteVerano|morchella|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "calorLimiteVerano|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 22,
+  "etiqueta": "bajo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.1213061319425267,
+   "fT": 0.1353352832366127,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Aire a 24 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimiteVerano|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 57,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.1353352832366127,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Aire a 24 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimiteVerano|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 57,
+  "etiqueta": "posible",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 0.1353352832366127,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 5–15)",
+   "Aire a 24 °C de media en 20 días (óptimo 16 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "calorLimiteVerano|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "calorLimiteVerano|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 2,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 0.2,
+   "fR": 0.027067056647322542,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 0.5,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 80
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 10,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 0.37531109885139957,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 166
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 12,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": 1,
+   "fR": 1,
+   "fT": 0.002187491118182885,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 0.6
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 17,
+   "T20": 24,
+   "pct": 60,
+   "Pagosto": 194
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 40, pleno 100)",
+   "Mayor tanda de lluvia: 60 mm hace 17 días (ideal 10–25)",
+   "Aire a 24 °C de media en 20 días (óptimo 10 °C)",
+   "Humedad del suelo en el percentil 60",
+   "Demasiado calor para la especie"
+  ]
+ },
+ "calorLimiteVerano|helada-alta|66": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|boletus-edulis|10": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|boletus-edulis|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|boletus-edulis|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|boletus-edulis|59": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|boletus-edulis|66": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|lactarius-deliciosus|10": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|lactarius-deliciosus|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|lactarius-deliciosus|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|lactarius-deliciosus|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|lactarius-deliciosus|66": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|morchella|10": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|morchella|29": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 63,
+  "etiqueta": "bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.1213061319425267,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 52,
+   "P3": 6,
+   "lag": 0,
+   "T20": 12,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "52 mm en 26 días (mínimo 20, pleno 50)",
+   "Mayor tanda de lluvia: 6 mm hace 0 días (ideal 5–15)",
+   "Suelo a 12 °C de media en 20 días (óptimo 12 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "primaveraSinTsuelo|morchella|45": {
+  "confianza": "alta",
+  "prevision": false,
+  "valor": 94,
+  "etiqueta": "muy bueno",
+  "factores": {
+   "fW": 1,
+   "fR": 0.9231163463866358,
+   "fT": 1,
+   "fS": 0.8,
+   "fA": 1,
+   "fC": 1,
+   "pen": 1
+  },
+  "datos": {
+   "P26": 106,
+   "P3": 60,
+   "lag": 3,
+   "T20": 12,
+   "pct": 60,
+   "Pagosto": null
+  },
+  "explicacion": [
+   "106 mm en 26 días (mínimo 20, pleno 50)",
+   "Mayor tanda de lluvia: 60 mm hace 3 días (ideal 5–15)",
+   "Suelo a 12 °C de media en 20 días (óptimo 12 °C)",
+   "Humedad del suelo en el percentil 60"
+  ]
+ },
+ "primaveraSinTsuelo|morchella|59": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|morchella|66": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|verano-prueba|10": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|verano-prueba|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|verano-prueba|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|verano-prueba|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|verano-prueba|66": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|helada-alta|10": {
+  "error": "DatosIncompletos"
+ },
+ "primaveraSinTsuelo|helada-alta|29": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|helada-alta|45": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|helada-alta|59": {
+  "confianza": "media",
+  "prevision": false,
+  "valor": 0,
+  "etiqueta": "nulo",
+  "factores": {
+   "fW": null,
+   "fR": null,
+   "fT": null,
+   "fS": null,
+   "fA": null,
+   "fC": 0,
+   "pen": null
+  },
+  "datos": {},
+  "explicacion": [
+   "Fuera de temporada"
+  ]
+ },
+ "primaveraSinTsuelo|helada-alta|66": {
+  "error": "DatosIncompletos"
+ }
+}

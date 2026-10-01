@@ -1,6 +1,9 @@
 // Valida que todo dato tenga fuente y fecha y que las referencias cruzadas existan.
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { puntoEnGeometria } from '../js/rejilla/geo.js';
+import { leerCabecera, decodificarRejilla } from '../js/rejilla/formato.js';
+export { puntoEnGeometria };
 
 export const HABITATS = ['pinar-silvestre', 'pinar-negral', 'pinar-resinero', 'pinar-pinonero', 'hayedo', 'melojar',
   'robledal-albar', 'quejigar', 'castanar', 'encinar', 'alcornocal', 'jaral', 'sabinar', 'abedular', 'chopera',
@@ -20,19 +23,6 @@ const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const URL_OK = /^https?:\/\//;
 
 export const licenciaPermitida = (t) => /^(CC0( 1\.0)?|PD|CC BY(-SA)?( \d\.\d)?)$/.test(t ?? '');
-
-// Punto dentro de un anillo (trazado de rayos); [lon, lat].
-const enAnillo = (lon, lat, anillo) => {
-  let dentro = false;
-  for (let i = 0, j = anillo.length - 1; i < anillo.length; j = i++) {
-    const [xi, yi] = anillo[i], [xj, yj] = anillo[j];
-    if ((yi > lat) !== (yj > lat) && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) dentro = !dentro;
-  }
-  return dentro;
-};
-const enPoligono = (lon, lat, [exterior, ...huecos]) => enAnillo(lon, lat, exterior) && !huecos.some((h) => enAnillo(lon, lat, h));
-export const puntoEnGeometria = (lon, lat, g) => (g?.type === 'Polygon' ? enPoligono(lon, lat, g.coordinates)
-  : g?.type === 'MultiPolygon' ? g.coordinates.some((p) => enPoligono(lon, lat, p)) : false);
 
 const fuentesOk = (fs) => Array.isArray(fs) && fs.length > 0 && fs.every((f) => URL_OK.test(f.url ?? '') && FECHA.test(f.consultado ?? '')
   && (f.fecha == null || FECHA.test(f.fecha)));
@@ -157,11 +147,60 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
   return e;
 }
 
+// Rejilla fina (data/rejilla/): cada archivo existe, es un «SETR» v1 de una zona conocida, cita sus fuentes y no pasa de
+// maxBytes (ya va comprimido: es lo que se descarga). Los bytes de hábitat los comprueba decodificarRejilla: código dentro
+// de la cabecera, bit 5 (FUERA_PROVINCIAS) solo con hábitat y bit 6 reservado a 0. gruesa.json: zona, posición, altitud de
+// referencia y hábitats de cada celda.
+export async function validarRejillas({ indice, gruesa, zonas, leer, maxBytes = 300 * 1024 }) {
+  const e = [];
+  const ids = new Set(zonas.zonas.map((z) => z.id));
+  if (indice?.version !== 1 || !Array.isArray(indice.archivos)) return ['rejilla: data/rejilla/indice.json sin versión 1 o sin archivos'];
+  for (const a of indice.archivos) {
+    const q = `rejilla ${a.archivo}`;
+    const b = leer(`data/rejilla/${a.archivo}`);
+    if (!b) { e.push(`${q}: falta el archivo`); continue; }
+    if (b.length > maxBytes) e.push(`${q}: ${Math.round(b.length / 1024)} KB, más de ${Math.round(maxBytes / 1024)} KB`);
+    if (a.bytes !== b.length) e.push(`${q}: indice.json dice ${a.bytes} bytes y el archivo tiene ${b.length}`);
+    let cab;
+    try { cab = leerCabecera(b).cabecera; } catch (x) { e.push(`${q}: ${x.message}`); continue; }
+    try { await decodificarRejilla(b); } catch (x) { e.push(`${q}: ${x.message}`); continue; }
+    if (!ids.has(cab.zona)) e.push(`${q}: zona inexistente ${cab.zona}`);
+    if (cab.tam !== 250) e.push(`${q}: celdas de ${cab.tam} m, se esperaban 250`);
+    if (!(cab.ancho > 0 && cab.alto > 0)) e.push(`${q}: ancho o alto inválido`);
+    if (!Array.isArray(cab.habitats) || !cab.habitats.every((h) => HABITATS.includes(h))) e.push(`${q}: hábitat desconocido en la cabecera`);
+    for (const k of ['mfe', 'mdt']) {
+      const f = cab.fuentes?.[k];
+      if (!f?.nombre || !URL_OK.test(f.url ?? '') || !FECHA.test(f.fecha ?? '')) e.push(`${q}: fuente ${k} sin nombre, url o fecha`);
+    }
+    if (a.zona !== cab.zona || a.col0 !== cab.col0 || a.fila0 !== cab.fila0 || a.ancho !== cab.ancho || a.alto !== cab.alto) e.push(`${q}: indice.json no coincide con la cabecera`);
+  }
+  for (const c of gruesa?.celdas ?? []) {
+    if (!ids.has(c.zona)) e.push(`celda gruesa ${c.id}: zona inexistente ${c.zona}`);
+    if (![c.altRef, c.lat, c.lon].every((v) => typeof v === 'number' && Number.isFinite(v))) e.push(`celda gruesa ${c.id}: sin altRef, lat o lon`);
+    if (!Array.isArray(c.habitats) || !c.habitats.length || !c.habitats.every((h) => HABITATS.includes(h))) e.push(`celda gruesa ${c.id}: hábitats vacíos o desconocidos`);
+  }
+  if (gruesa && !Object.values(gruesa.pasos ?? {}).every((p) => p > 0)) e.push('gruesa.json: pasos inválidos');
+  return e;
+}
+
+export function validarPueblos(d) {
+  const e = [];
+  if (d?.version !== 1 || !URL_OK.test(d.fuente?.url ?? '') || !FECHA.test(d.fuente?.fecha ?? '') || !d.fuente?.licencia) e.push('pueblos: sin versión 1 o sin fuente con url, fecha y licencia');
+  for (const p of d?.pueblos ?? []) if (!p.n || typeof p.lat !== 'number' || typeof p.lon !== 'number') { e.push(`pueblos: «${p.n}» sin nombre o coordenadas`); break; }
+  return e;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const leer = (f) => JSON.parse(readFileSync(f, 'utf8'));
   const errores = validar({ zonas: leer('data/zonas.json'), especies: leer('data/especies.json'),
     normativa: leer('data/normativa.json'), cotos: leer('data/cotos.geojson'),
     sitios: existsSync('data/sitios.json') ? leer('data/sitios.json') : undefined });
+  if (existsSync('data/rejilla/indice.json')) {
+    errores.push(...await validarRejillas({ indice: leer('data/rejilla/indice.json'),
+      gruesa: existsSync('data/rejilla/gruesa.json') ? leer('data/rejilla/gruesa.json') : null, zonas: leer('data/zonas.json'),
+      leer: (f) => (existsSync(f) ? new Uint8Array(readFileSync(f)) : null) }));
+  }
+  if (existsSync('data/pueblos.json')) errores.push(...validarPueblos(leer('data/pueblos.json')));
   if (errores.length) { console.error(errores.map((x) => `✗ ${x}`).join('\n')); process.exit(1); }
   console.log('✓ Datos válidos');
 }

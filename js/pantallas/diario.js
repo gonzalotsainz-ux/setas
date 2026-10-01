@@ -8,7 +8,7 @@ import { crearMapa, fechaLarga } from '../mapa.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { buscarEspecies } from './especies.js';
 import { reducirFoto, aDataUrl } from '../fotos.js';
-import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto } from '../diario.js';
+import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, urlFoto, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto, leerNuevaSalida } from '../diario.js';
 import { almacenIndexedDB } from '../almacen-fotos.js';
 
 const MAX_FOTOS = 6;
@@ -94,7 +94,7 @@ function preguntarAutor() {
 }
 
 // ---------- Hoja «Nueva salida» ----------
-function hojaNuevaSalida({ estado, alGuardar }) {
+function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
   const datos = estado.datos;
   const hoja = abrirHoja('Nueva salida');
   let punto = null, mapaElegir = null, marcador = null;
@@ -249,6 +249,9 @@ function hojaNuevaSalida({ estado, alGuardar }) {
       return;
     } catch (e) { estadoGuardar.textContent = `No se pudo guardar: ${e.message}`; } finally { guardando = false; actualizarBoton(); }
   });
+  // Abierta desde el mapa («Guardar en el diario»): zona y punto ya elegidos.
+  if (inicial?.zona && datos.zonas.some((z) => z.id === inicial.zona)) zona.value = inicial.zona;
+  if (inicial?.lat != null) ponerPunto(inicial.lat, inicial.lon);
   hoja.cuerpo.append(form);
 }
 
@@ -331,7 +334,7 @@ async function alGuardar(borrador) {
   viva?.refrescar();
 }
 
-export function pintar({ estado }) {
+export function pintar({ estado, param }) {
   iniciarSincronizacion();
   const datos = estado.datos;
   const raiz = el('div', { clase: 'pila diario' });
@@ -406,6 +409,11 @@ export function pintar({ estado }) {
     el('div', { clase: 'diario-cabeza' }, el('h1', { texto: 'Diario' }),
       el('button', { type: 'button', clase: 'boton', texto: 'Nueva salida', onclick: () => hojaNuevaSalida({ estado, alGuardar }) })),
     autorLinea, resultado, avisoRed, listaPend, cargando, listaSal, vacio);
+  const nueva = leerNuevaSalida(param);
+  if (nueva) {
+    history.replaceState(null, '', '#diario');   // al repintar no se vuelve a abrir
+    requestAnimationFrame(() => hojaNuevaSalida({ estado, alGuardar, inicial: nueva }));
+  }
   refrescar();
   return raiz;
 }

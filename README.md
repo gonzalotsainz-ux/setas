@@ -6,7 +6,10 @@ sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gon
 
 - **Hoy y Zona:** índice 0 a 100 por zona y especie a partir de la lluvia (modelos de Open-Meteo contrastados con
   estaciones de AEMET), temperatura y hábitat. Mide la **oportunidad meteorológica**, no la producción del monte.
-- **Mapa:** cotos y zonas reguladas o prohibidas, y sitios con su normativa.
+- **Mapa:** a pantalla completa, con manchas de color solo sobre el monte apropiado según la nota por ladera (bosque,
+  altitud y orientación cada 250 m) de hoy y de los próximos días; buscador, chips de especie, capas (mapa, relieve,
+  topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el fondo «Mapa» es la Base IGN mientras CARTO pida clave) y hoja con «Cómo llegar». Sin índice publicado (o sin
+  red), los puntos de cada zona con su nota y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
 - **Diario:** salidas con foto, compartidas en Supabase, con borrador local si no hay cobertura.
 - **Ajustes:** dispositivo, umbrales, calibración con el diario y **créditos completos** de datos, fotos y mapas.
@@ -35,6 +38,11 @@ npm run gancho                           # instala el gancho pre-push
 - **Edge Function `aemet`:** lluvia medida en estaciones AEMET con caché de 6 h y lista blanca de estaciones.
   Detalles, despliegue y retrasos reales de AEMET en [docs/supabase.md](docs/supabase.md).
 - **Open-Meteo:** se llama desde el navegador con caché de 3 h (evita los 429).
+- **Mapa por laderas:** `js/rejilla/` (formato binario, geometría, nota por celda, carga del índice y pintor, con Web
+  Worker), `js/mapa/` (capa de la rejilla, fondos y panel de capas, hoja inferior, buscador, chips y barra de días) y
+  `data/rejilla/` (rejillas finas de 250 m por zona, `indice.json` y `gruesa.json`, generadas con
+  `scripts/rejilla/generar.mjs`). La **Edge Function `rejilla`** (pg_cron a las 07:00 y 19:00 de Madrid) pide la meteo
+  de las celdas gruesas y publica el índice diario en el bucket público `indice` (`<sello>.json` + `ultimo.json`).
 - Esquemas de datos en [docs/datos.md](docs/datos.md); diseño visual en [docs/diseno.md](docs/diseno.md);
   investigación (normativa, especies, fructificación, sitios) en `docs/investigacion/`.
 

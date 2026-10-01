@@ -9,6 +9,7 @@
     "gancho": "node scripts/instalar-gancho.mjs"
   },
   "devDependencies": {
+    "geotiff": "^3.0.5",
     "mapshaper": "^0.7.70",
     "sharp": "^0.35.5"
   }

@@ -344,3 +344,23 @@ test('totalKg: especies que no son una lista no rompen', () => {
   assert.equal(totalKg({ a: 1 }), 0);
   assert.equal(totalKg(null), 0);
 });
+
+import { urlNuevaSalida, leerNuevaSalida } from '../js/diario.js';
+
+test('«Guardar en el diario» desde el mapa: ida y vuelta del parámetro', () => {
+  const u = urlNuevaSalida({ lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
+  assert.equal(u, '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama');
+  assert.deepEqual(leerNuevaSalida(decodeURIComponent(u.split('/')[1])), { lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
+  assert.deepEqual(leerNuevaSalida('nueva?zona=soria'), { lat: null, lon: null, zona: 'soria' });
+  assert.deepEqual(leerNuevaSalida('nueva'), { lat: null, lon: null, zona: null });
+  assert.equal(leerNuevaSalida('nueva?lat=abc&lon=1'), null);
+  assert.equal(leerNuevaSalida('nueva?lat=95&lon=1'), null);
+  assert.equal(leerNuevaSalida(undefined), null);
+  assert.equal(leerNuevaSalida('otra'), null);
+  assert.deepEqual(leerNuevaSalida('nueva?lat=-3.5&lon=-180'), { lat: -3.5, lon: -180, zona: null });
+});
+
+test('leerNuevaSalida: coordenadas incompletas, vacías, no decimales o fuera de rango → null', () => {
+  for (const p of ['nueva?lat=40', 'nueva?lon=-3', 'nueva?lat=&lon=', 'nueva?lat=0x10&lon=1', 'nueva?lat=1e1&lon=1', 'nueva?lat= 1&lon=1',
+    'nuevaXYZ?lat=1&lon=1', 'nuevas', 'nueva?lat=95&lon=1', 'nueva?lat=1&lon=181']) assert.equal(leerNuevaSalida(p), null, p);
+});

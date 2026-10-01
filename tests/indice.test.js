@@ -118,3 +118,84 @@ test('nulos al final de previsión (día 69) → sinDatos solo en ese día, no a
   assert.equal(z69.sinDatos, true);
   assert.equal(z69.valor, null);
 });
+
+import { agregadosDia, indiceDesdeAgregados } from '../js/indice.js';
+import { readFileSync } from 'node:fs';
+import { casosIndice } from './casos-indice.js';
+
+test('agregadosDia: lo que no depende de la especie, con números exactos', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  assert.equal(ag.fecha, '2026-10-18');
+  assert.equal(ag.prevision, false);
+  assert.equal(ag.P26, 106);
+  assert.equal(ag.P3, 60);
+  assert.equal(ag.lag, 17);
+  assert.equal(ag.pct, 60);
+  assert.equal(ag.Pagosto, 194);            // 20 mm antes de la serie + 57 × 2 + 3 × 20
+  assert.equal(ag.secante, false);
+  assert.equal(ag.T20aire, 13);
+  assert.equal(ag.T20suelo, 13);
+  assert.deepEqual(ag.tmin7, [6, 6, 6, 6, 6, 6, 6]);
+});
+
+test('agregadosDia: un hueco deja null en lo que lo usa, sin lanzar', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena, tsuelo: (k) => (k === 50 ? null : 13), tmin: (k) => (k === 58 ? null : 6) }), 59);
+  assert.equal(ag.T20suelo, null);
+  assert.equal(ag.T20aire, 13);
+  assert.equal(ag.tmin7[5], null);
+  assert.throws(() => agregadosDia(serieSintetica(), 10), DatosIncompletos);
+});
+
+test('los dos pasos (agregadosDia + indiceDesdeAgregados) dan la nota de la referencia fijada con el código anterior', () => {
+  const referencia = JSON.parse(readFileSync(new URL('./fixtures/indice-referencia.json', import.meta.url), 'utf8'));
+  let comparados = 0;
+  for (const c of casosIndice()) {
+    const esperado = referencia[c.clave];
+    if (esperado.error) { assert.throws(() => indiceDesdeAgregados(agregadosDia(c.serie, c.i), c.especie), DatosIncompletos, c.clave); continue; }
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(indiceDesdeAgregados(agregadosDia(c.serie, c.i), c.especie))), esperado, c.clave);
+    comparados++;
+  }
+  assert.equal(comparados, 258); // casos sin error de la referencia (450 en total; el resto lanza DatosIncompletos)
+});
+
+test('indiceDesdeAgregados: explicar=false da la misma nota sin frases', () => {
+  const ag = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  const r = indiceDesdeAgregados(ag, BOLETUS, { explicar: false });
+  assert.equal(r.valor, 96);
+  assert.deepEqual(r.explicacion, []);
+});
+
+test('indiceDesdeAgregados: el ajuste de humedad multiplica la lluvia de 26 días, con fW acotado a ±15 %', () => {
+  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);   // P26 = 52; BOLETUS: pmin 30, pfull 90
+  const fW = (a, x = ag, sp = BOLETUS) => indiceDesdeAgregados(x, sp, { ajusteHumedad: a }).factores.fW;
+  assert.ok(Math.abs(fW(1) - 22 / 60) < 1e-12);
+  assert.ok(Math.abs(fW(1.15) - (22 / 60) * 1.15) < 1e-12);   // lluvia efectiva 59,8 mm daría 29,8 / 60: tope +15 %
+  assert.ok(Math.abs(fW(0.85) - (22 / 60) * 0.85) < 1e-12);   // 44,2 mm daría 14,2 / 60: tope −15 %
+  assert.ok(Math.abs(fW(1.05) - (52 * 1.05 - 30) / 60) < 1e-12);   // dentro del tope manda la lluvia efectiva
+  // La umbría llega antes a fW = 1: con 85 mm, 97,75 mm efectivos y 55 / 60 × 1,15 ≥ 1; sin ajuste, 55 / 60.
+  const casiLleno = { ...ag, P26: 85 };
+  assert.equal(fW(1.15, casiLleno), 1);
+  assert.ok(fW(1, casiLleno) < 1);
+  // Con lluvia abundante N y S dan fW = 1; con lluvia 0, 0 en cualquier ladera.
+  const humedo = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
+  assert.equal(fW(1.15, humedo), 1);
+  assert.equal(fW(0.85, humedo), 1);
+  for (const a of [0.85, 1, 1.15]) assert.equal(fW(a, { ...ag, P26: 0 }), 0);
+});
+
+test('indiceDesdeAgregados: cerca del mínimo de lluvia la orientación mueve la nota como mucho un 5,5 %', () => {
+  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);
+  const conLluvia = (sp, pmin, pfull) => ({ ...sp, indice: { ...sp.indice, pmin, pfull } });   // tolerancia: ±5,5 % más 1 punto por los dos redondeos
+  const casos = [[conLluvia(BOLETUS, 40, 100), 47], [conLluvia(BOLETUS, 25, 60), 26], [conLluvia(BOLETUS, 25, 60), 25]];   // níscalo y parasol
+  for (const [sp, P26] of casos) {
+    const x = { ...ag, P26 }, nota = (a) => indiceDesdeAgregados(x, sp, { ajusteHumedad: a }).valor;
+    const v0 = nota(1);
+    for (const a of [0.85, 1.15]) assert.ok(Math.abs(nota(a) - v0) <= 0.055 * v0 + 1, `${sp.indice.pmin}/${P26} mm, ${a}: ${nota(a)} frente a ${v0}`);
+  }
+});
+
+test('indiceDesdeAgregados: sin temperatura del suelo falla Morchella pero no el boletus', () => {
+  const ag = { ...agregadosDia(serieSintetica({ inicio: '2026-02-15', precip: lluviaBuena, lluviaAntes: null }), 59), T20suelo: null };
+  assert.throws(() => indiceDesdeAgregados(ag, MORCHELLA), DatosIncompletos);
+  assert.doesNotThrow(() => indiceDesdeAgregados({ ...agregadosDia(serieSintetica({ precip: lluviaBuena }), 59), T20suelo: null }, BOLETUS));
+});
