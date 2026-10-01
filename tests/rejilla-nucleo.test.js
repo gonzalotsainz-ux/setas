@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { selloDe, tocaEjecutar, pesoPeticion, inicioSerie, estadoCelda, ventanasClima, climaUtil, planificar, serieDesdeFilas,
-  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, filasDePrincipal, filasDeArchivoLluvia,
+  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, filasDePrincipal, filasDeArchivoLluvia,
   filasDeClima, altitudConsulta, TROZO, MAX_PASADOS, PRESUPUESTO_EJECUCION, PRESUPUESTO_DIA, HORAS } from '../supabase/functions/rejilla/nucleo.js';
 import { horaMadrid, sumarDias } from '../supabase/functions/_shared/meteo.js';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
@@ -272,4 +272,19 @@ test('pedirConReintento: Retry-After enorme se acota a 60 s; fallo de red se rei
   await pedirConReintento(async () => { if (n++ === 0) throw new TypeError('fetch failed'); return ok; }, 'u', { esperar });
   assert.deepEqual(esperas, [5000]);
   await assert.rejects(pedirConReintento(async () => ({ ok: true, status: 200, headers: new Map(), json: async () => ({ error: true, reason: 'Parameter x' }) }), 'u', { esperar }), /Parameter x/);
+});
+
+test('pedirConReintento: límite como función, recalculado en cada intento; sin mínimo útil no empieza', async () => {
+  let queda = 50000;
+  const limites = [];
+  const colgada = async (url, { signal }) => { limites.push(signal); queda -= signal; throw new Error('aborted'); };
+  const opciones = { esperar: async (ms) => { queda -= ms; }, limite: () => queda, minimo: 5000, senal: (ms) => ms };
+  await assert.rejects(pedirConReintento(colgada, 'u', opciones), (e) => e instanceof PlazoAgotado);
+  assert.deepEqual(limites, [50000], 'tras 50 s y 5 s de espera no quedan 5 s útiles');
+  queda = 100000; limites.length = 0;
+  await assert.rejects(pedirConReintento(colgada, 'u', { ...opciones, limite: () => Math.min(60000, queda) }), /aborted|plazo/);
+  assert.deepEqual(limites, [60000, 35000]);
+  limites.length = 0;
+  await assert.rejects(pedirConReintento(colgada, 'u', { ...opciones, limite: () => 3000 }), (e) => e instanceof PlazoAgotado);
+  assert.deepEqual(limites, []);
 });

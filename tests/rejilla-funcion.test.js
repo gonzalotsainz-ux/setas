@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { ejecutar, claveValida, PLAZO_EJECUCION, RESERVA_PUBLICAR } from '../supabase/functions/rejilla/manejador.js';
+import { ejecutar, claveValida, PLAZO_EJECUCION, RESERVA_PUBLICAR, MINIMO_UTIL } from '../supabase/functions/rejilla/manejador.js';
 import { openMeteoFalso, almacenMemoria } from './dobles-rejilla.js';
 import { validarSalida, diaConDatos } from '../js/rejilla/salida.js';
 
@@ -190,6 +190,43 @@ test('el plazo se agota: una espera de reintento que no cabe no se hace', async 
   assert.equal(await almacen.leerJson('ultimo.json'), null);
 });
 
+test('el plazo se agota: una petición colgada se corta y el reintento solo recibe el margen que queda', async () => {
+  const almacen = almacenMemoria(), { reloj, avanzar } = relojFalso(), intentos = [], esperas = [];
+  // La «señal» es el tiempo máximo del intento; la petición colgada consume ese tiempo y se aborta.
+  const senal = (ms) => ({ ms });
+  const fetchFn = async (url, { signal }) => {
+    intentos.push({ t0: reloj(), ms: signal.ms, margen: PLAZO_EJECUCION - RESERVA_PUBLICAR - reloj() });
+    avanzar(signal.ms);
+    throw Object.assign(new Error('The operation was aborted'), { name: 'TimeoutError' });
+  };
+  const r = await ejecutar({ almacen, fetchFn, ahora: MANANA, gruesa: gruesa(1), reloj, senal,
+    esperar: async (ms) => { esperas.push(ms); avanzar(ms); } });
+  assert.equal(r.estado, 'sin-publicar');
+  assert.ok(r.errores.some((e) => /plazo/.test(e)));
+  assert.ok(intentos.length >= 2, 'hay reintento');
+  assert.equal(intentos[0].ms, 60000);
+  for (const i of intentos) {
+    assert.ok(i.ms <= i.margen, `intento de ${i.ms} ms con ${i.margen} ms de margen`);
+    assert.ok(i.ms >= MINIMO_UTIL);
+  }
+  assert.ok(intentos[1].ms < 60000, 'el segundo intento se recalcula con lo que queda');
+  assert.ok(reloj() <= PLAZO_EJECUCION - RESERVA_PUBLICAR, `acaba a los ${reloj()} ms`);
+  assert.equal(await almacen.leerJson('ultimo.json'), null);
+});
+
+test('una salida que no pasaría validarSalida no se sube y queda el índice anterior', async () => {
+  const almacen = almacenMemoria();
+  await almacen.subir('ultimo.json', { version: 1, sello: '2026-09-30T19', archivo: '2026-09-30T19.json' });
+  const g = gruesa(10);
+  g.celdas[4].altRef = null;   // altitud de referencia mal formada en una celda
+  const r = await ejecutar({ almacen, fetchFn: openMeteoFalso({ hoy: '2026-10-01' }), ahora: MANANA, gruesa: g, esperar });
+  assert.equal(r.estado, 'sin-publicar');
+  assert.equal(r.conDatos, 10, 'hay datos: lo que falla es el formato');
+  assert.ok(r.errores.some((e) => /celda z:4:0 mal formada/.test(e)));
+  assert.equal((await almacen.leerJson('ultimo.json')).sello, '2026-09-30T19');
+  assert.deepEqual(await almacen.listar(''), ['ultimo.json']);
+});
+
 // Review Focus 3: cambio de hora del 25/10/2026. pg_cron lanza a las 05 y 06 UTC; solo trabaja la de las 07 de Madrid.
 test('25 de octubre: a las 05 UTC (06 en Madrid) no hace nada; a las 06 UTC publica el sello de las 07', async () => {
   const almacen = almacenMemoria(), registro = [];
@@ -241,8 +278,10 @@ test('la migración deja las tablas cerradas y el bucket del índice público', 
   }
   assert.match(sql, /revoke all on public\.meteo_celdas, public\.clima_celdas, public\.rejilla_ejecuciones from anon, authenticated/);
   assert.match(sql, /values \('indice', 'indice', true/);
+  assert.match(sql, /grant select, insert, update, delete on public\.meteo_celdas, public\.clima_celdas, public\.rejilla_ejecuciones to service_role/);
+  assert.match(sql, /grant select on public\.meteo_celdas_resumen to service_role/);
+  assert.match(sql, /grant execute on function public\.series_celdas\(text\[\], date\) to service_role/);
   assert.match(sql, /previsto boolean\[\], actualizado timestamptz\[\]/, 'series_celdas devuelve previsto y actualizado');
-  for (const archivo of ['20261002000000_rejilla.sql', '20261002000100_rejilla_cron.sql']) {
-    assert.doesNotMatch(leer(`supabase/migrations/${archivo}`), /sb_secret|service_role|eyJ/);
-  }
+  assert.doesNotMatch(sql, /sb_secret|eyJ/, 'ninguna clave en la migración (service_role aquí es el nombre del rol)');
+  assert.doesNotMatch(leer('supabase/migrations/20261002000100_rejilla_cron.sql'), /sb_secret|service_role|eyJ/);
 });

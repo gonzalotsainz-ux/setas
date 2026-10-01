@@ -170,11 +170,16 @@ export const archivosABorrar = (nombres, conservar = CONSERVAR) =>
 export const celdasDelLote = (celdas, lote, lotes) => celdas.filter((_, k) => k % lotes === lote);
 
 // Las IPs de salida de Supabase son compartidas: un 429 (o un 5xx, o un fallo de red) se espera (Retry-After si
-// viene, acotado a 60 s) y se reintenta; al agotar los intentos, error.
-export async function pedirConReintento(fetchFn, url, { intentos = 3, esperas = [5000, 20000], esperar = (ms) => new Promise((r) => setTimeout(r, ms)), limite = 60000 } = {}) {
+// viene, acotado a 60 s) y se reintenta; al agotar los intentos, error. `limite` (tiempo máximo de cada intento) puede
+// ser una función: se recalcula en cada intento, y si no llega a `minimo` el intento no empieza (PlazoAgotado).
+export class PlazoAgotado extends Error { constructor() { super('plazo agotado'); this.name = 'PlazoAgotado'; } }
+export async function pedirConReintento(fetchFn, url, { intentos = 3, esperas = [5000, 20000], esperar = (ms) => new Promise((r) => setTimeout(r, ms)),
+  limite = 60000, minimo = 0, senal = (ms) => AbortSignal.timeout(ms) } = {}) {
   for (let n = 1; ; n++) {
+    const ms = typeof limite === 'function' ? limite() : limite;
+    if (!(ms > 0 && ms >= minimo)) throw new PlazoAgotado();
     let r;
-    try { r = await fetchFn(url, { signal: AbortSignal.timeout(limite) }); } catch (e) {
+    try { r = await fetchFn(url, { signal: senal(ms) }); } catch (e) {
       if (n >= intentos) throw e;
       await esperar(esperas[Math.min(n, esperas.length) - 1]);
       continue;

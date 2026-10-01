@@ -3,27 +3,28 @@
 // peticiones a Open-Meteo dentro del presupuesto, guarda la meteo y la climatología, reconstruye la serie de cada
 // celda gruesa, resume sus agregados y publica el índice si hay datos en el 90 % de las celdas.
 import { hoyMadrid, FUTUROS, sumarDias } from '../_shared/meteo.js';
-import { resumirCelda, diaConDatos, VERSION_SALIDA } from '../_shared/salida-indice.js';
+import { resumirCelda, diaConDatos, validarSalida, VERSION_SALIDA } from '../_shared/salida-indice.js';
 import { selloDe, tocaEjecutar, inicioSerie, planificar, filasDePrincipal, filasDeArchivoLluvia, filasDeClima, serieDesdeFilas,
-  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION } from './nucleo.js';
+  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION } from './nucleo.js';
 
 // Supabase corta una función a los 150 s de reloj (plan gratuito, informe 08 D4), también en segundo plano. La ejecución
 // entera tiene que acabar antes de PLAZO_EJECUCION; las peticiones (con sus reintentos y esperas) dejan
 // RESERVA_PUBLICAR para leer las series, resumir y subir. Si el plazo no alcanza, no se publica.
 export const PLAZO_EJECUCION = 140000;
 export const RESERVA_PUBLICAR = 20000;
+export const MINIMO_UTIL = 5000;   // un intento (o una espera) que deja menos de esto para pedir no se hace
 const MAX_ESPERA_FETCH = 60000;
 
-class PlazoAgotado extends Error { constructor() { super('plazo agotado'); } }
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 const idsDe = (c) => [c.id, ...(c.iguales ?? [])];
 
 export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, lote = 0, lotes = 1, forzar = false, esperar = dormir,
-  trozo = TROZO, presupuesto = PRESUPUESTO_EJECUCION, reloj = () => Date.now(), plazo = PLAZO_EJECUCION }) {
+  trozo = TROZO, presupuesto = PRESUPUESTO_EJECUCION, reloj = () => Date.now(), plazo = PLAZO_EJECUCION, senal }) {
   const limite = reloj() + plazo;
   const sello = forzar ? selloDe(ahora) : tocaEjecutar(ahora);
   if (!sello) return { estado: 'fuera-de-hora' };
-  // Un sello (y lote) se ejecuta una vez: reintentos de pg_net, la segunda hora UTC o un «forzar» repetido salen aquí.
+  // Un sello (y lote) se ejecuta una vez: una llamada repetida a mano, un «forzar» con el mismo sello o dos llamadas
+  // solapadas salen aquí (pg_net no reintenta por sí solo).
   if (!(await almacen.reservarEjecucion(sello, lote))) return { estado: 'repetido', sello, lote };
 
   const hoy = hoyMadrid(ahora);
@@ -34,13 +35,14 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
 
   // Margen para pedir: lo que queda hasta el límite menos la reserva de publicación.
   const margen = () => limite - RESERVA_PUBLICAR - reloj();
-  const esperarConPlazo = async (ms) => { if (ms >= margen()) throw new PlazoAgotado(); await esperar(ms); };
+  const esperarConPlazo = async (ms) => { if (!(ms + MINIMO_UTIL < margen())) throw new PlazoAgotado(); await esperar(ms); };
+  const opciones = { esperar: esperarConPlazo, limite: () => Math.min(MAX_ESPERA_FETCH, margen()), minimo: MINIMO_UTIL, ...(senal ? { senal } : {}) };
   const errores = [], climaPorTrozo = new Map(), frescas = new Set();
   let agotado = false;
   for (const p of plan.peticiones) {
-    if (margen() <= 0) { agotado = true; break; }
+    if (margen() < MINIMO_UTIL) { agotado = true; break; }
     try {
-      const json = await pedirConReintento(fetchFn, p.url, { esperar: esperarConPlazo, limite: Math.min(MAX_ESPERA_FETCH, margen()) });
+      const json = await pedirConReintento(fetchFn, p.url, opciones);
       if (p.tipo === 'principal') {
         await almacen.guardarFilas(filasDePrincipal(json, p.celdas, hoy, ahora));
         for (const c of p.celdas) for (const id of idsDe(c)) frescas.add(id);
@@ -90,7 +92,11 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
     return { estado: 'sin-publicar', sello, conDatos, total, peso: plan.peso, errores };
   }
   const generado = ahora.toISOString(), archivo = `${sello}.json`;
-  await almacen.subir(archivo, { version: VERSION_SALIDA, sello, generado, hoy, fechas, celdas: todas }, '86400');
+  const salida = { version: VERSION_SALIDA, sello, generado, hoy, fechas, celdas: todas };
+  // Lo mismo que comprueba el móvil al leerlo: un archivo que no pasaría no se sube y queda el anterior.
+  const malas = validarSalida(salida);
+  if (malas.length) return { estado: 'sin-publicar', sello, conDatos, total, peso: plan.peso, errores: [...errores, ...malas.map((m) => `salida: ${m}`)] };
+  await almacen.subir(archivo, salida, '86400');
   await almacen.subir('ultimo.json', { version: VERSION_SALIDA, sello, archivo, generado, conDatos, total }, '60');
   await almacen.borrar(archivosABorrar(await almacen.listar('')));
   return { estado: 'publicado', sello, conDatos, total, peso: plan.peso, errores };
