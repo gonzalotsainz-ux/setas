@@ -468,6 +468,14 @@
           "distanciaKm": 13.9,
           "lat": 41.9597,
           "lon": -3.1317
+        },
+        {
+          "id": "2302N",
+          "nombre": "Monterrubio de la Demanda",
+          "altitud": 1197,
+          "distanciaKm": 7,
+          "lat": 42.1464,
+          "lon": -3.1097
         }
       ],
       "normas": [
@@ -554,7 +562,24 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "1103X",
+          "nombre": "San Roque de Riomiera",
+          "altitud": 849,
+          "distanciaKm": 22,
+          "lat": 43.2275,
+          "lon": -3.7211
+        },
+        {
+          "id": "9051",
+          "nombre": "Medina de Pomar",
+          "altitud": 580,
+          "distanciaKm": 23,
+          "lat": 42.92,
+          "lon": -3.4828
+        }
+      ],
       "normas": [
         "cyl-decreto-31-2017",
         "estatal-ley-43-2003-montes",
@@ -1212,7 +1237,40 @@
           "revisado": "2026-09-30"
         }
       ],
-      "estacionesAemet": [],
+      "estacionesAemet": [
+        {
+          "id": "3576X",
+          "nombre": "Valencia de Alcántara",
+          "altitud": 444,
+          "distanciaKm": 96.4,
+          "lat": 39.4147,
+          "lon": -7.2311
+        },
+        {
+          "id": "4245X",
+          "nombre": "Guadalupe",
+          "altitud": 660,
+          "distanciaKm": 90.5,
+          "lat": 39.4553,
+          "lon": -5.3333
+        },
+        {
+          "id": "3504X",
+          "nombre": "Hervás",
+          "altitud": 724,
+          "distanciaKm": 57.2,
+          "lat": 40.265,
+          "lon": -5.8611
+        },
+        {
+          "id": "2930Y",
+          "nombre": "Navasfrías",
+          "altitud": 880,
+          "distanciaKm": 68.5,
+          "lat": 40.2967,
+          "lon": -6.8128
+        }
+      ],
       "normas": [
         "ex-sin-decreto-autonomico",
         "ex-fincas-privadas",
