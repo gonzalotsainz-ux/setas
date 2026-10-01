@@ -719,6 +719,25 @@ habría que moverlo unos 150 m hacia dentro de la tesela, y eso lo decide la usu
 Ninguna diferencia de altitud pasa de 100 m: la mayor es de 35 m (`burgos-monte-agudo-hayedo`). Es la media de una celda
 de 250 m frente a un punto.
 
+## Índice diario precalculado (bucket `indice`)
+
+Archivo `indice/<sello>.json` (`sello` = `AAAA-MM-DDTHH`, hora de Madrid), formato en `supabase/functions/_shared/salida-indice.js`:
+
+```json
+{ "version": 1, "sello": "2026-10-01T07", "generado": "2026-10-01T05:03:12.000Z", "hoy": "2026-10-01",
+  "fechas": ["2026-10-01", "…10 días…"],
+  "celdas": { "guadarrama:66:65": { "altRef": 1480, "incompleta": false,
+      "lluvia": { "desde": "2026-08-03", "hoy": 59, "mm": [2, 0, "…"] },
+      "dias": [[106, 60, 17, 60, 194, 0, 13, 13, 6, 6, 6, 6, 6, 6, 6], null, "…"] } } }
+```
+
+Cada día es una lista de 15 números a la altitud de referencia, redondeados a 2 decimales:
+`[P26, P3, lag, pct, Pagosto, secante (0/1), T20aire, T20suelo, tmin × 7]`; `null` en un hueco o en todo el día si no se
+pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `lluvia.hoy` = hoy) para la gráfica.
+`indice/ultimo.json = { version, sello, archivo, generado, conDatos, total }`.
+
+Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
+
 ## data/sitios.json (sitios conocidos)
 
 Lugares donde buscar, recogidos de blogs, prensa y webs oficiales (investigación 04a–04c en `docs/investigacion/`). Nunca se inventan coordenadas: `lat` y `lon` son `null` salvo que una fuente las dé (hoy, 12 sitios: los 11 aparcamientos oficiales del coto La Engaña y la entrada de Berzocana; cada uno lo dice en `notas`).
