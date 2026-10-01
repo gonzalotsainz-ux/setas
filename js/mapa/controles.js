@@ -6,6 +6,7 @@ import { comun } from '../ui/ficha.js';
 import { enTemporada, pesoPrevision } from '../indice.js';
 import { entreDias } from '../meteo.js';
 import { buscarEspecies } from '../pantallas/especies.js';
+import { ZOOM_MIN_FINA, AVISO_SIN_DESCOMPRESION } from '../rejilla/carga.js';
 
 export const GRUPOS = [
   { id: 'boletus', texto: 'Boletus', especies: ['boletus-edulis', 'boletus-pinophilus', 'boletus-aereus', 'boletus-reticulatus'] },
@@ -100,4 +101,24 @@ export function crearBuscador({ buscar, alElegir }) {
   });
   input.addEventListener('blur', () => { resultados = []; activo = -1; pintar(); });
   return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, icono('i-buscar'), input, lista), input };
+}
+
+// Avisos de la franja inferior del mapa (spec §3.4), en orden: modo (sin índice o navegador sin descompresión),
+// estado de la previsión de los puntos, antigüedad del índice, previsión lejana, zoom y el último error.
+// Cada aviso es [icono, texto]. `viejo` es avisoIndice(salida) y `otroDia`, avisoOtroDia(meteo): se calculan fuera.
+export const AVISO_SIN_INDICE = 'No hay mapa por laderas ahora mismo: se ven los puntos de cada zona con su nota.';
+export const AVISO_ACERCATE = 'Acércate para ver cada ladera.';
+export function avisosMapa({ salida, sinDescompresion = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null }) {
+  const lista = [];
+  if (!salida) {
+    lista.push(['i-aviso', sinDescompresion ? AVISO_SIN_DESCOMPRESION : AVISO_SIN_INDICE]);
+    if (!meteo?.series) lista.push(['i-aviso', meteo?.error ? 'No hay previsión: los puntos salen sin nota.' : 'Esperando la previsión: los puntos saldrán con su nota en unos segundos.']);
+    else if (otroDia) lista.push(['i-info', otroDia]);
+  } else {
+    if (viejo) lista.push(['i-info', viejo]);
+    if (diasDesdeHoy > 0 && pesoPrevision(diasDesdeHoy) < 0.8) lista.push(['i-info', `Previsión a ${diasDesdeHoy} días: menos fiable.`]);
+    if (zoom < ZOOM_MIN_FINA) lista.push(['i-info', AVISO_ACERCATE]);
+  }
+  if (error) lista.push(['i-aviso', error]);
+  return lista;
 }

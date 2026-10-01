@@ -116,3 +116,29 @@ test('pueblos: un núcleo repetido en el mismo punto queda una vez con todos sus
     { id: '3', tipo: 'Entidad singular', nombre: 'Acosta', lat: 41.1, lon: -3.5 }]);
   assert.deepEqual(u.map((l) => l.nombre), ['Acosta / Okoizta / Akosta', 'Acosta']);
 });
+
+import { avisosMapa, AVISO_SIN_INDICE, AVISO_ACERCATE } from '../js/mapa/controles.js';
+import { AVISO_SIN_DESCOMPRESION } from '../js/rejilla/carga.js';
+const textos = (a) => a.map(([, t]) => t);
+test('avisos del mapa sin índice: puntos de siempre, con el estado de la previsión', () => {
+  const sinMeteo = avisosMapa({ salida: null, meteo: null });
+  assert.equal(sinMeteo[0][1], AVISO_SIN_INDICE);
+  assert.match(AVISO_SIN_INDICE, /^No hay mapa por laderas ahora mismo/);
+  assert.match(textos(sinMeteo)[1], /^Esperando la previsión/);
+  assert.match(textos(avisosMapa({ salida: null, meteo: { error: 'x' } }))[1], /^No hay previsión/);
+  const bien = avisosMapa({ salida: null, meteo: { series: {} }, otroDia: 'Datos del 30 de septiembre.', zoom: 6 });
+  assert.deepEqual(textos(bien), [AVISO_SIN_INDICE, 'Datos del 30 de septiembre.']);   // sin «Acércate»: no hay laderas que ver
+  const viejo = avisosMapa({ salida: null, sinDescompresion: true, meteo: { series: {} } });
+  assert.deepEqual(textos(viejo), [AVISO_SIN_DESCOMPRESION]);
+});
+test('avisos del mapa con índice: antigüedad, previsión lejana, zoom y error', () => {
+  const s = { sello: '2026-10-01T07' };
+  assert.deepEqual(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0 }), []);
+  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 8, diasDesdeHoy: 0 })), [AVISO_ACERCATE]);
+  assert.equal(AVISO_ACERCATE, 'Acércate para ver cada ladera.');
+  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 2 })), []);   // pesoPrevision(2) ≥ 0,8
+  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 5 })), ['Previsión a 5 días: menos fiable.']);
+  const todo = avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0, viejo: 'Datos de ayer a las 19:00.', error: 'No se pudo cargar x.bin (404)' });
+  assert.deepEqual(todo.map(([i]) => i), ['i-info', 'i-aviso']);
+  assert.deepEqual(textos(todo), ['Datos de ayer a las 19:00.', 'No se pudo cargar x.bin (404)']);
+});

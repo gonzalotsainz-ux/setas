@@ -61,7 +61,7 @@ export function cargarLeaflet() {
 }
 
 let cacheCotos = null;
-const cargarCotos = () => (cacheCotos ??= fetch('data/cotos.geojson').then((r) => {
+export const cargarCotos = () => (cacheCotos ??= fetch('data/cotos.geojson').then((r) => {
   if (!r.ok) { cacheCotos = null; throw new Error(`No se pudo cargar data/cotos.geojson (${r.status})`); }
   return r.json();
 }).catch((e) => { cacheCotos = null; throw e; }));
@@ -84,7 +84,7 @@ export function notaPunto(zona, punto, datos, meteo, umbrales) {
 
 const enlaceA = (href, texto, clase) => (urlSegura(href) ? el('a', { texto, href, rel: 'noopener', clase }) : el('span', { texto }));
 
-function popupCoto(p, normas) {
+export function popupCoto(p, normas) {
   const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: p.nombre }));
   const etiquetas = el('p', { clase: 'mapa-popup__etiquetas' }, el('span', { clase: `etiqueta${p.tipo === 'prohibido' ? ' etiqueta--peligro' : ' etiqueta--acento'}`, texto: TIPOS[p.tipo] ?? p.tipo }));
   if (PRECISION_TEXTO[p.precision]) etiquetas.append(el('span', { clase: 'etiqueta', texto: PRECISION_TEXTO[p.precision] }));

@@ -54,3 +54,20 @@ test('avisoOtroDia: «Datos del …» solo si la meteo guardada es de otro día'
   assert.equal(avisoOtroDia({ hoy: '2026-09-30', series: null }, '2026-10-01'), null);   // sin datos ya se avisa aparte
   assert.equal(avisoOtroDia(null, '2026-10-01'), null);
 });
+
+import { cargarCotos, popupCoto } from '../js/mapa.js';
+test('el mapa nuevo reutiliza la carga de cotos y su ficha', () => {
+  assert.equal(typeof cargarCotos, 'function');
+  assert.equal(typeof popupCoto, 'function');
+});
+
+import { readFileSync } from 'node:fs';
+import { CONFIG } from '../scripts/rejilla/config.mjs';
+test('créditos de Ajustes: MFE50 con su actualización, MDT25 y pueblos del NGBE, con los textos de CONFIG', () => {
+  const src = readFileSync('js/pantallas/ajustes.js', 'utf8');
+  for (const t of [CONFIG.mfe.atribucion, CONFIG.mfe.url, CONFIG.mdt.atribucion, CONFIG.mdt.nombre, CONFIG.mdt.url, CONFIG.pueblos.nombre, CONFIG.pueblos.url, CONFIG.pueblos.licencia]) {
+    assert.ok(src.includes(t), t);
+  }
+  assert.match(src, /entre 1997 y 2006 \(archivos de 2013\)/);
+  assert.doesNotMatch(src, /NGMEP|CARTO/);   // pueblos del NGBE; CARTO no se usa mientras CARTO_URL sea null
+});

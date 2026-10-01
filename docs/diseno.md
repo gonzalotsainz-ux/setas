@@ -133,6 +133,36 @@ foco visible ocre de 3 px; sin guiones largos en los textos; la pestaña Especie
 línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cuando la página se abre con `file://`
 (comprobado: con `file://` no pinta nada; por http, sí).
 
+## Mapa a pantalla completa
+
+El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
+buscador y los chips de especie; a la derecha, Capas y Mi ubicación; abajo, los avisos y la barra de días; el zoom y la
+atribución de Leaflet quedan por encima de los avisos (las alturas se miden en `--alto-cabecera`, `--alto-nav` y
+`--alto-abajo`).
+
+| Clase | Qué es |
+|---|---|
+| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__dias`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
+| `.mapa-buscador` (+ `__lista`) | combobox de pueblos, sitios y especies: 48 px, foco visible, opción activa con fondo de acento y raya lateral |
+| `.mapa-panel` | panel de fondos, capas y leyenda de las manchas, con «Cerrar»; Escape lo cierra y el foco vuelve a Capas |
+| `.hoja--mapa` (`[data-estado="resumen|completa"]`) + `.hoja__asa` | hoja inferior al tocar una mancha: 42 % de alto, 88 % al subir el asa (44 px, `touch-action: none`); sin animación con `prefers-reduced-motion` |
+| `.hoja--prohibido` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
+| `.marcador-sitio` | chincheta verde con borde blanco de los sitios con coordenadas (color fijo: va sobre teselas claras) |
+| `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
+
+Las manchas usan `NIVEL_COLOR` de `js/mapa/colores.js` con alfa 150/255; las celdas con monte apropiado pero sin datos
+suficientes, el gris `NIVEL_COLOR['sin-datos']` con alfa 110/255. Las celdas gruesas de la vista lejana usan las
+mismas opacidades. Nunca se colorea una celda sin hábitat ni prohibida.
+
+Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
+
+- Sin índice: «No hay mapa por laderas ahora mismo: se ven los puntos de cada zona con su nota.»
+- Navegador sin `DecompressionStream`: «Este navegador no puede leer el mapa por laderas; se muestran solo los puntos. Actualiza el navegador para verlo.»
+- Previsión de los puntos: «Esperando la previsión: los puntos saldrán con su nota en unos segundos.» o «No hay previsión: los puntos salen sin nota.»
+- Índice antiguo: «Datos de ayer a las 19:00. No se ha podido actualizar el mapa; las manchas son de entonces.» (o «de hoy», o «del 30 de septiembre»).
+- Día lejano: «Previsión a 5 días: menos fiable.»
+- Lejos (zoom menor que 9): «Acércate para ver cada ladera.»
+
 ## Maquetas
 
 - `maqueta/hoy.html`: zona destacada con foto, aviso de previsión incierta, filtro por especie, las 8 zonas
