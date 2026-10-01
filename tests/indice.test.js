@@ -165,14 +165,24 @@ test('indiceDesdeAgregados: explicar=false da la misma nota sin frases', () => {
   assert.deepEqual(r.explicacion, []);
 });
 
-test('indiceDesdeAgregados: el ajuste de humedad multiplica fW y lo recorta a 1', () => {
-  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);   // P26 = 52 → fW = (52 − 30) / 60
-  const sin = indiceDesdeAgregados(ag, BOLETUS), con = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 1.1 });
+test('indiceDesdeAgregados: el ajuste de humedad multiplica la lluvia de 26 días antes de fW', () => {
+  const ag = agregadosDia(serieSintetica({ precip: () => 2 }), 59);   // P26 = 52; BOLETUS: pmin 30, pfull 90
+  const sin = indiceDesdeAgregados(ag, BOLETUS), N = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 1.15 });
+  const S = indiceDesdeAgregados(ag, BOLETUS, { ajusteHumedad: 0.85 });
   assert.ok(Math.abs(sin.factores.fW - 22 / 60) < 1e-12);
-  assert.ok(Math.abs(con.factores.fW - (22 / 60) * 1.1) < 1e-12);
-  assert.ok(con.valor > sin.valor);
+  assert.ok(Math.abs(N.factores.fW - (52 * 1.15 - 30) / 60) < 1e-12);   // 29,8 / 60, no 22 / 60 × 1,15
+  assert.ok(Math.abs(S.factores.fW - (52 * 0.85 - 30) / 60) < 1e-12);
+  assert.ok(N.valor > sin.valor && sin.valor > S.valor);
+  // La umbría llega antes a fW = 1: 80 mm × 1,15 = 92 ≥ 90, sin ajuste 80 mm se queda en 50 / 60.
+  const ochenta = { ...ag, P26: 80 };
+  assert.equal(indiceDesdeAgregados(ochenta, BOLETUS, { ajusteHumedad: 1.15 }).factores.fW, 1);
+  assert.ok(indiceDesdeAgregados(ochenta, BOLETUS).factores.fW < 1);
+  // Con lluvia abundante N y S dan el mismo fW (1); con lluvia 0, fW = 0 en cualquier ladera.
   const humedo = agregadosDia(serieSintetica({ precip: lluviaBuena }), 59);
   assert.equal(indiceDesdeAgregados(humedo, BOLETUS, { ajusteHumedad: 1.15 }).factores.fW, 1);
+  assert.equal(indiceDesdeAgregados(humedo, BOLETUS, { ajusteHumedad: 0.85 }).factores.fW, 1);
+  const seco = { ...ag, P26: 0 };
+  for (const a of [0.85, 1, 1.15]) assert.equal(indiceDesdeAgregados(seco, BOLETUS, { ajusteHumedad: a }).factores.fW, 0);
 });
 
 test('indiceDesdeAgregados: sin temperatura del suelo falla Morchella pero no el boletus', () => {

@@ -1,5 +1,5 @@
 // js/rejilla/orientacion.js
-// Ajuste ORIENTATIVO de la humedad (multiplica fW) según la orientación de la ladera: umbría frente a solana.
+// Ajuste ORIENTATIVO de la humedad (multiplica la lluvia de 26 días antes de fW) según la orientación de la ladera: umbría frente a solana.
 // No hay calibración local. Valores y fuentes: docs/datos.md («Ajuste por orientación») y
 // docs/investigacion/08-rejilla-fuentes.md, apartado D8. Sin fuente, todo vale 1.
 // N y S son el punto medio entre 1 y la razón publicada, recortado al tope 0,85–1,15; las diagonales llevan

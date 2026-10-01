@@ -495,26 +495,36 @@ Reglas (criterios propios, no de la fuente):
 
 ## Ajuste por orientación (orientativo)
 
-`js/rejilla/orientacion.js` multiplica el factor de lluvia de 26 días (`fW`) según la orientación de la ladera
-(umbría N, NE, NO; solana S, SE, SO). **Orientativo:** no hay calibración con datos de estas zonas; la hoja del mapa lo
-marca así cuando el ajuste no es 1. Criterio y búsqueda: `docs/investigacion/08-rejilla-fuentes.md`, apartado D8.
+`js/rejilla/orientacion.js` multiplica la lluvia de 26 días (`P26`) según la orientación de la ladera (umbría N, NE,
+NO; solana S, SE, SO) **antes** de calcular `fW`: `fW = clamp01((P26 × ajuste − pmin) / (pfull − pmin))`
+(`indiceDesdeAgregados`, `supabase/functions/_shared/indice.js`). Así es simétrico: con lluvia abundante las dos laderas
+llegan a `fW = 1`, con lluvia 0 las dos dan 0, y con ajuste 1 la nota es la de siempre. (Hasta el 2026-10-01 el plan
+decía «multiplica `fW`»; se cambió por el ruling de la tarea 7, porque multiplicar `fW` solo restaba en solana y no
+sumaba en umbría cuando `fW` ya estaba en 1.) **Orientativo:** no hay calibración con datos de estas zonas; la hoja del
+mapa lo marca así cuando el ajuste no es 1. Criterio y búsqueda: `docs/investigacion/08-rejilla-fuentes.md`, apartado D8.
 
-| Orientación | Ajuste de fW | Fuente |
+| Orientación | Ajuste de la lluvia de 26 días | Fuente |
 |---|---|---|
 | Llano | 1 | neutro por definición (celdas con orientación 0) |
 | N | 1,15 | Bonet et al. 2008, *Annals of Forest Science* 65: 206, https://hal.science/hal-00884160v1 (punto medio de 2,54 = 1,77, recortado al tope 1,15) |
-| NE | 1,075 | Bonet et al. 2008 (mitad del efecto de N) |
+| NE | 1,075 | regla del plan (mitad del efecto de N) |
 | E | 1 | neutro por definición |
-| SE | 0,925 | Bonet et al. 2008 (mitad del efecto de S) |
+| SE | 0,925 | regla del plan (mitad del efecto de S) |
 | S | 0,85 | Bonet et al. 2008, https://hal.science/hal-00884160v1 (punto medio de 0,39 = 0,70, recortado al tope 0,85) |
-| SO | 0,925 | Bonet et al. 2008 (mitad del efecto de S) |
+| SO | 0,925 | regla del plan (mitad del efecto de S) |
 | O | 1 | neutro por definición |
-| NO | 1,075 | Bonet et al. 2008 (mitad del efecto de N) |
+| NO | 1,075 | regla del plan (mitad del efecto de N) |
 
 La razón publicada es de **producción total de setas** en pinares de pino silvestre del Prepirineo (24 parcelas, 3
-años), no de humedad del suelo; el ajuste se queda en el tope, muy por debajo del efecto del artículo. En otoño, con el
-suelo húmedo, la humedad superficial no cambia con la orientación (López-Vicente et al. 2009, apartado D8): por eso
-el ajuste solo multiplica `fW`, que ya está topado en 1, y apenas cuenta cuando ha llovido bien.
+años), no de humedad del suelo; el ajuste se queda en el tope, muy por debajo del efecto del artículo. En una cuenca
+del Prepirineo (Estaña, 2005-2006), la humedad superficial no mostró tendencia por orientación en otoño, con el suelo
+muy húmedo (López-Vicente et al. 2009, apartado D8); no es un resultado general, pero va en la misma línea: con lluvia
+abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
+
+**Efecto real en la nota** (cuenta sobre la fórmula, con los demás factores a 1): a media lluvia, *Boletus edulis* con
+60 mm pasa de 78 a 86 en umbría y a 69 en solana. El efecto máximo está junto al mínimo de lluvia (`pmin`), donde la
+solana puede dejar `fW` en 0: *Lactarius deliciosus* con 47 mm baja hasta 47 puntos y *Macrolepiota procera* con 25 mm
+sube hasta 46 en umbría.
 
 ## data/sitios.json (sitios conocidos)
 

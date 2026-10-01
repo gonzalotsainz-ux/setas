@@ -74,7 +74,7 @@ Fondos, comprobados el 01/10/2026 (todos responden 200):
 - Para cada celda fina con hábitat calcula:
   - la temperatura corregida por altitud: −0,65 °C por cada 100 m respecto a la de referencia;
   - fT, con esa temperatura;
-  - un modificador de humedad por orientación, umbría frente a solana. Es **orientativo**, sale de la bibliografía, con valores y fuentes en `docs/datos.md`, y se marca así en la hoja;
+  - un modificador de humedad por orientación, umbría frente a solana. Es **orientativo**, sale de la bibliografía, con valores y fuentes en `docs/datos.md`, y se marca así en la hoja. Multiplica la lluvia de 26 días antes de calcular fW (no fW: cambio del 2026-10-01, ruling de la tarea 7, para que sea simétrico entre umbría y solana y no cambie nada con ajuste 1);
   - la nota final con la misma `calcularIndice` y `nivelDe`.
 
   Solo se calculan las especies cuyo `habitat` encaja con la celda y que están en temporada.

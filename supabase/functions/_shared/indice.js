@@ -78,7 +78,7 @@ export function agregadosDia(serie, i) {
 }
 
 // Paso 2: la nota de una especie a partir de los agregados. `ajusteHumedad` (orientación de la ladera, orientativo)
-// multiplica fW; 1 = sin ajuste, como en Hoy y Zona. `explicar: false` no construye las frases (pintado del mapa).
+// multiplica la lluvia de 26 días antes de calcular fW; 1 = sin ajuste, como en Hoy y Zona. `explicar: false` no construye las frases (pintado del mapa).
 export function indiceDesdeAgregados(ag, especie, { ajusteHumedad = 1, explicar = true } = {}) {
   const sp = especie.indice;
   const base = { confianza: sp.confianza, prevision: ag.prevision };
@@ -92,8 +92,8 @@ export function indiceDesdeAgregados(ag, especie, { ajusteHumedad = 1, explicar 
   const decir = (f) => { if (explicar) explicacion.push(f()); };
 
   if (ag.P26 == null || ag.P3 == null) falta('precip');
-  const P26 = ag.P26, fW0 = clamp01((P26 - sp.pmin) / (sp.pfull - sp.pmin));
-  const fW = ajusteHumedad === 1 ? fW0 : clamp01(fW0 * ajusteHumedad);
+  const P26 = ag.P26, P26ef = P26 * ajusteHumedad;
+  const fW = clamp01((P26ef - sp.pmin) / (sp.pfull - sp.pmin));
   decir(() => `${Math.round(P26)} mm en 26 días (mínimo ${sp.pmin}, pleno ${sp.pfull})`);
 
   const { P3, lag } = ag;
