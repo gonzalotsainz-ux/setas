@@ -23,6 +23,17 @@ test('corrección por altitud: −0,65 °C cada 100 m en las medias y en las mí
   assert.equal(corregirAltitud({ ...humeda(), T20suelo: null }, 100).T20suelo, null);
 });
 
+test('altitud sin dato: ni se omite la corrección ni se aplica una enorme; la celda queda sin nota', () => {
+  for (const [altitud, altRef] of [[NaN, 1500], [1500, undefined], [Infinity, 1500], [null, 1500]]) {
+    assert.equal(notaEspecie(humeda(), BOLETUS, { altitud, altRef }), null, `${altitud} / ${altRef}`);
+  }
+  const B = { ...BOLETUS, habitats: ['pinar-silvestre'] };
+  const r = notaCelda({ ag: humeda(), habitat: 'pinar-silvestre', altitud: NaN, altRef: 1500, especies: [B], fecha: '2026-10-18' });
+  assert.equal(r.sinEspecies, false);
+  assert.equal(r.valor, null);
+  assert.deepEqual(r.faltan, ['boletus-edulis']);
+});
+
 test('notaEspecie con números exactos: 200 m más arriba el boletus baja de 96 a 92; 500 m, a 77 y el níscalo sube a 96', () => {
   assert.equal(notaEspecie(humeda(), BOLETUS, { altitud: 1500, altRef: 1500 }).valor, 96);
   assert.equal(notaEspecie(humeda(), BOLETUS, { altitud: 1700, altRef: 1500 }).valor, 92);
@@ -60,6 +71,35 @@ test('notaCelda: mejor especie del hábitat en temporada; con chip, solo esas; s
   const sinDatos = notaCelda({ ag: null, habitat: 'pinar-silvestre', altitud: 1500, altRef: 1500, especies: [B], fecha });
   assert.equal(sinDatos.sinEspecies, false);
   assert.equal(sinDatos.valor, null);   // gris, nunca un 0 inventado
+  assert.deepEqual(sinDatos.faltan, ['boletus-edulis']);
+  assert.deepEqual(r.faltan, []);
+});
+
+test('«Mejor hoy»: gana la de nota más alta sea cual sea el orden, y una especie sin datos no entra ni en otras', () => {
+  const fecha = '2026-10-18', ag = humeda(), celda = { habitat: 'pinar-silvestre', altitud: 1500, altRef: 1500, fecha };
+  const B = { ...BOLETUS, habitats: ['pinar-silvestre'] }, N = { ...NISCALO, habitats: ['pinar-silvestre'] };
+  const alReves = notaCelda({ ...celda, ag, especies: [N, B] });
+  assert.equal(alReves.especie.id, 'boletus-edulis');
+  assert.equal(alReves.valor, 96);
+  assert.deepEqual(alReves.otras.map((x) => x.especie.id), ['lactarius-deliciosus']);
+  assert.ok(alReves.otras[0].valor < 96);
+  // Una de suelo (como el boletus, pero con la temperatura del suelo) puntúa más que el níscalo de aire...
+  const S = { ...B, id: 'de-suelo', indice: { ...B.indice, usarSuelo: true } };
+  const conSuelo = notaCelda({ ...celda, ag, especies: [N, S] });
+  assert.equal(conSuelo.especie.id, 'de-suelo');
+  assert.ok(conSuelo.valor > conSuelo.otras[0].valor);
+  // ...pero sin temperatura del suelo no se calcula: gana la de aire, la de suelo no sale en otras y queda en faltan.
+  const sinSuelo = notaCelda({ ...celda, ag: { ...ag, T20suelo: null }, especies: [S, N] });
+  assert.equal(sinSuelo.especie.id, 'lactarius-deliciosus');
+  assert.deepEqual(sinSuelo.otras, []);
+  assert.deepEqual(sinSuelo.faltan, ['de-suelo']);
+});
+
+test('la temporada se mira en la fecha de los agregados si la traen', () => {
+  const ag = humeda(), M = { id: 'morchella', habitats: ['pinar-silvestre'], temporada: { meses: [3, 4, 5], tipo: 'primavera' }, indice: BOLETUS.indice };
+  const celda = { habitat: 'pinar-silvestre', altitud: 1500, altRef: 1500, especies: [M] };
+  assert.equal(notaCelda({ ...celda, ag, fecha: '2026-04-10' }).sinEspecies, true);   // ag.fecha = 18-oct: fuera de temporada
+  assert.equal(notaCelda({ ...celda, ag: null, fecha: '2026-04-10' }).sinEspecies, false);   // sin agregados, la fecha pedida
 });
 
 test('notaCelda en hábitats que pueden no tener especies con índice: sinEspecies, sin romperse', () => {
@@ -75,27 +115,34 @@ test('notaCelda en hábitats que pueden no tener especies con índice: sinEspeci
 });
 
 // Spec §4 y Ruling D1: la equivalencia se comprueba POR ESPECIE. En cada punto de zonas.json, para cada especie del
-// hábitat del punto, con el ajuste de orientación neutro y la misma meteo, la nota por rejilla es la de indiceZona
-// (tolerancia de 1 punto). La meteo de la celda gruesa está a su altitud de referencia; la que Open-Meteo daría en el
-// punto es esa misma desplazada por el gradiente. El filtro por hábitat de la rejilla es intencionado (spec §3.3).
+// hábitat del punto, con el ajuste de orientación neutro y la misma meteo, la nota por rejilla es la de indiceZona.
+// La meteo de la celda gruesa está a su altitud de referencia; la que Open-Meteo daría en el punto es esa misma
+// desplazada por el gradiente. El filtro por hábitat de la rejilla es intencionado (spec §3.3). Tolerancia 0: los
+// agregados publicados van redondeados a centésimas y eso no ha movido ninguna nota entera en estos escenarios.
+// Dos escenarios: templado (mínimas de 6 °C) y frío (mínimas de 1,5 a −1,5 °C en la celda gruesa: con el desplazamiento
+// de altitud hay noches de helada y, a −250 m de la referencia, helada fuerte < −3 °C, así que la penalización cuenta).
+// Ninguna especie con usarSuelo tiene hoy el hábitat de algún punto (morchella: chopera); el suelo se prueba arriba.
 const desplazar = (s, d) => ({ ...s, tmedia: s.tmedia.map((v) => v + d), tmin: s.tmin.map((v) => v + d), tmax: s.tmax.map((v) => v + d), tsuelo: s.tsuelo.map((v) => v + d) });
-test('equivalencia por especie con indiceZona en todos los puntos de zonas.json (±1)', () => {
-  let comparados = 0;
-  for (const z of zonas) for (const p of z.puntos) for (const dif of [0, 300, -250]) {
+const ESCENARIOS = { templado: {}, frio: { tmin: (k) => 1.5 - (k % 4) } };
+test('equivalencia por especie con indiceZona en todos los puntos de zonas.json (exacta), templado y con heladas', () => {
+  let comparados = 0, conHelada = 0;
+  for (const [nombre, extra] of Object.entries(ESCENARIOS)) for (const z of zonas) for (const p of z.puntos) for (const dif of [0, 300, -250]) {
     const altRef = p.altitud + dif;
-    const S = serieSintetica({ precip: lluviaBuena });
+    const S = serieSintetica({ precip: lluviaBuena, ...extra });
     const Sp = desplazar(S, GRADIENTE * (p.altitud - altRef));
     const ag = desempaquetarDia(JSON.parse(JSON.stringify(empaquetarDia(agregadosDia(S, 59)))), S.fechas[59], false);
     for (const esp of especiesDeZona(z, especies).filter((e) => e.habitats.includes(p.habitat))) {
-      const esperado = indiceZona({ [p.id]: Sp }, 59, [esp]).valor;
+      const zona = indiceZona({ [p.id]: Sp }, 59, [esp]), esperado = zona.valor;
       const r = notaCelda({ ag, habitat: p.habitat, altitud: p.altitud, altRef, orientacion: 0, especies: [esp], fecha: S.fechas[59] });
       if (esperado == null) { assert.equal(r.valor, null, `${p.id} ${esp.id}`); continue; }
       assert.equal(r.especie.id, esp.id);
-      assert.ok(Math.abs(r.valor - esperado) <= 1, `${p.id} ${esp.id} (${dif} m): rejilla ${r.valor}, zona ${esperado}`);
+      assert.equal(r.valor, esperado, `${nombre} ${p.id} ${esp.id} (${dif} m): rejilla ${r.valor}, zona ${esperado}`);
+      if (r.resultado.factores.pen < 1 && nombre === 'frio') conHelada++;
       comparados++;
     }
   }
   assert.ok(comparados > 50, `solo ${comparados} comparaciones`);
+  assert.ok(conHelada > 50, `solo ${conHelada} comparaciones con helada`);
 });
 
 test('una fila mala de ajustes_umbrales se ignora igual que en Hoy y Zona; una buena se aplica', (t) => {
