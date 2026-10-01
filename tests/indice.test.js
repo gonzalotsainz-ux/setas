@@ -155,7 +155,7 @@ test('los dos pasos (agregadosDia + indiceDesdeAgregados) dan la nota de la refe
     assert.deepStrictEqual(JSON.parse(JSON.stringify(indiceDesdeAgregados(agregadosDia(c.serie, c.i), c.especie))), esperado, c.clave);
     comparados++;
   }
-  assert.equal(comparados, 173);
+  assert.equal(comparados, 258); // casos sin error de la referencia (450 en total; el resto lanza DatosIncompletos)
 });
 
 test('indiceDesdeAgregados: explicar=false da la misma nota sin frases', () => {
