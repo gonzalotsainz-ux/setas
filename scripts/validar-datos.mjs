@@ -2,6 +2,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { puntoEnGeometria } from '../js/rejilla/geo.js';
+import { leerCabecera } from '../js/rejilla/formato.js';
 export { puntoEnGeometria };
 
 export const HABITATS = ['pinar-silvestre', 'pinar-negral', 'pinar-resinero', 'pinar-pinonero', 'hayedo', 'melojar',
@@ -146,11 +147,47 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
   return e;
 }
 
+// Rejilla fina (data/rejilla/): cada archivo existe, es un «SETR» v1 de una zona conocida, cita sus fuentes y no pasa de
+// maxBytes (ya va comprimido: es lo que se descarga). gruesa.json: zona, posición y altitud de referencia de cada celda.
+export function validarRejillas({ indice, gruesa, zonas, leer, maxBytes = 300 * 1024 }) {
+  const e = [];
+  const ids = new Set(zonas.zonas.map((z) => z.id));
+  if (indice?.version !== 1 || !Array.isArray(indice.archivos)) return ['rejilla: data/rejilla/indice.json sin versión 1 o sin archivos'];
+  for (const a of indice.archivos) {
+    const q = `rejilla ${a.archivo}`;
+    const b = leer(`data/rejilla/${a.archivo}`);
+    if (!b) { e.push(`${q}: falta el archivo`); continue; }
+    if (b.length > maxBytes) e.push(`${q}: ${Math.round(b.length / 1024)} KB, más de ${Math.round(maxBytes / 1024)} KB`);
+    let cab;
+    try { cab = leerCabecera(b).cabecera; } catch (x) { e.push(`${q}: ${x.message}`); continue; }
+    if (!ids.has(cab.zona)) e.push(`${q}: zona inexistente ${cab.zona}`);
+    if (cab.tam !== 250) e.push(`${q}: celdas de ${cab.tam} m, se esperaban 250`);
+    if (!(cab.ancho > 0 && cab.alto > 0)) e.push(`${q}: ancho o alto inválido`);
+    if (!Array.isArray(cab.habitats) || !cab.habitats.every((h) => HABITATS.includes(h))) e.push(`${q}: hábitat desconocido en la cabecera`);
+    for (const k of ['mfe', 'mdt']) {
+      const f = cab.fuentes?.[k];
+      if (!f?.nombre || !URL_OK.test(f.url ?? '') || !FECHA.test(f.fecha ?? '')) e.push(`${q}: fuente ${k} sin nombre, url o fecha`);
+    }
+    if (a.zona !== cab.zona || a.col0 !== cab.col0 || a.fila0 !== cab.fila0 || a.ancho !== cab.ancho || a.alto !== cab.alto) e.push(`${q}: indice.json no coincide con la cabecera`);
+  }
+  for (const c of gruesa?.celdas ?? []) {
+    if (!ids.has(c.zona)) e.push(`celda gruesa ${c.id}: zona inexistente ${c.zona}`);
+    if (![c.altRef, c.lat, c.lon].every((v) => typeof v === 'number' && Number.isFinite(v))) e.push(`celda gruesa ${c.id}: sin altRef, lat o lon`);
+  }
+  if (gruesa && !Object.values(gruesa.pasos ?? {}).every((p) => p > 0)) e.push('gruesa.json: pasos inválidos');
+  return e;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const leer = (f) => JSON.parse(readFileSync(f, 'utf8'));
   const errores = validar({ zonas: leer('data/zonas.json'), especies: leer('data/especies.json'),
     normativa: leer('data/normativa.json'), cotos: leer('data/cotos.geojson'),
     sitios: existsSync('data/sitios.json') ? leer('data/sitios.json') : undefined });
+  if (existsSync('data/rejilla/indice.json')) {
+    errores.push(...validarRejillas({ indice: leer('data/rejilla/indice.json'),
+      gruesa: existsSync('data/rejilla/gruesa.json') ? leer('data/rejilla/gruesa.json') : null, zonas: leer('data/zonas.json'),
+      leer: (f) => (existsSync(f) ? new Uint8Array(readFileSync(f)) : null) }));
+  }
   if (errores.length) { console.error(errores.map((x) => `✗ ${x}`).join('\n')); process.exit(1); }
   console.log('✓ Datos válidos');
 }

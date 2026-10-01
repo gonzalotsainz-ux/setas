@@ -219,3 +219,37 @@ test('fueraDeZonaMeteo es opcional y, si está, booleano', () => {
   const c = sitio(); c.fueraDeZonaMeteo = 'sí';
   assert.match(validar(conSitios(c)).join('\n'), /fueraDeZonaMeteo debe ser booleano/);
 });
+
+import { validarRejillas } from '../scripts/validar-datos.mjs';
+import { codificarRejilla, PROHIBIDO } from '../js/rejilla/formato.js';
+
+const fuenteR = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
+const cabR = { version: 1, zona: 'soria', tam: 250, col0: 10, fila0: 20, ancho: 2, alto: 1, habitats: ['pinar-silvestre'],
+  fuentes: { mfe: fuenteR, mdt: fuenteR }, generado: '2026-10-01' };
+async function casoRejilla() {
+  const bytes = await codificarRejilla(cabR, { habitat: Uint8Array.from([1, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  return { indice: { version: 1, archivos: [{ zona: 'soria', archivo: 'soria.bin', col0: 10, fila0: 20, ancho: 2, alto: 1, bytes: bytes.length }] },
+    gruesa: { version: 1, pasos: { soria: 0.09 }, celdas: [{ id: 'soria:80:75', zona: 'soria', lon: -2.755, lat: 41.795, altRef: 1200, habitats: ['pinar-silvestre'], nFinas: 1 }] },
+    zonas: { zonas: [zona()] }, bytes };
+}
+
+test('validarRejillas: una rejilla bien hecha no da errores', async () => {
+  const c = await casoRejilla();
+  assert.deepEqual(validarRejillas({ ...c, leer: () => c.bytes }), []);
+});
+
+test('validarRejillas: archivo que falta, que pesa demasiado o que no es una rejilla', async () => {
+  const c = await casoRejilla();
+  assert.match(validarRejillas({ ...c, leer: () => null }).join('\n'), /falta el archivo/);
+  assert.match(validarRejillas({ ...c, leer: () => c.bytes, maxBytes: 20 }).join('\n'), /KB, más de/);
+  assert.match(validarRejillas({ ...c, leer: () => new TextEncoder().encode('no soy una rejilla') }).join('\n'), /no es una rejilla/);
+});
+
+test('validarRejillas: zona inexistente en la cabecera y celda gruesa sin altitud de referencia', async () => {
+  const c = await casoRejilla();
+  c.zonas.zonas[0].id = 'cuenca';
+  c.gruesa.celdas[0].altRef = null;
+  const e = validarRejillas({ ...c, leer: () => c.bytes }).join('\n');
+  assert.match(e, /zona inexistente soria/);
+  assert.match(e, /sin altRef/);
+});
