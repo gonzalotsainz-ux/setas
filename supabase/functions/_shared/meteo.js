@@ -25,9 +25,15 @@ const DIAS_CLIMA = 730;                   // 2 años completos: todas las estaci
 
 export const hoyMadrid = (ahora = new Date()) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: ZONA, year: 'numeric', month: '2-digit', day: '2-digit' }).format(ahora);
+// Fecha y hora de Madrid como 'AAAA-MM-DDTHH' (sello de las ejecuciones de la rejilla).
+export const horaMadrid = (ahora = new Date()) => {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: ZONA, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', hourCycle: 'h23' }).formatToParts(ahora).map((x) => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day}T${p.hour}`;
+};
 
 const lista = (puntos, k) => puntos.map((p) => p[k]).join(',');
-const comoLista = (j) => (Array.isArray(j) ? j : [j]);
+export const comoLista = (j) => (Array.isArray(j) ? j : [j]);
 const coords = (puntos) => ({ latitude: lista(puntos, 'lat'), longitude: lista(puntos, 'lon'), elevation: lista(puntos, 'altitud'), timezone: ZONA });
 
 export const urlPrincipal = (puntos, { pasados = PASADOS, futuros = FUTUROS } = {}) => `${PREVISION}?${new URLSearchParams({ ...coords(puntos),
