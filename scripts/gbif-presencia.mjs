@@ -1,3 +1,4 @@
+// Cubre comestibles, tóxicas, mortales y no recomendadas (los avisos de seguridad dependen de la presencia).
 // Cuenta registros GBIF con coordenadas de cada especie dentro del bbox de cada zona y marca la presencia.
 // ≥ 3 registros → confirmada; 1–2 → orientativa; 0 → orientativa si el hábitat encaja, si no sin-registros.
 // Solo se cuenta si GBIF devuelve coincidencia EXACTA a rango especie; si no, se registra y no se confirma nada.
@@ -26,7 +27,7 @@ async function clave(nombre) {
 const wkt = ([a, b, c, d]) => `POLYGON((${a} ${b},${c} ${b},${c} ${d},${a} ${d},${a} ${b}))`;
 const raros = [];
 
-for (const e of datos.especies.filter((x) => x.categoria.startsWith('comestible'))) {
+for (const e of datos.especies.filter((x) => /^(comestible|toxica|mortal|no-recomendada)/.test(x.categoria))) {
   // Candidatos de búsqueda: binomio del nombre y sinónimos con género completo (p. ej. Collybia nuda -> Lepista nuda).
   const binomio = (t) => /^[A-Z][a-z]+ [a-z]+/.exec(t)?.[0];
   const candidatos = [...new Set([e.nombre, ...e.sinonimos].map(binomio).filter((t) => t && !/ spp$/.test(t)))];
@@ -55,6 +56,7 @@ for (const e of datos.especies.filter((x) => x.categoria.startsWith('comestible'
     const previo = e.zonas[z.id];
     if (presencia === 'sin-registros' && !previo) { await esperar(150); continue; }
     const nuevo = { ...previo, presencia, gbif: n, fuente: `https://www.gbif.org/occurrence/search?${q}`, consultado: hoy };
+    if (n > 0) nuevo.verificado = true; // el recuento GBIF verifica la presencia (convención de las comestibles)
     if (taxonBuscado) nuevo.taxonGbif = taxonBuscado; else delete nuevo.taxonGbif;
     if (e.id === "lactarius-sanguifluus") nuevo.nota = "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus";
     if (previo?.fuente && !previo.fuente.startsWith('http')) nuevo.fuenteInvestigacion = previo.fuenteInvestigacion ?? previo.fuente;
