@@ -53,3 +53,24 @@ claves `sb_publishable_`).
   `estaciones.json`, desplegar, `node scripts/estaciones-aemet.mjs sonda 2302N,3504X,4245X,3536X,3576X` y solo entonces meter las que tengan datos en
   `estacionesAemet` de `data/zonas.json` (si una estación de `zonas.json` no está en la lista blanca desplegada, la función responde 403 a la llamada
   entera y ninguna zona tiene lluvia medida).
+
+## Edge Function `rejilla` (índice por ladera)
+
+- Calcula a las 07:00 y 19:00 de Madrid los agregados del índice de cada celda gruesa (`data/rejilla/gruesa.json`) y los
+  publica en el bucket público `indice` (`<sello>.json` y `ultimo.json`). Diseño: `docs/superpowers/specs/2026-10-01-mapa-indice-design.md`.
+- La lanza pg_cron (`rejilla-lote-0`, a las 05, 06, 17 y 18 UTC; la función solo trabaja si en Madrid son las 07 o las 19)
+  con pg_net y la cabecera `x-rejilla-clave`, que se lee de Vault (`rejilla_clave`) y coincide con el secreto `REJILLA_CLAVE`.
+  Desplegada con `--no-verify-jwt`; sin la clave responde 401 y a un GET, 405.
+- Tablas privadas `meteo_celdas` (meteo diaria), `clima_celdas` (climatología del suelo por mes) y `rejilla_ejecuciones`
+  (un sello por ejecución, para no repetirla); vista `meteo_celdas_resumen`; función SQL `series_celdas`. Sin acceso para
+  anon ni authenticated. Limpieza diaria `rejilla-limpieza` (03:30 UTC).
+- Presupuesto: 500 llamadas ponderadas a Open-Meteo por ejecución (1.000 al día). Si menos del 90 % de las celdas tiene
+  datos frescos, no publica y sigue valiendo el índice anterior (el móvil avisa). El primer relleno del histórico (desde el
+  1 de agosto) tarda unas 6 ejecuciones (unos 3 días) en octubre y algo más desde noviembre; mientras, no hay `ultimo.json`
+  y el mapa enseña los puntos de siempre.
+- Forzar una ejecución (usa otro sello): `curl -X POST -H "x-rejilla-clave: <clave>" ".../functions/v1/rejilla?forzar=1"`.
+  La clave no está apuntada en ningún sitio; si hace falta, se genera otra y se actualizan el secreto y Vault
+  (`select vault.update_secret(id, '<nueva>') from vault.secrets where name = 'rejilla_clave'`).
+- Despliegue: `npx --yes supabase@2.118.0 functions deploy rejilla --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
+- Desplegada el 2026-10-01 (migraciones `20261002000000_rejilla.sql` y `20261002000100_rejilla_cron.sql`); primera
+  ejecución forzada el 2026-10-01 a las 17:21 de Madrid: 109 celdas rellenadas, sin publicar (relleno en curso).
