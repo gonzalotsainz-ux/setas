@@ -21,6 +21,13 @@ export const SERIES_CASO = {
   primavera: () => serieSintetica({ inicio: '2026-02-15', precip: lluviaBuena, tmedia: () => 9, tsuelo: () => 12, lluviaAntes: null }),
   prevision: () => serieSintetica({ dias: 70, hoy: 59, precip: (k) => (k >= 60 ? 8 : lluviaBuena(k)) }),
   huecoTmin: () => serieSintetica({ precip: lluviaBuena, tmin: (k) => (k === 58 ? null : 6) }),
+  ventoso: () => serieSintetica({ precip: lluviaBuena, viento: () => 40, et0: () => 6, hr: () => 75 }),
+  sinEt0: () => serieSintetica({ precip: lluviaBuena, et0: (k) => (k === 57 ? null : 1.5) }),
+  heladaCero: () => serieSintetica({ precip: lluviaBuena, tmin: (k) => (k === 57 || k === 55 ? 0 : 6) }),
+  calorLimite: () => serieSintetica({ precip: lluviaBuena, tmedia: () => 19 }), // trango[1] + 4 de Boletus (15)
+  calorLimiteVerano: () => serieSintetica({ precip: lluviaBuena, tmedia: () => 24 }), // trango[1] + 4 de la especie de verano (20)
+  primaveraSinTsuelo: () => serieSintetica({ inicio: '2026-02-15', precip: lluviaBuena, tmedia: () => 9,
+    tsuelo: (k) => (k === 50 ? null : 12), lluviaAntes: null }),
 };
 export const DIAS_CASO = [10, 29, 45, 59, 66];
 
