@@ -1,6 +1,8 @@
 // Valida que todo dato tenga fuente y fecha y que las referencias cruzadas existan.
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { puntoEnGeometria } from '../js/rejilla/geo.js';
+export { puntoEnGeometria };
 
 export const HABITATS = ['pinar-silvestre', 'pinar-negral', 'pinar-resinero', 'pinar-pinonero', 'hayedo', 'melojar',
   'robledal-albar', 'quejigar', 'castanar', 'encinar', 'alcornocal', 'jaral', 'sabinar', 'abedular', 'chopera',
@@ -20,19 +22,6 @@ const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const URL_OK = /^https?:\/\//;
 
 export const licenciaPermitida = (t) => /^(CC0( 1\.0)?|PD|CC BY(-SA)?( \d\.\d)?)$/.test(t ?? '');
-
-// Punto dentro de un anillo (trazado de rayos); [lon, lat].
-const enAnillo = (lon, lat, anillo) => {
-  let dentro = false;
-  for (let i = 0, j = anillo.length - 1; i < anillo.length; j = i++) {
-    const [xi, yi] = anillo[i], [xj, yj] = anillo[j];
-    if ((yi > lat) !== (yj > lat) && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) dentro = !dentro;
-  }
-  return dentro;
-};
-const enPoligono = (lon, lat, [exterior, ...huecos]) => enAnillo(lon, lat, exterior) && !huecos.some((h) => enAnillo(lon, lat, h));
-export const puntoEnGeometria = (lon, lat, g) => (g?.type === 'Polygon' ? enPoligono(lon, lat, g.coordinates)
-  : g?.type === 'MultiPolygon' ? g.coordinates.some((p) => enPoligono(lon, lat, p)) : false);
 
 const fuentesOk = (fs) => Array.isArray(fs) && fs.length > 0 && fs.every((f) => URL_OK.test(f.url ?? '') && FECHA.test(f.consultado ?? '')
   && (f.fecha == null || FECHA.test(f.fecha)));
