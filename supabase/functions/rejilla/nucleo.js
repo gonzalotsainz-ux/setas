@@ -62,15 +62,27 @@ function agrupar(celdas) {
     return { rep: { ...miembros[0], altRef, iguales: miembros.slice(1).map((c) => c.id) }, miembros };
   });
 }
+// Altitud con la que se pide la meteo de cada celda (la del grupo si está repetida): es la altRef que debe publicarse
+// y usarse al resumir, para que la temperatura y la altitud de referencia vayan juntas.
+export const altitudConsulta = (celdas) => new Map(agrupar(celdas).flatMap((g) => g.miembros.map((c) => [c.id, g.rep.altRef])));
+
+// Lo que necesita un grupo: si a alguien le falta más de lo diario, relleno con los pasados máximos y el archivo
+// desde lo más antiguo; cubre lo que les falta a todos.
+function unirEstados(estados) {
+  const rellenos = estados.filter((e) => e.tipo === 'relleno');
+  if (!rellenos.length) return estados[0];
+  const pasados = Math.max(...rellenos.map((e) => e.pasados));
+  const archivos = rellenos.filter((e) => e.archivo).map((e) => e.archivo);
+  if (!archivos.length) return { tipo: 'relleno', pasados };
+  return { tipo: 'relleno', pasados, archivo: { desde: archivos.map((a) => a.desde).sort()[0], hasta: archivos.map((a) => a.hasta).sort().at(-1) } };
+}
 
 export function planificar({ celdas, resumen, clima, hoy, presupuesto = PRESUPUESTO_EJECUCION, trozo = TROZO, maxPasados = MAX_PASADOS }) {
   const peticiones = [];
   let peso = 0;
   const pesoDe = (e) => pesoPeticion(1, VARIABLES, e.pasados + FUTUROS) + (e.archivo ? pesoPeticion(1, 1, entreDias(e.archivo.desde, e.archivo.hasta) + 1) : 0);
   const grupos = agrupar(celdas);
-  // De un grupo se pide lo que necesita el miembro más atrasado: su petición cubre también lo que les falta a los demás.
-  const estados = grupos.map((g) => ({ g, e: g.miembros.map((c) => estadoCelda(resumen.get(c.id), hoy, maxPasados))
-    .reduce((a, b) => (pesoDe(b) > pesoDe(a) ? b : a)) }));
+  const estados = grupos.map((g) => ({ g, e: unirEstados(g.miembros.map((c) => estadoCelda(resumen.get(c.id), hoy, maxPasados))) }));
   const lotes = new Map();
   for (const tipo of ['diaria', 'relleno']) for (const { g, e } of estados) {
     if (e.tipo !== tipo) continue;
@@ -128,12 +140,22 @@ export function filasDeClima(partes, celdas, hoy, ahora = new Date()) {
   });
 }
 
-// Serie con la forma de parsearPrincipal (js/meteo.js) a partir de la fila de series_celdas (arrays por columna).
-export function serieDesdeFilas(fila, desde, hasta, hoy) {
+// Serie con la forma de parsearPrincipal (js/meteo.js) a partir de la fila de series_celdas (arrays por columna, con
+// `previsto` y `actualizado` paralelos). No se usa como dato: una previsión para un día ya pasado (no llegó la
+// observación) ni, si se da `inicioEjecucion`, una previsión de hoy en adelante que no se ha renovado en esta ejecución.
+export function serieDesdeFilas(fila, desde, hasta, hoy, inicioEjecucion = null) {
   const fechas = Array.from({ length: entreDias(desde, hasta) + 1 }, (_, k) => sumarDias(desde, k));
+  const iHoy = fechas.indexOf(hoy);
+  if (iHoy === -1) throw new Error(`hoy (${hoy}) no está entre ${desde} y ${hasta}`);
   const pos = new Map((fila?.fechas ?? []).map((f, j) => [String(f).slice(0, 10), j]));
-  const columna = (col) => fechas.map((f) => { const j = pos.get(f), v = j == null ? null : fila[col]?.[j]; return v == null || Number.isNaN(v) ? null : v; });
-  return { fechas, hoy: fechas.indexOf(hoy), ...Object.fromEntries(COLUMNAS.map((c) => [c, columna(c)])),
+  const limite = inicioEjecucion == null ? null : new Date(inicioEjecucion).getTime();
+  const vale = (f, j) => {
+    if (!fila.previsto?.[j]) return true;
+    if (f < hoy) return false;
+    return limite == null || (fila.actualizado?.[j] != null && new Date(fila.actualizado[j]).getTime() >= limite);
+  };
+  const columna = (col) => fechas.map((f) => { const j = pos.get(f), v = j == null || !vale(f, j) ? null : fila[col]?.[j]; return v == null || Number.isNaN(v) ? null : v; });
+  return { fechas, hoy: iHoy, ...Object.fromEntries(COLUMNAS.map((c) => [c, columna(c)])),
     hsueloPct: fechas.map(() => null), lluviaAntesDeSerie: null, origenPrecip: fechas.map(() => 'modelo') };
 }
 export function aplicarClimaCelda(serie, fila) {

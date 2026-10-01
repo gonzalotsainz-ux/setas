@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { selloDe, tocaEjecutar, pesoPeticion, inicioSerie, estadoCelda, ventanasClima, climaUtil, planificar, serieDesdeFilas,
   aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, filasDePrincipal, filasDeArchivoLluvia,
-  filasDeClima, TROZO, MAX_PASADOS, PRESUPUESTO_EJECUCION, PRESUPUESTO_DIA, HORAS } from '../supabase/functions/rejilla/nucleo.js';
+  filasDeClima, altitudConsulta, TROZO, MAX_PASADOS, PRESUPUESTO_EJECUCION, PRESUPUESTO_DIA, HORAS } from '../supabase/functions/rejilla/nucleo.js';
 import { horaMadrid, sumarDias } from '../supabase/functions/_shared/meteo.js';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
 
@@ -143,6 +143,47 @@ test('planificar: las celdas gruesas repetidas entre zonas (misma posición) se 
   const p2 = planificar({ celdas: cs, resumen: r, clima: new Map(), hoy: '2026-10-01', trozo: 100 });
   const urls = p2.peticiones.filter((x) => x.tipo === 'principal').map((x) => new URL(x.url).searchParams.get('past_days'));
   assert.deepEqual(urls, ['61']);
+});
+
+test('altitudConsulta: la altitud publicada de cada celda repetida es la misma con la que se pidió la meteo', () => {
+  const cs = [
+    { id: 'a:34:32', zona: 'a', lat: 40.85, lon: -3.79, altRef: 1360, nFinas: 3000 },
+    { id: 'b:34:32', zona: 'b', lat: 40.85, lon: -3.79, altRef: 1240, nFinas: 1000 },
+    { id: 'a:35:32', zona: 'a', lat: 40.85, lon: -3.61, altRef: 1100 },
+  ];
+  const alt = altitudConsulta(cs);
+  assert.deepEqual([...alt], [['a:34:32', 1330], ['b:34:32', 1330], ['a:35:32', 1100]]);
+  const pr = planificar({ celdas: cs, resumen: new Map(), clima: new Map(), hoy: '2026-10-01' }).peticiones.find((x) => x.tipo === 'principal');
+  const elev = new URL(pr.url).searchParams.get('elevation').split(',').map(Number);
+  pr.celdas.forEach((c, k) => { for (const id of [c.id, ...(c.iguales ?? [])]) assert.equal(alt.get(id), elev[k], id); });
+});
+
+test('planificar: un grupo repetido pide los pasados máximos de sus miembros, en cualquier orden', () => {
+  const a = { id: 'a:1:1', lat: 40, lon: -4, altRef: 1000 }, b = { id: 'b:1:1', lat: 40, lon: -4, altRef: 1000 };
+  const r = new Map([['a:1:1', { desde: '2026-08-01', hasta: '2026-09-30', dias: 61 }], ['b:1:1', { desde: '2026-08-01', hasta: '2026-09-27', dias: 58 }]]);
+  const clima = new Map([a, b].map((c) => [c.id, { meses: [9, 10, 11, 12] }]));
+  for (const orden of [[a, b], [b, a]]) {
+    const p = planificar({ celdas: orden, resumen: r, clima, hoy: '2026-10-01' });
+    assert.deepEqual(p.peticiones.map((x) => new URL(x.url).searchParams.get('past_days')), ['3']);
+  }
+  // Con archivo (marzo): el archivo empieza en lo más antiguo de los dos.
+  const r2 = new Map([['a:1:1', { desde: '2026-08-01', hasta: '2026-08-31', dias: 31 }]]);
+  for (const orden of [[a, b], [b, a]]) {
+    const ar = planificar({ celdas: orden, resumen: r2, clima, hoy: '2027-03-10', maxPasados: 92 }).peticiones.find((x) => x.tipo === 'archivo');
+    assert.equal(ar.desde, '2026-08-01');
+    assert.equal(ar.hasta, '2026-12-07');
+  }
+});
+
+test('serie: una previsión vieja no cuenta como dato (días pasados previstos; hoy y después sin renovar)', () => {
+  const fila = { celda: 'a', fechas: ['2026-09-28', '2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02'], precip: [5, 12, 8, 0, 1],
+    previsto: [false, true, true, true, true], actualizado: Array(5).fill('2026-09-28T05:00:00Z') };
+  const s = serieDesdeFilas(fila, '2026-09-28', '2026-10-02', '2026-10-01', '2026-10-01T05:00:00Z');
+  assert.deepEqual(s.precip, [5, null, null, null, null]);
+  const nueva = { ...fila, actualizado: [...Array(3).fill('2026-09-28T05:00:00Z'), '2026-10-01T05:00:12Z', '2026-10-01T05:00:12Z'] };
+  assert.deepEqual(serieDesdeFilas(nueva, '2026-09-28', '2026-10-02', '2026-10-01', '2026-10-01T05:00:00Z').precip, [5, null, null, 0, 1]);
+  assert.deepEqual(serieDesdeFilas(fila, '2026-09-28', '2026-10-02', '2026-10-01').precip, [5, null, null, 0, 1]);   // sin inicio: solo la regla de los días pasados
+  assert.throws(() => serieDesdeFilas({ fechas: [] }, '2026-09-01', '2026-09-03', '2026-10-01'), /hoy/);
 });
 
 const respuestaPrincipal = (hoy, n) => {
