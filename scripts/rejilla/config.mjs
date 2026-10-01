@@ -15,12 +15,28 @@ export const CONFIG = {
     fecha: '2026-10-01', carpeta: '_fuentes/mfe50',
     // Recortes por zona del shapefile (scripts/rejilla/recortar-mfe.mjs): es lo que lee generar.mjs.
     recortes: '_fuentes/mfe50-recorte',
-    // GeoJSON provinciales de la tarea 0 (recorte por unión de zonas); el generador ya usa `recortes`.
-    archivos: {
-      Madrid: '_fuentes/mfe50/Madrid.geojson', Segovia: '_fuentes/mfe50/Segovia.geojson', Soria: '_fuentes/mfe50/Soria.geojson',
-      Burgos: '_fuentes/mfe50/Burgos.geojson', 'Ávila': '_fuentes/mfe50/Ávila.geojson', Cuenca: '_fuentes/mfe50/Cuenca.geojson',
-      Guadalajara: '_fuentes/mfe50/Guadalajara.geojson', Toledo: '_fuentes/mfe50/Toledo.geojson', 'Álava': '_fuentes/mfe50/Álava.geojson',
-      'Cáceres': '_fuentes/mfe50/Cáceres.geojson', Badajoz: '_fuentes/mfe50/Badajoz.geojson',
+    // ZIP de cada provincia en el MITECO (páginas mfe50_descargas_<comunidad>.html, consultadas el 2026-10-01). Se bajan
+    // a `carpeta`/<provincia>/ si falta el shapefile.
+    zipBase: 'https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/servicios/banco-datos-naturaleza/',
+    zips: {
+      Madrid: 'MFE50_28_tcm30-200078.zip', Segovia: 'MFE50_40_tcm30-200076.zip', 'Ávila': 'MFE50_05_tcm30-200064.zip',
+      Soria: 'MFE50_42_tcm30-200072.zip', Burgos: 'MFE50_09_tcm30-200105.zip', Guadalajara: 'MFE50_19_tcm30-200104.zip',
+      Cuenca: 'MFE50_16_tcm30-200071.zip', Toledo: 'MFE50_45_tcm30-200089.zip', 'Álava': 'MFE50_01_tcm30-200095.zip',
+      'Cáceres': 'MFE50_10_tcm30-200099.zip', Badajoz: 'MFE50_06_tcm30-200070.zip',
+      'Ciudad Real': 'MFE50_13_tcm30-200068.zip', Cantabria: 'MFE50_39_tcm30-200066.zip', Bizkaia: 'MFE50_48_tcm30-200088.zip',
+      Gipuzkoa: 'MFE50_20_tcm30-200109.zip', 'La Rioja': 'MFE50_26_tcm30-200085.zip', Navarra: 'MFE50_31_tcm30-200103.zip',
+      Teruel: 'MFE50_44_tcm30-200094.zip', Zaragoza: 'MFE50_50_tcm30-200075.zip', Palencia: 'MFE50_34_tcm30-200087.zip',
+      Salamanca: 'MFE50_37_tcm30-200100.zip', Huelva: 'MFE50_21_tcm30-200102.zip', Sevilla: 'MFE50_41_tcm30-200065.zip',
+      'Córdoba': 'MFE50_14_tcm30-200074.zip',
+    },
+    // Provincias vecinas que entran en el bbox de cada zona (además de zona.provincias). Su monte se pinta con la marca
+    // «fuera de las provincias de la zona» (normativa no revisada). Un recorte vacío se ignora.
+    vecinas: {
+      guadarrama: ['Ávila'], 'sierra-norte': ['Guadalajara', 'Soria'], soria: ['La Rioja', 'Burgos'], burgos: ['Soria', 'Segovia', 'La Rioja'],
+      merindades: ['Cantabria', 'Bizkaia', 'Palencia', 'Álava'], gredos: ['Toledo', 'Madrid', 'Cáceres'],
+      cuenca: ['Teruel', 'Guadalajara'], guadalajara: ['Cuenca', 'Teruel', 'Zaragoza', 'Soria'], toledo: ['Ciudad Real', 'Badajoz', 'Cáceres'],
+      alava: ['Burgos', 'La Rioja', 'Bizkaia', 'Gipuzkoa', 'Navarra'],
+      extremadura: ['Huelva', 'Sevilla', 'Córdoba', 'Salamanca', 'Ávila', 'Toledo', 'Ciudad Real'],
     },
     campos: { especies: ['SP1', 'SP2'], ocupacion: ['O1', 'O2'], fcc: 'TFCCARB', tipo: 'TIPESTR' },
     tipos: { arbolado: ['1', '2', '3', '11', '12'], herbazal: ['9', '24', '34', '35'], matorral: ['8'] }, matorralJaral: [],

@@ -22,7 +22,7 @@
    "fila0": 60071,
    "ancho": 215,
    "alto": 236,
-   "bytes": 71491
+   "bytes": 73066
   },
   {
    "zona": "sierra-norte",
@@ -31,7 +31,7 @@
    "fila0": 59893,
    "ancho": 210,
    "alto": 326,
-   "bytes": 75582
+   "bytes": 100440
   },
   {
    "zona": "soria",
@@ -40,7 +40,7 @@
    "fila0": 59416,
    "ancho": 241,
    "alto": 270,
-   "bytes": 74723
+   "bytes": 106287
   },
   {
    "zona": "burgos",
@@ -49,7 +49,7 @@
    "fila0": 59205,
    "ancho": 286,
    "alto": 481,
-   "bytes": 148927
+   "bytes": 168577
   },
   {
    "zona": "merindades",
@@ -58,7 +58,7 @@
    "fila0": 58749,
    "ancho": 335,
    "alto": 396,
-   "bytes": 135450
+   "bytes": 180312
   },
   {
    "zona": "gredos",
@@ -67,7 +67,7 @@
    "fila0": 60394,
    "ancho": 401,
    "alto": 205,
-   "bytes": 94258
+   "bytes": 116527
   },
   {
    "zona": "cuenca",
@@ -76,7 +76,7 @@
    "fila0": 60423,
    "ancho": 269,
    "alto": 380,
-   "bytes": 146693
+   "bytes": 168106
   },
   {
    "zona": "guadalajara",
@@ -85,7 +85,7 @@
    "fila0": 60071,
    "ancho": 357,
    "alto": 353,
-   "bytes": 149144
+   "bytes": 191891
   },
   {
    "zona": "toledo",
@@ -94,7 +94,7 @@
    "fila0": 60802,
    "ancho": 468,
    "alto": 261,
-   "bytes": 105950
+   "bytes": 148440
   },
   {
    "zona": "alava",
@@ -103,7 +103,7 @@
    "fila0": 58865,
    "ancho": 447,
    "alto": 311,
-   "bytes": 132265
+   "bytes": 197453
   },
   {
    "zona": "extremadura",
@@ -112,7 +112,7 @@
    "fila0": 60482,
    "ancho": 959,
    "alto": 276,
-   "bytes": 199315
+   "bytes": 238550
   },
   {
    "zona": "extremadura",
@@ -121,7 +121,7 @@
    "fila0": 60758,
    "ancho": 959,
    "alto": 276,
-   "bytes": 280331
+   "bytes": 280662
   },
   {
    "zona": "extremadura",
@@ -139,7 +139,7 @@
    "fila0": 61310,
    "ancho": 959,
    "alto": 276,
-   "bytes": 182579
+   "bytes": 187591
   },
   {
    "zona": "extremadura",
@@ -148,7 +148,7 @@
    "fila0": 61586,
    "ancho": 959,
    "alto": 275,
-   "bytes": 161330
+   "bytes": 269199
   }
  ]
 }

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { codificarRejilla, decodificarRejilla, leerCabecera, PROHIBIDO, TRAMOS_PENDIENTE } from '../js/rejilla/formato.js';
+import { codificarRejilla, decodificarRejilla, leerCabecera, PROHIBIDO, FUERA_PROVINCIAS, CODIGO, TRAMOS_PENDIENTE } from '../js/rejilla/formato.js';
 
 const fuente = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
 export const cabeceraPrueba = (extra = {}) => ({ version: 1, zona: 'soria', tam: 250, col0: 10, fila0: 20, ancho: 3, alto: 2,
@@ -58,6 +58,16 @@ test('archivos rotos: cabecera cortada o ilegible, cabecera inválida, carga cor
   await assert.rejects(decodificarRejilla(alterado), /rejilla dañada/);
   const p = planos(); p.habitat[0] = 7;
   await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), p)), /código de hábitat 7 fuera de la cabecera/);
-  const q = planos(); q.habitat[0] = 0x21;
-  await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), q)), /código de hábitat 33 fuera de la cabecera/);
+  const q = planos(); q.habitat[0] = 0x41;   // bit 6: reservado
+  await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), q)), /código de hábitat 65 fuera de la cabecera/);
+  const sinHabitat = planos(); sinHabitat.habitat[1] = FUERA_PROVINCIAS;   // «fuera» sin hábitat
+  await assert.rejects(decodificarRejilla(await codificarRejilla(cabeceraPrueba(), sinHabitat)), /código de hábitat 32 fuera de la cabecera/);
+});
+
+test('bit 5: monte fuera de las provincias de la zona, con su hábitat intacto', async () => {
+  const p = planos(); p.habitat[0] = FUERA_PROVINCIAS | 2;
+  const r = await decodificarRejilla(await codificarRejilla(cabeceraPrueba(), p));
+  assert.equal(r.habitat[0] & CODIGO, 2);
+  assert.ok(r.habitat[0] & FUERA_PROVINCIAS);
+  assert.ok(!(r.habitat[3] & FUERA_PROVINCIAS));
 });

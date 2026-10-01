@@ -221,7 +221,7 @@ test('fueraDeZonaMeteo es opcional y, si está, booleano', () => {
 });
 
 import { validarRejillas } from '../scripts/validar-datos.mjs';
-import { codificarRejilla, PROHIBIDO } from '../js/rejilla/formato.js';
+import { codificarRejilla, PROHIBIDO, FUERA_PROVINCIAS } from '../js/rejilla/formato.js';
 
 const fuenteR = { nombre: 'x', url: 'https://x.es', fecha: '2026-10-01' };
 const cabR = { version: 1, zona: 'soria', tam: 250, col0: 10, fila0: 20, ancho: 2, alto: 1, habitats: ['pinar-silvestre'],
@@ -262,4 +262,20 @@ test('validarRejillas: carga truncada, código de hábitat inválido y tamaño d
   assert.match((await validarRejillas({ ...c, leer: () => malo })).join('\n'), /código de hábitat 7 fuera de la cabecera/);
   c.indice.archivos[0].bytes += 1;
   assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /indice\.json dice \d+ bytes y el archivo tiene/);
+});
+
+test('validarRejillas: el bit 5 (monte de provincias vecinas) es válido; el bit 6 sigue reservado', async () => {
+  const fuera = await codificarRejilla(cabR, { habitat: Uint8Array.from([FUERA_PROVINCIAS | 1, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  const c = await casoRejilla();
+  c.indice.archivos[0].bytes = fuera.length;
+  assert.deepEqual(await validarRejillas({ ...c, leer: () => fuera }), []);
+  const raro = await codificarRejilla(cabR, { habitat: Uint8Array.from([0x41, PROHIBIDO]), terreno: new Uint8Array(2), altitud: Int16Array.from([1200, 0]) });
+  c.indice.archivos[0].bytes = raro.length;
+  assert.match((await validarRejillas({ ...c, leer: () => raro })).join('\n'), /código de hábitat 65/);
+});
+
+test('validarRejillas: celda gruesa con hábitat desconocido', async () => {
+  const c = await casoRejilla();
+  c.gruesa.celdas[0].habitats = ['pinar-silvestre', 32];
+  assert.match((await validarRejillas({ ...c, leer: () => c.bytes })).join('\n'), /hábitats vacíos o desconocidos/);
 });

@@ -7,12 +7,12 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, unlink
 import { fileURLToPath } from 'node:url';
 import { HABITATS, puntoEnGeometria } from '../validar-datos.mjs';
 import { ventanaBbox, centroFina, aGrados, idGruesa, centroGruesa, metrosSuelo, bboxDe, TAM_FINA, ORIGEN, ANCLA } from '../../js/rejilla/geo.js';
-import { codificarRejilla, PROHIBIDO } from '../../js/rejilla/formato.js';
+import { codificarRejilla, PROHIBIDO, FUERA_PROVINCIAS, CODIGO } from '../../js/rejilla/formato.js';
 import { orientacionPendiente } from './terreno.mjs';
 import { habitatDeTesela, leerTeselaMfe } from './mfe-habitat.mjs';
 import { leerAltitudes } from './mdt.mjs';
 import { CONFIG } from './config.mjs';
-import { rutaRecorte } from './recortar-mfe.mjs';
+import { rutaRecorte, rutaMetaRecorte, provinciasDeZona, cubre } from './recortar-mfe.mjs';
 
 // Cubos de `paso` grados con las geometrías cuyo bbox los toca; buscar() prueba solo las de su cubo.
 // Por defecto, features GeoJSON; `bbox` y `contiene` permiten otra forma de guardar la geometría (ver teselasCompactas).
@@ -72,10 +72,17 @@ export async function leerFeaturesPorLineas(ruta, convertir) {
   return r;
 }
 
+// bbox [o, s, e, n] en grados de una ventana de celdas finas (sus bordes exteriores).
+export function bboxDeVentana({ col0, fila0, ancho, alto }) {
+  const no = aGrados(col0 * TAM_FINA - ORIGEN, ORIGEN - fila0 * TAM_FINA), se = aGrados((col0 + ancho) * TAM_FINA - ORIGEN, ORIGEN - (fila0 + alto) * TAM_FINA);
+  return [no.lon, se.lat, se.lon, no.lat];
+}
+
 // Latitud del centro de una fila fina global.
 const latDeFila = (fila) => aGrados(0, ORIGEN - (fila + 0.5) * TAM_FINA).lat;
 
-// Planos de una zona. mfeEn(lon, lat, altitud) → hábitat o null; prohibidoEn(lon, lat) → booleano.
+// Planos de una zona. mfeEn(lon, lat, altitud) → hábitat, { habitat, fuera } o null (`fuera`: la tesela es de una
+// provincia vecina, no de zona.provincias → bit FUERA_PROVINCIAS); prohibidoEn(lon, lat) → booleano.
 // Prohibido (criterio conservador): si el centro o cualquiera de las 4 esquinas de la celda cae en un polígono
 // prohibido; hábitat 0 con la marca, nunca mancha. Sin monte: todo a 0 (también terreno y altitud, para que comprima).
 export function construirZona({ zona, ventana, altitudes, mfeEn, prohibidoEn }) {
@@ -97,10 +104,11 @@ export function construirZona({ zona, ventana, altitudes, mfeEn, prohibidoEn }) 
     if (esquinaProhibida(c, f) || prohibidoEn(p.lon, p.lat)) { habitat[k] = PROHIBIDO; continue; }
     const alt = altitudes[k];
     if (!Number.isFinite(alt)) continue;
-    const h = mfeEn(p.lon, p.lat, alt);
+    const r = mfeEn(p.lon, p.lat, alt);
+    const h = typeof r === 'string' ? r : r?.habitat;
     const codigo = h ? HABITATS.indexOf(h) + 1 : 0;
     if (!codigo) continue;
-    habitat[k] = codigo;
+    habitat[k] = codigo | (r?.fuera ? FUERA_PROVINCIAS : 0);
     terreno[k] = orientacion[k] | (tramo[k] << 4);
     altitud[k] = Math.round(alt);
   }
@@ -115,7 +123,7 @@ export function gruesasDeZona(zona, ventana, planos, paso) {
     const { x, y } = centroFina(ventana.col0 + c, ventana.fila0 + f), p = aGrados(x, y);
     const id = idGruesa(zona.id, p.lon, p.lat, paso);
     const g = acc.get(id) ?? { suma: 0, n: 0, habitats: new Set() };
-    g.suma += planos.altitud[k]; g.n++; g.habitats.add(HABITATS[h - 1]);
+    g.suma += planos.altitud[k]; g.n++; g.habitats.add(HABITATS[(h & CODIGO) - 1]);
     acc.set(id, g);
   }
   return [...acc].map(([id, g]) => {
@@ -166,17 +174,31 @@ async function generarZona(id) {
   const habitatsConIndice = new Set(leer('data/especies.json').especies.filter((s) => s.indice).flatMap((s) => s.habitats));
   const confMfe = { ...CONFIG.mfe, habitatsConIndice };
   const ventana = ventanaBbox(zona.bbox);
-  // Cada tesela se queda solo con su geometría compacta y sus atributos ya normalizados.
-  const teselas = [];
-  for (const p of zona.provincias) {
-    const ruta = rutaRecorte(zona.id, p);
-    if (!existsSync(ruta)) throw new Error(`falta ${ruta}: ejecuta antes node scripts/rejilla/recortar-mfe.mjs`);
-    teselas.push(...await leerFeaturesPorLineas(ruta, (f) => (f.geometry ? { ...compactar(f.geometry), tesela: leerTeselaMfe(f.properties, CONFIG.mfe, diccionario) } : null)));
+  // Cada tesela se queda solo con su geometría compacta, sus atributos ya normalizados y si es de una provincia vecina.
+  // Primero las provincias de la zona: si dos teselas se solapan en la raya, gana la de la zona.
+  const teselas = [], porProvincia = {};
+  const necesario = bboxDeVentana(ventana);
+  for (const { provincia, fuera } of provinciasDeZona(zona)) {
+    const ruta = rutaRecorte(zona.id, provincia), meta = existsSync(rutaMetaRecorte(zona.id, provincia)) ? leer(rutaMetaRecorte(zona.id, provincia)) : null;
+    if (!existsSync(ruta) || !meta) throw new Error(`falta ${ruta} o su .recorte.json: ejecuta antes node scripts/rejilla/recortar-mfe.mjs`);
+    if (!cubre(meta.bbox, necesario)) throw new Error(`${ruta}: el recorte (${meta.bbox}) no cubre la ventana (${necesario.map((v) => v.toFixed(4))}); rehaz los recortes`);
+    const antes = teselas.length;
+    teselas.push(...await leerFeaturesPorLineas(ruta, (f) => (f.geometry ? { ...compactar(f.geometry), tesela: leerTeselaMfe(f.properties, CONFIG.mfe, diccionario), fuera } : null)));
+    porProvincia[provincia] = { fuera, teselas: teselas.length - antes, celdas: 0 };
+    for (let i = antes; i < teselas.length; i++) teselas[i].provincia = provincia;
   }
   const mfe = indiceEspacial(teselas, 0.02, { bbox: (f) => f.bbox, contiene: (lon, lat, f) => puntoEnCompacta(lon, lat, f) });
   const altitudes = await leerAltitudes(ventana, CONFIG.mdt);
+  let consultadas = 0, sinTesela = 0;   // celdas con altitud y fuera de prohibidos; de ellas, sin ninguna tesela del MFE50
   const planos = construirZona({ zona, ventana, altitudes,
-    mfeEn: (lon, lat, alt) => { const f = mfe.buscar(lon, lat); return f ? habitatDeTesela(f.tesela, alt, confMfe) : null; },
+    mfeEn: (lon, lat, alt) => {
+      consultadas++;
+      const f = mfe.buscar(lon, lat);
+      if (!f) { sinTesela++; return null; }
+      porProvincia[f.provincia].celdas++;
+      const habitat = habitatDeTesela(f.tesela, alt, confMfe);
+      return habitat ? { habitat, fuera: f.fuera } : null;
+    },
     prohibidoEn: (lon, lat) => !!prohibidos.buscar(lon, lat) });
   mkdirSync('data/rejilla', { recursive: true });
   const suyo = new RegExp(`^${id}(-\\d+)?\\.bin$`);
@@ -189,14 +211,18 @@ async function generarZona(id) {
     archivos.push({ zona: zona.id, archivo: b.archivo, col0, fila0, ancho, alto, bytes: b.bytes.length });
   }
   const porHabitat = {};
-  for (const h of planos.habitat) if (h && !(h & PROHIBIDO)) porHabitat[HABITATS[h - 1]] = (porHabitat[HABITATS[h - 1]] ?? 0) + 1;
+  for (const h of planos.habitat) if (h & CODIGO) { const n = HABITATS[(h & CODIGO) - 1]; porHabitat[n] = (porHabitat[n] ?? 0) + 1; }
   const resumen = { celdas: ventana.ancho * ventana.alto, conMonte: Object.values(porHabitat).reduce((a, b) => a + b, 0),
+    conMonteFuera: planos.habitat.filter((h) => h & FUERA_PROVINCIAS).length,
     prohibidas: planos.habitat.filter((h) => h & PROHIBIDO).length, sinAltitud: altitudes.filter((a) => !Number.isFinite(a)).length,
+    consultadas, sinTesela, coberturaMfe: Math.round((1000 * (consultadas - sinTesela)) / consultadas) / 10, porProvincia,
     porHabitat: Object.fromEntries(Object.entries(porHabitat).sort((a, b) => b[1] - a[1])) };
   const gruesas = Object.fromEntries(CONFIG.gruesa.candidatos.map((paso) => [paso, gruesasDeZona(zona, ventana, planos, paso)]));
   mkdirSync(RESUMENES, { recursive: true });
   writeFileSync(`${RESUMENES}/${id}.json`, JSON.stringify({ zona: id, archivos, resumen, gruesas }));
   console.log(`${id}: ${ventana.ancho} × ${ventana.alto} celdas, ${resumen.conMonte} con monte, ${resumen.prohibidas} prohibidas, ${resumen.sinAltitud} sin altitud (${Math.round((Date.now() - t0) / 1000)} s, ${Math.round(process.memoryUsage().rss / 2 ** 20)} MB)`);
+  console.log(`  MFE50: ${resumen.coberturaMfe} % de las celdas con altitud tienen tesela (${sinTesela} sin tesela); ${resumen.conMonteFuera} con monte de provincias vecinas`);
+  console.log(`  ${Object.entries(porProvincia).map(([p, x]) => `${p}${x.fuera ? ' (vecina)' : ''} ${x.teselas} teselas / ${x.celdas} celdas`).join(', ')}`);
   console.log(`  ${Object.entries(resumen.porHabitat).map(([h, c]) => `${h} ${c}`).join(', ')}`);
   console.log(`  ${archivos.map((a) => `${a.archivo} ${Math.round(a.bytes / 1024)} KB`).join(', ')}`);
 }
@@ -212,6 +238,7 @@ function unir() {
   const paso = elegirPaso(contar, CONFIG.gruesa.candidatos, CONFIG.gruesa.maximo);
   const generado = hoy(), fuentes = fuentesDe(), archivos = res.flatMap((r) => r.archivos);
   const celdas = res.flatMap((r) => r.gruesas[paso]);
+  if (contar(paso) > CONFIG.gruesa.maximo) console.warn(`AVISO: ${contar(paso)} celdas gruesas, más del máximo (${CONFIG.gruesa.maximo}) incluso con el paso más grueso`);
   const gruesa = { version: 1, generado, ancla: ANCLA, pasos: Object.fromEntries(zonas.map((z) => [z.id, paso])), celdas };
   const texto = `${JSON.stringify(gruesa)}\n`;
   mkdirSync('supabase/functions/rejilla', { recursive: true });
@@ -219,8 +246,11 @@ function unir() {
   writeFileSync('supabase/functions/rejilla/gruesa.json', texto);   // la Edge Function la importa (mismo patrón que aemet/estaciones.json)
   writeFileSync('data/rejilla/indice.json', `${JSON.stringify({ version: 1, generado, tam: TAM_FINA, fuentes, archivos }, null, 1)}\n`);
   console.log(`\nCeldas gruesas: ${celdas.length} con paso ${paso}° (candidatos: ${CONFIG.gruesa.candidatos.map((p) => `${p}° → ${contar(p)}`).join(', ')})`);
-  console.log('\n| Zona | Celdas | Con monte | Prohibidas | Gruesas |\n|---|---|---|---|---|');
-  for (const r of res) console.log(`| ${r.zona} | ${r.resumen.celdas} | ${r.resumen.conMonte} | ${r.resumen.prohibidas} | ${r.gruesas[paso].length} |`);
+  console.log('\n| Zona | Celdas | Con monte | De ellas, de vecinas | Prohibidas | Sin altitud | Con altitud sin tesela | Cobertura MFE50 | Gruesas |\n|---|---|---|---|---|---|---|---|---|');
+  for (const r of res) {
+    const x = r.resumen;
+    console.log(`| ${r.zona} | ${x.celdas} | ${x.conMonte} | ${x.conMonteFuera} | ${x.prohibidas} | ${x.sinAltitud} | ${x.sinTesela} | ${x.coberturaMfe} % | ${r.gruesas[paso].length} |`);
+  }
   console.log('\n| Archivo | Celdas | KB |\n|---|---|---|');
   for (const a of archivos) console.log(`| ${a.archivo} | ${a.ancho} × ${a.alto} | ${Math.round(a.bytes / 1024)} |`);
 }

@@ -540,9 +540,17 @@ abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
 - `<zona>.bin` o `<zona>-<n>.bin`: formato `SETR` v1 (`js/rejilla/formato.js`). Celdas de 250 m de Web Mercator
   (EPSG:3857; en estas latitudes, unos 190 m sobre el terreno) alineadas con la malla de teselas; columna y fila
   globales desde la esquina noroeste del mundo. Una zona se parte en bandas de filas si pasa de 300 KB.
+- Byte de hábitat de cada celda:
+  - bits 0 a 4: código del hábitat (posición en `cabecera.habitats` + 1; 0 = sin monte);
+  - bit 5 (`FUERA_PROVINCIAS`, 0x20): el monte es de una **provincia vecina** que entra en el bbox de la zona pero no
+    está en `zona.provincias`. Su normativa no está revisada y la hoja del mapa lo avisa. Solo puede ir con un código
+    de hábitat;
+  - bit 6: reservado, siempre 0 (si no, el decodificador rechaza el archivo);
+  - bit 7 (`PROHIBIDO`): celda en zona prohibida, sin hábitat.
 - `gruesa.json`: celdas gruesas con monte (id `zona:col:fila` en pasos de `pasos[zona]` grados desde 10° O y 35° N),
-  su centro (donde se pide la meteo) y su altitud de referencia (media de sus celdas finas con monte). La Edge Function
-  lleva una copia idéntica (`supabase/functions/rejilla/gruesa.json`, una prueba lo comprueba).
+  su centro (donde se pide la meteo) y su altitud de referencia (media de sus celdas finas con monte, también las de
+  provincias vecinas). La Edge Function lleva una copia idéntica (`supabase/functions/rejilla/gruesa.json`, una prueba
+  lo comprueba).
 - Orientación por el método de Horn sobre la rejilla de 250 m, con el lado de celda en metros de suelo según la latitud
   de cada fila; «llano» si la pendiente es menor del 5 % o si falta alguno de los 8 vecinos (borde o sin dato). Tramos de
   pendiente: menos del 5 %, del 5 al 15 %, del 15 al 30 % y 30 % o más (criterio propio).
@@ -550,71 +558,113 @@ abundante el ajuste no cambia nada, porque las dos laderas llegan a `fW = 1`.
   polígono `prohibido` de `data/cotos.geojson` (criterio conservador: no se colorean celdas de borde).
   `tests/rejilla-datos.test.js` lo comprueba sobre los archivos generados.
 
-**Cómo se genera.** `node scripts/rejilla/recortar-mfe.mjs` recorta el shapefile del MFE50 de cada provincia al bbox
-de cada zona (con 0,01° de margen) en `_fuentes/mfe50-recorte/<zona>/<provincia>.geojson`, con mapshaper en un proceso
-por recorte. Después, `node scripts/rejilla/generar.mjs` genera una zona por proceso (`--zona <id>`, con tope de memoria
-de Node de 3 GB) y al final junta `indice.json` y `gruesa.json` (`--unir`). El generador lee el GeoJSON feature a feature
-y guarda la geometría en forma compacta: el proceso más grande (Álava) se quedó en unos 390 MB.
+**Cómo se genera.**
+
+1. `node scripts/rejilla/recortar-mfe.mjs` recorta el shapefile del MFE50 al bbox de cada zona, con 0,01° de margen.
+   Recorta las provincias de la zona y las vecinas de `CONFIG.mfe.vecinas`, y deja el resultado en
+   `_fuentes/mfe50-recorte/<zona>/<provincia>.geojson`.
+   - Junto a cada recorte deja `<provincia>.recorte.json` con el bbox usado y el número de teselas. Si ese bbox no
+     cubre el que pide la zona, el recorte se rehace.
+   - Si falta el shapefile, baja el ZIP del MITECO (`CONFIG.mfe.zips`, el mismo método de la tarea 0) y lo descomprime.
+   - Usa mapshaper en un proceso por recorte.
+2. `node scripts/rejilla/generar.mjs` genera una zona por proceso (`--zona <id>`, con un tope de memoria de Node de
+   3 GB). Al final junta `indice.json` y `gruesa.json` (`--unir`).
+   - Falla si un recorte no cubre la ventana de celdas finas.
+   - Lee primero las provincias de la zona: si dos teselas se solapan en la raya, gana la de la zona.
+   - Lee el GeoJSON feature a feature y guarda la geometría en forma compacta. El proceso más grande se quedó en unos
+     440 MB.
+
+**Provincias vecinas descargadas** (2026-10-01): Ciudad Real, Cantabria, Bizkaia, Gipuzkoa, La Rioja, Navarra, Teruel,
+Zaragoza, Palencia, Salamanca, Huelva, Sevilla y Córdoba, además de las 11 de la tarea 0 cuando hacen de vecinas.
+Los recortes que quedan vacíos no aportan nada: Soria en sierra-norte, Segovia en burgos, Cáceres en gredos y Ciudad
+Real en extremadura. Soria en guadalajara deja 1 tesela sin celdas.
 
 Generado el 2026-10-01 con `scripts/rejilla/generar.mjs` (MFE50 consultado el 2026-10-01, datos del proyecto 1997-2006;
 MDT: Modelo Digital del Terreno MDT25 (IGN, PNOA-LiDAR), servicio WCS):
 
 | Archivo | Celdas | KB |
 |---|---|---|
-| guadarrama.bin | 215 × 236 | 70 |
-| sierra-norte.bin | 210 × 326 | 74 |
-| soria.bin | 241 × 270 | 73 |
-| burgos.bin | 286 × 481 | 145 |
-| merindades.bin | 335 × 396 | 132 |
-| gredos.bin | 401 × 205 | 92 |
-| cuenca.bin | 269 × 380 | 143 |
-| guadalajara.bin | 357 × 353 | 146 |
-| toledo.bin | 468 × 261 | 103 |
-| alava.bin | 447 × 311 | 129 |
-| extremadura-1.bin | 959 × 276 | 195 |
+| guadarrama.bin | 215 × 236 | 71 |
+| sierra-norte.bin | 210 × 326 | 98 |
+| soria.bin | 241 × 270 | 104 |
+| burgos.bin | 286 × 481 | 165 |
+| merindades.bin | 335 × 396 | 176 |
+| gredos.bin | 401 × 205 | 114 |
+| cuenca.bin | 269 × 380 | 164 |
+| guadalajara.bin | 357 × 353 | 187 |
+| toledo.bin | 468 × 261 | 145 |
+| alava.bin | 447 × 311 | 193 |
+| extremadura-1.bin | 959 × 276 | 233 |
 | extremadura-2.bin | 959 × 276 | 274 |
 | extremadura-3.bin | 959 × 276 | 209 |
-| extremadura-4.bin | 959 × 276 | 178 |
-| extremadura-5.bin | 959 × 275 | 158 |
+| extremadura-4.bin | 959 × 276 | 183 |
+| extremadura-5.bin | 959 × 275 | 263 |
 
-Celdas gruesas: **328 con paso 0,18°**. Recuento por candidato: 0,09° → 1.092; 0,12° → 651; 0,15° → 441; 0,18° → 328.
-El máximo es 350, así que sale el paso más grueso.
+Celdas gruesas: **355 con paso 0,18°**. Recuento por candidato: 0,09° → 1245; 0,12° → 729; 0,15° → 494; 0,18° → 355.
+El máximo es 350 y ni el paso más grueso baja de ahí: **lo pasa por 5** (el generador lo avisa).
+Hay unas pocas gruesas repetidas entre zonas vecinas (mismo `col:fila`), que se pueden pedir una sola vez (tareas 11 y 12).
 
-| Zona | Celdas finas | Con monte | Prohibidas | Gruesas |
-|---|---|---|---|---|
-| guadarrama | 50.740 | 29.471 | 2.535 | 12 |
-| sierra-norte | 68.460 | 28.454 | 118 | 14 |
-| soria | 65.070 | 37.865 | 0 | 11 |
-| burgos | 137.566 | 57.954 | 0 | 20 |
-| merindades | 132.660 | 45.812 | 0 | 19 |
-| gredos | 82.205 | 32.714 | 0 | 16 |
-| cuenca | 102.220 | 65.854 | 0 | 22 |
-| guadalajara | 126.021 | 64.058 | 0 | 19 |
-| toledo | 122.148 | 35.105 | 0 | 21 |
-| alava | 139.017 | 43.209 | 0 | 22 |
-| extremadura | 1.322.461 | 508.074 | 5.205 | 152 |
+**Cobertura del MFE50.** Celdas con altitud y fuera de prohibidos que no caen en ninguna tesela del MFE50 descargado:
 
-Celdas con monte por hábitat:
+| Zona | Celdas finas | Con monte | De ellas, de provincias vecinas | Prohibidas | Sin altitud | Con altitud sin tesela | Cobertura MFE50 | Gruesas |
+|---|---|---|---|---|---|---|---|---|
+| guadarrama | 50.740 | 30.293 | 822 | 2535 | 0 | 0 | 100 % | 12 |
+| sierra-norte | 68.460 | 37.098 | 8644 | 118 | 0 | 0 | 100 % | 16 |
+| soria | 65.070 | 51.890 | 14.025 | 0 | 0 | 0 | 100 % | 12 |
+| burgos | 137.566 | 66.973 | 9019 | 0 | 0 | 0 | 100 % | 20 |
+| merindades | 132.660 | 61.331 | 15.519 | 0 | 0 | 0 | 100 % | 20 |
+| gredos | 82.205 | 42.830 | 10.116 | 0 | 0 | 0 | 100 % | 18 |
+| cuenca | 102.220 | 75.249 | 9395 | 0 | 0 | 0 | 100 % | 25 |
+| guadalajara | 126.021 | 85.671 | 21.613 | 0 | 0 | 0 | 100 % | 20 |
+| toledo | 122.148 | 49.592 | 14.487 | 0 | 0 | 0 | 100 % | 21 |
+| alava | 139.017 | 67.494 | 24.285 | 0 | 0 | 0 | 100 % | 25 |
+| extremadura | 1.322.461 | 576.280 | 68.206 | 5205 | 155.243 | 48.768 | 95,8 % | 166 |
 
-- guadarrama: pinar-silvestre 10.940, pastizal-montana 8.031, melojar 4.136, encinar 2.975, prado 2.059, pinar-resinero 905, chopera 192, pinar-negral 183, pinar-pinonero 25, quejigar 25.
-- sierra-norte: melojar 8.513, pastizal-montana 7.474, pinar-silvestre 5.165, encinar 2.881, prado 1.485, sabinar 856, pinar-resinero 853, pinar-negral 698, chopera 354, quejigar 113, hayedo 37, pinar-pinonero 13, robledal-albar 12.
-- soria: pinar-silvestre 16.728, sabinar 5.087, melojar 5.085, pastizal-montana 4.498, pinar-resinero 3.135, encinar 1.718, pinar-negral 651, hayedo 602, quejigar 217, chopera 96, robledal-albar 26, abedular 21, prado 1.
-- burgos: melojar 16.269, pinar-silvestre 12.301, encinar 7.904, sabinar 5.398, pinar-resinero 3.979, pastizal-montana 3.539, hayedo 2.354, quejigar 2.128, pinar-negral 1.852, chopera 1.136, prado 884, robledal-albar 161, pinar-pinonero 49.
-- merindades: encinar 14.900, pinar-silvestre 5.636, quejigar 5.188, pinar-resinero 5.111, prado 3.556, hayedo 3.207, melojar 2.687, pastizal-montana 2.682, pinar-negral 1.098, chopera 1.016, robledal-albar 654, sabinar 61, abedular 15, castanar 1.
-- gredos: pinar-resinero 10.361, pastizal-montana 8.343, encinar 4.423, melojar 3.394, prado 2.411, pinar-silvestre 2.152, pinar-pinonero 935, chopera 266, castanar 243, pinar-negral 186.
-- cuenca: pinar-negral 36.748, pinar-silvestre 9.772, pinar-resinero 5.947, encinar 5.925, sabinar 3.568, quejigar 1.894, pastizal-montana 1.496, chopera 387, pinar-pinonero 67, melojar 33, prado 17.
-- guadalajara: pinar-negral 14.845, sabinar 9.335, pinar-silvestre 8.993, pastizal-montana 8.643, encinar 8.191, pinar-resinero 7.995, quejigar 2.830, melojar 2.772, chopera 352, prado 102.
-- toledo: encinar 18.397, pinar-resinero 5.227, melojar 5.042, prado 3.619, pinar-pinonero 980, alcornocal 956, quejigar 554, pastizal-montana 193, chopera 106, pinar-silvestre 12, pinar-negral 12, castanar 7.
-- alava: hayedo 9.628, prado 9.084, encinar 6.013, quejigar 5.933, pinar-silvestre 5.290, melojar 3.731, robledal-albar 1.241, pinar-negral 1.067, pastizal-montana 707, chopera 235, pinar-resinero 226, castanar 31, pinar-pinonero 12, abedular 11.
-- extremadura: encinar 295.328, prado 125.243, alcornocal 37.833, melojar 23.569, pinar-resinero 16.190, pastizal-montana 3.061, castanar 2.202, pinar-pinonero 2.197, chopera 1.861, quejigar 356, pinar-silvestre 210, pinar-negral 14, abedular 10.
+Antes de añadir las provincias vecinas faltaba entre el 11 % y el 43 % de cada ventana.
+
+Lo que sigue sin cubrir:
+
+- **Portugal**, en extremadura:
+  - 48.768 celdas tienen altitud y no tienen tesela. Están todas al oeste de unos 7,0° O, en el lado
+    portugués del bbox, donde no llega el MFE50.
+  - 155.243 celdas no tienen altitud: el WCS del IGN devuelve 0 fuera de España y ese 0 cuenta como sin
+    dato.
+  - Ninguna de las dos lleva color. En el formato son «sin monte» (hábitat 0), igual que una celda española sin bosque.
+    El bit 6 no se usa para distinguirlas; si hace falta, el visor puede recortarlas con el contorno de España.
+- En las demás zonas no queda ninguna celda con altitud y sin tesela.
+
+Celdas por provincia (celdas de la ventana que caen en una tesela de cada provincia; «vecina» = bit 5 si hay monte):
+
+- guadarrama: Madrid 20.664, Segovia 26.607, Ávila (vecina) 934.
+- sierra-norte: Madrid 26.632, Segovia 23.185, Guadalajara (vecina) 18.525.
+- soria: Soria 46.043, La Rioja (vecina) 14.522, Burgos (vecina) 4505.
+- burgos: Burgos 121.946, Soria (vecina) 10.560, La Rioja (vecina) 5060.
+- merindades: Burgos 97.436, Cantabria (vecina) 30.874, Bizkaia (vecina) 3923, Palencia (vecina) 59, Álava (vecina) 368.
+- gredos: Ávila 66.970, Toledo (vecina) 10.501, Madrid (vecina) 4734.
+- cuenca: Cuenca 88.146, Teruel (vecina) 13.259, Guadalajara (vecina) 815.
+- guadalajara: Guadalajara 97.866, Cuenca (vecina) 21.569, Teruel (vecina) 3969, Zaragoza (vecina) 2617.
+- toledo: Toledo 86.134, Ciudad Real (vecina) 30.408, Badajoz (vecina) 4151, Cáceres (vecina) 1455.
+- alava: Álava 78.867, Burgos (vecina) 32.480, La Rioja (vecina) 7443, Bizkaia (vecina) 2942, Gipuzkoa (vecina) 10.015, Navarra (vecina) 7270.
+- extremadura: Cáceres 500.502, Badajoz 496.665, Huelva (vecina) 29.041, Sevilla (vecina) 22.799, Córdoba (vecina) 34.805, Salamanca (vecina) 10.304, Ávila (vecina) 14.329, Toledo (vecina) 4800.
+
+Celdas con monte por hábitat (de la zona y de vecinas):
+
+- guadarrama: pinar-silvestre 11.687, pastizal-montana 8106, melojar 4136, encinar 2975, prado 2059, pinar-resinero 905, chopera 192, pinar-negral 183, pinar-pinonero 25, quejigar 25.
+- sierra-norte: melojar 10.405, pastizal-montana 8123, pinar-silvestre 7518, encinar 4295, pinar-resinero 2211, prado 1681, pinar-negral 894, sabinar 856, chopera 606, quejigar 349, hayedo 135, pinar-pinonero 13, robledal-albar 12.
+- soria: pinar-silvestre 23.719, melojar 7400, pastizal-montana 6780, sabinar 5087, pinar-resinero 3196, hayedo 2300, encinar 2156, pinar-negral 651, quejigar 312, chopera 138, robledal-albar 108, prado 22, abedular 21.
+- burgos: melojar 16.983, pinar-silvestre 13.780, encinar 8655, sabinar 6884, pinar-resinero 5510, pastizal-montana 3953, hayedo 3238, pinar-negral 3201, quejigar 2256, chopera 1288, prado 1009, robledal-albar 166, pinar-pinonero 50.
+- merindades: encinar 15.975, prado 8592, pinar-silvestre 6913, hayedo 5737, quejigar 5320, pinar-resinero 5111, melojar 4088, robledal-albar 3917, pastizal-montana 2957, pinar-negral 1322, chopera 1099, castanar 201, sabinar 61, abedular 38.
+- gredos: pinar-resinero 11.018, encinar 10.906, pastizal-montana 8361, prado 4158, melojar 3774, pinar-silvestre 2152, pinar-pinonero 1360, castanar 499, chopera 299, pinar-negral 186, alcornocal 117.
+- cuenca: pinar-negral 37.431, pinar-silvestre 16.352, encinar 6215, pinar-resinero 5947, sabinar 4110, pastizal-montana 2710, quejigar 1921, chopera 446, pinar-pinonero 67, melojar 33, prado 17.
+- guadalajara: pinar-negral 26.222, pinar-silvestre 14.697, encinar 10.184, pastizal-montana 9905, sabinar 9437, pinar-resinero 8639, quejigar 3183, melojar 2793, chopera 481, prado 130.
+- toledo: encinar 26.127, pinar-resinero 7235, melojar 5799, prado 4365, alcornocal 2940, quejigar 1535, pinar-pinonero 1227, pastizal-montana 219, chopera 114, pinar-silvestre 12, pinar-negral 12, castanar 7.
+- alava: hayedo 14.127, encinar 12.934, prado 11.859, quejigar 9383, pinar-silvestre 8197, melojar 4100, pinar-negral 2968, robledal-albar 1564, pastizal-montana 1287, chopera 668, pinar-resinero 313, castanar 47, pinar-pinonero 26, abedular 21.
+- extremadura: encinar 335.917, prado 133.199, alcornocal 42.113, melojar 29.278, pinar-resinero 18.974, pastizal-montana 6108, pinar-pinonero 4549, castanar 2565, chopera 2114, pinar-silvestre 995, quejigar 414, pinar-negral 44, abedular 10.
 
 Notas:
 
-- En extremadura, 155.243 celdas no tienen altitud: el WCS del IGN devuelve 0 fuera de España y ese 0 cuenta como sin
-  dato. Casi todas quedan al oeste de 6,9° O, en el lado portugués del bbox; el MFE50 tampoco cubre esa parte. El resto
-  de zonas no tiene ninguna celda sin altitud.
 - «prado» (herbazal por debajo de 1.000 m, tipos 24 y 34 del MFE50) suele ser fincas de siega cerradas, sobre todo en
-  extremadura y álava. La hoja del mapa no debe presentarlo como monte libre.
+  extremadura, álava y merindades. La hoja del mapa no debe presentarlo como monte libre.
 
 **Comprobación con los puntos de `zonas.json`** (celda de 250 m que contiene cada punto):
 
@@ -657,8 +707,15 @@ extremadura-trevejo-castanar castanar → castanar 784 m (punto: 785 m)
 ```
 
 Coinciden 34 de los 35 puntos y ninguno sale «sin monte». La única discrepancia de hábitat es
-`toledo-navalucillos-encinar`: el MFE50 da melojar en esa celda. No se corrige a mano, porque la rejilla dice lo que dice
-el MFE50; si la usuaria confirma que ahí hay encinar, habría que revisar el punto o la tesela.
+`toledo-navalucillos-encinar`, y no es un error del MFE50:
+
+- El punto cae en una tesela de encinar (polígono 574949: *Quercus ilex* 7/10).
+- Está a unos 15 m del borde de esa tesela.
+- El centro de su celda de 250 m, a unos 47 m del punto, cae ya en la tesela vecina de melojar (*Q. pyrenaica* 8/10).
+
+La rejilla toma el hábitat del centro de la celda. No se corrige a mano. Para que el punto represente bien su encinar
+habría que moverlo unos 150 m hacia dentro de la tesela, y eso lo decide la usuaria.
+
 Ninguna diferencia de altitud pasa de 100 m: la mayor es de 35 m (`burgos-monte-agudo-hayedo`). Es la media de una celda
 de 250 m frente a un punto.
 

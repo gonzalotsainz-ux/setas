@@ -148,7 +148,9 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
 }
 
 // Rejilla fina (data/rejilla/): cada archivo existe, es un «SETR» v1 de una zona conocida, cita sus fuentes y no pasa de
-// maxBytes (ya va comprimido: es lo que se descarga). gruesa.json: zona, posición y altitud de referencia de cada celda.
+// maxBytes (ya va comprimido: es lo que se descarga). Los bytes de hábitat los comprueba decodificarRejilla: código dentro
+// de la cabecera, bit 5 (FUERA_PROVINCIAS) solo con hábitat y bit 6 reservado a 0. gruesa.json: zona, posición, altitud de
+// referencia y hábitats de cada celda.
 export async function validarRejillas({ indice, gruesa, zonas, leer, maxBytes = 300 * 1024 }) {
   const e = [];
   const ids = new Set(zonas.zonas.map((z) => z.id));
@@ -175,6 +177,7 @@ export async function validarRejillas({ indice, gruesa, zonas, leer, maxBytes = 
   for (const c of gruesa?.celdas ?? []) {
     if (!ids.has(c.zona)) e.push(`celda gruesa ${c.id}: zona inexistente ${c.zona}`);
     if (![c.altRef, c.lat, c.lon].every((v) => typeof v === 'number' && Number.isFinite(v))) e.push(`celda gruesa ${c.id}: sin altRef, lat o lon`);
+    if (!Array.isArray(c.habitats) || !c.habitats.length || !c.habitats.every((h) => HABITATS.includes(h))) e.push(`celda gruesa ${c.id}: hábitats vacíos o desconocidos`);
   }
   if (gruesa && !Object.values(gruesa.pasos ?? {}).every((p) => p > 0)) e.push('gruesa.json: pasos inválidos');
   return e;

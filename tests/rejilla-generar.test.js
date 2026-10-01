@@ -5,7 +5,7 @@ import { construirZona, gruesasDeZona, elegirPaso, partirEnBandas, indiceEspacia
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { decodificarRejilla, PROHIBIDO, ORIENTACIONES } from '../js/rejilla/formato.js';
+import { decodificarRejilla, PROHIBIDO, FUERA_PROVINCIAS, ORIENTACIONES } from '../js/rejilla/formato.js';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 
 const zona = { id: 'guadarrama', bbox: [-4.25, 40.65, -3.7701, 41.05] };
@@ -116,4 +116,15 @@ ${f(3)}
     const r = await leerFeaturesPorLineas(ruta, (x) => (x.properties.SP1 === 2 ? null : x.properties.SP1));
     assert.deepEqual(r, [1, 3]);
   } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('construirZona: el monte de una provincia vecina lleva el bit FUERA_PROVINCIAS y cuenta en las gruesas', () => {
+  const p = construirZona({ zona, ventana, altitudes, prohibidoEn: () => false,
+    mfeEn: (lon) => (lon < -4.0156 ? { habitat: 'melojar', fuera: true } : { habitat: 'pinar-silvestre', fuera: false }) });
+  assert.equal(p.habitat[k(0, 1)], FUERA_PROVINCIAS | (HABITATS.indexOf('melojar') + 1));
+  assert.equal(p.habitat[k(1, 1)], HABITATS.indexOf('pinar-silvestre') + 1);
+  assert.equal(construirZona({ zona, ventana, altitudes, prohibidoEn: () => false, mfeEn: () => ({ habitat: null, fuera: true }) }).habitat[k(1, 1)], 0);
+  const g = gruesasDeZona(zona, ventana, p, 0.09);
+  assert.deepEqual(g[0].habitats, ['melojar', 'pinar-silvestre']);
+  assert.equal(g[0].nFinas, 12);
 });

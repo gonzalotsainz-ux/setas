@@ -3,7 +3,11 @@
 // (hábitat u8, terreno u8, altitud i16 LE en diferencias por fila). Usa CompressionStream: vale en Node 24 y en el móvil.
 export const MAGIA = 'SETR';
 export const VERSION = 1;
+// Byte de hábitat: bits 0-4 = código (índice en cabecera.habitats + 1; 0 = sin monte), bit 5 = fuera de las provincias de
+// la zona (monte de una provincia vecina: normativa no revisada), bit 6 = reservado (siempre 0), bit 7 = prohibido.
 export const PROHIBIDO = 0x80;
+export const FUERA_PROVINCIAS = 0x20;
+export const RESERVADO = 0x40;
 export const CODIGO = 0x1f;
 export const ORIENTACIONES = ['llano', 'N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
 // Espacio duro (U+00A0) entre número y unidad, como pide docs/diseno.md.
@@ -64,8 +68,9 @@ export async function decodificarRejilla(entrada) {
   if (carga.length !== n * 4) throw new Error('rejilla dañada: la carga no tiene el tamaño de la cabecera');
   for (let k = 0; k < n; k++) {
     const v = carga[k];
-    if (v & 0x60 || (v & CODIGO) > cabecera.habitats.length) {
-      throw new Error(`rejilla dañada: código de hábitat ${v & 0x60 ? v : v & CODIGO} fuera de la cabecera`);
+    const raro = v & RESERVADO || (v & FUERA_PROVINCIAS && !(v & CODIGO));   // «fuera» solo tiene sentido con hábitat
+    if (raro || (v & CODIGO) > cabecera.habitats.length) {
+      throw new Error(`rejilla dañada: código de hábitat ${raro ? v : v & CODIGO} fuera de la cabecera`);
     }
   }
   const vista = new DataView(carga.buffer, carga.byteOffset, carga.byteLength);
