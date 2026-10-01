@@ -16,12 +16,13 @@ export function empaquetarDia(ag) {
 export function desempaquetarDia(lista, fecha, prevision) {
   if (!Array.isArray(lista) || lista.length !== LARGO) return null;
   const ag = { fecha, prevision };
-  CAMPOS_DIA.forEach((k, j) => { ag[k] = k === 'secante' ? (lista[j] == null ? null : lista[j] === 1) : lista[j]; });
+  CAMPOS_DIA.forEach((k, j) => { ag[k] = k === 'secante' ? (lista[j] === 0 || lista[j] === 1 ? lista[j] === 1 : null) : lista[j]; });
   ag.tmin7 = lista.slice(CAMPOS_DIA.length);
   return ag;
 }
-// Lo mínimo para casi todas las especies: lluvia de 26 días y temperatura del aire.
-export const diaConDatos = (lista) => Array.isArray(lista) && lista[0] != null && lista[6] != null;
+// Lo mínimo para que alguna especie pueda dar nota: lluvia de 26 días (P26), tanda de lluvia (P3), ambiente secante
+// (índice 5) y temperatura del aire (T20aire). Una celda sin ello no cuenta como con datos.
+export const diaConDatos = (lista) => Array.isArray(lista) && lista[0] != null && lista[1] != null && lista[5] != null && lista[6] != null;
 
 export function resumirCelda({ altRef, serie, fechas }) {
   const dias = fechas.map((f) => {
@@ -34,8 +35,8 @@ export function resumirCelda({ altRef, serie, fechas }) {
 }
 
 export function agregadosDeCelda(salida, id, fecha) {
-  const c = salida?.celdas?.[id], k = salida?.fechas?.indexOf(fecha) ?? -1;
-  if (!c || k === -1) return null;
+  const c = salida?.celdas && Object.hasOwn(salida.celdas, id) ? salida.celdas[id] : null, k = salida?.fechas?.indexOf(fecha) ?? -1;
+  if (!c || !Array.isArray(c.dias) || k === -1) return null;
   return desempaquetarDia(c.dias[k], fecha, fecha > salida.hoy);
 }
 
@@ -44,14 +45,25 @@ export function serieLluvia(celda) {
   return { fechas: mm.map((_, k) => sumarDias(desde, k)), precip: mm, hoy };
 }
 
+const FECHA = /^\d{4}-\d{2}-\d{2}$/;
+const num = (v) => v === null || (typeof v === 'number' && Number.isFinite(v));
+
 export function validarSalida(s) {
   const e = [];
   if (s?.version !== VERSION_SALIDA) e.push('versión desconocida');
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}$/.test(s?.sello ?? '')) e.push('sello mal formado');
-  if (!Array.isArray(s?.fechas) || !s.fechas.length) e.push('sin fechas');
-  if (!s?.celdas || typeof s.celdas !== 'object') e.push('sin celdas');
-  else for (const [id, c] of Object.entries(s.celdas)) {
-    if (typeof c?.altRef !== 'number' || !Array.isArray(c.dias) || c.dias.length !== s.fechas?.length) { e.push(`celda ${id} mal formada`); break; }
+  const fechas = s?.fechas;
+  if (!Array.isArray(fechas) || !fechas.length) e.push('sin fechas');
+  else if (!fechas.every((f) => typeof f === 'string' && FECHA.test(f)) || fechas.some((f, k) => k && f <= fechas[k - 1])) e.push('fechas mal formadas, repetidas o desordenadas');
+  if (!FECHA.test(s?.hoy ?? '') || (Array.isArray(fechas) && !fechas.includes(s.hoy))) e.push('hoy ausente o fuera de las fechas');
+  const celdas = s?.celdas;
+  if (!celdas || typeof celdas !== 'object' || !Object.keys(celdas).length) e.push('sin celdas');
+  else for (const [id, c] of Object.entries(celdas)) {   // se reportan todas las celdas malas
+    const l = c?.lluvia;
+    const bien = typeof c?.altRef === 'number' && Array.isArray(c.dias) && c.dias.length === fechas?.length
+      && c.dias.every((d) => d === null || (Array.isArray(d) && d.length === LARGO && d.every(num)))
+      && typeof l?.desde === 'string' && FECHA.test(l.desde) && Number.isInteger(l.hoy) && Array.isArray(l.mm) && l.mm.every(num);
+    if (!bien) e.push(`celda ${id} mal formada`);
   }
   return e;
 }
