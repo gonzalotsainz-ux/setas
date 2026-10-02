@@ -106,3 +106,27 @@ test('textoError traduce demasiados_grupos y solo_post', () => {
   assert.equal(textoError(new Error('demasiados_grupos')), 'Has creado demasiados grupos (máximo 10).');
   assert.equal(textoError({ message: 'solo_post' }), 'Petición no válida. Recarga la página y vuelve a probar.');
 });
+
+test('asegurarSesion: si getSession falla, propaga el error y NO entra como anónimo', async () => {
+  const sb = sbFalso();
+  sb.auth.getSession = async () => ({ data: { session: null }, error: new Error('refresh fallido') });
+  await assert.rejects(() => asegurarSesion({ supabase: sb }), /refresh fallido/);
+  assert.equal(sb.llamadas.signIn, 0);
+});
+
+test('asegurarSesion: tras un rechazo, la siguiente llamada vuelve a intentarlo', async () => {
+  const sb = sbFalso();
+  let n = 0;
+  sb.auth.getSession = async () => (n++ === 0 ? { data: { session: null }, error: new Error('red caída') } : { data: { session: { user: { id: 'u1' } } }, error: null });
+  await assert.rejects(() => asegurarSesion({ supabase: sb }), /red caída/);
+  assert.equal(await asegurarSesion({ supabase: sb }), 'u1');
+  assert.equal(sb.llamadas.signIn, 0);
+});
+
+test('crearPerfil y regenerarRecuperacion rechazan si el servidor no devuelve código', async () => {
+  const sesion = { user: { id: 'u1' } };
+  const a = sbFalso({ sesion, rpc: { crear_perfil: { data: '', error: null } } });
+  await assert.rejects(() => crearPerfil('Ana', { supabase: a }), /no devolvió el código/);
+  const b = sbFalso({ sesion, rpc: { regenerar_recuperacion: { data: null, error: null } } });
+  await assert.rejects(() => regenerarRecuperacion({ supabase: b }), /no devolvió el código/);
+});

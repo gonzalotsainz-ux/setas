@@ -14,7 +14,8 @@ export function codigoRecuperacionValido(t) {
 let enCurso = null;
 export function asegurarSesion({ supabase }) {
   enCurso ??= (async () => {
-    const { data } = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.getSession();
+    if (error) throw error;   // un fallo al leer la sesión NO es «sin sesión»: entrar como anónimo huérfana el perfil
     if (data?.session) return data.session.user.id;
     const r = await supabase.auth.signInAnonymously();
     if (r.error) throw r.error;
@@ -31,18 +32,24 @@ export async function cargarPerfil({ supabase }) {
   return data ? { id: data.id, nombre: data.nombre } : null;
 }
 
+function codigoDevuelto(data) {
+  const c = formatearCodigo(data);
+  if (!c) throw new Error('El servidor no devolvió el código de recuperación.');
+  return c;
+}
+
 export async function crearPerfil(nombre, { supabase }) {
   await asegurarSesion({ supabase });
   const { data, error } = await supabase.rpc('crear_perfil', { p_nombre: nombre });
   if (error) throw error;
-  return formatearCodigo(data);
+  return codigoDevuelto(data);
 }
 
 export async function regenerarRecuperacion({ supabase }) {
   await asegurarSesion({ supabase });
   const { data, error } = await supabase.rpc('regenerar_recuperacion');
   if (error) throw error;
-  return formatearCodigo(data);
+  return codigoDevuelto(data);
 }
 
 export async function renombrarPerfil(nombre, { supabase }) {
