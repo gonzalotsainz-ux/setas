@@ -17,6 +17,7 @@
       ],
       "habitats": [
         "pinar-silvestre",
+        "pinar-resinero",
         "melojar",
         "pastizal-montana",
         "prado"
@@ -78,6 +79,78 @@
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
           "revisado": "2026-09-30",
           "nota": "MFE50 provincia 28: Pinares de pino albar, Pinus sylvestris 9/10 (y Juniperus oxycedrus 1/10), FCC 85 %, 1.438 ha, monte arbolado. Dentro del MUP 72 «Perímetro de Canencia» (propiedad de la Comunidad de Madrid). Ortofoto: pinar denso continuo. Queda a unos 1,2 km al norte-noroeste del ancla de Wikipedia (40,8689 N, -3,7638 E, junto al puerto); el punto de prueba más cercano al puerto caía en un claro con zona recreativa, por eso se eligió masa continua. Fuera del Parque Nacional (a 3,8 km) y del Parque Regional según el ENP 2025; a 5,8 km de la URA-A más cercana. Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-guadarrama-resinero",
+          "nombre": "Pinar resinero de Guadarrama (MUP 39 «Pinar y Agregados»)",
+          "lat": 40.67966,
+          "lon": -4.14587,
+          "altitud": 1358,
+          "habitat": "pinar-resinero",
+          "proteccion": "Régimen de recogida SIN CONFIRMAR: la app lo trata como NO IR. El MUP 39 de Guadarrama (a 9,3 km del Parque Nacional) está fuera del Parque Nacional y su ayuntamiento no tiene ordenanza ni plan de aprovechamiento localizados, como los montes del sitio «Montes del Parque Nacional sin ordenanza ni plan», que siguen prohibidos. El PORN de Guadarrama (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida para uso individual fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces no se recoge. El punto sirve solo para la meteo y el índice.",
+          "nota": "MFE50 provincia 28: tesela 189730, Pinus pinaster 8/10 y Pinus sylvestris 1/10, FCC 75 %, 1.240 ha, bosque (TIPESTR 1). Dentro del MUP 39 «Pinar y Agregados» (Ayuntamiento de Guadarrama, catálogo IDEM). Fuera de los espacios de la ENP 2025 y del Parque Nacional (a 9,3 km). Ortofoto: pinar denso con pista. En qué zona del PORN cae, sin comprobar (no se ha descargado su cartografía). Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-cercedilla-silvestre",
+          "nombre": "Pinar de Cercedilla fuera del Parque Nacional (MUP 32 «Pinar y Agregados»)",
+          "lat": 40.76973,
+          "lon": -4.06648,
+          "altitud": 1378,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Régimen de recogida SIN CONFIRMAR: la app lo trata como NO IR. Esta parte del MUP 32 de Cercedilla (a 1,0 km del Parque Nacional; la parte alta del monte está dentro del Parque, donde Cercedilla no tiene plan) está fuera del Parque Nacional y su ayuntamiento no tiene ordenanza ni plan de aprovechamiento localizados, como los montes del sitio «Montes del Parque Nacional sin ordenanza ni plan», que siguen prohibidos. El PORN de Guadarrama (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida para uso individual fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces no se recoge. El punto sirve solo para la meteo y el índice.",
+          "nota": "MFE50 provincia 28: tesela 192063, Pinus sylvestris 9/10, FCC 85 %, 2.033 ha, bosque (TIPESTR 1). Dentro del MUP 32 «Pinar y Agregados» (Ayuntamiento de Cercedilla, catálogo IDEM). Fuera del Parque Nacional (a 1,0 km) y de la ENP 2025; a 1,7 km de la URA-A «Solana de Siete Picos». Junto a la zona recreativa de Las Dehesas (piscinas a unos 300 m). Ortofoto: pinar denso. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-camorza-resinero",
+          "nombre": "Pinar de La Camorza (MUP 163, coto La Pedriza)",
+          "lat": 40.75194,
+          "lon": -3.91347,
+          "altitud": 1195,
+          "habitat": "pinar-resinero",
+          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Moderado, subzona A (zonificación OAPN, punto en polígono «La Solana-La Garganta»): recolección compatible todo el año según el art. 59.b del PRUG. Dentro del MUP 163 «La Camorza» (Comunidad de Madrid), en el coto micológico de La Pedriza y Hoya de San Blas: hace falta su permiso. A 1,4 km de la URA-A «Ribera del Manzanares», donde está prohibido.",
+          "nota": "MFE50 provincia 28: tesela 192394, Pinus pinaster 7/10 y Pinus nigra 3/10, FCC 85 %, 103 ha, bosque (TIPESTR 1). Dentro del MUP 163 «La Camorza» (Comunidad de Madrid, catálogo IDEM). Ortofoto: pinar denso. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-sanblas-silvestre",
+          "nombre": "Pinar del Hueco de San Blas (MUP 142, coto La Pedriza)",
+          "lat": 40.79072,
+          "lon": -3.85651,
+          "altitud": 1443,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Parque Nacional Sierra de Guadarrama, Zona de Uso Restringido, subzona B (zonificación OAPN, punto en polígono «La Pedriza»): según el art. 59.b del PRUG solo se recoge en temporada de otoño. Dentro del MUP 142 «Hueco de San Blas» (Comunidad de Madrid), en el coto micológico de La Pedriza y Hoya de San Blas: hace falta su permiso. A 0,9 km de la URA-A «Laguna del Lomo», donde está prohibido.",
+          "nota": "MFE50 provincia 28: tesela 189658, Pinus sylvestris 9/10, FCC 80 %, 630 ha, bosque (TIPESTR 1). Dentro del MUP 142 «Hueco de San Blas» (Comunidad de Madrid, catálogo IDEM). Ortofoto: pinar denso con pista. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-alameda-melojar",
+          "nombre": "Melojar de Moroviejo y Santa Ana (MUP 60, Alameda del Valle)",
+          "lat": 40.88181,
+          "lon": -3.828,
+          "altitud": 1322,
+          "habitat": "melojar",
+          "proteccion": "Régimen de recogida SIN CONFIRMAR: la app lo trata como NO IR. El MUP 60 de Alameda del Valle (a 1,2 km del Parque Nacional) está fuera del Parque Nacional y su ayuntamiento no tiene ordenanza ni plan de aprovechamiento localizados, como los montes del sitio «Montes del Parque Nacional sin ordenanza ni plan», que siguen prohibidos. El PORN de Guadarrama (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida para uso individual fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces no se recoge. El punto sirve solo para la meteo y el índice.",
+          "nota": "MFE50 provincia 28: tesela 192605, Quercus pyrenaica 9/10, FCC 70 %, 718 ha, bosque (TIPESTR 1). Dentro del MUP 60 «Moroviejo y Santa Ana» (Ayuntamiento de Alameda del Valle, catálogo IDEM). Fuera del Parque Nacional (a 1,2 km) y de la ENP 2025; a 2,1 km de la URA-A «Arroyo de Santa Ana». Ortofoto: melojar denso, en el borde de un claro. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "guadarrama-pinilla-melojar",
+          "nombre": "Melojar de Villanadillas (MUP 102, Pinilla del Valle)",
+          "lat": 40.90781,
+          "lon": -3.79598,
+          "altitud": 1410,
+          "habitat": "melojar",
+          "proteccion": "Régimen de recogida SIN CONFIRMAR: la app lo trata como NO IR. El MUP 102 de Pinilla del Valle (a 5 km del Parque Nacional) está fuera del Parque Nacional y su ayuntamiento no tiene ordenanza ni plan de aprovechamiento localizados, como los montes del sitio «Montes del Parque Nacional sin ordenanza ni plan», que siguen prohibidos. El PORN de Guadarrama (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida para uso individual fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces no se recoge. El punto sirve solo para la meteo y el índice.",
+          "nota": "MFE50 provincia 28: tesela 193422, Quercus pyrenaica 9/10, FCC 70 %, 648 ha, bosque (TIPESTR 1). Dentro del MUP 102 «Villanadillas» (Ayuntamiento de Pinilla del Valle, catálogo IDEM). Fuera del Parque Nacional (a 5 km) y de la ENP 2025. Ortofoto: melojar denso entre pistas. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
         }
       ],
       "estacionesAemet": [
@@ -85,7 +158,7 @@
           "id": "3266A",
           "nombre": "Puerto Alto del León",
           "altitud": 1530,
-          "distanciaKm": 29.4,
+          "distanciaKm": 24.2,
           "lat": 40.7064,
           "lon": -4.1414
         },
@@ -93,7 +166,7 @@
           "id": "2462",
           "nombre": "Puerto de Navacerrada",
           "altitud": 1892,
-          "distanciaKm": 14.7,
+          "distanciaKm": 9.8,
           "lat": 40.7933,
           "lon": -4.0108
         },
@@ -101,7 +174,7 @@
           "id": "3104Y",
           "nombre": "Rascafría",
           "altitud": 1159,
-          "distanciaKm": 2.1,
+          "distanciaKm": 6.5,
           "lat": 40.8897,
           "lon": -3.8883
         }
@@ -121,14 +194,17 @@
         "madrid-manzanares",
         "madrid-soto-del-real",
         "madrid-canencia",
-        "madrid-pedriza-san-blas"
+        "madrid-pedriza-san-blas",
+        "madrid-porn-guadarrama-96-2009",
+        "madrid-prcam-prug-1995"
       ],
       "avisos": [
         "Parque Nacional: solo donde haya plan de aprovechamiento micológico; prohibido en Zonas de Reserva y de Uso Restringido A",
         "Valsaín está regulado (Orden AAA/1681/2016, 10.668 ha)",
         "Rascafría, Miraflores y Lozoya exigen licencia municipal",
         "Coto micológico de La Pedriza y Hoya de San Blas: permiso propio (foráneo 5 kg/día) y fuera de Reserva y Uso Restringido A",
-        "Rascafría: el permiso no da acceso en vehículo a las pistas forestales"
+        "Rascafría: el permiso no da acceso en vehículo a las pistas forestales",
+        "Montes públicos fuera del Parque Nacional sin ordenanza (Cercedilla, Navacerrada, Guadarrama, Los Molinos, Alameda y Pinilla del Valle): la app mantiene la prohibición hasta que la Comunidad de Madrid confirme si el ap. 4.4.2.6 del PORN (Decreto 96/2009) autoriza ahí la recogida para uso individual"
       ],
       "fuentes": [
         {
@@ -150,6 +226,11 @@
           "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
           "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "titulo": "MITECO: MFE50 de la Comunidad de Madrid e IDEM (montes de utilidad pública), puntos madrileños añadidos el 02/10/2026",
+          "consultado": "2026-10-02"
         }
       ]
     },
@@ -219,6 +300,66 @@
           "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
           "revisado": "2026-09-30",
           "nota": "MFE50 provincia 28: Melojares, Quercus pyrenaica 9/10, FCC 80 %, 182 ha, monte arbolado. Dentro del MUP 68 «Dehesa del Valle», uno de los cinco de la ordenanza de Bustarviejo (66 a 70). Ortofoto: rebollar denso a unos 60 m de una pista. Fuera del Parque Nacional (a 2,9 km) y del Parque Regional (a 0,8 km); a 4,3 km de la URA-A más cercana. El ancla de Wikipedia era el casco urbano de Bustarviejo, no el monte. Recuerda: caza en domingos y festivos del 8 de octubre a febrero. Comprobado el 30/09/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la ortofoto PNOA (teselas z17 3x3 con el punto marcado) y la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP). Fuera de todos los polígonos prohibido de cotos.geojson. Altitud: API de elevación de Open-Meteo."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-norte-braojos-silvestre",
+          "nombre": "Pinar del Perímetro de Braojos (MUP 148)",
+          "lat": 41.07143,
+          "lon": -3.66977,
+          "altitud": 1619,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Régimen de recogida sin confirmar. Braojos está en el ámbito del PORN de Guadarrama (Decreto 96/2009): su ap. 4.4.2.6 podría autorizar la recogida para uso individual en los montes de utilidad pública y de la Comunidad, pero está pendiente de confirmación oficial. La ordenanza micológica de Braojos (BOCM 17/03/2022) solo entra en vigor tras el acotamiento de sus montes por resolución de la Dirección General de Biodiversidad, que no se ha encontrado: está pendiente de esa resolución. No se ha localizado ordenanza en vigor: confirma con el ayuntamiento o con los agentes forestales antes de recoger. Fuera de los espacios de la ENP 2025 y del Parque Nacional.",
+          "nota": "MFE50 provincia 28: tesela 192185, Pinus sylvestris 9/10, FCC 80 %, 3.724 ha, bosque (TIPESTR 1). Dentro del MUP 148 «Cuenca Alta del Arroyo Ciguiñuela o Perímetro de Braojos» (Comunidad de Madrid, catálogo IDEM). A 7,4 km del Parque Nacional. Ortofoto: pinar denso. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-norte-robregordo-silvestre",
+          "nombre": "Pinar del Perímetro de Robregordo (MUP 144)",
+          "lat": 41.12795,
+          "lon": -3.6168,
+          "altitud": 1591,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Régimen de recogida sin confirmar. Robregordo está en el ámbito del PORN de Guadarrama (Decreto 96/2009): su ap. 4.4.2.6 podría autorizar la recogida para uso individual en los montes de utilidad pública y de la Comunidad, pero está pendiente de confirmación oficial. No se ha localizado ordenanza en vigor: confirma con el ayuntamiento o con los agentes forestales antes de recoger. Fuera de los espacios de la ENP 2025 y del Parque Nacional.",
+          "nota": "MFE50 provincia 28: tesela 191366, Pinus sylvestris 9/10, FCC 75 %, 583 ha, bosque (TIPESTR 1). Dentro del MUP 144 «Perímetro de Robregordo y Los Llanos» (Comunidad de Madrid, catálogo IDEM). A 8,7 km del polígono del Hayedo de Montejo. Ortofoto: pinar denso. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-norte-hiruela-melojar",
+          "nombre": "Melojar de la Dehesa Boyal de La Hiruela (MUP 79)",
+          "lat": 41.07437,
+          "lon": -3.43203,
+          "altitud": 1254,
+          "habitat": "melojar",
+          "proteccion": "Régimen de recogida sin confirmar. La Hiruela está fuera del ámbito del PORN de Guadarrama y no se ha localizado ordenanza micológica: regla general de Madrid (monte público señalizado o permiso del propietario); confirma con el ayuntamiento antes de recoger. Fuera de los espacios de la ENP 2025; el Hayedo de Montejo (prohibido) queda a más de 5 km.",
+          "nota": "MFE50 provincia 28: tesela 194639, Quercus pyrenaica 10/10, FCC 90 %, 289 ha, bosque (TIPESTR 1). Dentro del MUP 79 «Dehesa Boyal» (Ayuntamiento de La Hiruela, catálogo IDEM). A 5,8 km del polígono del Hayedo de Montejo. Ortofoto: melojar denso. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-norte-pradena-silvestre",
+          "nombre": "Pinar de La Morra (MUP 155, Prádena del Rincón)",
+          "lat": 41.02171,
+          "lon": -3.50254,
+          "altitud": 1502,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Régimen de recogida sin confirmar. Prádena del Rincón está fuera del ámbito del PORN de Guadarrama y no se ha localizado ordenanza micológica: regla general de Madrid (monte público señalizado o permiso del propietario); confirma con el ayuntamiento antes de recoger. Fuera de los espacios de la ENP 2025; el Hayedo de Montejo (prohibido) queda a más de 5 km.",
+          "nota": "MFE50 provincia 28: tesela 194264, Pinus sylvestris 8/10 y Sorbus aucuparia 1/10, FCC 75 %, 122 ha, bosque (TIPESTR 1). Dentro del MUP 155 «La Morra» (Comunidad de Madrid, catálogo IDEM). A 9,2 km del polígono del Hayedo de Montejo. Ortofoto: pinar denso junto a una carretera. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-norte-pradena-melojar",
+          "nombre": "Melojar de la Dehesa Boyal de Prádena del Rincón (MUP 105)",
+          "lat": 41.0474,
+          "lon": -3.50043,
+          "altitud": 1257,
+          "habitat": "melojar",
+          "proteccion": "Régimen de recogida sin confirmar. Prádena del Rincón está fuera del ámbito del PORN de Guadarrama y no se ha localizado ordenanza micológica: regla general de Madrid (monte público señalizado o permiso del propietario); confirma con el ayuntamiento antes de recoger. Fuera de los espacios de la ENP 2025; el Hayedo de Montejo (prohibido) queda a más de 5 km.",
+          "nota": "MFE50 provincia 28: tesela 194290, Quercus pyrenaica 10/10, FCC 90 %, 91 ha, bosque (TIPESTR 1). Dentro del MUP 105 «Dehesa Boyal» (Ayuntamiento de Prádena del Rincón, catálogo IDEM). A 6,3 km del polígono del Hayedo de Montejo. Ortofoto: melojar con algo de matorral abierto ladera abajo. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
         }
       ],
       "estacionesAemet": [
@@ -226,7 +367,7 @@
           "id": "3111D",
           "nombre": "Somosierra",
           "altitud": 1454,
-          "distanciaKm": 9.2,
+          "distanciaKm": 8,
           "lat": 41.1358,
           "lon": -3.5803
         },
@@ -234,7 +375,7 @@
           "id": "2182C",
           "nombre": "Pedraza",
           "altitud": 1107,
-          "distanciaKm": 16.6,
+          "distanciaKm": 19.4,
           "lat": 41.1339,
           "lon": -3.7903
         },
@@ -242,7 +383,7 @@
           "id": "3104Y",
           "nombre": "Rascafría",
           "altitud": 1159,
-          "distanciaKm": 29.4,
+          "distanciaKm": 32.5,
           "lat": 40.8897,
           "lon": -3.8883
         }
@@ -256,12 +397,15 @@
         "cyl-sg-50005-junta-segovia",
         "madrid-bustarviejo",
         "madrid-canencia",
-        "segovia-honrubia-de-la-cuesta-2016"
+        "segovia-honrubia-de-la-cuesta-2016",
+        "madrid-porn-guadarrama-96-2009",
+        "madrid-braojos"
       ],
       "avisos": [
         "Hayedo de Montejo: prohibido recolectar hongos; solo visitas guiadas",
         "Vertiente segoviana (Riaza, Ayllón): acotado con permiso Micocyl",
-        "Bustarviejo: foráneo 1 o 2 días (5 €/8 €, 5 kg); caza en domingos y festivos del 8 de octubre a febrero: mejor entre semana"
+        "Bustarviejo: foráneo 1 o 2 días (5 €/8 €, 5 kg); caza en domingos y festivos del 8 de octubre a febrero: mejor entre semana",
+        "Somosierra, Robregordo, Braojos, Gascones y demás municipios del PORN de Guadarrama: recogida en montes públicos sin confirmar (ap. 4.4.2.6 del Decreto 96/2009, pendiente de confirmación oficial). La ordenanza de Braojos (2022) espera la resolución de acotamiento"
       ],
       "fuentes": [
         {
@@ -283,6 +427,144 @@
           "url": "https://github.com/gonzalotsainz-ux/setas/blob/main/docs/investigacion/02-especies.md",
           "titulo": "Investigación del proyecto: tabla D, ecosistemas forestales por zona",
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "titulo": "MITECO: MFE50 de la Comunidad de Madrid e IDEM (montes de utilidad pública), puntos madrileños añadidos el 02/10/2026",
+          "consultado": "2026-10-02"
+        }
+      ]
+    },
+    {
+      "id": "sierra-oeste",
+      "nombre": "Sierra Oeste de Madrid (Abantos, Alberche y Cofio)",
+      "comunidad": "madrid",
+      "provincias": [
+        "Madrid"
+      ],
+      "bbox": [
+        -4.3999,
+        40.22,
+        -3.9601,
+        40.6499
+      ],
+      "habitats": [
+        "pinar-resinero",
+        "pinar-silvestre",
+        "encinar",
+        "pinar-pinonero",
+        "melojar",
+        "castanar",
+        "pastizal-montana",
+        "prado"
+      ],
+      "puntos": [
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-oeste-abantos-silvestre",
+          "nombre": "Pinar de Abantos (MUP 46 «La Jurisdicción», San Lorenzo de El Escorial)",
+          "lat": 40.60322,
+          "lon": -4.16762,
+          "altitud": 1445,
+          "habitat": "pinar-silvestre",
+          "proteccion": "Dentro del Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería» (ENP 2025 del MITECO): sus normas de recolección no se han encontrado ni leído. Ámbito del PORN de Guadarrama (Decreto 96/2009): su ap. 4.4.2.6 podría autorizar la recogida para uso individual en montes de utilidad pública, pendiente de confirmación oficial. Régimen de recogida sin confirmar: pregunta en el ayuntamiento de San Lorenzo de El Escorial. Fuera del Parque Nacional (a 17,9 km).",
+          "nota": "MFE50 provincia 28: tesela 186655, Pinus sylvestris 8/10, FCC 85 %, 175 ha, bosque (TIPESTR 1). Dentro del MUP 46 «La Jurisdicción» (Ayuntamiento de San Lorenzo de El Escorial, catálogo IDEM). Ortofoto: pinar denso. Estación AEMET 3266A (Puerto Alto del León) a 11,7 km. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-oeste-sanmartin-resinero",
+          "nombre": "Pinar resinero de San Martín de Valdeiglesias (MUP 55)",
+          "lat": 40.33473,
+          "lon": -4.35552,
+          "altitud": 956,
+          "habitat": "pinar-resinero",
+          "nota": "MFE50 provincia 28: tesela 184579, Pinus pinaster 7/10 y Pinus pinea 2/10, FCC 80 %, 174 ha, bosque (TIPESTR 1). Dentro del MUP 55 «Navapozas, Fuenfría, Valdeyerno y Valcaliente» (Ayuntamiento, catálogo IDEM). Ortofoto: pinar denso. Fuera de los espacios de la ENP 2025. Seguramente dentro de la ZEC/ZEPA Alberche-Cofio (Decreto 26/2017, que no regula las setas), pero el cruce con la capa de Red Natura no se ha hecho [NO VERIFICADO]. Sin ordenanza micológica localizada en San Martín: régimen de recogida sin confirmar. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-oeste-valdemaqueda-resinero",
+          "nombre": "Pinar resinero del Monte de Valdemaqueda (MUP 185)",
+          "lat": 40.5213,
+          "lon": -4.27913,
+          "altitud": 1042,
+          "habitat": "pinar-resinero",
+          "nota": "MFE50 provincia 28: tesela 186398, Pinus pinaster 7/10 y Quercus ilex 1/10, FCC 45 %, 400 ha, bosque (TIPESTR 1). Dentro del MUP 185 «Monte de Valdemaqueda» (Comunidad de Madrid, catálogo IDEM). Fuera de los espacios de la ENP 2025. Ortofoto: cubierta MEDIA (pinar abierto con claros); pendiente de que la usuaria la revise. Sin ordenanza micológica localizada en Valdemaqueda: régimen de recogida sin confirmar. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        },
+        {
+          "fuente": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "revisado": "2026-10-02",
+          "id": "sierra-oeste-robledo-encinar",
+          "nombre": "Encinar de la Dehesa de Fuenteanguila (MUP 43, Robledo de Chavela)",
+          "lat": 40.43922,
+          "lon": -4.2341,
+          "altitud": 785,
+          "habitat": "encinar",
+          "nota": "MFE50 provincia 28: tesela 189646, Quercus ilex 9/10, FCC 50 %, 2.139 ha, bosque (TIPESTR 1). Dentro del MUP 43 «Dehesa de Fuenteanguila» (Ayuntamiento, catálogo IDEM). Fuera de los espacios de la ENP 2025. Ortofoto: cubierta ABIERTA (dehesa con claros); pendiente de que la usuaria la revise. Sin ordenanza micológica localizada en Robledo de Chavela: régimen de recogida sin confirmar. Comprobado el 02/10/2026 con el MFE50 del MITECO (shapefile de la provincia 28, punto en polígono), la capa de montes de utilidad pública de la Comunidad de Madrid (IDEM, Zonas:IDEM_MA_MONTES_UP, WFS descargado ese día), la ENP 2025 del MITECO, la zonificación del OAPN, la ortofoto PNOA (ventana de unos 800 m con el punto marcado) y la API de elevación de Open-Meteo. Fuera de todos los polígonos prohibido de cotos.geojson."
+        }
+      ],
+      "estacionesAemet": [
+        {
+          "id": "3338",
+          "nombre": "Robledo de Chavela",
+          "altitud": 770,
+          "distanciaKm": 5.2,
+          "lat": 40.4286,
+          "lon": -4.2486
+        },
+        {
+          "id": "3330Y",
+          "nombre": "Rozas de Puerto Real",
+          "altitud": 890,
+          "distanciaKm": 26.4,
+          "lat": 40.3131,
+          "lon": -4.4872
+        },
+        {
+          "id": "3266A",
+          "nombre": "Puerto Alto del León",
+          "altitud": 1530,
+          "distanciaKm": 27.6,
+          "lat": 40.7064,
+          "lon": -4.1414
+        }
+      ],
+      "normas": [
+        "madrid-ordenanzas-sierra",
+        "estatal-ley-43-2003-montes",
+        "madrid-porn-guadarrama-96-2009",
+        "madrid-zec-alberche-cofio-26-2017"
+      ],
+      "avisos": [
+        "Abantos, Santa María de la Alameda, Zarzalejo y El Escorial están en el ámbito del PORN de Guadarrama (Decreto 96/2009): su ap. 4.4.2.6 podría autorizar la recogida para uso individual en montes de utilidad pública y de la Comunidad, pero está pendiente de confirmación oficial. Pregunta en el ayuntamiento antes de recoger",
+        "Abantos y la Herrería son Paraje Pintoresco: normas de recolección sin confirmar. La Herrería la gestiona Patrimonio Nacional: no consta permiso de recolección",
+        "Robledo de Chavela, Valdemaqueda, San Martín de Valdeiglesias, Cadalso, Cenicientos y Rozas de Puerto Real: sin ordenanza localizada (resultado de búsqueda, no confirmación oficial); solo monte público señalizado o con permiso del propietario",
+        "El castañar de Rozas de Puerto Real queda casi entero fuera de los montes de utilidad pública (cruce del MFE50 con el catálogo): lo más probable es que sean fincas privadas, donde las setas son del propietario",
+        "Muchos montes públicos de la comarca son cotos de caza mayor: evita los días de montería",
+        "Cadalso, Cenicientos y Rozas de Puerto Real quedan fuera del área de esta zona (están en la de Gredos): su índice es orientativo"
+      ],
+      "fuentes": [
+        {
+          "url": "https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50_descargas_comunidad_madrid.html",
+          "titulo": "MITECO: Mapa Forestal de España 1:50.000 (MFE50), Comunidad de Madrid (provincia 28)",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.miteco.gob.es/content/dam/miteco/es/biodiversidad/servicios/banco-datos-naturaleza/enp/Enp2025_geojson.zip",
+          "titulo": "MITECO: Espacios Naturales Protegidos 2025 (GeoJSON)",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.ign.es/wmts/pnoa-ma?service=WMTS&request=GetCapabilities",
+          "titulo": "IGN: ortofoto PNOA máxima actualidad (comprobación visual de la cubierta arbolada)",
+          "consultado": "2026-10-02"
         }
       ]
     },
