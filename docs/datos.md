@@ -64,6 +64,7 @@
   - `revisado`: fecha de verificación (YYYY-MM-DD)
   - `proteccion` (opcional): estado de protección del punto (espacio natural y qué se sabe de sus normas de recolección); se omite si está fuera de espacios protegidos
   - `nota` (opcional): dato para volver a verificar el punto (polígono y especie/FCC usados) o salvedades
+  - `noIr` (opcional, solo `true`): punto en un monte donde la app no deja recoger; sirve solo para la meteo. Zona y Hoy lo rotulan «NO IR (solo meteo)» en rojo, no entra en la nota de la zona y nunca sale como mejor punto. El validador exige que `proteccion` explique el NO IR. Los demás puntos con `proteccion` se rotulan «Restricciones» (ocre)
 - `estacionesAemet`: estaciones AEMET cercanas para datos meteorológicos
   - `id`: código de la estación AEMET
   - `nombre`: nombre de la estación
@@ -128,6 +129,7 @@
   - **Once puntos nuevos sin cambiar los bbox**: en `guadarrama`, `guadarrama-guadarrama-resinero` (MUP 39), `guadarrama-cercedilla-silvestre` (MUP 32, fuera del Parque), `guadarrama-camorza-resinero` (MUP 163, Uso Moderado A, coto La Pedriza), `guadarrama-sanblas-silvestre` (MUP 142, Uso Restringido B, solo otoño), `guadarrama-alameda-melojar` (MUP 60) y `guadarrama-pinilla-melojar` (MUP 102); en `sierra-norte`, `sierra-norte-braojos-silvestre` (MUP 148), `sierra-norte-robregordo-silvestre` (MUP 144), `sierra-norte-hiruela-melojar` (MUP 79), `sierra-norte-pradena-silvestre` (MUP 155) y `sierra-norte-pradena-melojar` (MUP 105). `guadarrama` gana el hábitat `pinar-resinero` (ninguna ficha con ese hábitat quedaba sin entrada de zona en guadarrama, así que el recuento de GBIF no cambia).
   - Comprobación de cada punto (02/10/2026): MFE50 de Madrid (punto en polígono), MUP de la IDEM, ENP 2025, zonificación del OAPN, polígonos `prohibido` de `cotos.geojson`, ortofoto PNOA (ventana de unos 800 m) y elevación de Open-Meteo. Polígono, especie y FCC en la `nota` de cada punto. Ninguno cae en un prohibido.
   - **PORN de Guadarrama (Decreto 96/2009, ap. 4.4.2.6)**, ficha `madrid-porn-guadarrama-96-2009` (`verificado: false`): podría autorizar la recogida libre para uso individual en los MUP y montes de la Comunidad fuera de Reserva y Máxima Protección, pero su vigencia y su encaje con el Parque Nacional están **pendientes de confirmación oficial**. Por decisión de la usuaria, los montes públicos fuera del Parque que la app daba por prohibidos (`pn-monte-sin-plan`, `la-barranca-fuenfria-cotos-no-ir`) **siguen prohibidos**, con la nota del PORN en `legal.texto`; `sierra-norte-pueblos-sin-ordenanza` sigue `sin-confirmar`. Los puntos nuevos en esos montes (MUP 39, MUP 32 fuera del Parque, MUP 60 y 102) llevan en `proteccion` «la app lo trata como NO IR»; los de Somosierra y el Rincón, «régimen de recogida sin confirmar». La pregunta a la Comunidad está redactada en `docs/correo-comunidad-madrid-setas.md`.
+  - **Ronda de arreglos (02/10/2026)**: los puntos de los MUP 39, 32, 60 y 102 y el de Abantos (MUP 46, que pasa a NO IR por decisión de la usuaria hasta que conteste la Comunidad) llevan `noIr: true`. Sus montes, y todos los MUP de los seis municipios del sitio `pn-monte-sin-plan` (Guadarrama, Cercedilla, Navacerrada, Los Molinos, Alameda del Valle y Pinilla del Valle: 23 montes) más el MUP 46, están en `cotos.geojson` como `prohibido` (ids `mad-mup-<n>-<municipio>`, precisión `oficial`, `regimenConfirmado: false`): geometría oficial del catálogo de la IDEM (`Zonas:IDEM_MA_MONTES_UP`, descargada en EPSG:25830 el 02/10/2026 y pasada a WGS84 con mapshaper, 5 decimales). `mad-mup-39-guadarrama` baja hasta lat 40,6479, fuera del bbox de `guadarrama` (excepción conocida en `tests/puntos-madrid.test.js`). Los cinco puntos NO IR caen dentro de esos polígonos: la prueba de puntos en prohibidos los admite solo en los `mad-mup-*`. El PORN, el PRUG del Parque Regional y la ZEC llevan `permiso.obligatorio: null` («Permiso: sin confirmar»); los puntos de San Martín, Valdemaqueda y Robledo llevan su régimen en `proteccion` y La Camorza, que el PRUG del Parque Regional sitúa en zona A2 (Reserva Natural Educativa).
   - **Braojos** (`madrid-braojos`, `vigente: false`): el texto de la ordenanza (BOCM 17/03/2022) está leído, pero solo entra en vigor tras la resolución de acotamiento de sus MUP, que no se ha encontrado.
   - Otras normas nuevas: `madrid-prcam-prug-1995` (PRUG del Parque Regional de la Cuenca Alta del Manzanares: la Reserva Natural prohíbe «la recolección de plantas»; no nombra los hongos) y `madrid-zec-alberche-cofio-26-2017` (no regula las setas).
   - **Níscalo en pinar piñonero**: `lactarius-deliciosus` suma el hábitat `pinar-pinonero` con el parte de Micocyl del 20/11/2024 (Segovia: «llanuras de pino albar (Pinus pinea) y pino negral (Pinus pinaster)» con buenas producciones de níscalo; el parte llama «albar» al *P. pinea*). Antes ninguna seta con índice tenía ese hábitat. Efecto en la rejilla: ver «Rejilla fina», más abajo.
@@ -614,9 +616,9 @@ MDT: Modelo Digital del Terreno MDT25 (IGN, PNOA-LiDAR), servicio WCS):
 
 | Archivo | Celdas | KB |
 |---|---|---|
-| guadarrama.bin | 215 × 236 | 71 |
+| guadarrama.bin | 215 × 236 | 66 |
 | sierra-norte.bin | 210 × 326 | 98 |
-| sierra-oeste.bin | 197 × 253 | 62 |
+| sierra-oeste.bin | 197 × 253 | 61 |
 | soria.bin | 241 × 270 | 104 |
 | burgos.bin | 286 × 481 | 165 |
 | merindades.bin | 335 × 396 | 176 |
@@ -639,9 +641,9 @@ Hay unas pocas gruesas repetidas entre zonas vecinas (mismo `col:fila`), que se 
 
 | Zona | Celdas finas | Con monte | De ellas, de provincias vecinas | Prohibidas | Sin altitud | Con altitud sin tesela | Cobertura MFE50 | Gruesas |
 |---|---|---|---|---|---|---|---|---|
-| guadarrama | 50.740 | 30.293 | 822 | 2535 | 0 | 0 | 100 % | 12 |
+| guadarrama | 50.740 | 27.650 | 815 | 6209 | 0 | 0 | 100 % | 12 |
 | sierra-norte | 68.460 | 37.098 | 8644 | 118 | 0 | 0 | 100 % | 16 |
-| sierra-oeste | 49.841 | 26.259 | 6562 | 0 | 0 | 0 | 100 % | 11 |
+| sierra-oeste | 49.841 | 26.031 | 6561 | 318 | 0 | 0 | 100 % | 11 |
 | soria | 65.070 | 51.890 | 14.025 | 0 | 0 | 0 | 100 % | 12 |
 | burgos | 137.566 | 66.973 | 9019 | 0 | 0 | 0 | 100 % | 20 |
 | merindades | 132.660 | 61.331 | 15.519 | 0 | 0 | 0 | 100 % | 20 |
@@ -667,9 +669,9 @@ Lo que sigue sin cubrir:
 
 Celdas por provincia (celdas de la ventana que caen en una tesela de cada provincia; «vecina» = bit 5 si hay monte):
 
-- guadarrama: Madrid 20.664, Segovia 26.607, Ávila (vecina) 934.
+- guadarrama: Madrid 17.081, Segovia 26.538, Ávila (vecina) 912 (02/10/2026, con los MUP NO IR prohibidos; antes Madrid 20.664, Segovia 26.607, Ávila 934).
 - sierra-norte: Madrid 26.632, Segovia 23.185, Guadalajara (vecina) 18.525.
-- sierra-oeste: Madrid 38.706, Ávila (vecina) 6696, Toledo (vecina) 4158, Segovia (vecina) 281.
+- sierra-oeste: Madrid 38.390, Ávila (vecina) 6694, Toledo (vecina) 4158, Segovia (vecina) 281.
 - soria: Soria 46.043, La Rioja (vecina) 14.522, Burgos (vecina) 4505.
 - burgos: Burgos 121.946, Soria (vecina) 10.560, La Rioja (vecina) 5060.
 - merindades: Burgos 97.436, Cantabria (vecina) 30.874, Bizkaia (vecina) 3923, Palencia (vecina) 59, Álava (vecina) 368.
@@ -682,9 +684,9 @@ Celdas por provincia (celdas de la ventana que caen en una tesela de cada provin
 
 Celdas con monte por hábitat (de la zona y de vecinas; regenerado el 02/10/2026, después de dar `pinar-pinonero` al níscalo):
 
-- guadarrama: pinar-silvestre 11.687, pastizal-montana 8106, melojar 4136, encinar 2975, prado 2059, pinar-resinero 905, chopera 192, pinar-negral 183, pinar-pinonero 25, quejigar 25.
+- guadarrama: pinar-silvestre 10.444, pastizal-montana 7882, melojar 3407, encinar 2971, prado 2059, pinar-resinero 492, chopera 192, pinar-negral 157, quejigar 25, pinar-pinonero 21.
 - sierra-norte: melojar 10.394, pastizal-montana 8123, pinar-silvestre 7518, encinar 4295, pinar-resinero 2211, prado 1681, pinar-negral 894, sabinar 856, chopera 606, quejigar 349, hayedo 135, pinar-pinonero 24, robledal-albar 12.
-- sierra-oeste: encinar 13.306, pinar-pinonero 5622, pinar-resinero 3392, pastizal-montana 1230, melojar 795, pinar-silvestre 764, prado 762, chopera 265, pinar-negral 116, quejigar 7.
+- sierra-oeste: encinar 13.302, pinar-pinonero 5622, pinar-resinero 3293, pastizal-montana 1228, melojar 794, prado 760, pinar-silvestre 652, chopera 265, pinar-negral 108, quejigar 7.
 - soria: pinar-silvestre 23.719, melojar 7400, pastizal-montana 6780, sabinar 5087, pinar-resinero 3196, hayedo 2300, encinar 2156, pinar-negral 651, quejigar 312, chopera 138, robledal-albar 108, prado 22, abedular 21.
 - burgos: melojar 16.983, pinar-silvestre 13.780, encinar 8654, sabinar 6884, pinar-resinero 5504, pastizal-montana 3953, hayedo 3238, pinar-negral 3201, quejigar 2256, chopera 1288, prado 1009, robledal-albar 166, pinar-pinonero 57.
 - merindades: encinar 15.975, prado 8592, pinar-silvestre 6913, hayedo 5737, quejigar 5320, pinar-resinero 5111, melojar 4088, robledal-albar 3917, pastizal-montana 2957, pinar-negral 1318, chopera 1099, castanar 201, sabinar 61, abedular 38, pinar-pinonero 4.
@@ -696,6 +698,8 @@ Celdas con monte por hábitat (de la zona y de vecinas; regenerado el 02/10/2026
 - extremadura: encinar 335.493, prado 133.199, alcornocal 42.042, melojar 29.239, pinar-resinero 18.815, pastizal-montana 6108, pinar-pinonero 5242, castanar 2565, chopera 2114, pinar-silvestre 995, quejigar 414, pinar-negral 44, abedular 10.
 
 **Efecto de dar `pinar-pinonero` al níscalo (02/10/2026).** El piñonero entra en el conjunto de hábitats con índice, así que en las teselas cuya primera especie es *Pinus pinea* manda ya el piñonero y no la segunda especie (regla «qué especie manda», arriba). Se regeneraron todas las zonas con `generar.mjs` y se compararon las celdas decodificadas con las anteriores: cambian **1.482 celdas**, todas a `pinar-pinonero` (gredos 586, extremadura 693 en sus cinco archivos, toledo 110, cuenca 69, sierra-norte 11, burgos 7, merindades 4, alava 2; antes eran encinar, resinero, alcornocal, melojar, quejigar o negral). guadarrama, soria y guadalajara no cambian (se dejaron sus archivos anteriores). Ni la altitud ni la orientación cambian en ninguna celda.
+
+**Montes NO IR fuera del Parque (ronda de arreglos, 02/10/2026).** Con los 24 polígonos `mad-mup-*` se regeneraron `guadarrama` (3.674 celdas más prohibidas: de 2535 a 6209) y `sierra-oeste` (318 prohibidas: MUP 46 y la punta sur del MUP 39); `sierra-norte` no cambia. Las celdas de los cinco puntos NO IR quedan prohibidas y sin hábitat (lo comprueba `tests/puntos-madrid.test.js`). Las celdas gruesas siguen siendo 366.
 
 Notas:
 
@@ -757,7 +761,7 @@ extremadura-hervas-castanar castanar → castanar 969 m (punto: 968 m)
 extremadura-trevejo-castanar castanar → castanar 784 m (punto: 785 m)
 ```
 
-Coinciden 49 de los 50 puntos (02/10/2026, con los 15 de la fase 1 de Madrid) y ninguno sale «sin monte». La única discrepancia de hábitat es
+Coinciden 44 de los 50 puntos (02/10/2026, con los 15 de la fase 1 de Madrid). Los cinco puntos NO IR (`noIr: true`: MUP 39, 32, 60, 102 y 46) caen a propósito en celdas prohibidas sin hábitat: antes de los polígonos `mad-mup-*` daban su mismo hábitat. Ninguno de los demás sale «sin monte». La única discrepancia de hábitat es
 `toledo-navalucillos-encinar`, y no es un error del MFE50:
 
 - El punto cae en una tesela de encinar (polígono 574949: *Quercus ilex* 7/10).
@@ -854,10 +858,10 @@ Dos sitios nuevos en `sierra-norte` (de 178 a 180), a petición de la usuaria, q
 
 Doce sitios nuevos (de 180 a 192) y seis corregidos, a partir del informe de investigación de ese día. Los registros de GBIF citados se comprobaron uno a uno en la API (`api.gbif.org/v1/occurrence/<id>`) y se cruzaron con los MUP de la IDEM y con la zonificación del Parque Nacional del OAPN. iNaturalist y Observation.org cuentan como fuentes distintas; los listados turísticos que repiten el mismo texto (Telemadrid 2021, tuscasasrurales 2022), como una sola.
 
-- `sierra-oeste`: `abantos-mup-46-pinar` (3 fuentes), `santa-maria-alameda-pinares` (2), `navahonda-robledo-de-chavela` (2), `san-martin-valdeiglesias-pinares` (2), `valdemaqueda-mup-185` (1, sin especies: las observaciones de níscalo «entre Valdemaqueda y Las Navas» caen en Ávila según GBIF) y `herreria-patrimonio-nacional-no-ir` (NO IR, `sin-confirmar`).
+- `sierra-oeste`: `abantos-mup-46-pinar` (3 fuentes; NO IR y `prohibido` desde la ronda de arreglos, sin especies), `santa-maria-alameda-pinares` (2), `navahonda-robledo-de-chavela` (2), `san-martin-valdeiglesias-pinares` (2), `valdemaqueda-mup-185` (0 fuentes desde la ronda de arreglos, sin especies: las observaciones de níscalo «entre Valdemaqueda y Las Navas» caen en Ávila según GBIF) y `herreria-patrimonio-nacional-no-ir` (NO IR, `sin-confirmar`).
 - `guadarrama`: `guadarrama-mup-39-pinar` (2), `cercedilla-mup-32-fuera-parque` (3) y `alameda-pinilla-fuera-parque` (1). Son montes públicos fuera del Parque Nacional sin ordenanza: por decisión de la usuaria van como NO IR y `prohibido`, igual que `pn-monte-sin-plan`, con la nota del PORN (4.4.2.6 pendiente de confirmación oficial). No listan especies; los registros van en el consejo y en las fuentes.
-- `sierra-norte`: `montejo-mup-202-91-fuera-hayedo` (2), `pradena-la-morra-mup-155` (2) y `hiruela-dehesa-boyal-mup-79` (1, sin especies).
-- Corregidos: `pn-monte-sin-plan` y `la-barranca-fuenfria-cotos-no-ir` (siguen `prohibido`; nota del PORN), `sierra-norte-pueblos-sin-ordenanza` (sigue `sin-confirmar`; separa los municipios del PORN de los del Rincón y añade Braojos pendiente de acotamiento), `somosierra-dehesa` (de 1 a 3 fuentes: hongo blanco en el MUP 122 en 2007, 2014 y 2022), `lozoya-coto-micologico` (de 1 a 3 fuentes con el MUP 131; el informe decía por error «de 3 a 4») y `buitrago-del-lozoya-pinar` (nota del PORN).
+- `sierra-norte`: `montejo-mup-202-91-fuera-hayedo` (2), `pradena-la-morra-mup-155` (2) y `hiruela-dehesa-boyal-mup-79` (0, sin especies: las observaciones caen fuera del monte). `navahonda-robledo-de-chavela` no lista *Agaricus campestris* (los listados dicen «champiñones silvestres» sin especie).
+- Corregidos: `pn-monte-sin-plan` y `la-barranca-fuenfria-cotos-no-ir` (siguen `prohibido`; nota del PORN), `sierra-norte-pueblos-sin-ordenanza` (sigue `sin-confirmar`; separa los municipios del PORN de los del Rincón y añade Braojos pendiente de acotamiento), `somosierra-dehesa` (de 1 a 3 fuentes: hongo blanco en el MUP 122 en 2007, 2014 y 2022), `lozoya-coto-micologico` no cambia (en la primera versión subía a 3 fuentes con el MUP 131, pero ese monte no consta dentro del coto: se deshizo) y `buitrago-del-lozoya-pinar` (nota del PORN).
 - Lo fija `tests/sitios-datos.test.js` («fase 1 de Madrid»): estado de los NO IR, que ningún sitio que cite el PORN salga como libre o con permiso, Braojos `vigente: false` y el número de fuentes de cada sitio nuevo.
 
 ## Meteorología (Open-Meteo)
@@ -884,7 +888,7 @@ Open-Meteo cuenta como varias llamadas una petición de más de 10 variables o d
 
 Antes (hasta la v1) la climatología pedía 2 variables desde el 1-ene-2023, ≈ 26 × 1 × 93 ≈ **2.430** llamadas, en cada refresco con una clave que cambiaba cada día (causa probable de los 429). La climatología solo alimenta `fS` (humedad del suelo): si no llega, el índice se calcula sin ese factor y lo explica. La lluvia desde el 1-ago, en cambio, es imprescindible para las especies de otoño desde el 1-oct: si no llega ni del archivo ni del forecast, esas especies salen «sin datos» y la zona, «sin datos» o «N especies sin datos suficientes», nunca con una nota inventada.
 
-Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago se piden después de la serie principal, no a la vez, para no competir con ella. Ojo: la climatología (~2.600 con 50 puntos) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, entra en la espera creciente y, mientras, el índice va sin humedad del suelo.
+Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde el 1-ago y 45 s la climatología. La climatología y la lluvia desde el 1-ago se piden después de la serie principal, no a la vez, para no competir con ella. Climatología del suelo en la función `rejilla` (cuenta con `planificar`, 02/10/2026): en régimen diario sobran unas 150 llamadas por ejecución y caben unos 8 grupos de climatología, así que renovar las 346 posiciones lleva unas 43 ejecuciones, **unos 22 días** (antes 9 grupos y unos 19 días con 341 posiciones). Sigue por debajo del mes que dura útil cada climatología (meses m−1 a m+1), pero con menos margen. Ojo: la climatología del cliente (~2.600 con 50 puntos) sigue pasando del límite por minuto si Open-Meteo lo aplica a una sola petición; como es una vez al mes y solo afecta a `fS`, se acepta; si da 429, entra en la espera creciente y, mientras, el índice va sin humedad del suelo.
 
 **Cambio de modelo (01/10/2026): Météo-France → GFS.** A petición de la usuaria, que lo veía «falsear mucho», el tercer modelo del contraste pasa de `meteofrance_seamless` a `gfs_seamless` (NOAA). Comprobación hecha ese día con la Previous Runs API de Open-Meteo (previsiones hechas 1–4 días antes) frente a la lluvia diaria de las 23 estaciones AEMET de la app, del 05 al 27/09/2026 (510 pares estación-día por modelo y antelación):
 

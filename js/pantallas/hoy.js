@@ -1,7 +1,7 @@
 // Pantalla «Hoy»: una nota por zona, la mejor destacada y un filtro por especie y día.
 import { indiceZona } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
-import { especiesDeZona, nombreCorto } from '../datos.js';
+import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { urlSegura } from '../ui/normativa.js';
 
@@ -49,7 +49,10 @@ export const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin 
 
 // Cálculo de una zona para el día i (hoy + d), opcionalmente limitado a una especie.
 export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
-  const series = Object.fromEntries(zona.puntos.map((p) => [p.id, meteo.series?.[p.id]]).filter(([, s]) => s));
+  // Los puntos NO IR (solo meteo) no entran: nunca pueden salir como mejor punto de la zona.
+  const recogibles = puntosRecogibles(zona);
+  if (!recogibles.length) return sinDatosZona(zona, 'Todos los puntos de esta zona son NO IR (solo meteo). No se calcula nota.');
+  const series = Object.fromEntries(recogibles.map((p) => [p.id, meteo.series?.[p.id]]).filter(([, s]) => s));
   const primera = Object.values(series)[0];
   if (!primera) return sinDatosZona(zona, 'No hay datos meteorológicos de esta zona. No se calcula nota.');
   let especies = especiesDeZona(zona, datos.especies, umbrales);
@@ -68,7 +71,7 @@ export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
   }
   const mejor = res.especies[0];
   const discrepa = !!meteo.contraste?.[zona.id]?.discrepa;
-  return { zona, res, mejor, incierta, discrepa, protegido: !!zona.puntos.find((p) => p.id === mejor.punto)?.proteccion };
+  return { zona, res, mejor, incierta, discrepa, rotulo: rotuloPunto(zona.puntos.find((p) => p.id === mejor.punto)) };
 }
 
 export const ordenarZonas = (filas) => [...filas].sort((a, b) => (b.res.valor ?? -1) - (a.res.valor ?? -1));
@@ -93,7 +96,7 @@ function filaZona(fila, pos, datos, d) {
   if (d > 0 && fila.mejor) estado.append(etiqueta('Previsión', 'ocre'));
   if (fila.incierta) estado.append(etiqueta('Previsión incierta', 'ocre'));
   if (fila.discrepa) estado.append(etiqueta('Estación y modelo no coinciden', 'ocre'));
-  if (fila.protegido) estado.append(etiqueta('Espacio protegido', 'ocre'));
+  if (fila.rotulo) estado.append(etiqueta(fila.rotulo.texto, fila.rotulo.variante));
   const a = el('a', { clase: 'fila-zona', href: `#zona/${fila.zona.id}`, attrs: { 'data-nivel': nivel } },
     el('span', { clase: 'fila-zona__nombre-linea' }, el('span', { clase: 'fila-zona__pos', texto: String(pos) }), el('span', { clase: 'fila-zona__nombre', texto: nombreCorto(fila.zona) })),
     fila.res.valor != null ? notaGrande(fila.res.valor) : null,
@@ -113,7 +116,7 @@ function destacada(fila, datos, caducado, d) {
   if (fila.mejor.min !== fila.mejor.max) meta.append(etiqueta(`${fila.mejor.min} a ${fila.mejor.max} según el punto`));
   meta.append(etiqueta(`Confianza ${fila.mejor.resultado.confianza}`));
   if (d > 0) meta.append(etiqueta('Previsión', 'ocre'));
-  if (fila.protegido) meta.append(etiqueta('Espacio protegido', 'ocre'));
+  if (fila.rotulo) meta.append(etiqueta(fila.rotulo.texto, fila.rotulo.variante));
   const top = fila.res.especies.slice(0, 3).map((s) => {
     const se = datos.porId[s.id];
     return el('li', {}, el('span', {}, latin(se.nombre), ' ', el('span', { clase: 'texto-2', texto: comun(se) })),

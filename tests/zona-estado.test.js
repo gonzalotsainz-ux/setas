@@ -90,3 +90,28 @@ test('notaPunto: sin datos de otoño + fuera de temporada → valor null, incomp
   const f = notaPunto(zona, { id: 'a' }, datosCon(MORCHELLA), { series: { a: serieSintetica({ precip: lluviaBuena }) } }, {});
   assert.equal(f.fueraDeTemporada, true);
 });
+
+test('puntos NO IR: nunca son el mejor punto en Hoy y llevan su rótulo; los demás con protección, «Restricciones»', async () => {
+  const { rotuloPunto, puntosRecogibles } = await import('../js/datos.js');
+  const zonaNoIr = { id: 'z', habitats: ['pinar'], puntos: [{ id: 'malo', noIr: true, proteccion: 'NO IR' }, { id: 'b', proteccion: 'Régimen de recogida sin confirmar.' }] };
+  // El punto NO IR tiene mucha más lluvia: con él dentro sería el mejor
+  const meteo = { series: { malo: serieSintetica({ precip: lluviaBuena }), b: serieSintetica({ precip: () => 0.5 }) } };
+  const f = calcularZona(zonaNoIr, datosCon(BOLETUS), meteo, 0, '');
+  assert.equal(f.mejor.punto, 'b');
+  assert.deepEqual(f.rotulo, { texto: 'Restricciones', variante: 'ocre' });
+  assert.deepEqual(rotuloPunto({ noIr: true, proteccion: 'x' }), { texto: 'NO IR (solo meteo)', variante: 'peligro' });
+  assert.equal(rotuloPunto({}), null);
+  assert.deepEqual(puntosRecogibles(zonaNoIr).map((p) => p.id), ['b']);
+  // Una zona con todos sus puntos NO IR no da nota
+  const soloNoIr = calcularZona({ ...zonaNoIr, puntos: [zonaNoIr.puntos[0]] }, datosCon(BOLETUS), meteo, 0, '');
+  assert.equal(soloNoIr.mejor, null);
+  assert.match(soloNoIr.motivo, /NO IR/);
+});
+
+test('RESTRINGIDO: los avisos de régimen sin confirmar de Abantos y Robregordo salen como restricción', async () => {
+  const { RESTRINGIDO } = await import('../js/pantallas/zona.js');
+  const { readFileSync } = await import('node:fs');
+  const puntos = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas.flatMap((z) => z.puntos);
+  for (const id of ['sierra-oeste-abantos-silvestre', 'sierra-norte-robregordo-silvestre']) assert.match(puntos.find((p) => p.id === id).proteccion, RESTRINGIDO, id);
+  for (const t of ['no se han encontrado sus normas', 'no se ha localizado ordenanza', 'régimen sin confirmar', 'pendiente de confirmación oficial']) assert.match(t, RESTRINGIDO, t);
+});

@@ -14,6 +14,11 @@ export async function cargarDatos() {
   return cache;
 }
 export const puntosDe = (zonas) => zonas.flatMap((z) => z.puntos);
+// Puntos NO IR (`noIr: true`): solo sirven para la meteo; nunca son el «mejor punto» de una zona.
+export const puntosRecogibles = (zona) => zona.puntos.filter((p) => !p.noIr);
+// Rótulo de un punto: NO IR en rojo; con `proteccion`, «Restricciones» en ocre; si no, nada.
+export const rotuloPunto = (p) => (p?.noIr ? { texto: 'NO IR (solo meteo)', variante: 'peligro' }
+  : p?.proteccion ? { texto: 'Restricciones', variante: 'ocre' } : null);
 export function especiesDeZona(zona, especies, umbrales = {}) {
   return especies
     .filter((e) => e.categoria === 'comestible' && e.indice && e.zonas[zona.id] && e.zonas[zona.id].presencia !== 'sin-registros'

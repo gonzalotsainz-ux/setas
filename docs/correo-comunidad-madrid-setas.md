@@ -18,7 +18,8 @@ Sé que el Tribunal Supremo confirmó en 2014 la anulación parcial de este PORN
 2. ¿Permite hoy recoger setas para uso individual, sin licencia, en los montes de utilidad pública que están fuera del Parque Nacional y dentro del ámbito del PORN? Por ejemplo:
    - el MUP n.º 39 «Pinar y Agregados», en Guadarrama;
    - la parte del MUP n.º 32 «Pinar y Agregados», en Cercedilla, que queda fuera del Parque Nacional (zona de Las Dehesas);
-   - el MUP n.º 60 «Moroviejo y Santa Ana», en Alameda del Valle.
+   - el MUP n.º 60 «Moroviejo y Santa Ana», en Alameda del Valle;
+   - el MUP n.º 46 «La Jurisdicción», en San Lorenzo de El Escorial (Pinar de Abantos), que además está en el Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería»: ¿tiene este Paraje normas propias sobre la recogida de setas?
 3. Si se puede recoger en esos montes, ¿a qué normas hay que atenerse? En concreto: cupo de kilos por persona y día, horario o temporada, cómo se señalizan los montes o las zonas acotadas, y si hay que evitar los días de caza.
 4. Si no se puede, ¿qué norma lo impide y dónde puedo consultarla?
 

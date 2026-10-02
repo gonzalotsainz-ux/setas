@@ -296,3 +296,14 @@ test('validarPueblos: sin licencia o con un pueblo sin coordenadas', () => {
   m.pueblos.push({ n: 'Sin sitio', p: 'Soria', lat: null, lon: -2.5 });
   assert.match(validarPueblos(m).join('\n'), /«Sin sitio» sin nombre o coordenadas/);
 });
+
+test('validar: noIr solo puede ser true y exige explicar el NO IR en proteccion', async () => {
+  const { validar } = await import('../scripts/validar-datos.mjs');
+  const { readFileSync } = await import('node:fs');
+  const leerJ = (f) => JSON.parse(readFileSync(f, 'utf8'));
+  const base = { especies: leerJ('data/especies.json'), normativa: leerJ('data/normativa.json'), cotos: leerJ('data/cotos.geojson'), sitios: leerJ('data/sitios.json') };
+  const conPunto = (cambio) => { const zonas = leerJ('data/zonas.json'); Object.assign(zonas.zonas[0].puntos[0], cambio); return validar({ ...base, zonas }); };
+  assert.deepEqual(validar({ ...base, zonas: leerJ('data/zonas.json') }), []);
+  assert.ok(conPunto({ noIr: false }).some((e) => /noIr solo puede ser true/.test(e)));
+  assert.ok(conPunto({ noIr: true, proteccion: 'Parque Nacional' }).some((e) => /debe explicar en proteccion/.test(e)));
+});

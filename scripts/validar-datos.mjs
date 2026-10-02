@@ -49,6 +49,8 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
       if (!HABITATS.includes(p.habitat)) err(`punto ${p.id}: hábitat desconocido ${p.habitat}`);
       if (!URL_OK.test(p.fuente ?? '')) err(`punto ${p.id}: sin fuente`);
       if (!FECHA.test(p.revisado ?? '')) err(`punto ${p.id}: revisado mal formado`);
+      if (p.noIr !== undefined && p.noIr !== true) err(`punto ${p.id}: noIr solo puede ser true`);
+      if (p.noIr && !/NO IR/.test(p.proteccion ?? '')) err(`punto ${p.id}: un punto noIr debe explicar en proteccion por qué es NO IR`);
     }
     for (const h of z.habitats ?? []) if (!HABITATS.includes(h)) err(`zona ${z.id}: hábitat desconocido ${h}`);
     for (const n of z.normas ?? []) if (!idsNormas.has(n)) err(`zona ${z.id}: norma inexistente ${n}`);
