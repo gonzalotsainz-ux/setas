@@ -162,7 +162,7 @@ test('qué toca a cada hora UTC (minuto 10) y las pedidas a mano', () => {
   assert.deepEqual(fuentesQueTocan(a(5), ['tajo10', 'aemet', 'nada']), ['aemet', 'tajo10']);
 });
 
-test('ejecutar: guarda en bruto con su fuente; tajo10 se guarda como tajo; sin clave de AEMET, Tajo sigue', async () => {
+test('ejecutar: guarda cada hora con su fuente y su calidad; tajo10 se guarda como tajo; sin clave de AEMET, Tajo sigue', async () => {
   const almacen = almacenPluvioMemoria();
   const r = await ejecutar({ almacen, fetchFn: servidorFalso([...rutasTajo(), ...rutasAemet()]), esperar: sinEspera,
     estaciones: [P26, { fuente: 'aemet', codigo: '3104Y' }], pedidas: ['aemet', 'tajo10'] });
@@ -170,7 +170,7 @@ test('ejecutar: guarda en bruto con su fuente; tajo10 se guarda como tajo; sin c
   assert.deepEqual(r.filas, { tajo10: 241 });
   assert.deepEqual(r.errores, ['aemet: sin clave (falta el secreto AEMET_API_KEY)']);
   const una = almacen.obs.get('tajo|P_26|2026-10-02T06:00:00.000Z');
-  assert.deepEqual(una, { fuente: 'tajo', estacion: 'P_26', hora: '2026-10-02T06:00:00.000Z', horas: 1, mm: 10, calidad: 'bruto' });
+  assert.deepEqual(una, { fuente: 'tajo', estacion: 'P_26', hora: '2026-10-02T06:00:00.000Z', horas: 1, mm: 10, calidad: 'ok' });
 });
 
 test('cambio de hora: la noche del 25/10/2026, la segunda 02:00 de Madrid es 01:00Z', () => {

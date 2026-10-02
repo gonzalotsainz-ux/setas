@@ -47,9 +47,9 @@ export const rutasAemet = (estado = 200) => [
 // Almacén en memoria con la interfaz de almacenSupabase. Como Postgres, un upsert que toca dos veces la misma fila falla.
 // diasPorEstacion devuelve lo mismo que la función SQL lluvia_por_dia (un array por columna y estación).
 export function almacenPluvioMemoria() {
-  const obs = new Map(), dias = new Map();
+  const obs = new Map(), dias = new Map(), modelo = new Map();
   return {
-    obs, dias,
+    obs, dias, modelo,
     async guardarObs(filas) {
       const claves = filas.map((f) => `${f.fuente}|${f.estacion}|${f.hora}`);
       if (new Set(claves).size !== claves.length) throw new Error('ON CONFLICT DO UPDATE command cannot affect row a second time');
@@ -66,6 +66,7 @@ export function almacenPluvioMemoria() {
       return [...r.values()];
     },
     async guardarDias(filas) { for (const f of filas) dias.set(`${f.fuente}|${f.estacion}|${f.fecha}`, { ...f }); },
+    async precipCeldas(ids) { return new Map(ids.filter((id) => modelo.has(id)).map((id) => [id, modelo.get(id)])); },
   };
 }
 

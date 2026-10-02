@@ -9,6 +9,7 @@ import { leerDuero } from './lectores/duero.js';
 import { leerJucar, fechasJucar } from './lectores/jucar.js';
 import { diasDeFilas } from './dias.js';
 import { publicar } from './publicar.js';
+import { calidadHora } from './calidad.js';
 import { esHoraEnPunto } from './tiempo.js';
 
 // Supabase corta a los 150 s: la ejecución acaba antes de PLAZO_EJECUCION y las lecturas dejan RESERVA_MS para guardar.
@@ -42,7 +43,7 @@ export function fuentesQueTocan(ahora, pedidas = []) {
   if (pedidas.length) return claves.filter((t) => pedidas.includes(t));
   return claves.filter((t) => TAREAS[t].toca(ahora.getUTCHours(), ahora.getUTCDay()));
 }
-export const filaObs = (fuente, f) => ({ fuente, estacion: f.estacion, hora: f.hora, horas: f.horas ?? 1, mm: f.mm, calidad: 'bruto' });
+export const filaObs = (fuente, f) => ({ fuente, estacion: f.estacion, hora: f.hora, horas: f.horas ?? 1, mm: f.mm, calidad: calidadHora(f.mm, f.horas ?? 1) });
 // Postgres no deja que un upsert toque dos veces la misma fila (la hora 02:00 repetida el 25 de octubre): gana la última.
 export function unicas(filas) {
   const m = new Map();
@@ -77,7 +78,7 @@ export async function leerCuerpoCarga(req) {
   try { return { cuerpo: JSON.parse(texto) }; } catch { return { error: 'cuerpo no válido', status: 400 }; }
 }
 
-export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null,
+export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null, gruesa = { celdas: [] },
   esperar = dormir, reloj = () => Date.now(), plazo = PLAZO_EJECUCION, senal }) {
   const limite = reloj() + plazo;
   const pedir = crearPedir({ fetchFn, esperar, margen: () => limite - RESERVA_MS - reloj(), ...(senal ? { senal } : {}) });
@@ -89,7 +90,7 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
     const { fuente, leer, paso } = TAREAS[t];
     if (paso) {   // los pasos van después de las lecturas y se hacen aunque estas agotaran su plazo
       if (limite - reloj() < MINIMO_PASO_MS) { r.errores.push(`${t}: sin tiempo para el paso`); continue; }
-      try { r.pasos[t] = await paso({ almacen, hoy, ahora, estaciones }); } catch (e) { r.errores.push(`${t}: ${e.message}`); }
+      try { r.pasos[t] = await paso({ almacen, hoy, ahora, estaciones, gruesa }); } catch (e) { r.errores.push(`${t}: ${e.message}`); }
       continue;
     }
     if (agotado) continue;
@@ -123,6 +124,11 @@ export function almacenSupabase(admin) {
     async diasPorEstacion(desde) { return datos(await admin.rpc('lluvia_por_dia', { p_desde: desde })); },
     async guardarDias(filas) {
       for (let k = 0; k < filas.length; k += 1000) datos(await admin.from('lluvia_dia').upsert(filas.slice(k, k + 1000), { onConflict: 'fuente,estacion,fecha' }));
+    },
+    // Lluvia del modelo (best_match) de unas celdas gruesas, de la función SQL de «rejilla»; solo los días observados.
+    async precipCeldas(ids, desde) {
+      const filas = datos(await admin.rpc('series_celdas', { p_celdas: ids, p_desde: desde }));
+      return new Map(filas.map((f) => [f.celda, new Map(f.fechas.map((d, k) => [String(d).slice(0, 10), f.previsto[k] ? null : f.precip[k]]).filter(([, v]) => v != null))]));
     },
   };
 }
