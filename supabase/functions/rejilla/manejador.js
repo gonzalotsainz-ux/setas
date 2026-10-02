@@ -119,14 +119,15 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
 export { claveValida } from '../_shared/clave.js';
 
 // pluvio/celdas.json del mismo bucket (la función «pluvio» lo publica a las 4 y a las 16 UTC). Si falta, falla, no pasa
-// validarPluvio o tiene más de PLUVIO_MAX_HORAS, null: el índice sale sin pluviómetros, exactamente como antes.
-export const PLUVIO_MAX_HORAS = 36;
+// validarPluvio, tiene más de PLUVIO_MAX_HORAS o es posterior a la ejecución (más de PLUVIO_ADELANTO_MIN, por relojes),
+// null: el índice sale sin pluviómetros, exactamente como antes.
+export const PLUVIO_MAX_HORAS = 36, PLUVIO_ADELANTO_MIN = 10;
 export async function leerPluvioCeldas(almacen, ahora = new Date()) {
   try {
     const p = await almacen.leerJson('pluvio/celdas.json');
     if (!p || validarPluvio(p).length) return null;
     const edad = ahora.getTime() - Date.parse(p.generado);
-    return Number.isFinite(edad) && edad <= PLUVIO_MAX_HORAS * 3600e3 ? p : null;
+    return Number.isFinite(edad) && edad >= -PLUVIO_ADELANTO_MIN * 60e3 && edad <= PLUVIO_MAX_HORAS * 3600e3 ? p : null;
   } catch { return null; }
 }
 

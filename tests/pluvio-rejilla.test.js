@@ -13,7 +13,8 @@ const MANANA = new Date('2026-10-01T05:00:00Z');   // 07:00 en Madrid
 const gruesa = (n) => ({ celdas: Array.from({ length: n }, (_, k) => ({ id: `z:${k}:0`, zona: 'z', lat: 40 + k * 0.01, lon: -4, altRef: 1000 + k })) });
 const DESDE = '2026-08-01', HASTA = '2026-09-30', LARGO = entreDias(DESDE, HASTA) + 1;
 const pluvioCon = (lugares, extra = {}) => ({ version: VERSION_PLUVIO, generado: '2026-10-01T04:10:00.000Z', desde: DESDE, hasta: HASTA, lugares, ...extra });
-const seco = () => ({ mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre: 'Covaleda', fuente: 'duero', km: 2 }], cercanas: 1 });
+const seco = (nombre = 'Covaleda') => ({ mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre, fuente: 'duero', km: 2 }], cercanas: 1 });
+const r1 = (x) => Math.round(x * 10) / 10;
 async function indice(archivoPluvio) {
   const almacen = almacenMemoria();
   if (archivoPluvio !== undefined) almacen.archivos.set('pluvio/celdas.json', archivoPluvio);
@@ -23,7 +24,7 @@ async function indice(archivoPluvio) {
   return almacen.archivos.get('2026-10-01T07.json');
 }
 
-test('equivalencia: sin pluvio/celdas.json (o con uno que no valida o viejo) el índice es el de siempre', async () => {
+test('equivalencia: sin pluvio/celdas.json (o con uno que no valida, viejo o del futuro) el índice es el de siempre', async () => {
   const sin = await indice();
   assert.deepEqual(Object.keys(sin.celdas['z:0:0'].lluvia).sort(), ['desde', 'hoy', 'mm']);
   assert.deepEqual((await indice(pluvioCon({}, { version: 2 }))).celdas, sin.celdas);
@@ -31,6 +32,8 @@ test('equivalencia: sin pluvio/celdas.json (o con uno que no valida o viejo) el 
   // Más de 36 h: la función «pluvio» dejó de publicar; mejor el modelo que una medida que no llega a los últimos días.
   assert.deepEqual((await indice(pluvioCon({ 'z:0:0': seco() }, { generado: '2026-09-29T16:59:00.000Z' }))).celdas, sin.celdas);
   assert.deepEqual((await indice(pluvioCon({ 'z:0:0': seco() }, { generado: 'ayer' }))).celdas, sin.celdas);
+  // Posterior a la ejecución (más de 10 min): un reloj o un archivo mal fechado.
+  assert.deepEqual((await indice(pluvioCon({ 'z:0:0': seco() }, { generado: '2026-10-01T06:00:00.000Z' }))).celdas, sin.celdas);
 });
 
 test('con archivo pero sin estaciones en la zona: las notas no cambian y la lluvia dice que es del modelo', async () => {
@@ -45,25 +48,38 @@ test('con archivo pero sin estaciones en la zona: las notas no cambian y la lluv
   assert.deepEqual(validarSalida(con), []);
 });
 
-test('con lluvia medida en una celda: la suya pasa a medida y las demás de la zona, a estimada con el sesgo', async () => {
+test('con lluvia medida en una sola estación de la zona: la celda pasa a medida y las demás siguen con el modelo', async () => {
   const sin = await indice(), con = await indice(pluvioCon({ 'z:0:0': seco() }));
+  const a = con.celdas['z:0:0'], b = con.celdas['z:1:0'], h = a.lluvia.hoy;
+  assert.ok(a.lluvia.mm.slice(0, h).every((v) => v === 0));
+  assert.ok(b.lluvia.origen.every((o) => o === 0), 'sin 2 estaciones no hay factor de zona');
+  assert.deepEqual(b.lluvia.mm, sin.celdas['z:1:0'].lluvia.mm);
+  assert.deepEqual(b.dias, sin.celdas['z:1:0'].dias);
+});
+
+test('con lluvia medida en dos estaciones: sus celdas pasan a medida y las demás de la zona, a estimada con el sesgo', async () => {
+  const sin = await indice(), con = await indice(pluvioCon({ 'z:0:0': seco(), 'z:2:0': seco('Duruelo') }));
   const a = con.celdas['z:0:0'], b = con.celdas['z:1:0'], h = a.lluvia.hoy;
   assert.equal(h, 59);
   assert.ok(a.lluvia.mm.slice(0, h).every((v) => v === 0), 'del 03/08 a ayer, lo medido');
   assert.deepEqual([a.lluvia.origen[h - 1], a.lluvia.origen[h]], [1, 0]);   // ayer medido; hoy, del modelo
   assert.deepEqual(a.lluvia.estaciones, ['Covaleda']);
   assert.ok(a.dias[0][0] < sin.celdas['z:0:0'].dias[0][0], 'menos lluvia en 26 días');
-  // La zona midió 0 frente a un modelo con lluvia: cociente (0 + 5)/(modelo + 5) → acotado a 0,5 en las celdas sin estación.
+  // La zona midió 0 frente a un modelo con lluvia: cociente (0 + 5)/(modelo + 5) → acotado a 0,67 en las celdas sin estación.
   assert.equal(b.lluvia.origen[h - 1], 2);
-  assert.equal(b.lluvia.mm[h - 1], sin.celdas['z:1:0'].lluvia.mm[h - 1] * 0.5);
+  assert.equal(b.lluvia.mm[h - 1], r1(sin.celdas['z:1:0'].lluvia.mm[h - 1] * 0.67));
   assert.deepEqual(validarSalida(con), []);
 });
 
-test('factoresPorZona: con los pares medido/modelo de las celdas con estación de cada zona', () => {
+test('factoresPorZona: cada estación de la zona cuenta una vez por fecha; con una sola estación, sin factor', () => {
   const s = serieSintetica({ inicio: '2026-08-03', precip: () => 2 });
-  const m = { mm: Array(LARGO).fill(3), n: Array(LARGO).fill(1), estaciones: [], cercanas: 1 };
-  const f = factoresPorZona([{ id: 'x', zona: 'a' }, { id: 'y', zona: 'b' }], new Map([['x', s], ['y', s]]), pluvioCon({ x: m }));
-  // Sesgo suavizado (ruling de la tarea 9): 30 días de 3 mm medidos frente a 2 del modelo → (90 + 5)/(60 + 5) = 1,46.
+  const m = (mm, nombre) => ({ mm: Array(LARGO).fill(mm), n: Array(LARGO).fill(1), estaciones: [{ nombre, fuente: 'tajo', km: 3 }], cercanas: 1 });
+  const celdas = [['x1', 'a'], ['x2', 'a'], ['x3', 'a'], ['w', 'a'], ['y', 'b'], ['y2', 'b']].map(([id, zona]) => ({ id, zona }));
+  const series = new Map(celdas.map((c) => [c.id, s]));
+  // Zona a: la estación A cubre tres celdas (4 mm/día) y B una (2 mm/día); por fecha (4 + 2)/2 = 3 frente a 2 del modelo:
+  // (90 + 5)/(60 + 5) = 1,46. Contando por celda saldría (3,5 × 30 + 5)/65 = 1,69 → 1,5.
+  // Zona b: dos celdas, pero la misma estación → sin factor.
+  const f = factoresPorZona(celdas, series, pluvioCon({ x1: m(4, 'A'), x2: m(4, 'A'), x3: m(4, 'A'), w: m(2, 'B'), y: m(3, 'C'), y2: m(3, 'C') }));
   assert.deepEqual([...f], [['a', 1.46]]);
 });
 

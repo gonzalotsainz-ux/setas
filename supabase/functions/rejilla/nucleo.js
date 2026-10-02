@@ -195,15 +195,33 @@ export async function pedirConReintento(fetchFn, url, { intentos = 3, esperas = 
   }
 }
 
-// Sesgo del modelo por zona (spec de pluviómetros §3.3): los pares medido/modelo de las celdas de la zona que tienen
-// estación, con las series del MODELO. Con lotes > 1 cada lote lo calcula con sus celdas.
+// Sesgo del modelo por zona (spec de pluviómetros §3.3; Ruling de la tarea 12): los pares medido/modelo de las celdas de
+// la zona que tienen estación, con las series del MODELO. Cada estación (la más cercana de las usadas en la celda, su
+// representante) cuenta una vez por fecha: las celdas que comparten representante dan un solo par, la media de los suyos;
+// así un pluviómetro que cubre muchas celdas no pesa por todas. Sin 2 estaciones distintas, la zona no tiene factor (1).
+// Con lotes > 1 cada lote lo calcula con sus celdas.
+export const ESTACIONES_SESGO = 2;
 export function factoresPorZona(celdas, series, pluvio) {
-  const pares = new Map();
+  const zonas = new Map();   // zona → estación → fecha → { medida, modelo, k }
   for (const c of celdas) {
-    const s = series.get(c.id), m = pluvio.lugares?.[c.id];
-    if (!s || !m) continue;
-    if (!pares.has(c.zona)) pares.set(c.zona, []);
-    pares.get(c.zona).push(...paresSesgo(s, m, pluvio.desde, pluvio.hasta));
+    const s = series.get(c.id), m = pluvio.lugares?.[c.id], rep = m?.estaciones?.[0];
+    if (!s || !m || !rep) continue;
+    const clave = `${rep.fuente}:${rep.nombre}`;
+    if (!zonas.has(c.zona)) zonas.set(c.zona, new Map());
+    const porEstacion = zonas.get(c.zona);
+    if (!porEstacion.has(clave)) porEstacion.set(clave, new Map());
+    const porFecha = porEstacion.get(clave);
+    for (const p of paresSesgo(s, m, pluvio.desde, pluvio.hasta)) {
+      const t = porFecha.get(p.fecha) ?? { medida: 0, modelo: 0, k: 0 };
+      t.medida += p.medida; t.modelo += p.modelo; t.k++;
+      porFecha.set(p.fecha, t);
+    }
   }
-  return new Map([...pares].map(([zona, p]) => [zona, factorSesgo(p)]));
+  const r = new Map();
+  for (const [zona, porEstacion] of zonas) {
+    const conPares = [...porEstacion.values()].filter((f) => f.size);
+    if (conPares.length < ESTACIONES_SESGO) continue;
+    r.set(zona, factorSesgo(conPares.flatMap((f) => [...f].map(([fecha, t]) => ({ fecha, medida: t.medida / t.k, modelo: t.modelo / t.k })))));
+  }
+  return r;
 }

@@ -44,16 +44,16 @@ test('seriesMedidas: un valor por día con las estaciones que lo dan; sin estaci
   assert.deepEqual(r.roto, { mm: [null, null, null], n: [0, 0, 0], estaciones: [], cercanas: 1 });
 });
 
-// Ruling (tarea 9): por fecha la media de los lugares, (medido + 5) / (modelo + 5), acotado 0,5-2; sin corregir con menos
-// de 10 fechas, menos de 10 mm de modelo o menos de 3 días mojados (≥ 1 mm).
+// Ruling (tareas 9 y 12): por fecha la media de los lugares, (medido + 5) / (modelo + 5), acotado 0,67-1,5; sin corregir
+// con menos de 10 fechas, menos de 10 mm de modelo o menos de 5 días mojados (≥ 1 mm).
 const dia = (k) => sumarDias('2026-09-01', k);
 const pares = (n, medida, modelo, desde = 0) => Array.from({ length: n }, (_, k) => ({ fecha: dia(desde + k), medida, modelo }));
-test('sesgo: cociente suavizado de 30 días acotado entre 0,5 y 2; con pocos datos, 1', () => {
+test('sesgo: cociente suavizado de 30 días acotado entre 0,67 y 1,5; con pocos datos, 1', () => {
   assert.equal(factorSesgo(pares(10, 3, 2)), 1.4);       // (30 + 5) / (20 + 5)
   assert.equal(factorSesgo(pares(9, 3, 2)), 1);          // menos de 10 fechas
   assert.equal(factorSesgo(pares(10, 1, 0.9)), 1);       // el modelo casi seco: 9 mm, no se corrige
-  assert.equal(factorSesgo(pares(10, 10, 2)), 2);        // 105 / 25, acotado
-  assert.equal(factorSesgo(pares(10, 0.1, 2)), 0.5);     // 6 / 25, acotado
+  assert.equal(factorSesgo(pares(10, 10, 2)), 1.5);      // 105 / 25, acotado
+  assert.equal(factorSesgo(pares(10, 0.1, 2)), 0.67);    // 6 / 25, acotado
   assert.equal(factorSesgo([]), 1);
 });
 test('sesgo robusto: una tormenta sola, muchos puntos de pocos días o medida rota no corrigen', () => {
@@ -63,14 +63,15 @@ test('sesgo robusto: una tormenta sola, muchos puntos de pocos días o medida ro
   assert.equal(cincoPuntos.length, 10);
   assert.equal(factorSesgo(cincoPuntos), 1);                                                       // 10 pares, 2 fechas
   assert.equal(factorSesgo([...pares(8, 0, 0), ...pares(2, 12, 6, 8)]), 1);                        // 2 días mojados
-  assert.equal(factorSesgo([...pares(7, 0, 0), ...pares(3, 8, 4, 7)]), 1.71);                      // 3 mojados: 29 / 17
+  assert.equal(factorSesgo([...pares(6, 0, 0), ...pares(4, 8, 4, 6)]), 1);                         // 4 días mojados
+  assert.equal(factorSesgo([...pares(5, 0, 0), ...pares(5, 4, 3, 5)]), 1.25);                      // 5 mojados: 25 / 20
   assert.equal(factorSesgo(pares(10, NaN, 2)), 1);
   assert.equal(factorSesgo([...pares(10, 3, 2), { fecha: dia(3), medida: Infinity, modelo: 2 }]), 1.4);   // el par roto se ignora
 });
-test('sesgo: cuatro días mojados repartidos y dos puntos por fecha, cociente de las medias por fecha', () => {
-  const mojado = (k) => [{ fecha: dia(k), medida: 6, modelo: 5 }, { fecha: dia(k), medida: 10, modelo: 5 }];   // media 8 / 5
-  const secos = [0, 2, 4, 6, 8, 9].flatMap((k) => [{ fecha: dia(k), medida: 0, modelo: 0 }, { fecha: dia(k), medida: 0, modelo: 0 }]);
-  assert.equal(factorSesgo([...secos, ...[1, 3, 5, 7].flatMap(mojado)]), 1.48);   // (32 + 5) / (20 + 5)
+test('sesgo: cinco días mojados repartidos y dos puntos por fecha, cociente de las medias por fecha', () => {
+  const mojado = (k) => [{ fecha: dia(k), medida: 6, modelo: 5 }, { fecha: dia(k), medida: 8, modelo: 5 }];   // media 7 / 5
+  const secos = [0, 2, 4, 6, 8].flatMap((k) => [{ fecha: dia(k), medida: 0, modelo: 0 }, { fecha: dia(k), medida: 0, modelo: 0 }]);
+  assert.equal(factorSesgo([...secos, ...[1, 3, 5, 7, 9].flatMap(mojado)]), 1.33);   // (35 + 5) / (25 + 5)
 });
 
 // Serie de 60 días del 03/08 al 01/10 (hoy = 01/10) y medida del 01/08 al 30/09 (61 días).

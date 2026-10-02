@@ -8,16 +8,17 @@
 //    el sitio vale la media de las que dan dato, con el peso fijo de la más cercana; `n` cuenta sitios, no estaciones.
 //  - Sesgo: en los días sin estación válida, el modelo se multiplica por el cociente medido/modelo de los últimos 30 días
 //    en los lugares de la zona que sí tienen estación: por fecha la media de los lugares, (medido + 5) / (modelo + 5) y
-//    acotado entre 0,5 y 2. No se corrige con menos de 10 fechas, menos de 10 mm de modelo o menos de 3 días mojados
-//    (≥ 1 mm): una sola tormenta mal situada no debe doblar ni partir la lluvia. Corrige también la lluvia anterior a la
-//    serie si no está medida entera.
+//    acotado entre 0,67 y 1,5. No se corrige con menos de 10 fechas, menos de 10 mm de modelo o menos de 5 días mojados
+//    (≥ 1 mm): una o dos tormentas mal situadas no deben doblar ni partir la lluvia. En la rejilla, además, hacen falta
+//    2 estaciones distintas en la zona y cada una cuenta una vez por fecha (factoresPorZona). Corrige también la lluvia
+//    anterior a la serie si no está medida entera.
 //  - Archivos publicados (pluvio/ultimo.json por punto de zona, pluvio/celdas.json por celda gruesa):
 //    { version, generado, desde, hasta, lugares: { id: { mm, n, estaciones, cercanas } }, fuentes?, aemet? } (docs/datos.md).
 import { sumarDias, entreDias } from './meteo.js';
 
 export const VERSION_PLUVIO = 1;
 export const MEZCLA = Object.freeze({ radioKm: 20, desnivelMax: 600, escalaDesnivel: 300, kmMin: 1, duplicadaKm: 1.5 });
-export const SESGO = Object.freeze({ dias: 30, min: 0.5, max: 2, modeloMinimo: 10, fechasMinimas: 10, diasMojados: 3, mojadoMm: 1, suavizado: 5 });
+export const SESGO = Object.freeze({ dias: 30, min: 0.67, max: 1.5, modeloMinimo: 10, fechasMinimas: 10, diasMojados: 5, mojadoMm: 1, suavizado: 5 });
 const r1 = (x) => Math.round(x * 10) / 10;
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 
