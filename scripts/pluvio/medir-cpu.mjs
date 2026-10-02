@@ -114,7 +114,8 @@ function almacenPublicar(hoy) {
   for (let f = desde; f < hoy; f = sumarDias(f, 1)) fechas.push(f);
   const lluvia = (k, j) => ((k * 7 + j * 3) % 11 === 0 ? 12.4 : (k + j) % 5 === 0 ? 1.6 : 0);
   const dias = JSON.stringify(ESTACIONES.map((e, k) => ({ fuente: e.fuente, estacion: e.codigo, fechas,
-    mm: fechas.map((_, j) => lluvia(k, j)), horas: fechas.map(() => (e.fuente === 'jucar' ? 24 : 24)), maximo: fechas.map((_, j) => lluvia(k, j) / 3) })));
+    mm: fechas.map((_, j) => lluvia(k, j)), horas: fechas.map(() => (e.fuente === 'jucar' ? 24 : 24)), maximo: fechas.map((_, j) => lluvia(k, j) / 3),
+    ultima: fechas.map(() => true) })));
   const celdas = [...new Set(celdasCercanas(ESTACIONES, GRUESA.celdas).values())];
   const modelo = JSON.stringify(celdas.map((id, k) => ({ celda: id, fechas, precip: fechas.map((_, j) => lluvia(k + 1, j)), previsto: fechas.map(() => false) })));
   let subido = 0;

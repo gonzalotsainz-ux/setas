@@ -59,13 +59,16 @@ export function almacenPluvioMemoria() {
       const r = new Map();
       for (const d of agregarHoras([...obs.values()], desde)) {
         const k = `${d.fuente}|${d.estacion}`;
-        if (!r.has(k)) r.set(k, { fuente: d.fuente, estacion: d.estacion, fechas: [], mm: [], horas: [], maximo: [] });
+        if (!r.has(k)) r.set(k, { fuente: d.fuente, estacion: d.estacion, fechas: [], mm: [], horas: [], maximo: [], ultima: [] });
         const x = r.get(k);
-        x.fechas.push(d.fecha); x.mm.push(d.mm); x.horas.push(d.horas); x.maximo.push(d.maximo);
+        x.fechas.push(d.fecha); x.mm.push(d.mm); x.horas.push(d.horas); x.maximo.push(d.maximo); x.ultima.push(d.ultima);
       }
       return [...r.values()];
     },
     async guardarDias(filas) { for (const f of filas) dias.set(`${f.fuente}|${f.estacion}|${f.fecha}`, { ...f }); },
+    async diasGuardados(desde, hasta) {
+      return [...dias.values()].filter((d) => d.calidad === 'ok' && d.fecha >= desde && d.fecha <= hasta).map(({ actualizado, ...d }) => ({ ...d }));
+    },
     async subir(nombre, json) { archivos.set(nombre, JSON.parse(JSON.stringify(json))); },
     async precipCeldas(ids) { return new Map(ids.filter((id) => modelo.has(id)).map((id) => [id, modelo.get(id)])); },
   };

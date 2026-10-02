@@ -16,8 +16,8 @@ const sinEspera = async () => {};
 
 test('agregación por día de Madrid: Quintanar, el 27/08 y el 30/09 (casos reales)', () => {
   const dias = agregarHoras(duero('PL031'), '2026-08-01');
-  assert.deepEqual(delDia(dias, 'PL031', '2026-08-27'), { fuente: 'duero', estacion: 'PL031', fecha: '2026-08-27', mm: 551.9, horas: 24, maximo: 120 });
-  assert.deepEqual(delDia(dias, 'PL031', '2026-09-30'), { fuente: 'duero', estacion: 'PL031', fecha: '2026-09-30', mm: 186.6, horas: 16, maximo: 81.9 });
+  assert.deepEqual(delDia(dias, 'PL031', '2026-08-27'), { fuente: 'duero', estacion: 'PL031', fecha: '2026-08-27', mm: 551.9, horas: 24, maximo: 120, ultima: true });
+  assert.deepEqual(delDia(dias, 'PL031', '2026-09-30'), { fuente: 'duero', estacion: 'PL031', fecha: '2026-09-30', mm: 186.6, horas: 16, maximo: 81.9, ultima: false });
   assert.ok(dias.every((d) => d.fecha >= '2026-08-01'));
 });
 
@@ -25,14 +25,64 @@ test('agregación: un negativo o un nulo no suman ni cuentan; un total diario (J
   const h = (hora, mm, horas = 1) => ({ fuente: 'f', estacion: 'e', hora, horas, mm });
   const dias = agregarHoras([h('2026-09-29T08:00:00.000Z', -1), h('2026-09-29T09:00:00.000Z', null), h('2026-09-29T10:00:00.000Z', 2),
     { fuente: 'jucar', estacion: '5N02', hora: finDeDia('2026-09-30'), horas: 24, mm: 1.6 }], '2026-09-01');
-  assert.deepEqual(delDia(dias, 'e', '2026-09-29'), { fuente: 'f', estacion: 'e', fecha: '2026-09-29', mm: 2, horas: 1, maximo: 2 });
-  assert.deepEqual(delDia(dias, '5N02', '2026-09-30'), { fuente: 'jucar', estacion: '5N02', fecha: '2026-09-30', mm: 1.6, horas: 24, maximo: null });
+  assert.deepEqual(delDia(dias, 'e', '2026-09-29'), { fuente: 'f', estacion: 'e', fecha: '2026-09-29', mm: 2, horas: 1, maximo: 2, ultima: false });
+  assert.deepEqual(delDia(dias, '5N02', '2026-09-30'), { fuente: 'jucar', estacion: '5N02', fecha: '2026-09-30', mm: 1.6, horas: 24, maximo: null, ultima: true });
 });
 
 test('diasDeFilas: de un array por columna (lluvia_por_dia) a una fila por día', () => {
-  assert.deepEqual(diasDeFilas([{ fuente: 'duero', estacion: 'PL002', fechas: ['2026-09-29', '2026-09-30'], mm: [0, 0.30000000000000004], horas: [24, 23], maximo: [0, 0.2] }]), [
-    { fuente: 'duero', estacion: 'PL002', fecha: '2026-09-29', mm: 0, horas: 24, maximo: 0 },
-    { fuente: 'duero', estacion: 'PL002', fecha: '2026-09-30', mm: 0.3, horas: 23, maximo: 0.2 }]);
+  assert.deepEqual(diasDeFilas([{ fuente: 'duero', estacion: 'PL002', fechas: ['2026-09-29', '2026-09-30'], mm: [0, 0.30000000000000004], horas: [24, 23], maximo: [0, 0.2], ultima: [true, false] }]), [
+    { fuente: 'duero', estacion: 'PL002', fecha: '2026-09-29', mm: 0, horas: 24, maximo: 0, ultima: true },
+    { fuente: 'duero', estacion: 'PL002', fecha: '2026-09-30', mm: 0.3, horas: 23, maximo: 0.2, ultima: false }]);
+});
+
+// Revisión final 1: sin la columna `ultima` (la función SQL anterior a la migración 20261004000100) no se sabe si el día
+// tiene su última hora: no cuenta como medido.
+test('diasDeFilas: sin la columna ultima, el día no tiene la última hora', () => {
+  const [d] = diasDeFilas([{ fuente: 'duero', estacion: 'PL002', fechas: ['2026-09-29'], mm: [3], horas: [24], maximo: [1] }]);
+  assert.equal(d.ultima, false);
+  assert.deepEqual(revisarDia(d), { calidad: 'incompleto', motivo: 'falta la hora que acaba a medianoche' });
+});
+
+// Revisión final 1: con lotes, a las 4 UTC el Duero puede tener ayer leído hasta las 20 h de Madrid; las horas de 20 a 24
+// (las de tormenta) no pueden contar como 0 mm.
+test('un día con 20 horas pero sin la que acaba a medianoche es incompleto; con ella, bueno', () => {
+  // 01/10/2026 en Madrid (UTC+2): de 00-01 h (fin 30/09 23:00Z) a 19-20 h (fin 01/10 18:00Z), 20 horas de 0,5 mm.
+  const veinte = Array.from({ length: 20 }, (_, k) => filaObs('duero', { estacion: 'PL002', hora: new Date(Date.UTC(2026, 8, 30, 23 + k)).toISOString(), mm: 0.5 }));
+  const [dia] = agregarHoras(veinte, '2026-10-01');
+  assert.deepEqual(dia, { fuente: 'duero', estacion: 'PL002', fecha: '2026-10-01', mm: 10, horas: 20, maximo: 0.5, ultima: false });
+  assert.deepEqual(revisarDia(dia), { calidad: 'incompleto', motivo: 'falta la hora que acaba a medianoche' });
+  // La de 23-24 h de Madrid acaba el 01/10 a las 22:00Z (00:00 del 02/10 en Madrid).
+  const [conUltima] = agregarHoras([...veinte, filaObs('duero', { estacion: 'PL002', hora: '2026-10-01T22:00:00.000Z', mm: 4 })], '2026-10-01');
+  assert.deepEqual(conUltima, { fuente: 'duero', estacion: 'PL002', fecha: '2026-10-01', mm: 14, horas: 21, maximo: 4, ultima: true });
+  assert.deepEqual(revisarDia(conUltima), { calidad: 'ok', motivo: null });
+  // Un nulo en esa hora no cuenta como tenerla.
+  const [nula] = agregarHoras([...veinte, filaObs('duero', { estacion: 'PL002', hora: '2026-10-01T22:00:00.000Z', mm: null })], '2026-10-01');
+  assert.equal(nula.ultima, false);
+  // En invierno (UTC+1) la última hora del 01/12 acaba a las 23:00Z.
+  assert.equal(agregarHoras([filaObs('aemet', { estacion: 'X', hora: '2026-12-01T23:00:00.000Z', mm: 0 })], '2026-12-01')[0].ultima, true);
+  assert.equal(agregarHoras([filaObs('aemet', { estacion: 'X', hora: '2026-12-01T22:00:00.000Z', mm: 0 })], '2026-12-01')[0].ultima, false);
+});
+
+test('publicar: ayer con 20 horas sin la última no entra en ultimo.json (y queda incompleto en lluvia_dia)', async () => {
+  const almacen = almacenPluvioMemoria();
+  const est = [{ fuente: 'duero', codigo: 'PL002', nombre: 'Covaleda', lat: 41.95, lon: -2.87, altitud: 1450 }];
+  await almacen.guardarObs(Array.from({ length: 20 }, (_, k) => filaObs('duero', { estacion: 'PL002', hora: new Date(Date.UTC(2026, 8, 30, 23 + k)).toISOString(), mm: 0.5 })));
+  await ejecutar({ almacen, fetchFn: servidorFalso([]), esperar: sinEspera, ahora: new Date('2026-10-02T04:10:00Z'), estaciones: est,
+    puntos: [{ id: 'p', lat: 41.95, lon: -2.87, altitud: 1450 }], pedidas: ['publicar'] });
+  assert.equal(almacen.dias.get('duero|PL002|2026-10-01').calidad, 'incompleto');
+  assert.equal('ultima' in almacen.dias.get('duero|PL002|2026-10-01'), false);   // lluvia_dia no tiene esa columna
+  const p = almacen.archivos.get('pluvio/ultimo.json').lugares.p;
+  assert.equal(p.mm.at(-1), null);   // el 01/10, sin medir: queda el modelo
+  assert.deepEqual(p.estaciones, []);
+});
+
+test('la migración de la última hora: lluvia_por_dia devuelve si cada día tiene la hora que acaba a medianoche', () => {
+  const sql = readFileSync('supabase/migrations/20261004000100_lluvia_ultima_hora.sql', 'utf8');
+  assert.match(sql, /drop function public\.lluvia_por_dia\(date\)/);
+  assert.match(sql, /ultima boolean\[\]/);
+  assert.match(sql, /\(o\.hora at time zone 'Europe\/Madrid'\)::time = time '00:00'/);
+  assert.match(sql, /revoke all on function public\.lluvia_por_dia\(date\) from public, anon, authenticated/);
+  assert.match(sql, /grant execute on function public\.lluvia_por_dia\(date\) to service_role/);
 });
 
 test('revisarDia: día completo, incompleto (menos de 20 horas) y sin dato', () => {
