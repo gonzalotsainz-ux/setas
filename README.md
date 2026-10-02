@@ -31,8 +31,9 @@ npm run gancho                           # instala el gancho pre-push
 
 ## Arquitectura
 
-- **Sin login, abierto por decisión de la usuaria.** Cualquiera que tenga la URL puede ver y editar el diario.
-  No guardes nada que no quieras compartir.
+- **Cuentas y grupos.** Cada dispositivo tiene una cuenta anónima con perfil y código de recuperación; las salidas son
+  privadas y solo se comparten con los grupos que elijas (punto exacto o solo la zona). Hasta aplicar la migración de
+  cierre el diario sigue abierto: ver [docs/supabase.md](docs/supabase.md).
 - **Supabase** (proyecto `ctgedeunquvmcfqsufjj`): diario, fotos y umbrales. La clave publicable está en
   `js/config.js` y es pública por diseño. Migraciones en `supabase/migrations/`.
 - **Edge Function `aemet`:** lluvia medida en estaciones AEMET con caché de 6 h y lista blanca de estaciones.

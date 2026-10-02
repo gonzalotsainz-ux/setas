@@ -37,7 +37,7 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 
 - Cada salida es **privada** por defecto. Al guardarla (o después) se elige con qué grupos se comparte: uno, varios o ninguno.
 - Por cada grupo con el que se comparte se elige la **ubicación**: «punto exacto» (por defecto) o «solo la zona».
-- Lo que ve el grupo: fecha, zona, ubicación (según la elección), especies y kilos, notas y fotos.
+- Lo que ve el grupo: fecha, zona, ubicación (según la elección), especies y kilos, notas y fotos. No ve el meteo ni el índice guardados en la salida.
 - Solo el autor edita o borra su salida. El administrador del grupo solo puede expulsar, no modificar lo ajeno.
 - Si un miembro sale o es expulsado, **sus salidas dejan de verse en ese grupo** (siguen siendo suyas).
 
@@ -60,7 +60,7 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 - Funciones auxiliares `es_miembro(grupo)` y `es_admin(grupo)` (security definer, `search_path` fijado) para no repetir lógica.
 - Las tablas `grupos`, `miembros`, `salida_grupos` y `perfiles` solo se modifican a través de funciones del servidor con las comprobaciones necesarias; el acceso directo de lectura se limita a los propios miembros.
 - **Fotos:** el bucket `fotos` pasa a **privado** con enlaces temporales firmados. Las rutas no cambian (`<salida_id>/<n>.jpg`); el permiso se decide consultando de quién es la salida y con qué grupos se compartió (dueño o miembro de un grupo con el que se compartió).
-- `salida_grupos` solo se escribe con la función `compartir_salida` (comprueba dueño y pertenencia); con «solo la zona» el servidor devuelve además `meteo` nulo e `indice` sin `punto`, porque el punto de la zona más cercano acota la ubicación.
+- `salida_grupos` solo se escribe con la función `compartir_salida` (comprueba dueño y pertenencia); la función de grupo (`salidas_del_grupo`) nunca devuelve `meteo` ni `indice` (la vista de grupo no los usa y revelarían el punto de zona más cercano); `lat` y `lon` son nulos con «solo la zona».
 - `unirse_grupo` y `recuperar_cuenta` limitan los intentos fallidos con un código; `crear_grupo` limita a 10 los grupos creados por persona.
 
 ## 6. Migración desde la versión actual
@@ -74,13 +74,13 @@ Riesgo: entre el paso 1 y el 4 las políticas antiguas siguen activas; el orden 
 
 ## 7. Pruebas
 
-- Pruebas de la base de datos con varios usuarios simulados: un no miembro no ve nada; un expulsado deja de ver; «solo la zona» no filtra coordenadas (ni en notas ni en meteo derivada del punto); un no dueño no edita ni borra; un miembro no lee la tabla base; `recuperar_cuenta` traspasa todo y desconecta lo antiguo; los límites de intentos funcionan; no se puede dejar un grupo sin administrador.
+- Pruebas de la base de datos con varios usuarios simulados: un no miembro no ve nada; un expulsado deja de ver; «solo la zona» no filtra coordenadas y la función de grupo no devuelve meteo ni índice; un no dueño no edita ni borra; un miembro no lee la tabla base; `recuperar_cuenta` traspasa todo y desconecta lo antiguo; los límites de intentos funcionan; no se puede dejar un grupo sin administrador.
 - Pruebas de la app para los flujos de crear grupo, unirse por enlace, compartir una salida y recuperar cuenta.
 - Se mantienen `npm run comprobar` y las 207 pruebas existentes.
 
 ## 8. Puntos resueltos en el plan
 
-- Meteo e índice guardados en la salida: con «solo la zona» se omiten `meteo` y `indice.punto` (ver sección 5).
+- Meteo e índice guardados en la salida: la función de grupo no los devuelve nunca (ver sección 5).
 - El cierre del acceso abierto es una migración aparte (`supabase/pendientes/`) que se aplica cuando todas las salidas tienen dueño; incluye un guardia que aborta si queda alguna sin dueño.
 - Hay que activar «Anonymous sign-ins» en el panel de Supabase antes de desplegar (Authentication → Sign In / Providers).
 - Los ajustes de umbrales siguen abiertos y compartidos en esta fase.
