@@ -85,7 +85,7 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
     const m = pluvio?.lugares?.[c.id] ?? null;
     const serie = pluvio ? aplicarMedida(s, m, { desde: pluvio.desde, hasta: pluvio.hasta, factor: factores.get(c.zona) ?? 1 }) : s;
     parte[c.id] = resumirCelda({ altRef: altitud.get(c.id), serie, fechas,
-      pluvio: pluvio ? { estaciones: (m?.estaciones ?? []).slice(0, 3).map((e) => e.nombre), cercanas: m?.cercanas ?? 0 } : null });
+      pluvio: pluvio ? { estaciones: (m?.estaciones ?? []).slice(0, 3).map((e) => e.nombre), km: (m?.estaciones ?? []).slice(0, 3).map((e) => e.km), cercanas: m?.cercanas ?? 0 } : null });
   }
 
   let todas = parte;

@@ -5,7 +5,8 @@ import { hoyMadrid } from '../meteo.js';
 import { fijarUsarModelo, avisoViejo, textoSinLluvia } from '../aemet.js';
 import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
-import { graficoLluvia } from '../ui/grafico-lluvia.js';
+import { graficoLluvia, esMedida } from '../ui/grafico-lluvia.js';
+import { textoOrigenPunto } from '../ui/origen-lluvia.js';
 import { desglose } from '../ui/desglose.js';
 import { fichaNormativa } from '../ui/normativa.js';
 import { seccionDondeBuscar } from '../ui/sitios.js';
@@ -94,6 +95,9 @@ const lugarEstacion = (est) => (est?.distanciaKm != null && est?.altitud != null
 
 // Origen de la cifra de 26 días: cuántos días vienen de la estación y cuántos del modelo.
 function origenLluvia(serie, meteo, zona, id) {
+  const pp = meteo.pluvio?.porPunto?.[id];
+  const textoPluvio = pp ? textoOrigenPunto(serie, pp) : null;   // con pluvio/ultimo.json; sin él, lo de siempre (AEMET o modelo)
+  if (textoPluvio) return textoPluvio;
   const dias = serie.origenPrecip?.slice(serie.hoy - 25, serie.hoy + 1) ?? [];
   const deEstacion = dias.filter((o) => o?.startsWith('estacion:'));
   if (deEstacion.length) {
@@ -152,6 +156,10 @@ function cajaContraste(zona, meteo, id) {
   if (!c?.discrepa) return null;
   const { P26estacion, P26modelo, diasCubiertos, estacionCubierta, modeloCubierto } = c.comparacion;
   const diasComparados = c.comparacion.diasComparados ?? diasCubiertos;
+  // Los días medidos en pluviómetros no los pisa AEMET: el texto no debe decir que AEMET corrigió lo que ellos midieron.
+  const serie = meteo.series?.[id], medidosPluvio = serie?.origenPrecip?.slice(Math.max(0, serie.hoy - 25), serie.hoy + 1).filter((o) => o === 'medida').length ?? 0;
+  const salvo = medidosPluvio ? ` (salvo ${medidosPluvio} ${medidosPluvio === 1 ? 'día medido' : 'días medidos'} en pluviómetros, que no se tocan)` : '';
+  const usoIndice = c.usaModelo ? `El índice usa ahora el modelo${salvo}.` : `El índice usa la estación${salvo}.`;
   const mm = (v) => (v == null ? 'sin datos' : `${Math.round(v)}${nbsp}mm`);   // un día sin modelo no se cuenta como 0
   const boton = el('button', { clase: 'chip', type: 'button', texto: 'Usar modelo', attrs: { 'aria-pressed': String(c.usaModelo) } });
   if (ui.enfocarModelo === zona.id) { ui.enfocarModelo = null; setTimeout(() => boton.focus({ preventScroll: true }), 50); }   // el repintado recrea el botón
@@ -164,7 +172,7 @@ function cajaContraste(zona, meteo, id) {
     el('div', { clase: 'desacuerdo__cabeza' }, icono('i-aviso'),
       el('div', {}, el('h2', { id: 'titulo-contraste', texto: 'Estación y modelo no coinciden' }),
         el('p', { clase: 'texto-2', texto: `Estación ${c.estacion.nombre}: ${mm(P26estacion)} · Modelo: ${mm(P26modelo)}` }))),
-    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasComparados} días medidos${diasComparados < diasCubiertos ? ' con dato del modelo' : ''}: estación ${mm(estacionCubierta)}, modelo ${mm(modeloCubierto)}. Estación ${c.estacion.nombre ?? c.estacion.id}${lugarEstacion(c.estacion)}${lejana(c.estacion)}. ${c.usaModelo ? 'El índice usa ahora el modelo.' : 'El índice usa la estación.'}` }),
+    el('p', { clase: 'desacuerdo__nota', texto: `Lluvia de los últimos 26 días; la cifra de la estación suma ${diasCubiertos} días de estación + ${26 - diasCubiertos} de modelo. En los ${diasComparados} días medidos${diasComparados < diasCubiertos ? ' con dato del modelo' : ''}: estación ${mm(estacionCubierta)}, modelo ${mm(modeloCubierto)}. Estación ${c.estacion.nombre ?? c.estacion.id}${lugarEstacion(c.estacion)}${lejana(c.estacion)}. ${usoIndice}` }),
     el('div', { clase: 'chips' }, boton));
 }
 
@@ -179,7 +187,10 @@ function seccionLluvia(zona, meteo, serie, id, disp, obsError, avisoObs = null) 
     obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: textoSinLluvia(obsError) }) : null,
     avisoObs && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: avisoObs }) : null,
     el('ul', { clase: 'leyenda' },
-      el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida'),
+      ...(serie.origenPrecip?.some((o, k) => k <= serie.hoy && esMedida(o))
+        ? [el('li', {}, el('span', { clase: 'muestra muestra--medida' }), 'Medida en estaciones'),
+          el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Estimada con el modelo')]
+        : [el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida')]),
       el('li', {}, el('span', { clase: 'muestra muestra--prevista' }), 'Prevista, con horquilla'),
       el('li', {}, el('span', { clase: 'muestra muestra--acumulado' }), 'Acumulado (discontinuo: con previsión)')));
 }

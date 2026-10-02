@@ -796,7 +796,7 @@ Se publican los agregados (iguales para todas las especies) en vez de los factor
 - Si la función `rejilla` encuentra `pluvio/celdas.json` (sección siguiente) válido, con menos de 36 h y no posterior a
   la ejecución, la lluvia pasada de cada celda gruesa es la medida en pluviómetros donde la hay y el modelo corregido por su sesgo de 30 días en las
   demás celdas de la zona; y `lluvia` lleva además `origen` (un número por día de `mm`: 0 modelo, 1 medida, 2 estimada),
-  `estaciones` (hasta tres nombres) y `cercanas`. Sin ese archivo (o viejo, o que no valida), el índice es exactamente el
+  `estaciones` (hasta tres nombres), `km` (la distancia de cada una, mismo orden) y `cercanas`. Sin ese archivo (o viejo, o que no valida), el índice es exactamente el
   de antes.
 
 ## Lluvia medida en pluviómetros (bucket `indice`, carpeta `pluvio/`)

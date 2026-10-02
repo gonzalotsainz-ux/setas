@@ -39,6 +39,7 @@ export function resumirCelda({ altRef, serie, fechas, pluvio = null }) {
   if (pluvio) {
     lluvia.origen = serie.fechas.slice(i0, i1).map((_, k) => ORIGEN[serie.origenPrecip?.[i0 + k]] ?? 0);
     lluvia.estaciones = pluvio.estaciones;
+    if (pluvio.km) lluvia.km = pluvio.km;   // distancia (km) de cada estación nombrada
     lluvia.cercanas = pluvio.cercanas;
   }
   return { altRef, incompleta: !dias.every(diaConDatos), lluvia, dias };
@@ -76,6 +77,7 @@ export function validarSalida(s) {
       && typeof l?.desde === 'string' && FECHA.test(l.desde) && Number.isInteger(l.hoy) && Array.isArray(l.mm) && l.mm.every(num)
       && (!('origen' in l) || (Array.isArray(l.origen) && l.origen.length === l.mm.length && l.origen.every((c) => c === 0 || c === 1 || c === 2)))
       && (!('estaciones' in l) || (Array.isArray(l.estaciones) && l.estaciones.every((n) => typeof n === 'string')))
+      && (!('km' in l) || (Array.isArray(l.km) && l.km.length === l.estaciones?.length && l.km.every(num)))
       && (!('cercanas' in l) || Number.isInteger(l.cercanas));
     if (!bien) e.push(`celda ${id} mal formada`);
   }
