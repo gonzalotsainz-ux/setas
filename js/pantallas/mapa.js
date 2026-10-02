@@ -284,7 +284,9 @@ async function montar(estadoInicial) {
       } else if (id === 'sitios') pintarSitios();
       else if (id === 'diario') {
         const [{ supabase }, { listarSalidas }] = await Promise.all([import('../supabase.js'), import('../diario.js')]);
-        pintarSalidas(capas.diario, await listarSalidas({ supabase }), datos);
+        const { cuentaActual } = await import('./cuenta-ui.js');
+        const cuenta = await cuentaActual();
+        pintarSalidas(capas.diario, cuenta ? await listarSalidas({ supabase, usuarioId: cuenta.id }) : [], datos);
       }
     } catch (e) {
       rellenas.delete(id);

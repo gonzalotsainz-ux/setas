@@ -147,10 +147,12 @@ export async function guardarComparticion(salidaId, grupos, { supabase }) {
 
 // Mis salidas (con las fotos ya firmadas y con qué grupos están compartidas). Mientras exista el acceso abierto
 // (antes de la migración de cierre) la tabla devuelve también las ajenas: se filtran aquí por dueño.
+// `usuarioId` es obligatorio: sin él fallaría abierto y devolvería las salidas de todos.
 export async function listarSalidas({ supabase, usuarioId = null }) {
+  if (!usuarioId) throw new Error('listarSalidas necesita el usuarioId');
   const { data, error } = await supabase.from('salidas').select('*, fotos(ruta, ancho, alto), salida_grupos(grupo_id, ubicacion_exacta)').order('fecha', { ascending: false });
   if (error) throw error;
-  const propias = usuarioId ? data.filter((s) => s.usuario_id === usuarioId) : data;
+  const propias = data.filter((s) => s.usuario_id === usuarioId);
   return firmarFotos(propias, { supabase });
 }
 

@@ -139,7 +139,7 @@ test('borrarSalida: si Storage falla no borra la fila (así se puede reintentar)
 
 test('listarSalidas propaga el error', async () => {
   const sb = { from: () => ({ select: () => ({ order: async () => ({ data: null, error: new Error('boom') }) }) }) };
-  await assert.rejects(() => listarSalidas({ supabase: sb }), /boom/);
+  await assert.rejects(() => listarSalidas({ supabase: sb, usuarioId: 'u1' }), /boom/);
 });
 
 test('listarSalidas: solo las del dueño, con las fotos firmadas', async () => {
@@ -153,7 +153,15 @@ test('listarSalidas: solo las del dueño, con las fotos firmadas', async () => {
   const r = await listarSalidas({ supabase: sb, usuarioId: 'u1' });
   assert.deepEqual(r.map((s) => s.id), ['a']);
   assert.match(r[0].fotos[0].url, /sign\/a\/1\.jpg/);
-  assert.equal((await listarSalidas({ supabase: sb })).length, 3);   // sin usuarioId no se filtra (pantallas previas al perfil)
+});
+
+test('listarSalidas falla cerrado: sin usuarioId no consulta nada', async () => {
+  let consultas = 0;
+  const sb = { from: () => { consultas++; return { select: () => ({ order: async () => ({ data: [], error: null }) }) }; } };
+  for (const usuarioId of [undefined, null, '']) {
+    await assert.rejects(() => listarSalidas({ supabase: sb, usuarioId }), /necesita el usuarioId/);
+  }
+  assert.equal(consultas, 0);
 });
 
 test('firmarFotos: sin fotos no llama a Storage; si firmar falla, devuelve las salidas sin url', async () => {

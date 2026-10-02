@@ -19,7 +19,12 @@ export async function cuentaActual({ forzar = false } = {}) {
   if (cuenta && !forzar) return cuenta;
   if (cargando && !forzar) return cargando;
   const p = (async () => {
-    try { fijarCuenta(await cargarPerfil({ supabase })); ultimoError = null; } catch (e) { cuenta = null; ultimoError = e; }
+    try {
+      const perfil = await cargarPerfil({ supabase });
+      fijarCuenta(perfil);
+      if (!perfil) elegirAutor(null);   // sin perfil en esta sesión (p. ej. cuenta recuperada en otro dispositivo): un nombre local viejo permitiría guardados sin subida posible
+      ultimoError = null;
+    } catch (e) { cuenta = null; ultimoError = e; }
     return cuenta;
   })();
   cargando = p;
