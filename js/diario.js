@@ -136,6 +136,17 @@ export async function listarSalidas({ supabase }) {
   return data;
 }
 
+// Enlaces temporales de las fotos (el bucket es privado): una sola llamada para todas. Si falla, las salidas se
+// devuelven igualmente, sin `url` en sus fotos.
+export async function firmarFotos(salidas, { supabase }) {
+  const rutas = salidas.flatMap((s) => (s.fotos ?? []).map((f) => f.ruta));
+  if (!rutas.length) return salidas;
+  const { data, error } = await supabase.storage.from(BUCKET).createSignedUrls(rutas, 3600);
+  if (error) return salidas;
+  const url = new Map((data ?? []).filter((d) => d.signedUrl).map((d) => [d.path, d.signedUrl]));
+  return salidas.map((s) => ({ ...s, fotos: (s.fotos ?? []).map((f) => ({ ...f, url: url.get(f.ruta) ?? null })) }));
+}
+
 // `on delete cascade` solo borra filas: los objetos de Storage hay que quitarlos aparte, y antes que la fila
 // (si fallase a medias, la salida sigue ahí y se puede reintentar). Incluye objetos huérfanos de la carpeta.
 export async function borrarSalida(id, { supabase }) {
