@@ -61,7 +61,7 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 - Las tablas `grupos`, `miembros`, `salida_grupos` y `perfiles` solo se modifican a través de funciones del servidor con las comprobaciones necesarias; el acceso directo de lectura se limita a los propios miembros.
 - **Fotos:** el bucket `fotos` pasa a **privado** con enlaces temporales firmados. Las rutas no cambian (`<salida_id>/<n>.jpg`); el permiso se decide consultando de quién es la salida y con qué grupos se compartió (dueño o miembro de un grupo con el que se compartió).
 - `salida_grupos` solo se escribe con la función `compartir_salida` (comprueba dueño y pertenencia); con «solo la zona» el servidor devuelve además `meteo` nulo e `indice` sin `punto`, porque el punto de la zona más cercano acota la ubicación.
-- Las funciones `unirse_grupo`, `crear_grupo`, `regenerar_codigo` y `recuperar_cuenta` limitan los intentos.
+- `unirse_grupo` y `recuperar_cuenta` limitan los intentos fallidos con un código; `crear_grupo` limita a 10 los grupos creados por persona.
 
 ## 6. Migración desde la versión actual
 

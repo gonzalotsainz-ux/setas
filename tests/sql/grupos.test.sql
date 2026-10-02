@@ -146,3 +146,89 @@ begin
 end $$;
 select t.como(5);
 do $$ begin perform t.afirma((select count(*) from public.mis_grupos()) = 0, 'el dispositivo antiguo ya no tiene el grupo'); end $$;
+select t.admin();
+do $$ begin perform t.afirma((select count(*) from public.grupos where creado_por = t.uid(6)) = 1, 'creado_por sigue a la cuenta'); end $$;
+
+-- ---------- Ronda de correcciones ----------
+select t.como(7); select public.crear_perfil('Gus');
+select t.como(8); select public.crear_perfil('Hugo');
+select t.como(9); select public.crear_perfil('Ines');
+
+-- Tope de grupos creados por persona: 10.
+select t.como(9);
+do $$
+declare i int;
+begin
+  for i in 1 .. 10 loop perform public.crear_grupo('G' || i); end loop;
+  perform t.falla('select * from public.crear_grupo(''G11'')', 'demasiados_grupos');
+end $$;
+
+-- Gus administra "Norte" y "Sur"; Hugo e Ines son miembros de Norte; Ines tambien de Sur.
+select t.como(7);
+do $$
+declare a record; b record;
+begin
+  select * into a from public.crear_grupo('Norte');
+  select * into b from public.crear_grupo('Sur');
+  insert into t.codigos values ('nn', a.codigo), ('nid', a.grupo_id::text), ('sn', b.codigo), ('sid', b.grupo_id::text);
+end $$;
+select t.como(8);
+do $$ begin perform public.unirse_grupo((select valor from t.codigos where clave = 'nn')); end $$;
+select t.como(9);
+do $$ begin perform public.unirse_grupo((select valor from t.codigos where clave = 'nn')); perform public.unirse_grupo((select valor from t.codigos where clave = 'sn')); end $$;
+
+-- Un miembro de A no puede leer B, y las escrituras directas estan denegadas.
+select t.como(8);
+do $$
+declare b uuid := (select valor from t.codigos where clave = 'sid')::uuid;
+begin
+  perform t.falla(format('select * from public.miembros_del_grupo(%L)', b), 'no_miembro');
+  perform t.afirma((select count(*) from public.mis_grupos()) = 1 and (select nombre from public.mis_grupos()) = 'Norte', 'solo lista su grupo');
+  perform t.falla('update public.miembros set rol = ''admin''', 'permission denied');
+  perform t.falla(format('insert into public.miembros (grupo_id, usuario_id, rol) values (%L, %L, ''admin'')', b, t.uid(8)), 'permission denied');
+  perform t.falla('insert into public.grupos (nombre, codigo_invitacion) values (''X'', ''ABCDEFGH'')', 'permission denied');
+  perform t.falla('insert into public.salida_grupos (salida_id, grupo_id) values (gen_random_uuid(), gen_random_uuid())', 'permission denied');
+end $$;
+
+-- Limpieza de salida_grupos al expulsar y al salir.
+select t.admin();
+do $$
+declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
+        s8 uuid := gen_random_uuid(); s9 uuid := gen_random_uuid();
+begin
+  insert into public.salidas (id, fecha, zona_id, usuario_id) values (s8, current_date, 'z', t.uid(8)), (s9, current_date, 'z', t.uid(9));
+  insert into public.salida_grupos (salida_id, grupo_id) values (s8, n), (s8, s), (s9, n), (s9, s);
+  insert into t.codigos values ('s8', s8::text), ('s9', s9::text);
+end $$;
+select t.como(7);
+do $$
+declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid;
+begin
+  perform t.falla(format('select public.expulsar_miembro(%L, %L)', n, t.uid(99)), 'no_miembro');
+  perform public.expulsar_miembro(n, t.uid(8));
+end $$;
+select t.admin();
+do $$
+declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
+        s8 uuid := (select valor from t.codigos where clave = 's8')::uuid; s9 uuid := (select valor from t.codigos where clave = 's9')::uuid;
+begin
+  perform t.afirma(not exists (select 1 from public.salida_grupos where salida_id = s8 and grupo_id = n), 'expulsar quita lo compartido en ese grupo');
+  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s8 and grupo_id = s), 'expulsar no toca otros grupos');
+  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = n), 'expulsar no toca a otros miembros');
+end $$;
+-- Un miembro corriente puede salir aunque el unico administrador siga alli.
+select t.como(9);
+do $$
+declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid;
+begin
+  perform public.salir_grupo(n);
+  perform t.afirma((select count(*) from public.mis_grupos() where grupo_id = n) = 0, 'un miembro corriente puede salir');
+end $$;
+select t.admin();
+do $$
+declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
+        s9 uuid := (select valor from t.codigos where clave = 's9')::uuid;
+begin
+  perform t.afirma(not exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = n), 'salir quita lo compartido en ese grupo');
+  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = s), 'salir no toca otros grupos');
+end $$;

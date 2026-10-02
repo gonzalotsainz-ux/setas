@@ -55,6 +55,7 @@ language plpgsql security definer set search_path = public, extensions as $$
 declare g uuid; c text; intento int := 0;
 begin
   if not exists (select 1 from perfiles where id = auth.uid()) then raise exception 'sin_perfil'; end if;
+  if (select count(*) from grupos where creado_por = auth.uid()) >= 10 then raise exception 'demasiados_grupos'; end if;
   loop
     c := public.codigo_aleatorio(8);
     begin
@@ -80,6 +81,9 @@ begin
     perform public.registrar_fallo('unirse');
     return null;
   end if;
+  -- Serializa altas y bajas del mismo grupo (READ COMMITTED no bloquea nada): sin esto el tope de miembros
+  -- y "un grupo siempre tiene administrador" podrían romperse con peticiones simultáneas.
+  perform 1 from grupos where id = g for update;
   if exists (select 1 from miembros where grupo_id = g and usuario_id = auth.uid()) then return g; end if;
   if (select count(*) from miembros where grupo_id = g) >= public.max_miembros_grupo() then raise exception 'grupo_lleno'; end if;
   insert into miembros (grupo_id, usuario_id, rol) values (g, auth.uid(), 'miembro');
@@ -107,6 +111,9 @@ create function public.hacer_admin(p_grupo uuid, p_usuario uuid) returns void
 language plpgsql security definer set search_path = public as $$
 begin
   if not public.es_admin(p_grupo) then raise exception 'no_admin'; end if;
+  -- Serializa altas y bajas del mismo grupo (READ COMMITTED no bloquea nada): sin esto el tope de miembros
+  -- y "un grupo siempre tiene administrador" podrían romperse con peticiones simultáneas.
+  perform 1 from grupos where id = p_grupo for update;
   update miembros set rol = 'admin' where grupo_id = p_grupo and usuario_id = p_usuario;
   if not found then raise exception 'no_miembro'; end if;
 end $$;
@@ -117,6 +124,10 @@ language plpgsql security definer set search_path = public as $$
 begin
   if not public.es_admin(p_grupo) then raise exception 'no_admin'; end if;
   if p_usuario = auth.uid() then raise exception 'usa_salir'; end if;
+  -- Serializa altas y bajas del mismo grupo (READ COMMITTED no bloquea nada): sin esto el tope de miembros
+  -- y "un grupo siempre tiene administrador" podrían romperse con peticiones simultáneas.
+  perform 1 from grupos where id = p_grupo for update;
+  if not exists (select 1 from miembros where grupo_id = p_grupo and usuario_id = p_usuario) then raise exception 'no_miembro'; end if;
   delete from salida_grupos where grupo_id = p_grupo and salida_id in (select id from salidas where usuario_id = p_usuario);
   delete from miembros where grupo_id = p_grupo and usuario_id = p_usuario;
 end $$;
@@ -126,13 +137,16 @@ language plpgsql security definer set search_path = public as $$
 declare otros int; admins int;
 begin
   if not public.es_miembro(p_grupo) then raise exception 'no_miembro'; end if;
+  -- Serializa altas y bajas del mismo grupo (READ COMMITTED no bloquea nada): sin esto el tope de miembros
+  -- y "un grupo siempre tiene administrador" podrían romperse con peticiones simultáneas.
+  perform 1 from grupos where id = p_grupo for update;
   select count(*) into otros from miembros where grupo_id = p_grupo and usuario_id <> auth.uid();
   if otros = 0 then
     delete from grupos where id = p_grupo;   -- el último en salir apaga la luz (cascada a miembros y salida_grupos)
     return;
   end if;
   select count(*) into admins from miembros where grupo_id = p_grupo and rol = 'admin' and usuario_id <> auth.uid();
-  if admins = 0 then raise exception 'ultimo_admin'; end if;
+  if public.es_admin(p_grupo) and admins = 0 then raise exception 'ultimo_admin'; end if;
   delete from salida_grupos where grupo_id = p_grupo and salida_id in (select id from salidas where usuario_id = auth.uid());
   delete from miembros where grupo_id = p_grupo and usuario_id = auth.uid();
 end $$;
