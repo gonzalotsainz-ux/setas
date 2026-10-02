@@ -58,7 +58,7 @@ NC-ND), redes de regadío (valles), OPERA (opcional más adelante).
 - Para cada punto de zona (Hoy, Zona) y cada celda gruesa (mapa): lluvia diaria **medida** = media ponderada de las
   estaciones válidas cercanas (por distancia y por diferencia de altitud, con radio máximo), en los días en que la hay.
 - Días sin estación válida: lluvia del modelo **corregida** por su sesgo de los últimos 30 días frente a las estaciones de
-  la zona (cociente acotado, p. ej. 0,5-2), marcado como «estimada».
+  la zona (cociente suavizado y acotado a 0,67-1,5, con ≥ 5 días mojados y ≥ 2 estaciones en la zona; Ruling del 02/10/2026 tras ver datos reales), marcado como «estimada».
 - La previsión (días futuros) sigue saliendo del modelo, sin cambios (pieza B).
 - La función `rejilla` toma esta lluvia al construir las series de cada celda gruesa; Hoy y Zona la leen de un archivo
   público pequeño `pluvio/ultimo.json` (por punto de zona: serie diaria medida/estimada desde el 1 de agosto y nº de
