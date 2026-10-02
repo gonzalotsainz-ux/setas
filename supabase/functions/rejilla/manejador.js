@@ -7,7 +7,7 @@ import { resumirCelda, diaConDatos, validarSalida, VERSION_SALIDA } from '../_sh
 import { selloDe, tocaEjecutar, inicioSerie, planificar, filasDePrincipal, filasDeArchivoLluvia, filasDeClima, serieDesdeFilas,
   aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION,
   factoresPorZona } from './nucleo.js';
-import { aplicarMedida, pluvioVigente, VIGENCIA_PLUVIO } from '../_shared/pluvio.js';
+import { aplicarMedida, pluvioVigente, estacionesDesde, VIGENCIA_PLUVIO } from '../_shared/pluvio.js';
 
 // Supabase corta una función a los 150 s de reloj (plan gratuito, informe 08 D4), también en segundo plano. La ejecución
 // entera tiene que acabar antes de PLAZO_EJECUCION; las peticiones (con sus reintentos y esperas) dejan
@@ -78,14 +78,18 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
   // Lluvia medida en pluviómetros (pluvio/celdas.json, de la función «pluvio»): sin archivo, todo como antes. El sesgo
   // se calcula con las series del modelo, antes de mezclar nada.
   const factores = pluvio ? factoresPorZona(celdas, series, pluvio) : new Map();
+  // La hoja enseña los últimos 26 días (hasta hoy): nombra las tres más cercanas de las que aportaron en ellos.
+  const inicio26 = sumarDias(hoy, -25);
   const parte = {};
   for (const c of celdas) {
     const s = series.get(c.id);
     if (!s) continue;
-    const m = pluvio?.lugares?.[c.id] ?? null;
-    const serie = pluvio ? aplicarMedida(s, m, { desde: pluvio.desde, hasta: pluvio.hasta, factor: factores.get(c.zona) ?? 1 }) : s;
+    const m = pluvio?.lugares?.[c.id] ?? null, factor = factores.get(c.zona) ?? 1;
+    const serie = pluvio ? aplicarMedida(s, m, { desde: pluvio.desde, hasta: pluvio.hasta, factor }) : s;
+    const aportan = m ? estacionesDesde(m.estaciones, inicio26) : [];
     parte[c.id] = resumirCelda({ altRef: altitud.get(c.id), serie, fechas,
-      pluvio: pluvio ? { estaciones: (m?.estaciones ?? []).slice(0, 3).map((e) => e.nombre), km: (m?.estaciones ?? []).slice(0, 3).map((e) => e.km), cercanas: m?.cercanas ?? 0 } : null });
+      pluvio: pluvio ? { estaciones: (aportan ?? []).slice(0, 3).map((e) => e.nombre), km: (aportan ?? []).slice(0, 3).map((e) => e.km),
+        ...(aportan ? { aportan: aportan.length } : {}), cercanas: m?.cercanas ?? 0, factor } : null });
   }
 
   let todas = parte;

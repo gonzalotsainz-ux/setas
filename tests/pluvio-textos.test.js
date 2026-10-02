@@ -32,11 +32,10 @@ test('texto del origen (Zona, con estaciones por día): honesto con cuántas mid
   assert.equal(una.principal, `Lluvia medida con 1 estación (Casillas, a 19,6${NB}km)`);
   assert.equal(una.detalle, '');
   const varias = partesOrigenLluvia({ estaciones: [est('A', 1), est('B', 6.7), est('C', 9), est('D', 12), est('E', 13), est('F', 14)], medidos: 9, total: 26, porDia: { min: 1, max: 3 }, muestra: 2 });
-  assert.equal(varias.principal, `Lluvia medida: entre 1 y 3 estaciones por día (A 1${NB}km, B 6,7${NB}km y 4 más desde agosto)`);
+  assert.equal(varias.principal, `Lluvia medida: entre 1 y 3 estaciones por día (A 1${NB}km, B 6,7${NB}km y 4 más)`);
   assert.equal(varias.detalle, '9 de 26 días medidos; el resto, modelo');
   assert.equal(varias.corto, 'Medida en estaciones');
   assert.ok(!/6 estaciones/.test(varias.principal));
-  // Si todas las de la lista midieron el mismo día, no son «desde agosto»: son «más».
   assert.equal(partesOrigenLluvia({ estaciones: [est('A', 1), est('B', 2), est('C', 3), est('D', 4)], medidos: 26, total: 26, porDia: { min: 4, max: 4 }, muestra: 2 }).principal,
     `Lluvia medida: 4 estaciones por día (A 1${NB}km, B 2${NB}km y 2 más)`);
   assert.equal(partesOrigenLluvia({ estaciones: [est('A', 1), est('B', 2)], medidos: 26, total: 26, porDia: { min: 2, max: 2 } }).principal,
@@ -58,14 +57,20 @@ test('texto del origen: días de AEMET con el nombre y la distancia de su estaci
 
 test('texto de la hoja del mapa (sin dato por día): estaciones próximas, con «a ~X km»', () => {
   assert.equal(textoOrigenLluvia({ estaciones: [est('Casillas', 19.6)], medidos: 26, total: 26, aprox: true }), `Lluvia medida en 1 estación próxima (Casillas, a ~19,6${NB}km)`);
-  assert.equal(textoOrigenLluvia({ estaciones: [est('A', 1), est('B', 2), est('C', 3)], medidos: 19, total: 26, truncada: true, aprox: true }),
-    `Lluvia medida en estaciones próximas: A a ~1${NB}km, B a ~2${NB}km y C a ~3${NB}km (hay más en la zona). 19 de 26 días medidos; el resto, modelo`);
+  // El índice guarda tres nombres; `otras`: cuántas más aportaron en los 26 días.
+  assert.equal(textoOrigenLluvia({ estaciones: [est('A', 1), est('B', 2), est('C', 3)], otras: 2, medidos: 19, total: 26, aprox: true }),
+    `Lluvia medida en estaciones próximas: A a ~1${NB}km, B a ~2${NB}km, C a ~3${NB}km y 2 más. 19 de 26 días medidos; el resto, modelo`);
+  assert.equal(textoOrigenLluvia({ estaciones: [est('A', 1)], otras: 1, medidos: 19, total: 26, aprox: true }),
+    `Lluvia medida en estaciones próximas: A a ~1${NB}km y 1 más. 19 de 26 días medidos; el resto, modelo`);
+  // Días medidos sin saber qué estaciones (archivo anterior): se dice que se midió, sin nombrar ninguna.
+  assert.equal(textoOrigenLluvia({ estaciones: [], medidos: 19, total: 26, cercanas: 4, aprox: true }),
+    'Lluvia medida en estaciones próximas. 19 de 26 días medidos; el resto, modelo');
   assert.equal(textoOrigenLluvia({ estaciones: [], medidos: 0, total: 26 }), 'Lluvia estimada con el modelo (sin estación cercana)');
 });
 
 test('texto de un punto de Zona a partir de aplicarPluvio', () => {
   const s = serieSintetica({ inicio: '2026-08-03', precip: lluviaBuena });
-  const lugar = { mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre: 'Casillas - Alto', fuente: 'duero', km: 19.6 }], cercanas: 1 };
+  const lugar = { mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre: 'Casillas - Alto', fuente: 'duero', km: 19.6, ultimo: '2026-09-30' }], cercanas: 1 };
   const m = aplicarPluvio([{ id: 'z', puntos: [{ id: 'a' }, { id: 'b' }] }], { hoy: s.fechas[59], series: { a: s, b: s } },
     { version: VERSION_PLUVIO, generado: 'x', desde: '2026-08-01', hasta: '2026-09-30', lugares: { a: lugar } });
   const a = textoOrigenPunto(m.series.a, m.pluvio.porPunto.a);
@@ -76,6 +81,31 @@ test('texto de un punto de Zona a partir de aplicarPluvio', () => {
   assert.equal(textoOrigenPunto(m.series.b, m.pluvio.porPunto.b).principal, 'Lluvia estimada con el modelo (sin estación cercana)');
 });
 
+// Revisión final 2, caso real (alava-izki-marojal, 02/10/2026): el archivo lista las 11 estaciones que aportaron desde
+// agosto, pero los 25 días medidos de los últimos 26 salen de Campezo (12,2 km) y Agurain (19,7 km). Antes: «Navarrete
+// 5,5 km, Kapildui 10,2 km y 9 más desde agosto».
+test('Zona nombra solo las estaciones que aportaron en la ventana de 26 días, por cercanía y con su distancia', () => {
+  const s = serieSintetica({ inicio: '2026-08-03', precip: lluviaBuena });   // hoy = 01/10; la ventana, del 06/09 al 01/10
+  const e = (nombre, km, ultimo) => ({ nombre, fuente: 'euskalmet', km, ultimo });
+  const estaciones = [e('Navarrete', 5.5, '2026-08-20'), e('Kapildui', 10.2, '2026-09-05'), e('Campezo', 12.2, '2026-09-30'), e('Iturrieta', 13.1, '2026-08-11'),
+    e('Arkauti', 14, '2026-08-30'), e('Gasteiz', 15.2, '2026-08-12'), e('Ozaeta', 16, '2026-08-02'), e('Egino', 17.4, '2026-08-09'), e('Opakua', 18, '2026-08-25'),
+    e('Agurain', 19.7, '2026-09-29'), e('Zambrana', 19.9, '2026-08-21')];
+  const n = Array.from({ length: LARGO }, (_, k) => (k >= entreDias('2026-08-01', '2026-09-06') ? (k === LARGO - 1 ? 1 : 2) : 3));
+  const pluvio = { version: VERSION_PLUVIO, generado: 'x', desde: '2026-08-01', hasta: '2026-09-30', lugares: { a: { mm: Array(LARGO).fill(1), n, estaciones, cercanas: 14 } } };
+  const m = aplicarPluvio([{ id: 'z', puntos: [{ id: 'a' }] }], { hoy: s.fechas[59], series: { a: s } }, pluvio);
+  const t = textoOrigenPunto(m.series.a, m.pluvio.porPunto.a);
+  assert.equal(t.principal, `Lluvia medida: entre 1 y 2 estaciones por día (Campezo 12,2${NB}km y Agurain 19,7${NB}km)`);
+  assert.equal(t.detalle, '25 de 26 días medidos; el resto, modelo');
+  // Un archivo anterior, sin `ultimo`: no se sabe cuáles midieron en la ventana y no se nombra ninguna.
+  const viejo = { ...pluvio, lugares: { a: { ...pluvio.lugares.a, estaciones: estaciones.map(({ ultimo, ...x }) => x) } } };
+  const mv = aplicarPluvio([{ id: 'z', puntos: [{ id: 'a' }] }], { hoy: s.fechas[59], series: { a: s } }, viejo);
+  assert.equal(textoOrigenPunto(mv.series.a, mv.pluvio.porPunto.a).principal, 'Lluvia medida: entre 1 y 2 estaciones por día');
+  // Ningún día medido en la ventana: modelo, con el motivo de siempre.
+  const antes = { ...pluvio, lugares: { a: { ...pluvio.lugares.a, mm: Array.from({ length: LARGO }, (_, k) => (k < 30 ? 1 : null)), estaciones: [estaciones[0]] } } };
+  const ma = aplicarPluvio([{ id: 'z', puntos: [{ id: 'a' }] }], { hoy: s.fechas[59], series: { a: s } }, antes);
+  assert.equal(textoOrigenPunto(ma.series.a, ma.pluvio.porPunto.a).principal, 'Lluvia estimada con el modelo (sin datos de estaciones en los últimos 26 días)');
+});
+
 test('punto con días de AEMET y ninguno de pluviómetros: el texto de Zona es el de AEMET (null aquí)', () => {
   const s = serieSintetica({ inicio: '2026-08-03', precip: lluviaBuena });
   const base = s.origenPrecip ?? s.fechas.map(() => 'modelo');
@@ -83,19 +113,31 @@ test('punto con días de AEMET y ninguno de pluviómetros: el texto de Zona es e
   assert.equal(textoOrigenPunto(aemet, { estaciones: [], cercanas: 0, factor: 1 }), null);
   // Con días de los dos orígenes se dicen los dos, sin atribuir a AEMET lo que midieron los pluviómetros.
   const mixta = { ...aemet, origenPrecip: aemet.origenPrecip.map((o, k) => (k > s.hoy - 20 && k <= s.hoy - 10 ? 'medida' : o)) };
-  const t = textoOrigenPunto(mixta, { estaciones: [est('Covaleda', 2)], cercanas: 1, factor: 1, nDia: mixta.fechas.map(() => 2) }, { nombre: 'Rascafría', distanciaKm: 8.2 });
+  const t = textoOrigenPunto(mixta, { estaciones: [{ ...est('Covaleda', 2), ultimo: s.fechas[s.hoy - 11] }], cercanas: 1, factor: 1, nDia: mixta.fechas.map(() => 2) }, { nombre: 'Rascafría', distanciaKm: 8.2 });
   assert.equal(t.principal, `Lluvia medida con 1 estación (Covaleda, a 2${NB}km)`);
   assert.equal(t.detalle, `10 de 26 días medidos, 10 con AEMET (Rascafría, a 8,2${NB}km); el resto, modelo`);
 });
 
 test('origen de una celda del índice; un índice sin pluviómetros no da texto', () => {
-  const lluvia = { desde: '2026-08-03', hoy: 59, mm: Array(60).fill(0), origen: [...Array(59).fill(1), 0], estaciones: ['Covaleda'], cercanas: 1 };
-  assert.deepEqual(origenDeCelda({ lluvia }), { estaciones: ['Covaleda'], medidos: 25, total: 26, cercanas: 1, aprox: true, truncada: false });
-  // Con las distancias (lluvia.km) el texto dice a cuántos km está cada una; con tres nombres y más cerca, es la lista truncada.
-  const con = origenDeCelda({ lluvia: { ...lluvia, estaciones: ['A', 'B', 'C'], km: [1, 2, 3], cercanas: 5 } });
+  const lluvia = { desde: '2026-08-03', hoy: 59, mm: Array(60).fill(0), origen: [...Array(59).fill(1), 0], estaciones: ['Covaleda'], aportan: 1, cercanas: 1 };
+  assert.deepEqual(origenDeCelda({ lluvia }), { estaciones: ['Covaleda'], medidos: 25, total: 26, cercanas: 1, aprox: true, otras: 0, factor: 1 });
+  // Con las distancias (lluvia.km) el texto dice a cuántos km está cada una; `aportan` dice cuántas más midieron en la ventana.
+  const con = origenDeCelda({ lluvia: { ...lluvia, estaciones: ['A', 'B', 'C'], km: [1, 2, 3], aportan: 5, cercanas: 8 } });
   assert.deepEqual(con.estaciones, [est('A', 1), est('B', 2), est('C', 3)]);
-  assert.equal(con.truncada, true);
+  assert.equal(con.otras, 2);
+  // Un índice anterior (sin `aportan`) puede nombrar estaciones que no midieron en la ventana: no se nombran.
+  const viejo = origenDeCelda({ lluvia: { ...lluvia, estaciones: ['Navarrete', 'Kapildui'], km: [5.5, 10.2], aportan: undefined } });
+  assert.deepEqual([viejo.estaciones, viejo.otras], [[], 0]);
+  assert.equal(textoOrigenLluvia(viejo), 'Lluvia medida en estaciones próximas. 25 de 26 días medidos; el resto, modelo');
   assert.equal(origenDeCelda({ lluvia: { desde: '2026-08-03', hoy: 59, mm: Array(60).fill(0) } }), null);
+});
+
+// Revisión final 3: la hoja del mapa dice, como Zona, que el modelo está corregido.
+test('origen de una celda con el modelo corregido por el sesgo de la zona: «modelo ×f»', () => {
+  const lluvia = { desde: '2026-08-03', hoy: 59, mm: Array(60).fill(0), origen: [...Array(40).fill(2), ...Array(19).fill(1), 0], estaciones: ['Covaleda'], km: [2], aportan: 1, cercanas: 1, factor: 0.67 };
+  assert.equal(textoOrigenLluvia(origenDeCelda({ lluvia })), `Lluvia medida en 1 estación próxima (Covaleda, a ~2${NB}km). 19 de 26 días medidos; el resto, modelo ×0,67`);
+  const sin = { ...lluvia, origen: [...Array(59).fill(2), 0], estaciones: [], km: [], aportan: 0 };
+  assert.equal(textoOrigenLluvia(origenDeCelda({ lluvia: sin })), 'Lluvia estimada con el modelo (las estaciones cercanas no tienen datos válidos). Corregida ×0,67 con las estaciones de la zona');
 });
 
 test('el índice valida `km`: mismos elementos que `estaciones`, números', () => {
@@ -103,6 +145,11 @@ test('el índice valida `km`: mismos elementos que `estaciones`, números', () =
   assert.deepEqual(validarSalida(salida({ origen: [1, 2, 0], estaciones: ['A'], km: [3.4], cercanas: 1 })), []);
   assert.deepEqual(validarSalida(salida({ estaciones: ['A'], km: [3.4, 5] })), ['celda c mal formada']);
   assert.deepEqual(validarSalida(salida({ estaciones: ['A'], km: ['x'] })), ['celda c mal formada']);
+  // `aportan` (entero) y `factor` (número positivo), opcionales.
+  assert.deepEqual(validarSalida(salida({ origen: [1, 2, 0], estaciones: ['A'], km: [3.4], aportan: 4, cercanas: 6, factor: 0.67 })), []);
+  assert.deepEqual(validarSalida(salida({ estaciones: ['A'], aportan: 1.5 })), ['celda c mal formada']);
+  assert.deepEqual(validarSalida(salida({ estaciones: ['A'], factor: 0 })), ['celda c mal formada']);
+  assert.deepEqual(validarSalida(salida({ estaciones: ['A'], factor: 'x' })), ['celda c mal formada']);
 });
 
 test('hoja del mapa: el texto del origen de la lluvia, solo si el índice lo trae', () => {

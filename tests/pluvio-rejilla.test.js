@@ -13,7 +13,7 @@ const MANANA = new Date('2026-10-01T05:00:00Z');   // 07:00 en Madrid
 const gruesa = (n) => ({ celdas: Array.from({ length: n }, (_, k) => ({ id: `z:${k}:0`, zona: 'z', lat: 40 + k * 0.01, lon: -4, altRef: 1000 + k })) });
 const DESDE = '2026-08-01', HASTA = '2026-09-30', LARGO = entreDias(DESDE, HASTA) + 1;
 const pluvioCon = (lugares, extra = {}) => ({ version: VERSION_PLUVIO, generado: '2026-10-01T04:10:00.000Z', desde: DESDE, hasta: HASTA, lugares, ...extra });
-const seco = (nombre = 'Covaleda') => ({ mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre, fuente: 'duero', km: 2 }], cercanas: 1 });
+const seco = (nombre = 'Covaleda', ultimo = HASTA) => ({ mm: Array(LARGO).fill(0), n: Array(LARGO).fill(1), estaciones: [{ nombre, fuente: 'duero', km: 2, ultimo }], cercanas: 1 });
 const r1 = (x) => Math.round(x * 10) / 10;
 async function indice(archivoPluvio) {
   const almacen = almacenMemoria();
@@ -68,7 +68,25 @@ test('con lluvia medida en dos estaciones: sus celdas pasan a medida y las demá
   // La zona midió 0 frente a un modelo con lluvia: cociente (0 + 5)/(modelo + 5) → acotado a 0,67 en las celdas sin estación.
   assert.equal(b.lluvia.origen[h - 1], 2);
   assert.equal(b.lluvia.mm[h - 1], r1(sin.celdas['z:1:0'].lluvia.mm[h - 1] * 0.67));
+  // Revisión final 3: el factor va en el índice para que la hoja lo diga.
+  assert.equal(b.lluvia.factor, 0.67);
+  assert.equal(a.lluvia.factor, 0.67);
+  assert.deepEqual([b.lluvia.estaciones, b.lluvia.aportan], [[], 0]);
   assert.deepEqual(validarSalida(con), []);
+});
+
+// Revisión final 2: la hoja nombra solo las estaciones que aportaron en los 26 días de la ventana (del 06/09 al 01/10).
+test('el índice nombra solo las estaciones que aportaron en la ventana; un pluvio/celdas.json sin `ultimo`, ninguna', async () => {
+  const varias = { ...seco(), estaciones: [
+    { nombre: 'Navarrete', fuente: 'euskalmet', km: 5.5, ultimo: '2026-08-20' }, { nombre: 'Kapildui', fuente: 'euskalmet', km: 10.2, ultimo: '2026-09-05' },
+    { nombre: 'Campezo', fuente: 'euskalmet', km: 12.2, ultimo: '2026-09-30' }, { nombre: 'Arkauti', fuente: 'euskalmet', km: 14, ultimo: '2026-09-06' },
+    { nombre: 'Gasteiz', fuente: 'euskalmet', km: 15.2, ultimo: '2026-09-12' }, { nombre: 'Agurain', fuente: 'euskalmet', km: 19.7, ultimo: '2026-09-29' }], cercanas: 9 };
+  const con = await indice(pluvioCon({ 'z:0:0': varias }));
+  const l = con.celdas['z:0:0'].lluvia;
+  assert.deepEqual([l.estaciones, l.km, l.aportan, l.cercanas], [['Campezo', 'Arkauti', 'Gasteiz'], [12.2, 14, 15.2], 4, 9]);
+  assert.deepEqual(validarSalida(con), []);
+  const viejo = (await indice(pluvioCon({ 'z:0:0': { ...varias, estaciones: varias.estaciones.map(({ ultimo, ...e }) => e) } }))).celdas['z:0:0'].lluvia;
+  assert.deepEqual([viejo.estaciones, viejo.km, 'aportan' in viejo], [[], [], false]);
 });
 
 test('factoresPorZona: cada estación de la zona cuenta una vez por fecha; con una sola estación, sin factor', () => {

@@ -14,6 +14,8 @@
 //    zona en Hoy y Zona). Corrige también la lluvia anterior a la serie si no está medida entera.
 //  - Archivos publicados (pluvio/ultimo.json por punto de zona, pluvio/celdas.json por celda gruesa):
 //    { version, generado, desde, hasta, lugares: { id: { mm, n, estaciones, cercanas } }, fuentes?, aemet? } (docs/datos.md).
+//    Cada estación lleva `ultimo`, su último día con aporte: Zona y la hoja del mapa nombran solo las que aportaron en los
+//    26 días que enseñan (estacionesDesde). Los archivos anteriores no lo traen: valen, pero no se nombra ninguna.
 import { sumarDias, entreDias } from './meteo.js';
 
 export const VERSION_PLUVIO = 1;
@@ -79,18 +81,27 @@ export function seriesMedidas(lugares, estaciones, validos, desde, hasta) {
   for (const l of lugares) {
     const cerca = cercanas(l, estaciones);
     if (!cerca.length) continue;
-    const usadas = new Set(), mm = [], n = [];
+    const ultimo = new Map(), mm = [], n = [];   // clave → último día con aporte (las fechas van en orden)
     for (const f of fechas) {
       const valores = new Map();
       for (const c of cerca) { const v = validos.get(c.clave)?.get(f); if (Number.isFinite(v) && v >= 0) valores.set(c.clave, v); }
       const d = mezclarDia(cerca, valores);
       mm.push(d?.mm ?? null);
       n.push(d?.n ?? 0);
-      for (const k of valores.keys()) usadas.add(k);
+      for (const k of valores.keys()) ultimo.set(k, f);
     }
-    r[l.id] = { mm, n, estaciones: cerca.filter((c) => usadas.has(c.clave)).map(({ nombre, fuente, km }) => ({ nombre, fuente, km })), cercanas: cerca.length };
+    r[l.id] = { mm, n, estaciones: cerca.filter((c) => ultimo.has(c.clave)).map(({ clave, nombre, fuente, km }) => ({ nombre, fuente, km, ultimo: ultimo.get(clave) })),
+      cercanas: cerca.length };
   }
   return r;
+}
+
+// Las estaciones de un lugar (de la más cercana a la más lejana, como se publican) que aportaron algún día desde `inicio`.
+// null si alguna no trae `ultimo` (archivo anterior): no se sabe cuáles midieron, y mejor no nombrar que nombrar mal.
+export function estacionesDesde(estaciones, inicio) {
+  const lista = Array.isArray(estaciones) ? estaciones : [];
+  if (!lista.every((e) => typeof e?.ultimo === 'string')) return null;
+  return lista.filter((e) => e.ultimo >= inicio);
 }
 
 // Pares (medido, modelo) de los últimos `dias` días hasta `hasta`, de una serie del MODELO (antes de aplicar la medida).
@@ -204,7 +215,8 @@ export function validarPluvio(p) {
   for (const [id, l] of Object.entries(p.lugares)) {
     const bien = Array.isArray(l?.mm) && l.mm.length === largo && l.mm.every((v) => v === null || num0(v))
       && Array.isArray(l.n) && l.n.length === largo && l.n.every(Number.isInteger)
-      && Array.isArray(l.estaciones) && l.estaciones.every((s) => typeof s?.nombre === 'string') && Number.isInteger(l.cercanas);
+      && Array.isArray(l.estaciones) && l.estaciones.every((s) => typeof s?.nombre === 'string' && (s.ultimo === undefined || FECHA.test(s.ultimo ?? '')))
+      && Number.isInteger(l.cercanas);
     if (!bien) e.push(`lugar ${id} mal formado`);
   }
   if (p.aemet != null && (typeof p.aemet !== 'object' || !Object.values(p.aemet).every((d) => d && typeof d === 'object'
