@@ -11,7 +11,7 @@ export const BASE_INDICE = `${SUPABASE_URL}/storage/v1/object/public/indice`;
 const TRES_HORAS = 3 * 3600e3, MARGEN_MS = 45 * 60e3, ESPERA_MS = 20000;
 
 // AbortSignal.timeout no existe en Safari < 16: se usa un AbortController con temporizador.
-function conPlazo(ms) {
+export function conPlazo(ms) {
   if (typeof AbortController !== 'function') return { signal: undefined, fin() {} };
   const c = new AbortController(), t = setTimeout(() => c.abort(), ms);
   return { signal: c.signal, fin: () => clearTimeout(t) };

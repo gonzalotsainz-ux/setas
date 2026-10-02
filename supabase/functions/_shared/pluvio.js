@@ -9,9 +9,9 @@
 //  - Sesgo: en los días sin estación válida, el modelo se multiplica por el cociente medido/modelo de los últimos 30 días
 //    en los lugares de la zona que sí tienen estación: por fecha la media de los lugares, (medido + 5) / (modelo + 5) y
 //    acotado entre 0,67 y 1,5. No se corrige con menos de 10 fechas, menos de 10 mm de modelo o menos de 5 días mojados
-//    (≥ 1 mm): una o dos tormentas mal situadas no deben doblar ni partir la lluvia. En la rejilla, además, hacen falta
-//    2 estaciones distintas en la zona y cada una cuenta una vez por fecha (factoresPorZona). Corrige también la lluvia
-//    anterior a la serie si no está medida entera.
+//    (≥ 1 mm): una o dos tormentas mal situadas no deben doblar ni partir la lluvia. Además hacen falta 2 estaciones
+//    distintas en la zona y cada una cuenta una vez por fecha (factoresPorZona: celdas gruesas en la rejilla, puntos de
+//    zona en Hoy y Zona). Corrige también la lluvia anterior a la serie si no está medida entera.
 //  - Archivos publicados (pluvio/ultimo.json por punto de zona, pluvio/celdas.json por celda gruesa):
 //    { version, generado, desde, hasta, lugares: { id: { mm, n, estaciones, cercanas } }, fuentes?, aemet? } (docs/datos.md).
 import { sumarDias, entreDias } from './meteo.js';
@@ -122,6 +122,47 @@ export function factorSesgo(pares, s = SESGO) {
   if (mod < s.modeloMinimo || mojados < s.diasMojados) return 1;
   const f = Math.round(Math.min(s.max, Math.max(s.min, (med + s.suavizado) / (mod + s.suavizado))) * 100) / 100;
   return Number.isFinite(f) ? f : 1;
+}
+
+// Sesgo del modelo por zona (spec de pluviómetros §3.3; Ruling de la tarea 12), para las celdas gruesas (función
+// «rejilla») y los puntos de zona (Hoy y Zona): `lugares` = [{ id, zona }], `series` = Map(id → serie del MODELO). Los
+// pares medido/modelo de los lugares de la zona que tienen estación; cada estación (la más cercana de las usadas en el
+// lugar, su representante) cuenta una vez por fecha: los lugares que comparten representante dan un solo par, la media de
+// los suyos; así un pluviómetro que cubre muchos lugares no pesa por todos. Sin 2 estaciones distintas, la zona no tiene
+// factor (no sale en el Map: 1). Con lotes > 1 cada lote de la rejilla lo calcula con sus celdas.
+export const ESTACIONES_SESGO = 2;
+export function factoresPorZona(lugares, series, pluvio) {
+  const zonas = new Map();   // zona → estación → fecha → { medida, modelo, k }
+  for (const c of lugares) {
+    const s = series.get(c.id), m = pluvio.lugares?.[c.id], rep = m?.estaciones?.[0];
+    if (!s || !m || !rep) continue;
+    const clave = `${rep.fuente}:${rep.nombre}`;
+    if (!zonas.has(c.zona)) zonas.set(c.zona, new Map());
+    const porEstacion = zonas.get(c.zona);
+    if (!porEstacion.has(clave)) porEstacion.set(clave, new Map());
+    const porFecha = porEstacion.get(clave);
+    for (const p of paresSesgo(s, m, pluvio.desde, pluvio.hasta)) {
+      const t = porFecha.get(p.fecha) ?? { medida: 0, modelo: 0, k: 0 };
+      t.medida += p.medida; t.modelo += p.modelo; t.k++;
+      porFecha.set(p.fecha, t);
+    }
+  }
+  const r = new Map();
+  for (const [zona, porEstacion] of zonas) {
+    const conPares = [...porEstacion.values()].filter((f) => f.size);
+    if (conPares.length < ESTACIONES_SESGO) continue;
+    r.set(zona, factorSesgo(conPares.flatMap((f) => [...f].map(([fecha, t]) => ({ fecha, medida: t.medida / t.k, modelo: t.modelo / t.k })))));
+  }
+  return r;
+}
+
+// Un archivo publicado vale si pasa validarPluvio, no tiene más de MAX_HORAS y no es posterior a `ahora` (más de
+// ADELANTO_MIN, por relojes). Si no vale, quien lo lee sigue como sin archivo (solo con el modelo).
+export const VIGENCIA_PLUVIO = Object.freeze({ maxHoras: 36, adelantoMin: 10 });
+export function pluvioVigente(p, ahora = new Date(), v = VIGENCIA_PLUVIO) {
+  if (!p || validarPluvio(p).length) return false;
+  const edad = new Date(ahora).getTime() - Date.parse(p.generado);
+  return Number.isFinite(edad) && edad >= -v.adelantoMin * 60e3 && edad <= v.maxHoras * 3600e3;
 }
 
 // La serie con la lluvia medida en los días del tramo [desde, hasta] que la tienen ('medida') y el modelo corregido por

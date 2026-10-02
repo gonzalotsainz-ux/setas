@@ -7,7 +7,7 @@ import { resumirCelda, diaConDatos, validarSalida, VERSION_SALIDA } from '../_sh
 import { selloDe, tocaEjecutar, inicioSerie, planificar, filasDePrincipal, filasDeArchivoLluvia, filasDeClima, serieDesdeFilas,
   aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION,
   factoresPorZona } from './nucleo.js';
-import { aplicarMedida, validarPluvio } from '../_shared/pluvio.js';
+import { aplicarMedida, pluvioVigente, VIGENCIA_PLUVIO } from '../_shared/pluvio.js';
 
 // Supabase corta una función a los 150 s de reloj (plan gratuito, informe 08 D4), también en segundo plano. La ejecución
 // entera tiene que acabar antes de PLAZO_EJECUCION; las peticiones (con sus reintentos y esperas) dejan
@@ -121,13 +121,11 @@ export { claveValida } from '../_shared/clave.js';
 // pluvio/celdas.json del mismo bucket (la función «pluvio» lo publica a las 4 y a las 16 UTC). Si falta, falla, no pasa
 // validarPluvio, tiene más de PLUVIO_MAX_HORAS o es posterior a la ejecución (más de PLUVIO_ADELANTO_MIN, por relojes),
 // null: el índice sale sin pluviómetros, exactamente como antes.
-export const PLUVIO_MAX_HORAS = 36, PLUVIO_ADELANTO_MIN = 10;
+export const PLUVIO_MAX_HORAS = VIGENCIA_PLUVIO.maxHoras, PLUVIO_ADELANTO_MIN = VIGENCIA_PLUVIO.adelantoMin;
 export async function leerPluvioCeldas(almacen, ahora = new Date()) {
   try {
     const p = await almacen.leerJson('pluvio/celdas.json');
-    if (!p || validarPluvio(p).length) return null;
-    const edad = ahora.getTime() - Date.parse(p.generado);
-    return Number.isFinite(edad) && edad >= -PLUVIO_ADELANTO_MIN * 60e3 && edad <= PLUVIO_MAX_HORAS * 3600e3 ? p : null;
+    return pluvioVigente(p, ahora) ? p : null;
   } catch { return null; }
 }
 

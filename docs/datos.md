@@ -826,7 +826,10 @@ Dos archivos con el mismo formato (`supabase/functions/_shared/pluvio.js`, `vali
   Un lugar sin ninguna estación a menos de 20 km no sale.
 - Se validan antes de subir; primero se sube `celdas.json` (caché 3.600 s) y lo último `ultimo.json` (caché 600 s). Si la
   ejecución no tiene tiempo para un trozo de guardado o una subida, se para ahí y se apunta el error.
-- Si falta el archivo (o no pasa `validarPluvio`), la app y `rejilla` funcionan como antes, solo con el modelo.
+- Si falta el archivo (o no pasa `validarPluvio`, tiene más de 36 h o es del futuro: `pluvioVigente`), la app y `rejilla`
+  funcionan como antes, solo con el modelo. Hoy y Zona (`js/pluvio.js`) guardan `ultimo.json` 3 h en `localStorage` y, si la
+  red falla, usan la copia guardada mientras siga vigente; el sesgo de cada zona es el mismo cálculo que el de la rejilla
+  (`factoresPorZona`, con los puntos de la zona) y `aemet` completa los días que la función `aemet` aún no ha validado.
 
 ## data/pueblos.json (buscador del mapa)
 
