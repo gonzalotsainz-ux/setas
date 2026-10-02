@@ -7,7 +7,11 @@ const { zonas } = leer('data/zonas.json');
 const cotos = leer('data/cotos.geojson');
 const estaciones = new Set(leer('supabase/functions/aemet/estaciones.json'));
 const prohibidos = cotos.features.filter((f) => f.properties.tipo === 'prohibido');
-const madrid = ['guadarrama-morcuera-pinar', 'guadarrama-miraflores-pinar', 'guadarrama-canencia-pinar', 'sierra-norte-canencia-melojar', 'sierra-norte-bustarviejo-melojar'];
+const madrid = ['guadarrama-morcuera-pinar', 'guadarrama-miraflores-pinar', 'guadarrama-canencia-pinar', 'sierra-norte-canencia-melojar', 'sierra-norte-bustarviejo-melojar',
+  // Fase 1 de Madrid (02/10/2026): 6 puntos en guadarrama, 5 en sierra-norte y los 4 de sierra-oeste
+  'guadarrama-guadarrama-resinero', 'guadarrama-cercedilla-silvestre', 'guadarrama-camorza-resinero', 'guadarrama-sanblas-silvestre', 'guadarrama-alameda-melojar',
+  'guadarrama-pinilla-melojar', 'sierra-norte-braojos-silvestre', 'sierra-norte-robregordo-silvestre', 'sierra-norte-hiruela-melojar', 'sierra-norte-pradena-silvestre',
+  'sierra-norte-pradena-melojar', 'sierra-oeste-abantos-silvestre', 'sierra-oeste-sanmartin-resinero', 'sierra-oeste-valdemaqueda-resinero', 'sierra-oeste-robledo-encinar'];
 
 test('ningún punto meteorológico cae en una zona prohibida (Reserva o Uso Restringido A)', () => {
   for (const z of zonas) for (const p of z.puntos) {
@@ -75,4 +79,37 @@ test('extremadura incluye Badajoz: el bbox llega al sur hasta Tentudía (lat 38,
   // Tentudía (Fuentes de León 38,07 N, Monesterio 38,09 N) queda dentro
   assert.ok(ex.bbox[1] < 38.07 && 38.09 < ex.bbox[3]);
   for (const z of zonas.filter((q) => q.id !== 'extremadura')) assert.ok(!(ex.bbox[0] < z.bbox[2] && z.bbox[0] < ex.bbox[2] && ex.bbox[1] < z.bbox[3] && z.bbox[1] < ex.bbox[3]), z.id);
+});
+
+test('fase 1 de Madrid: zona sierra-oeste sin solapes, con sus 4 puntos, sus estaciones en la lista blanca y su rejilla', () => {
+  const so = zonas.find((z) => z.id === 'sierra-oeste');
+  assert.deepEqual(so.bbox, [-4.3999, 40.22, -3.9601, 40.6499]);
+  assert.deepEqual(so.provincias, ['Madrid']);
+  assert.deepEqual(so.puntos.map((p) => p.id), ['sierra-oeste-abantos-silvestre', 'sierra-oeste-sanmartin-resinero', 'sierra-oeste-valdemaqueda-resinero', 'sierra-oeste-robledo-encinar']);
+  assert.deepEqual(so.estacionesAemet.map((e) => e.id).sort(), ['3266A', '3330Y', '3338']);
+  for (const e of so.estacionesAemet) assert.ok(estaciones.has(e.id), e.id);
+  // Los bbox de guadarrama y sierra-norte no cambian en la fase 1
+  assert.deepEqual(zonas.find((z) => z.id === 'guadarrama').bbox, [-4.25, 40.65, -3.7701, 41.05]);
+  assert.deepEqual(zonas.find((z) => z.id === 'sierra-norte').bbox, [-3.77, 40.8, -3.3, 41.35]);
+  const indice = leer('data/rejilla/indice.json');
+  assert.ok(indice.archivos.some((a) => a.zona === 'sierra-oeste'), 'falta la rejilla fina de sierra-oeste');
+  assert.ok(leer('data/rejilla/gruesa.json').pasos['sierra-oeste'] > 0);
+});
+
+test('fase 1 de Madrid: los puntos en montes fuera del Parque sin ordenanza no se presentan como recogida permitida', () => {
+  const punto = (id) => zonas.flatMap((z) => z.puntos).find((p) => p.id === id);
+  // Decisión de la usuaria (02/10/2026): siguen como NO IR hasta que la Comunidad confirme el ap. 4.4.2.6 del PORN
+  for (const id of ['guadarrama-guadarrama-resinero', 'guadarrama-cercedilla-silvestre', 'guadarrama-alameda-melojar', 'guadarrama-pinilla-melojar']) {
+    const p = punto(id);
+    assert.match(p.proteccion, /NO IR/, id);
+    assert.match(p.proteccion, /4\.4\.2\.6/, id);
+    assert.match(p.proteccion, /pendiente de confirmación oficial/, id);
+  }
+  // Los demás puntos nuevos fuera de cotos con permiso: régimen sin confirmar
+  for (const id of ['sierra-norte-braojos-silvestre', 'sierra-norte-robregordo-silvestre', 'sierra-norte-hiruela-melojar', 'sierra-norte-pradena-silvestre', 'sierra-norte-pradena-melojar']) {
+    assert.match(punto(id).proteccion, /^Régimen de recogida sin confirmar/, id);
+  }
+  assert.match(punto('sierra-norte-braojos-silvestre').proteccion, /pendiente de esa resolución/);
+  for (const id of ['sierra-oeste-sanmartin-resinero', 'sierra-oeste-valdemaqueda-resinero', 'sierra-oeste-robledo-encinar']) assert.match(punto(id).nota, /régimen de recogida sin confirmar/, id);
+  assert.match(punto('sierra-oeste-abantos-silvestre').proteccion, /Paraje Pintoresco/);
 });

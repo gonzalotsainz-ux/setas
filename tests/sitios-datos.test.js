@@ -179,3 +179,45 @@ test('ronda 1: avisos de confusión en colmenilla, carbonera y perretxiko; Alust
   assert.ok(!/ante la duda/i.test(n.notas));
   assert.ok(!/si dudas, no pases de 5 kg/.test(porId['guadalajara-alustante-ordenanza'].legal.texto));
 });
+
+test('fase 1 de Madrid: los montes públicos fuera del Parque sin ordenanza siguen NO IR hasta que se confirme el PORN', () => {
+  const pendiente = /Decreto 96\/2009, ap\. 4\.4\.2\.6\) podría autorizar la recogida libre de setas para uso individual .*pendiente de confirmación oficial/;
+  // Decisión de la usuaria (02/10/2026): no cambia su estado; solo se añade la nota del PORN
+  for (const id of ['pn-monte-sin-plan', 'la-barranca-fuenfria-cotos-no-ir', 'guadarrama-mup-39-pinar', 'cercedilla-mup-32-fuera-parque', 'alameda-pinilla-fuera-parque']) {
+    assert.equal(porId[id].tipo, 'no-ir', id);
+    assert.equal(porId[id].legal.estado, 'prohibido', id);
+    assert.match(porId[id].legal.texto, pendiente, id);
+    assert.match(porId[id].legal.texto, /se mantiene la prohibición/, id);
+    assert.ok(porId[id].legal.normas.includes('madrid-porn-guadarrama-96-2009'), id);
+    assert.deepEqual(porId[id].especies, [], id);
+  }
+  assert.equal(porId['sierra-norte-pueblos-sin-ordenanza'].legal.estado, 'sin-confirmar');
+  assert.match(porId['sierra-norte-pueblos-sin-ordenanza'].legal.texto, pendiente);
+  // Ningún sitio que cite el PORN se presenta como libre o con permiso
+  for (const s of sitios.filter((x) => x.legal.normas.includes('madrid-porn-guadarrama-96-2009'))) assert.ok(['prohibido', 'sin-confirmar'].includes(s.legal.estado), s.id);
+  // Braojos: ordenanza registrada como pendiente de la resolución de acotamiento
+  const braojos = leer('data/normativa.json').normas.find((n) => n.id === 'madrid-braojos');
+  assert.equal(braojos.vigente, false);
+  assert.match(braojos.resumen[0], /^PENDIENTE DE RESOLUCIÓN DE ACOTAMIENTO/);
+  const porn = leer('data/normativa.json').normas.find((n) => n.id === 'madrid-porn-guadarrama-96-2009');
+  assert.equal(porn.verificado, false);
+  assert.match(porn.resumen[0], /^PENDIENTE DE CONFIRMACIÓN OFICIAL/);
+});
+
+test('fase 1 de Madrid: sitios nuevos con su número de fuentes y la Dehesa de Somosierra a 3 fuentes', () => {
+  const esperado = { 'abantos-mup-46-pinar': 3, 'santa-maria-alameda-pinares': 2, 'navahonda-robledo-de-chavela': 2, 'san-martin-valdeiglesias-pinares': 2,
+    'valdemaqueda-mup-185': 1, 'herreria-patrimonio-nacional-no-ir': 1, 'guadarrama-mup-39-pinar': 2, 'cercedilla-mup-32-fuera-parque': 3, 'alameda-pinilla-fuera-parque': 1,
+    'montejo-mup-202-91-fuera-hayedo': 2, 'pradena-la-morra-mup-155': 2, 'hiruela-dehesa-boyal-mup-79': 1, 'somosierra-dehesa': 3, 'lozoya-coto-micologico': 3 };
+  for (const [id, n] of Object.entries(esperado)) {
+    assert.equal(porId[id]?.nFuentes, n, id);
+    assert.equal(porId[id].confianza, n >= 3 ? 'alta' : n === 2 ? 'media' : 'baja', id);
+  }
+  for (const id of ['abantos-mup-46-pinar', 'santa-maria-alameda-pinares', 'navahonda-robledo-de-chavela', 'san-martin-valdeiglesias-pinares', 'valdemaqueda-mup-185', 'herreria-patrimonio-nacional-no-ir']) assert.equal(porId[id].zona, 'sierra-oeste', id);
+  assert.equal(porId['herreria-patrimonio-nacional-no-ir'].tipo, 'no-ir');
+  // Valdemaqueda: las observaciones de níscalo caen en Ávila, así que no se listan especies
+  assert.deepEqual(porId['valdemaqueda-mup-185'].especies, []);
+  // El níscalo cuenta ya el pinar piñonero, con el parte de Micocyl de 20/11/2024
+  const niscalo = especies.find((e) => e.id === 'lactarius-deliciosus');
+  assert.ok(niscalo.habitats.includes('pinar-pinonero'));
+  assert.ok(niscalo.fuentes.some((f) => f.url.endsWith('parte_mico_20241121.pdf') && f.consultado === '2026-10-02'));
+});
