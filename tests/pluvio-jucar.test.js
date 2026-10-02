@@ -60,3 +60,49 @@ test('ejecutar: Júcar rellena días que faltan y el total diario cuenta como d�
   assert.deepEqual({ ...almacen.dias.get('jucar|6P01|2026-09-30'), actualizado: null },
     { fuente: 'jucar', estacion: '6P01', fecha: '2026-09-30', mm: 1.6, horas: 24, maximo: null, calidad: 'ok', motivo: null, actualizado: null });
 });
+
+const pedirCon = (rutas) => crearPedir({ fetchFn: servidorFalso(rutas), esperar: sinEspera });
+
+test('respuesta que no es la esperada: error del día («formato inesperado») y se sigue', async () => {
+  for (const cuerpo of [{}, [{ foo: 1 }], null, 'texto']) {
+    const rutas = [[(u) => u === urlDiaJucar('2026-10-01'), () => respuesta(200, JSON.stringify(cuerpo))],
+      [(u) => u === urlDiaJucar('2026-09-30'), () => respuesta(200, fixture('jucar-2026-09-30.json'))]];
+    const r = await leerJucar({ pedir: pedirCon(rutas), estaciones: [{ codigo: '6P01' }], fechas: ['2026-10-01', '2026-09-30'] });
+    assert.deepEqual(r.errores, ['2026-10-01: formato inesperado']);
+    assert.equal(r.filas.length, 1);
+  }
+  assert.throws(() => filasDeDiaJucar({}, '2026-10-01', new Set(['6P01'])), /formato inesperado/);
+});
+
+test('valores descartados: sin días con dato, lluvia nula, de texto o negativa', () => {
+  const x = (cod, o) => ({ fldTCodigo: cod, lluvia_int: 1, valores: 1, ...o });
+  const lista = [x('A', { valores: 0 }), x('B', { lluvia_int: null }), x('C', { lluvia_int: '2.5' }), x('D', { lluvia_int: -1 }),
+    x('E', { lluvia_int: NaN }), x('F', { lluvia_int: 0 })];
+  assert.deepEqual(filasDeDiaJucar(lista, '2026-09-30', new Set('ABCDEF')).map((f) => f.estacion), ['F']);
+});
+
+test('servidor caído: se corta tras 3 días fallidos seguidos; un acierto reinicia la cuenta', async () => {
+  const registro = [];
+  const caido = crearPedir({ fetchFn: servidorFalso([[() => true, () => respuesta(503, 'x')]], registro), esperar: sinEspera });
+  const r = await leerJucar({ pedir: caido, estaciones: [{ codigo: '6P01' }], fechas: ['2026-10-01', '2026-09-30', '2026-09-29', '2026-09-28', '2026-09-27'] });
+  assert.equal(r.errores.length, 4);
+  assert.match(r.errores[3], /cortada tras 3 días/);
+  const intermitente = [[(u) => u === urlDiaJucar('2026-09-29'), () => respuesta(200, '[]')], [() => true, () => respuesta(503, 'x')]];
+  const r2 = await leerJucar({ pedir: pedirCon(intermitente), estaciones: [{ codigo: '6P01' }],
+    fechas: ['2026-10-01', '2026-09-30', '2026-09-29', '2026-09-28', '2026-09-27'] });
+  assert.equal(r2.errores.filter((e) => /503/.test(e)).length, 4);   // fallan 2, acierta 1, fallan 2: no se corta
+  assert.equal(r2.errores.some((e) => /cortada/.test(e)), false);
+});
+
+test('ejecutar: una segunda ejecución no vuelve a pedir los días ya guardados', async () => {
+  const almacen = almacenPluvioMemoria(), est = [{ fuente: 'jucar', codigo: '6P01' }], ok = [[(u) => u.includes('/lluviasIntervalo/'), () => respuesta(200, fixture('jucar-2026-09-30.json'))]];
+  const a = { almacen, esperar: sinEspera, estaciones: est, pedidas: ['jucar', 'publicar'] };
+  const reg1 = [], reg2 = [];
+  await ejecutar({ ...a, fetchFn: servidorFalso(ok, reg1), ahora: new Date('2026-10-02T04:10:00Z') });
+  await ejecutar({ ...a, fetchFn: servidorFalso(ok, reg2), ahora: new Date('2026-10-02T16:10:00Z') });
+  const f = (reg) => reg.map((x) => x.url.split('/').at(-1));
+  assert.equal(reg1.length, 20);
+  assert.equal(reg2.length, 20);
+  assert.ok(!f(reg2).some((d) => f(reg1).slice(2).includes(d)), 'repite días de relleno ya guardados');
+  assert.deepEqual(f(reg2).slice(0, 2), ['2026-10-01', '2026-09-30']);
+});
