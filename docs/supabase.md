@@ -87,6 +87,7 @@ claves `sb_publishable_`).
   La clave no está apuntada en ningún sitio; si hace falta, se genera otra y se actualizan el secreto y Vault
   (`select vault.update_secret(id, '<nueva>') from vault.secrets where name = 'rejilla_clave'`).
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy rejilla --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
+- Desde el 2026-10-02, `rejilla` toma `pluvio/celdas.json` (si está y valida) para la lluvia pasada de cada celda gruesa.
 - Desplegada el 2026-10-01 (migraciones `20261002000000_rejilla.sql` y `20261002000100_rejilla_cron.sql`); primera
   ejecución forzada el 2026-10-01 a las 17:21 de Madrid: 109 celdas rellenadas, sin publicar (relleno en curso).
 
