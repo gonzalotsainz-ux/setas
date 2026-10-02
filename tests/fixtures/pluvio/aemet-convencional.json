@@ -1,7 +1,7 @@
 [
-  {"idema":"3104Y","lon":-3.8883,"fint":"2026-10-02T05:00:00+0000","prec":0.0,"alt":1159.0,"lat":40.8897,"ubi":"RASCAFRIA","ta":8.3,"hr":95.0},
-  {"idema":"3104Y","lon":-3.8883,"fint":"2026-10-02T06:00:00+0000","prec":1.2,"alt":1159.0,"lat":40.8897,"ubi":"RASCAFRIA","ta":8.1,"hr":97.0},
-  {"idema":"2462","lon":-4.0108,"fint":"2026-10-02T06:00:00+0000","prec":3.4,"alt":1892.0,"lat":40.7933,"ubi":"PUERTO DE NAVACERRADA","ta":3.2,"hr":100.0},
-  {"idema":"2462","lon":-4.0108,"fint":"2026-10-02T07:00:00+0000","alt":1892.0,"lat":40.7933,"ubi":"PUERTO DE NAVACERRADA","ta":3.0,"hr":100.0},
-  {"idema":"3195","lon":-3.6781,"fint":"2026-10-02T06:00:00+0000","prec":0.4,"alt":667.0,"lat":40.4117,"ubi":"MADRID, RETIRO","ta":14.1,"hr":80.0}
+  {"idema":"3104Y","lon":-3.8883,"fint":"2026-10-02T05:00:00","prec":0.0,"alt":1159.0,"lat":40.8897,"ubi":"RASCAFRIA","ta":8.3,"hr":95.0},
+  {"idema":"3104Y","lon":-3.8883,"fint":"2026-10-02T06:00:00","prec":1.2,"alt":1159.0,"lat":40.8897,"ubi":"RASCAFRIA","ta":8.1,"hr":97.0},
+  {"idema":"2462","lon":-4.0108,"fint":"2026-10-02T06:00:00","prec":3.4,"alt":1892.0,"lat":40.7933,"ubi":"PUERTO DE NAVACERRADA","ta":3.2,"hr":100.0},
+  {"idema":"2462","lon":-4.0108,"fint":"2026-10-02T07:00:00","alt":1892.0,"lat":40.7933,"ubi":"PUERTO DE NAVACERRADA","ta":3.0,"hr":100.0},
+  {"idema":"3195","lon":-3.6781,"fint":"2026-10-02T06:00:00","prec":0.4,"alt":667.0,"lat":40.4117,"ubi":"MADRID, RETIRO","ta":14.1,"hr":80.0}
 ]

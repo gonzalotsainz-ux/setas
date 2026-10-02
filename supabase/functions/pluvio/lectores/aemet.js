@@ -22,5 +22,6 @@ export async function leerAemet({ pedir, clave, estaciones }) {
   const j1 = await pedir(URL_AEMET_TODAS, { cabeceras: { api_key: clave } });
   if (j1?.estado !== 200 || typeof j1.datos !== 'string') throw new Error(`AEMET ${j1?.estado}: ${j1?.descripcion ?? 'sin datos'}`);
   const lista = JSON.parse(new TextDecoder('iso-8859-15').decode(await pedir(j1.datos, { como: 'bytes' })));
+  if (!Array.isArray(lista)) throw new Error('AEMET: los datos no son una lista de observaciones');
   return { filas: horasDeAemet(lista, new Set(estaciones.map((e) => e.codigo))), errores: [], agotado: false };
 }

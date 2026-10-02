@@ -107,6 +107,18 @@ test('Tajo: usa la URL guardada; si falla, rehace la cadena una vez y sigue con 
   assert.equal(registro.filter((x) => x.url.includes('get-pluviometria')).length, 1, 'la tabla (2 MB) se pide una sola vez');
 });
 
+test('Tajo: con la tabla ya cargada va directo a su enlace; si la cadena falla, no se repite por estación', async () => {
+  const registro = [];
+  const rutas = [[(u) => u.includes('x=guardada'), () => respuesta(200, { response: { ok: 0 } })], ...rutasTajo()];
+  await leerTajo({ pedir: pedirCon(rutas, registro), estaciones: [P26, { ...P26, codigo: 'PN24' }] });
+  assert.equal(registro.filter((x) => x.url.includes('x=guardada')).length, 1, 'PN24 ya no prueba la URL guardada');
+  const registro2 = [];
+  const rotas = [[(u) => u.includes('x=guardada'), () => respuesta(200, { response: { ok: 0 } })], [(u) => u === 'https://saihtajo.chtajo.es/', () => respuesta(404, 'no')]];
+  const r = await leerTajo({ pedir: pedirCon(rotas, registro2), estaciones: ['A', 'B', 'C'].map((codigo) => ({ ...P26, codigo })) });
+  assert.deepEqual(r.errores, ['A', 'B', 'C'].map((c) => `${c}: saihtajo.chtajo.es respondió 404`));
+  assert.equal(registro2.filter((x) => x.url === 'https://saihtajo.chtajo.es/').length, 1, 'la portada se pide una sola vez');
+});
+
 // Review Focus 2: el portal contesta 200 con otra cosa.
 test('Tajo: una respuesta sin la señal de lluvia es un error, no ceros', async () => {
   const rutas = [[() => true, () => respuesta(200, { response: { ok: 1, senales: [{ tiposenal: 'T', valores: [{ tiempo: '02/10/2026 08:00', valor: 0 }] }] } })]];
@@ -120,7 +132,9 @@ test('AEMET: fint con +0000, solo la lista blanca, sin prec no hay fila', () => 
   assert.equal(horaDeFint('2026-10-02T06:00:00+0000'), '2026-10-02T06:00:00.000Z');
   assert.equal(horaDeFint('2026-10-02T06:00:00'), '2026-10-02T06:00:00.000Z');
   assert.equal(horaDeFint('2026-10-02T06:30:00+0000'), null);
-  const filas = horasDeAemet(fixtureJson('aemet-convencional.json'), new Set(['3104Y', '2462']));
+  assert.deepEqual(horasDeAemet([{ idema: '2462', fint: '2026-10-02T06:00:00', prec: 0.5 }], new Set(['2462'])),
+    [{ estacion: '2462', hora: '2026-10-02T06:00:00.000Z', mm: 0.5 }]);
+  const filas = horasDeAemet(fixtureJson('aemet-convencional.json'), new Set(['3104Y', '2462']));   // fixture SINTÉTICA, fint sin zona
   assert.deepEqual(filas, [
     { estacion: '3104Y', hora: '2026-10-02T05:00:00.000Z', mm: 0 },
     { estacion: '3104Y', hora: '2026-10-02T06:00:00.000Z', mm: 1.2 },
@@ -134,6 +148,8 @@ test('AEMET: dos pasos con la clave en la cabecera; un estado distinto de 200 es
   assert.equal(registro[0].cabeceras.api_key, 'clave-falsa');
   await assert.rejects(leerAemet({ pedir: pedirCon(rutasAemet(401)), clave: 'x', estaciones: [] }), /AEMET 401/);
   await assert.rejects(leerAemet({ pedir: pedirCon(rutasAemet()), clave: null, estaciones: [] }), /sin clave/);
+  const noLista = [rutasAemet()[0], [(u) => u.includes('/opendata/sh/datos-falsos'), () => respuesta(200, { estado: 404, descripcion: 'No hay datos' })]];
+  await assert.rejects(leerAemet({ pedir: pedirCon(noLista), clave: 'x', estaciones: [{ codigo: '3104Y' }] }), /no son una lista/);
 });
 
 // ---- manejador ----
@@ -157,8 +173,29 @@ test('ejecutar: guarda en bruto con su fuente; tajo10 se guarda como tajo; sin c
   assert.deepEqual(una, { fuente: 'tajo', estacion: 'P_26', hora: '2026-10-02T06:00:00.000Z', horas: 1, mm: 10, calidad: 'bruto' });
 });
 
+test('cambio de hora: la noche del 25/10/2026, la segunda 02:00 de Madrid es 01:00Z', () => {
+  const valores = ['00:00', '01:00', '02:00', '02:00', '03:00', '04:00'].map((h, k) => ({ tiempo: `25/10/2026 ${h}`, valor: k / 10 }));
+  const filas = horasDeGraficoTajo({ response: { senal: { valores } } }, 'P_26');
+  assert.deepEqual(filas.map((x) => x.hora), ['2026-10-24T22:00:00.000Z', '2026-10-24T23:00:00.000Z', '2026-10-25T00:00:00.000Z',
+    '2026-10-25T01:00:00.000Z', '2026-10-25T02:00:00.000Z', '2026-10-25T03:00:00.000Z']);
+  assert.deepEqual(filas.map((x) => x.mm), [0, 0.1, 0.2, 0.3, 0.4, 0.5]);
+});
+
+test('ejecutar: si falla el guardado de una tarea, se apunta y sigue con la siguiente', async () => {
+  const almacen = almacenPluvioMemoria();
+  const guardar = almacen.guardarObs;
+  let n = 0;
+  almacen.guardarObs = async (filas) => { if (++n === 1) throw new Error('base caída'); return guardar(filas); };
+  const r = await ejecutar({ almacen, fetchFn: servidorFalso([...rutasTajo(), ...rutasAemet()]), esperar: sinEspera, claveAemet: 'clave-falsa',
+    estaciones: [P26, { fuente: 'aemet', codigo: '3104Y' }], pedidas: ['aemet', 'tajo'] });
+  assert.equal(r.estado, 'hecho');
+  assert.deepEqual(r.errores, ['aemet: base caída']);
+  assert.deepEqual(r.filas, { tajo: 23 });
+  assert.equal(almacen.obs.size, 23);
+});
+
 // Review Focus 1: 25 de octubre, la misma hora local dos veces en un lote.
-test('cambio de hora: dos valores de la misma hora UTC no rompen el lote (gana el último)', async () => {
+test('cambio de hora: la hora repetida se guarda como la siguiente UTC y el lote no se rompe', async () => {
   const valores = [{ tiempo: '25/10/2026 01:00', valor: 0.2 }, { tiempo: '25/10/2026 02:00', valor: 0.4 }, { tiempo: '25/10/2026 02:00', valor: 0.6 }, { tiempo: '25/10/2026 03:00', valor: 0 }];
   const grafico = { response: { senal: { valores } } };
   const estacion = { response: { ok: 1, senales: [{ tiposenal: 'P1', url: 'index.php?w=get-estacion-grafico-grande&x=g', valores: [] }] } };
@@ -166,8 +203,9 @@ test('cambio de hora: dos valores de la misma hora UTC no rompen el lote (gana e
   const almacen = almacenPluvioMemoria();
   const r = await ejecutar({ almacen, fetchFn: servidorFalso(rutas), esperar: sinEspera, estaciones: [P26], pedidas: ['tajo10'] });
   assert.deepEqual(r.errores, []);
-  assert.equal(almacen.obs.size, 3);
-  assert.equal(almacen.obs.get('tajo|P_26|2026-10-25T00:00:00.000Z').mm, 0.6);
+  assert.equal(almacen.obs.size, 4);
+  assert.equal(almacen.obs.get('tajo|P_26|2026-10-25T00:00:00.000Z').mm, 0.4);
+  assert.equal(almacen.obs.get('tajo|P_26|2026-10-25T01:00:00.000Z').mm, 0.6);
   assert.equal(unicas([filaObs('tajo', { estacion: 'a', hora: 'h', mm: 1 }), filaObs('tajo', { estacion: 'a', hora: 'h', mm: 2 })])[0].mm, 2);
 });
 

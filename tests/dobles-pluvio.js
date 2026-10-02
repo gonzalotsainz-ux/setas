@@ -1,6 +1,8 @@
 // tests/dobles-pluvio.js
-// Dobles de la función «pluvio»: respuestas reales guardadas (tests/fixtures/pluvio/, capturadas el 02/10/2026), un
-// servidor falso que las sirve por URL y un almacén en memoria con la interfaz de almacenSupabase.
+// Dobles de la función «pluvio»: respuestas reales guardadas del SAIH Tajo (tests/fixtures/pluvio/tajo-*, capturadas el
+// 02/10/2026), un servidor falso que las sirve por URL y un almacén en memoria con la interfaz de almacenSupabase.
+// OJO: aemet-convencional.json es SINTÉTICA (no capturada): sigue el formato de la especificación oficial de
+// /observacion/convencional/todas, con `fint` sin zona («2026-10-02T06:00:00», UTC).
 import { readFileSync } from 'node:fs';
 
 export const fixture = (nombre, enc = 'utf8') => readFileSync(new URL(`./fixtures/pluvio/${nombre}`, import.meta.url), enc);
@@ -32,6 +34,7 @@ export const rutasTajo = () => [
   [(u) => u === 'https://saihtajo.chtajo.es/', () => respuesta(200, fixture('tajo-inicio.html'))],
 ];
 // AEMET en dos pasos: la primera llamada da la URL de los datos; la segunda, los datos en ISO-8859-15.
+// Los datos son SINTÉTICOS (aemet-convencional.json, formato de la especificación oficial), no una respuesta capturada.
 export const rutasAemet = (estado = 200) => [
   [(u) => u.includes('/observacion/convencional/todas'), () => respuesta(200, estado === 200
     ? { descripcion: 'exito', estado: 200, datos: 'https://opendata.aemet.es/opendata/sh/datos-falsos' }

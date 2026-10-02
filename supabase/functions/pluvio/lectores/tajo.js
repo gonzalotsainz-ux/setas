@@ -9,12 +9,18 @@ import { PlazoAgotado } from '../red.js';
 export const BASE_TAJO = 'https://saihtajo.chtajo.es/';
 
 export const senalP1 = (json) => (json?.response?.senales ?? []).find((s) => s?.tiposenal === 'P1') ?? null;
+// La serie viene ordenada en hora de Madrid. En el cambio de octubre la misma hora local sale dos veces y utcDeMadrid da
+// la primera (verano): si una hora no avanza respecto a la anterior es la segunda, una hora UTC más tarde (la segunda
+// 02:00 del 25/10 es 01:00Z).
 function horasDe(valores, estacion) {
   const filas = [];
+  let previa = -Infinity;
   for (const v of valores ?? []) {
     if (typeof v?.tiempo !== 'string' || !v.tiempo.endsWith(':00')) continue;   // solo las horas en punto
-    const hora = horaDeTexto(v.tiempo);
+    let hora = horaDeTexto(v.tiempo);
     if (!hora) continue;
+    if (Date.parse(hora) <= previa) hora = new Date(Date.parse(hora) + 3600e3).toISOString();
+    previa = Date.parse(hora);
     filas.push({ estacion, hora, mm: typeof v.valor === 'number' && Number.isFinite(v.valor) ? v.valor : null });
   }
   return filas;
@@ -48,12 +54,15 @@ const intento = async (f) => { try { return await f(); } catch (e) { if (e insta
 
 export async function leerTajo({ pedir, estaciones, diezDias = false }) {
   const filas = [], errores = [];
-  let enlaces = null;   // la tabla (2 MB) solo si alguna URL guardada falla, y una vez
+  // La tabla (2 MB) solo si alguna URL guardada falla, y una vez por ejecución: se guarda la promesa (también si falla,
+  // para no repetir la cadena en cada estación). Con los enlaces ya cargados se va directo a la URL de la tabla.
+  let cadena = null, enlaces = null;
   for (const e of estaciones) {
     try {
-      let ficha = await intento(() => pedir(BASE_TAJO + e.url));
+      let ficha = enlaces ? null : await intento(() => pedir(BASE_TAJO + e.url));
       if (ficha?.response?.ok !== 1) {
-        enlaces ??= enlacesDeTablaTajo(await cadenaTajo(pedir));
+        cadena ??= cadenaTajo(pedir).then(enlacesDeTablaTajo);
+        enlaces = await cadena;
         const url = enlaces.get(e.codigo);
         if (!url) throw new Error('no está en la tabla del SAIH Tajo');
         ficha = await pedir(BASE_TAJO + url);

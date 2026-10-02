@@ -41,16 +41,17 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
   for (const t of tareas) {
     const { fuente, leer } = TAREAS[t];
     let res;
+    // Un fallo al leer o al guardar se apunta y se sigue con la tarea siguiente; el plazo agotado para.
     try {
       res = await leer({ pedir, estaciones: estaciones.filter((e) => e.fuente === fuente), claveAemet, hoy, almacen });
+      const filas = unicas(res.filas.map((f) => filaObs(fuente, f)));
+      if (filas.length) await almacen.guardarObs(filas);
+      r.filas[t] = filas.length;
     } catch (e) {
       if (e instanceof PlazoAgotado) { r.estado = 'plazo-agotado'; r.errores.push(`${t}: plazo agotado`); break; }
       r.errores.push(`${t}: ${e.message}`);
       continue;
     }
-    const filas = unicas(res.filas.map((f) => filaObs(fuente, f)));
-    if (filas.length) await almacen.guardarObs(filas);
-    r.filas[t] = filas.length;
     r.errores.push(...res.errores.map((e) => `${t}: ${e}`));
     if (res.agotado) { r.estado = 'plazo-agotado'; r.errores.push(`${t}: plazo agotado`); break; }
   }

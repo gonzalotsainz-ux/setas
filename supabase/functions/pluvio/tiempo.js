@@ -11,8 +11,8 @@ const local = (ms) => {
   return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}`;
 };
 
-// Instante UTC de una hora de Madrid. En el cambio de octubre las 02:xx existen dos veces: se toma la primera (verano); en
-// el de marzo no existen: null.
+// Instante UTC de una hora de Madrid. En el cambio de octubre las 02:xx existen dos veces: se toma la primera (verano; la
+// segunda la corrige quien lee una serie ordenada, ver horasDe en lectores/tajo.js); en el de marzo no existen: null.
 export function utcDeMadrid(fecha, hhmm) {
   const [a, m, d] = fecha.split('-').map(Number), [h, mi] = hhmm.split(':').map(Number);
   const base = Date.UTC(a, m - 1, d, h, mi);
