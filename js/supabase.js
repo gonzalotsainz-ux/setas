@@ -1,15 +1,17 @@
-// Cliente de Supabase SIN LOGIN (decisión de la usuaria, 2026-09-30): la clave publicable es pública por diseño
-// y, con RLS abierto a `anon`, cualquiera con la URL puede leer y editar el diario.
+// Cliente de Supabase con sesión anónima persistente (una identidad por dispositivo; ver js/cuenta.js).
+// La clave publicable es pública por diseño; lo que protege los datos son las políticas RLS de la base de datos.
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
 
 import { SUPABASE_URL, SUPABASE_ANON } from './config.js';
 
 export { SUPABASE_URL, SUPABASE_ANON };
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false, autoRefreshToken: false } });
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON, {
+  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'setas.sesion' },
+});
 
 const CLAVE_AUTOR = 'setas.autor';
 
-// Nombre que se muestra como autor de las salidas; se elige en el dispositivo (no es una cuenta).
+// Nombre del perfil, guardado también en el dispositivo para poder leerlo sin red (p. ej. al rotular ediciones de umbrales).
 export function autorActual() {
   try { return localStorage.getItem(CLAVE_AUTOR) || null; } catch { return null; }
 }
