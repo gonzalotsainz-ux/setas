@@ -14,10 +14,16 @@ export function fijarCuenta(c) {
   if (c) elegirAutor(c.nombre);
 }
 
+let cargando = null;   // consulta del perfil en vuelo: las llamadas simultáneas comparten una sola
 export async function cuentaActual({ forzar = false } = {}) {
   if (cuenta && !forzar) return cuenta;
-  try { fijarCuenta(await cargarPerfil({ supabase })); ultimoError = null; } catch (e) { cuenta = null; ultimoError = e; }
-  return cuenta;
+  if (cargando && !forzar) return cargando;
+  const p = (async () => {
+    try { fijarCuenta(await cargarPerfil({ supabase })); ultimoError = null; } catch (e) { cuenta = null; ultimoError = e; }
+    return cuenta;
+  })();
+  cargando = p;
+  try { return await p; } finally { if (cargando === p) cargando = null; }
 }
 
 async function copiar(texto) {

@@ -6,14 +6,14 @@ import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
 import { hoyMadrid } from '../meteo.js';
 import { crearMapa, fechaLarga } from '../mapa.js';
-import { supabase } from '../supabase.js';
+import { supabase, autorActual } from '../supabase.js';
 import { buscarEspecies } from './especies.js';
 import { reducirFoto, aDataUrl } from '../fotos.js';
 import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, guardarComparticion, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto, leerNuevaSalida } from '../diario.js';
 import { almacenIndexedDB } from '../almacen-fotos.js';
 import { abrirHoja } from '../ui/hoja.js';
 import { selectorGrupos } from '../ui/compartir.js';
-import { cuentaActual, requerirCuenta } from './cuenta-ui.js';
+import { cuentaActual, requerirCuenta, errorDeCuenta } from './cuenta-ui.js';
 import { misGrupos, salidasSinDueno, reclamarSalidas } from '../grupos.js';
 import { textoError } from '../cuenta.js';
 
@@ -156,7 +156,11 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
   let selector = null;
   (async () => {
     try {
-      if (!(await cuentaActual())) { compartirCaja.append(el('p', { clase: 'texto-2 texto-s', texto: 'Al guardar te pediremos crear tu perfil; después podrás compartir con grupos.' })); return; }
+      if (!(await cuentaActual())) {
+        const sinRed = !!errorDeCuenta();
+        compartirCaja.append(el('p', { clase: 'texto-2 texto-s', texto: sinRed ? 'Sin conexión: la salida se guardará privada y se subirá al volver la red.' : 'Al guardar te pediremos crear tu perfil; después podrás compartir con grupos.' }));
+        return;
+      }
       const grupos = await misGrupos({ supabase });
       if (!grupos.length) { compartirCaja.append(el('p', { clase: 'texto-2 texto-s' }, 'No estás en ningún grupo. ', el('a', { href: '#grupos', texto: 'Crear o unirme a uno' }))); return; }
       selector = selectorGrupos({ grupos });
@@ -191,9 +195,14 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
     if (guardando || preparando) return;
     guardando = true; actualizarBoton();
     try {
-      let cuenta;
-      try { cuenta = await requerirCuenta(); } catch (e) { estadoGuardar.textContent = e.message; return; }
-      if (!cuenta) { estadoGuardar.textContent = 'Crea tu perfil para guardar la salida.'; return; }
+      let cuenta = null, sinVerificar = false;
+      try { cuenta = await requerirCuenta(); } catch (e) {
+        // Sin red no se puede comprobar el perfil: con un nombre ya guardado en el móvil la salida se apunta igualmente
+        // (privada); el dueño se toma de la sesión al subirla y los borradores esperan a que el perfil esté confirmado.
+        if (!autorActual()) { estadoGuardar.textContent = e.message; return; }
+        sinVerificar = true;
+      }
+      if (!cuenta && !sinVerificar) { estadoGuardar.textContent = 'Crea tu perfil para guardar la salida.'; return; }
       const z = datos.zonas.find((x) => x.id === zona.value);
       const foto = fotoFijaDelDia({ zona: z, lat: punto?.lat, lon: punto?.lon, fecha: fecha.value, datos, meteo: estado.meteo, umbrales: estado.umbrales ?? {} });
       const id = nuevaId();
@@ -201,7 +210,7 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
       try { prep = await prepararFotosBorrador(id, fotos, { almacen: almacenFotos }); } catch (e) { estadoGuardar.textContent = e.message; return; }
       const borrador = {
         id, fecha: fecha.value, zona_id: zona.value, lat: punto?.lat ?? null, lon: punto?.lon ?? null,
-        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta.nombre, grupos: selector?.valor() ?? [],
+        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta ? cuenta.nombre : autorActual(), grupos: cuenta ? (selector?.valor() ?? []) : [],
         meteo: foto.meteo, indice: foto.indice, fotos: prep.fotos,
       };
       const guardado = cola.anadir(borrador);
@@ -328,10 +337,11 @@ export function pintar({ estado, param }) {
   const autorLinea = el('p', { clase: 'diario-autor' });
   const pintarAutor = async () => {
     const c = await cuentaActual();
+    const sinRed = !c && !!errorDeCuenta();
     autorLinea.replaceChildren(
-      c ? el('span', {}, 'Apuntas como ', el('b', { texto: c.nombre })) : el('span', { clase: 'texto-2', texto: cola.todos().length ? 'Crea tu perfil para subir tus salidas pendientes.' : 'Aún no tienes perfil.' }),
+      c ? el('span', {}, 'Apuntas como ', el('b', { texto: c.nombre })) : el('span', { clase: 'texto-2', texto: sinRed ? 'Sin conexión: no se puede comprobar tu perfil.' : (cola.todos().length ? 'Crea tu perfil para subir tus salidas pendientes.' : 'Aún no tienes perfil.') }),
       el('span', { clase: 'diario-fila' },
-        c ? null : el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Crear perfil', onclick: async () => {
+        c || sinRed ? null : el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Crear perfil', onclick: async () => {
           try { if (await requerirCuenta()) { await pintarAutor(); await sincronizarYa(); refrescar(); } } catch (e) { mensaje(e.message, { peligro: true }); }
         } }),
         el('a', { clase: 'boton boton--suave boton--compacto', href: '#grupos', texto: 'Grupos' })));
@@ -349,7 +359,7 @@ export function pintar({ estado, param }) {
         el('p', { texto: 'Hay salidas de antes de los perfiles. ¿Cuáles son tuyas?' }),
         el('div', { clase: 'diario-fila' }, sin.map((f) => el('button', { type: 'button', clase: 'boton boton--compacto', texto: `${f.autor || 'Sin nombre'} (${f.n})`, onclick: async () => {
           if (!confirm(`¿Quedarte con las ${f.n} salidas de «${f.autor || 'Sin nombre'}»? Pasarán a ser tuyas y privadas.`)) return;
-          try { await reclamarSalidas(f.autor, { supabase }); mensaje('Salidas reclamadas.'); await refrescar(); pintarReclamo(); } catch (e) { mensaje(textoError(e), { peligro: true }); }
+          try { const n = await reclamarSalidas(f.autor, { supabase }); mensaje(Number(n) === 0 ? 'No quedaban salidas por reclamar.' : 'Salidas reclamadas.'); await refrescar(); pintarReclamo(); } catch (e) { mensaje(textoError(e), { peligro: true }); }
         } }))))));
     } catch { /* sin conexión: se verá al volver */ }
   }
@@ -376,7 +386,11 @@ export function pintar({ estado, param }) {
   function pintarPendientes() {
     const pend = cola.todos();
     listaPend.replaceChildren(...pend.map((b) => tarjetaPendiente(b, datos, {
-      reintentar: async () => { const r = await subirPendientes(); mensaje(r.fallidas ? 'Sigue sin conexión: se subirá al recuperarla.' : 'Subida ✓'); },
+      reintentar: async () => {
+        const r = await subirPendientes();
+        if (r.sinPerfil) mensaje(errorDeCuenta() ? 'Sin conexión: se subirá al recuperarla.' : 'Crea tu perfil para subir tus salidas.');
+        else mensaje(r.fallidas ? 'Sigue sin conexión: se subirá al recuperarla.' : 'Subida ✓');
+      },
       descartar: () => { cola.quitar(b.id); quitarFotosLocales(b); pintarPendientes(); },
     })));
     actualizarVacio();
@@ -398,6 +412,7 @@ export function pintar({ estado, param }) {
     pintarPendientes();
     try {
       const cuenta = await cuentaActual();
+      if (!cuenta && errorDeCuenta()) throw new Error(textoError(errorDeCuenta()));
       const [salidas, grupos] = await Promise.all([
         cuenta ? listarSalidas({ supabase, usuarioId: cuenta.id }) : Promise.resolve([]),
         cuenta ? misGrupos({ supabase }).catch(() => []) : Promise.resolve([]),

@@ -7,7 +7,7 @@ import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
 import { hoyMadrid } from '../meteo.js';
 import { supabase, autorActual } from '../supabase.js';
 import { renombrarPerfil, regenerarRecuperacion, textoError } from '../cuenta.js';
-import { cuentaActual, requerirCuenta, mostrarCodigoRecuperacion, fijarCuenta } from './cuenta-ui.js';
+import { cuentaActual, requerirCuenta, mostrarCodigoRecuperacion, fijarCuenta, errorDeCuenta } from './cuenta-ui.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
 import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
@@ -42,22 +42,30 @@ function bloqueDispositivo() {
   formulario.append(el('div', { clase: 'campo' }, el('label', { texto: 'Tu nombre', htmlFor: 'ajustes-autor' }), campo),
     el('div', { clase: 'ajustes-botones' }, el('button', { type: 'submit', clase: 'boton boton--compacto', texto: 'Guardar nombre' }),
       el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Cancelar', onclick: () => { formulario.hidden = true; } })));
-  const pintarNombre = () => { nombre.textContent = autorActual() ?? 'nadie (aún no tienes perfil)'; };
+  // El nombre se muestra solo si hay perfil (o, sin red, el nombre guardado en el móvil).
+  const pintarNombre = async () => {
+    const c = await cuentaActual();
+    nombre.textContent = c?.nombre ?? (errorDeCuenta() ? autorActual() : null) ?? 'nadie (aún no tienes perfil)';
+  };
   cambiar.onclick = async () => {
     const c = await cuentaActual();
+    if (!c && errorDeCuenta()) { resultadoNombre.textContent = 'Sin conexión: no se puede comprobar tu perfil.'; return; }
     if (!c) { try { await requerirCuenta(); } catch (e) { resultadoNombre.textContent = e.message; } pintarNombre(); return; }
     campo.value = c.nombre; formulario.hidden = false; campo.focus();
   };
   formulario.onsubmit = async (ev) => {
     ev.preventDefault();
+    const guardarNombre = formulario.querySelector('button[type=submit]');
+    guardarNombre.disabled = true;
     try {
       const n = campo.value.trim();
       if (!n) return;
       await renombrarPerfil(n, { supabase });
       const c = await cuentaActual();
+      if (!c) { resultadoNombre.textContent = 'No se pudo comprobar tu perfil después de cambiar el nombre. Vuelve a abrir Ajustes.'; return; }
       fijarCuenta({ id: c.id, nombre: n });
-      pintarNombre(); formulario.hidden = true; resultadoNombre.textContent = '';
-    } catch (x) { resultadoNombre.textContent = textoError(x); }
+      await pintarNombre(); formulario.hidden = true; resultadoNombre.textContent = '';
+    } catch (x) { resultadoNombre.textContent = textoError(x); } finally { guardarNombre.disabled = false; }
   };
   pintarNombre();
 
@@ -78,7 +86,7 @@ function bloqueDispositivo() {
     try {
       const { sincronizarYa } = await import('./diario.js');
       const r = await sincronizarYa();
-      resultado.textContent = r.fallidas ? `Se subieron ${r.subidas}; ${r.fallidas} siguen pendientes.` : `Se subieron ${r.subidas}.`;
+      resultado.textContent = r.sinPerfil ? (errorDeCuenta() ? 'Sin conexión: se subirán al recuperarla.' : 'Crea tu perfil para subir tus salidas.') : r.fallidas ? `Se subieron ${r.subidas}; ${r.fallidas} siguen pendientes.` : `Se subieron ${r.subidas}.`;
     } catch (e) { resultado.textContent = `No se pudo subir: ${e.message}`; }
     reintentar.disabled = false; pintarCola();
   };
@@ -91,7 +99,7 @@ function bloqueCuenta() {
   const estado = el('p', { clase: 'texto-2', role: 'status' });
   const nuevo = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Generar un código de recuperación nuevo' });
   nuevo.onclick = async () => {
-    if (!(await cuentaActual())) { estado.textContent = 'Primero crea tu perfil.'; return; }
+    if (!(await cuentaActual())) { estado.textContent = errorDeCuenta() ? 'Sin conexión: no se puede comprobar tu perfil.' : 'Primero crea tu perfil.'; return; }
     if (!confirm('El código anterior dejará de valer. ¿Generar uno nuevo?')) return;
     nuevo.disabled = true;
     try { await mostrarCodigoRecuperacion(await regenerarRecuperacion({ supabase }), { titulo: 'Tu código nuevo' }); estado.textContent = 'Código nuevo generado.'; }
@@ -201,7 +209,7 @@ function bloqueUmbrales(estado) {
 // ---------- Calibración ----------
 function bloqueCalibracion(estado) {
   const cuerpo = el('div', { clase: 'ajustes-lista' }, el('p', { clase: 'texto-2', texto: 'Cargando el diario…', role: 'status' }));
-  listarSalidas({ supabase }).then((salidas) => {
+  cuentaActual().then((c) => (c ? listarSalidas({ supabase, usuarioId: c.id }) : [])).then((salidas) => {
     const porEspecie = new Map();
     for (const s of [...salidas].sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))) {
       for (const e of Array.isArray(s.especies) ? s.especies : []) {
@@ -212,7 +220,7 @@ function bloqueCalibracion(estado) {
         porEspecie.get(e.especie_id).push({ fecha: s.fecha, zona: z ? nombreCorto(z) : (s.zona_id ?? '—'), valor: Number.isFinite(v) ? Math.round(v) : null, kg: Number.isFinite(kg) && e.kg !== '' && e.kg != null ? kg : null });
       }
     }
-    if (!porEspecie.size) { cuerpo.replaceChildren(el('p', { clase: 'texto-2', texto: 'Aún no hay salidas en el diario con especies recogidas. Cuando las haya, aquí verás la nota del índice frente a los kg.' })); return; }
+    if (!porEspecie.size) { cuerpo.replaceChildren(el('p', { clase: 'texto-2', texto: 'Aún no hay salidas tuyas en el diario con especies recogidas. Cuando las haya, aquí verás la nota del índice frente a los kg.' })); return; }
     cuerpo.replaceChildren(...[...porEspecie].map(([id, filas]) => {
       const esp = estado.datos.porId[id];
       return el('div', { clase: 'ajustes-calib' }, el('h3', { texto: esp ? comun(esp) : id }),
