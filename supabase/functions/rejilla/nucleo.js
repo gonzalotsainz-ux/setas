@@ -3,6 +3,7 @@
 // cómo se reconstruyen las series y cuándo se publica. Sin red ni base de datos: se prueba con Node.
 import { DIARIAS, HORARIAS, FUTUROS, PASADOS, urlPrincipal, urlArchivo, urlLluviaArchivo, parsearPrincipal, resumirArchivo,
   aplicarClimatologia, agostoDe, sumarDias, entreDias, horaMadrid, comoLista } from '../_shared/meteo.js';
+import { paresSesgo, factorSesgo } from '../_shared/pluvio.js';
 
 export const PRESUPUESTO_DIA = 1000;                       // llamadas ponderadas a Open-Meteo al día (límite gratuito: 10.000)
 export const EJECUCIONES_DIA = 2;
@@ -192,4 +193,17 @@ export async function pedirConReintento(fetchFn, url, { intentos = 3, esperas = 
     }
     throw new Error(`Open-Meteo respondió ${r.status}`);
   }
+}
+
+// Sesgo del modelo por zona (spec de pluviómetros §3.3): los pares medido/modelo de las celdas de la zona que tienen
+// estación, con las series del MODELO. Con lotes > 1 cada lote lo calcula con sus celdas.
+export function factoresPorZona(celdas, series, pluvio) {
+  const pares = new Map();
+  for (const c of celdas) {
+    const s = series.get(c.id), m = pluvio.lugares?.[c.id];
+    if (!s || !m) continue;
+    if (!pares.has(c.zona)) pares.set(c.zona, []);
+    pares.get(c.zona).push(...paresSesgo(s, m, pluvio.desde, pluvio.hasta));
+  }
+  return new Map([...pares].map(([zona, p]) => [zona, factorSesgo(p)]));
 }

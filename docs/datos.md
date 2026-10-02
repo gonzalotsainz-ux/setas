@@ -793,6 +793,12 @@ pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `ll
 
 Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
 
+- Si la función `rejilla` encuentra `pluvio/celdas.json` (sección siguiente) válido y con menos de 36 h, la lluvia pasada
+  de cada celda gruesa es la medida en pluviómetros donde la hay y el modelo corregido por su sesgo de 30 días en las
+  demás celdas de la zona; y `lluvia` lleva además `origen` (un número por día de `mm`: 0 modelo, 1 medida, 2 estimada),
+  `estaciones` (hasta tres nombres) y `cercanas`. Sin ese archivo (o viejo, o que no valida), el índice es exactamente el
+  de antes.
+
 ## Lluvia medida en pluviómetros (bucket `indice`, carpeta `pluvio/`)
 
 La publica la función `pluvio` a las 4 y a las 16 UTC (spec `docs/superpowers/specs/2026-10-01-pluviometros-design.md`).
