@@ -793,6 +793,44 @@ pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `ll
 
 Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
 
+- Si la función `rejilla` encuentra `pluvio/celdas.json` (sección siguiente) válido, con menos de 36 h y no posterior a
+  la ejecución, la lluvia pasada de cada celda gruesa es la medida en pluviómetros donde la hay y el modelo corregido por su sesgo de 30 días en las
+  demás celdas de la zona; y `lluvia` lleva además `origen` (un número por día de `mm`: 0 modelo, 1 medida, 2 estimada),
+  `estaciones` (hasta tres nombres), `km` (la distancia de cada una, mismo orden) y `cercanas`. Sin ese archivo (o viejo, o que no valida), el índice es exactamente el
+  de antes.
+
+## Lluvia medida en pluviómetros (bucket `indice`, carpeta `pluvio/`)
+
+La publica la función `pluvio` a las 4 y a las 16 UTC (spec `docs/superpowers/specs/2026-10-01-pluviometros-design.md`).
+Dos archivos con el mismo formato (`supabase/functions/_shared/pluvio.js`, `validarPluvio`):
+
+```json
+{
+  "version": 1, "generado": "2026-10-02T04:10:12.000Z", "desde": "2026-08-01", "hasta": "2026-10-01",
+  "lugares": {
+    "soria-pinar-grande-covaleda": { "mm": [0, 6.4, null, "..."], "n": [1, 2, 0, "..."],
+      "estaciones": [{ "nombre": "Covaleda", "fuente": "duero", "km": 0.3 }], "cercanas": 2 }
+  },
+  "fuentes": { "duero": "2026-10-01", "tajo": "2026-10-01" },
+  "aemet": { "3104Y": { "2026-09-30": 0.4 } }
+}
+```
+
+- `pluvio/ultimo.json`: `lugares` por punto de zona (`supabase/functions/pluvio/puntos.json`); lo leen Hoy y Zona.
+  `fuentes` (última fecha con dato de cada fuente) y `aemet` (lluvia diaria de las estaciones AEMET de la lista blanca,
+  sumada de la horaria, solo días buenos) solo van aquí.
+- `pluvio/celdas.json`: `lugares` por celda gruesa (`data/rejilla/gruesa.json`); lo lee la función `rejilla`.
+- `mm[k]` es la lluvia medida del día `desde + k` (media ponderada de las estaciones válidas; `null` = ningún dato bueno) y
+  `n[k]`, cuántos sitios la dan (estaciones a menos de 1,5 km cuentan como uno). `estaciones`: las que aportan algún día,
+  por distancia (para decir «medida en 3 estaciones (Covaleda, ...)»); `cercanas`: cuántas hay en el radio aunque no aporten.
+  Un lugar sin ninguna estación a menos de 20 km no sale.
+- Se validan antes de subir; primero se sube `celdas.json` (caché 3.600 s) y lo último `ultimo.json` (caché 600 s). Si la
+  ejecución no tiene tiempo para un trozo de guardado o una subida, se para ahí y se apunta el error.
+- Si falta el archivo (o no pasa `validarPluvio`, tiene más de 36 h o es del futuro: `pluvioVigente`), la app y `rejilla`
+  funcionan como antes, solo con el modelo. Hoy y Zona (`js/pluvio.js`) guardan `ultimo.json` 3 h en `localStorage` y, si la
+  red falla, usan la copia guardada mientras siga vigente; el sesgo de cada zona es el mismo cálculo que el de la rejilla
+  (`factoresPorZona`, con los puntos de la zona) y `aemet` completa los días que la función `aemet` aún no ha validado.
+
 ## data/pueblos.json (buscador del mapa)
 
 `{ version: 1, fuente: { nombre, url, licencia, fecha }, pueblos: [{ n, p, lat, lon }] }`: nombre, provincia y coordenadas (grados ETRS89, 5 decimales) de los núcleos de población dentro del bbox de alguna zona con 0,05° de margen. Lo genera `node scripts/rejilla/pueblos.mjs` (con `--descargar` vuelve a bajar los datos; la descarga se guarda en `_fuentes/pueblos/ngbe-nucleos.csv`, fuera del repo) y lo comprueba `validarPueblos` de `scripts/validar-datos.mjs`.
@@ -901,3 +939,14 @@ Límites de tiempo: 15 s la serie principal y los modelos, 20 s la lluvia desde 
 | UKMO | 0,56 / 0,50 / 0,48 | 1,50 / 1,19 / 1,18 | — |
 
 En esta muestra (septiembre seco, 23 días) Météo-France no era el peor a 1 día, pero empeoraba con la antelación y solo llegaba a 3–4 días, así que quedaba fuera del contraste a 7 días. GFS tiene un error parecido o menor a +2/+3 d y cubre los 8 días. DMI y KNMI «seamless» dan en España los mismos números que ECMWF (fuera de su dominio caen a él), así que no aportan. Muestra pequeña: repetir con más semanas (`node scripts/comparar-modelos.mjs ecmwf_ifs,icon_seamless,gfs_seamless,meteofrance_seamless`, cambiando las fechas) antes de sacar conclusiones fuertes.
+
+## Lluvia medida en pluviómetros: mezcla y sesgo (`supabase/functions/_shared/pluvio.js`)
+
+Cómo pasa la lluvia de las estaciones de la lista blanca (`supabase/functions/pluvio/estaciones.json`) a cada punto de zona o celda gruesa. Todos los umbrales son **criterio propio**, sin fuente que los respalde, y viven en `MEZCLA` y `SESGO`:
+
+- **Qué días entran:** solo los de calidad «ok» del control de calidad (`validosDe`). Los sospechosos, incompletos o sin dato no cuentan.
+- **Peso de una estación:** `1 / km²` (con un mínimo de 1 km) dividido entre `1 + |desnivel| / 300`. Los bordes son duros: una estación a 20 km o con 600 m de desnivel aún cuenta, y a 20,1 km o 601 m pesa 0. Justo en el borde el peso ya es pequeño: a 20 km sin desnivel es 1/400, y con 600 m de desnivel se divide además entre 3. Por eso el salto al quedar fuera es poco.
+- **Duplicadas:** una estación a menos de 1,5 km de otra más cercana al lugar se toma por la misma (está publicada por dos fuentes) y forma un solo sitio. El sitio vale la media de las que dan dato ese día y pesa lo mismo que su representante, la más cercana. Las estaciones solo se comparan con representantes, así que no se encadenan. En la lista actual hay exactamente cuatro parejas: C010/C076 (0,69 km), 9178X/C00A (0,65), 8210Y/5N03 (0,44) y 3319D/PN34 (1,23). `n` cuenta sitios.
+  - *3319D/PN34* (Puerto del Pico de AEMET y del Tajo) tiene 205 m de desnivel a 1,23 km. Se agrupa igual, y parece razonable: están en el mismo puerto, en la misma ladera, y la lluvia diaria apenas cambia en 1 km. Contarlas por separado daría doble peso a un mismo sitio. Si alguna vez discreparan de forma sistemática, el control de calidad lo marcaría día a día.
+- **Sesgo del modelo en los días sin estación:** se usan los últimos 30 días cerrados de los lugares de la zona que sí tienen estación. Para cada fecha se toma la media de esos lugares, y luego se calcula el cociente `(medido + 5) / (modelo + 5)`, acotado entre 0,67 y 1,5. No se corrige (factor 1) si hay menos de 10 fechas, menos de 10 mm de modelo en el periodo o menos de 5 días mojados (≥ 1 mm en modelo o medida). Así una o dos tormentas, mal situadas por el modelo, no doblan ni parten la lluvia. En la función `rejilla` (celdas gruesas) hacen falta además 2 estaciones distintas en la zona, y cada estación (la más cercana de las usadas en la celda) cuenta una sola vez por fecha, aunque cubra muchas celdas. Los días corregidos llevan `origenPrecip` «estimada» y se redondean a décimas. La lluvia anterior a la serie (desde el 1 de agosto) se sustituye por la medida si está entera; si no, se corrige con el mismo factor y queda como «estimada».
+- **Sin estación válida y factor 1:** la serie sale idéntica a la del modelo, y la nota también.

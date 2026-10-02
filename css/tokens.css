@@ -159,6 +159,7 @@
 
   /* Gráfico de lluvia */
   --c-lluvia: var(--p-bosque-500);
+  --c-lluvia-medida: var(--p-bosque-700);
   --c-lluvia-prevista: var(--p-ocre-500);
   --c-acumulado: var(--p-tinta-900);
   --c-rejilla: var(--p-hueso-300);
@@ -217,6 +218,7 @@
     --c-sin-datos-texto: #c3cac5;
 
     --c-lluvia: var(--p-bosque-300);
+    --c-lluvia-medida: var(--p-bosque-100);
     --c-lluvia-prevista: var(--p-ocre-300);
     --c-acumulado: #edf1ea;
     --c-rejilla: var(--p-bosque-750);
@@ -272,6 +274,7 @@
   --c-sin-datos-texto: #c3cac5;
 
   --c-lluvia: var(--p-bosque-300);
+  --c-lluvia-medida: var(--p-bosque-100);
   --c-lluvia-prevista: var(--p-ocre-300);
   --c-acumulado: #edf1ea;
   --c-rejilla: var(--p-bosque-750);

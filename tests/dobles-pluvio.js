@@ -4,6 +4,8 @@
 // OJO: aemet-convencional.json es SINTÉTICA (no capturada): sigue el formato de la especificación oficial de
 // /observacion/convencional/todas, con `fint` sin zona («2026-10-02T06:00:00», UTC).
 import { readFileSync } from 'node:fs';
+import { deflateRawSync } from 'node:zlib';
+import { agregarHoras } from '../supabase/functions/pluvio/dias.js';
 
 export const fixture = (nombre, enc = 'utf8') => readFileSync(new URL(`./fixtures/pluvio/${nombre}`, import.meta.url), enc);
 export const fixtureJson = (nombre) => JSON.parse(fixture(nombre));
@@ -43,14 +45,47 @@ export const rutasAemet = (estado = 200) => [
 ];
 
 // Almacén en memoria con la interfaz de almacenSupabase. Como Postgres, un upsert que toca dos veces la misma fila falla.
+// diasPorEstacion devuelve lo mismo que la función SQL lluvia_por_dia (un array por columna y estación).
 export function almacenPluvioMemoria() {
-  const obs = new Map();
+  const obs = new Map(), dias = new Map(), modelo = new Map(), archivos = new Map();
   return {
-    obs,
+    obs, dias, modelo, archivos,
     async guardarObs(filas) {
       const claves = filas.map((f) => `${f.fuente}|${f.estacion}|${f.hora}`);
       if (new Set(claves).size !== claves.length) throw new Error('ON CONFLICT DO UPDATE command cannot affect row a second time');
       filas.forEach((f, k) => obs.set(claves[k], { ...f }));
     },
+    async diasPorEstacion(desde) {
+      const r = new Map();
+      for (const d of agregarHoras([...obs.values()], desde)) {
+        const k = `${d.fuente}|${d.estacion}`;
+        if (!r.has(k)) r.set(k, { fuente: d.fuente, estacion: d.estacion, fechas: [], mm: [], horas: [], maximo: [] });
+        const x = r.get(k);
+        x.fechas.push(d.fecha); x.mm.push(d.mm); x.horas.push(d.horas); x.maximo.push(d.maximo);
+      }
+      return [...r.values()];
+    },
+    async guardarDias(filas) { for (const f of filas) dias.set(`${f.fuente}|${f.estacion}|${f.fecha}`, { ...f }); },
+    async subir(nombre, json) { archivos.set(nombre, JSON.parse(JSON.stringify(json))); },
+    async precipCeldas(ids) { return new Map(ids.filter((id) => modelo.has(id)).map((id) => [id, modelo.get(id)])); },
   };
+}
+
+// Zip mínimo (deflate, sin CRC: el lector no lo comprueba) para probar el lector del histórico de Euskalmet.
+export function crearZip(archivos) {
+  const locales = [], centrales = [];
+  let pos = 0;
+  for (const [nombre, contenido] of Object.entries(archivos)) {
+    const n = Buffer.from(nombre), datos = deflateRawSync(contenido);
+    const l = Buffer.alloc(30);
+    l.writeUInt32LE(0x04034b50, 0); l.writeUInt16LE(20, 4); l.writeUInt16LE(8, 8); l.writeUInt32LE(datos.length, 18); l.writeUInt32LE(contenido.length, 22); l.writeUInt16LE(n.length, 26);
+    const c = Buffer.alloc(46);
+    c.writeUInt32LE(0x02014b50, 0); c.writeUInt16LE(20, 4); c.writeUInt16LE(20, 6); c.writeUInt16LE(8, 10); c.writeUInt32LE(datos.length, 20); c.writeUInt32LE(contenido.length, 24); c.writeUInt16LE(n.length, 28); c.writeUInt32LE(pos, 42);
+    locales.push(l, n, datos);
+    centrales.push(c, n);
+    pos += 30 + n.length + datos.length;
+  }
+  const cd = Buffer.concat(centrales), fin = Buffer.alloc(22), total = centrales.length / 2;
+  fin.writeUInt32LE(0x06054b50, 0); fin.writeUInt16LE(total, 8); fin.writeUInt16LE(total, 10); fin.writeUInt32LE(cd.length, 12); fin.writeUInt32LE(pos, 16);
+  return Buffer.concat([...locales, cd, fin]);
 }

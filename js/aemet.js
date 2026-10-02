@@ -1,5 +1,6 @@
 import { parsearPrec } from '../supabase/functions/aemet/prec.js';
 import { SUPABASE_URL, SUPABASE_ANON } from './config.js';   // sin cargar supabase.js (cliente del CDN) para dos constantes
+import { distanciaKm } from '../supabase/functions/_shared/pluvio.js';
 
 // Lluvia medida en estaciones AEMET (a través de la Edge Function) y contraste con el modelo.
 // Sin login: la función se llama con la clave publicable en la cabecera `apikey`.
@@ -34,19 +35,17 @@ export function compararLluvia(serie, obs) {
   return { P26modelo, P26estacion, diasCubiertos: cubiertos.length, diasComparados: pares.length, estacionCubierta, modeloCubierto, discrepa };
 }
 
+// Los días medidos en pluviómetros ('medida', js/pluvio.js) no se pisan; los del modelo y los estimados con el sesgo, sí.
 export function aplicarEstacion(serie, obs, id) {
   const precip = [...serie.precip], origenPrecip = [...serie.origenPrecip];
-  serie.fechas.forEach((f, j) => { if (j <= serie.hoy && obs[f] != null) { precip[j] = obs[f]; origenPrecip[j] = `estacion:${id}`; } });
+  serie.fechas.forEach((f, j) => {
+    if (j <= serie.hoy && obs[f] != null && origenPrecip[j] !== 'medida') { precip[j] = obs[f]; origenPrecip[j] = `estacion:${id}`; }
+  });
   return { ...serie, precip, origenPrecip };
 }
 
-// Distancia en km entre dos coordenadas (haversine); null si falta alguna.
-export function distanciaKm(a, b) {
-  if (![a?.lat, a?.lon, b?.lat, b?.lon].every(Number.isFinite)) return null;
-  const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLon = (b.lon - a.lon) * r;
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2;
-  return 2 * 6371 * Math.asin(Math.sqrt(h));
-}
+// Distancia en km entre dos coordenadas: la misma que usan los pluviómetros (una sola copia).
+export { distanciaKm };
 
 // Estaciones de la zona ordenadas por cercanía al punto. La `distanciaKm` de cada una pasa a ser la del punto. Sin
 // coordenadas en el punto o en la estación queda al final y en su orden original (el sort es estable).
@@ -58,11 +57,13 @@ export function estacionesPorCercania(punto, estaciones) {
 
 // Devuelve una copia de `meteo` con la lluvia medida de la estación en la serie de cada punto que tenga una estación
 // con datos suficientes: la más cercana de las de su zona (si no llega al mínimo de días, la siguiente). Si hay
-// discrepancia y se ha elegido «Usar modelo» en la zona, ese punto se queda con el modelo.
+// discrepancia y se ha elegido «Usar modelo» en la zona, ese punto se queda con el modelo (lo medido en pluviómetros no
+// se desactiva con él). Con pluviómetros (`meteo.seriesModelo`), la comparación sigue siendo estación frente a modelo.
 // `meteo.contrastePuntos[punto.id] = { estacion, comparacion, discrepa, usaModelo, aplicada }` (la estación elegida lleva
 // su distancia al punto) y `meteo.contraste[zona.id]` resume la zona: el primer punto que discrepa, o el primero con estación.
 export function aplicarContraste(zonas, meteo, obs, usarModelo = () => false) {
   if (!meteo?.series || !obs) return meteo;
+  const base = meteo.seriesModelo ?? meteo.series;
   const series = { ...meteo.series }, contraste = {}, contrastePuntos = {};
   for (const z of zonas) {
     const entradas = [];
@@ -70,7 +71,7 @@ export function aplicarContraste(zonas, meteo, obs, usarModelo = () => false) {
       for (const est of estacionesPorCercania(p, z.estacionesAemet)) {
         const o = obs[est.id];
         if (!o) continue;
-        const comparacion = compararLluvia(meteo.series[p.id], o);
+        const comparacion = compararLluvia(base[p.id] ?? meteo.series[p.id], o);
         if (comparacion.P26estacion == null) continue;
         const usaModelo = comparacion.discrepa && usarModelo(z.id);
         if (!usaModelo) series[p.id] = aplicarEstacion(meteo.series[p.id], o, est.id);

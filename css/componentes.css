@@ -437,6 +437,8 @@
 .grafico svg { width: 100%; height: auto; overflow: visible; }
 .grafico .rejilla { stroke: var(--c-rejilla); stroke-width: 1; }
 .grafico .barra-pasada { fill: var(--c-lluvia); }
+.grafico .barra-medida { fill: var(--c-lluvia-medida); }
+.grafico .marca-medida { fill: var(--c-texto); }   /* rayita bajo cada barra medida: se distingue también sin color */
 .grafico .barra-prevista { fill: url(#rayado); }
 .grafico .rayado-linea { stroke: var(--c-lluvia-prevista); stroke-width: 2.2; }
 .grafico .horquilla { stroke: var(--c-texto-3); stroke-width: 1; }
@@ -460,6 +462,7 @@
 .leyenda li { display: inline-flex; align-items: center; gap: 6px; }
 .muestra { width: 16px; height: 12px; border-radius: 3px; flex: none; }
 .muestra--pasada { background: var(--c-lluvia); }
+.muestra--medida { background: var(--c-lluvia-medida); border-bottom: 3px solid var(--c-texto); }   /* con su rayita, como en la gráfica */
 .muestra--prevista { background: repeating-linear-gradient(135deg, var(--c-lluvia-prevista) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--c-lluvia-prevista); }
 .muestra--acumulado { height: 2px; background: var(--c-acumulado); border-radius: 1px; }
 
@@ -572,6 +575,9 @@
 .cifras__valor small { font-size: 0.5em; font-weight: 700; letter-spacing: 0; }
 .cifras__rotulo { font-weight: 700; margin-top: 4px; }
 .cifras__origen { color: var(--c-texto-2); font-size: var(--t-s); }
+.cifras__detalle { margin-bottom: var(--esp-4); }
+.cifras__detalle p + p { margin-top: 2px; }
+.cifras:has(+ .cifras__detalle) { margin-bottom: var(--esp-2); }
 .desacuerdo { border-color: color-mix(in srgb, var(--c-ocre) 55%, var(--c-borde)); }
 .desacuerdo__cabeza { display: flex; gap: var(--esp-3); align-items: flex-start; margin-bottom: var(--esp-4); }
 .desacuerdo__cabeza .icono { width: 26px; height: 26px; flex: none; color: var(--c-ocre-texto); margin-top: 2px; }

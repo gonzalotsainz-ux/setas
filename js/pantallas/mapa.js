@@ -21,6 +21,7 @@ import { crearFondo, leerPreferencias, guardarPreferencias, panelCapas, SUPERPUE
 import { modeloHoja, abrirHojaMapa, urlComoLlegar } from '../mapa/hoja.js';
 import { chipsDelDia, chipVigente, barraDias, buscarEnMapa, crearBuscador, cargarPueblos, avisosMapa } from '../mapa/controles.js';
 import { desglose } from '../ui/desglose.js';
+import { origenDeCelda } from '../ui/origen-lluvia.js';
 import { graficoLluvia } from '../ui/grafico-lluvia.js';
 
 const MAX_IMAGENES = 12;             // imágenes coloreadas que se guardan (día × chip × archivo)
@@ -393,7 +394,7 @@ async function montar(estadoInicial) {
     if (!vigente()) return;
     let agHoja = null;
     try { agHoja = ag && corregirAltitud(ag, altitud - altRef); } catch { agHoja = null; }
-    abrir(modeloHoja({ celda, nota, ag: agHoja, coto: coto?.properties ?? null, zona }),
+    abrir(modeloHoja({ celda, nota, ag: agHoja, coto: coto?.properties ?? null, zona, lluvia: origenDeCelda(enSalida) }),
       { desglose: nota.resultado ? () => desglose(nota.resultado) : null, grafico: enSalida?.lluvia ? grafico(enSalida) : null });
   }
   mapa.on('click', (e) => { tocar(e.latlng).catch((err) => avisar(err.message)); });

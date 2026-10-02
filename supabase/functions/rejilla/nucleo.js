@@ -193,3 +193,6 @@ export async function pedirConReintento(fetchFn, url, { intentos = 3, esperas = 
     throw new Error(`Open-Meteo respondió ${r.status}`);
   }
 }
+
+// Sesgo del modelo por zona: vive en _shared/pluvio.js (lo usan también Hoy y Zona); se reexporta para el manejador.
+export { ESTACIONES_SESGO, factoresPorZona } from '../_shared/pluvio.js';

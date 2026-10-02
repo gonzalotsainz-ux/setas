@@ -11,6 +11,7 @@ import { ORIENTACIONES, TRAMOS_PENDIENTE } from '../rejilla/formato.js';
 import { esOrientativo } from '../rejilla/orientacion.js';
 import { urlNuevaSalida } from '../diario.js';
 import { textoFaltan } from '../pantallas/hoy.js';
+import { textoOrigenLluvia } from '../ui/origen-lluvia.js';
 
 const nbsp = '\u00a0';   // espacio duro entre número y unidad (docs/diseno.md)
 const r1 = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
@@ -43,7 +44,7 @@ function avisosDe(celda, nota) {
   return avisos;
 }
 
-export function modeloHoja({ prohibido = null, normas = new Map(), celda = null, nota = null, ag = null, coto = null, zona = null }) {
+export function modeloHoja({ prohibido = null, normas = new Map(), celda = null, nota = null, ag = null, coto = null, zona = null, lluvia = null }) {
   if (prohibido) {
     return { tipo: 'prohibido', titulo: prohibido.nombre ?? 'Zona prohibida', texto: prohibido.nota ?? 'Esta celda está dentro o en el borde de una zona prohibida: no recojas aquí.',
       normas: (prohibido.normas ?? []).map((id) => { const n = normas.get(id); return { titulo: n?.titulo ?? id, url: urlSegura(n?.url) ? n.url : null }; }) };
@@ -62,7 +63,7 @@ export function modeloHoja({ prohibido = null, normas = new Map(), celda = null,
       { etiqueta: 'Temperatura', valor: ag.T20aire == null ? 'sin dato' : `${r1(ag.T20aire)}${nbsp}°C de media en 20 días` });
   }
   const base = { titulo: NOMBRE_HABITAT[celda.habitat], filas, coto: textoCoto(coto), orientativo: esOrientativo(celda.orientacion),
-    avisos: avisosDe(celda, nota),
+    avisos: avisosDe(celda, nota), origenLluvia: lluvia ? textoOrigenLluvia(lluvia) : null,
     acciones: { comoLlegar: urlComoLlegar(celda.lat, celda.lon), detalle: zona ? `#zona/${encodeURIComponent(zona.id)}` : null, diario: urlNuevaSalida({ lat: celda.lat, lon: celda.lon, zona: zona?.id ?? null }) } };
   if (!nota || nota.valor == null) return { tipo: 'sinDatos', ...base, texto: 'Sin datos suficientes para este día.' };
   return { tipo: 'monte', ...base, valor: nota.valor, nivel: nivelDe(nota.valor),
@@ -92,6 +93,7 @@ function contenido(m, extra) {
   nodos.push(...m.avisos.map((a) => avisoNodo(a.texto, a.peligro)));
   if (m.orientativo) nodos.push(el('p', { clase: 'texto-s' }, el('span', { clase: 'etiqueta etiqueta--ocre', texto: 'Orientativo' }), ' La orientación ajusta la humedad sin calibración local.'));
   nodos.push(el('dl', { clase: 'hoja__filas' }, m.filas.flatMap((f) => [el('dt', { texto: f.etiqueta }), el('dd', { texto: f.valor })])),
+    m.origenLluvia ? el('p', { clase: 'texto-2 texto-s', texto: m.origenLluvia }) : null,
     el('p', { clase: 'texto-s' }, m.coto.url ? enlace(m.coto.url, m.coto.texto) : m.coto.texto),
     el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton'),
       m.acciones.detalle ? el('a', { clase: 'boton boton--suave', href: m.acciones.detalle, texto: 'Ver detalle' }) : null,

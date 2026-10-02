@@ -1,0 +1,62 @@
+[
+ {
+  "Codigo": "B090",
+  "Nombre": "Puerto de Bilbao",
+  "Descripcion": "Situada en la punta del dique de Punta Lucero",
+  "Tipo": "B",
+  "Fechacreacion": "03/10/2003",
+  "LATWGS84": "43.3774903",
+  "LONWGS84": "-3.08474",
+  "Municipio": "Santurtzi",
+  "Provincia": "Bizkaia",
+  "URLamigable": "https://www.euskadi.eus/estacion_meteorologica/station_b090/web01-ejeduki/es/",
+  "URLfisica": "https://www.euskadi.eus/web01-ejeduki/es/contenidos/estacion_meteo/station_b090/es_station/web.html",
+  "XMLdatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_b090/es_station/data/es_r01dtpd017ddc1b2edce292a67b208f2625143b92c",
+  "XMLmetadatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_b090/r01Index/station_b090-idxContent.xml"
+ },
+ {
+  "Codigo": "C024",
+  "Nombre": "Iturrieta",
+  "Descripcion": "Transformador de calefaccion EUITI TR-07199-3 el dia 25/11/2005 13:27:08",
+  "Tipo": "KM",
+  "Fechacreacion": "10/11/2009",
+  "LATWGS84": "42.7935945",
+  "LONWGS84": "-2.34575",
+  "Municipio": "Agurain/Salvatierra",
+  "Provincia": "Araba/Álava",
+  "URLamigable": "https://www.euskadi.eus/estacion_meteorologica/station_c024/web01-ejeduki/es/",
+  "URLfisica": "https://www.euskadi.eus/web01-ejeduki/es/contenidos/estacion_meteo/station_c024/es_station/web.html",
+  "XMLdatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c024/es_station/data/es_r01dtpd017ddc1ce814e292a67242ef8905f099c3f",
+  "XMLmetadatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c024/r01Index/station_c024-idxContent.xml"
+ },
+ {
+  "Codigo": "C025",
+  "Nombre": "Beluntza",
+  "Descripcion": "Control calefacción EUITI y transformador TR-07191-3 el dia 14/02/2008 15:45:16",
+  "Tipo": "KM",
+  "Fechacreacion": "14/02/2008",
+  "LATWGS84": "42.9615782",
+  "LONWGS84": "-2.89361",
+  "Municipio": "Urkabustaiz",
+  "Provincia": "Araba/Álava",
+  "URLamigable": "https://www.euskadi.eus/estacion_meteorologica/station_c025/web01-ejeduki/es/",
+  "URLfisica": "https://www.euskadi.eus/web01-ejeduki/es/contenidos/estacion_meteo/station_c025/es_station/web.html",
+  "XMLdatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c025/es_station/data/es_r01dtpd017ddc1ce814e292a67cd9965dd02fda6d2",
+  "XMLmetadatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c025/r01Index/station_c025-idxContent.xml"
+ },
+ {
+  "Codigo": "C035",
+  "Nombre": "Altube",
+  "Descripcion": "Situada en el peaje de Altube de la A-68",
+  "Tipo": "KM",
+  "Fechacreacion": "26/10/2009",
+  "LATWGS84": "42.9661",
+  "LONWGS84": "-2.86795",
+  "Municipio": "Zuia",
+  "Provincia": "Araba/Álava",
+  "URLamigable": "https://www.euskadi.eus/estacion_meteorologica/station_c035/web01-ejeduki/es/",
+  "URLfisica": "https://www.euskadi.eus/web01-ejeduki/es/contenidos/estacion_meteo/station_c035/es_station/web.html",
+  "XMLdatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c035/es_station/data/es_r01dtpd017ddc1d48b3e292a673c8078ec580e1c3d",
+  "XMLmetadatos": "https://www.euskadi.eus/contenidos/estacion_meteo/station_c035/r01Index/station_c035-idxContent.xml"
+ }
+]

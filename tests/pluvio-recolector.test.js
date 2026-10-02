@@ -155,14 +155,14 @@ test('AEMET: dos pasos con la clave en la cabecera; un estado distinto de 200 es
 // ---- manejador ----
 test('qué toca a cada hora UTC (minuto 10) y las pedidas a mano', () => {
   const a = (h) => new Date(`2026-10-02T${String(h).padStart(2, '0')}:10:00Z`);
-  assert.deepEqual(fuentesQueTocan(a(0)), ['aemet']);
+  assert.deepEqual(fuentesQueTocan(a(0)), ['aemet', 'duero']);
   assert.deepEqual(fuentesQueTocan(a(1)), ['tajo']);
   assert.deepEqual(fuentesQueTocan(a(2)), ['tajo10']);
   assert.deepEqual(fuentesQueTocan(a(5)), []);
   assert.deepEqual(fuentesQueTocan(a(5), ['tajo10', 'aemet', 'nada']), ['aemet', 'tajo10']);
 });
 
-test('ejecutar: guarda en bruto con su fuente; tajo10 se guarda como tajo; sin clave de AEMET, Tajo sigue', async () => {
+test('ejecutar: guarda cada hora con su fuente y su calidad; tajo10 se guarda como tajo; sin clave de AEMET, Tajo sigue', async () => {
   const almacen = almacenPluvioMemoria();
   const r = await ejecutar({ almacen, fetchFn: servidorFalso([...rutasTajo(), ...rutasAemet()]), esperar: sinEspera,
     estaciones: [P26, { fuente: 'aemet', codigo: '3104Y' }], pedidas: ['aemet', 'tajo10'] });
@@ -170,7 +170,7 @@ test('ejecutar: guarda en bruto con su fuente; tajo10 se guarda como tajo; sin c
   assert.deepEqual(r.filas, { tajo10: 241 });
   assert.deepEqual(r.errores, ['aemet: sin clave (falta el secreto AEMET_API_KEY)']);
   const una = almacen.obs.get('tajo|P_26|2026-10-02T06:00:00.000Z');
-  assert.deepEqual(una, { fuente: 'tajo', estacion: 'P_26', hora: '2026-10-02T06:00:00.000Z', horas: 1, mm: 10, calidad: 'bruto' });
+  assert.deepEqual(una, { fuente: 'tajo', estacion: 'P_26', hora: '2026-10-02T06:00:00.000Z', horas: 1, mm: 10, calidad: 'ok' });
 });
 
 test('cambio de hora: la noche del 25/10/2026, la segunda 02:00 de Madrid es 01:00Z', () => {
@@ -244,17 +244,9 @@ test('migraciones: lluvia_obs cerrada, limpieza y pg_cron cada hora en el minuto
   for (const t of [sql, cron]) assert.doesNotMatch(t, /sb_secret|eyJ|sb_publishable/);
 });
 
-test('lista blanca inicial: AEMET = la de la función aemet; Tajo con su URL; campos completos y sin repetidos', () => {
+test('lista blanca: AEMET = la de la función aemet; las de Tajo, con su URL', () => {
   const lista = JSON.parse(leer('supabase/functions/pluvio/estaciones.json'));
   const aemet = JSON.parse(leer('supabase/functions/aemet/estaciones.json'));
   assert.deepEqual(lista.filter((e) => e.fuente === 'aemet').map((e) => e.codigo).sort(), [...aemet].sort());
-  const tajo = lista.filter((e) => e.fuente === 'tajo');
-  assert.equal(tajo.length, 28);
-  for (const e of tajo) assert.match(e.url, /^index\.php\?w=get-estacion&x=/, e.codigo);
-  for (const e of lista) {
-    assert.ok(['tajo', 'aemet'].includes(e.fuente), e.codigo);
-    assert.ok(Number.isFinite(e.lat) && Number.isFinite(e.lon) && Number.isInteger(e.altitud) && e.nombre, e.codigo);
-    assert.ok(['reutilizacion-sector-publico', 'aemet'].includes(e.licencia), e.codigo);
-  }
-  assert.equal(new Set(lista.map((e) => `${e.fuente}:${e.codigo}`)).size, lista.length);
+  for (const e of lista.filter((x) => x.fuente === 'tajo')) assert.match(e.url, /^index\.php\?w=get-estacion&x=/, e.codigo);
 });

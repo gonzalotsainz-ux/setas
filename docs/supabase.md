@@ -40,6 +40,13 @@ claves `sb_publishable_`).
   Solo acepta estaciones de `supabase/functions/aemet/estaciones.json` (se regenera con `node scripts/estaciones-aemet.mjs aplicar zona=ID,ID …`),
   tramo máximo de 30 días, caché de 6 h en `aemet_cache`, CORS solo para la web de la app y `http://localhost:8080`.
 - `?inventario=1` devuelve el inventario de estaciones (caché de 30 días); lo usa `scripts/estaciones-aemet.mjs`.
+- La app lee `indice/pluvio/ultimo.json` (Hoy y Zona, `js/pluvio.js`) y la función `rejilla` lee `indice/pluvio/celdas.json`
+  al construir las series de las celdas gruesas. Si faltan, todo funciona como antes, solo con el modelo.
+- Avisos: Ajustes → Créditos → «Lluvia medida en pluviómetros» dice el último día con datos de cada fuente y marca en ocre
+  las que llevan más de 2 días sin dar nada (Euskalmet no, porque se rellena a mano). Cuenta días respondidos, no solo
+  válidos. Si una fuente falla seguido, mirar `node scripts/pluvio/sonda.mjs` y el registro de la función.
+- Licencias: SAIH Tajo, Duero y Júcar, información del sector público, reutilización con cita de la fuente (sin aviso legal propio verificado), datos
+  provisionales; Euskalmet, CC BY 4.0; AEMET, citando a AEMET. Detalle: `supabase/functions/_shared/pluvio-fuentes.js`.
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy aemet --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
 - **Retraso real de AEMET (30/09/2026):** el último día diario publicado era el 27/09 (D-3) en todas las estaciones.
   Un tramo de 30 días se acepta en una sola llamada y con varias estaciones separadas por comas.
@@ -90,7 +97,17 @@ claves `sb_publishable_`).
   Vault (`pluvio_clave`) y coincide con el secreto `PLUVIO_CLAVE`. Desplegada con `--no-verify-jwt`; sin la clave responde
   401 y a un GET, 405. Usa también el secreto `AEMET_API_KEY` (el mismo de la función `aemet`).
 - Qué lee y cuándo (hora UTC): AEMET horario (`/observacion/convencional/todas`, 12 h) a las 0, 3, 6…; SAIH Tajo (últimas
-  24 h por estación) a la 1, 4, 7…; SAIH Tajo 10 días a las 2. Lista blanca: `supabase/functions/pluvio/estaciones.json`.
+  24 h por estación) a la 1, 4, 7…; SAIH Tajo 10 días a las 2; SAIH Duero (últimos 4 días) por lotes, uno de 4 estaciones
+  en cada hora de AEMET (lote 0 a las 0 y 12, 1 a las 3 y 15, 2 a las 6 y 18, 3 a las 9 y 21: cada estación dos veces al
+  día); SAIH Júcar a las 3 y 15; el paso `publicar` (lluvia_dia y los JSON públicos) a las 4 y 16. Lista blanca:
+  `supabase/functions/pluvio/estaciones.json`.
+- **Límite de CPU.** El plan gratuito corta una ejecución hacia los 2 s de CPU (`WORKER_RESOURCE_LIMIT`) y 150 MB: por eso
+  el Duero va por lotes y ya no hay tarea `duero90` (los 90 días del Duero en una ejecución no cabían). Medir en local cada
+  tarea (red real, sin escribir en Supabase): `node --expose-gc scripts/pluvio/medir-cpu.mjs [tarea…]`; ninguna debe
+  pasar de ~1,2 s. Informe: `.superpowers/sdd/2026-10-02-pluviometros/cpu-report.md`.
+- **Relleno del Duero** desde el 1 de agosto (o tras una caída de más de 4 días): `PLUVIO_CLAVE=<clave> node
+  scripts/pluvio/relleno-duero.mjs [--desde=2026-08-01]` lee en local con el mismo lector y sube por `?accion=cargar`
+  (`--seco` solo cuenta). `?accion=cargar` admite solo Euskalmet y Duero, cada una con estaciones de su lista blanca.
 - Tabla privada `lluvia_obs` (fuente, estación, hora UTC del fin del intervalo, mm, calidad); se guardan 200 días
   (`pluvio-limpieza`, 03:40 UTC).
 - Forzar una lectura: `curl -X POST -H "x-pluvio-clave: <clave>" ".../functions/v1/pluvio?fuentes=tajo10"` (y luego
@@ -100,3 +117,18 @@ claves `sb_publishable_`).
 - Desplegada el 2026-10-02. Primera lectura forzada ese día: SAIH Tajo, 28 estaciones y 6.748 horas desde el 22/09 a las
   09:00 UTC (398,0 mm en total); AEMET horario, 23 estaciones y 245 horas de las 12 h previas. Trabajos `pluvio-hora`
   (`10 * * * *`) y `pluvio-limpieza` (`40 3 * * *`) activos.
+- **Euskalmet (Álava).** Relleno desde el histórico anual (zip de unos 100 MB, CC BY 4.0, publicado con 2 a 6 semanas de
+  retraso): `PLUVIO_CLAVE=<clave> node scripts/pluvio/relleno-euskalmet.mjs --desde=2026-08-01` (sube por `?accion=cargar`;
+  `--seco` solo cuenta). Repetirlo cuando Euskalmet publique un mes nuevo (se puede borrar `_fuentes/euskalmet-AAAA.zip`
+  para que lo vuelva a bajar). Datos de Euskalmet / Open Data Euskadi, licencia CC BY 4.0.
+- **Euskalmet en tiempo real: pendiente de clave.** La API (`https://api.euskadi.eus/euskalmet/…`) pide un JWT RS256 firmado
+  con la clave privada de la usuaria (claims `aud: "met01.apikey"`, `iss`, `exp`, `iat`, `version: "1.0.0"`, `email`;
+  alta en `https://api.euskadi.eus/opendata-apikey/`). Cuando la haya: guardarla como secreto (`EUSKALMET_CLAVE_PRIVADA`,
+  nunca en el repo), probar las rutas de lecturas, y añadir en `manejador.js` una tarea `euskalmet` que firme el JWT y
+  entregue las lecturas de 10 minutos a `horasDeLecturas` (`lectores/euskalmet.js`); el resto no cambia.
+- Relleno y primera publicación: 2026-10-02. Duero (16 estaciones, 22.821 horas desde el 01/08) y Euskalmet (28
+  estaciones, 20.595 horas de agosto, zip anual) subidos desde local con `?accion=cargar`; Júcar rellenado con 5 lecturas
+  forzadas. Primera `publicar`: 2.521 días-estación, 49 puntos con lluvia medida (sin estación cercana: Navalucillos,
+  Salorino y Villuercas), 158 celdas gruesas; `ultimo.json` 33 KB. Álava en septiembre queda estimada con el modelo hasta
+  que Euskalmet publique el mes o haya clave de su API. Para diagnosticar: `?fuentes=<tarea>&sincrono=1` con la clave
+  devuelve el resumen de la ejecución (también va al registro de la función).

@@ -2,11 +2,13 @@
 import { cargarDatos, puntosDe } from './datos.js';
 import { obtenerMeteo, hoyMadrid } from './meteo.js';
 import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
+import { cargarPluvio, aplicarPluvio, combinarObs } from './pluvio.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
 
-// meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida en estaciones AEMET donde la hay.
-export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null, umbrales: {} };
+// meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida (pluviómetros y estaciones AEMET) donde la hay.
+// obs: lo que devuelve la función «aemet» tal cual (con su marca __viejo); pluvio: pluvio/ultimo.json vigente o null.
+export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null, pluvio: null, umbrales: {} };
 const pantallas = {
   hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
@@ -45,23 +47,23 @@ async function pintar(cambioDePantalla = false) {
   if (cambioDePantalla === true) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
 }
 
-// Recalcula la meteo «efectiva» (con estaciones) a partir de la del modelo y las observaciones.
+// Recalcula la meteo «efectiva»: la del modelo con la lluvia medida en pluviómetros y, encima, la de las estaciones AEMET.
 export function recalcularContraste() {
-  estado.meteo = estado.datos && estado.meteoBruta
-    ? aplicarContraste(estado.datos.zonas, estado.meteoBruta, estado.obs, usarModeloDe) : estado.meteoBruta;
+  if (!estado.datos || !estado.meteoBruta) { estado.meteo = estado.meteoBruta; return; }
+  const conPluvio = aplicarPluvio(estado.datos.zonas, estado.meteoBruta, estado.pluvio);
+  estado.meteo = aplicarContraste(estado.datos.zonas, conPluvio, combinarObs(estado.obs, estado.pluvio), usarModeloDe);
 }
 
-// Lluvia medida en estaciones: 30 días hasta hoy, una sola llamada para todas las estaciones. Si falla, solo modelos.
+// Lluvia medida: estaciones AEMET (30 días hasta hoy, una sola llamada) y pluviómetros (pluvio/ultimo.json), a la vez.
+// Si algo falla, se sigue con lo que haya (en el peor caso, solo modelos).
 async function cargarObservaciones() {
   const estaciones = [...new Set(estado.datos.zonas.flatMap((z) => (z.estacionesAemet ?? []).map((e) => e.id)))];
-  if (!estaciones.length) return;
   const hasta = hoyMadrid(), desde = new Date(Date.parse(`${hasta}T12:00:00Z`) - 29 * 864e5).toISOString().slice(0, 10);
-  try {
-    estado.obs = await pedirObservaciones(estaciones, desde, hasta);
-    estado.obsError = null;
-  } catch (e) {
-    estado.obsError = e.message;   // se conservan las observaciones anteriores, si las hay
-  }
+  const [obs, pluvio] = await Promise.allSettled([estaciones.length ? pedirObservaciones(estaciones, desde, hasta) : Promise.resolve(null), cargarPluvio()]);
+  if (obs.status === 'fulfilled') { if (obs.value) { estado.obs = obs.value; estado.obsError = null; } }
+  else estado.obsError = obs.reason?.message ?? String(obs.reason);   // se conservan las observaciones anteriores, si las hay
+  // cargarPluvio no lanza y ya cae a la copia guardada si sigue vigente: null = sin archivo vigente (como antes)
+  if (pluvio.status === 'fulfilled') estado.pluvio = pluvio.value;
   recalcularContraste();
   window.dispatchEvent(new Event('meteo'));
 }

@@ -1,0 +1,352 @@
+[
+ {
+  "id": "guadarrama-valsain-pinar",
+  "zona": "guadarrama",
+  "lat": 40.853,
+  "lon": -3.9943,
+  "altitud": 1561
+ },
+ {
+  "id": "guadarrama-navas-melojar",
+  "zona": "guadarrama",
+  "lat": 40.9915,
+  "lon": -3.9348,
+  "altitud": 1472
+ },
+ {
+  "id": "guadarrama-morcuera-pinar",
+  "zona": "guadarrama",
+  "lat": 40.83233,
+  "lon": -3.85257,
+  "altitud": 1580
+ },
+ {
+  "id": "guadarrama-miraflores-pinar",
+  "zona": "guadarrama",
+  "lat": 40.8215,
+  "lon": -3.8137,
+  "altitud": 1591
+ },
+ {
+  "id": "guadarrama-canencia-pinar",
+  "zona": "guadarrama",
+  "lat": 40.8781,
+  "lon": -3.7703,
+  "altitud": 1382
+ },
+ {
+  "id": "guadarrama-guadarrama-resinero",
+  "zona": "guadarrama",
+  "lat": 40.67966,
+  "lon": -4.14587,
+  "altitud": 1358
+ },
+ {
+  "id": "guadarrama-cercedilla-silvestre",
+  "zona": "guadarrama",
+  "lat": 40.76973,
+  "lon": -4.06648,
+  "altitud": 1378
+ },
+ {
+  "id": "guadarrama-camorza-resinero",
+  "zona": "guadarrama",
+  "lat": 40.75194,
+  "lon": -3.91347,
+  "altitud": 1195
+ },
+ {
+  "id": "guadarrama-sanblas-silvestre",
+  "zona": "guadarrama",
+  "lat": 40.79072,
+  "lon": -3.85651,
+  "altitud": 1443
+ },
+ {
+  "id": "guadarrama-alameda-melojar",
+  "zona": "guadarrama",
+  "lat": 40.88181,
+  "lon": -3.828,
+  "altitud": 1322
+ },
+ {
+  "id": "guadarrama-pinilla-melojar",
+  "zona": "guadarrama",
+  "lat": 40.90781,
+  "lon": -3.79598,
+  "altitud": 1410
+ },
+ {
+  "id": "sierra-norte-riaza-melojar",
+  "zona": "sierra-norte",
+  "lat": 41.2801,
+  "lon": -3.434,
+  "altitud": 1505
+ },
+ {
+  "id": "sierra-norte-sepulveda-pinar",
+  "zona": "sierra-norte",
+  "lat": 41.2042,
+  "lon": -3.5085,
+  "altitud": 1324
+ },
+ {
+  "id": "sierra-norte-canencia-melojar",
+  "zona": "sierra-norte",
+  "lat": 40.9158,
+  "lon": -3.7652,
+  "altitud": 1336
+ },
+ {
+  "id": "sierra-norte-bustarviejo-melojar",
+  "zona": "sierra-norte",
+  "lat": 40.83402,
+  "lon": -3.7694,
+  "altitud": 1271
+ },
+ {
+  "id": "sierra-norte-braojos-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.07143,
+  "lon": -3.66977,
+  "altitud": 1619
+ },
+ {
+  "id": "sierra-norte-robregordo-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.12795,
+  "lon": -3.6168,
+  "altitud": 1591
+ },
+ {
+  "id": "sierra-norte-hiruela-melojar",
+  "zona": "sierra-norte",
+  "lat": 41.07437,
+  "lon": -3.43203,
+  "altitud": 1254
+ },
+ {
+  "id": "sierra-norte-pradena-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.02171,
+  "lon": -3.50254,
+  "altitud": 1502
+ },
+ {
+  "id": "sierra-norte-pradena-melojar",
+  "zona": "sierra-norte",
+  "lat": 41.0474,
+  "lon": -3.50043,
+  "altitud": 1257
+ },
+ {
+  "id": "sierra-oeste-abantos-silvestre",
+  "zona": "sierra-oeste",
+  "lat": 40.60322,
+  "lon": -4.16762,
+  "altitud": 1445
+ },
+ {
+  "id": "sierra-oeste-sanmartin-resinero",
+  "zona": "sierra-oeste",
+  "lat": 40.33473,
+  "lon": -4.35552,
+  "altitud": 956
+ },
+ {
+  "id": "sierra-oeste-valdemaqueda-resinero",
+  "zona": "sierra-oeste",
+  "lat": 40.5213,
+  "lon": -4.27913,
+  "altitud": 1042
+ },
+ {
+  "id": "sierra-oeste-robledo-encinar",
+  "zona": "sierra-oeste",
+  "lat": 40.43922,
+  "lon": -4.2341,
+  "altitud": 785
+ },
+ {
+  "id": "soria-pinar-grande-covaleda",
+  "zona": "soria",
+  "lat": 41.9415,
+  "lon": -2.8315,
+  "altitud": 1540
+ },
+ {
+  "id": "soria-navaleno-resinero",
+  "zona": "soria",
+  "lat": 41.8672,
+  "lon": -3.0286,
+  "altitud": 1177
+ },
+ {
+  "id": "soria-cidones-melojar",
+  "zona": "soria",
+  "lat": 41.829,
+  "lon": -2.678,
+  "altitud": 1134
+ },
+ {
+  "id": "burgos-hontoria-pinar",
+  "zona": "burgos",
+  "lat": 41.8896,
+  "lon": -3.1398,
+  "altitud": 1160
+ },
+ {
+  "id": "burgos-palacios-pinar",
+  "zona": "burgos",
+  "lat": 41.9994,
+  "lon": -3.0805,
+  "altitud": 1271
+ },
+ {
+  "id": "burgos-monte-agudo-hayedo",
+  "zona": "burgos",
+  "lat": 42.2755,
+  "lon": -3.1525,
+  "altitud": 1478
+ },
+ {
+  "id": "burgos-umbria-rebollar",
+  "zona": "burgos",
+  "lat": 42.173,
+  "lon": -3.1152,
+  "altitud": 1366
+ },
+ {
+  "id": "merindades-cerneja-hayedo",
+  "zona": "merindades",
+  "lat": 43.127,
+  "lon": -3.4875,
+  "altitud": 1031
+ },
+ {
+  "id": "gredos-navahondilla-castanar",
+  "zona": "gredos",
+  "lat": 40.3262,
+  "lon": -4.5068,
+  "altitud": 832
+ },
+ {
+  "id": "gredos-arenal-resinero",
+  "zona": "gredos",
+  "lat": 40.2928,
+  "lon": -5.0719,
+  "altitud": 1240
+ },
+ {
+  "id": "gredos-villarejo-silvestre",
+  "zona": "gredos",
+  "lat": 40.3417,
+  "lon": -5.0072,
+  "altitud": 1334
+ },
+ {
+  "id": "cuenca-serrania-negral",
+  "zona": "cuenca",
+  "lat": 40.0689,
+  "lon": -1.9971,
+  "altitud": 1250
+ },
+ {
+  "id": "cuenca-boniches-resinero",
+  "zona": "cuenca",
+  "lat": 39.9701,
+  "lon": -1.6521,
+  "altitud": 1088
+ },
+ {
+  "id": "guadalajara-poveda-negral",
+  "zona": "guadalajara",
+  "lat": 40.6094,
+  "lon": -2.0169,
+  "altitud": 1360
+ },
+ {
+  "id": "guadalajara-tierzo-sabinar",
+  "zona": "guadalajara",
+  "lat": 40.7507,
+  "lon": -1.9,
+  "altitud": 1314
+ },
+ {
+  "id": "toledo-navalucillos-encinar",
+  "zona": "toledo",
+  "lat": 39.6101,
+  "lon": -4.6186,
+  "altitud": 972
+ },
+ {
+  "id": "toledo-menasalbas-melojar",
+  "zona": "toledo",
+  "lat": 39.5501,
+  "lon": -4.4125,
+  "altitud": 941
+ },
+ {
+  "id": "toledo-sevilleja-alcornocal",
+  "zona": "toledo",
+  "lat": 39.4552,
+  "lon": -4.925,
+  "altitud": 550
+ },
+ {
+  "id": "alava-gorbeia-hayedo",
+  "zona": "alava",
+  "lat": 42.954,
+  "lon": -2.9184,
+  "altitud": 760
+ },
+ {
+  "id": "alava-entzia-hayedo",
+  "zona": "alava",
+  "lat": 42.7985,
+  "lon": -2.494,
+  "altitud": 934
+ },
+ {
+  "id": "alava-izki-marojal",
+  "zona": "alava",
+  "lat": 42.6824,
+  "lon": -2.4941,
+  "altitud": 772
+ },
+ {
+  "id": "alava-entzia-pastizal",
+  "zona": "alava",
+  "lat": 42.772,
+  "lon": -2.3836,
+  "altitud": 1011
+ },
+ {
+  "id": "extremadura-salorino-alcornocal",
+  "zona": "extremadura",
+  "lat": 39.43489,
+  "lon": -7.03565,
+  "altitud": 452
+ },
+ {
+  "id": "extremadura-villuercas-castanar",
+  "zona": "extremadura",
+  "lat": 39.4801,
+  "lon": -5.35165,
+  "altitud": 914
+ },
+ {
+  "id": "extremadura-hervas-castanar",
+  "zona": "extremadura",
+  "lat": 40.25486,
+  "lon": -5.85655,
+  "altitud": 968
+ },
+ {
+  "id": "extremadura-trevejo-castanar",
+  "zona": "extremadura",
+  "lat": 40.2315,
+  "lon": -6.7882,
+  "altitud": 785
+ }
+]

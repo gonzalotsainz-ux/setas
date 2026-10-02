@@ -5,7 +5,9 @@
 import { hoyMadrid, FUTUROS, sumarDias } from '../_shared/meteo.js';
 import { resumirCelda, diaConDatos, validarSalida, VERSION_SALIDA } from '../_shared/salida-indice.js';
 import { selloDe, tocaEjecutar, inicioSerie, planificar, filasDePrincipal, filasDeArchivoLluvia, filasDeClima, serieDesdeFilas,
-  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION } from './nucleo.js';
+  aplicarClimaCelda, decidirPublicacion, archivosABorrar, celdasDelLote, pedirConReintento, PlazoAgotado, altitudConsulta, TROZO, PRESUPUESTO_EJECUCION,
+  factoresPorZona } from './nucleo.js';
+import { aplicarMedida, pluvioVigente, VIGENCIA_PLUVIO } from '../_shared/pluvio.js';
 
 // Supabase corta una función a los 150 s de reloj (plan gratuito, informe 08 D4), también en segundo plano. La ejecución
 // entera tiene que acabar antes de PLAZO_EJECUCION; las peticiones (con sus reintentos y esperas) dejan
@@ -66,13 +68,24 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
   // renovada (el móvil las pinta en gris) y no cuentan para el 90 %.
   const desde = inicioSerie(hoy), hasta = sumarDias(hoy, FUTUROS - 1);
   const fechas = Array.from({ length: FUTUROS }, (_, k) => sumarDias(hoy, k));
-  const [filas, clima] = await Promise.all([almacen.series(ids, desde), almacen.clima(ids)]);
-  const parte = {};
+  const [filas, clima, pluvio] = await Promise.all([almacen.series(ids, desde), almacen.clima(ids), leerPluvioCeldas(almacen, ahora)]);
+  const series = new Map();
   for (const c of celdas) {
     const fila = filas.get(c.id);
     if (!fila || !frescas.has(c.id)) continue;
-    const serie = aplicarClimaCelda(serieDesdeFilas(fila, desde, hasta, hoy, ahora), clima.get(c.id));
-    parte[c.id] = resumirCelda({ altRef: altitud.get(c.id), serie, fechas });
+    series.set(c.id, aplicarClimaCelda(serieDesdeFilas(fila, desde, hasta, hoy, ahora), clima.get(c.id)));
+  }
+  // Lluvia medida en pluviómetros (pluvio/celdas.json, de la función «pluvio»): sin archivo, todo como antes. El sesgo
+  // se calcula con las series del modelo, antes de mezclar nada.
+  const factores = pluvio ? factoresPorZona(celdas, series, pluvio) : new Map();
+  const parte = {};
+  for (const c of celdas) {
+    const s = series.get(c.id);
+    if (!s) continue;
+    const m = pluvio?.lugares?.[c.id] ?? null;
+    const serie = pluvio ? aplicarMedida(s, m, { desde: pluvio.desde, hasta: pluvio.hasta, factor: factores.get(c.zona) ?? 1 }) : s;
+    parte[c.id] = resumirCelda({ altRef: altitud.get(c.id), serie, fechas,
+      pluvio: pluvio ? { estaciones: (m?.estaciones ?? []).slice(0, 3).map((e) => e.nombre), km: (m?.estaciones ?? []).slice(0, 3).map((e) => e.km), cercanas: m?.cercanas ?? 0 } : null });
   }
 
   let todas = parte;
@@ -104,6 +117,17 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
 
 // La comparación de la clave vive en _shared (la usa también «pluvio»); se reexporta para index.ts y las pruebas.
 export { claveValida } from '../_shared/clave.js';
+
+// pluvio/celdas.json del mismo bucket (la función «pluvio» lo publica a las 4 y a las 16 UTC). Si falta, falla, no pasa
+// validarPluvio, tiene más de PLUVIO_MAX_HORAS o es posterior a la ejecución (más de PLUVIO_ADELANTO_MIN, por relojes),
+// null: el índice sale sin pluviómetros, exactamente como antes.
+export const PLUVIO_MAX_HORAS = VIGENCIA_PLUVIO.maxHoras, PLUVIO_ADELANTO_MIN = VIGENCIA_PLUVIO.adelantoMin;
+export async function leerPluvioCeldas(almacen, ahora = new Date()) {
+  try {
+    const p = await almacen.leerJson('pluvio/celdas.json');
+    return pluvioVigente(p, ahora) ? p : null;
+  } catch { return null; }
+}
 
 // Almacén real: tablas meteo_celdas, clima_celdas y rejilla_ejecuciones, la vista meteo_celdas_resumen, la función
 // series_celdas y el bucket público «indice». Se lee todo (son unas 350 filas) para no meter cientos de ids en la URL.

@@ -2,6 +2,8 @@
 import { el } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
+import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
+import { hoyMadrid } from '../meteo.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
 import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
@@ -196,11 +198,27 @@ function creditosFotos(datos) {
   return el('details', { clase: 'ajustes-especie' }, el('summary', {}, el('span', { clase: 'ajustes-especie__nombre', texto: `Créditos de las fotos (${items.length})` })),
     el('ul', { clase: 'ajustes-creditos' }, ...items));
 }
-function bloqueCreditos(datos) {
+// Lluvia medida en pluviómetros: crédito y licencia de cada fuente y, si ya se ha cargado pluvio/ultimo.json, su último
+// día con datos (con aviso si una fuente lleva más de 2 días sin dar nada).
+const FECHA_LARGA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+function creditosLluvia(estado) {
+  const filas = estadoFuentesLluvia(estado.pluvio, hoyMadrid());
+  const sinEstado = !filas.length;   // sin pluvio/ultimo.json vigente: créditos y licencias igual, estado «no disponible»
+  return el('details', { clase: 'ajustes-especie' },
+    el('summary', {}, el('span', { clase: 'ajustes-especie__nombre', texto: 'Lluvia medida en pluviómetros' })),
+    sinEstado ? el('p', { clase: 'texto-2', texto: 'Estado de las lecturas: no disponible ahora.' }) : null,
+    el('ul', { clase: 'ajustes-creditos' }, ...(sinEstado ? fuentesLluviaSinEstado() : filas).map((f) => el('li', {},
+      enlace(f.nombre, f.url), `: ${f.licencia} `,
+      sinEstado ? null : el('span', { clase: f.aviso ? 'etiqueta etiqueta--ocre' : 'texto-2', texto: f.ultima ? `Último día con datos: ${FECHA_LARGA.format(new Date(`${f.ultima}T12:00:00Z`))}.` : 'Sin datos todavía.' })))));
+}
+function bloqueCreditos(datos, estado) {
   const li = (...h) => el('li', {}, ...h);
   return seccion('Créditos y licencias', el('ul', { clase: 'ajustes-creditos' },
     li(enlace('Open-Meteo', 'https://open-meteo.com/'), ': datos meteorológicos de modelos, licencia CC BY 4.0.'),
     li(enlace('AEMET', 'https://www.aemet.es/'), ': «Autorizado el uso de la información y su reproducción citando a AEMET como autora de la misma».'),
+    li('Pluviómetros de montaña: ', enlace('SAIH Tajo', 'https://saihtajo.chtajo.es/'), ', ', enlace('SAIH Duero', 'https://www.saihduero.es/'), ' y ',
+      enlace('SAIH Júcar', 'https://saih.chj.es/'), ' (confederaciones hidrográficas; información del sector público reutilizable citando la fuente, datos provisionales sin depurar) y ',
+      enlace('Euskalmet, Gobierno Vasco', 'https://opendata.euskadi.eus/'), ' (CC BY 4.0). La app les aplica su propio control de calidad.'),
     li(enlace('IGN / CNIG', 'https://www.ign.es/'), ': cartografía y capas base (Base IGN, fondo «Mapa»; Mapa Topográfico Nacional; ortofoto PNOA), licencia CC BY 4.0 (© Instituto Geográfico Nacional de España).'),
     li(enlace('IDEE', 'https://www.idee.es/'), ': relieve sombreado del modelo digital del terreno (© Instituto Geográfico Nacional, CC BY 4.0).'),
     li(enlace('OpenStreetMap', 'https://www.openstreetmap.org/copyright'), ': © colaboradores de OpenStreetMap, ODbL (mapa para situar una salida del diario).'),
@@ -216,13 +234,13 @@ function bloqueCreditos(datos) {
     li(enlace('Comunidad de Madrid, IDEM', 'https://idem.madrid.org/'), ': montes de utilidad pública (MUP).'),
     li(enlace('GBIF', 'https://www.gbif.org/'), ': GBIF.org (2026) GBIF Occurrence Download/Search, ', enlace('gbif.org/occurrence/search', 'https://www.gbif.org/occurrence/search'), '.'),
     li('Investigación propia de la app: ', enlace('documentos de investigación', 'https://github.com/gonzalotsainz-ux/setas/tree/main/docs/investigacion'), ' (normativa, especies, fructificación y sitios), con fuente y fecha de consulta en cada dato.')),
-  creditosFotos(datos));
+  creditosLluvia(estado), creditosFotos(datos));
 }
 
 export function pintar({ estado }) {
   estado.umbrales ??= {};
   const v = fechaDatos(estado.datos);
   return el('div', { clase: 'ajustes' }, el('h1', { texto: 'Ajustes' }),
-    bloqueDispositivo(), bloqueUmbrales(estado), bloqueCalibracion(estado), bloqueCreditos(estado.datos),
+    bloqueDispositivo(), bloqueUmbrales(estado), bloqueCalibracion(estado), bloqueCreditos(estado.datos, estado),
     el('p', { clase: 'texto-2 ajustes-pie', texto: `Versión de los datos: ${v ? fechaCorta(`${v}T12:00:00`) : 'sin fecha'}` }));
 }
