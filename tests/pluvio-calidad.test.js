@@ -76,3 +76,29 @@ test('publicar marca en lluvia_dia el pico de Quintanar con el modelo de meteo_c
   assert.equal(almacen.dias.get('duero|PL031|2026-08-27').calidad, 'sospechoso');
   assert.equal(almacen.dias.get('duero|PL002|2026-08-28').calidad, 'ok');
 });
+
+// Ronda de arreglos 1 (Ruling tarea 8): el pico exige vecinas secas y más de 50 mm por encima.
+test('pico: con vecinas mojadas o un exceso moderado no es pico aislado; Quintanar 28/08 (vecinas secas) sí', () => {
+  assert.deepEqual(revisarDia({ mm: 40, horas: 24, maximo: 15 }, { vecinas: [5], modelo: 3 }), { calidad: 'ok', motivo: null });
+  assert.deepEqual(revisarDia({ mm: 30, horas: 24, maximo: 12 }, { vecinas: [0], modelo: 1 }), { calidad: 'ok', motivo: null });
+  assert.deepEqual(revisarDia({ mm: 40, horas: 24, maximo: 18 }, { vecinas: [12, 15] }), { calidad: 'ok', motivo: null });
+  assert.deepEqual(revisarDia({ mm: 144.8, horas: 24, maximo: 40 }, { vecinas: [0], modelo: 0.4 }),
+    { calidad: 'sospechoso', motivo: 'pico aislado: 144.8 mm frente a 0 de sus vecinas y 0.4 del modelo' });
+});
+
+test('pico sin vecinas: más de 100 mm con el modelo seco → sospechoso; sin modelo o con 100 o menos, no', () => {
+  assert.deepEqual(revisarDia({ mm: 120, horas: 24, maximo: 30 }, { vecinas: [], modelo: 2 }),
+    { calidad: 'sospechoso', motivo: 'pico sin vecinas: 120 mm frente a 2 del modelo' });
+  assert.equal(revisarDia({ mm: 120, horas: 24, maximo: 30 }, { vecinas: [] }).calidad, 'ok');
+  assert.equal(revisarDia({ mm: 100, horas: 24, maximo: 30 }, { vecinas: [], modelo: 2 }).calidad, 'ok');
+  assert.equal(revisarDia({ mm: 120, horas: 24, maximo: 30 }, { vecinas: [], modelo: 8 }).calidad, 'ok');
+});
+
+test('seco aislado: una vecina con un pico falso no cuenta para la mediana', () => {
+  const est = [['X', 42.0], ['P', 42.05], ['Q', 42.1]].map(([codigo, lat]) => ({ fuente: 'duero', codigo, lat, lon: -3 }));
+  const dia = (estacion, mm) => ({ fuente: 'duero', estacion, fecha: '2026-09-10', mm, horas: 24, maximo: Math.min(mm, 40) });
+  const modelo = { 'duero:X': 12, 'duero:P': 2, 'duero:Q': 2 };
+  const r = revisarDias([dia('X', 0), dia('P', 150), dia('Q', 0)], est, (clave) => modelo[clave]);
+  assert.match(de(r, 'P', '2026-09-10').motivo, /^pico aislado/);
+  assert.deepEqual([de(r, 'X', '2026-09-10').calidad, de(r, 'Q', '2026-09-10').calidad], ['ok', 'ok']);
+});
