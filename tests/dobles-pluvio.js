@@ -4,6 +4,7 @@
 // OJO: aemet-convencional.json es SINTÉTICA (no capturada): sigue el formato de la especificación oficial de
 // /observacion/convencional/todas, con `fint` sin zona («2026-10-02T06:00:00», UTC).
 import { readFileSync } from 'node:fs';
+import { agregarHoras } from '../supabase/functions/pluvio/dias.js';
 
 export const fixture = (nombre, enc = 'utf8') => readFileSync(new URL(`./fixtures/pluvio/${nombre}`, import.meta.url), enc);
 export const fixtureJson = (nombre) => JSON.parse(fixture(nombre));
@@ -43,14 +44,26 @@ export const rutasAemet = (estado = 200) => [
 ];
 
 // Almacén en memoria con la interfaz de almacenSupabase. Como Postgres, un upsert que toca dos veces la misma fila falla.
+// diasPorEstacion devuelve lo mismo que la función SQL lluvia_por_dia (un array por columna y estación).
 export function almacenPluvioMemoria() {
-  const obs = new Map();
+  const obs = new Map(), dias = new Map();
   return {
-    obs,
+    obs, dias,
     async guardarObs(filas) {
       const claves = filas.map((f) => `${f.fuente}|${f.estacion}|${f.hora}`);
       if (new Set(claves).size !== claves.length) throw new Error('ON CONFLICT DO UPDATE command cannot affect row a second time');
       filas.forEach((f, k) => obs.set(claves[k], { ...f }));
     },
+    async diasPorEstacion(desde) {
+      const r = new Map();
+      for (const d of agregarHoras([...obs.values()], desde)) {
+        const k = `${d.fuente}|${d.estacion}`;
+        if (!r.has(k)) r.set(k, { fuente: d.fuente, estacion: d.estacion, fechas: [], mm: [], horas: [], maximo: [] });
+        const x = r.get(k);
+        x.fechas.push(d.fecha); x.mm.push(d.mm); x.horas.push(d.horas); x.maximo.push(d.maximo);
+      }
+      return [...r.values()];
+    },
+    async guardarDias(filas) { for (const f of filas) dias.set(`${f.fuente}|${f.estacion}|${f.fecha}`, { ...f }); },
   };
 }
