@@ -4,6 +4,7 @@ import { hoyMadrid } from '../meteo.js';
 import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { urlSegura } from '../ui/normativa.js';
+import { avisoViejo } from '../aemet.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const ui = { dia: 0, especie: '' };   // la elección se conserva al repintar
@@ -187,6 +188,7 @@ export function pintar({ estado, refrescarMeteo }) {
   else if (meteo.desdeCache) sub.append(`Datos de ${haceCuanto(meteo.hora)}`, meteo.error ? '. No se ha podido actualizar.' : '.');
   else sub.append('Actualizado a las ', el('time', { clase: 'tabular', dateTime: meteo.hora, texto: horaDe(meteo.hora) }), '. Previsión de Open-Meteo.');
   if (!estado.obs && estado.obsError && datos.zonas.some((z) => z.estacionesAemet?.length)) sub.append(' Lluvia medida en estaciones: no disponible ahora.');
+  else if (avisoViejo(estado.obs) && datos.zonas.some((z) => z.estacionesAemet?.length)) sub.append(` ${avisoViejo(estado.obs)}.`);
 
   const portada = el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-hoy' } },
     el('p', { clase: 'portada__fecha' }, el('time', { dateTime: hoy, texto: fechaLarga(hoy) })),

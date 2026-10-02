@@ -95,7 +95,7 @@ export function fijarUsarModelo(zonaId, valor) {
   try { if (valor) localStorage.setItem(clavePref(zonaId), '1'); else localStorage.removeItem(clavePref(zonaId)); } catch { /* sin almacenamiento */ }
 }
 
-const SEIS_HORAS = 6 * 3600e3;
+const SEIS_HORAS = 6 * 3600e3, DIEZ_MIN = 10 * 60e3;
 const claveLocal = (estaciones, desde, hasta) => `setas.aemet|${[...estaciones].sort().join(',')}|${desde}|${hasta}`;
 
 // Caché en localStorage 6 h por tramo de fechas, para no insistir a la función (y a AEMET).
@@ -103,7 +103,8 @@ export async function pedirObservaciones(estaciones, desde, hasta, { ahora = Dat
   const clave = claveLocal(estaciones, desde, hasta);
   try {
     const g = JSON.parse(localStorage.getItem(clave) ?? 'null');
-    if (g && ahora - g.t < SEIS_HORAS) return g.datos;
+    // una copia vieja (AEMET no respondía) solo se reutiliza 10 min: así se recupera pronto cuando AEMET vuelve
+    if (g && ahora - g.t < (g.datos?.__viejo ? DIEZ_MIN : SEIS_HORAS)) return g.datos;
   } catch { /* sin caché local */ }
   const url = `${SUPABASE_URL}/functions/v1/aemet?${new URLSearchParams({ estaciones: estaciones.join(','), desde, hasta })}`;
   const r = await fetch(url, { headers: { apikey: SUPABASE_ANON } });
@@ -114,4 +115,13 @@ export async function pedirObservaciones(estaciones, desde, hasta, { ahora = Dat
     localStorage.setItem(clave, JSON.stringify({ t: ahora, datos }));
   } catch { /* cuota o modo privado */ }
   return datos;
+}
+
+// Aviso discreto cuando la función devuelve la última copia buena porque AEMET no responde (`obs.__viejo.creado`).
+// null si los datos no son viejos.
+export function avisoViejo(obs, ahora = Date.now()) {
+  const t = Date.parse(obs?.__viejo?.creado);
+  if (!Number.isFinite(t)) return null;
+  const h = Math.max(0, Math.round((ahora - t) / 3600e3));
+  return `Datos de AEMET de hace ${h < 1 ? 'menos de 1' : h} h (AEMET no responde)`;
 }
