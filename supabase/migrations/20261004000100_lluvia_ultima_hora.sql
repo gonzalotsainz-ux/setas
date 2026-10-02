@@ -1,4 +1,4 @@
--- supabase/migrations/20261005000000_lluvia_ultima_hora.sql
+-- supabase/migrations/20261004000100_lluvia_ultima_hora.sql
 -- lluvia_por_dia devuelve además `ultima`: si el día tiene con dato (mm >= 0) la hora que acaba a las 00:00 de Madrid del
 -- día siguiente, su última hora (revisión final, arreglo 1). Sin ella el día no cuenta como medido (calidad.js): con los
 -- lotes del Duero, a las 4 UTC ayer puede estar leído solo hasta las 20 h. Cambia el tipo devuelto: hay que borrarla y

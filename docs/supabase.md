@@ -111,9 +111,10 @@ claves `sb_publishable_`).
 - Tabla privada `lluvia_obs` (fuente, estación, hora UTC del fin del intervalo, mm, calidad); se guardan 200 días
   (`pluvio-limpieza`, 03:40 UTC). `lluvia_dia` (días revisados) se guarda 400: `publicar` toma de ella los días anteriores
   a hoy − 198 (los que `lluvia_obs` ya no tiene enteros, desde febrero) y el relleno del Júcar ya no los vuelve a pedir.
-- **Migración `20261005000000_lluvia_ultima_hora.sql` (revisión final, sin aplicar):** `lluvia_por_dia` devuelve además
+- **Migración `20261004000100_lluvia_ultima_hora.sql` (revisión final, sin aplicar):** `lluvia_por_dia` devuelve además
   `ultima` (si el día tiene la hora que acaba a las 00:00 de Madrid). Hay que aplicarla **antes** de desplegar la nueva
   `pluvio`: sin la columna, ningún día cuenta como medido y Hoy, Zona y el mapa vuelven al modelo hasta aplicarla.
+  Lleva el sello 20261004000100 (justo después de `lluvia_dia`) porque el plan de grupos usa 20261005000000 y siguientes.
 - Forzar una lectura: `curl -X POST -H "x-pluvio-clave: <clave>" ".../functions/v1/pluvio?fuentes=tajo10"` (y luego
   `?fuentes=aemet`; mejor por separado, comparten un único plazo). La clave no está apuntada en ningún sitio; si hace falta se
   genera otra y se actualizan el secreto y Vault.

@@ -35,7 +35,7 @@ test('diasDeFilas: de un array por columna (lluvia_por_dia) a una fila por día'
     { fuente: 'duero', estacion: 'PL002', fecha: '2026-09-30', mm: 0.3, horas: 23, maximo: 0.2, ultima: false }]);
 });
 
-// Revisión final 1: sin la columna `ultima` (la función SQL anterior a la migración 20261005000000) no se sabe si el día
+// Revisión final 1: sin la columna `ultima` (la función SQL anterior a la migración 20261004000100) no se sabe si el día
 // tiene su última hora: no cuenta como medido.
 test('diasDeFilas: sin la columna ultima, el día no tiene la última hora', () => {
   const [d] = diasDeFilas([{ fuente: 'duero', estacion: 'PL002', fechas: ['2026-09-29'], mm: [3], horas: [24], maximo: [1] }]);
@@ -77,7 +77,7 @@ test('publicar: ayer con 20 horas sin la última no entra en ultimo.json (y qued
 });
 
 test('la migración de la última hora: lluvia_por_dia devuelve si cada día tiene la hora que acaba a medianoche', () => {
-  const sql = readFileSync('supabase/migrations/20261005000000_lluvia_ultima_hora.sql', 'utf8');
+  const sql = readFileSync('supabase/migrations/20261004000100_lluvia_ultima_hora.sql', 'utf8');
   assert.match(sql, /drop function public\.lluvia_por_dia\(date\)/);
   assert.match(sql, /ultima boolean\[\]/);
   assert.match(sql, /\(o\.hora at time zone 'Europe\/Madrid'\)::time = time '00:00'/);
