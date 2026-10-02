@@ -45,7 +45,7 @@ claves `sb_publishable_`).
 - Avisos: Ajustes → Créditos → «Lluvia medida en pluviómetros» dice el último día con datos de cada fuente y marca en ocre
   las que llevan más de 2 días sin dar nada (Euskalmet no, porque se rellena a mano). Cuenta días respondidos, no solo
   válidos. Si una fuente falla seguido, mirar `node scripts/pluvio/sonda.mjs` y el registro de la función.
-- Licencias: SAIH Tajo, Duero y Júcar, información del sector público reutilizable citando la fuente (Ley 37/2007), datos
+- Licencias: SAIH Tajo, Duero y Júcar, información del sector público, reutilización con cita de la fuente (sin aviso legal propio verificado), datos
   provisionales; Euskalmet, CC BY 4.0; AEMET, citando a AEMET. Detalle: `supabase/functions/_shared/pluvio-fuentes.js`.
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy aemet --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
 - **Retraso real de AEMET (30/09/2026):** el último día diario publicado era el 27/09 (D-3) en todas las estaciones.

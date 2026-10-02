@@ -68,12 +68,23 @@ export function combinarObs(obs, pluvio) {
 
 // Fuentes que se rellenan a mano con semanas de retraso (Euskalmet, zip mensual): sin aviso por antigüedad.
 const RETRASO_CONOCIDO = new Set(['euskalmet']);
+const ORDEN_FUENTES = ['tajo', 'duero', 'jucar', 'euskalmet', 'aemet'];
+// Último día con dato que se enseña. En las fuentes con zip mensual, un día 1 suele ser solo la hora que termina a medianoche
+// UTC del último día del mes anterior (el zip llega hasta el 31/08 y pluvio.fuentes dice 01/09): se enseña el día anterior.
+function ultimaHonesta(fuente, ultima) {
+  return RETRASO_CONOCIDO.has(fuente) && ultima?.endsWith('-01') ? sumarDias(ultima, -1) : ultima;
+}
+// Crédito de cada fuente sin estado de lecturas (para Ajustes cuando no hay pluvio/ultimo.json vigente).
+export const fuentesLluviaSinEstado = () => ORDEN_FUENTES.map((fuente) => {
+  const f = FUENTES_LLUVIA[fuente];
+  return { fuente, nombre: f.nombre, url: f.url, licencia: LICENCIAS[f.licencia], ultima: null, aviso: false };
+});
 // Estado de cada fuente para Ajustes: último día con dato (pluvio.fuentes) y aviso si hace más de `diasAviso` días.
 export function estadoFuentesLluvia(pluvio, hoy, diasAviso = 2) {
   if (!pluvio) return [];
   const limite = sumarDias(hoy, -diasAviso);
-  return ['tajo', 'duero', 'jucar', 'euskalmet', 'aemet'].map((fuente) => {
-    const f = FUENTES_LLUVIA[fuente], ultima = pluvio.fuentes?.[fuente] ?? null;
+  return ORDEN_FUENTES.map((fuente) => {
+    const f = FUENTES_LLUVIA[fuente], ultima = ultimaHonesta(fuente, pluvio.fuentes?.[fuente] ?? null);
     return { fuente, nombre: f.nombre, url: f.url, licencia: LICENCIAS[f.licencia], ultima,
       aviso: !RETRASO_CONOCIDO.has(fuente) && (ultima == null || ultima < limite) };
   });

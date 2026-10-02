@@ -2,7 +2,7 @@
 import { el } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
-import { estadoFuentesLluvia } from '../pluvio.js';
+import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
 import { hoyMadrid } from '../meteo.js';
 import { supabase, autorActual, elegirAutor } from '../supabase.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
@@ -203,12 +203,13 @@ function creditosFotos(datos) {
 const FECHA_LARGA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' });
 function creditosLluvia(estado) {
   const filas = estadoFuentesLluvia(estado.pluvio, hoyMadrid());
-  if (!filas.length) return null;
+  const sinEstado = !filas.length;   // sin pluvio/ultimo.json vigente: créditos y licencias igual, estado «no disponible»
   return el('details', { clase: 'ajustes-especie' },
     el('summary', {}, el('span', { clase: 'ajustes-especie__nombre', texto: 'Lluvia medida en pluviómetros' })),
-    el('ul', { clase: 'ajustes-creditos' }, ...filas.map((f) => el('li', {},
+    sinEstado ? el('p', { clase: 'texto-2', texto: 'Estado de las lecturas: no disponible ahora.' }) : null,
+    el('ul', { clase: 'ajustes-creditos' }, ...(sinEstado ? fuentesLluviaSinEstado() : filas).map((f) => el('li', {},
       enlace(f.nombre, f.url), `: ${f.licencia} `,
-      el('span', { clase: f.aviso ? 'etiqueta etiqueta--ocre' : 'texto-2', texto: f.ultima ? `Último día con datos: ${FECHA_LARGA.format(new Date(`${f.ultima}T12:00:00Z`))}.` : 'Sin datos todavía.' })))));
+      sinEstado ? null : el('span', { clase: f.aviso ? 'etiqueta etiqueta--ocre' : 'texto-2', texto: f.ultima ? `Último día con datos: ${FECHA_LARGA.format(new Date(`${f.ultima}T12:00:00Z`))}.` : 'Sin datos todavía.' })))));
 }
 function bloqueCreditos(datos, estado) {
   const li = (...h) => el('li', {}, ...h);

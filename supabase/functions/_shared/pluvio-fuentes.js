@@ -2,7 +2,7 @@
 // Fuentes de la lluvia medida: nombre, enlace y licencia (informe 09 §2). Las usan la lista blanca (cada estación lleva la
 // licencia de su fuente) y los créditos de Ajustes.
 export const LICENCIAS = Object.freeze({
-  'reutilizacion-sector-publico': 'Información del sector público reutilizable citando la fuente (Ley 37/2007). Datos provisionales en tiempo real, sin depurar.',
+  'reutilizacion-sector-publico': 'Información del sector público (confederación hidrográfica); reutilización con cita de la fuente. Sin aviso legal propio verificado. Datos provisionales en tiempo real, sin depurar.',
   'cc-by-4.0': 'Licencia CC BY 4.0.',
   aemet: '«Autorizado el uso de la información y su reproducción citando a AEMET como autora de la misma».',
 });
