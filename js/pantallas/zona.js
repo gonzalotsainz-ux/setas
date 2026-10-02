@@ -2,7 +2,7 @@
 // calendario y normativa. Todo lo numérico pasa por semaforo()/nivelDe(); nada se inventa sin datos.
 import { indiceZona, calcularIndice, DatosIncompletos } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
-import { fijarUsarModelo } from '../aemet.js';
+import { fijarUsarModelo, avisoViejo, textoSinLluvia } from '../aemet.js';
 import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia } from '../ui/grafico-lluvia.js';
@@ -168,7 +168,7 @@ function cajaContraste(zona, meteo, id) {
     el('div', { clase: 'chips' }, boton));
 }
 
-function seccionLluvia(zona, meteo, serie, id, disp, obsError) {
+function seccionLluvia(zona, meteo, serie, id, disp, obsError, avisoObs = null) {
   const futuros = serie.fechas.length - 1 - serie.hoy;
   const fig = el('figure', { clase: 'grafico' });
   fig.style.marginBlock = '0';
@@ -176,7 +176,8 @@ function seccionLluvia(zona, meteo, serie, id, disp, obsError) {
   return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-lluvia' } },
     el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-lluvia', texto: 'Lluvia' }), el('span', { clase: 'texto-2 texto-s', texto: `${serie.hoy + 1} días y ${futuros} de previsión` })),
     cifrasLluvia(serie, disp, meteo, zona, id), fig,
-    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: 'Lluvia medida en estaciones: no disponible ahora' }) : null,
+    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: textoSinLluvia(obsError) }) : null,
+    avisoObs && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: avisoObs }) : null,
     el('ul', { clase: 'leyenda' },
       el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida'),
       el('li', {}, el('span', { clase: 'muestra muestra--prevista' }), 'Prevista, con horquilla'),
@@ -283,7 +284,7 @@ export function pintar({ estado, param, refrescarMeteo }) {
     else {
       const disp = meteo.dispersion?.[id] ?? null;
       if (meteo.hoy !== hoyMadrid()) partes.push(aviso(`Datos del ${fecha(meteo.hoy)}. No se ha podido actualizar; las notas son de ese día.`, false));
-      partes.push(seccionLluvia(zona, meteo, serie, id, disp, estado.obs ? null : estado.obsError), cajaContraste(zona, meteo, id), cajaModelos(disp));
+      partes.push(seccionLluvia(zona, meteo, serie, id, disp, estado.obs ? null : estado.obsError, avisoViejo(estado.obs)), cajaContraste(zona, meteo, id), cajaModelos(disp));
     }
     partes.push(listaEspecies(zona, c.especies, c.res, serie, nombrePunto(punto)));
     dinamico.replaceChildren(...partes.filter(Boolean));

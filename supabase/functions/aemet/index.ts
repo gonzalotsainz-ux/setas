@@ -4,6 +4,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import ESTACIONES from './estaciones.json' with { type: 'json' };
 import { parsearPrec } from './prec.js';
+import { leerJsonAemet, esBuena, elegirViejo, marcarViejo, mensaje502, noPisar, CUARENTA_Y_OCHO_H } from './viejo.js';
 
 const ORIGENES = ['https://gonzalotsainz-ux.github.io', 'http://localhost:8080'];
 const SEIS_HORAS = 6 * 3600e3, TREINTA_DIAS = 30 * 24 * 3600e3;
@@ -19,11 +20,13 @@ const cabeceras = (req: Request) => {
 
 async function aemet(ruta: string) {
   const r1 = await fetch(`https://opendata.aemet.es/opendata/api${ruta}`, { headers: { api_key: Deno.env.get('AEMET_API_KEY')! } });
-  const j1 = await r1.json();
+  const j1 = leerJsonAemet(r1.status, await r1.text());
   if (j1.estado === 404) return [];   // sin datos para ese tramo
   if (j1.estado !== 200) throw new Error(`AEMET ${j1.estado}: ${j1.descripcion}`);
   const r2 = await fetch(j1.datos);
-  return JSON.parse(new TextDecoder('iso-8859-15').decode(await r2.arrayBuffer()));
+  const t2 = new TextDecoder('iso-8859-15').decode(await r2.arrayBuffer());
+  const j2 = leerJsonAemet(r2.status, t2);
+  return j2;
 }
 
 Deno.serve(async (req) => {
@@ -33,31 +36,51 @@ Deno.serve(async (req) => {
   const u = new URL(req.url);
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
 
-  // Caché con vida según el contenido: datos 'vida'; vacío 10 min; error de AEMET (429/5xx…) 1 min, para no
-  // gastar cuota insistiendo.
-  async function conCache(clave: string, vida: number, calcular: () => Promise<unknown>) {
+  // Caché con vida según el contenido: datos 'vida'; vacío 10 min; error de AEMET (429/5xx…) 1 min, para no gastar cuota
+  // insistiendo. El error se guarda en OTRA clave (`clave|__error`) para no pisar la última copia buena. Si AEMET falla se
+  // devuelve la copia buena de hasta 48 h (`buscarViejo`), marcada con `__viejo`.
+  async function conCache(clave: string, vida: number, calcular: () => Promise<unknown>,
+    buscarViejo: () => Promise<{ datos: unknown; creado: string } | null>) {
     const { data: c } = await admin.from('aemet_cache').select('datos, creado').eq('clave', clave).maybeSingle();
     if (c) {
       const edad = Date.now() - Date.parse(c.creado), d = c.datos as Record<string, unknown>;
-      if (d && typeof d === 'object' && '__error' in d) { if (edad < UN_MIN) throw new Error(String(d.__error)); }
-      else {
-        const vacio = Array.isArray(d) ? d.length === 0 : Object.keys(d).length === 0;
-        if (edad < (vacio ? DIEZ_MIN : vida)) return c.datos;
+      const vacio = Array.isArray(d) ? d.length === 0 : Object.keys(d).length === 0;
+      if (!(d && typeof d === 'object' && '__error' in d) && edad < (vacio ? DIEZ_MIN : vida)) return c.datos;
+    }
+    const claveErr = `${clave}|__error`;
+    const { data: ce } = await admin.from('aemet_cache').select('datos, creado').eq('clave', claveErr).maybeSingle();
+    let fallo: string | null = ce && Date.now() - Date.parse(ce.creado) < UN_MIN ? String((ce.datos as Record<string, unknown>).__error) : null;
+    if (!fallo) {
+      try {
+        const datos = await calcular();
+        // un resultado vacío no pisa una copia buena: se guarda solo como caché negativa corta
+        if (noPisar(datos, c?.datos)) throw new Error('AEMET sin datos para ese tramo');
+        await admin.from('aemet_cache').upsert({ clave, datos, creado: new Date().toISOString() });
+        return datos;
+      } catch (e) {
+        fallo = (e as Error).message;
+        await admin.from('aemet_cache').upsert({ clave: claveErr, datos: { __error: fallo }, creado: new Date().toISOString() });
       }
     }
-    let datos: unknown;
-    try { datos = await calcular(); } catch (e) {
-      await admin.from('aemet_cache').upsert({ clave, datos: { __error: (e as Error).message }, creado: new Date().toISOString() });
-      throw e;
-    }
-    await admin.from('aemet_cache').upsert({ clave, datos, creado: new Date().toISOString() });
-    return datos;
+    const v = await buscarViejo();
+    if (v) return marcarViejo(v.datos, v.creado);
+    throw new Error(fallo);
+  }
+
+  async function viejoDe(estaciones: string[], desde: string, hasta: string) {
+    const desdeIso = new Date(Date.now() - CUARENTA_Y_OCHO_H).toISOString();
+    const { data } = await admin.from('aemet_cache').select('clave, datos, creado')
+      .like('clave', `${estaciones.join(',')}|%`).gte('creado', desdeIso);
+    return elegirViejo(data ?? [], { estaciones, desde, hasta });
   }
 
   try {
     if (u.searchParams.get('inventario') === '1') {
       const datos = await conCache('inventario', TREINTA_DIAS,
-        () => aemet('/valores/climatologicos/inventarioestaciones/todasestaciones'));
+        () => aemet('/valores/climatologicos/inventarioestaciones/todasestaciones'), async () => {
+          const { data } = await admin.from('aemet_cache').select('datos, creado').eq('clave', 'inventario').maybeSingle();
+          return data && esBuena(data.datos) ? data : null;   // el inventario cambia poco: vale la copia que haya
+        });
       return Response.json(datos, { headers: CORS });
     }
 
@@ -78,9 +101,9 @@ Deno.serve(async (req) => {
       const d: Record<string, Record<string, number | null>> = {};
       for (const f of filas) (d[f.indicativo] ??= {})[f.fecha] = parsearPrec(f.prec);
       return d;
-    });
+    }, () => viejoDe(estaciones, desde, hasta));
     return Response.json(datos, { headers: CORS });
   } catch (e) {
-    return new Response(`AEMET no disponible: ${(e as Error).message}`, { status: 502, headers: CORS });
+    return new Response(mensaje502((e as Error).message), { status: 502, headers: CORS });
   }
 });

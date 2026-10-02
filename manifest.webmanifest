@@ -1,0 +1,16 @@
+{
+  "name": "Setas",
+  "short_name": "Setas",
+  "description": "Previsión y recogida de setas: lluvia, índice por especie, cotos y diario.",
+  "lang": "es",
+  "start_url": "./#hoy",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c1510",
+  "theme_color": "#245a3d",
+  "icons": [
+    { "src": "img/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
