@@ -18,7 +18,8 @@
           "alava",
           "burgos",
           "merindades",
-          "extremadura"
+          "extremadura",
+          "sierra-oeste"
         ]
       },
       "url": "https://www.boe.es/eli/es/l/2003/11/21/43/con",
@@ -657,7 +658,8 @@
         "comunidad": "madrid",
         "zonas": [
           "guadarrama",
-          "sierra-norte"
+          "sierra-norte",
+          "sierra-oeste"
         ]
       },
       "url": "https://www.comunidad.madrid/node/70372",
@@ -666,7 +668,8 @@
         "Licencia obligatoria dentro del Parque Nacional: Rascafría, Miraflores de la Sierra y Lozoya. Fuera del Parque: Bustarviejo y Canencia.",
         "No existe decreto micológico autonómico: la Comunidad cita la Ley 43/2003, la Ley 16/1995 Forestal de Madrid y la Orden de 27 de mayo de 1992. Recoger solo en montes públicos señalizados o con permiso del propietario.",
         "Convenio de 21/11/2020: recogida autorizada en 7.286,70 ha del Parque Nacional en Rascafría (MUP Morcuera, El Pinganillo y Las Calderuelas más siete montes municipales).",
-        "Cada ordenanza tiene su ficha: madrid-rascafria, madrid-lozoya, madrid-miraflores, madrid-canencia, madrid-manzanares, madrid-bustarviejo, madrid-soto-del-real y el coto madrid-pedriza-san-blas."
+        "Cada ordenanza tiene su ficha: madrid-rascafria, madrid-lozoya, madrid-miraflores, madrid-canencia, madrid-manzanares, madrid-bustarviejo, madrid-soto-del-real y el coto madrid-pedriza-san-blas.",
+        "PORN de la Sierra de Guadarrama (Decreto 96/2009, ap. 4.4.2.6): podría autorizar la recogida para uso individual en montes de utilidad pública y de la Comunidad fuera de Reserva y Máxima Protección; pendiente de confirmación oficial (ficha madrid-porn-guadarrama-96-2009). Braojos tiene ordenanza de 2022 pendiente del acotamiento (madrid-braojos)."
       ],
       "permiso": {
         "obligatorio": true,
@@ -3719,6 +3722,168 @@
       "revisado": "2026-09-30",
       "verificado": true,
       "notas": "Texto íntegro del BOP de Segovia leído el 30/09/2026 en la copia del ayuntamiento. El informe 06b lo situaba en Cuenca: es de Segovia. Importes de 2016 (casi 10 años): confirma con el ayuntamiento que siguen vigentes. Comparte bloque del boletín con otras ordenanzas de la provincia."
+    },
+    {
+      "id": "madrid-porn-guadarrama-96-2009",
+      "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid: Decreto 96/2009, de 18 de noviembre (BOCM n.º 11, 14/01/2010)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama",
+          "sierra-norte",
+          "sierra-oeste"
+        ]
+      },
+      "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+      "vigente": true,
+      "resumen": [
+        "PENDIENTE DE CONFIRMACIÓN OFICIAL: la app no lo aplica todavía. Mientras la Comunidad de Madrid no confirme que el ap. 4.4.2.6 sigue en vigor y cómo se aplica, los montes públicos fuera del Parque Nacional que la app da por prohibidos siguen prohibidos y los demás siguen «sin confirmar».",
+        "Ap. 4.4.2.6 (texto literal): «Salvo en las Zonas de Reserva y de Máxima Protección, queda autorizada la recogida libre de setas pertenecientes a especies no protegidas para uso individual en los montes de utilidad pública o consorciados municipales, así como en los de propiedad de la Comunidad de Madrid, salvo que las Entidades Locales propietarias o la Administración regional decidieran acotar determinados ámbitos o montes para el aprovechamiento de estas producciones micológicas por algún adjudicatario.» En terrenos privados el aprovechamiento es del propietario. La autoridad ambiental puede regularlo, limitarlo o suspenderlo temporalmente.",
+        "Por zonas del PORN: en las Zonas de Reserva no se permiten los aprovechamientos micológicos (5.2.3.2); en Máxima Protección, solo los propietarios o adjudicatarios autorizados (4.4.2.6 y 5.2.3.3); en Conservación y Mantenimiento de Usos Tradicionales, Aprovechamiento Ordenado y Paisaje Protegido se permiten los aprovechamientos micológicos tradicionales en las condiciones de 4.4.2; en las Zonas Especiales no se permiten los intensivos. Patrimonio Nacional gestiona directamente sus terrenos.",
+        "Dentro del Parque Nacional (declarado en 2013) manda su PRUG (Decreto 18/2020): hace falta plan de aprovechamiento y permiso. En qué zona del PORN cae cada monte no se ha comprobado (no se ha descargado su cartografía).",
+        "Se aplica a 42 municipios, en todo o en parte: La Acebeda, Alameda del Valle, Alpedrete, Becerril de la Sierra, El Boalo, Braojos, Buitrago del Lozoya, Bustarviejo, La Cabrera, Canencia, Cercedilla, Colmenarejo, Collado Mediano, Collado Villalba, El Escorial, Galapagar, Garganta de los Montes, Gargantilla del Lozoya y Pinilla de Buitrago, Gascones, Guadarrama, Horcajo de la Sierra, Lozoya, Lozoyuela-Navas-Sieteiglesias, Manzanares el Real, Miraflores de la Sierra, Los Molinos, Moralzarzal, Navacerrada, Navarredonda y San Mamés, Piñuécar-Gandullas, Pinilla del Valle, Rascafría, Robregordo, San Lorenzo de El Escorial, Santa María de la Alameda, La Serna del Monte, Somosierra, Soto del Real, Valdemanco, Valdemorillo, Villavieja del Lozoya y Zarzalejo."
+      ],
+      "permiso": {
+        "obligatorio": null,
+        "donde": null,
+        "tarifas": []
+      },
+      "prohibiciones": [
+        "Recoger setas en las Zonas de Reserva del PORN",
+        "Recoger en Zonas de Máxima Protección sin ser propietario o adjudicatario autorizado",
+        "Aprovechamientos micológicos intensivos en las Zonas Especiales"
+      ],
+      "sanciones": "No fija sanciones propias para las setas; remite a la legislación de montes y de espacios naturales.",
+      "revisado": "2026-10-02",
+      "verificado": false,
+      "notas": "Texto leído el 02/10/2026 en el PDF oficial de la Comunidad de Madrid (apartados 4.4.2.6, 5.2.3.2, 5.2.3.3, 5.3.3.1, 5.3.3.2, 5.4.2, 5.5.2 y 5.6.2, y preámbulo con la lista de municipios). Vigencia de 4.4.2.6 SIN CONFIRMAR: el Tribunal Supremo (23/10/2014) confirmó la anulación parcial dictada por el TSJ de Madrid (31/05/2012); según la nota del CGPJ de 05/11/2014 (https://www.poderjudicial.es/cgpj/es/Poder-Judicial/Tribunales-Superiores-de-Justicia/TSJ-Madrid/Noticias-Judiciales-TSJ-Madrid/-El-Tribunal-Supremo-confirma-anulacion-parcial-del-PORN-de-la-Sierra-de-Guadarrama, leída con resumen automático) se anularon las delimitaciones de las Zonas de Aprovechamiento Ordenado en cuanto a usos permitidos y parte del 4.3.2.b (esquí); no cita el 4.4.2. Que 4.4.2.6 siga en vigor es una deducción, no una confirmación oficial. Las notas de prensa de la Comunidad (02/11/2022, 14/10/2023 y 23/10/2024) no mencionan esta recogida libre. La ordenanza de Braojos (BOCM 17/03/2022) cita el 4.4.2.6 en su preámbulo. Pregunta enviada o por enviar a la Comunidad: docs/correo-comunidad-madrid-setas.md."
+    },
+    {
+      "id": "madrid-braojos",
+      "titulo": "Ordenanza municipal reguladora del aprovechamiento micológico de Braojos (BOCM n.º 65, 17/03/2022)",
+      "tipo": "ordenanza",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "sierra-norte"
+        ]
+      },
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/03/17/BOCM-20220317-64.PDF",
+      "vigente": false,
+      "resumen": [
+        "PENDIENTE DE RESOLUCIÓN DE ACOTAMIENTO: según su disposición adicional primera, «entrará en vigor tras el correspondiente acotamiento micológico de los montes de Utilidad Pública, del término municipal de Braojos, mediante resolución de la Dirección General de Biodiversidad y Recursos Naturales». No se ha encontrado esa resolución y Braojos no está en la lista de municipios con licencia de la Comunidad (23/10/2024): no consta que esté en vigor.",
+        "Foráneo: solo permiso recreativo de uno o dos días, 5 kg por persona y día; 5 € (un día) o 10 € (dos días).",
+        "Local (empadronado más de un año): recreativo 3 € la temporada (5 kg al día) e intensivo 25 € (10 kg al día por especie del anexo, 15 kg al día en total).",
+        "Ámbito: montes de utilidad pública del término cuyo aprovechamiento se haya otorgado al Ayuntamiento por convenio con la Administración Forestal. En el término están el MUP 148 «Perímetro de Braojos» (Comunidad de Madrid) y los MUP 64 y 65 (catálogo IDEM)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://braojos.org/images/Ordenanzas/ORDENANZA_MUNICIPAL_REGULADORA_DEL_APROVECHAMIENTO_MICOL%C3%93GICO.PDF",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, un día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/03/17/BOCM-20220317-64.PDF"
+          },
+          {
+            "nombre": "Foráneo recreativo, dos días",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/03/17/BOCM-20220317-64.PDF"
+          },
+          {
+            "nombre": "Local recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/03/17/BOCM-20220317-64.PDF"
+          },
+          {
+            "nombre": "Local intensivo, temporada",
+            "precio": 25,
+            "cupoKgDia": 10,
+            "anio": 2022,
+            "verificado": true,
+            "fuente": "https://www.bocm.es/boletin/CM_Orden_BOCM/2022/03/17/BOCM-20220317-64.PDF",
+            "nota": "Hasta 10 kg por persona y día de las especies del anexo I y 15 kg en total."
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "horario": "Temporada de permisos del 15 de julio al 1 de julio del año siguiente (art. 9). Prohibido recoger de noche, desde la puesta del sol hasta el amanecer.",
+      "prohibiciones": [
+        "Remover el suelo o usar rastrillos, hoces, azadas u otras herramientas que levanten el mantillo",
+        "Recoger de noche",
+        "Recoger en equipos de más de tres personas en paralelo",
+        "Recoger donde haya cortas de arbolado o cacerías ese día",
+        "Bolsas de plástico (recipiente rígido o semirrígido que deje airear)",
+        "Ejemplares muy inmaduros o en huevo"
+      ],
+      "sanciones": "Leves: apercibimiento o hasta 100 €; graves de 101 a 1.000 €; muy graves de 1.001 a 3.000 €; decomiso en graves y muy graves.",
+      "revisado": "2026-10-02",
+      "verificado": true,
+      "notas": "Texto leído el 02/10/2026 en el BOCM (aprobación por el Pleno de 08/07/2021, publicación íntegra de 17/03/2022). Lo que está verificado es el texto; la entrada en vigor NO: depende de una resolución de acotamiento que no se ha encontrado (búsqueda del 02/10/2026, no es una confirmación oficial). Copia en la web del ayuntamiento: https://braojos.org/images/Ordenanzas/ORDENANZA_MUNICIPAL_REGULADORA_DEL_APROVECHAMIENTO_MICOL%C3%93GICO.PDF."
+    },
+    {
+      "id": "madrid-prcam-prug-1995",
+      "titulo": "Plan Rector de Uso y Gestión del Parque Regional de la Cuenca Alta del Manzanares (PRUG de 1995, edición de la Comunidad de Madrid de 1997)",
+      "tipo": "plan",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "guadarrama",
+          "sierra-oeste"
+        ]
+      },
+      "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/601_821_mgr_cit_13710_prcam_prug_0.pdf",
+      "vigente": true,
+      "resumen": [
+        "Zonas de Reserva Natural (A1 y A2): «No se permitirá la captura de animales, la recolección de plantas y huevos ni la extracción de rocas y minerales» salvo estudios e investigación autorizados. No nombra los hongos: si «plantas» incluye las setas no está claro, y la app trata la Reserva Natural como NO IR salvo que haya coto.",
+        "Los aprovechamientos forestales deben ser autorizados por la Consejería de Medio Ambiente, previo informe del Patronato.",
+        "El coto de La Pedriza y Hoya de San Blas (madrid-pedriza-san-blas) y las ordenanzas de Manzanares el Real, Soto del Real y Miraflores regulan la recogida en parte del Parque Regional."
+      ],
+      "permiso": null,
+      "prohibiciones": [
+        "Recolección de plantas en las Zonas de Reserva Natural (A1 y A2) salvo investigación autorizada"
+      ],
+      "sanciones": "No fija sanciones propias para las setas; remite a la legislación de montes y de espacios naturales.",
+      "revisado": "2026-10-02",
+      "verificado": false,
+      "notas": "Texto del PRUG leído el 02/10/2026 en el PDF de la Comunidad de Madrid. La Ley 1/1985 del Parque Regional y la zonificación de cada punto no se han leído ni comprobado [NO VERIFICADO]. Que la prohibición de «recolección de plantas» alcance a las setas es una interpretación prudente, no una cita."
+    },
+    {
+      "id": "madrid-zec-alberche-cofio-26-2017",
+      "titulo": "Decreto 26/2017, de 14 de marzo: ZEC «Cuencas de los ríos Alberche y Cofio» y planes de gestión de la ZEC y de la ZEPA «Encinares del río Alberche y río Cofio» (BOCM n.º 65, 17/03/2017)",
+      "tipo": "decreto",
+      "ambito": {
+        "comunidad": "madrid",
+        "zonas": [
+          "sierra-oeste"
+        ]
+      },
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2017/03/17/BOCM-20170317-15.PDF",
+      "vigente": true,
+      "resumen": [
+        "No regula la recolección de setas: solo nombra los hongos como recurso tradicional de castañares y encinares.",
+        "Cubre buena parte de la Sierra Oeste (19 municipios; unas 83.000 ha según el informe de investigación). Rige la regla general de Madrid: monte público señalizado o permiso del propietario."
+      ],
+      "permiso": {
+        "obligatorio": null,
+        "donde": null,
+        "tarifas": []
+      },
+      "prohibiciones": [],
+      "sanciones": "No fija sanciones propias para las setas; remite a la legislación de montes y de espacios naturales.",
+      "revisado": "2026-10-02",
+      "verificado": true,
+      "notas": "Texto extraído y leído el 02/10/2026 (búsqueda de «hongo», «seta» y «micol»). Qué puntos y sitios caen dentro de la ZEC o la ZEPA no se ha comprobado con la capa de Red Natura [NO VERIFICADO]."
     }
   ]
 }

@@ -3,7 +3,7 @@
 import { indiceZona, calcularIndice, DatosIncompletos } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
 import { fijarUsarModelo } from '../aemet.js';
-import { especiesDeZona, nombreCorto } from '../datos.js';
+import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia } from '../ui/grafico-lluvia.js';
 import { desglose } from '../ui/desglose.js';
@@ -25,7 +25,7 @@ const fecha = (f) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: '
 const hora = (iso) => new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: ZONA_HORARIA }).format(new Date(iso));
 
 const PELIGRO = /mortal|letal|phalloides|tóxic|toxic|envenen/i;
-const RESTRINGIDO = /prohib|solo con|exige|requiere|autorizaci|restring|vedad|reserva|no se ha (podido|encontrado)|sin (comprobar|verificar)|no consta/i;
+export const RESTRINGIDO = /prohib|solo con|exige|requiere|autorizaci|restring|vedad|reserva|no se han? (podido|encontrado|localizado)|sin (comprobar|verificar)|sin confirmar|pendiente de confirmaci|no consta/i;
 
 const aviso = (texto, peligro) => el('div', { clase: peligro ? 'aviso-peligro' : 'aviso', attrs: { role: 'note' } }, icono(peligro ? 'i-aviso' : 'i-info'), el('p', { texto }));
 
@@ -35,7 +35,9 @@ function calcular(zona, datos, meteo, umbrales) {
   const primera = Object.values(series)[0];
   const especies = especiesDeZona(zona, datos.especies, umbrales);
   if (!primera) return { series, especies, res: null, porPunto: {} };
-  const res = indiceZona(series, primera.hoy, especies);
+  // La nota de la zona sale solo de los puntos donde se puede ir; los NO IR tienen su nota propia (porPunto).
+  const recogibles = Object.fromEntries(puntosRecogibles(zona).filter((p) => series[p.id]).map((p) => [p.id, series[p.id]]));
+  const res = Object.keys(recogibles).length ? indiceZona(recogibles, primera.hoy, especies) : null;
   const porPunto = Object.fromEntries(Object.entries(series).map(([id, s]) => [id, indiceZona({ [id]: s }, s.hoy, especies)]));
   return { series, especies, res, porPunto };
 }
@@ -72,7 +74,7 @@ function selectorPuntos(zona, sel, porPunto, alElegir) {
       el('span', { clase: 'punto__nombre', texto: nombrePunto(p) }),
       el('span', { clase: 'punto__meta texto-2', texto: `${habitat(p.habitat)} · ${miles(p.altitud)}${nbsp}m` }),
       el('span', { clase: 'punto__nota' }, semaforo(v, rotulo(rp)), v != null ? el('b', { clase: 'tabular', texto: String(v) }) : null),
-      p.proteccion ? etiqueta('Espacio protegido', 'ocre') : null);
+      rotuloPunto(p) ? etiqueta(rotuloPunto(p).texto, rotuloPunto(p).variante) : null);
     b.addEventListener('click', () => alElegir(p.id));
     grupo.append(b);
   }
@@ -81,7 +83,7 @@ function selectorPuntos(zona, sel, porPunto, alElegir) {
 
 function detallePunto(p) {
   const partes = [];
-  if (p.proteccion) partes.push(aviso(p.proteccion, RESTRINGIDO.test(p.proteccion)));
+  if (p.proteccion) partes.push(aviso(p.proteccion, p.noIr || RESTRINGIDO.test(p.proteccion)));
   if (p.nota) partes.push(el('details', { clase: 'detalle-punto' }, el('summary', { texto: 'Detalle técnico del punto' }), el('p', { clase: 'texto-2 texto-s', texto: p.nota })));
   return partes.length ? el('div', { clase: 'pila' }, partes) : null;
 }
@@ -265,7 +267,8 @@ export function pintar({ estado, param, refrescarMeteo }) {
   const umbrales = estado.umbrales ?? {};
   const c = meteo?.series ? calcular(zona, datos, meteo, umbrales)
     : { series: {}, especies: especiesDeZona(zona, datos.especies, umbrales), res: null, porPunto: {} };
-  const mejorPunto = c.res?.especies?.[0]?.punto ?? Object.keys(c.series)[0] ?? zona.puntos[0].id;
+  const recogibles = puntosRecogibles(zona);
+  const mejorPunto = c.res?.especies?.[0]?.punto ?? recogibles.find((p) => c.series[p.id])?.id ?? (recogibles[0] ?? zona.puntos[0]).id;
   if (!zona.puntos.some((p) => p.id === ui.punto[zona.id])) delete ui.punto[zona.id];
   const idElegido = () => ui.punto[zona.id] ?? mejorPunto;
   const dinamico = el('div', { clase: 'pila-l' });

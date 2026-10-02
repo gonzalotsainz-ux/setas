@@ -32,7 +32,7 @@ export const CONFIG = {
     // Provincias vecinas que entran en el bbox de cada zona (además de zona.provincias). Su monte se pinta con la marca
     // «fuera de las provincias de la zona» (normativa no revisada). Un recorte vacío se ignora.
     vecinas: {
-      guadarrama: ['Ávila'], 'sierra-norte': ['Guadalajara', 'Soria'], soria: ['La Rioja', 'Burgos'], burgos: ['Soria', 'Segovia', 'La Rioja'],
+      guadarrama: ['Ávila'], 'sierra-norte': ['Guadalajara', 'Soria'], 'sierra-oeste': ['Ávila', 'Toledo', 'Segovia'], soria: ['La Rioja', 'Burgos'], burgos: ['Soria', 'Segovia', 'La Rioja'],
       merindades: ['Cantabria', 'Bizkaia', 'Palencia', 'Álava'], gredos: ['Toledo', 'Madrid', 'Cáceres'],
       cuenca: ['Teruel', 'Guadalajara'], guadalajara: ['Cuenca', 'Teruel', 'Zaragoza', 'Soria'], toledo: ['Ciudad Real', 'Badajoz', 'Cáceres'],
       alava: ['Burgos', 'La Rioja', 'Bizkaia', 'Gipuzkoa', 'Navarra'],
@@ -47,7 +47,7 @@ export const CONFIG = {
     // scripts/rejilla/pueblos.mjs los baja a `archivo` (CSV propio, fuera del repo) y de ahí genera data/pueblos.json.
     nombre: 'Nomenclátor Geográfico Básico de España (NGBE) y unidades administrativas, IGN (servicios WFS)',
     url: 'https://www.ign.es/wfs-inspire/ngbe',
-    licencia: 'CC BY 4.0 (Obra derivada de NGBE CC-BY 4.0 ign.es)', fecha: '2026-10-01',
+    licencia: 'CC BY 4.0 (Obra derivada de NGBE CC-BY 4.0 ign.es)', fecha: '2026-10-02',
     archivo: '_fuentes/pueblos/ngbe-nucleos.csv',
     columnas: { nombre: 'NOMBRE', provincia: 'PROVINCIA', lat: 'LATITUD', lon: 'LONGITUD' },
   },

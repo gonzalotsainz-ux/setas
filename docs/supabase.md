@@ -54,6 +54,12 @@ claves `sb_publishable_`).
   `estacionesAemet` de `data/zonas.json` (si una estación de `zonas.json` no está en la lista blanca desplegada, la función responde 403 a la llamada
   entera y ninguna zona tiene lluvia medida).
 
+- **Pendiente (fase 1 de Madrid, 02/10/2026):** `3338` Robledo de Chavela y `3330Y` Rozas de Puerto Real (zona `sierra-oeste`) ya están en
+  `supabase/functions/aemet/estaciones.json`, en `supabase/functions/pluvio/estaciones.json` y en `data/zonas.json`, pero **las funciones no se han
+  redesplegado** desde la sesión. Antes de publicar la web hay que desplegar `aemet` (si no, la llamada entera de la app da 403) y `pluvio`, pasar
+  `node scripts/estaciones-aemet.mjs sonda 3338,3330Y` y, si alguna no tiene datos recientes, quitarla de `estacionesAemet` de `sierra-oeste`
+  con `aplicar` (pasando todas las zonas). La rejilla (`gruesa.json`, 366 celdas) también cambia: hay que redesplegar `rejilla`.
+
 ## Edge Function `rejilla` (índice por ladera)
 
 - Calcula a las 07:00 y 19:00 de Madrid los agregados del índice de cada celda gruesa (`data/rejilla/gruesa.json`) y los
