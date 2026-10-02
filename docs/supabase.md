@@ -119,3 +119,9 @@ claves `sb_publishable_`).
   alta en `https://api.euskadi.eus/opendata-apikey/`). Cuando la haya: guardarla como secreto (`EUSKALMET_CLAVE_PRIVADA`,
   nunca en el repo), probar las rutas de lecturas, y añadir en `manejador.js` una tarea `euskalmet` que firme el JWT y
   entregue las lecturas de 10 minutos a `horasDeLecturas` (`lectores/euskalmet.js`); el resto no cambia.
+- Relleno y primera publicación: 2026-10-02. Duero (16 estaciones, 22.821 horas desde el 01/08) y Euskalmet (28
+  estaciones, 20.595 horas de agosto, zip anual) subidos desde local con `?accion=cargar`; Júcar rellenado con 5 lecturas
+  forzadas. Primera `publicar`: 2.521 días-estación, 49 puntos con lluvia medida (sin estación cercana: Navalucillos,
+  Salorino y Villuercas), 158 celdas gruesas; `ultimo.json` 33 KB. Álava en septiembre queda estimada con el modelo hasta
+  que Euskalmet publique el mes o haya clave de su API. Para diagnosticar: `?fuentes=<tarea>&sincrono=1` con la clave
+  devuelve el resumen de la ejecución (también va al registro de la función).
