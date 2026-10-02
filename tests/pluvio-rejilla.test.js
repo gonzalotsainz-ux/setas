@@ -89,6 +89,44 @@ test('el índice nombra solo las estaciones que aportaron en la ventana; un pluv
   assert.deepEqual([viejo.estaciones, viejo.km, 'aportan' in viejo], [[], [], false]);
 });
 
+// Revisión final 5: el factor de la zona sale de las series del modelo de todas sus celdas en la base, no solo de las que
+// se renovaron en esta ejecución (ni solo de las del lote), sin pedir nada más a Open-Meteo.
+const TARDE = new Date('2026-10-01T17:00:00Z');   // 19:00 en Madrid
+test('sesgo de la rejilla: una celda con estación que no se renueva sigue contando para el factor de su zona', async () => {
+  const g = gruesa(10), almacen = almacenMemoria();
+  almacen.archivos.set('pluvio/celdas.json', pluvioCon({ 'z:0:0': seco(), 'z:2:0': seco('Duruelo') }));
+  const base = { gruesa: g, esperar: async () => {}, trozo: 1 };
+  assert.equal((await ejecutar({ ...base, almacen, fetchFn: openMeteoFalso({ hoy: '2026-10-01' }), ahora: MANANA })).estado, 'publicado');
+  assert.equal(almacen.archivos.get('2026-10-01T07.json').celdas['z:1:0'].lluvia.factor, 0.67);
+  // Por la tarde falla la petición de z:2:0 (una de las dos celdas con estación): sale del índice (quedan 9 de 10), pero
+  // su serie del modelo de la mañana sigue en la base. Antes, con una sola estación renovada, la zona se quedaba sin factor.
+  const falla = (u) => u.hostname === 'api.open-meteo.com' && u.searchParams.get('latitude') === '40.02';
+  const registro = [];
+  const r = await ejecutar({ ...base, almacen, fetchFn: openMeteoFalso({ hoy: '2026-10-01', fallos: falla, registro }), ahora: TARDE });
+  assert.equal(r.estado, 'publicado');
+  const tarde = almacen.archivos.get('2026-10-01T19.json');
+  assert.equal(tarde.celdas['z:2:0'], undefined);
+  assert.equal(tarde.celdas['z:1:0'].lluvia.factor, 0.67);
+  assert.equal(tarde.celdas['z:1:0'].lluvia.origen[tarde.celdas['z:1:0'].lluvia.hoy - 1], 2);
+  // Las mismas peticiones que sin archivo de pluviómetros: 10 celdas, una por petición, y la que falla con sus 3 intentos.
+  assert.equal(registro.filter((u) => u.startsWith('https://api.open-meteo.com')).length, 12);
+});
+
+test('sesgo de la rejilla con lotes: las celdas de la zona de otro lote, de la base, cuentan para el factor', async () => {
+  const g = gruesa(10), almacen = almacenMemoria();
+  // Las dos estaciones caen en celdas del lote 1 (z:1:0 y z:3:0); el lote 0 no tiene ninguna.
+  almacen.archivos.set('pluvio/celdas.json', pluvioCon({ 'z:1:0': seco(), 'z:3:0': seco('Duruelo') }));
+  const base = { almacen, gruesa: g, esperar: async () => {}, trozo: 5, ahora: MANANA, lotes: 2 };
+  assert.equal((await ejecutar({ ...base, fetchFn: openMeteoFalso({ hoy: '2026-10-01' }), lote: 1 })).estado, 'parcial');
+  const registro = [];
+  assert.equal((await ejecutar({ ...base, fetchFn: openMeteoFalso({ hoy: '2026-10-01', registro }), lote: 0 })).estado, 'publicado');
+  const c = almacen.archivos.get('2026-10-01T07.json').celdas;
+  assert.equal(c['z:0:0'].lluvia.factor, 0.67);
+  assert.equal(c['z:1:0'].lluvia.factor, 0.67);
+  // El lote 0 solo pide sus 5 celdas (una petición principal; la climatología, aparte).
+  assert.ok(registro.every((u) => new URL(u).searchParams.get('latitude').split(',').every((lat) => [40, 40.02, 40.04, 40.06, 40.08].includes(Number(lat)))));
+});
+
 test('factoresPorZona: cada estación de la zona cuenta una vez por fecha; con una sola estación, sin factor', () => {
   const s = serieSintetica({ inicio: '2026-08-03', precip: () => 2 });
   const m = (mm, nombre) => ({ mm: Array(LARGO).fill(mm), n: Array(LARGO).fill(1), estaciones: [{ nombre, fuente: 'tajo', km: 3 }], cercanas: 1 });

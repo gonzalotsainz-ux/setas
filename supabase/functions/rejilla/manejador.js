@@ -68,7 +68,12 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
   // renovada (el móvil las pinta en gris) y no cuentan para el 90 %.
   const desde = inicioSerie(hoy), hasta = sumarDias(hoy, FUTUROS - 1);
   const fechas = Array.from({ length: FUTUROS }, (_, k) => sumarDias(hoy, k));
-  const [filas, clima, pluvio] = await Promise.all([almacen.series(ids, desde), almacen.clima(ids), leerPluvioCeldas(almacen, ahora)]);
+  // El sesgo de cada zona se calcula con todas sus celdas que tienen serie en la base (también las que no se renovaron en
+  // esta ejecución y, con lotes, las de los otros lotes): así no depende de qué peticiones fueron bien. Solo lee la base.
+  const zonasLote = new Set(celdas.map((c) => c.zona));
+  const celdasZona = lotes > 1 ? gruesa.celdas.filter((c) => zonasLote.has(c.zona)) : celdas;
+  const idsSeries = lotes > 1 ? [...new Set([...ids, ...celdasZona.map((c) => c.id)])] : ids;
+  const [filas, clima, pluvio] = await Promise.all([almacen.series(idsSeries, desde), almacen.clima(ids), leerPluvioCeldas(almacen, ahora)]);
   const series = new Map();
   for (const c of celdas) {
     const fila = filas.get(c.id);
@@ -76,8 +81,17 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
     series.set(c.id, aplicarClimaCelda(serieDesdeFilas(fila, desde, hasta, hoy, ahora), clima.get(c.id)));
   }
   // Lluvia medida en pluviómetros (pluvio/celdas.json, de la función «pluvio»): sin archivo, todo como antes. El sesgo
-  // se calcula con las series del modelo, antes de mezclar nada.
-  const factores = pluvio ? factoresPorZona(celdas, series, pluvio) : new Map();
+  // se calcula con las series del modelo, antes de mezclar nada: las renovadas y, de las demás celdas de la zona, la que
+  // haya en la base (sus días pasados observados; la previsión no entra en el sesgo).
+  let factores = new Map();
+  if (pluvio) {
+    const modelo = new Map();
+    for (const c of celdasZona) {
+      const s = series.get(c.id) ?? (filas.get(c.id) ? serieDesdeFilas(filas.get(c.id), desde, hasta, hoy, ahora) : null);
+      if (s) modelo.set(c.id, s);
+    }
+    factores = factoresPorZona(celdasZona, modelo, pluvio);
+  }
   // La hoja enseña los últimos 26 días (hasta hoy): nombra las tres más cercanas de las que aportaron en ellos.
   const inicio26 = sumarDias(hoy, -25);
   const parte = {};
