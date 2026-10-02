@@ -2,7 +2,7 @@
 // calendario y normativa. Todo lo numérico pasa por semaforo()/nivelDe(); nada se inventa sin datos.
 import { indiceZona, calcularIndice, DatosIncompletos } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
-import { fijarUsarModelo, avisoViejo } from '../aemet.js';
+import { fijarUsarModelo, avisoViejo, textoSinLluvia } from '../aemet.js';
 import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia } from '../ui/grafico-lluvia.js';
@@ -176,7 +176,7 @@ function seccionLluvia(zona, meteo, serie, id, disp, obsError, avisoObs = null) 
   return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-lluvia' } },
     el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-lluvia', texto: 'Lluvia' }), el('span', { clase: 'texto-2 texto-s', texto: `${serie.hoy + 1} días y ${futuros} de previsión` })),
     cifrasLluvia(serie, disp, meteo, zona, id), fig,
-    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: 'Lluvia medida en estaciones: no disponible ahora' }) : null,
+    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: textoSinLluvia(obsError) }) : null,
     avisoObs && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: avisoObs }) : null,
     el('ul', { clase: 'leyenda' },
       el('li', {}, el('span', { clase: 'muestra muestra--pasada' }), 'Lluvia medida'),

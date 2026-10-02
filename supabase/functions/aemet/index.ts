@@ -4,7 +4,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import ESTACIONES from './estaciones.json' with { type: 'json' };
 import { parsearPrec } from './prec.js';
-import { leerJsonAemet, esBuena, elegirViejo, marcarViejo, CUARENTA_Y_OCHO_H } from './viejo.js';
+import { leerJsonAemet, esBuena, elegirViejo, marcarViejo, mensaje502, noPisar, CUARENTA_Y_OCHO_H } from './viejo.js';
 
 const ORIGENES = ['https://gonzalotsainz-ux.github.io', 'http://localhost:8080'];
 const SEIS_HORAS = 6 * 3600e3, TREINTA_DIAS = 30 * 24 * 3600e3;
@@ -53,6 +53,8 @@ Deno.serve(async (req) => {
     if (!fallo) {
       try {
         const datos = await calcular();
+        // un resultado vacío no pisa una copia buena: se guarda solo como caché negativa corta
+        if (noPisar(datos, c?.datos)) throw new Error('AEMET sin datos para ese tramo');
         await admin.from('aemet_cache').upsert({ clave, datos, creado: new Date().toISOString() });
         return datos;
       } catch (e) {
@@ -102,6 +104,6 @@ Deno.serve(async (req) => {
     }, () => viejoDe(estaciones, desde, hasta));
     return Response.json(datos, { headers: CORS });
   } catch (e) {
-    return new Response(`AEMET no disponible: ${(e as Error).message}`, { status: 502, headers: CORS });
+    return new Response(mensaje502((e as Error).message), { status: 502, headers: CORS });
   }
 });

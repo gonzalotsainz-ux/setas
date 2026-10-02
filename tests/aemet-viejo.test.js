@@ -91,3 +91,35 @@ test('cliente: la copia vieja se guarda pero solo se reutiliza 10 min', async ()
     assert.equal(r3.__viejo, undefined);
   } finally { delete globalThis.fetch; delete globalThis.localStorage; }
 });
+
+test('502: el cuerpo empieza por «AEMET no disponible» sin duplicar el prefijo', async () => {
+  const { mensaje502, noPisar } = await import('../supabase/functions/aemet/viejo.js');
+  assert.equal(mensaje502('AEMET no disponible (503)'), 'AEMET no disponible (503)');
+  assert.equal(mensaje502('AEMET 429: límite'), 'AEMET no disponible: AEMET 429: límite');
+  assert.equal(mensaje502('error de red'), 'AEMET no disponible: error de red');
+});
+
+test('un resultado vacío no pisa una copia buena', async () => {
+  const { noPisar } = await import('../supabase/functions/aemet/viejo.js');
+  const buena = { A: { '2026-10-01': 1 } };
+  assert.equal(noPisar({}, buena), true);
+  assert.equal(noPisar([], buena), true);
+  assert.equal(noPisar({}, { A: {} }), false);       // no había copia buena: se guarda el vacío
+  assert.equal(noPisar({}, null), false);
+  assert.equal(noPisar({ A: { '2026-10-02': 2 } }, buena), false);   // dato nuevo bueno: sí se guarda
+});
+
+test('cliente: un 502 de AEMET no enseña texto técnico; otros fallos siguen igual', async () => {
+  const { pedirObservaciones, textoSinLluvia, MSG_NO_RESPONDE } = await import('../js/aemet.js');
+  const mem = new Map();
+  globalThis.localStorage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v), removeItem: (k) => mem.delete(k) };
+  try {
+    globalThis.fetch = async () => ({ ok: false, status: 502, text: async () => 'AEMET no disponible (503)' });
+    const e1 = await pedirObservaciones(['A'], '2026-09-03', '2026-10-02', { ahora }).catch((e) => e);
+    assert.equal(e1.message, MSG_NO_RESPONDE);
+    assert.equal(textoSinLluvia(e1.message), 'Lluvia medida en estaciones: no disponible ahora (AEMET no responde)');
+    globalThis.fetch = async () => ({ ok: false, status: 400, text: async () => 'parámetros inválidos' });
+    const e2 = await pedirObservaciones(['A'], '2026-09-03', '2026-10-02', { ahora }).catch((e) => e);
+    assert.equal(textoSinLluvia(e2.message), 'Lluvia medida en estaciones: no disponible ahora');
+  } finally { delete globalThis.fetch; delete globalThis.localStorage; }
+});

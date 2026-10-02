@@ -95,6 +95,7 @@ export function fijarUsarModelo(zonaId, valor) {
   try { if (valor) localStorage.setItem(clavePref(zonaId), '1'); else localStorage.removeItem(clavePref(zonaId)); } catch { /* sin almacenamiento */ }
 }
 
+export const MSG_NO_RESPONDE = 'AEMET no responde';
 const SEIS_HORAS = 6 * 3600e3, DIEZ_MIN = 10 * 60e3;
 const claveLocal = (estaciones, desde, hasta) => `setas.aemet|${[...estaciones].sort().join(',')}|${desde}|${hasta}`;
 
@@ -108,7 +109,10 @@ export async function pedirObservaciones(estaciones, desde, hasta, { ahora = Dat
   } catch { /* sin caché local */ }
   const url = `${SUPABASE_URL}/functions/v1/aemet?${new URLSearchParams({ estaciones: estaciones.join(','), desde, hasta })}`;
   const r = await fetch(url, { headers: { apikey: SUPABASE_ANON } });
-  if (!r.ok) throw new Error(`AEMET vía Supabase: ${r.status}`);
+  if (!r.ok) {
+    const cuerpo = typeof r.text === 'function' ? await r.text().catch(() => '') : '';
+    throw new Error(String(cuerpo).startsWith('AEMET no disponible') ? MSG_NO_RESPONDE : `AEMET vía Supabase: ${r.status}`);
+  }
   const datos = await r.json();
   try {
     for (const k of Object.keys(localStorage)) if (k.startsWith('setas.aemet|') && k !== clave) localStorage.removeItem(k);
@@ -125,3 +129,6 @@ export function avisoViejo(obs, ahora = Date.now()) {
   const h = Math.max(0, Math.round((ahora - t) / 3600e3));
   return `Datos de AEMET de hace ${h < 1 ? 'menos de 1' : h} h (AEMET no responde)`;
 }
+
+// Texto para cuando no hay lluvia medida; sin tecnicismos. `msg` es el mensaje del error de pedirObservaciones.
+export const textoSinLluvia = (msg) => `Lluvia medida en estaciones: no disponible ahora${msg === MSG_NO_RESPONDE ? ' (AEMET no responde)' : ''}`;

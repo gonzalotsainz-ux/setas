@@ -16,7 +16,8 @@ export function leerJsonAemet(status, texto) {
 export function esBuena(d) {
   if (!d || typeof d !== 'object') return false;
   if ('__error' in d || '__viejo' in d) return false;
-  return Array.isArray(d) ? d.length > 0 : Object.keys(d).length > 0;
+  if (Array.isArray(d)) return d.length > 0;
+  return Object.values(d).some((v) => (v && typeof v === 'object' ? Object.keys(v).length > 0 : v != null));   // {A:{}} es vacío
 }
 
 const dentro = (f, desde, hasta) => f >= desde && f <= hasta;
@@ -52,3 +53,9 @@ export function elegirViejo(entradas, { estaciones, desde, hasta, ahora = Date.n
 
 // Marca los datos como viejos sin romper a los clientes: la clave __viejo no es una estación.
 export const marcarViejo = (datos, creado) => (Array.isArray(datos) ? datos : { ...datos, __viejo: { creado } });
+
+// Cuerpo del 502: siempre empieza por «AEMET no disponible», sin duplicar el prefijo.
+export const mensaje502 = (m) => { const t = String(m ?? ''); return t.startsWith('AEMET no disponible') ? t : `AEMET no disponible: ${t}`; };
+
+// ¿El resultado recién calculado no debe pisar la copia buena que ya hay con esa clave?
+export const noPisar = (nuevo, previo) => !esBuena(nuevo) && esBuena(previo);
