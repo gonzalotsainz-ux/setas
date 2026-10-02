@@ -5,9 +5,10 @@
 import { leer, guardar, almacenPorDefecto } from './cache.js';
 import { SUPABASE_URL } from './config.js';
 import { conPlazo } from './rejilla/carga.js';
-import { entreDias } from './meteo.js';
+import { entreDias, sumarDias } from './meteo.js';
 import { aplicarMedida, factoresPorZona, pluvioVigente, VIGENCIA_PLUVIO } from '../supabase/functions/_shared/pluvio.js';
-export { FUENTES_LLUVIA, LICENCIAS } from '../supabase/functions/_shared/pluvio-fuentes.js';
+import { FUENTES_LLUVIA, LICENCIAS } from '../supabase/functions/_shared/pluvio-fuentes.js';
+export { FUENTES_LLUVIA, LICENCIAS };
 
 export const URL_PLUVIO = `${SUPABASE_URL}/storage/v1/object/public/indice/pluvio/ultimo.json`;
 export const PLUVIO_MAX_HORAS = VIGENCIA_PLUVIO.maxHoras;
@@ -63,4 +64,17 @@ export function combinarObs(obs, pluvio) {
     r[id] = d;
   }
   return r;
+}
+
+// Fuentes que se rellenan a mano con semanas de retraso (Euskalmet, zip mensual): sin aviso por antigüedad.
+const RETRASO_CONOCIDO = new Set(['euskalmet']);
+// Estado de cada fuente para Ajustes: último día con dato (pluvio.fuentes) y aviso si hace más de `diasAviso` días.
+export function estadoFuentesLluvia(pluvio, hoy, diasAviso = 2) {
+  if (!pluvio) return [];
+  const limite = sumarDias(hoy, -diasAviso);
+  return ['tajo', 'duero', 'jucar', 'euskalmet', 'aemet'].map((fuente) => {
+    const f = FUENTES_LLUVIA[fuente], ultima = pluvio.fuentes?.[fuente] ?? null;
+    return { fuente, nombre: f.nombre, url: f.url, licencia: LICENCIAS[f.licencia], ultima,
+      aviso: !RETRASO_CONOCIDO.has(fuente) && (ultima == null || ultima < limite) };
+  });
 }

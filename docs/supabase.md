@@ -40,6 +40,13 @@ claves `sb_publishable_`).
   Solo acepta estaciones de `supabase/functions/aemet/estaciones.json` (se regenera con `node scripts/estaciones-aemet.mjs aplicar zona=ID,ID …`),
   tramo máximo de 30 días, caché de 6 h en `aemet_cache`, CORS solo para la web de la app y `http://localhost:8080`.
 - `?inventario=1` devuelve el inventario de estaciones (caché de 30 días); lo usa `scripts/estaciones-aemet.mjs`.
+- La app lee `indice/pluvio/ultimo.json` (Hoy y Zona, `js/pluvio.js`) y la función `rejilla` lee `indice/pluvio/celdas.json`
+  al construir las series de las celdas gruesas. Si faltan, todo funciona como antes, solo con el modelo.
+- Avisos: Ajustes → Créditos → «Lluvia medida en pluviómetros» dice el último día con datos de cada fuente y marca en ocre
+  las que llevan más de 2 días sin dar nada (Euskalmet no, porque se rellena a mano). Cuenta días respondidos, no solo
+  válidos. Si una fuente falla seguido, mirar `node scripts/pluvio/sonda.mjs` y el registro de la función.
+- Licencias: SAIH Tajo, Duero y Júcar, información del sector público reutilizable citando la fuente (Ley 37/2007), datos
+  provisionales; Euskalmet, CC BY 4.0; AEMET, citando a AEMET. Detalle: `supabase/functions/_shared/pluvio-fuentes.js`.
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy aemet --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
 - **Retraso real de AEMET (30/09/2026):** el último día diario publicado era el 27/09 (D-3) en todas las estaciones.
   Un tramo de 30 días se acepta en una sola llamada y con varias estaciones separadas por comas.

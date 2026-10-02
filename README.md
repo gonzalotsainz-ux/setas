@@ -37,6 +37,7 @@ npm run gancho                           # instala el gancho pre-push
   `js/config.js` y es pública por diseño. Migraciones en `supabase/migrations/`.
 - **Edge Function `aemet`:** lluvia medida en estaciones AEMET con caché de 6 h y lista blanca de estaciones.
   Detalles, despliegue y retrasos reales de AEMET en [docs/supabase.md](docs/supabase.md).
+- **Edge Function `pluvio`:** lluvia medida: SAIH Tajo, Duero y Júcar, Euskalmet y AEMET horario; licencias y estado de cada fuente en Ajustes. Detalles en [docs/supabase.md](docs/supabase.md).
 - **Open-Meteo:** se llama desde el navegador con caché de 3 h (evita los 429).
 - **Mapa por laderas:** `js/rejilla/` (formato binario, geometría, nota por celda, carga del índice y pintor, con Web
   Worker), `js/mapa/` (capa de la rejilla, fondos y panel de capas, hoja inferior, buscador, chips y barra de días) y
@@ -73,6 +74,6 @@ Tras cualquier cambio: `npm run comprobar`.
 
 ## Créditos
 
-Open-Meteo (CC BY 4.0), AEMET OpenData, GBIF, iNaturalist y Wikimedia Commons (fotos con su autor y licencia
+Open-Meteo (CC BY 4.0), AEMET OpenData, SAIH Tajo, Duero y Júcar, Euskalmet (CC BY 4.0), GBIF, iNaturalist y Wikimedia Commons (fotos con su autor y licencia
 en cada ficha), IGN/CNIG, OpenStreetMap, Junta de Castilla y León, OAPN, MITECO, Phosphor Icons (MIT) y las
 fuentes tipográficas de Google Fonts. La lista completa y vigente está en **Ajustes**.
