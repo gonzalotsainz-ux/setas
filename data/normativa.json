@@ -3745,8 +3745,8 @@
         "Se aplica a 42 municipios, en todo o en parte: La Acebeda, Alameda del Valle, Alpedrete, Becerril de la Sierra, El Boalo, Braojos, Buitrago del Lozoya, Bustarviejo, La Cabrera, Canencia, Cercedilla, Colmenarejo, Collado Mediano, Collado Villalba, El Escorial, Galapagar, Garganta de los Montes, Gargantilla del Lozoya y Pinilla de Buitrago, Gascones, Guadarrama, Horcajo de la Sierra, Lozoya, Lozoyuela-Navas-Sieteiglesias, Manzanares el Real, Miraflores de la Sierra, Los Molinos, Moralzarzal, Navacerrada, Navarredonda y San Mamés, Piñuécar-Gandullas, Pinilla del Valle, Rascafría, Robregordo, San Lorenzo de El Escorial, Santa María de la Alameda, La Serna del Monte, Somosierra, Soto del Real, Valdemanco, Valdemorillo, Villavieja del Lozoya y Zarzalejo."
       ],
       "permiso": {
-        "obligatorio": false,
-        "donde": "https://www.comunidad.madrid/node/70372",
+        "obligatorio": null,
+        "donde": null,
         "tarifas": []
       },
       "prohibiciones": [
@@ -3838,7 +3838,8 @@
       "ambito": {
         "comunidad": "madrid",
         "zonas": [
-          "guadarrama"
+          "guadarrama",
+          "sierra-oeste"
         ]
       },
       "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/601_821_mgr_cit_13710_prcam_prug_0.pdf",
@@ -3848,11 +3849,7 @@
         "Los aprovechamientos forestales deben ser autorizados por la Consejería de Medio Ambiente, previo informe del Patronato.",
         "El coto de La Pedriza y Hoya de San Blas (madrid-pedriza-san-blas) y las ordenanzas de Manzanares el Real, Soto del Real y Miraflores regulan la recogida en parte del Parque Regional."
       ],
-      "permiso": {
-        "obligatorio": false,
-        "donde": "https://www.comunidad.madrid/node/70372",
-        "tarifas": []
-      },
+      "permiso": null,
       "prohibiciones": [
         "Recolección de plantas en las Zonas de Reserva Natural (A1 y A2) salvo investigación autorizada"
       ],
@@ -3878,8 +3875,8 @@
         "Cubre buena parte de la Sierra Oeste (19 municipios; unas 83.000 ha según el informe de investigación). Rige la regla general de Madrid: monte público señalizado o permiso del propietario."
       ],
       "permiso": {
-        "obligatorio": false,
-        "donde": "https://www.comunidad.madrid/node/70372",
+        "obligatorio": null,
+        "donde": null,
         "tarifas": []
       },
       "prohibiciones": [],

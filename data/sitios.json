@@ -2613,7 +2613,7 @@
       "confianza": "alta"
     },
     {
-      "notas": "Una sola fuente de setas (Fungipedia, 2019, un usuario). Hay MUP de Lozoya en el catálogo de la Comunidad, pero no se sabe cuáles incluye el coto. Ver también puerto-navafria-camino-horizontal. Fase 1 de Madrid (02/10/2026): fuentes independientes ahora 3 (Fungipedia, iNaturalist y Observation.org; el informe de investigación decía por error «de 3 a 4»). Si el MUP 131 no está dentro del coto de Lozoya, su régimen sería el de los montes fuera del Parque sin ordenanza (ver pn-monte-sin-plan y madrid-porn-guadarrama-96-2009): no recojas ahí sin confirmarlo con el ayuntamiento.",
+      "notas": "Una sola fuente de setas (Fungipedia, 2019, un usuario). Hay MUP de Lozoya en el catálogo de la Comunidad, pero no se sabe cuáles incluye el coto. Ver también puerto-navafria-camino-horizontal.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -2622,9 +2622,7 @@
         11
       ],
       "especies": [
-        "boletus-edulis",
-        "lactarius-deliciosus",
-        "tricholoma-portentosum"
+        "boletus-edulis"
       ],
       "habitat": [],
       "id": "lozoya-coto-micologico",
@@ -2632,7 +2630,7 @@
       "nombre": "Montes de Lozoya",
       "municipio": "Lozoya (Madrid)",
       "tipo": "sitio",
-      "consejo": "El ayuntamiento anuncia un «Coto micológico de Lozoya», pero no se ha abierto su enlace: mapa, montes y tasas actuales sin comprobar. Llama al ayuntamiento (91 869 30 29) antes de ir. Un forero cuenta boletus abundantes en la Sierra Oeste y el Valle del Lozoya del 1 de octubre a primeros de noviembre de 2019, y otro dice que en su zona hay pocos y casi solo Boletus reticulatus (testimonio aislado, sin paraje). En el MUP 131 «Perímetro de Lozoya» (Comunidad de Madrid, fuera del Parque Nacional) hay níscalo (11/11/2023) y Tricholoma portentosum (12/11/2023).",
+      "consejo": "El ayuntamiento anuncia un «Coto micológico de Lozoya», pero no se ha abierto su enlace: mapa, montes y tasas actuales sin comprobar. Llama al ayuntamiento (91 869 30 29) antes de ir. Un forero cuenta boletus abundantes en la Sierra Oeste y el Valle del Lozoya del 1 de octubre a primeros de noviembre de 2019, y otro dice que en su zona hay pocos y casi solo Boletus reticulatus (testimonio aislado, sin paraje).",
       "legal": {
         "estado": "permiso",
         "normas": [
@@ -2659,22 +2657,10 @@
           "titulo": "Fungipedia: «Parte micológico en Madrid» (05/11/2019)",
           "fecha": "2019-11-05",
           "consultado": "2026-09-30"
-        },
-        {
-          "url": "https://www.inaturalist.org/observations/191681392",
-          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 131 «Perímetro de Lozoya», fuera del Parque Nacional (11/11/2023, grado de investigación; gbifID 4442571296)",
-          "fecha": "2023-11-11",
-          "consultado": "2026-10-02"
-        },
-        {
-          "url": "https://www.gbif.org/occurrence/4462457655",
-          "titulo": "Observation.org en GBIF: Tricholoma portentosum en el MUP 131 «Perímetro de Lozoya» (12/11/2023, gbifID 4462457655)",
-          "fecha": "2023-11-12",
-          "consultado": "2026-10-02"
         }
       ],
-      "nFuentes": 3,
-      "confianza": "alta"
+      "nFuentes": 1,
+      "confianza": "baja"
     },
     {
       "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo). Un forero de 2015 (más de 10 años) recorrió Lozoya, Alameda del Valle, Canencia, La Acebeda y Somosierra en un día de noviembre y sacó un solo níscalo; otro cita Somosierra para boletus y cesáreas. Sin ordenanza localizada para Somosierra. Fase 1 de Madrid (02/10/2026): sitios propios para los montes de Montejo fuera del Hayedo, La Morra (Prádena) y la Dehesa Boyal de La Hiruela.",
@@ -8217,31 +8203,20 @@
       "verificado": false,
       "id": "abantos-mup-46-pinar",
       "zona": "sierra-oeste",
-      "nombre": "Pinar de Abantos (MUP 46 «La Jurisdicción»)",
+      "nombre": "Pinar de Abantos (MUP 46 «La Jurisdicción»): sin régimen confirmado, no se recoge",
       "municipio": "San Lorenzo de El Escorial (Madrid)",
-      "tipo": "sitio",
-      "especies": [
-        "boletus-edulis",
-        "lactarius-deliciosus",
-        "suillus-luteus",
-        "imleria-badia"
-      ],
-      "habitat": [
-        "pinar-silvestre",
-        "pinar-resinero"
-      ],
-      "epoca": [
-        10,
-        11
-      ],
-      "consejo": "Monte municipal de pino silvestre y resinero en la ladera de Abantos, sobre San Lorenzo de El Escorial. Dentro del monte hay observaciones de hongo blanco (octubre y noviembre de 2006), níscalo (15/11/2014, 01/11/2015 y 27/10/2022, junto al arroyo del Arca), Suillus luteus (2010 y 2015) e Imleria badia (2006). Dos listados turísticos citan Abantos para setas de cardo, boletus, senderuelas y pie azul. Es un monte muy visitado y Paraje Pintoresco.",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Monte municipal de pino silvestre y resinero en la ladera de Abantos, sobre San Lorenzo de El Escorial. Dentro del monte hay observaciones de hongo blanco (octubre y noviembre de 2006), níscalo (15/11/2014, 01/11/2015 y 27/10/2022), Suillus luteus (2010 y 2015) e Imleria badia (2006), y dos listados turísticos lo recomiendan. Que haya setas no quiere decir que se pueda recoger: mientras la Comunidad de Madrid no conteste la consulta, no se recoge.",
       "legal": {
-        "estado": "sin-confirmar",
+        "estado": "prohibido",
         "normas": [
           "madrid-porn-guadarrama-96-2009",
           "madrid-ordenanzas-sierra"
         ],
-        "texto": "Monte de utilidad pública municipal fuera del Parque Nacional. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial: hasta entonces el régimen sigue sin confirmar. Además es Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería», cuyas normas de recolección no se han leído, y no se ha localizado ordenanza de San Lorenzo de El Escorial (resultado de búsqueda). Confirma en el ayuntamiento antes de recoger."
+        "texto": "Se trata como NO IR hasta que conteste la Comunidad de Madrid (consulta en docs/correo-comunidad-madrid-setas.md). Es monte de utilidad pública municipal fuera del Parque Nacional y sin ordenanza de San Lorenzo de El Escorial localizada (resultado de búsqueda), y está dentro del Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería», cuyas normas de recolección no se han leído. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
       },
       "fuentes": [
         {
@@ -8301,7 +8276,7 @@
       ],
       "nFuentes": 3,
       "confianza": "alta",
-      "notas": "Fuentes independientes: Observation.org, iNaturalist y los listados turísticos (uno solo). Las observaciones caen dentro del polígono del MUP 46 (cruce con la capa de la IDEM, 02/10/2026). Son observaciones, no partes de recolección: si se exige una fuente de recolectores, la confianza bajaría a media. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas."
+      "notas": "Fuentes independientes: Observation.org, iNaturalist y los listados turísticos (uno solo). Las observaciones caen dentro del polígono del MUP 46 (cruce con la capa de la IDEM, 02/10/2026). Son observaciones, no partes de recolección: si se exige una fuente de recolectores, la confianza bajaría a media. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas. Pasó a NO IR el 02/10/2026 por decisión de la usuaria; no se listan especies. El polígono del MUP 46 está en cotos.geojson como prohibido (mad-mup-46-san-lorenzo)."
     },
     {
       "lat": null,
@@ -8376,8 +8351,7 @@
       "municipio": "Robledo de Chavela (Madrid)",
       "tipo": "sitio",
       "especies": [
-        "pleurotus-eryngii",
-        "agaricus-campestris"
+        "pleurotus-eryngii"
       ],
       "habitat": [
         "encinar",
@@ -8431,7 +8405,7 @@
       ],
       "nFuentes": 2,
       "confianza": "media",
-      "notas": "Fuentes independientes: los listados turísticos (uno solo) y Observation.org. Las dos observaciones de cardo caen fuera de los MUP (cruce con la IDEM). Los registros tienen más de 10 años. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas."
+      "notas": "Fuentes independientes: los listados turísticos (uno solo) y Observation.org. Las dos observaciones de cardo caen fuera de los MUP (cruce con la IDEM). Los registros tienen más de 10 años. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas. Los listados hablan de «champiñones silvestres» sin especie: no se lista Agaricus campestris."
     },
     {
       "lat": null,
@@ -8530,9 +8504,9 @@
           "consultado": "2026-10-02"
         }
       ],
-      "nFuentes": 1,
+      "nFuentes": 0,
       "confianza": "baja",
-      "notas": "El informe de investigación proponía níscalo con esta fuente, pero GBIF sitúa las cinco observaciones de ese día en Castilla y León (Las Navas del Marqués), fuera del MUP 185: no se lista ninguna especie. Sin coordenadas."
+      "notas": "El informe de investigación proponía níscalo con esta fuente, pero GBIF sitúa las cinco observaciones de ese día en Castilla y León (Las Navas del Marqués), fuera del MUP 185: no se lista ninguna especie. Sin coordenadas. Ninguna fuente de setas cae dentro del monte: 0 fuentes independientes (las observaciones se citan solo como referencia cercana)."
     },
     {
       "lat": null,
@@ -8916,9 +8890,9 @@
           "consultado": "2026-10-02"
         }
       ],
-      "nFuentes": 1,
+      "nFuentes": 0,
       "confianza": "baja",
-      "notas": "Una sola fuente (iNaturalist, dos observadores) y fuera del monte: no se listan especies del melojar. Sin coordenadas."
+      "notas": "Una sola fuente (iNaturalist, dos observadores) y fuera del monte: no se listan especies del melojar. Sin coordenadas. Ninguna fuente de setas cae dentro del monte: 0 fuentes independientes (las observaciones se citan solo como referencia cercana)."
     }
   ]
 }
