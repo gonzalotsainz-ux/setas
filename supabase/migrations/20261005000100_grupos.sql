@@ -182,3 +182,7 @@ revoke execute on function public.es_miembro(uuid), public.es_admin(uuid), publi
   public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
   public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
   public.mis_grupos(), public.miembros_del_grupo(uuid) from public, anon;
+grant execute on function public.es_miembro(uuid), public.es_admin(uuid), public.max_miembros_grupo(),
+  public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
+  public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
+  public.mis_grupos(), public.miembros_del_grupo(uuid) to authenticated;

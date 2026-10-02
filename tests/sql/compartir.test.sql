@@ -1,4 +1,4 @@
--- Compartir salidas: solo el dueño ve la tabla; el grupo lee por función; «solo la zona» no filtra el punto.
+-- Compartir salidas: solo el dueño ve la tabla; el grupo lee por función, que nunca devuelve meteo ni índice.
 select t.como(1); do $$ begin insert into t.codigos values ('ana', public.crear_perfil('Ana')); end $$;
 select t.como(2); select public.crear_perfil('Beto');
 select t.como(3); select public.crear_perfil('Cris');
@@ -47,12 +47,34 @@ declare s record; g uuid := (select valor from t.codigos where clave = 'gid')::u
 begin
   select * into s from public.salidas_del_grupo(g);
   perform t.afirma(s.lat = 41.76 and s.lon = -2.46, 'punto exacto: coordenadas visibles');
-  perform t.afirma(s.meteo is not null and s.indice ->> 'punto' = 'p1', 'punto exacto: meteo e índice completos');
+  perform t.afirma(s.meteo is null and s.indice is null, 'punto exacto: la función del grupo no devuelve meteo ni índice');
   perform t.afirma(s.autor = 'Ana' and s.zona_id = 'soria' and jsonb_array_length(s.fotos) = 1, 'autor, zona y fotos');
   perform t.afirma(s.ubicacion_exacta, 'marcada como exacta');
 end $$;
 
--- Ana pasa a «solo la zona»: ni coordenadas, ni meteo, ni el punto del índice.
+-- Un miembro del grupo (no el dueño) no lee la tabla de reparto: solo lo ve el dueño.
+select t.como(2);
+do $$
+begin
+  perform t.afirma((select count(*) from public.salida_grupos) = 0, 'Beto (miembro) no lee salida_grupos mientras la salida está compartida');
+end $$;
+select t.como(1);
+do $$
+begin
+  perform t.afirma((select count(*) from public.salida_grupos) = 1, 'Ana (dueña) sí ve el reparto de su salida');
+end $$;
+
+-- anon no ejecuta la API de grupos ni lee los intentos fallidos.
+select t.anonimo();
+do $$
+declare g uuid := (select valor from t.codigos where clave = 'gid')::uuid;
+begin
+  perform t.falla(format('select * from public.salidas_del_grupo(%L)', g), 'permission denied');
+  perform t.falla('select * from public.mis_grupos()', 'permission denied');
+  perform t.falla('select * from public.intentos_codigo', 'permission denied');
+end $$;
+
+-- Ana pasa a «solo la zona»: ni coordenadas, ni meteo, ni índice (revelaría el punto de la zona más cercano).
 select t.como(1);
 select public.compartir_salida('11111111-1111-4111-8111-111111111111',
   jsonb_build_array(jsonb_build_object('grupo_id', (select valor from t.codigos where clave = 'gid'), 'ubicacion_exacta', false)));
@@ -62,8 +84,8 @@ declare s record; g uuid := (select valor from t.codigos where clave = 'gid')::u
 begin
   select * into s from public.salidas_del_grupo(g);
   perform t.afirma(s.lat is null and s.lon is null, 'solo la zona: sin coordenadas');
-  perform t.afirma(s.meteo is null, 'solo la zona: sin meteo del punto');
-  perform t.afirma(s.indice ->> 'punto' is null and (s.indice ->> 'valor')::int = 72, 'solo la zona: el índice conserva la nota pero no el punto');
+  perform t.afirma(s.meteo is null, 'solo la zona: sin meteo');
+  perform t.afirma(s.indice is null, 'solo la zona: sin índice');
   perform t.afirma(s.zona_id = 'soria' and s.ubicacion_exacta = false, 'la zona sí se ve');
 end $$;
 
@@ -171,7 +193,7 @@ declare s record; a uuid := (select valor from t.codigos where clave = 'gaid')::
 begin
   perform t.afirma((select count(*) from public.salidas_del_grupo(a)) = 1, 'A: una salida');
   select * into s from public.salidas_del_grupo(a);
-  perform t.afirma(s.lat = 42.1 and s.ubicacion_exacta and s.meteo is not null, 'miembro de A ve el punto exacto');
+  perform t.afirma(s.lat = 42.1 and s.ubicacion_exacta and s.meteo is null and s.indice is null, 'miembro de A ve el punto exacto, sin meteo ni índice');
   perform t.falla(format('select * from public.salidas_del_grupo(%L)', (select valor from t.codigos where clave = 'gbid')), 'no_miembro');
 end $$;
 select t.como(13);
@@ -181,11 +203,11 @@ begin
   perform t.afirma((select count(*) from public.salidas_del_grupo(b)) = 1, 'B: una salida');
   select * into s from public.salidas_del_grupo(b);
   perform t.afirma(s.lat is null and s.lon is null and s.meteo is null and not s.ubicacion_exacta, 'miembro de B no ve el punto');
-  perform t.afirma(s.indice ->> 'punto' is null and (s.indice ->> 'valor')::int = 55, 'B: el índice sin punto');
+  perform t.afirma(s.indice is null, 'B: sin índice');
   perform t.falla(format('select * from public.salidas_del_grupo(%L)', (select valor from t.codigos where clave = 'gaid')), 'no_miembro');
 end $$;
 
--- Índice escalar o nulo en «solo la zona»: no rompe la lectura y devuelve nulo.
+-- Índice escalar o nulo (y meteo) en la tabla: no rompe la lectura de la función, que devuelve nulo.
 select t.admin();
 update public.salidas set indice = '5'::jsonb where id = '66666666-6666-4666-8666-666666666666';
 select t.como(13);

@@ -39,6 +39,7 @@ language sql stable security definer set search_path = public as $$
   )
 $$;
 revoke execute on function public.ruta_salida_id(text), public.es_mi_salida(uuid), public.puede_ver_foto(text) from public, anon;
+grant execute on function public.ruta_salida_id(text), public.es_mi_salida(uuid), public.puede_ver_foto(text) to authenticated;
 
 create policy "fotos: ver" on storage.objects for select to authenticated
   using (bucket_id = 'fotos' and public.puede_ver_foto(name));

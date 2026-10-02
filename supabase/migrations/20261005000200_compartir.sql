@@ -31,7 +31,9 @@ begin
   on conflict (salida_id, grupo_id) do update set ubicacion_exacta = excluded.ubicacion_exacta;
 end $$;
 
--- Lo que ve un miembro: sin coordenadas, sin meteo y sin el punto del índice cuando se compartió «solo la zona».
+-- Lo que ve un miembro: sin coordenadas cuando se compartió «solo la zona». `meteo` e `indice` se conservan como
+-- columnas de la interfaz pero van siempre nulos: la vista de grupo no los usa y, en «solo la zona», el índice
+-- sobrevivía con los valores del punto de zona más cercano (una huella de la ubicación).
 -- (Una policy no puede ocultar columnas: por eso se lee por función y no por la tabla.)
 create function public.salidas_del_grupo(p_grupo uuid)
 returns table (id uuid, usuario_id uuid, autor text, fecha date, zona_id text, lat double precision, lon double precision,
@@ -44,8 +46,7 @@ begin
            case when sg.ubicacion_exacta then s.lat end,
            case when sg.ubicacion_exacta then s.lon end,
            sg.ubicacion_exacta, s.especies, s.notas,
-           case when sg.ubicacion_exacta then s.meteo end,
-           case when sg.ubicacion_exacta then s.indice when jsonb_typeof(s.indice) = 'object' then s.indice - 'punto' end,
+           null::jsonb, null::jsonb,
            coalesce((select jsonb_agg(jsonb_build_object('ruta', f.ruta, 'ancho', f.ancho, 'alto', f.alto) order by f.creado, f.ruta)
                      from fotos f where f.salida_id = s.id), '[]'::jsonb)
     from salida_grupos sg
@@ -74,3 +75,5 @@ end $$;
 
 revoke execute on function public.compartir_salida(uuid, jsonb), public.salidas_del_grupo(uuid),
   public.salidas_sin_dueno(), public.reclamar_salidas(text) from public, anon;
+grant execute on function public.compartir_salida(uuid, jsonb), public.salidas_del_grupo(uuid),
+  public.salidas_sin_dueno(), public.reclamar_salidas(text) to authenticated;

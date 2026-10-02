@@ -2,6 +2,8 @@
 -- Cada dispositivo tiene una sesión anónima de Supabase (auth.uid()); el perfil le pone nombre y un código de
 -- recuperación (solo se guarda su hash) con el que otra sesión puede quedarse con la cuenta.
 
+create extension if not exists pgcrypto with schema extensions;
+
 create table public.perfiles (
   id uuid primary key,
   nombre text not null check (char_length(btrim(nombre)) between 1 and 40),
@@ -127,6 +129,8 @@ end $$;
 -- ---------- Permisos ----------
 revoke execute on function public.crear_perfil(text), public.regenerar_recuperacion(),
   public.renombrar_perfil(text), public.recuperar_cuenta(text) from public, anon;
+grant execute on function public.crear_perfil(text), public.regenerar_recuperacion(),
+  public.renombrar_perfil(text), public.recuperar_cuenta(text) to authenticated;
 revoke execute on function public.ip_cliente(), public.codigo_aleatorio(int), public.normalizar_codigo(text),
   public.hash_codigo(text), public.registrar_fallo(text), public.limitar_intentos(text, int, interval)
   from public, anon, authenticated;
