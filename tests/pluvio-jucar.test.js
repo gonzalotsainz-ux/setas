@@ -45,8 +45,10 @@ test('leerJucar: un día que falla es un error de ese día y se sigue', async ()
   assert.deepEqual(r.filas, [{ estacion: '6P01', hora: '2026-09-30T22:00:00.000Z', horas: 24, mm: 1.6 }]);
 });
 
-test('qué toca: Júcar a las 4 y 16 UTC, antes de publicar', () => {
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'jucar', 'publicar']);
+test('qué toca: Júcar a las 3 y 15 UTC, una hora antes de publicar', () => {
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T03:10:00Z')), ['aemet', 'duero', 'jucar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T15:10:00Z')), ['aemet', 'duero', 'jucar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'publicar']);
 });
 
 test('ejecutar: Júcar rellena días que faltan y el total diario cuenta como día completo', async () => {

@@ -90,7 +90,17 @@ claves `sb_publishable_`).
   Vault (`pluvio_clave`) y coincide con el secreto `PLUVIO_CLAVE`. Desplegada con `--no-verify-jwt`; sin la clave responde
   401 y a un GET, 405. Usa también el secreto `AEMET_API_KEY` (el mismo de la función `aemet`).
 - Qué lee y cuándo (hora UTC): AEMET horario (`/observacion/convencional/todas`, 12 h) a las 0, 3, 6…; SAIH Tajo (últimas
-  24 h por estación) a la 1, 4, 7…; SAIH Tajo 10 días a las 2. Lista blanca: `supabase/functions/pluvio/estaciones.json`.
+  24 h por estación) a la 1, 4, 7…; SAIH Tajo 10 días a las 2; SAIH Duero (últimos 4 días) por lotes, uno de 4 estaciones
+  en cada hora de AEMET (lote 0 a las 0 y 12, 1 a las 3 y 15, 2 a las 6 y 18, 3 a las 9 y 21: cada estación dos veces al
+  día); SAIH Júcar a las 3 y 15; el paso `publicar` (lluvia_dia y los JSON públicos) a las 4 y 16. Lista blanca:
+  `supabase/functions/pluvio/estaciones.json`.
+- **Límite de CPU.** El plan gratuito corta una ejecución hacia los 2 s de CPU (`WORKER_RESOURCE_LIMIT`) y 150 MB: por eso
+  el Duero va por lotes y ya no hay tarea `duero90` (los 90 días del Duero en una ejecución no cabían). Medir en local cada
+  tarea (red real, sin escribir en Supabase): `node --expose-gc scripts/pluvio/medir-cpu.mjs [tarea…]`; ninguna debe
+  pasar de ~1,2 s. Informe: `.superpowers/sdd/2026-10-02-pluviometros/cpu-report.md`.
+- **Relleno del Duero** desde el 1 de agosto (o tras una caída de más de 4 días): `PLUVIO_CLAVE=<clave> node
+  scripts/pluvio/relleno-duero.mjs [--desde=2026-08-01]` lee en local con el mismo lector y sube por `?accion=cargar`
+  (`--seco` solo cuenta). `?accion=cargar` admite solo Euskalmet y Duero, cada una con estaciones de su lista blanca.
 - Tabla privada `lluvia_obs` (fuente, estación, hora UTC del fin del intervalo, mm, calidad); se guardan 200 días
   (`pluvio-limpieza`, 03:40 UTC).
 - Forzar una lectura: `curl -X POST -H "x-pluvio-clave: <clave>" ".../functions/v1/pluvio?fuentes=tajo10"` (y luego

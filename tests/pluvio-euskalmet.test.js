@@ -118,17 +118,33 @@ test('zip: la hora de las 00:00 UTC del día 1 junta lecturas de dos meses; un m
   assert.deepEqual(filasDeZipEuskalmet(vacio, [{ codigo: 'C025' }], '2026-07-01').avisos, ['C025: el mes 9 no trae lecturas']);
 });
 
-test('cargarFilas: solo Euskalmet, mm >= 0 y fechas dentro de la ventana', async () => {
+test('cargarFilas: solo Euskalmet y Duero, cada una con sus estaciones; mm >= 0 y fechas dentro de la ventana', async () => {
   const almacen = almacenPluvioMemoria();
   const ahora = new Date('2026-10-02T12:00:00Z');
+  const est = [...EST, { fuente: 'tajo', codigo: 'P_26' }, { fuente: 'aemet', codigo: '3104Y' }, { fuente: 'jucar', codigo: '4N01' }];
   const buena = { fuente: 'euskalmet', estacion: 'C025', hora: '2026-08-20T13:00:00.000Z', mm: 8.4 };
-  const malas = [{ ...buena, fuente: 'duero', estacion: 'PL002' }, { ...buena, mm: -1 }, { ...buena, hora: '2025-08-20T13:00:00.000Z' },
-    { ...buena, hora: '2026-10-04T13:00:00.000Z' }];
+  const malas = [{ ...buena, fuente: 'duero' }, { ...buena, fuente: 'duero', estacion: 'P_26' }, { ...buena, estacion: 'PL002' },   // estación de otra fuente
+    { ...buena, fuente: 'tajo', estacion: 'P_26' }, { ...buena, fuente: 'aemet', estacion: '3104Y' }, { ...buena, fuente: 'jucar', estacion: '4N01' },   // fuentes no permitidas
+    { ...buena, mm: -1 }, { ...buena, hora: '2025-08-20T13:00:00.000Z' }, { ...buena, hora: '2026-10-04T13:00:00.000Z' }];
   for (const mala of malas) {
-    const r = await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [mala] }, ahora });
+    const r = await cargarFilas({ almacen, estaciones: est, cuerpo: { filas: [mala] }, ahora });
     assert.equal(r.ok, false, JSON.stringify(mala));
   }
-  assert.equal((await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [{ ...buena, hora: '2026-10-03T00:00:00.000Z' }] }, ahora })).ok, true);
+  assert.equal(almacen.obs.size, 0);
+  assert.equal((await cargarFilas({ almacen, estaciones: est, cuerpo: { filas: [{ ...buena, hora: '2026-10-03T00:00:00.000Z' }] }, ahora })).ok, true);
+});
+
+test('cargarFilas: el Duero entra con su fuente, solo con mm numérico (un hueco no pisa un valor) y en la ventana', async () => {
+  const almacen = almacenPluvioMemoria();
+  const ahora = new Date('2026-10-02T12:00:00Z');
+  const buena = { fuente: 'duero', estacion: 'PL002', hora: '2026-08-02T09:00:00.000Z', mm: 1.2 };
+  assert.deepEqual(await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [buena, { ...buena, hora: '2026-08-02T10:00:00.000Z', mm: 0 }] }, ahora }), { ok: true, guardadas: 2 });
+  assert.deepEqual(almacen.obs.get('duero|PL002|2026-08-02T09:00:00.000Z'), { fuente: 'duero', estacion: 'PL002', hora: '2026-08-02T09:00:00.000Z', horas: 1, mm: 1.2, calidad: 'ok' });
+  for (const mala of [{ ...buena, mm: null }, { ...buena, mm: -0.1 }, { ...buena, mm: Infinity }, { ...buena, mm: '1.2' }, { ...buena, hora: '2026-08-02T09:30:00.000Z' },
+    { ...buena, hora: '2025-08-02T09:00:00.000Z' }, { ...buena, estacion: 'PL999' }]) {
+    assert.equal((await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [buena, mala] }, ahora })).ok, false, JSON.stringify(mala));
+  }
+  assert.equal(almacen.obs.size, 2, 'una carga con una fila mala no guarda ninguna');
 });
 
 test('leerCuerpoCarga: JSON malo da 400 y un cuerpo demasiado grande, 413 sin leerlo', async () => {

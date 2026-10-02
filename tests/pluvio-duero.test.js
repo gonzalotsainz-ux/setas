@@ -4,8 +4,9 @@ import assert from 'node:assert/strict';
 import { estacionesDeRisr, historicoDeFicha, altitudDeFicha, esHistoricoDeLluvia, horasDeHistorico, leerDuero } from '../supabase/functions/pluvio/lectores/duero.js';
 import { crearPedir, PlazoAgotado } from '../supabase/functions/pluvio/red.js';
 import { fechaMadridDeFin } from '../supabase/functions/pluvio/tiempo.js';
-import { fuentesQueTocan, ejecutar } from '../supabase/functions/pluvio/manejador.js';
+import { fuentesQueTocan, ejecutar, TAREAS, LOTES_DUERO, DIAS_DUERO, estacionesDeLote, horaDeLote } from '../supabase/functions/pluvio/manejador.js';
 import { fixture, respuesta, servidorFalso, almacenPluvioMemoria } from './dobles-pluvio.js';
+import ESTACIONES from '../supabase/functions/pluvio/estaciones.json' with { type: 'json' };
 
 const sinEspera = async () => {};
 const r1 = (x) => Math.round(x * 10) / 10;
@@ -79,41 +80,70 @@ test('Review Focus 2: el histórico contesta 200 con la gráfica de temperatura 
   assert.deepEqual(r.errores, ['PL002: sin histórico de lluvia']);
 });
 
-test('qué toca: Duero a las 3 y a las 15 UTC; los 90 días, el domingo a la 1', () => {
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T03:10:00Z')), ['aemet', 'duero']);
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T15:10:00Z')), ['aemet', 'duero']);
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-04T01:10:00Z')), ['tajo', 'duero90']);   // domingo
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-05T01:10:00Z')), ['tajo']);
+test('qué toca: Duero, un lote en cada hora de AEMET (0, 3, …, 21 UTC); ya no hay duero90', () => {
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T00:10:00Z')), ['aemet', 'duero']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T18:10:00Z')), ['aemet', 'duero']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-04T01:10:00Z')), ['tajo']);   // domingo: el relleno ya no va en la función
+  assert.ok(!('duero90' in TAREAS));
+  const horas = Array.from({ length: 24 }, (_, h) => h).filter((h) => TAREAS.duero.toca(h));
+  assert.deepEqual(horas, [0, 3, 6, 9, 12, 15, 18, 21]);
+  assert.deepEqual(horas.map((h) => TAREAS.duero.lote(h)), [0, 1, 2, 3, 0, 1, 2, 3]);
+  assert.deepEqual([0, 1, 2, 3].map((l) => horaDeLote('duero', l)), [0, 3, 6, 9]);
 });
 
-test('ejecutar: duero guarda desde hace 4 días; duero90, desde el 1 de agosto', async () => {
-  const ahora = new Date('2026-10-02T03:10:00Z');
-  const a = almacenPluvioMemoria();
-  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora, estaciones: [PL002], pedidas: ['duero'] });
-  assert.deepEqual(r.filas, { duero: 76 });
-  const b = almacenPluvioMemoria();
-  await ejecutar({ almacen: b, fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora, estaciones: [PL002], pedidas: ['duero90'] });
-  assert.equal(b.obs.size, 1448);
-  assert.equal(b.obs.get('duero|PL002|2026-08-27T11:00:00.000Z').fuente, 'duero');
+test('rotación: lotes disjuntos que cubren la lista blanca; cada estación del Duero, 2 veces al día y cada 12 h', () => {
+  const duero = ESTACIONES.filter((e) => e.fuente === 'duero');
+  const lotes = Array.from({ length: LOTES_DUERO }, (_, l) => estacionesDeLote(duero, l, LOTES_DUERO).map((e) => e.codigo));
+  const todas = lotes.flat();
+  assert.equal(new Set(todas).size, todas.length, 'lotes disjuntos');
+  assert.deepEqual([...todas].sort(), duero.map((e) => e.codigo).sort(), 'entre todos, todas las estaciones');
+  assert.ok(lotes.every((l) => l.length <= Math.ceil(duero.length / LOTES_DUERO)), 'lotes del mismo tamaño');
+  const horas = new Map(duero.map((e) => [e.codigo, []]));
+  for (let h = 0; h < 24; h++) if (TAREAS.duero.toca(h)) for (const c of lotes[TAREAS.duero.lote(h)]) horas.get(c).push(h);
+  for (const [c, hs] of horas) {
+    assert.ok(hs.length >= 2, `${c}: ${hs.length} lecturas al día`);
+    const huecos = hs.map((h, k) => ((hs[(k + 1) % hs.length] - h + 24) % 24) || 24);
+    assert.ok(Math.max(...huecos) <= 12, `${c}: ${Math.max(...huecos)} h sin leer`);
+  }
+  assert.ok(DIAS_DUERO * 24 >= 3 * 12, 'el histórico de 4 días cubre dos lecturas fallidas seguidas');
+  // El lote no depende del orden en que vengan las estaciones.
+  assert.deepEqual(estacionesDeLote([{ codigo: 'B' }, { codigo: 'A' }, { codigo: 'C' }], 0, 2).map((e) => e.codigo), ['A', 'C']);
 });
+
+test('ejecutar: duero lee solo el lote de la hora y guarda desde hace 4 días', async () => {
+  const a = almacenPluvioMemoria(), registro = [];
+  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutasDuero(), registro), esperar: sinEspera, ahora: new Date('2026-10-02T00:10:00Z'),
+    estaciones: [PL031, PL002], pedidas: ['duero'] });
+  assert.deepEqual(r.filas, { duero: 76 });   // lote 0: PL002
+  assert.ok(registro.length && registro.every((x) => x.url.includes('/PL002/')));
+  assert.equal(a.obs.get('duero|PL002|2026-09-30T11:00:00.000Z').fuente, 'duero');
+  const s = await ejecutar({ almacen: almacenPluvioMemoria(), fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora: new Date('2026-10-02T03:10:00Z'),
+    estaciones: [PL031, PL002], pedidas: ['duero'] });
+  assert.deepEqual(s.filas, { duero: 64 });   // lote 1: PL031
+});
+
+// Con 4 lotes, PL002 (1.ª por código) y PL999 (5.ª) van en el mismo lote, el 0 (00:10 UTC).
+const conRelleno = (otra) => [PL002, ...['PL003', 'PL004', 'PL005'].map((codigo) => ({ fuente: 'duero', codigo, token: null })), otra];
 
 test('ejecutar: si falla el guardado se conservan los errores de lectura', async () => {
-  const ahora = new Date('2026-10-02T03:10:00Z');
+  const ahora = new Date('2026-10-02T00:10:00Z');
   const a = { ...almacenPluvioMemoria(), async guardarObs() { throw new Error('base caída'); } };
-  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora, estaciones: [PL002, { ...PL031, codigo: 'PL999', token: null }], pedidas: ['duero'] });
+  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora, estaciones: conRelleno({ ...PL031, codigo: 'PL999', token: null }), pedidas: ['duero'] });
   assert.ok(r.errores.includes('duero: base caída'));
   assert.ok(r.errores.some((e) => e.startsWith('duero: PL999:')));
 });
 
-test('ejecutar: lector con plazo agotado y guardado fallido → el bucle para (no lee duero90)', async () => {
-  const ahora = new Date('2026-10-02T03:10:00Z');
+test('ejecutar: lector con plazo agotado y guardado fallido → el bucle para (no lee jucar)', async () => {
+  const ahora = new Date('2026-10-02T00:10:00Z');
   const a = { ...almacenPluvioMemoria(), async guardarObs() { throw new Error('base caída'); } };
   const rutas = rutasDuero([[(u) => u.endsWith('/risr/PL999'), () => { throw new PlazoAgotado(); }]]);
-  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutas), esperar: sinEspera, ahora, estaciones: [PL002, { ...PL031, codigo: 'PL999', token: null }], pedidas: ['duero', 'duero90'] });
+  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutas), esperar: sinEspera, ahora,
+    estaciones: [...conRelleno({ ...PL031, codigo: 'PL999', token: null }), { fuente: 'jucar', codigo: '4N01' }], pedidas: ['duero', 'jucar'] });
   assert.equal(r.estado, 'plazo-agotado');
   assert.ok(r.errores.includes('duero: base caída'));
   assert.ok(r.errores.includes('duero: plazo agotado'));
-  assert.ok(!r.errores.some((e) => e.startsWith('duero90')));
+  assert.ok(!r.errores.some((e) => e.startsWith('jucar')));
+  assert.ok(!('jucar' in r.leidas));
 });
 
 test('histórico: valor vacío, null o solo espacios es un hueco (mm null), nunca 0, y no se guarda', async () => {

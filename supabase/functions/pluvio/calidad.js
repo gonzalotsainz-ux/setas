@@ -64,20 +64,31 @@ export function revisarDia(dia, { vecinas = [], modelo = null } = {}, u = UMBRAL
 export function revisarDias(dias, estaciones = [], modeloDe = () => null, u = UMBRALES) {
   const pos = new Map(estaciones.map((e) => [`${e.fuente}:${e.codigo}`, e]));
   const clave = (d) => `${d.fuente}:${d.estacion}`;
+  // Las vecinas de cada estación se calculan una sola vez (no por día) y cada día solo se miran ellas: con 100 estaciones
+  // y una temporada de días, comparar con todas en cada día y pasada se come el CPU de la Edge Function.
+  const cerca = new Map();
+  const vecinasDe = (a) => {
+    if (!cerca.has(a)) {
+      const yo = pos.get(a), lista = [];
+      for (const [k, e] of pos) { if (k === a) continue; const km = distanciaKm(yo, e); if (km != null && km < u.vecinasKm) lista.push(k); }
+      cerca.set(a, lista);
+    }
+    return cerca.get(a);
+  };
   const vecinasEn = (lista) => {
-    const buenas = new Map();
+    const buenas = new Map();   // fecha → clave → mm de los días «ok»
     for (const d of lista) if (d.calidad === 'ok') {
-      if (!buenas.has(d.fecha)) buenas.set(d.fecha, []);
-      buenas.get(d.fecha).push({ clave: clave(d), mm: d.mm });
+      if (!buenas.has(d.fecha)) buenas.set(d.fecha, new Map());
+      const delDia = buenas.get(d.fecha), k = clave(d);
+      if (!delDia.has(k)) delDia.set(k, []);
+      delDia.get(k).push(d.mm);
     }
     return (d) => {
-      const yo = pos.get(clave(d));
-      if (!yo) return [];
-      return (buenas.get(d.fecha) ?? []).filter((v) => {
-        if (v.clave === clave(d)) return false;
-        const km = distanciaKm(yo, pos.get(v.clave));
-        return km != null && km < u.vecinasKm;
-      }).map((v) => v.mm);
+      const yo = clave(d), delDia = buenas.get(d.fecha);
+      if (!pos.has(yo) || !delDia) return [];
+      const r = [];
+      for (const k of vecinasDe(yo)) for (const mm of delDia.get(k) ?? []) r.push(mm);
+      return r;
     };
   };
   const pasada = (lista, regla) => {

@@ -4,7 +4,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { agregarHoras, diasDeFilas } from '../supabase/functions/pluvio/dias.js';
 import { revisarDia } from '../supabase/functions/pluvio/calidad.js';
-import { horaDeTexto, finDeDia } from '../supabase/functions/pluvio/tiempo.js';
+import { horaDeTexto, finDeDia, utcDeMadrid, fechaMadridDeFin } from '../supabase/functions/pluvio/tiempo.js';
+import { hoyMadrid } from '../supabase/functions/_shared/meteo.js';
 import { horasDeHistorico } from '../supabase/functions/pluvio/lectores/duero.js';
 import { ejecutar, fuentesQueTocan, filaObs, unicas } from '../supabase/functions/pluvio/manejador.js';
 import { fixture, servidorFalso, respuesta, rutasTajo, almacenPluvioMemoria } from './dobles-pluvio.js';
@@ -51,8 +52,8 @@ test('cambio de hora: el 25/10 con la hora 02:00 repetida queda completo', () =>
 });
 
 test('qué toca: el paso publicar a las 4 y a las 16 UTC, después de las lecturas', () => {
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'jucar', 'publicar']);
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T16:10:00Z')), ['tajo', 'jucar', 'publicar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'publicar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T16:10:00Z')), ['tajo', 'publicar']);
 });
 
 test('publicar: guarda lluvia_dia desde el 1 de agosto hasta ayer, solo de la lista blanca', async () => {
@@ -89,4 +90,23 @@ test('la migración: lluvia_dia cerrada, la función SQL con el día de Madrid y
   assert.match(sql, /grant execute on function public\.lluvia_por_dia\(date\) to service_role/);
   assert.match(sql, /cron\.schedule\('pluvio-limpieza'/);
   assert.doesNotMatch(sql, /sb_secret|eyJ/);
+});
+
+// El desfase de Madrid se guarda por hora UTC (Intl es caro en la Edge Function): debe dar lo mismo que Intl en cada
+// hora del año, con los dos cambios de hora.
+test('tiempo: día y hora de Madrid sin Intl por llamada, iguales a Intl todo el año', () => {
+  const ref = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const local = (ms) => { const p = Object.fromEntries(ref.formatToParts(new Date(ms)).map((x) => [x.type, x.value])); return [`${p.year}-${p.month}-${p.day}`, `${p.hour}:${p.minute}`]; };
+  for (let ms = Date.UTC(2026, 0, 1); ms < Date.UTC(2027, 0, 1); ms += 3600e3) {
+    const iso = new Date(ms).toISOString();
+    assert.equal(fechaMadridDeFin(iso), hoyMadrid(new Date(ms - 60e3)), iso);
+    const [fecha, hhmm] = local(ms), vuelta = utcDeMadrid(fecha, hhmm);
+    // En la hora repetida de octubre se toma la primera (verano): la segunda 02:00 vuelve a la 00:00Z.
+    assert.ok(vuelta === iso || (Date.parse(iso) - Date.parse(vuelta) === 3600e3 && fecha === '2026-10-25'), `${iso} → ${fecha} ${hhmm} → ${vuelta}`);
+  }
+  assert.equal(utcDeMadrid('2026-03-29', '02:00'), null);   // no existe
+  assert.equal(utcDeMadrid('2026-03-29', '03:00'), '2026-03-29T01:00:00.000Z');
+  assert.equal(utcDeMadrid('2026-10-25', '02:00'), '2026-10-25T00:00:00.000Z');
+  assert.equal(utcDeMadrid('2026-10-25', '03:00'), '2026-10-25T02:00:00.000Z');
+  assert.equal(fechaMadridDeFin('2026-10-01T22:00:00.000Z'), '2026-10-01');   // la hora que acaba a las 00:00 de Madrid
 });

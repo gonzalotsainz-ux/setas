@@ -155,7 +155,7 @@ test('AEMET: dos pasos con la clave en la cabecera; un estado distinto de 200 es
 // ---- manejador ----
 test('qué toca a cada hora UTC (minuto 10) y las pedidas a mano', () => {
   const a = (h) => new Date(`2026-10-02T${String(h).padStart(2, '0')}:10:00Z`);
-  assert.deepEqual(fuentesQueTocan(a(0)), ['aemet']);
+  assert.deepEqual(fuentesQueTocan(a(0)), ['aemet', 'duero']);
   assert.deepEqual(fuentesQueTocan(a(1)), ['tajo']);
   assert.deepEqual(fuentesQueTocan(a(2)), ['tajo10']);
   assert.deepEqual(fuentesQueTocan(a(5)), []);
