@@ -17,12 +17,17 @@ begin
     select 1 from jsonb_to_recordset(p_grupos) as x (grupo_id uuid, ubicacion_exacta boolean)
     where x.grupo_id is null or not public.es_miembro(x.grupo_id)
   ) then raise exception 'no_miembro'; end if;
+  if exists (
+    select 1 from jsonb_to_recordset(p_grupos) as x (grupo_id uuid, ubicacion_exacta boolean)
+    where x.ubicacion_exacta is null
+  ) then raise exception 'ubicacion_requerida'; end if;
   delete from salida_grupos sg
    where sg.salida_id = p_salida
      and not exists (select 1 from jsonb_to_recordset(p_grupos) as x (grupo_id uuid, ubicacion_exacta boolean) where x.grupo_id = sg.grupo_id);
   insert into salida_grupos (salida_id, grupo_id, ubicacion_exacta)
-    select p_salida, x.grupo_id, coalesce(x.ubicacion_exacta, true)
+    select p_salida, x.grupo_id, bool_and(x.ubicacion_exacta)
     from jsonb_to_recordset(p_grupos) as x (grupo_id uuid, ubicacion_exacta boolean)
+    group by x.grupo_id
   on conflict (salida_id, grupo_id) do update set ubicacion_exacta = excluded.ubicacion_exacta;
 end $$;
 
@@ -40,13 +45,14 @@ begin
            case when sg.ubicacion_exacta then s.lon end,
            sg.ubicacion_exacta, s.especies, s.notas,
            case when sg.ubicacion_exacta then s.meteo end,
-           case when sg.ubicacion_exacta then s.indice else s.indice - 'punto' end,
-           coalesce((select jsonb_agg(jsonb_build_object('ruta', f.ruta, 'ancho', f.ancho, 'alto', f.alto) order by f.ruta)
+           case when sg.ubicacion_exacta then s.indice when jsonb_typeof(s.indice) = 'object' then s.indice - 'punto' end,
+           coalesce((select jsonb_agg(jsonb_build_object('ruta', f.ruta, 'ancho', f.ancho, 'alto', f.alto) order by f.creado, f.ruta)
                      from fotos f where f.salida_id = s.id), '[]'::jsonb)
     from salida_grupos sg
     join salidas s on s.id = sg.salida_id
     join perfiles p on p.id = s.usuario_id
     where sg.grupo_id = p_grupo
+      and exists (select 1 from miembros m where m.grupo_id = p_grupo and m.usuario_id = s.usuario_id)
     order by s.fecha desc, s.creado desc;
 end $$;
 
