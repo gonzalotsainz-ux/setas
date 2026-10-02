@@ -10,6 +10,10 @@ begin
   perform t.afirma((select nombre from public.perfiles where id = t.uid(1)) = 'Ana', 'el nombre se guarda recortado');
   perform t.falla('select public.crear_perfil(''Otra'')', 'perfil_existente');
   perform t.falla('select hash_recuperacion from public.perfiles', 'permission denied');
+  perform t.falla('select public.registrar_fallo(''x'')', 'permission denied');
+  perform t.falla('select public.limitar_intentos(''x'')', 'permission denied');
+  perform t.falla('select public.hash_codigo(''x'')', 'permission denied');
+  perform t.falla('select public.codigo_aleatorio(4)', 'permission denied');
 end $$;
 
 -- Nombre vacío: la restricción lo rechaza.
@@ -30,6 +34,7 @@ begin
   perform t.afirma(public.recuperar_cuenta(lower(substr(c, 1, 4) || '-' || substr(c, 5, 4) || ' ' || substr(c, 9))),
     'el código recupera aunque tenga minúsculas, guion y espacio');
   perform t.afirma((select count(*) from public.perfiles where id = t.uid(2)) = 1, 'el perfil pasó a la sesión nueva');
+  perform t.afirma((select nombre from public.perfiles) = 'Ana', 'el nombre sobrevive a la recuperación');
 end $$;
 
 -- La sesión antigua queda sin perfil.
@@ -77,12 +82,19 @@ end $$;
 -- Fuerza bruta: tras 10 fallos, el siguiente intento se rechaza (aunque el código fuese bueno).
 select t.como(3);
 do $$
-declare i int;
+declare i int; c text;
 begin
+  select valor into c from t.codigos where clave = 'beto';
   for i in 1 .. 10 loop
     perform public.recuperar_cuenta('1111-1111-1111-1111');
   end loop;
-  perform t.falla('select public.recuperar_cuenta(''1111-1111-1111-1111'')', 'demasiados_intentos');
+  perform t.falla(format('select public.recuperar_cuenta(%L)', c), 'demasiados_intentos');
 end $$;
 select t.admin();
 do $$ begin perform t.afirma((select count(*) from public.intentos_codigo where tipo = 'recuperar' and uid = t.uid(3)) = 10, 'los fallos quedan registrados'); end $$;
+
+-- GET /rpc corre en una transacción de solo lectura: ahí no se pueden registrar fallos, así que se rechaza.
+select t.como(8);
+begin read only;
+select t.falla('select public.recuperar_cuenta(''1111-1111-1111-1111'')', 'solo_post');
+rollback;

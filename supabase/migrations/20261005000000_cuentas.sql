@@ -65,6 +65,9 @@ create function public.limitar_intentos(p_tipo text, p_max int default 10, p_ven
 language plpgsql security definer set search_path = public as $$
 declare n int;
 begin
+  -- PostgREST ejecuta GET /rpc/... en una transacción de solo lectura: ahí registrar_fallo no puede insertar,
+  -- el límite nunca saltaría y el error delataría si el código es válido. Solo se admite POST.
+  if current_setting('transaction_read_only') = 'on' then raise exception 'solo_post'; end if;
   select count(*) into n from intentos_codigo
    where tipo = p_tipo and momento > now() - p_ventana
      and (uid = auth.uid() or (ip is not null and ip = public.ip_cliente()));
@@ -117,6 +120,7 @@ begin
   if viejo = auth.uid() then return true; end if;
   if exists (select 1 from perfiles where id = auth.uid()) then raise exception 'sesion_con_perfil'; end if;
   update perfiles set id = auth.uid() where id = viejo;
+  if not found then return false; end if;   -- otra sesión se quedó antes con la cuenta
   return true;
 end $$;
 
