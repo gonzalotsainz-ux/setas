@@ -35,6 +35,48 @@
   "altitud": 1382
  },
  {
+  "id": "guadarrama-guadarrama-resinero",
+  "zona": "guadarrama",
+  "lat": 40.67966,
+  "lon": -4.14587,
+  "altitud": 1358
+ },
+ {
+  "id": "guadarrama-cercedilla-silvestre",
+  "zona": "guadarrama",
+  "lat": 40.76973,
+  "lon": -4.06648,
+  "altitud": 1378
+ },
+ {
+  "id": "guadarrama-camorza-resinero",
+  "zona": "guadarrama",
+  "lat": 40.75194,
+  "lon": -3.91347,
+  "altitud": 1195
+ },
+ {
+  "id": "guadarrama-sanblas-silvestre",
+  "zona": "guadarrama",
+  "lat": 40.79072,
+  "lon": -3.85651,
+  "altitud": 1443
+ },
+ {
+  "id": "guadarrama-alameda-melojar",
+  "zona": "guadarrama",
+  "lat": 40.88181,
+  "lon": -3.828,
+  "altitud": 1322
+ },
+ {
+  "id": "guadarrama-pinilla-melojar",
+  "zona": "guadarrama",
+  "lat": 40.90781,
+  "lon": -3.79598,
+  "altitud": 1410
+ },
+ {
   "id": "sierra-norte-riaza-melojar",
   "zona": "sierra-norte",
   "lat": 41.2801,
@@ -61,6 +103,69 @@
   "lat": 40.83402,
   "lon": -3.7694,
   "altitud": 1271
+ },
+ {
+  "id": "sierra-norte-braojos-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.07143,
+  "lon": -3.66977,
+  "altitud": 1619
+ },
+ {
+  "id": "sierra-norte-robregordo-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.12795,
+  "lon": -3.6168,
+  "altitud": 1591
+ },
+ {
+  "id": "sierra-norte-hiruela-melojar",
+  "zona": "sierra-norte",
+  "lat": 41.07437,
+  "lon": -3.43203,
+  "altitud": 1254
+ },
+ {
+  "id": "sierra-norte-pradena-silvestre",
+  "zona": "sierra-norte",
+  "lat": 41.02171,
+  "lon": -3.50254,
+  "altitud": 1502
+ },
+ {
+  "id": "sierra-norte-pradena-melojar",
+  "zona": "sierra-norte",
+  "lat": 41.0474,
+  "lon": -3.50043,
+  "altitud": 1257
+ },
+ {
+  "id": "sierra-oeste-abantos-silvestre",
+  "zona": "sierra-oeste",
+  "lat": 40.60322,
+  "lon": -4.16762,
+  "altitud": 1445
+ },
+ {
+  "id": "sierra-oeste-sanmartin-resinero",
+  "zona": "sierra-oeste",
+  "lat": 40.33473,
+  "lon": -4.35552,
+  "altitud": 956
+ },
+ {
+  "id": "sierra-oeste-valdemaqueda-resinero",
+  "zona": "sierra-oeste",
+  "lat": 40.5213,
+  "lon": -4.27913,
+  "altitud": 1042
+ },
+ {
+  "id": "sierra-oeste-robledo-encinar",
+  "zona": "sierra-oeste",
+  "lat": 40.43922,
+  "lon": -4.2341,
+  "altitud": 785
  },
  {
   "id": "soria-pinar-grande-covaleda",

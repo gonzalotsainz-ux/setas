@@ -24,7 +24,9 @@ const r4 = (x) => Math.round(x * 1e4) / 1e4;
 const licencia = (fuente) => FUENTES_LLUVIA[fuente].licencia;
 const zonas = JSON.parse(readFileSync(new URL('data/zonas.json', RAIZ), 'utf8')).zonas;
 const puntos = zonas.flatMap((z) => z.puntos.map((p) => ({ id: p.id, zona: z.id, lat: p.lat, lon: p.lon, altitud: p.altitud })));
-const pedir = crearPedir({ fetchFn: fetch });
+// En local no hay plazo de ejecución: se espera hasta 2 min por respuesta (las fichas del SAIH Duero llegan a tardar 15–50 s
+// en servirse, más que el límite de 25 s de la función).
+const pedir = crearPedir({ fetchFn: fetch, senal: () => AbortSignal.timeout(120000) });
 
 // SAIH Tajo: la tabla trae tipo, UTM y altitud.
 const tajo = elegir(estacionesDeTablaTajo(await cadenaTajo(pedir)).filter((e) => e.tipo === 'pluviometro' || e.tipo === 'pluvionivometro')
