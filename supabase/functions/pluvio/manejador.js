@@ -9,6 +9,7 @@ import { leerDuero } from './lectores/duero.js';
 import { leerJucar, fechasJucar } from './lectores/jucar.js';
 import { diasDeFilas } from './dias.js';
 import { publicar } from './publicar.js';
+import { esHoraEnPunto } from './tiempo.js';
 
 // Supabase corta a los 150 s: la ejecución acaba antes de PLAZO_EJECUCION y las lecturas dejan RESERVA_MS para guardar.
 export const PLAZO_EJECUCION = 140000;
@@ -47,6 +48,21 @@ export function unicas(filas) {
   const m = new Map();
   for (const f of filas) m.set(`${f.fuente}|${f.estacion}|${f.hora}`, f);
   return [...m.values()];
+}
+
+// Carga de horas leídas fuera (relleno de Euskalmet desde su zip anual): solo estaciones de la lista blanca, horas en
+// punto y mm numéricos o nulos; como mucho MAX_FILAS_CARGA por llamada.
+export const MAX_FILAS_CARGA = 5000;
+const mmValido = (v) => v === null || (typeof v === 'number' && Number.isFinite(v));
+export async function cargarFilas({ almacen, estaciones, cuerpo }) {
+  const lista = cuerpo?.filas;
+  if (!Array.isArray(lista) || !lista.length || lista.length > MAX_FILAS_CARGA) return { ok: false, error: `hacen falta entre 1 y ${MAX_FILAS_CARGA} filas` };
+  const conocidas = new Set(estaciones.map((e) => `${e.fuente}:${e.codigo}`));
+  const malas = lista.filter((f) => !conocidas.has(`${f?.fuente}:${f?.estacion}`) || !esHoraEnPunto(f.hora) || !mmValido(f.mm));
+  if (malas.length) return { ok: false, error: `${malas.length} filas no válidas; la primera: ${JSON.stringify(malas[0]).slice(0, 120)}` };
+  const filas = unicas(lista.map((f) => filaObs(f.fuente, { estacion: f.estacion, hora: new Date(f.hora).toISOString(), mm: f.mm })));
+  await almacen.guardarObs(filas);
+  return { ok: true, guardadas: filas.length };
 }
 
 export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null,

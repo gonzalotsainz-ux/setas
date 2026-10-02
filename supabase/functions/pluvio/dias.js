@@ -15,13 +15,13 @@ export function agregarHoras(filas, desde) {
     const d = dias.get(k) ?? { fuente: f.fuente, estacion: f.estacion, fecha, mm: null, horas: 0, maximo: null };
     if (typeof f.mm === 'number' && Number.isFinite(f.mm) && f.mm >= 0) {
       const horas = f.horas ?? 1;
-      d.mm = r1((d.mm ?? 0) + f.mm);
+      d.mm = (d.mm ?? 0) + f.mm;   // sin redondear: se redondea al final (Euskalmet trae 2 decimales)
       d.horas += horas;
       if (horas === 1) d.maximo = Math.max(d.maximo ?? 0, f.mm);
     }
     dias.set(k, d);
   }
-  return [...dias.values()].sort((a, b) => a.fuente.localeCompare(b.fuente) || a.estacion.localeCompare(b.estacion) || a.fecha.localeCompare(b.fecha));
+  return [...dias.values()].map((d) => (d.mm == null ? d : { ...d, mm: r1(d.mm) })).sort((a, b) => a.fuente.localeCompare(b.fuente) || a.estacion.localeCompare(b.estacion) || a.fecha.localeCompare(b.fecha));
 }
 export function diasDeFilas(filas) {
   return (filas ?? []).flatMap((f) => (f.fechas ?? []).map((fecha, k) => ({ fuente: f.fuente, estacion: f.estacion, fecha: String(fecha).slice(0, 10),
