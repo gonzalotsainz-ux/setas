@@ -45,7 +45,7 @@ export async function publicar({ almacen, hoy, ahora, estaciones, puntos = [], g
   const modelo = cercana.size ? await almacen.precipCeldas([...new Set(cercana.values())], desde) : new Map();
   const modeloDe = (clave, fecha) => modelo.get(cercana.get(clave))?.get(fecha) ?? null;
   const revisados = revisarDias(dias, estaciones, modeloDe);
-  const filas = revisados.map((d) => ({ ...d, actualizado: ahora.toISOString() }));
+  const filas = revisados.map(({ ultima, ...d }) => ({ ...d, actualizado: ahora.toISOString() }));   // lluvia_dia no guarda `ultima`
   for (let k = 0; k < filas.length; k += 1000) { sinTiempo(quedan, 'guardar los días'); await almacen.guardarDias(filas.slice(k, k + 1000)); }
   if (!puntos.length) return { dias: revisados.length };
   const { ultimo, celdas } = construirPublicacion({ revisados, estaciones, puntos, celdas: gruesa.celdas, desde, hasta, generado: ahora.toISOString() });
