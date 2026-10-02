@@ -759,6 +759,35 @@ pudo calcular. `lluvia.mm` es la lluvia diaria desde `lluvia.desde` (índice `ll
 
 Se publican los agregados (iguales para todas las especies) en vez de los factores por especie: el móvil aplica `indiceDesdeAgregados` con los umbrales vigentes, así que una edición en Ajustes se ve sin esperar a la siguiente ejecución.
 
+## Lluvia medida en pluviómetros (bucket `indice`, carpeta `pluvio/`)
+
+La publica la función `pluvio` a las 4 y a las 16 UTC (spec `docs/superpowers/specs/2026-10-01-pluviometros-design.md`).
+Dos archivos con el mismo formato (`supabase/functions/_shared/pluvio.js`, `validarPluvio`):
+
+```json
+{
+  "version": 1, "generado": "2026-10-02T04:10:12.000Z", "desde": "2026-08-01", "hasta": "2026-10-01",
+  "lugares": {
+    "soria-pinar-grande-covaleda": { "mm": [0, 6.4, null, "..."], "n": [1, 2, 0, "..."],
+      "estaciones": [{ "nombre": "Covaleda", "fuente": "duero", "km": 0.3 }], "cercanas": 2 }
+  },
+  "fuentes": { "duero": "2026-10-01", "tajo": "2026-10-01" },
+  "aemet": { "3104Y": { "2026-09-30": 0.4 } }
+}
+```
+
+- `pluvio/ultimo.json`: `lugares` por punto de zona (`supabase/functions/pluvio/puntos.json`); lo leen Hoy y Zona.
+  `fuentes` (última fecha con dato de cada fuente) y `aemet` (lluvia diaria de las estaciones AEMET de la lista blanca,
+  sumada de la horaria, solo días buenos) solo van aquí.
+- `pluvio/celdas.json`: `lugares` por celda gruesa (`data/rejilla/gruesa.json`); lo lee la función `rejilla`.
+- `mm[k]` es la lluvia medida del día `desde + k` (media ponderada de las estaciones válidas; `null` = ningún dato bueno) y
+  `n[k]`, cuántos sitios la dan (estaciones a menos de 1,5 km cuentan como uno). `estaciones`: las que aportan algún día,
+  por distancia (para decir «medida en 3 estaciones (Covaleda, ...)»); `cercanas`: cuántas hay en el radio aunque no aporten.
+  Un lugar sin ninguna estación a menos de 20 km no sale.
+- Se validan antes de subir; primero se sube `celdas.json` (caché 3.600 s) y lo último `ultimo.json` (caché 600 s). Si la
+  ejecución no tiene tiempo para un trozo de guardado o una subida, se para ahí y se apunta el error.
+- Si falta el archivo (o no pasa `validarPluvio`), la app y `rejilla` funcionan como antes, solo con el modelo.
+
 ## data/pueblos.json (buscador del mapa)
 
 `{ version: 1, fuente: { nombre, url, licencia, fecha }, pueblos: [{ n, p, lat, lon }] }`: nombre, provincia y coordenadas (grados ETRS89, 5 decimales) de los núcleos de población dentro del bbox de alguna zona con 0,05° de margen. Lo genera `node scripts/rejilla/pueblos.mjs` (con `--descargar` vuelve a bajar los datos; la descarga se guarda en `_fuentes/pueblos/ngbe-nucleos.csv`, fuera del repo) y lo comprueba `validarPueblos` de `scripts/validar-datos.mjs`.

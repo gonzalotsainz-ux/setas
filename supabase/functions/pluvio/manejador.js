@@ -78,7 +78,7 @@ export async function leerCuerpoCarga(req) {
   try { return { cuerpo: JSON.parse(texto) }; } catch { return { error: 'cuerpo no válido', status: 400 }; }
 }
 
-export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null, gruesa = { celdas: [] },
+export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null, gruesa = { celdas: [] }, puntos = [],
   esperar = dormir, reloj = () => Date.now(), plazo = PLAZO_EJECUCION, senal }) {
   const limite = reloj() + plazo;
   const pedir = crearPedir({ fetchFn, esperar, margen: () => limite - RESERVA_MS - reloj(), ...(senal ? { senal } : {}) });
@@ -90,7 +90,7 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
     const { fuente, leer, paso } = TAREAS[t];
     if (paso) {   // los pasos van después de las lecturas y se hacen aunque estas agotaran su plazo
       if (limite - reloj() < MINIMO_PASO_MS) { r.errores.push(`${t}: sin tiempo para el paso`); continue; }
-      try { r.pasos[t] = await paso({ almacen, hoy, ahora, estaciones, gruesa }); } catch (e) { r.errores.push(`${t}: ${e.message}`); }
+      try { r.pasos[t] = await paso({ almacen, hoy, ahora, estaciones, puntos, gruesa, quedan: () => limite - reloj() }); } catch (e) { r.errores.push(`${t}: ${e.message}`); }
       continue;
     }
     if (agotado) continue;
@@ -124,6 +124,11 @@ export function almacenSupabase(admin) {
     async diasPorEstacion(desde) { return datos(await admin.rpc('lluvia_por_dia', { p_desde: desde })); },
     async guardarDias(filas) {
       for (let k = 0; k < filas.length; k += 1000) datos(await admin.from('lluvia_dia').upsert(filas.slice(k, k + 1000), { onConflict: 'fuente,estacion,fecha' }));
+    },
+    // Bucket público «indice» (el de «rejilla»): pluvio/ultimo.json y pluvio/celdas.json. Las limpiezas de «rejilla»
+    // solo tocan los <sello>.json de la raíz.
+    async subir(nombre, json, cacheControl) {
+      datos(await admin.storage.from('indice').upload(nombre, new Blob([JSON.stringify(json)], { type: 'application/json' }), { upsert: true, contentType: 'application/json', cacheControl }));
     },
     // Lluvia del modelo (best_match) de unas celdas gruesas, de la función SQL de «rejilla»; solo los días observados.
     async precipCeldas(ids, desde) {
