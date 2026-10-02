@@ -1,10 +1,13 @@
-// Pantalla «Ajustes»: este dispositivo, umbrales compartidos, calibración con el diario y créditos. Sin login.
+// Pantalla «Ajustes»: este dispositivo y mi cuenta (perfil y código de recuperación), umbrales compartidos,
+// calibración con el diario y créditos.
 import { el } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
 import { nombreCorto } from '../datos.js';
 import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
 import { hoyMadrid } from '../meteo.js';
-import { supabase, autorActual, elegirAutor } from '../supabase.js';
+import { supabase, autorActual } from '../supabase.js';
+import { renombrarPerfil, regenerarRecuperacion, textoError } from '../cuenta.js';
+import { cuentaActual, requerirCuenta, mostrarCodigoRecuperacion, fijarCuenta } from './cuenta-ui.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
 import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
@@ -33,14 +36,29 @@ function bloqueDispositivo() {
   const nombre = el('b');
   const cambiar = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Cambiar' });
   const linea = el('p', { clase: 'ajustes-linea' }, 'Apuntas como ', nombre, ' ', cambiar);
+  const resultadoNombre = el('p', { clase: 'texto-2', role: 'alert' });
   const formulario = el('form', { clase: 'ajustes-autor', hidden: true });
   const campo = el('input', { type: 'text', id: 'ajustes-autor', maxLength: 40, autocomplete: 'off' });
-  formulario.append(el('div', { clase: 'campo' }, el('label', { texto: 'Tu nombre en este dispositivo', htmlFor: 'ajustes-autor' }), campo),
+  formulario.append(el('div', { clase: 'campo' }, el('label', { texto: 'Tu nombre', htmlFor: 'ajustes-autor' }), campo),
     el('div', { clase: 'ajustes-botones' }, el('button', { type: 'submit', clase: 'boton boton--compacto', texto: 'Guardar nombre' }),
       el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Cancelar', onclick: () => { formulario.hidden = true; } })));
-  const pintarNombre = () => { nombre.textContent = autorActual() ?? 'nadie (aún no has dicho quién eres)'; };
-  cambiar.onclick = () => { campo.value = autorActual() ?? ''; formulario.hidden = false; campo.focus(); };
-  formulario.onsubmit = (ev) => { ev.preventDefault(); elegirAutor(campo.value); pintarNombre(); formulario.hidden = true; };
+  const pintarNombre = () => { nombre.textContent = autorActual() ?? 'nadie (aún no tienes perfil)'; };
+  cambiar.onclick = async () => {
+    const c = await cuentaActual();
+    if (!c) { try { await requerirCuenta(); } catch (e) { resultadoNombre.textContent = e.message; } pintarNombre(); return; }
+    campo.value = c.nombre; formulario.hidden = false; campo.focus();
+  };
+  formulario.onsubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      const n = campo.value.trim();
+      if (!n) return;
+      await renombrarPerfil(n, { supabase });
+      const c = await cuentaActual();
+      fijarCuenta({ id: c.id, nombre: n });
+      pintarNombre(); formulario.hidden = true; resultadoNombre.textContent = '';
+    } catch (x) { resultadoNombre.textContent = textoError(x); }
+  };
   pintarNombre();
 
   const cola = colaBorradores();
@@ -65,7 +83,24 @@ function bloqueDispositivo() {
     reintentar.disabled = false; pintarCola();
   };
   pintarCola();
-  return seccion('Este dispositivo', linea, formulario, estadoCola, reintentar, resultado);
+  return seccion('Este dispositivo', linea, formulario, resultadoNombre, estadoCola, reintentar, resultado);
+}
+
+// ---------- Mi cuenta ----------
+function bloqueCuenta() {
+  const estado = el('p', { clase: 'texto-2', role: 'status' });
+  const nuevo = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Generar un código de recuperación nuevo' });
+  nuevo.onclick = async () => {
+    if (!(await cuentaActual())) { estado.textContent = 'Primero crea tu perfil.'; return; }
+    if (!confirm('El código anterior dejará de valer. ¿Generar uno nuevo?')) return;
+    nuevo.disabled = true;
+    try { await mostrarCodigoRecuperacion(await regenerarRecuperacion({ supabase }), { titulo: 'Tu código nuevo' }); estado.textContent = 'Código nuevo generado.'; }
+    catch (e) { estado.textContent = textoError(e); }
+    nuevo.disabled = false;
+  };
+  return seccion('Mi cuenta',
+    el('p', { texto: 'Tu cuenta vive en este dispositivo. Para pasarla a otro móvil usa tu código de recuperación (en el móvil nuevo: Diario → Crear perfil → «Ya tengo una cuenta en otro móvil»).' }),
+    nuevo, estado);
 }
 
 // ---------- Umbrales ----------
@@ -241,6 +276,6 @@ export function pintar({ estado }) {
   estado.umbrales ??= {};
   const v = fechaDatos(estado.datos);
   return el('div', { clase: 'ajustes' }, el('h1', { texto: 'Ajustes' }),
-    bloqueDispositivo(), bloqueUmbrales(estado), bloqueCalibracion(estado), bloqueCreditos(estado.datos, estado),
+    bloqueDispositivo(), bloqueCuenta(), bloqueUmbrales(estado), bloqueCalibracion(estado), bloqueCreditos(estado.datos, estado),
     el('p', { clase: 'texto-2 ajustes-pie', texto: `Versión de los datos: ${v ? fechaCorta(`${v}T12:00:00`) : 'sin fecha'}` }));
 }
