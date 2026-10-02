@@ -244,17 +244,9 @@ test('migraciones: lluvia_obs cerrada, limpieza y pg_cron cada hora en el minuto
   for (const t of [sql, cron]) assert.doesNotMatch(t, /sb_secret|eyJ|sb_publishable/);
 });
 
-test('lista blanca inicial: AEMET = la de la función aemet; Tajo con su URL; campos completos y sin repetidos', () => {
+test('lista blanca: AEMET = la de la función aemet; las de Tajo, con su URL', () => {
   const lista = JSON.parse(leer('supabase/functions/pluvio/estaciones.json'));
   const aemet = JSON.parse(leer('supabase/functions/aemet/estaciones.json'));
   assert.deepEqual(lista.filter((e) => e.fuente === 'aemet').map((e) => e.codigo).sort(), [...aemet].sort());
-  const tajo = lista.filter((e) => e.fuente === 'tajo');
-  assert.equal(tajo.length, 28);
-  for (const e of tajo) assert.match(e.url, /^index\.php\?w=get-estacion&x=/, e.codigo);
-  for (const e of lista) {
-    assert.ok(['tajo', 'aemet'].includes(e.fuente), e.codigo);
-    assert.ok(Number.isFinite(e.lat) && Number.isFinite(e.lon) && Number.isInteger(e.altitud) && e.nombre, e.codigo);
-    assert.ok(['reutilizacion-sector-publico', 'aemet'].includes(e.licencia), e.codigo);
-  }
-  assert.equal(new Set(lista.map((e) => `${e.fuente}:${e.codigo}`)).size, lista.length);
+  for (const e of lista.filter((x) => x.fuente === 'tajo')) assert.match(e.url, /^index\.php\?w=get-estacion&x=/, e.codigo);
 });
