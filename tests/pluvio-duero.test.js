@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { estacionesDeRisr, historicoDeFicha, altitudDeFicha, esHistoricoDeLluvia, horasDeHistorico, leerDuero } from '../supabase/functions/pluvio/lectores/duero.js';
-import { crearPedir } from '../supabase/functions/pluvio/red.js';
+import { crearPedir, PlazoAgotado } from '../supabase/functions/pluvio/red.js';
 import { fechaMadridDeFin } from '../supabase/functions/pluvio/tiempo.js';
 import { fuentesQueTocan, ejecutar } from '../supabase/functions/pluvio/manejador.js';
 import { fixture, respuesta, servidorFalso, almacenPluvioMemoria } from './dobles-pluvio.js';
@@ -67,7 +67,7 @@ test('leerDuero: con el token guardado y solo desde la fecha pedida', async () =
 
 test('leerDuero: si el token guardado ya no vale lo busca en la ficha; sin histórico, error y sigue', async () => {
   const r = await leerDuero({ pedir: pedirCon(rutasDuero()), estaciones: [{ ...PL031, token: 'viejo' }, { ...PL002, token: 'viejo' }], desde: '2026-09-28' });
-  assert.deepEqual(r.errores, ['PL031: sin histórico de lluvia en la ficha']);
+  assert.deepEqual(r.errores, ['PL031: sin histórico de lluvia en la ficha', 'PL002: token renovado (xADTQNURfJDMwwEU)']);
   assert.equal(r.filas.length, 76);
 });
 
@@ -97,10 +97,36 @@ test('ejecutar: duero guarda desde hace 4 días; duero90, desde el 1 de agosto',
   assert.equal(b.obs.get('duero|PL002|2026-08-27T11:00:00.000Z').fuente, 'duero');
 });
 
-test('ejecutar: si falla el guardado se conservan los errores de lectura y el aviso de plazo agotado', async () => {
+test('ejecutar: si falla el guardado se conservan los errores de lectura', async () => {
   const ahora = new Date('2026-10-02T03:10:00Z');
   const a = { ...almacenPluvioMemoria(), async guardarObs() { throw new Error('base caída'); } };
   const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutasDuero()), esperar: sinEspera, ahora, estaciones: [PL002, { ...PL031, codigo: 'PL999', token: null }], pedidas: ['duero'] });
   assert.ok(r.errores.includes('duero: base caída'));
   assert.ok(r.errores.some((e) => e.startsWith('duero: PL999:')));
+});
+
+test('ejecutar: lector con plazo agotado y guardado fallido → el bucle para (no lee duero90)', async () => {
+  const ahora = new Date('2026-10-02T03:10:00Z');
+  const a = { ...almacenPluvioMemoria(), async guardarObs() { throw new Error('base caída'); } };
+  const rutas = rutasDuero([[(u) => u.endsWith('/risr/PL999'), () => { throw new PlazoAgotado(); }]]);
+  const r = await ejecutar({ almacen: a, fetchFn: servidorFalso(rutas), esperar: sinEspera, ahora, estaciones: [PL002, { ...PL031, codigo: 'PL999', token: null }], pedidas: ['duero', 'duero90'] });
+  assert.equal(r.estado, 'plazo-agotado');
+  assert.ok(r.errores.includes('duero: base caída'));
+  assert.ok(r.errores.includes('duero: plazo agotado'));
+  assert.ok(!r.errores.some((e) => e.startsWith('duero90')));
+});
+
+test('histórico: valor vacío, null o solo espacios es un hueco (mm null), nunca 0, y no se guarda', async () => {
+  const html = "<script>// title: 'Pluviometría'\nvar chartData = [{d:\"01/10/2026 10:00\", v:}, {d:\"01/10/2026 11:00\", v:null}, {d:\"01/10/2026 12:00\", v:  }, {d:\"01/10/2026 13:00\", v:0.0}, {d:\"01/10/2026 14:00\", v:1.2}];</script>";
+  const filas = horasDeHistorico(html, 'PL002');
+  assert.deepEqual(filas.map((f) => f.mm), [null, null, null, 0, 1.2]);
+  const pedir = pedirCon([[(u) => u.includes('/historico/'), () => respuesta(200, html)]]);
+  const r = await leerDuero({ pedir, estaciones: [PL002], desde: '2026-10-01' });
+  assert.deepEqual(r.filas.map((f) => f.mm), [0, 1.2]);
+});
+
+test('histórico: en el cambio de hora del 25/10 la segunda 02:00 va una hora UTC más tarde', () => {
+  const html = "<script>// title: 'Pluviometría'\nvar chartData = [" + ['01:00', '02:00', '02:00', '03:00'].map((h, k) => `{d:"25/10/2026 ${h}", v:${k}}`).join(',') + '];</script>';
+  assert.deepEqual(horasDeHistorico(html, 'PL002').map((f) => f.hora),
+    ['2026-10-24T23:00:00.000Z', '2026-10-25T00:00:00.000Z', '2026-10-25T01:00:00.000Z', '2026-10-25T02:00:00.000Z']);
 });

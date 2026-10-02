@@ -24,11 +24,17 @@ export function altitudDeFicha(html) {
   return z ? Number(z.replace(/\./g, '')) : null;   // «1.445» → 1445
 }
 export const esHistoricoDeLluvia = (html) => /title: 'Pluviometr/.test(html) && html.includes('chartData');
+// Dos filas de la misma hora local (la segunda 02:00 del 25/10) salen con la misma hora UTC: si una hora no avanza
+// respecto a la anterior de la serie es la segunda y va una hora UTC más tarde (como en Tajo).
 export function horasDeHistorico(html, codigo) {
+  let previa = -Infinity;
   return [...html.matchAll(/\{d:"(\d\d\/\d\d\/\d{4} \d\d:\d\d)",\s*v:([^}]*)\}/g)].flatMap((m) => {
-    const hora = horaDeTexto(m[1]);
+    let hora = horaDeTexto(m[1]);
     if (!hora) return [];
-    const v = Number(m[2]);
+    if (Date.parse(hora) <= previa) hora = new Date(Date.parse(hora) + 3600e3).toISOString();
+    previa = Date.parse(hora);
+    const txt = m[2].trim();   // vacío o «null» no es 0 mm: es un hueco
+    const v = txt === '' ? NaN : Number(txt);
     return [{ estacion: codigo, hora, mm: Number.isFinite(v) ? v : null }];
   });
 }
@@ -52,8 +58,10 @@ export async function leerDuero({ pedir, estaciones, desde }) {
         if (token === e.token) throw new Error('sin histórico de lluvia');
         horas = await horasCon(e.codigo, token);
         if (!horas.length) throw new Error('sin histórico de lluvia');
+        if (e.token) errores.push(`${e.codigo}: token renovado (${token})`);   // para actualizar estaciones.json
       }
-      filas.push(...horas.filter((h) => fechaMadridDeFin(h.hora) >= desde));
+      // Los huecos (mm null) no se guardan: no deben pisar un valor bueno ya registrado.
+      filas.push(...horas.filter((h) => h.mm != null && fechaMadridDeFin(h.hora) >= desde));
     } catch (err) {
       if (err instanceof PlazoAgotado) return { filas, errores, agotado: true };
       errores.push(`${e.codigo}: ${err.message}`);
