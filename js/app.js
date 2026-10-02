@@ -13,9 +13,10 @@ const pantallas = {
   hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
   seguridad: () => import('./pantallas/seguridad.js'), diario: () => import('./pantallas/diario.js'), ajustes: () => import('./pantallas/ajustes.js'),
+  grupos: () => import('./pantallas/grupos.js'), unirse: () => import('./pantallas/unirse.js'),
 };
 const carrera = guardia();   // un pintado asíncrono antiguo no puede pisar a uno más nuevo
-const SECCION = { zona: 'mapa', especie: 'especies', seguridad: 'especies' };   // la sección de la barra que queda marcada
+const SECCION = { zona: 'mapa', especie: 'especies', seguridad: 'especies', grupos: 'diario', unirse: 'diario' };   // la sección de la barra que queda marcada
 
 function error(raiz, titulo, detalle) {
   const t = document.createElement('div');
