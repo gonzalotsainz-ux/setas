@@ -3,19 +3,21 @@
 // (vía .nojekyll). Sin DOM ni red.
 //  - Mezcla: para un lugar (punto de zona o celda gruesa), la lluvia de un día es la media ponderada de las estaciones
 //    válidas a menos de 20 km y 600 m de desnivel; peso = 1/km² (desde 1 km) / (1 + |desnivel| / 300). [CRITERIO PROPIO]
-//    Solo entran los días con calidad «ok» (validosDe). Las estaciones a menos de 1,5 km entre sí (la misma publicada por
-//    dos fuentes: C010/C076, 9178X/C00A, 8210Y/5N03, 3319D/PN34) son un solo sitio: la media de las que dan dato, con el
-//    peso medio de ellas; `n` cuenta sitios, no estaciones.
+//    Solo entran los días con calidad «ok» (validosDe). Una estación a menos de 1,5 km de otra más cercana al lugar (la
+//    misma publicada por dos fuentes: C010/C076, 9178X/C00A, 8210Y/5N03, 3319D/PN34) se une a su sitio, sin encadenar:
+//    el sitio vale la media de las que dan dato, con el peso fijo de la más cercana; `n` cuenta sitios, no estaciones.
 //  - Sesgo: en los días sin estación válida, el modelo se multiplica por el cociente medido/modelo de los últimos 30 días
-//    en los lugares de la zona que sí tienen estación, acotado entre 0,5 y 2; con menos de 10 días o menos de 10 mm del
-//    modelo no se corrige.
+//    en los lugares de la zona que sí tienen estación: por fecha la media de los lugares, (medido + 5) / (modelo + 5) y
+//    acotado entre 0,5 y 2. No se corrige con menos de 10 fechas, menos de 10 mm de modelo o menos de 3 días mojados
+//    (≥ 1 mm): una sola tormenta mal situada no debe doblar ni partir la lluvia. Corrige también la lluvia anterior a la
+//    serie si no está medida entera.
 //  - Archivos publicados (pluvio/ultimo.json por punto de zona, pluvio/celdas.json por celda gruesa):
 //    { version, generado, desde, hasta, lugares: { id: { mm, n, estaciones, cercanas } }, fuentes?, aemet? } (docs/datos.md).
 import { sumarDias, entreDias } from './meteo.js';
 
 export const VERSION_PLUVIO = 1;
 export const MEZCLA = Object.freeze({ radioKm: 20, desnivelMax: 600, escalaDesnivel: 300, kmMin: 1, duplicadaKm: 1.5 });
-export const SESGO = Object.freeze({ dias: 30, min: 0.5, max: 2, modeloMinimo: 10, paresMinimos: 10 });
+export const SESGO = Object.freeze({ dias: 30, min: 0.5, max: 2, modeloMinimo: 10, fechasMinimas: 10, diasMojados: 3, mojadoMm: 1, suavizado: 5 });
 const r1 = (x) => Math.round(x * 10) / 10;
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -31,8 +33,9 @@ export function pesoEstacion(km, desnivel, m = MEZCLA) {
   if (!(km <= m.radioKm) || !(Math.abs(desnivel) <= m.desnivelMax)) return 0;
   return 1 / Math.max(km, m.kmMin) ** 2 / (1 + Math.abs(desnivel) / m.escalaDesnivel);
 }
-// Las estaciones en radio, de la más cercana a la más lejana; `grupo` es la clave de la más cercana de su sitio (las que
-// están a menos de `duplicadaKm` de otra anterior comparten su grupo).
+// Las estaciones en radio, de la más cercana a la más lejana. `grupo` es la clave del representante de su sitio (la más
+// cercana al lugar) y `pesoSitio` su peso: una estación a menos de `duplicadaKm` de un representante anterior se une a él;
+// solo se compara con representantes, para que una cadena de estaciones a 1,2 km no acabe en un sitio de 3 km.
 export function cercanas(lugar, estaciones, m = MEZCLA) {
   const lista = estaciones.flatMap((e) => {
     const km = distanciaKm(lugar, e);
@@ -40,22 +43,23 @@ export function cercanas(lugar, estaciones, m = MEZCLA) {
     const peso = pesoEstacion(km, e.altitud - lugar.altitud, m);
     return peso > 0 ? [{ e, c: { clave: `${e.fuente}:${e.codigo}`, nombre: e.nombre, fuente: e.fuente, km: r1(km), peso } }] : [];
   }).sort((a, b) => a.c.km - b.c.km);
-  return lista.map(({ e, c }, k) => {
-    const igual = lista.slice(0, k).find((o) => distanciaKm(o.e, e) < m.duplicadaKm);
-    c.grupo = igual ? igual.c.grupo : c.clave;
-    return c;
+  const reps = [];
+  return lista.map(({ e, c }) => {
+    const rep = reps.find((o) => distanciaKm(o.e, e) < m.duplicadaKm);
+    if (!rep) reps.push({ e, c });
+    return Object.assign(c, { grupo: rep ? rep.c.clave : c.clave, pesoSitio: rep ? rep.c.peso : c.peso });
   });
 }
-// Media ponderada por sitio: dentro de un sitio, la media de sus estaciones con dato y el peso medio de ellas.
+// Media ponderada por sitio: el sitio vale la media de sus estaciones con dato y pesa lo de su representante.
 export function mezclarDia(cerca, valores) {
   const sitios = new Map();
   for (const c of cerca) if (valores.has(c.clave)) {
-    const g = c.grupo ?? c.clave, t = sitios.get(g) ?? { s: 0, w: 0, k: 0 };
-    t.s += valores.get(c.clave); t.w += c.peso; t.k++;
+    const g = c.grupo ?? c.clave, t = sitios.get(g) ?? { s: 0, k: 0, w: c.pesoSitio ?? c.peso };
+    t.s += valores.get(c.clave); t.k++;
     sitios.set(g, t);
   }
   let s = 0, w = 0;
-  for (const t of sitios.values()) { s += (t.w / t.k) * (t.s / t.k); w += t.w / t.k; }
+  for (const t of sitios.values()) { s += t.w * (t.s / t.k); w += t.w; }
   return sitios.size ? { mm: r1(s / w), n: sitios.size } : null;
 }
 // De los días revisados (calidad.js) a Map<'fuente:codigo', Map<fecha, mm>>: solo los de calidad «ok».
@@ -95,19 +99,34 @@ export function paresSesgo(serie, medida, desde, hasta, dias = SESGO.dias) {
   return serie.fechas.flatMap((f, j) => {
     if (j >= serie.hoy || f < inicio || f > hasta || f < desde) return [];
     const m = medida.mm[entreDias(desde, f)], p = serie.precip[j];
-    return m != null && p != null && !Number.isNaN(p) ? [{ medida: m, modelo: p }] : [];
+    return Number.isFinite(m) && Number.isFinite(p) ? [{ fecha: f, medida: m, modelo: p }] : [];
   });
 }
+// Pares de todos los lugares de una zona con estación: por fecha, la media de los lugares; luego la suma del periodo.
 export function factorSesgo(pares, s = SESGO) {
-  if (pares.length < s.paresMinimos) return 1;
-  const med = pares.reduce((t, p) => t + p.medida, 0), mod = pares.reduce((t, p) => t + p.modelo, 0);
-  if (mod < s.modeloMinimo) return 1;
-  return Math.round(Math.min(s.max, Math.max(s.min, med / mod)) * 100) / 100;
+  const porFecha = new Map();
+  for (const p of pares) {
+    if (!Number.isFinite(p?.medida) || !Number.isFinite(p?.modelo)) continue;
+    const t = porFecha.get(p.fecha) ?? { medida: 0, modelo: 0, k: 0 };
+    t.medida += p.medida; t.modelo += p.modelo; t.k++;
+    porFecha.set(p.fecha, t);
+  }
+  if (porFecha.size < s.fechasMinimas) return 1;
+  let med = 0, mod = 0, mojados = 0;
+  for (const t of porFecha.values()) {
+    const me = t.medida / t.k, mo = t.modelo / t.k;
+    med += me; mod += mo;
+    if (me >= s.mojadoMm || mo >= s.mojadoMm) mojados++;
+  }
+  if (mod < s.modeloMinimo || mojados < s.diasMojados) return 1;
+  const f = Math.round(Math.min(s.max, Math.max(s.min, (med + s.suavizado) / (mod + s.suavizado))) * 100) / 100;
+  return Number.isFinite(f) ? f : 1;
 }
 
 // La serie con la lluvia medida en los días del tramo [desde, hasta] que la tienen ('medida') y el modelo corregido por
 // `factor` en los demás días pasados del tramo ('estimada'). Hoy y la previsión siguen siendo del modelo. Si la medida
-// cubre entera la lluvia anterior a la serie (del 1 de agosto al día antes de su primera fecha), la sustituye.
+// cubre entera la lluvia anterior a la serie (del 1 de agosto al día antes de su primera fecha), la sustituye; si no, la
+// corrige también por `factor` ('estimada').
 export function aplicarMedida(serie, medida, { desde, hasta, factor = 1 }) {
   if (!medida && factor === 1) return serie;
   const precip = [...serie.precip], origenPrecip = serie.origenPrecip ? [...serie.origenPrecip] : serie.fechas.map(() => 'modelo');
@@ -116,14 +135,18 @@ export function aplicarMedida(serie, medida, { desde, hasta, factor = 1 }) {
     if (j >= serie.hoy || f < desde || f > hasta) return;
     const v = medida?.mm?.[entreDias(desde, f)];
     if (v != null) { precip[j] = v; origenPrecip[j] = 'medida'; cambia = true; }
-    else if (factor !== 1 && precip[j] != null && !Number.isNaN(precip[j])) { precip[j] = precip[j] * factor; origenPrecip[j] = 'estimada'; cambia = true; }
+    else if (factor !== 1 && precip[j] != null && !Number.isNaN(precip[j])) { precip[j] = r1(precip[j] * factor); origenPrecip[j] = 'estimada'; cambia = true; }
   });
   let lluviaAntesDeSerie = serie.lluviaAntesDeSerie;
   const antes = serie.lluviaAntesDeSerie;
+  let medidaEntera = false;
   if (medida?.mm && antes?.desde && antes.desde >= desde) {
     const n = entreDias(antes.desde, serie.fechas[0]), k0 = entreDias(desde, antes.desde);
     const vals = Array.from({ length: n }, (_, k) => medida.mm[k0 + k]);
-    if (n > 0 && vals.every((v) => v != null)) { lluviaAntesDeSerie = { ...antes, mm: r1(vals.reduce((a, b) => a + b, 0)), origen: 'medida' }; cambia = true; }
+    if (n > 0 && vals.every((v) => v != null)) { lluviaAntesDeSerie = { ...antes, mm: r1(vals.reduce((a, b) => a + b, 0)), origen: 'medida' }; cambia = medidaEntera = true; }
+  }
+  if (!medidaEntera && factor !== 1 && Number.isFinite(antes?.mm)) {
+    lluviaAntesDeSerie = { ...antes, mm: r1(antes.mm * factor), origen: 'estimada' }; cambia = true;
   }
   return cambia ? { ...serie, precip, origenPrecip, lluviaAntesDeSerie } : serie;
 }

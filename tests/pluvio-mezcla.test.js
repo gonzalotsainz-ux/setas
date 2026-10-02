@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { pesoEstacion, cercanas, mezclarDia, seriesMedidas, paresSesgo, factorSesgo, aplicarMedida, validarPluvio, VERSION_PLUVIO, validosDe, distanciaKm, MEZCLA } from '../supabase/functions/_shared/pluvio.js';
 import { calcularIndice } from '../supabase/functions/_shared/indice.js';
 import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
+import { sumarDias } from '../supabase/functions/_shared/meteo.js';
 
 const est = (codigo, lat, altitud = 1200) => ({ fuente: 'tajo', codigo, nombre: codigo, lat, lon: -4, altitud });
 const LUGAR = { id: 'p', lat: 40, lon: -4, altitud: 1200 };
@@ -43,14 +44,33 @@ test('seriesMedidas: un valor por día con las estaciones que lo dan; sin estaci
   assert.deepEqual(r.roto, { mm: [null, null, null], n: [0, 0, 0], estaciones: [], cercanas: 1 });
 });
 
-test('sesgo: cociente de 30 días acotado entre 0,5 y 2; con pocos datos, 1', () => {
-  const pares = (n, medida, modelo) => Array.from({ length: n }, () => ({ medida, modelo }));
-  assert.equal(factorSesgo(pares(10, 3, 2)), 1.5);
-  assert.equal(factorSesgo(pares(9, 3, 2)), 1);       // menos de 10 días
-  assert.equal(factorSesgo(pares(10, 1, 0.9)), 1);    // el modelo casi seco: 9 mm, no se corrige
-  assert.equal(factorSesgo(pares(10, 10, 2)), 2);
-  assert.equal(factorSesgo(pares(10, 0.1, 2)), 0.5);
+// Ruling (tarea 9): por fecha la media de los lugares, (medido + 5) / (modelo + 5), acotado 0,5-2; sin corregir con menos
+// de 10 fechas, menos de 10 mm de modelo o menos de 3 días mojados (≥ 1 mm).
+const dia = (k) => sumarDias('2026-09-01', k);
+const pares = (n, medida, modelo, desde = 0) => Array.from({ length: n }, (_, k) => ({ fecha: dia(desde + k), medida, modelo }));
+test('sesgo: cociente suavizado de 30 días acotado entre 0,5 y 2; con pocos datos, 1', () => {
+  assert.equal(factorSesgo(pares(10, 3, 2)), 1.4);       // (30 + 5) / (20 + 5)
+  assert.equal(factorSesgo(pares(9, 3, 2)), 1);          // menos de 10 fechas
+  assert.equal(factorSesgo(pares(10, 1, 0.9)), 1);       // el modelo casi seco: 9 mm, no se corrige
+  assert.equal(factorSesgo(pares(10, 10, 2)), 2);        // 105 / 25, acotado
+  assert.equal(factorSesgo(pares(10, 0.1, 2)), 0.5);     // 6 / 25, acotado
   assert.equal(factorSesgo([]), 1);
+});
+test('sesgo robusto: una tormenta sola, muchos puntos de pocos días o medida rota no corrigen', () => {
+  assert.equal(factorSesgo([...pares(9, 0, 0), { fecha: dia(9), medida: 20, modelo: 10 }]), 1);   // un solo día mojado
+  assert.equal(factorSesgo([...pares(9, 0, 0), { fecha: dia(9), medida: 0, modelo: 10.1 }]), 1);
+  const cincoPuntos = [0, 1].flatMap((k) => Array.from({ length: 5 }, () => ({ fecha: dia(k), medida: 3, modelo: 1 })));
+  assert.equal(cincoPuntos.length, 10);
+  assert.equal(factorSesgo(cincoPuntos), 1);                                                       // 10 pares, 2 fechas
+  assert.equal(factorSesgo([...pares(8, 0, 0), ...pares(2, 12, 6, 8)]), 1);                        // 2 días mojados
+  assert.equal(factorSesgo([...pares(7, 0, 0), ...pares(3, 8, 4, 7)]), 1.71);                      // 3 mojados: 29 / 17
+  assert.equal(factorSesgo(pares(10, NaN, 2)), 1);
+  assert.equal(factorSesgo([...pares(10, 3, 2), { fecha: dia(3), medida: Infinity, modelo: 2 }]), 1.4);   // el par roto se ignora
+});
+test('sesgo: cuatro días mojados repartidos y dos puntos por fecha, cociente de las medias por fecha', () => {
+  const mojado = (k) => [{ fecha: dia(k), medida: 6, modelo: 5 }, { fecha: dia(k), medida: 10, modelo: 5 }];   // media 8 / 5
+  const secos = [0, 2, 4, 6, 8, 9].flatMap((k) => [{ fecha: dia(k), medida: 0, modelo: 0 }, { fecha: dia(k), medida: 0, modelo: 0 }]);
+  assert.equal(factorSesgo([...secos, ...[1, 3, 5, 7].flatMap(mojado)]), 1.48);   // (32 + 5) / (20 + 5)
 });
 
 // Serie de 60 días del 03/08 al 01/10 (hoy = 01/10) y medida del 01/08 al 30/09 (61 días).
@@ -62,7 +82,7 @@ test('paresSesgo: solo los últimos 30 días hasta «hasta» con medida y modelo
   const m = medidaCon(Object.fromEntries(Array.from({ length: 12 }, (_, k) => [60 - k, 1])));   // del 19/09 al 30/09
   const p = paresSesgo(s, m, DESDE, HASTA);
   assert.equal(p.length, 12);
-  assert.deepEqual(p[0], { medida: 1, modelo: 2 });
+  assert.deepEqual(p[0], { fecha: '2026-09-19', medida: 1, modelo: 2 });
   assert.equal(paresSesgo(s, medidaCon({ 2: 5 }), DESDE, HASTA).length, 0);   // el 03/08 queda fuera de los 30 días
 });
 
@@ -74,7 +94,11 @@ test('aplicarMedida: medido donde lo hay, el modelo corregido en el resto del tr
   assert.deepEqual([r.precip[58], r.origenPrecip[58]], [5, 'medida']);
   assert.deepEqual([r.precip[0], r.origenPrecip[0]], [3, 'estimada']);
   assert.deepEqual([r.precip[59], r.origenPrecip[59]], [2, 'modelo']);   // hoy
+  assert.deepEqual(r.lluviaAntesDeSerie, { desde: '2026-08-01', mm: 30, origen: 'estimada' });   // 01-02/08 sin medir: 20 × 1,5
   assert.equal(s.precip[57], 2, 'no se toca la serie de entrada');
+  const s3 = serieSintetica({ inicio: '2026-08-03', precip: () => 0.3, lluviaAntes: { mm: 7.3 } });
+  const r3 = aplicarMedida(s3, null, { desde: DESDE, hasta: HASTA, factor: 1.37 });
+  assert.deepEqual([r3.precip[0], r3.lluviaAntesDeSerie.mm, r3.precip[59]], [0.4, 10, 0.3]);   // estimados en décimas: 0,411 y 10,001
 });
 
 test('aplicarMedida: sin medida y sin corrección devuelve la misma serie; la lluvia antes de la serie, medida si está entera', () => {
@@ -101,19 +125,30 @@ test('el módulo compartido no usa el DOM (Deno no tiene document)', () => {
 });
 
 // Carry de la tarea 7: la misma estación publicada por dos fuentes (C010/C076, 9178X/C00A, 8210Y/5N03, 3319D/PN34, a
-// menos de 1,3 km) cuenta como un solo sitio: media del grupo con el peso medio de las que dan dato ese día.
+// menos de 1,3 km) cuenta como un solo sitio: media de las que dan dato ese día, con el peso fijo del representante.
 test('duplicadas entre fuentes (< 1,5 km): un solo sitio en la mezcla, no pesan doble', () => {
   const dup = { fuente: 'aemet', codigo: 'D', nombre: 'D', lat: 40.0225, lon: -4, altitud: 1200 };   // a 0,5 km de S1
   const estaciones = [est('S1', 40.018), dup, est('S2', 39.982)];
   const l = cercanas(LUGAR, estaciones);
   assert.deepEqual(l.map((c) => [c.clave, c.grupo]), [['tajo:S1', 'tajo:S1'], ['tajo:S2', 'tajo:S2'], ['aemet:D', 'tajo:S1']]);
-  // S1 = 10 (peso 0,25), D = 20 (peso 0,16) → sitio 15 con peso 0,205; S2 = 0 (peso 0,25) → 3,075 / 0,455 = 6,8 (sin agrupar, 8,6).
-  assert.deepEqual(mezclarDia(l, mapa({ 'tajo:S1': 10, 'aemet:D': 20, 'tajo:S2': 0 })), { mm: 6.8, n: 2 });
-  assert.deepEqual(mezclarDia(l, mapa({ 'aemet:D': 20, 'tajo:S2': 0 })), { mm: 7.8, n: 2 });   // 0,16·20 / 0,41
+  assert.equal(l[2].pesoSitio, l[0].peso);
+  // S1 = 10, D = 20 → sitio 15 con el peso de S1; S2 = 0 con el mismo peso → 7,5 (sin agrupar, 8,6).
+  assert.deepEqual(mezclarDia(l, mapa({ 'tajo:S1': 10, 'aemet:D': 20, 'tajo:S2': 0 })), { mm: 7.5, n: 2 });
+  assert.deepEqual(mezclarDia(l, mapa({ 'aemet:D': 20, 'tajo:S2': 0 })), { mm: 10, n: 2 });   // el sitio pesa lo mismo con un solo miembro
   assert.deepEqual(mezclarDia(l, mapa({ 'tajo:S1': 10, 'aemet:D': 20 })), { mm: 15, n: 1 });
   const validos = new Map([['tajo:S1', mapa({ '2026-09-28': 10 })], ['aemet:D', mapa({ '2026-09-28': 20 })], ['tajo:S2', mapa({ '2026-09-28': 0 })]]);
   const r = seriesMedidas([LUGAR], estaciones, validos, '2026-09-28', '2026-09-28');
-  assert.deepEqual([r.p.mm, r.p.n, r.p.estaciones.map((e) => e.nombre), r.p.cercanas], [[6.8], [2], ['S1', 'S2', 'D'], 3]);
+  assert.deepEqual([r.p.mm, r.p.n, r.p.estaciones.map((e) => e.nombre), r.p.cercanas], [[7.5], [2], ['S1', 'S2', 'D'], 3]);
+});
+
+test('duplicadas: el peso del sitio no depende de qué miembro da dato, y no se encadenan', () => {
+  const e = (c, lat) => ({ fuente: 't', codigo: c, nombre: c, lat, lon: -4, altitud: 1200 });
+  const l = cercanas(LUGAR, [e('A', 40.0045), e('B', 40.017), e('Z', 40.05)]);   // A a 0,5 km, B a 1,9 (1,4 de A), Z a 5,6
+  assert.deepEqual(l.map((c) => c.grupo), ['t:A', 't:A', 't:Z']);
+  const tres = [mezclarDia(l, mapa({ 't:A': 10, 't:B': 10, 't:Z': 0 })), mezclarDia(l, mapa({ 't:B': 10, 't:Z': 0 })), mezclarDia(l, mapa({ 't:A': 10, 't:Z': 0 }))];
+  assert.deepEqual(tres, Array(3).fill({ mm: 9.7, n: 2 }));   // 10 · 1 / (1 + 1 / 5,56²)
+  const cadena = cercanas(LUGAR, [e('A', 40.05), e('B', 40.0608), e('C', 40.0716)]);   // cada 1,2 km
+  assert.deepEqual(cadena.map((c) => c.grupo), ['t:A', 't:A', 't:C']);
 });
 
 test('validosDe: solo los días con calidad «ok» y mm válido entran en la mezcla', () => {
