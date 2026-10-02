@@ -2,7 +2,7 @@
 import { el } from './ui/dom.js';
 import { NIVELES, nivelDe, semaforo, palabraDe } from './ui/semaforo.js';
 import { indiceZona } from './indice.js';
-import { especiesDeZona, nombreCorto } from './datos.js';
+import { especiesDeZona, nombreCorto, rotuloPunto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
 import { hoyMadrid } from './meteo.js';
 import { COLOR, NIVEL_COLOR } from './mapa/colores.js';
@@ -126,6 +126,8 @@ function popupPunto(zona, punto, nota, meteo) {
   const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: punto.nombre }), el('p', { clase: 'texto-2 texto-s', texto: zona.nombre }));
   const fila = el('p', { clase: 'mapa-popup__etiquetas' }, semaforo(nota.valor, nota.fueraDeTemporada ? 'Fuera de temporada' : null));
   if (nota.valor != null) fila.append(el('b', { clase: 'tabular', texto: `${nota.valor}/100` }));
+  const r = rotuloPunto(punto);
+  if (r) fila.append(el('span', { clase: `etiqueta etiqueta--${r.variante}`, texto: r.texto }));
   raiz.append(fila);
   const otroDia = avisoOtroDia(meteo);
   if (otroDia) raiz.append(el('p', { clase: 'mapa-popup__aviso', texto: otroDia }));

@@ -114,6 +114,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954958&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -624,6 +631,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954949&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -886,6 +899,13 @@
           "gbif": 29,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8733688&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -1201,6 +1221,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5954691&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -1413,6 +1440,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7832732&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -1614,6 +1648,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9723190&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -1794,6 +1835,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7777157&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -1903,7 +1951,8 @@
       "habitats": [
         "pinar-resinero",
         "pinar-silvestre",
-        "pinar-negral"
+        "pinar-negral",
+        "pinar-pinonero"
       ],
       "altitud": null,
       "zonas": {
@@ -1990,6 +2039,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248629&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -2038,7 +2094,8 @@
       },
       "sinIndice": null,
       "notas": [
-        "Coníferas, sobre todo pinos; Micocyl lo asocia a Pinus pinaster. Aguanta bien el descenso de temperaturas."
+        "Coníferas, sobre todo pinos; Micocyl lo asocia a Pinus pinaster. Aguanta bien el descenso de temperaturas.",
+        "Pinar piñonero (añadido el 02/10/2026, fase 1 de Madrid): Micocyl, parte micológico del 20/11/2024 (Segovia), «en áreas de menor altitud como son las llanuras de pino albar (Pinus pinea) y pino negral (Pinus pinaster), se encuentran zonas con producciones destacadamente buenas de níscalos» (el parte llama «pino albar» al Pinus pinea; el nombre científico es el del pino piñonero). Hay además una observación de níscalo en el piñonar del MUP 54 de San Martín de Valdeiglesias (Observation.org, 12/12/2020, gbifID 4462484551). Una fuente oficial: confianza media según la regla de los trucos; los parámetros del índice no cambian y no son propios del piñonero."
       ],
       "fotos": [
         {
@@ -2084,6 +2141,12 @@
           "url": "https://micocyl.es/print/permisos-para-el-sector-de-montes-de-la-comunidad-de-castilla-y-leon-en-soria",
           "titulo": "Micocyl: permisos del área Montes de Soria, partes micológicos, Pinar Grande",
           "consultado": "2026-09-30"
+        },
+        {
+          "id": "micocyl-20241120",
+          "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241121.pdf",
+          "titulo": "Micocyl: parte micológico del 20/11/2024 (níscalo en llanuras de Pinus pinea y Pinus pinaster de Segovia)",
+          "consultado": "2026-10-02"
         }
       ],
       "trucos": [
@@ -2444,6 +2507,14 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "nota": "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5248648&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true,
+          "nota": "Recuento GBIF solo de L. sanguifluus; el grupo incluye L. semisanguifluus y L. vinosus"
         }
       },
       "temporada": {
@@ -2640,6 +2711,13 @@
           "gbif": 22,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551542&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -2858,6 +2936,13 @@
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2551423&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -3079,6 +3164,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5249504&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -3363,6 +3454,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554662&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -3637,6 +3734,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8871787&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -3870,6 +3973,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554536&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -4139,6 +4248,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2554716&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -4396,6 +4511,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240269&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -4726,6 +4847,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7241988&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -4905,6 +5033,13 @@
           "gbif": 61,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 32,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8914748&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -5221,6 +5356,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243458&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -5487,6 +5629,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243403&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -5687,6 +5835,13 @@
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-4+42.6%2C-3.2501+42.6%2C-3.2501+43.25%2C-4+43.25%2C-4+42.6%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8936224&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -6155,6 +6310,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9186073&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -6395,6 +6557,14 @@
           "consultado": "2026-10-01",
           "taxonGbif": "Lepista nuda",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 20,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242048&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true,
+          "taxonGbif": "Lepista nuda"
         }
       },
       "temporada": {
@@ -6654,6 +6824,14 @@
           "consultado": "2026-10-01",
           "taxonGbif": "Lepista personata",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242070&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true,
+          "taxonGbif": "Lepista personata"
         }
       },
       "temporada": {
@@ -6880,6 +7058,13 @@
           "gbif": 10,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 11,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2537250&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -7108,6 +7293,13 @@
           "gbif": 5,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 16,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9075265&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -7412,6 +7604,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 5,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2526530&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -7621,6 +7820,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 9,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8138987&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -7810,6 +8016,13 @@
           "gbif": 66,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7987658&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -8019,6 +8232,13 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7244099&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -8338,6 +8558,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-4+42.6%2C-3.2501+42.6%2C-3.2501+43.25%2C-4+43.25%2C-4+42.6%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538733&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -8608,6 +8834,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241860&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -8908,6 +9140,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5241808&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -9089,6 +9328,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531012&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -9260,6 +9506,13 @@
           "gbif": 1,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 21,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2550247&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -9825,6 +10078,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258468&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -10008,6 +10267,13 @@
           "gbif": 45,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240325&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240325&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -10199,6 +10465,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240320&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240320&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -10382,6 +10655,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=12220448&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=12220448&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -10527,6 +10806,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240323&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240323&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -10695,6 +10980,13 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8118872&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8118872&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -10806,6 +11098,13 @@
           "gbif": 2,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2535390&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2535390&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -11191,6 +11490,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2528684&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2528684&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -11346,6 +11651,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2528663&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2528663&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -11490,6 +11801,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5451653&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5451653&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -11620,6 +11937,13 @@
           "gbif": 1,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240329&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240329&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -11777,6 +12101,13 @@
           "gbif": 3,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258510&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258510&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -11955,6 +12286,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=12197740&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=12197740&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -12117,6 +12454,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258509&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5258509&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -12277,6 +12621,13 @@
           "gbif": 9,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3324883&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 8,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3324883&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -12463,6 +12814,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8897119&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8897119&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -12618,6 +12976,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240002&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240002&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -12767,6 +13131,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=10776858&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=10776858&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -12900,6 +13270,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531052&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531052&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -13028,6 +13405,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531056&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531056&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -13182,6 +13565,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531103&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531103&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -13309,6 +13699,12 @@
           "gbif": 0,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9131888&geometry=POLYGON%28%28-4+42.6%2C-3.2501+42.6%2C-3.2501+43.25%2C-4+43.25%2C-4+42.6%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01"
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=9131888&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -13469,6 +13865,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2527219&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2527219&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -13578,6 +13981,13 @@
           "gbif": 9,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=4911705&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=4911705&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -13732,6 +14142,13 @@
           "gbif": 36,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8961574&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8961574&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -13889,6 +14306,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8168319&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 40,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8168319&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -14043,6 +14467,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240292&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 4,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5240292&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -14192,6 +14623,13 @@
           "gbif": 8,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2539308&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2539308&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -14370,6 +14808,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538088&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2538088&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -14519,6 +14964,13 @@
           "gbif": 4,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243412&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 12,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5243412&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -14679,6 +15131,12 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7722553&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 0,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7722553&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02"
         }
       },
       "temporada": {
@@ -15190,6 +15648,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8122710&geometry=POLYGON%28%28-3.25+42.55%2C-2.25+42.55%2C-2.25+43.06%2C-3.25+43.06%2C-3.25+42.55%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 2,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=8122710&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -15339,6 +15804,13 @@
           "gbif": 18,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3293632&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 15,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3293632&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -16010,6 +16482,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242740&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "orientativa",
+          "gbif": 1,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=5242740&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -16185,6 +16664,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531072&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 3,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2531072&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -16330,6 +16816,13 @@
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7496350&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
           "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 18,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=7496350&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
+          "verificado": true
         }
       },
       "temporada": {
@@ -16446,6 +16939,13 @@
           "gbif": 7,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2536891&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 6,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=2536891&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },
@@ -16904,6 +17404,13 @@
           "gbif": 3,
           "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3355021&geometry=POLYGON%28%28-7.45+37.95%2C-5.3001+37.95%2C-5.3001+40.35%2C-7.45+40.35%2C-7.45+37.95%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
           "consultado": "2026-10-01",
+          "verificado": true
+        },
+        "sierra-oeste": {
+          "presencia": "confirmada",
+          "gbif": 7,
+          "fuente": "https://www.gbif.org/occurrence/search?taxonKey=3355021&geometry=POLYGON%28%28-4.3999+40.22%2C-3.9601+40.22%2C-3.9601+40.6499%2C-4.3999+40.6499%2C-4.3999+40.22%29%29&hasCoordinate=true&occurrenceStatus=PRESENT&country=ES",
+          "consultado": "2026-10-02",
           "verificado": true
         }
       },

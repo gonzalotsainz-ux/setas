@@ -440,7 +440,7 @@
       "confianza": "media"
     },
     {
-      "notas": "Hola (2022) y Vozpópuli (2015) solo citan Cotos y Alameda del Valle como lugares de setas, sin régimen legal; no se siguen. La ausencia de ordenanza es un resultado de búsqueda, no una confirmación oficial: confirma con el ayuntamiento. Vertiente madrileña (04e): ninguna fuente de setas respalda un sitio concreto en estos municipios. La ausencia de ordenanza es resultado de búsqueda, no confirmación oficial. Puerto de Navacerrada: solo sirve como punto de aire de montaña, no para recoger (Reserva de la Umbría de Siete Picos a ~1,5 km).",
+      "notas": "Hola (2022) y Vozpópuli (2015) solo citan Cotos y Alameda del Valle como lugares de setas, sin régimen legal; no se siguen. La ausencia de ordenanza es un resultado de búsqueda, no una confirmación oficial: confirma con el ayuntamiento. Vertiente madrileña (04e): ninguna fuente de setas respalda un sitio concreto en estos municipios. La ausencia de ordenanza es resultado de búsqueda, no confirmación oficial. Puerto de Navacerrada: solo sirve como punto de aire de montaña, no para recoger (Reserva de la Umbría de Siete Picos a ~1,5 km). Fase 1 de Madrid (02/10/2026): el estado sigue «prohibido» también para la parte fuera del Parque, por prudencia, hasta que la Comunidad confirme el ap. 4.4.2.6 del PORN (pregunta en docs/correo-comunidad-madrid-setas.md). Los sitios guadarrama-mup-39-pinar, cercedilla-mup-32-fuera-parque y alameda-pinilla-fuera-parque recogen los registros de setas de esa parte, también como NO IR.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -456,9 +456,10 @@
       "legal": {
         "estado": "prohibido",
         "normas": [
-          "pn-guadarrama-prug"
+          "pn-guadarrama-prug",
+          "madrid-porn-guadarrama-96-2009"
         ],
-        "texto": "El PRUG (art. 59.b) prohíbe la recolección episódica en montes del Parque sin plan de aprovechamiento. No se ha localizado plan para estos municipios."
+        "texto": "El PRUG (art. 59.b) prohíbe la recolección episódica en montes del Parque sin plan de aprovechamiento. No se ha localizado plan para estos municipios. Parte de estos montes queda fuera del Parque Nacional (por ejemplo el MUP 39 de Guadarrama, la parte baja del MUP 32 de Cercedilla y los MUP 60, 101 y 102 de Alameda y Pinilla). El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
       },
       "fuentes": [
         {
@@ -2662,7 +2663,7 @@
       "confianza": "baja"
     },
     {
-      "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo). Un forero de 2015 (más de 10 años) recorrió Lozoya, Alameda del Valle, Canencia, La Acebeda y Somosierra en un día de noviembre y sacó un solo níscalo; otro cita Somosierra para boletus y cesáreas. Sin ordenanza localizada para Somosierra.",
+      "notas": "Madrid es Noticia (24/10/2024) y sierranortemadrid.org solo dan «Sierra del Rincón» y el Bosque de la Herrería en genérico. Sin fuente útil. El Hayedo de Montejo es no-ir (hayedo-de-montejo). Un forero de 2015 (más de 10 años) recorrió Lozoya, Alameda del Valle, Canencia, La Acebeda y Somosierra en un día de noviembre y sacó un solo níscalo; otro cita Somosierra para boletus y cesáreas. Sin ordenanza localizada para Somosierra. Fase 1 de Madrid (02/10/2026): sitios propios para los montes de Montejo fuera del Hayedo, La Morra (Prádena) y la Dehesa Boyal de La Hiruela.",
       "lat": null,
       "lon": null,
       "verificado": false,
@@ -2678,9 +2679,11 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "madrid-ordenanzas-sierra"
+          "madrid-ordenanzas-sierra",
+          "madrid-porn-guadarrama-96-2009",
+          "madrid-braojos"
         ],
-        "texto": "Sin ordenanza localizada en el BOCM (resultado de búsqueda, no confirmación oficial). En Madrid solo se recoge en montes públicos señalizados o con permiso del propietario."
+        "texto": "Sin ordenanza localizada en el BOCM (resultado de búsqueda, no confirmación oficial). En Madrid solo se recoge en montes públicos señalizados o con permiso del propietario. Somosierra, Robregordo, Braojos, Gascones, Garganta de los Montes y Navarredonda y San Mamés están en el ámbito del PORN de Guadarrama. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial: hasta entonces el régimen sigue sin confirmar. Braojos tiene ordenanza (BOCM 17/03/2022), pero solo entra en vigor tras el acotamiento de sus montes por resolución de la Dirección General de Biodiversidad, que no se ha encontrado: está pendiente de esa resolución. Montejo de la Sierra, La Hiruela, Prádena del Rincón, Horcajuelo y Puebla de la Sierra están fuera del PORN: rige la regla general."
       },
       "fuentes": [
         {
@@ -2980,9 +2983,10 @@
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "madrid-ordenanzas-sierra"
+          "madrid-ordenanzas-sierra",
+          "madrid-porn-guadarrama-96-2009"
         ],
-        "texto": "Buitrago no figura entre los municipios con licencia de la nota de la Comunidad de Madrid de 23/10/2024 y no se ha localizado ordenanza. En Madrid solo se recoge en monte público señalizado o con permiso del propietario; confirma en el ayuntamiento."
+        "texto": "Buitrago no figura entre los municipios con licencia de la nota de la Comunidad de Madrid de 23/10/2024 y no se ha localizado ordenanza. En Madrid solo se recoge en monte público señalizado o con permiso del propietario; confirma en el ayuntamiento. Buitrago está en el ámbito del PORN de Guadarrama. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial: hasta entonces el régimen sigue sin confirmar."
       },
       "lat": null,
       "lon": null,
@@ -4120,7 +4124,7 @@
       "lat": null,
       "lon": null,
       "verificado": false,
-      "notas": "El régimen es el del Parque Nacional (PRUG, leído para el sitio «Montes del Parque Nacional sin ordenanza ni plan»). Fuenfría y Cotos los añade el informe por analogía, sin cita propia de setas.",
+      "notas": "El régimen es el del Parque Nacional (PRUG, leído para el sitio «Montes del Parque Nacional sin ordenanza ni plan»). Fuenfría y Cotos los añade el informe por analogía, sin cita propia de setas. Fase 1 de Madrid (02/10/2026): el informe de investigación encontró 5 registros de GBIF en la parte del MUP 24 fuera del Parque; el sitio sigue NO IR entero.",
       "id": "la-barranca-fuenfria-cotos-no-ir",
       "zona": "guadarrama",
       "nombre": "La Barranca (Navacerrada), Puerto de la Fuenfría (Cercedilla) y Puerto de Cotos: los listados turísticos los recomiendan, pero no se puede recoger",
@@ -4133,9 +4137,10 @@
       "legal": {
         "estado": "prohibido",
         "normas": [
-          "pn-guadarrama-prug"
+          "pn-guadarrama-prug",
+          "madrid-porn-guadarrama-96-2009"
         ],
-        "texto": "Parque Nacional sin ordenanza ni plan de aprovechamiento de setas: el PRUG (art. 59.b) no permite recoger. Ver también «Montes del Parque Nacional sin ordenanza ni plan»."
+        "texto": "Parque Nacional sin ordenanza ni plan de aprovechamiento de setas: el PRUG (art. 59.b) no permite recoger. Ver también «Montes del Parque Nacional sin ordenanza ni plan». El MUP 24 «Pinar de la Barranca» tiene una parte fuera del Parque Nacional (dónde está el corte exacto no se ha comprobado). El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
       },
       "fuentes": [
         {
@@ -4195,7 +4200,7 @@
       "lat": null,
       "lon": null,
       "verificado": false,
-      "notas": "Fuente científica, no de recolectores. Muestreo de 2013 a 2015 (más de 10 años). Tampoco se sabe si parte de la dehesa tiene restricciones propias.",
+      "notas": "Fuente científica, no de recolectores. Muestreo de 2013 a 2015 (más de 10 años). Tampoco se sabe si parte de la dehesa tiene restricciones propias. Fase 1 de Madrid (02/10/2026): fuentes independientes ahora 3 (UCM, iNaturalist con dos observadores distintos y Observation.org); los tres registros caen dentro del MUP 122 (cruce con la IDEM). Que la dehesa del estudio de la UCM sea exactamente el MUP 122 se supone por el nombre [NO VERIFICADO]. La época sale de las fechas de esas observaciones.",
       "id": "somosierra-dehesa",
       "zona": "sierra-norte",
       "nombre": "Dehesa de Somosierra: hongo blanco y rebozuelo en un estudio de la UCM",
@@ -4209,14 +4214,18 @@
         "abedular",
         "robledal-albar"
       ],
-      "epoca": [],
-      "consejo": "Estudio micológico de la UCM con muestreos de abril de 2013 a octubre de 2015 en la Dehesa de Somosierra (unos 1.450 m, suelos ácidos, abedul, avellano y roble albar): 96 especies, entre ellas hongo blanco, rebozuelo, Leccinum variicolor y Lactarius. No da fechas de cada hallazgo ni parajes. Que se hayan muestreado no significa que se pueda recoger.",
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Estudio micológico de la UCM con muestreos de abril de 2013 a octubre de 2015 en la Dehesa de Somosierra (unos 1.450 m, suelos ácidos, abedul, avellano y roble albar): 96 especies, entre ellas hongo blanco, rebozuelo, Leccinum variicolor y Lactarius. No da fechas de cada hallazgo ni parajes. Que se hayan muestreado no significa que se pueda recoger. Dentro del monte de utilidad pública «Dehesa Boyal» (MUP 122) hay además observaciones de hongo blanco del 13/10/2007, el 07/10/2014 y el 11/11/2022.",
       "legal": {
         "estado": "sin-confirmar",
         "normas": [
-          "madrid-ordenanzas-sierra"
+          "madrid-ordenanzas-sierra",
+          "madrid-porn-guadarrama-96-2009"
         ],
-        "texto": "No se ha localizado ordenanza de Somosierra. Regla general de Madrid: monte público señalizado o permiso del propietario. Confirma con el ayuntamiento antes de recoger."
+        "texto": "No se ha localizado ordenanza de Somosierra. La Dehesa Boyal es monte de utilidad pública municipal en el ámbito del PORN de Guadarrama: el PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial: hasta entonces el régimen sigue sin confirmar. Regla general de Madrid: monte público señalizado o permiso del propietario. Confirma con el ayuntamiento antes de recoger."
       },
       "fuentes": [
         {
@@ -4224,10 +4233,28 @@
           "titulo": "UCM: estudio micológico de la Dehesa de Somosierra",
           "fecha": null,
           "consultado": "2026-09-30"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/250964267",
+          "titulo": "iNaturalist: Boletus edulis en el MUP 122 «Dehesa Boyal» de Somosierra (13/10/2007, grado de investigación; gbifID 4980727010)",
+          "fecha": "2007-10-13",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4462173794",
+          "titulo": "Observation.org en GBIF: Boletus edulis en el MUP 122 (07/10/2014, gbifID 4462173794)",
+          "fecha": "2014-10-07",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/141700619",
+          "titulo": "iNaturalist: Boletus edulis en el MUP 122 (11/11/2022, grado de investigación; gbifID 4946018354)",
+          "fecha": "2022-11-11",
+          "consultado": "2026-10-02"
         }
       ],
-      "nFuentes": 1,
-      "confianza": "baja"
+      "nFuentes": 3,
+      "confianza": "alta"
     },
     {
       "lat": null,
@@ -8169,6 +8196,703 @@
       ],
       "nFuentes": 1,
       "confianza": "baja"
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "abantos-mup-46-pinar",
+      "zona": "sierra-oeste",
+      "nombre": "Pinar de Abantos (MUP 46 «La Jurisdicción»): sin régimen confirmado, no se recoge",
+      "municipio": "San Lorenzo de El Escorial (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Monte municipal de pino silvestre y resinero en la ladera de Abantos, sobre San Lorenzo de El Escorial. Dentro del monte hay observaciones de hongo blanco (octubre y noviembre de 2006), níscalo (15/11/2014, 01/11/2015 y 27/10/2022), Suillus luteus (2010 y 2015) e Imleria badia (2006), y dos listados turísticos lo recomiendan. Que haya setas no quiere decir que se pueda recoger: mientras la Comunidad de Madrid no conteste la consulta, no se recoge.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "madrid-porn-guadarrama-96-2009",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Se trata como NO IR hasta que conteste la Comunidad de Madrid (consulta en docs/correo-comunidad-madrid-setas.md). Es monte de utilidad pública municipal fuera del Parque Nacional y sin ordenanza de San Lorenzo de El Escorial localizada (resultado de búsqueda), y está dentro del Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería», cuyas normas de recolección no se han leído. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.gbif.org/occurrence/4887126012",
+          "titulo": "Observation.org en GBIF: Boletus edulis en el MUP 46 en el Pinar de Abantos (25/10/2006, gbifID 4887126012)",
+          "fecha": "2006-10-25",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4462291613",
+          "titulo": "Observation.org en GBIF: Lactarius deliciosus en el MUP 46 (15/11/2014, gbifID 4462291613)",
+          "fecha": "2014-11-15",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4460848042",
+          "titulo": "Observation.org en GBIF: Lactarius deliciosus en el MUP 46 (01/11/2015, gbifID 4460848042)",
+          "fecha": "2015-11-01",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4460600848",
+          "titulo": "Observation.org en GBIF: Suillus luteus en el MUP 46 (01/11/2015, gbifID 4460600848)",
+          "fecha": "2015-11-01",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4885510924",
+          "titulo": "Observation.org en GBIF: Imleria badia en el MUP 46 (29/11/2006, gbifID 4885510924)",
+          "fecha": "2006-11-29",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/140642696",
+          "titulo": "iNaturalist: Lactarius deliciosus junto al arroyo del Arca, dentro del MUP 46 (27/10/2022, grado de investigación; gbifID 3961289417)",
+          "fecha": "2022-10-27",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.telemadrid.es/programas/vidas-de-cine/Guia-lugares-recoger-setas-Comunidad-Madrid-0-2390460935--20211026040754.html",
+          "titulo": "Telemadrid: guía de lugares para recoger setas en la Comunidad de Madrid (octubre de 2021)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-recoger-setas-en-madrid/",
+          "titulo": "tuscasasrurales: dónde recoger setas en Madrid (14/11/2022)",
+          "fecha": "2022-11-14",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+          "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid (Decreto 96/2009, BOCM n.º 11, 14/01/2010)",
+          "fecha": "2010-01-14",
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta",
+      "notas": "Fuentes independientes: Observation.org, iNaturalist y los listados turísticos (uno solo). Las observaciones caen dentro del polígono del MUP 46 (cruce con la capa de la IDEM, 02/10/2026). Son observaciones, no partes de recolección: si se exige una fuente de recolectores, la confianza bajaría a media. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas. Pasó a NO IR el 02/10/2026 por decisión de la usuaria; no se listan especies. El polígono del MUP 46 está en cotos.geojson como prohibido (mad-mup-46-san-lorenzo)."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "santa-maria-alameda-pinares",
+      "zona": "sierra-oeste",
+      "nombre": "Pinares de Santa María de la Alameda",
+      "municipio": "Santa María de la Alameda (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "suillus-luteus",
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "pinar-resinero",
+        "pinar-silvestre",
+        "pastizal-montana"
+      ],
+      "epoca": [
+        10,
+        11,
+        12
+      ],
+      "consejo": "En el término hay observaciones de níscalo y Suillus luteus (01/11/2020, varios observadores; níscalo también el 02/12/2023) y de seta de cardo (02/12/2018). Ojo: el catálogo de la Comunidad no tiene ningún monte de utilidad pública en este municipio.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra",
+          "madrid-porn-guadarrama-96-2009"
+        ],
+        "texto": "Municipio del ámbito del PORN de Guadarrama, pero la capa de montes de utilidad pública de la IDEM no tiene ningún MUP en su término: lo más probable es que el monte sea privado o de otra titularidad [NO VERIFICADO]. En terreno privado las setas son del propietario: pide permiso. No se ha localizado ordenanza micológica (resultado de búsqueda)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/188694461",
+          "titulo": "iNaturalist: Lactarius deliciosus en Santa María de la Alameda (01/11/2020, grado de investigación; gbifID 4431221296)",
+          "fecha": "2020-11-01",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4891051472",
+          "titulo": "Observation.org en GBIF: Lactarius deliciosus en Santa María de la Alameda (02/12/2023, gbifID 4891051472)",
+          "fecha": "2023-12-02",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4459984627",
+          "titulo": "Observation.org en GBIF: Pleurotus eryngii en Santa María de la Alameda (02/12/2018, gbifID 4459984627)",
+          "fecha": "2018-12-02",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes: iNaturalist y Observation.org. Ningún registro cae dentro de un MUP (cruce con la IDEM, 02/10/2026). Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "navahonda-robledo-de-chavela",
+      "zona": "sierra-oeste",
+      "nombre": "Alto de Navahonda y montes de Robledo de Chavela",
+      "municipio": "Robledo de Chavela (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "pleurotus-eryngii"
+      ],
+      "habitat": [
+        "encinar",
+        "pastizal-montana"
+      ],
+      "epoca": [
+        4,
+        5,
+        10,
+        11
+      ],
+      "consejo": "Dos listados turísticos citan el Alto de Navahonda (encinas y enebros) para setas de cardo y champiñones silvestres. En el término de Robledo hay observaciones de seta de cardo en primavera y otoño (05/05/2012 y 26/10/2012), sin que conste que sean en Navahonda.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). En el término hay cinco montes de utilidad pública municipales (MUP 41 a 45, catálogo IDEM). Regla general de Madrid: recoge solo en monte público señalizado o con permiso del propietario; confirma en el ayuntamiento."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.telemadrid.es/programas/vidas-de-cine/Guia-lugares-recoger-setas-Comunidad-Madrid-0-2390460935--20211026040754.html",
+          "titulo": "Telemadrid: guía de lugares para recoger setas en la Comunidad de Madrid (octubre de 2021)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.tuscasasrurales.com/blog/donde-recoger-setas-en-madrid/",
+          "titulo": "tuscasasrurales: dónde recoger setas en Madrid (14/11/2022)",
+          "fecha": "2022-11-14",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4459916458",
+          "titulo": "Observation.org en GBIF: Pleurotus eryngii en Robledo de Chavela (05/05/2012, gbifID 4459916458)",
+          "fecha": "2012-05-05",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4461229707",
+          "titulo": "Observation.org en GBIF: Pleurotus eryngii en Robledo de Chavela (26/10/2012, gbifID 4461229707)",
+          "fecha": "2012-10-26",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes: los listados turísticos (uno solo) y Observation.org. Las dos observaciones de cardo caen fuera de los MUP (cruce con la IDEM). Los registros tienen más de 10 años. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas. Los listados hablan de «champiñones silvestres» sin especie: no se lista Agaricus campestris."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "san-martin-valdeiglesias-pinares",
+      "zona": "sierra-oeste",
+      "nombre": "Pinares de San Martín de Valdeiglesias (MUP 54 y 55)",
+      "municipio": "San Martín de Valdeiglesias (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus"
+      ],
+      "habitat": [
+        "pinar-pinonero",
+        "pinar-resinero",
+        "encinar"
+      ],
+      "epoca": [
+        11,
+        12
+      ],
+      "consejo": "Montes municipales de pino piñonero (MUP 54 «Nahoncil y Agregados, Las Cabreras y Valle Lorenzo») y resinero (MUP 55). Hay una observación de níscalo dentro del MUP 54 el 12/12/2020. El blog de un restaurante de la comarca (03/11/2024) cita níscalos y boletus en los pinares de San Martín, Robledo, Navas del Rey y Pelayos, y cardo en el matorral. En pinar bajo de piñonero y resinero el níscalo puede seguir cuando ya baja en la sierra alta (Micocyl, parte del 20/11/2024 en Segovia).",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra",
+          "madrid-zec-alberche-cofio-26-2017"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). Probablemente en la ZEC/ZEPA Alberche-Cofio, cuyo plan (Decreto 26/2017) no regula las setas. Regla general de Madrid: monte público señalizado o permiso del propietario; confirma en el ayuntamiento y evita los días de caza."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.gbif.org/occurrence/4462484551",
+          "titulo": "Observation.org en GBIF: Lactarius deliciosus dentro del MUP 54 (12/12/2020, gbifID 4462484551)",
+          "fecha": "2020-12-12",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://restaurante7capillas.com/turismo-micologico-en-la-sierra-oeste-de-madrid/",
+          "titulo": "Restaurante 7 Capillas: turismo micológico en la Sierra Oeste de Madrid (03/11/2024)",
+          "fecha": "2024-11-03",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://micocyl.es/sites/default/files/editor/parte_mico_20241121.pdf",
+          "titulo": "Micocyl: parte micológico del 20/11/2024 (Segovia: llanuras de Pinus pinea y Pinus pinaster con buenas producciones de níscalo)",
+          "fecha": "2024-11-20",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes: Observation.org y el blog del restaurante (leído con resumen automático). El blog dice «boletus» sin especie: no se lista Boletus edulis. El parte de Micocyl es de Segovia, no de esta comarca: solo se usa para el consejo de época. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "valdemaqueda-mup-185",
+      "zona": "sierra-oeste",
+      "nombre": "Monte de Valdemaqueda (MUP 185, Comunidad de Madrid)",
+      "municipio": "Valdemaqueda (Madrid)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "pinar-resinero",
+        "pinar-pinonero"
+      ],
+      "epoca": [],
+      "consejo": "Monte de la Comunidad de Madrid con pinar de resinero y algo de piñonero (MFE50). No hay ninguna fuente de setas dentro del monte: las observaciones de níscalo más cercanas («entre Valdemaqueda y Las Navas», 06/12/2023) caen en el lado de Ávila, a unos 5 km.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). Regla general de Madrid: monte público señalizado o permiso del propietario; confirma con el ayuntamiento o con los agentes forestales."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/193440087",
+          "titulo": "iNaturalist: Lactarius deliciosus «entre Valdemaqueda y Las Navas» (en Ávila según GBIF) (06/12/2023, grado de investigación; gbifID 4465521349)",
+          "fecha": "2023-12-06",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 0,
+      "confianza": "baja",
+      "notas": "El informe de investigación proponía níscalo con esta fuente, pero GBIF sitúa las cinco observaciones de ese día en Castilla y León (Las Navas del Marqués), fuera del MUP 185: no se lista ninguna especie. Sin coordenadas. Ninguna fuente de setas cae dentro del monte: 0 fuentes independientes (las observaciones se citan solo como referencia cercana)."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "herreria-patrimonio-nacional-no-ir",
+      "zona": "sierra-oeste",
+      "nombre": "Bosque de la Herrería: no consta permiso de recolección",
+      "municipio": "El Escorial y San Lorenzo de El Escorial (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Un listado de 2024 lo cita como lugar de níscalos, hongo blanco, cardo y parasol, pero es una finca histórica de Patrimonio Nacional y Paraje Pintoresco. No recojas sin una autorización expresa de Patrimonio Nacional.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-porn-guadarrama-96-2009"
+        ],
+        "texto": "El PORN de Guadarrama (Decreto 96/2009) reserva a Patrimonio Nacional la gestión directa de sus terrenos, y la Herrería forma parte del Paraje Pintoresco «Pinar de Abantos y Zona de la Herrería». No consta ningún permiso de recolección: se trata como NO IR."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.madridesnoticia.es/2024/10/recogida-setas-en-madrid/",
+          "titulo": "Madrid es Noticia: recogida de setas en Madrid (octubre de 2024)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+          "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid (Decreto 96/2009, BOCM n.º 11, 14/01/2010)",
+          "fecha": "2010-01-14",
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "notas": "Que la Herrería sea de Patrimonio Nacional sale del informe 04e y de las fuentes turísticas; no se ha comprobado la titularidad en el catastro [NO VERIFICADO]. Las normas del Paraje Pintoresco no se han leído. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "guadarrama-mup-39-pinar",
+      "zona": "guadarrama",
+      "nombre": "Pinar y Agregados de Guadarrama (MUP 39), fuera del Parque Nacional: sin régimen confirmado, no se recoge",
+      "municipio": "Guadarrama (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Monte municipal de pino resinero y silvestre a unos 9 km del Parque Nacional. En GBIF hay unos 27 registros de setas comestibles dentro del monte entre 2020 y 2024 (hongo blanco, níscalo, cardo, Suillus, Imleria badia y Tricholoma portentosum), pero que haya setas no quiere decir que se pueda recoger: mientras no se confirme el régimen, no se recoge.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "madrid-porn-guadarrama-96-2009",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Se trata igual que «Montes del Parque Nacional sin ordenanza ni plan»: Guadarrama no tiene ordenanza micológica ni plan de aprovechamiento localizados. Este monte está fuera del Parque Nacional. El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.gbif.org/occurrence/4459992121",
+          "titulo": "Observation.org en GBIF: Boletus edulis en el MUP 39 (23/10/2021, gbifID 4459992121)",
+          "fecha": "2021-10-23",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4460213764",
+          "titulo": "Observation.org en GBIF: Lactarius deliciosus en el MUP 39 (05/11/2022, gbifID 4460213764)",
+          "fecha": "2022-11-05",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/139810489",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 39 (22/10/2022, grado de investigación; gbifID 4177068599)",
+          "fecha": "2022-10-22",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/253731086",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 39 (30/11/2024, grado de investigación; gbifID 4994616465)",
+          "fecha": "2024-11-30",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+          "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid (Decreto 96/2009, BOCM n.º 11, 14/01/2010)",
+          "fecha": "2010-01-14",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes de setas: Observation.org e iNaturalist (registros dentro del polígono del MUP 39 y fuera de la zonificación del Parque Nacional del OAPN, cruce del 02/10/2026; el recuento de 27 es del informe de investigación). No se listan especies porque es NO IR: se listarán si la Comunidad confirma que se puede recoger. Zona del PORN del monte sin comprobar. Pregunta a la Comunidad: docs/correo-comunidad-madrid-setas.md. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "cercedilla-mup-32-fuera-parque",
+      "zona": "guadarrama",
+      "nombre": "Pinar de Cercedilla fuera del Parque Nacional (MUP 32, Las Dehesas): sin régimen confirmado, no se recoge",
+      "municipio": "Cercedilla (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "La parte baja del MUP 32 «Pinar y Agregados» (pino silvestre, junto a la zona recreativa de Las Dehesas) queda fuera del Parque Nacional; la parte alta está dentro. Hay registros de hongo blanco (28/10/2012 y 27/09/2023), níscalo (12/11/2020) y Tricholoma portentosum (29/12/2012) fuera del Parque, y un listado turístico cita Cercedilla. Mientras no se confirme el régimen, no se recoge ni dentro ni fuera del Parque.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "madrid-porn-guadarrama-96-2009",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Dentro del Parque Nacional Cercedilla no tiene plan de aprovechamiento: el PRUG (art. 59.b) no permite recoger. Fuera del Parque, Cercedilla no tiene ordenanza micológica localizada y se trata igual que «Montes del Parque Nacional sin ordenanza ni plan». El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.gbif.org/occurrence/4460523048",
+          "titulo": "Observation.org en GBIF: Boletus edulis en el MUP 32 (28/10/2012, gbifID 4460523048)",
+          "fecha": "2012-10-28",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4462343611",
+          "titulo": "Observation.org en GBIF: Tricholoma portentosum en el MUP 32 (29/12/2012, gbifID 4462343611)",
+          "fecha": "2012-12-29",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/185176723",
+          "titulo": "iNaturalist: Boletus edulis en el MUP 32 (27/09/2023, grado de investigación; gbifID 5167068510)",
+          "fecha": "2023-09-27",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/64767817",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 32 (12/11/2020, grado de investigación; gbifID 4946018145)",
+          "fecha": "2020-11-12",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.telemadrid.es/programas/vidas-de-cine/Guia-lugares-recoger-setas-Comunidad-Madrid-0-2390460935--20211026040754.html",
+          "titulo": "Telemadrid: guía de lugares para recoger setas en la Comunidad de Madrid (octubre de 2021)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+          "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid (Decreto 96/2009, BOCM n.º 11, 14/01/2010)",
+          "fecha": "2010-01-14",
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 3,
+      "confianza": "alta",
+      "notas": "Fuentes independientes de setas: Observation.org, iNaturalist y el listado turístico (Telemadrid 2021). Los cuatro registros citados caen dentro del MUP 32 y fuera de la zonificación del Parque Nacional (cruce del 02/10/2026); el informe de investigación cuenta 29 registros fuera del Parque y 4 dentro. No se listan especies porque es NO IR. Telemadrid (2021) y tuscasasrurales (2022) repiten el mismo texto de listado turístico: cuentan como una sola fuente. Se leyeron con resumen automático. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "alameda-pinilla-fuera-parque",
+      "zona": "guadarrama",
+      "nombre": "Melojares de Alameda del Valle y Pinilla del Valle fuera del Parque Nacional (MUP 60, 101 y 102): sin régimen confirmado, no se recoge",
+      "municipio": "Alameda del Valle y Pinilla del Valle (Madrid)",
+      "tipo": "no-ir",
+      "especies": [],
+      "habitat": [],
+      "epoca": [],
+      "consejo": "Melojares municipales del valle del Lozoya fuera del Parque Nacional (MUP 60 «Moroviejo y Santa Ana», 101 «La Marotera» y 102 «Villanadillas»). Dentro del MUP 60 hay registros de hongo blanco (13/12/2009) y Boletus reticulatus (06/07/2007) de un mismo observador. Hay fincas privadas en el valle: allí las setas son del propietario. Mientras no se confirme el régimen, no se recoge.",
+      "legal": {
+        "estado": "prohibido",
+        "normas": [
+          "pn-guadarrama-prug",
+          "madrid-porn-guadarrama-96-2009",
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Alameda del Valle y Pinilla del Valle no tienen ordenanza micológica ni plan de aprovechamiento localizados: dentro del Parque no se puede recoger y fuera se trata igual que «Montes del Parque Nacional sin ordenanza ni plan». El PORN de la Sierra de Guadarrama de la Comunidad de Madrid (Decreto 96/2009, ap. 4.4.2.6) podría autorizar la recogida libre de setas para uso individual en los montes de utilidad pública y de la Comunidad fuera de las Zonas de Reserva y de Máxima Protección, pero está pendiente de confirmación oficial; hasta entonces se mantiene la prohibición."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.gbif.org/occurrence/4956557043",
+          "titulo": "Observation.org en GBIF: Boletus edulis en el MUP 60 (13/12/2009, gbifID 4956557043)",
+          "fecha": "2009-12-13",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4956321634",
+          "titulo": "Observation.org en GBIF: Boletus reticulatus en el MUP 60 (06/07/2007, gbifID 4956321634)",
+          "fecha": "2007-07-06",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.comunidad.madrid/transparencia/sites/default/files/plan/document/800_192_cm_d_96_2009_texto_0.pdf",
+          "titulo": "PORN de la Sierra de Guadarrama en la Comunidad de Madrid (Decreto 96/2009, BOCM n.º 11, 14/01/2010)",
+          "fecha": "2010-01-14",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 1,
+      "confianza": "baja",
+      "notas": "Una sola fuente de setas: los dos registros son del mismo observador de Observation.org, de hace más de 15 años, dentro del MUP 60 y fuera de la zonificación del Parque Nacional (cruce del 02/10/2026). Ninguno en los MUP 101 y 102. No se listan especies porque es NO IR. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "montejo-mup-202-91-fuera-hayedo",
+      "zona": "sierra-norte",
+      "nombre": "Montes de Montejo fuera del Hayedo (MUP 202 «La Maleza» y 91 «La Dehesilla»)",
+      "municipio": "Montejo de la Sierra (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "suillus-luteus",
+        "boletus-reticulatus"
+      ],
+      "habitat": [
+        "pinar-silvestre",
+        "melojar"
+      ],
+      "epoca": [
+        6,
+        7,
+        10,
+        11,
+        12
+      ],
+      "consejo": "Pinar del MUP 202 «La Maleza» (níscalo el 07/11/2021 y el 07/12/2024; Suillus luteus el 24/11/2019) y melojar del MUP 91 «La Dehesilla» (Boletus reticulatus el 22/06/2020). Ojo: el MUP 202 linda con el Hayedo de Montejo (MUP 89), donde está prohibido recoger cualquier hongo; no entres en el Hayedo.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra",
+          "montejo-prohibicion"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). Regla general de Madrid: monte público señalizado o permiso del propietario; confirma en el ayuntamiento. En el Hayedo de Montejo (MUP 89) está prohibido recolectar hongos (Resolución 2213/2025)."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/100536667",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 202 (07/11/2021, grado de investigación; gbifID 5166859400)",
+          "fecha": "2021-11-07",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/254442635",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 202 (07/12/2024, grado de investigación; gbifID 4994032813)",
+          "fecha": "2024-12-07",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/53892147",
+          "titulo": "iNaturalist: Boletus reticulatus en el MUP 91 (22/06/2020, grado de investigación; gbifID 2826364703)",
+          "fecha": "2020-06-22",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4460426887",
+          "titulo": "Observation.org en GBIF: Suillus luteus en el MUP 202 (24/11/2019, gbifID 4460426887)",
+          "fecha": "2019-11-24",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes: iNaturalist y Observation.org. Los cuatro registros caen dentro de su MUP y fuera del polígono montejo-hayedo de cotos.geojson (cruce del 02/10/2026); otros registros del MUP 202 que caen dentro del Hayedo no se cuentan. Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "pradena-la-morra-mup-155",
+      "zona": "sierra-norte",
+      "nombre": "La Morra (MUP 155), pinar de Prádena del Rincón",
+      "municipio": "Prádena del Rincón (Madrid)",
+      "tipo": "sitio",
+      "especies": [
+        "lactarius-deliciosus",
+        "suillus-luteus"
+      ],
+      "habitat": [
+        "pinar-silvestre"
+      ],
+      "epoca": [
+        10,
+        11
+      ],
+      "consejo": "Pinar de pino silvestre de la Comunidad de Madrid. Dentro del monte hay níscalo (28/10/2022) y Suillus luteus (04/11/2022).",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). Regla general de Madrid: monte público señalizado o permiso del propietario; confirma en el ayuntamiento o con los agentes forestales."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/140269114",
+          "titulo": "iNaturalist: Lactarius deliciosus en el MUP 155 (28/10/2022, grado de investigación; gbifID 3961265999)",
+          "fecha": "2022-10-28",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.gbif.org/occurrence/4056952591",
+          "titulo": "Observation.org en GBIF: Suillus luteus en el MUP 155 (04/11/2022, gbifID 4056952591)",
+          "fecha": "2022-11-04",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 2,
+      "confianza": "media",
+      "notas": "Fuentes independientes: iNaturalist y Observation.org; los dos registros caen dentro del MUP 155 (cruce con la IDEM, 02/10/2026). Sin coordenadas."
+    },
+    {
+      "lat": null,
+      "lon": null,
+      "verificado": false,
+      "id": "hiruela-dehesa-boyal-mup-79",
+      "zona": "sierra-norte",
+      "nombre": "Dehesa Boyal de La Hiruela (MUP 79), melojar",
+      "municipio": "La Hiruela (Madrid)",
+      "tipo": "sitio",
+      "especies": [],
+      "habitat": [
+        "melojar"
+      ],
+      "epoca": [],
+      "consejo": "Melojar muy denso del ayuntamiento (MFE50: rebollo 10/10). No hay ninguna fuente de setas dentro del monte; en el término, fuera de él, hay níscalo (27/10/2022) y Suillus luteus (23/10/2024), probablemente en pinar.",
+      "legal": {
+        "estado": "sin-confirmar",
+        "normas": [
+          "madrid-ordenanzas-sierra"
+        ],
+        "texto": "Fuera del ámbito del PORN de Guadarrama y sin ordenanza micológica localizada (resultado de búsqueda, no confirmación oficial). Regla general de Madrid: monte público señalizado o permiso del propietario; confirma en el ayuntamiento."
+      },
+      "fuentes": [
+        {
+          "url": "https://www.inaturalist.org/observations/140172509",
+          "titulo": "iNaturalist: Lactarius deliciosus en La Hiruela, fuera del MUP 79 (27/10/2022, grado de investigación; gbifID 3985674857)",
+          "fecha": "2022-10-27",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://www.inaturalist.org/observations/248711052",
+          "titulo": "iNaturalist: Suillus luteus en La Hiruela, fuera del MUP 79 (23/10/2024, grado de investigación; gbifID 4976440184)",
+          "fecha": "2024-10-23",
+          "consultado": "2026-10-02"
+        },
+        {
+          "url": "https://idem.comunidad.madrid/geoidem/ows",
+          "titulo": "IDEM Comunidad de Madrid: Montes de Utilidad Pública (capa Zonas:IDEM_MA_MONTES_UP)",
+          "fecha": null,
+          "consultado": "2026-10-02"
+        }
+      ],
+      "nFuentes": 0,
+      "confianza": "baja",
+      "notas": "Una sola fuente (iNaturalist, dos observadores) y fuera del monte: no se listan especies del melojar. Sin coordenadas. Ninguna fuente de setas cae dentro del monte: 0 fuentes independientes (las observaciones se citan solo como referencia cercana)."
     }
   ]
 }

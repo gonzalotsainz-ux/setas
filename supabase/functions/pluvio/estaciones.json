@@ -14,6 +14,8 @@
   {"fuente":"aemet","codigo":"3266A","nombre":"Puerto Alto del León","lat":40.7064,"lon":-4.1414,"altitud":1530,"licencia":"aemet"},
   {"fuente":"aemet","codigo":"3305Y","nombre":"Navahermosa","lat":39.6306,"lon":-4.4769,"altitud":750,"licencia":"aemet"},
   {"fuente":"aemet","codigo":"3319D","nombre":"Puerto del Pico","lat":40.3397,"lon":-5.0128,"altitud":1285,"licencia":"aemet"},
+  {"fuente":"aemet","codigo":"3330Y","nombre":"Rozas de Puerto Real","lat":40.3131,"lon":-4.4872,"altitud":890,"licencia":"aemet"},
+  {"fuente":"aemet","codigo":"3338","nombre":"Robledo de Chavela","lat":40.4286,"lon":-4.2486,"altitud":770,"licencia":"aemet"},
   {"fuente":"aemet","codigo":"3504X","nombre":"Hervás","lat":40.265,"lon":-5.8611,"altitud":724,"licencia":"aemet"},
   {"fuente":"aemet","codigo":"3576X","nombre":"Valencia de Alcántara","lat":39.4147,"lon":-7.2311,"altitud":444,"licencia":"aemet"},
   {"fuente":"aemet","codigo":"4245X","nombre":"Guadalupe","lat":39.4553,"lon":-5.3333,"altitud":660,"licencia":"aemet"},
