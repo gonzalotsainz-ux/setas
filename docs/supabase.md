@@ -76,3 +76,21 @@ claves `sb_publishable_`).
 - Despliegue: `npx --yes supabase@2.118.0 functions deploy rejilla --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
 - Desplegada el 2026-10-01 (migraciones `20261002000000_rejilla.sql` y `20261002000100_rejilla_cron.sql`); primera
   ejecución forzada el 2026-10-01 a las 17:21 de Madrid: 109 celdas rellenadas, sin publicar (relleno en curso).
+
+## Edge Function `pluvio` (lluvia medida en pluviómetros)
+
+- Diseño: `docs/superpowers/specs/2026-10-01-pluviometros-design.md`; plan: `docs/superpowers/plans/2026-10-02-pluviometros.md`.
+- La lanza pg_cron (`pluvio-hora`, cada hora en el minuto 10 UTC) con pg_net y la cabecera `x-pluvio-clave`, que se lee de
+  Vault (`pluvio_clave`) y coincide con el secreto `PLUVIO_CLAVE`. Desplegada con `--no-verify-jwt`; sin la clave responde
+  401 y a un GET, 405. Usa también el secreto `AEMET_API_KEY` (el mismo de la función `aemet`).
+- Qué lee y cuándo (hora UTC): AEMET horario (`/observacion/convencional/todas`, 12 h) a las 0, 3, 6…; SAIH Tajo (últimas
+  24 h por estación) a la 1, 4, 7…; SAIH Tajo 10 días a las 2. Lista blanca: `supabase/functions/pluvio/estaciones.json`.
+- Tabla privada `lluvia_obs` (fuente, estación, hora UTC del fin del intervalo, mm, calidad); se guardan 200 días
+  (`pluvio-limpieza`, 03:40 UTC).
+- Forzar una lectura: `curl -X POST -H "x-pluvio-clave: <clave>" ".../functions/v1/pluvio?fuentes=tajo10"` (y luego
+  `?fuentes=aemet`; mejor por separado, comparten un único plazo). La clave no está apuntada en ningún sitio; si hace falta se
+  genera otra y se actualizan el secreto y Vault.
+- Despliegue: `npx --yes supabase@2.118.0 functions deploy pluvio --no-verify-jwt --use-api --project-ref ctgedeunquvmcfqsufjj`.
+- Desplegada el 2026-10-02. Primera lectura forzada ese día: SAIH Tajo, 28 estaciones y 6.748 horas desde el 22/09 a las
+  09:00 UTC (398,0 mm en total); AEMET horario, 23 estaciones y 245 horas de las 12 h previas. Trabajos `pluvio-hora`
+  (`10 * * * *`) y `pluvio-limpieza` (`40 3 * * *`) activos.
