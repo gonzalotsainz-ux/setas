@@ -50,7 +50,8 @@ test('con archivo pero sin estaciones para la zona: series y notas idénticas', 
   assert.equal(m.series.a, meteo.series.a);
   assert.equal(m.series.b, meteo.series.b);
   assert.deepEqual(nota(m), nota(meteo));
-  assert.deepEqual(m.pluvio.porPunto.a, { estaciones: [], cercanas: 0, factor: 1 });
+  assert.deepEqual({ ...m.pluvio.porPunto.a, nDia: null }, { estaciones: [], cercanas: 0, factor: 1, nDia: null });
+  assert.ok(m.pluvio.porPunto.a.nDia.every((n) => n === 0));   // sin estaciones, ningún día con medida
 });
 
 test('medida en un punto: ese punto con lo medido; con una sola estación en la zona, el otro sigue con el modelo', () => {
@@ -71,7 +72,10 @@ test('dos estaciones distintas en la zona: el punto sin estación, estimado con 
   assert.deepEqual([b.precip[58], b.origenPrecip[58]], [1.3, 'estimada']);   // 2 mm del modelo × 0,67
   assert.deepEqual([b.precip[59], b.origenPrecip[59]], [2, 'modelo']);       // hoy no se toca
   assert.equal(m.pluvio.porPunto.b.factor, 0.67);
-  assert.deepEqual(m.pluvio.porPunto.a, { estaciones: [{ nombre: 'Covaleda', fuente: 'duero', km: 2 }], cercanas: 1, factor: 0.67 });
+  assert.deepEqual({ ...m.pluvio.porPunto.a, nDia: null }, { estaciones: [{ nombre: 'Covaleda', fuente: 'duero', km: 2 }], cercanas: 1, factor: 0.67, nDia: null });
+  assert.equal(m.pluvio.porPunto.a.nDia.length, meteo.series.a.fechas.length);
+  assert.equal(m.pluvio.porPunto.a.nDia[58], 1);
+  assert.equal(m.pluvio.porPunto.a.nDia[59], 0);   // hoy, fuera del periodo   // los días del periodo medido llevan su número de sitios
   assert.deepEqual([m.pluvio.desde, m.pluvio.hasta], [DESDE, HASTA]);
   assert.ok(nota(m, ZONA3).valor < nota(meteo, ZONA3).valor);
 });

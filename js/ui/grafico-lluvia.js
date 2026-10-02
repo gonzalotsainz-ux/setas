@@ -38,7 +38,7 @@ export function graficoLluvia({ serie, dispersionPunto = null, altura = 250 }) {
     const h = Math.max(v > 0 ? 1 : 0, yB1 - yB(v));
     const medida = !prev && esMedida(serie.origenPrecip?.[k]);
     const clase = prev ? 'barra prevista barra-prevista' : medida ? 'barra barra-medida' : 'barra barra-pasada';
-    return `<rect class="${clase}" x="${r1(cx(k) - ancho / 2)}" y="${r1(yB1 - h)}" width="${r1(ancho)}" height="${r1(h)}" rx="1"><title>${esc(f)}: ${v.toFixed(1)} mm${prev ? ' (previsión)' : medida ? ' (medida)' : ''}</title></rect>`;
+    return `<rect class="${clase}" x="${r1(cx(k) - ancho / 2)}" y="${r1(yB1 - h)}" width="${r1(ancho)}" height="${r1(h)}" rx="1"><title>${esc(f)}: ${v.toFixed(1)} mm${prev ? ' (previsión)' : medida ? ' (medida)' : ''}</title></rect>${medida ? `<rect class="marca-medida" x="${r1(cx(k) - ancho / 2)}" y="${r1(yB1 + 3)}" width="${r1(ancho)}" height="2.5" aria-hidden="true"/>` : ''}`;
   }).join('');
 
   // Acumulado: tramo pasado continuo y tramo previsto discontinuo, cortados en los huecos
@@ -88,7 +88,7 @@ export function graficoLluvia({ serie, dispersionPunto = null, altura = 250 }) {
 
   const nMedidos = serie.origenPrecip ? serie.precip.filter((v, k) => v != null && k <= serie.hoy && esMedida(serie.origenPrecip[k])).length : 0;
   const desc = [`Arriba, lluvia acumulada en 26 días${acumHoy != null ? `: hoy ${Math.round(acumHoy)} mm` : ''}. Abajo, lluvia diaria.`,
-    nMedidos ? `Las barras con contorno son ${nMedidos} ${nMedidos === 1 ? 'día medido' : 'días medidos'} en estaciones; las demás, estimadas con el modelo.` : '',
+    nMedidos ? `Las barras con una rayita debajo son ${nMedidos} ${nMedidos === 1 ? 'día medido' : 'días medidos'} en estaciones; las demás, estimadas con el modelo.` : '',
     dp?.media != null && dp.horizonte ? `Previsión a ${dp.horizonte} días: media de ${Math.round(dp.media)} mm entre modelos, con ${Math.round(dp.rango)} mm de diferencia entre el que más y el que menos.` : ''].filter(Boolean).join(' ');
   const trama = '<defs><pattern id="rayado" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="rayado-linea" x1="0" y1="0" x2="0" y2="4"/></pattern></defs>';
   return `<svg class="grafico-lluvia" viewBox="0 0 ${W} ${altura}" role="img" aria-labelledby="graf-titulo graf-desc"><title id="graf-titulo">Lluvia de los últimos ${hoyOk ? serie.hoy + 1 : n} días${hoyOk && serie.hoy < n - 1 ? ` y previsión de ${n - 1 - serie.hoy}` : ''}</title><desc id="graf-desc">${desc}</desc>${trama}${zonaPrev}${ejes}${rotulos}${lineas}${horquilla}${punto}${barras}${marca}${fechas.join('')}</svg>`;

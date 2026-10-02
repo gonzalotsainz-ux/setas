@@ -5,6 +5,7 @@
 import { leer, guardar, almacenPorDefecto } from './cache.js';
 import { SUPABASE_URL } from './config.js';
 import { conPlazo } from './rejilla/carga.js';
+import { entreDias } from './meteo.js';
 import { aplicarMedida, factoresPorZona, pluvioVigente, VIGENCIA_PLUVIO } from '../supabase/functions/_shared/pluvio.js';
 export { FUENTES_LLUVIA, LICENCIAS } from '../supabase/functions/_shared/pluvio-fuentes.js';
 
@@ -42,7 +43,9 @@ export function aplicarPluvio(zonas, meteo, pluvio) {
   for (const { id, zona } of lugares) {
     const m = pluvio.lugares[id] ?? null, factor = factores.get(zona) ?? 1;
     series[id] = aplicarMedida(meteo.series[id], m, { desde: pluvio.desde, hasta: pluvio.hasta, factor });
-    porPunto[id] = { estaciones: m?.estaciones ?? [], cercanas: m?.cercanas ?? 0, factor };
+    // `nDia[k]`: sitios con dato el día `serie.fechas[k]` (0 fuera del periodo medido); para decir cuántas estaciones midieron de verdad.
+    const nDia = meteo.series[id].fechas.map((f) => { const j = entreDias(pluvio.desde, f); return m && j >= 0 ? m.n?.[j] ?? 0 : 0; });
+    porPunto[id] = { estaciones: m?.estaciones ?? [], cercanas: m?.cercanas ?? 0, factor, nDia };
   }
   return { ...meteo, series, seriesModelo: meteo.series, pluvio: { porPunto, desde: pluvio.desde, hasta: pluvio.hasta } };
 }

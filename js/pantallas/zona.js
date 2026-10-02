@@ -96,8 +96,8 @@ const lugarEstacion = (est) => (est?.distanciaKm != null && est?.altitud != null
 // Origen de la cifra de 26 días: cuántos días vienen de la estación y cuántos del modelo.
 function origenLluvia(serie, meteo, zona, id) {
   const pp = meteo.pluvio?.porPunto?.[id];
-  const textoPluvio = pp ? textoOrigenPunto(serie, pp) : null;   // con pluvio/ultimo.json; sin él, lo de siempre (AEMET o modelo)
-  if (textoPluvio) return textoPluvio;
+  const origenPluvio = pp ? textoOrigenPunto(serie, pp, meteo.contrastePuntos?.[id]?.estacion ?? null) : null;   // con pluvio/ultimo.json; sin él, lo de siempre (AEMET o modelo)
+  if (origenPluvio) return origenPluvio;   // { corto, principal, detalle }
   const dias = serie.origenPrecip?.slice(serie.hoy - 25, serie.hoy + 1) ?? [];
   const deEstacion = dias.filter((o) => o?.startsWith('estacion:'));
   if (deEstacion.length) {
@@ -114,14 +114,19 @@ function origenLluvia(serie, meteo, zona, id) {
 function cifrasLluvia(serie, disp, meteo, zona, id) {
   const t = serie.precip.slice(serie.hoy - 25, serie.hoy + 1);
   const p26 = t.length === 26 && t.every((v) => v != null) ? t.reduce((a, b) => a + b, 0) : null;
+  const origen26 = origenLluvia(serie, meteo, zona, id), partes = typeof origen26 === 'string' ? null : origen26;
   const bloque = (valor, rotulo, origen) => el('div', {},
     el('p', { clase: 'cifras__valor' }, valor == null ? 'Sin datos' : String(valor), valor == null ? null : el('small', { texto: `${nbsp}mm` })),
     el('p', { clase: 'cifras__rotulo', texto: rotulo }), el('p', { clase: 'cifras__origen', texto: origen }));
   const n = Object.keys(disp?.modelos ?? {}).length;
-  return el('div', { clase: 'cifras' },
-    bloque(p26 == null ? null : Math.round(p26), 'Últimos 26 días', origenLluvia(serie, meteo, zona, id)),
-    bloque(disp?.media == null ? null : Math.round(disp.media), disp?.horizonte ? `Próximos ${disp.horizonte} días` : 'Próximos días',
-      disp?.media == null ? 'Sin previsión de varios modelos' : `Media de ${n} modelos`));
+  // Con pluviómetros, qué estaciones y cuántos días medidos van a todo el ancho (la columna es demasiado estrecha).
+  return el('div', {},
+    el('div', { clase: 'cifras' },
+      bloque(p26 == null ? null : Math.round(p26), 'Últimos 26 días', partes ? partes.corto : origen26),
+      bloque(disp?.media == null ? null : Math.round(disp.media), disp?.horizonte ? `Próximos ${disp.horizonte} días` : 'Próximos días',
+        disp?.media == null ? 'Sin previsión de varios modelos' : `Media de ${n} modelos`)),
+    partes ? el('div', { clase: 'cifras__detalle' }, el('p', { clase: 'texto-2 texto-s', texto: partes.principal }),
+      partes.detalle ? el('p', { clase: 'texto-2 texto-s', texto: partes.detalle }) : null) : null);
 }
 
 function cajaModelos(disp) {
@@ -176,15 +181,17 @@ function cajaContraste(zona, meteo, id) {
     el('div', { clase: 'chips' }, boton));
 }
 
+const TEXTO_AEMET_SIN_LEER = 'No se pudo leer AEMET ahora; la lluvia medida viene de los pluviómetros.';
 function seccionLluvia(zona, meteo, serie, id, disp, obsError, avisoObs = null) {
   const futuros = serie.fechas.length - 1 - serie.hoy;
+  const hayMedida = serie.origenPrecip?.some((o, k) => k <= serie.hoy && o === 'medida');   // con pluviómetros, que AEMET falle no deja sin lluvia medida
   const fig = el('figure', { clase: 'grafico' });
   fig.style.marginBlock = '0';
   fig.innerHTML = graficoLluvia({ serie, dispersionPunto: disp, altura: 250 });
   return el('section', { clase: 'tarjeta', attrs: { 'aria-labelledby': 'titulo-lluvia' } },
     el('div', { clase: 'tarjeta__titulo' }, el('h2', { id: 'titulo-lluvia', texto: 'Lluvia' }), el('span', { clase: 'texto-2 texto-s', texto: `${serie.hoy + 1} días y ${futuros} de previsión` })),
     cifrasLluvia(serie, disp, meteo, zona, id), fig,
-    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: textoSinLluvia(obsError) }) : null,
+    obsError && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: hayMedida ? TEXTO_AEMET_SIN_LEER : textoSinLluvia(obsError) }) : null,
     avisoObs && zona.estacionesAemet?.length ? el('p', { clase: 'texto-2 texto-s', texto: avisoObs }) : null,
     el('ul', { clase: 'leyenda' },
       ...(serie.origenPrecip?.some((o, k) => k <= serie.hoy && esMedida(o))
