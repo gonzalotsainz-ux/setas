@@ -83,7 +83,7 @@ export async function cargarFilas({ almacen, estaciones, cuerpo, ahora = new Dat
   const conocidas = new Set(estaciones.filter((e) => Object.hasOwn(FUENTES_CARGA, e.fuente)).map((e) => `${e.fuente}|${e.codigo}`));
   const desde = ahora.getTime() - DIAS_CARGA * 864e5, hasta = ahora.getTime() + 864e5;
   const enVentana = (iso) => Date.parse(iso) >= desde && Date.parse(iso) <= hasta;
-  const malas = lista.filter((f) => !Object.hasOwn(FUENTES_CARGA, f?.fuente) || !conocidas.has(`${f.fuente}|${f.estacion}`) || !esHoraEnPunto(f.hora)
+  const malas = lista.filter((f) => typeof f?.fuente !== 'string' || typeof f.estacion !== 'string' || !Object.hasOwn(FUENTES_CARGA, f.fuente) || !conocidas.has(`${f.fuente}|${f.estacion}`) || !esHoraEnPunto(f.hora)
     || !enVentana(f.hora) || !mmValido(f.mm, FUENTES_CARGA[f.fuente].nulos));
   if (malas.length) return { ok: false, error: `${malas.length} filas no válidas; la primera: ${JSON.stringify(malas[0]).slice(0, 120)}` };
   const filas = unicas(lista.map((f) => filaObs(f.fuente, { estacion: f.estacion, hora: new Date(f.hora).toISOString(), mm: f.mm })));
@@ -137,17 +137,19 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
 }
 
 // Resumen del resultado de «ejecutar» para el registro y para la respuesta síncrona: por tarea filas leídas, guardadas,
-// nº de errores y los 10 primeros; pasos y duración. Los mensajes se acortan y se les quita cualquier clave de URL.
+// nº de errores y los 10 primeros; pasos, errores de los pasos (los 10 primeros de cada uno) y duración. Los mensajes se
+// acortan y se les quita cualquier clave de URL.
 export const MAX_ERRORES_RESUMEN = 10;
-const limpiarMensaje = (m) => String(m).replace(/((?:api_?key|apikey|clave|token|key)=)[^&\s"']+/gi, '$1***').replace(/(bearer\s+)[\w.~+/=-]+/gi, '$1***').slice(0, 300);
+export const limpiarMensaje = (m) => String(m).replace(/((?:api_?key|apikey|clave|token|key)=)[^&\s"']+/gi, '$1***').replace(/(bearer\s+)[\w.~+/=-]+/gi, '$1***').slice(0, 300);
 export function resumenEjecucion(r, duracionMs = 0) {
-  const tareas = {};
+  const tareas = {}, pasosErrores = {};
   for (const t of r.tareas ?? []) {
-    if (TAREAS[t]?.paso) continue;
     const propios = (r.errores ?? []).filter((e) => String(e).startsWith(`${t}:`));
-    tareas[t] = { leidas: r.leidas?.[t] ?? 0, guardadas: r.filas?.[t] ?? 0, errores: propios.length, mensajes: propios.slice(0, MAX_ERRORES_RESUMEN).map(limpiarMensaje) };
+    const mensajes = propios.slice(0, MAX_ERRORES_RESUMEN).map(limpiarMensaje);
+    if (TAREAS[t]?.paso) { if (propios.length) pasosErrores[t] = mensajes; continue; }
+    tareas[t] = { leidas: r.leidas?.[t] ?? 0, guardadas: r.filas?.[t] ?? 0, errores: propios.length, mensajes };
   }
-  return { estado: r.estado, tareas, pasos: r.pasos ?? {}, errores_total: (r.errores ?? []).length, duracion_ms: Math.round(duracionMs) };
+  return { estado: r.estado, tareas, pasos: r.pasos ?? {}, pasos_errores: pasosErrores, errores_total: (r.errores ?? []).length, duracion_ms: Math.round(duracionMs) };
 }
 
 // Almacén real: tabla lluvia_obs (upsert por fuente, estación y hora, en trozos de 1.000).

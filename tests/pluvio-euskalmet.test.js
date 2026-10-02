@@ -145,6 +145,10 @@ test('cargarFilas: el Duero entra con su fuente, solo con mm numérico (un hueco
     assert.equal((await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [buena, mala] }, ahora })).ok, false, JSON.stringify(mala));
   }
   assert.equal(almacen.obs.size, 2, 'una carga con una fila mala no guarda ninguna');
+  // Fuente o estación que no son texto (un array se convertiría en «duero» o «PL002» al formar la clave): fuera.
+  for (const mala of [{ ...buena, fuente: ['duero'] }, { ...buena, estacion: ['PL002'] }, { ...buena, fuente: ['duero'], estacion: ['PL002'] }, { ...buena, estacion: 2 }]) {
+    assert.equal((await cargarFilas({ almacen, estaciones: EST, cuerpo: { filas: [mala] }, ahora })).ok, false, JSON.stringify(mala));
+  }
 });
 
 test('leerCuerpoCarga: JSON malo da 400 y un cuerpo demasiado grande, 413 sin leerlo', async () => {
