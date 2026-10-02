@@ -28,7 +28,7 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 ## 3. Grupos
 
 - Cualquiera puede crear un grupo con un nombre y queda como **administrador**.
-- **Código de invitación** de 8 caracteres, compartible como texto o enlace (`…/setas/#unirse=CODIGO`). El administrador puede regenerarlo; el anterior deja de valer. La función `unirse_grupo` limita intentos.
+- **Código de invitación** de 8 caracteres, compartible como texto o enlace (`…/setas/#unirse/CODIGO`). El administrador puede regenerarlo; el anterior deja de valer. La función `unirse_grupo` limita intentos.
 - Roles: **administrador** (renombra, expulsa, regenera el código, nombra a otro administrador, borra el grupo) y **miembro** (ve lo compartido, comparte lo suyo, puede salir). Un grupo siempre tiene al menos un administrador: el último no puede salir sin nombrar sucesor o borrar el grupo.
 - Un usuario puede estar en varios grupos.
 - Tope de miembros: `MAX_MIEMBROS_GRUPO`.
@@ -59,7 +59,8 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 - Los miembros de un grupo leen lo compartido por una **vista o función del servidor**, no por la tabla. Cuando `ubicacion_exacta` es falso, el servidor devuelve `lat` y `lon` nulos: las reglas por fila no pueden ocultar columnas, y así la protección no depende del cliente.
 - Funciones auxiliares `es_miembro(grupo)` y `es_admin(grupo)` (security definer, `search_path` fijado) para no repetir lógica.
 - Las tablas `grupos`, `miembros`, `salida_grupos` y `perfiles` solo se modifican a través de funciones del servidor con las comprobaciones necesarias; el acceso directo de lectura se limita a los propios miembros.
-- **Fotos:** el bucket `fotos` pasa a **privado**, con rutas que incluyen el identificador del dueño y enlaces temporales firmados para quien tenga permiso (dueño o miembro de un grupo con el que se compartió la salida).
+- **Fotos:** el bucket `fotos` pasa a **privado** con enlaces temporales firmados. Las rutas no cambian (`<salida_id>/<n>.jpg`); el permiso se decide consultando de quién es la salida y con qué grupos se compartió (dueño o miembro de un grupo con el que se compartió).
+- `salida_grupos` solo se escribe con la función `compartir_salida` (comprueba dueño y pertenencia); con «solo la zona» el servidor devuelve además `meteo` nulo e `indice` sin `punto`, porque el punto de la zona más cercano acota la ubicación.
 - Las funciones `unirse_grupo`, `crear_grupo`, `regenerar_codigo` y `recuperar_cuenta` limitan los intentos.
 
 ## 6. Migración desde la versión actual
@@ -67,7 +68,7 @@ Es la primera fase del plan de rentabilidad (brainstorming 2026-10-02). **Los gr
 1. Migración nueva (sello de tiempo mayor; no se edita ninguna ya aplicada) que añade las tablas y deja las salidas actuales **sin dueño**.
 2. En el primer acceso con la versión nueva, cada persona elige «¿Quién eres?» entre los `autor` existentes y **reclama** sus salidas, que pasan a ser suyas y privadas.
 3. Mientras no se reclaman, nadie las ve (no hay ventana abierta).
-4. Una vez reclamadas las de las dos personas, se eliminan las políticas «abiertas» de `salidas` y `fotos` y el bucket pasa a privado. Las fotos existentes se mueven a rutas con el identificador del dueño.
+4. Una vez reclamadas las de las dos personas, se aplica la migración de cierre: elimina las políticas «abiertas» de `salidas` y `fotos`, pasa el bucket a privado y retira el acceso anónimo. Las fotos no se mueven (las rutas no cambian).
 
 Riesgo: entre el paso 1 y el 4 las políticas antiguas siguen activas; el orden de despliegue debe ser app nueva → reclamo → cierre, para no dejar sin acceso a la versión antigua en caché.
 
@@ -77,8 +78,9 @@ Riesgo: entre el paso 1 y el 4 las políticas antiguas siguen activas; el orden 
 - Pruebas de la app para los flujos de crear grupo, unirse por enlace, compartir una salida y recuperar cuenta.
 - Se mantienen `npm run comprobar` y las 207 pruebas existentes.
 
-## 8. Puntos abiertos para el plan
+## 8. Puntos resueltos en el plan
 
-- Si la meteo y el índice guardados en la salida (`meteo`, `indice`) revelan el punto exacto cuando se comparte «solo la zona». Hay que comprobarlo y, si es así, omitirlos o generalizarlos en la vista compartida.
-- Versión mínima de Supabase y comportamiento de «Anonymous sign-ins» en el plan gratuito (límites por IP).
-- Cómo tratar los ajustes de umbrales (hoy abiertos) cuando exista identidad: se dejan como están en esta fase.
+- Meteo e índice guardados en la salida: con «solo la zona» se omiten `meteo` y `indice.punto` (ver sección 5).
+- El cierre del acceso abierto es una migración aparte (`supabase/pendientes/`) que se aplica cuando todas las salidas tienen dueño; incluye un guardia que aborta si queda alguna sin dueño.
+- Hay que activar «Anonymous sign-ins» en el panel de Supabase antes de desplegar (Authentication → Sign In / Providers).
+- Los ajustes de umbrales siguen abiertos y compartidos en esta fase.
