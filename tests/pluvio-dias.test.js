@@ -51,8 +51,8 @@ test('cambio de hora: el 25/10 con la hora 02:00 repetida queda completo', () =>
 });
 
 test('qué toca: el paso publicar a las 4 y a las 16 UTC, después de las lecturas', () => {
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'publicar']);
-  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T16:10:00Z')), ['tajo', 'publicar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T04:10:00Z')), ['tajo', 'jucar', 'publicar']);
+  assert.deepEqual(fuentesQueTocan(new Date('2026-10-02T16:10:00Z')), ['tajo', 'jucar', 'publicar']);
 });
 
 test('publicar: guarda lluvia_dia desde el 1 de agosto hasta ayer, solo de la lista blanca', async () => {

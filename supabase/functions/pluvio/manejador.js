@@ -6,6 +6,8 @@ import { crearPedir, PlazoAgotado } from './red.js';
 import { leerTajo } from './lectores/tajo.js';
 import { leerAemet } from './lectores/aemet.js';
 import { leerDuero } from './lectores/duero.js';
+import { leerJucar, fechasJucar } from './lectores/jucar.js';
+import { diasDeFilas } from './dias.js';
 import { publicar } from './publicar.js';
 
 // Supabase corta a los 150 s: la ejecución acaba antes de PLAZO_EJECUCION y las lecturas dejan RESERVA_MS para guardar.
@@ -26,6 +28,12 @@ export const TAREAS = {
   tajo10: { fuente: 'tajo', toca: (h) => h === 2, leer: (c) => leerTajo({ ...c, diezDias: true }) },
   duero: { fuente: 'duero', toca: (h) => h === 3 || h === 15, leer: (c) => leerDuero({ ...c, desde: sumarDias(c.hoy, -DIAS_DUERO) }) },
   duero90: { fuente: 'duero', toca: (h, d) => h === 1 && d === 0, leer: (c) => leerDuero({ ...c, desde: agostoDe(c.hoy) }) },
+  // Días que ya tienen dato de alguna estación del Júcar desde el 1 de agosto (de lluvia_por_dia): no se vuelven a pedir.
+  jucar: { fuente: 'jucar', toca: (h) => h === 4 || h === 16, leer: async (c) => {
+    const presentes = new Set(diasDeFilas((await c.almacen.diasPorEstacion(agostoDe(c.hoy))).filter((f) => f.fuente === 'jucar'))
+      .filter((d) => d.horas > 0).map((d) => d.fecha));
+    return leerJucar({ ...c, fechas: fechasJucar(c.hoy, presentes) });
+  } },
   publicar: { toca: (h) => h === 4 || h === 16, paso: (c) => publicar(c) },
 };
 export function fuentesQueTocan(ahora, pedidas = []) {
