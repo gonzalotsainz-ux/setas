@@ -6,7 +6,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';   /
 import ESTACIONES from './estaciones.json' with { type: 'json' };
 import PUNTOS from './puntos.json' with { type: 'json' };
 import GRUESA from '../rejilla/gruesa.json' with { type: 'json' };
-import { ejecutar, almacenSupabase, cargarFilas, leerCuerpoCarga } from './manejador.js';
+import { ejecutar, almacenSupabase, cargarFilas, leerCuerpoCarga, resumenEjecucion } from './manejador.js';
 import { claveValida } from '../_shared/clave.js';
 
 declare const EdgeRuntime: { waitUntil(p: Promise<unknown>): void } | undefined;
@@ -23,9 +23,12 @@ Deno.serve(async (req) => {
     return Response.json(r, { status: r.ok ? 200 : 400 });
   }
   const pedidas = (u.searchParams.get('fuentes') ?? '').split(',').filter(Boolean);
+  const sincrono = u.searchParams.get('sincrono') === '1';   // solo llega aquí con la clave válida
+  const inicio = Date.now();
   const trabajo = ejecutar({ almacen: almacenSupabase(admin), fetchFn: fetch, estaciones: ESTACIONES, gruesa: GRUESA, puntos: PUNTOS, pedidas, claveAemet: Deno.env.get('AEMET_API_KEY') ?? null })
-    .then((r) => console.log(JSON.stringify(r)))
-    .catch((e) => console.error(`pluvio: ${(e as Error).message}`));
+    .then((r) => { const resumen = resumenEjecucion(r, Date.now() - inicio); console.log(JSON.stringify(resumen)); return resumen; })
+    .catch((e) => { console.error(`pluvio: ${(e as Error).message}`); return { estado: 'error', error: (e as Error).message.slice(0, 300) }; });
+  if (sincrono) return Response.json(await trabajo);
   if (typeof EdgeRuntime !== 'undefined') { EdgeRuntime.waitUntil(trabajo); return new Response('en marcha', { status: 202 }); }
   await trabajo;
   return new Response('hecho');

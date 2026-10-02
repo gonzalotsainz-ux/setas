@@ -84,7 +84,7 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
   const pedir = crearPedir({ fetchFn, esperar, margen: () => limite - RESERVA_MS - reloj(), ...(senal ? { senal } : {}) });
   const hoy = hoyMadrid(ahora);
   const tareas = fuentesQueTocan(ahora, pedidas);
-  const r = { estado: 'hecho', tareas, filas: {}, pasos: {}, errores: [] };
+  const r = { estado: 'hecho', tareas, filas: {}, leidas: {}, pasos: {}, errores: [] };
   let agotado = false;
   for (const t of tareas) {
     const { fuente, leer, paso } = TAREAS[t];
@@ -100,6 +100,7 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
     let fallo = null;
     try {
       res = await leer({ pedir, estaciones: estaciones.filter((e) => e.fuente === fuente), claveAemet, hoy, almacen });
+      r.leidas[t] = res.filas.length;
       const filas = unicas(res.filas.map((f) => filaObs(fuente, f)));
       if (filas.length) await almacen.guardarObs(filas);
       r.filas[t] = filas.length;
@@ -112,6 +113,20 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estacione
     if (res?.agotado) { r.estado = 'plazo-agotado'; r.errores.push(`${t}: plazo agotado`); agotado = true; }
   }
   return r;
+}
+
+// Resumen del resultado de «ejecutar» para el registro y para la respuesta síncrona: por tarea filas leídas, guardadas,
+// nº de errores y los 10 primeros; pasos y duración. Los mensajes se acortan y se les quita cualquier clave de URL.
+export const MAX_ERRORES_RESUMEN = 10;
+const limpiarMensaje = (m) => String(m).replace(/((?:api_?key|apikey|clave|token|key)=)[^&\s"']+/gi, '$1***').replace(/(bearer\s+)[\w.~+/=-]+/gi, '$1***').slice(0, 300);
+export function resumenEjecucion(r, duracionMs = 0) {
+  const tareas = {};
+  for (const t of r.tareas ?? []) {
+    if (TAREAS[t]?.paso) continue;
+    const propios = (r.errores ?? []).filter((e) => String(e).startsWith(`${t}:`));
+    tareas[t] = { leidas: r.leidas?.[t] ?? 0, guardadas: r.filas?.[t] ?? 0, errores: propios.length, mensajes: propios.slice(0, MAX_ERRORES_RESUMEN).map(limpiarMensaje) };
+  }
+  return { estado: r.estado, tareas, pasos: r.pasos ?? {}, errores_total: (r.errores ?? []).length, duracion_ms: Math.round(duracionMs) };
 }
 
 // Almacén real: tabla lluvia_obs (upsert por fuente, estación y hora, en trozos de 1.000).
