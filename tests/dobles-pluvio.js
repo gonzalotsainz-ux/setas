@@ -66,6 +66,9 @@ export function almacenPluvioMemoria() {
       return [...r.values()];
     },
     async guardarDias(filas) { for (const f of filas) dias.set(`${f.fuente}|${f.estacion}|${f.fecha}`, { ...f }); },
+    async diasGuardados(desde, hasta) {
+      return [...dias.values()].filter((d) => d.calidad === 'ok' && d.fecha >= desde && d.fecha <= hasta).map(({ actualizado, ...d }) => ({ ...d }));
+    },
     async subir(nombre, json) { archivos.set(nombre, JSON.parse(JSON.stringify(json))); },
     async precipCeldas(ids) { return new Map(ids.filter((id) => modelo.has(id)).map((id) => [id, modelo.get(id)])); },
   };
