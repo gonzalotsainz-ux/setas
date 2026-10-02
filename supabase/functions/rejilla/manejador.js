@@ -102,15 +102,8 @@ export async function ejecutar({ almacen, fetchFn, ahora = new Date(), gruesa, l
   return { estado: 'publicado', sello, conDatos, total, peso: plan.peso, errores };
 }
 
-// Comparación de la cabecera x-rejilla-clave con el secreto REJILLA_CLAVE sin cortar en el primer carácter distinto.
-// Sin secreto (o con uno corto) no entra nadie.
-export function claveValida(recibida, secreto) {
-  if (typeof secreto !== 'string' || secreto.length < 32 || typeof recibida !== 'string') return false;
-  const a = new TextEncoder().encode(recibida), b = new TextEncoder().encode(secreto);
-  let distinto = a.length ^ b.length;
-  for (let k = 0; k < b.length; k++) distinto |= (a[k] ?? 0) ^ b[k];
-  return distinto === 0;
-}
+// La comparación de la clave vive en _shared (la usa también «pluvio»); se reexporta para index.ts y las pruebas.
+export { claveValida } from '../_shared/clave.js';
 
 // Almacén real: tablas meteo_celdas, clima_celdas y rejilla_ejecuciones, la vista meteo_celdas_resumen, la función
 // series_celdas y el bucket público «indice». Se lee todo (son unas 350 filas) para no meter cientos de ids en la URL.

@@ -1,2 +1,5 @@
 # Rejillas binarias (data/rejilla/*.bin): sin conversión de fin de línea
 *.bin binary
+
+# Respuestas reales de las fuentes de lluvia: byte a byte (algunas en ISO-8859-1)
+tests/fixtures/pluvio/** -text

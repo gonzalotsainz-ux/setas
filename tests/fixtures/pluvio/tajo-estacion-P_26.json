@@ -1,0 +1,1355 @@
+{
+    "response": {
+        "ok": 1,
+        "codigo": "P_26",
+        "nombre": "OLLA DEL QUI\u00d1ON EN BUSTARVIEJO",
+        "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhboJeRb3QIHtW99loSIspCKNTFojbqo1rWZtKNWU7SO8GxRMZYPvYvix4vfpLCT3VtMGvORJuDzIGP5cUOg9J68%3D",
+        "utm": {
+            "x": "435403.9",
+            "y": "4522055.4",
+            "z": "1279.0",
+            "huso": 30
+        },
+        "pais": "ESPA\u00d1A",
+        "tipoestacion": "pluviometro",
+        "tipo": "Pluviometro",
+        "comunidad": "Comunidad de Madrid",
+        "provincia": "Madrid",
+        "municipio": "Bustarviejo",
+        "zona": "MADRID",
+        "senales": [
+            {
+                "tag": "P_26WIC101",
+                "nombre": "PRECIPITACION ULTIMA HORA",
+                "unidad": "mm\/h",
+                "maximo": "20.000",
+                "minimo": "0.000",
+                "tendenciaabajo": true,
+                "tendencia": "abajo",
+                "tiposenal": "P1",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BXp3Tp19G5EuainMq2WrCbnKNtWBggL1Cdqrw8Hbwu1zvNZt8ccpZLaB7H6LxNrxYHG9wHQf15PDZ9%2BtlthBYY4A%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 3.2,
+                        "value_formateado": "3.200",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 10,
+                        "value_formateado": "10.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WIC101",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 12,
+                    "value_formateado": "12.000",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 12,
+                "min": 0,
+                "medio": "1,11",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,3.2,0,10,12",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            },
+            {
+                "tag": "P_26WIC601",
+                "nombre": "PRECIPITACION ULTIMAS 24 HORAS",
+                "unidad": "mm",
+                "maximo": "130.000",
+                "minimo": "0.000",
+                "tendenciaarriba": true,
+                "tendencia": "arriba",
+                "tiposenal": "P24",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BXqbylfgKKYyeH9JuHGkqxAuxbWy2mfQKVu7SMFIM3q%2BH9mmdhXagTOcmmm%2FMQn%2F9asisYCnHV6bDaMLoiZjRDCA%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 4.6,
+                        "value_formateado": "4.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 4.6,
+                        "value_formateado": "4.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 14.6,
+                        "value_formateado": "14.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WIC601",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 26.6,
+                    "value_formateado": "26.600",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 26.6,
+                "min": 0,
+                "medio": "2,22",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,1.4,4.6,4.6,14.6,26.6",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            },
+            {
+                "tag": "P_26WI__01",
+                "nombre": "PLUVIOMETRO",
+                "unidad": "mm",
+                "maximo": "10.000",
+                "minimo": "0.000",
+                "tendenciaabajo": true,
+                "tendencia": "abajo",
+                "tiposenal": "P",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BX%2FBzt2LBOrSOjkhb1yYRrnscWs8EbbSdYVub2diPgoMIIrmrdIAx3EjugbeGJaeKaTIB7VRwoLeew27df3mM%2Fxg%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 3.2,
+                        "value_formateado": "3.200",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 10,
+                        "value_formateado": "10.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WI__01",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 12,
+                    "value_formateado": "12.000",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 12,
+                "min": 0,
+                "medio": "1,11",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,3.2,0,10,12",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            }
+        ],
+        "senalesportada": [
+            {
+                "tag": "P_26WI__01",
+                "nombre": "PLUVIOMETRO",
+                "unidad": "mm",
+                "maximo": "10.000",
+                "minimo": "0.000",
+                "tendenciaabajo": true,
+                "tendencia": "abajo",
+                "tiposenal": "P",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BX%2FBzt2LBOrSOjkhb1yYRrnscWs8EbbSdYVub2diPgoMIIrmrdIAx3EjugbeGJaeKaTIB7VRwoLeew27df3mM%2Fxg%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 3.2,
+                        "value_formateado": "3.200",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WI__01",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 10,
+                        "value_formateado": "10.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WI__01",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 12,
+                    "value_formateado": "12.000",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 12,
+                "min": 0,
+                "medio": "1,11",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,3.2,0,10,12",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            },
+            {
+                "tag": "P_26WIC101",
+                "nombre": "PRECIPITACION ULTIMA HORA",
+                "unidad": "mm\/h",
+                "maximo": "20.000",
+                "minimo": "0.000",
+                "tendenciaabajo": true,
+                "tendencia": "abajo",
+                "tiposenal": "P1",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BXp3Tp19G5EuainMq2WrCbnKNtWBggL1Cdqrw8Hbwu1zvNZt8ccpZLaB7H6LxNrxYHG9wHQf15PDZ9%2BtlthBYY4A%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 3.2,
+                        "value_formateado": "3.200",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC101",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 10,
+                        "value_formateado": "10.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WIC101",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 12,
+                    "value_formateado": "12.000",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 12,
+                "min": 0,
+                "medio": "1,11",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,0,3.2,0,10,12",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            },
+            {
+                "tag": "P_26WIC601",
+                "nombre": "PRECIPITACION ULTIMAS 24 HORAS",
+                "unidad": "mm",
+                "maximo": "130.000",
+                "minimo": "0.000",
+                "tendenciaarriba": true,
+                "tendencia": "arriba",
+                "tiposenal": "P24",
+                "publica": true,
+                "logados": true,
+                "url": "index.php?w=get-estacion-grafico-grande&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhbdAXe24pSEYnAF63MXXH5H0QyClFuZp6oSbTgNGYw%2BXqbylfgKKYyeH9JuHGkqxAuxbWy2mfQKVu7SMFIM3q%2BH9mmdhXagTOcmmm%2FMQn%2F9asisYCnHV6bDaMLoiZjRDCA%3D%3D",
+                "valores": [
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 10:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 11:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 12:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 13:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 14:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 15:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 16:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 17:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 18:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 19:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 20:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 21:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 22:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "01\/10\/2026 23:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 00:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 01:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 02:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 03:00",
+                        "valor": 0,
+                        "value_formateado": "0.000",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 04:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 05:00",
+                        "valor": 1.4,
+                        "value_formateado": "1.400",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 06:00",
+                        "valor": 4.6,
+                        "value_formateado": "4.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 07:00",
+                        "valor": 4.6,
+                        "value_formateado": "4.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": "P_26WIC601",
+                        "tiempo": "02\/10\/2026 08:00",
+                        "valor": 14.6,
+                        "value_formateado": "14.600",
+                        "remota": "P_26",
+                        "tipo_consolidacion": "Un registro por hora"
+                    },
+                    {
+                        "tag": {},
+                        "tiempo": {},
+                        "valor": {},
+                        "value_formateado": {},
+                        "remota": {},
+                        "tipo_consolidacion": {}
+                    }
+                ],
+                "numticks": 24,
+                "last": {
+                    "tag": "P_26WIC601",
+                    "tiempo": "02\/10\/2026 09:00",
+                    "valor": 26.6,
+                    "value_formateado": "26.600",
+                    "remota": "P_26",
+                    "tipo_consolidacion": "Un registro por hora"
+                },
+                "max": 26.6,
+                "min": 0,
+                "medio": "2,22",
+                "serie": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1.4,1.4,4.6,4.6,14.6,26.6",
+                "categories": "\"01\/10\/2026 10:00h\",\"01\/10\/2026 11:00h\",\"01\/10\/2026 12:00h\",\"01\/10\/2026 13:00h\",\"01\/10\/2026 14:00h\",\"01\/10\/2026 15:00h\",\"01\/10\/2026 16:00h\",\"01\/10\/2026 17:00h\",\"01\/10\/2026 18:00h\",\"01\/10\/2026 19:00h\",\"01\/10\/2026 20:00h\",\"01\/10\/2026 21:00h\",\"01\/10\/2026 22:00h\",\"01\/10\/2026 23:00h\",\"02\/10\/2026 00:00h\",\"02\/10\/2026 01:00h\",\"02\/10\/2026 02:00h\",\"02\/10\/2026 03:00h\",\"02\/10\/2026 04:00h\",\"02\/10\/2026 05:00h\",\"02\/10\/2026 06:00h\",\"02\/10\/2026 07:00h\",\"02\/10\/2026 08:00h\",\"02\/10\/2026 09:00h\""
+            }
+        ],
+        "imagenes": "",
+        "mensajeimagenes": "No hay im\u00e1genes para mostrar.",
+        "documentos": "",
+        "mensajedocumentos": "No existen documentos asociados a esta estaci\u00f3n."
+    }
+}

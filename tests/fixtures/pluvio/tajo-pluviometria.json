@@ -1,0 +1,146 @@
+{
+ "response": {
+  "pluviometria": [
+   {
+    "idestacion": "AC01",
+    "fecha": "02/10/2026 09:45",
+    "value_formateado": "4.600",
+    "value": 4.6,
+    "tag": "AC01WIC101",
+    "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhURmMjgkL4OKVdcwHlBgajKr%2FKl4slfKODctnCtfqd9gY1Z9tkGRczxUiFn3EtgI7VPkiSXdUDK%2BOmeUJoj0Xk4%3D",
+    "estacion": {
+     "codigo": "AC01",
+     "nombre": "TRASVASE ENTREPEÑAS-BUENDÍA",
+     "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhURmMjgkL4OKVdcwHlBgajKr%2FKl4slfKODctnCtfqd9gY1Z9tkGRczxUiFn3EtgI7VPkiSXdUDK%2BOmeUJoj0Xk4%3D",
+     "utm": {
+      "x": "523080.9",
+      "y": "4481190.0",
+      "z": "731.0",
+      "huso": 30
+     },
+     "pais": "ESPAÑA",
+     "tipoestacion": "aforo-en-canal",
+     "tipo": "Aforo en Canal",
+     "comunidad": "Castilla - La Mancha",
+     "provincia": "Guadalajara",
+     "municipio": "Sacedón",
+     "zona": "CABECERA"
+    },
+    "publica": true,
+    "logados": true
+   },
+   {
+    "idestacion": "PN24",
+    "fecha": "02/10/2026 09:45",
+    "value_formateado": "0.200",
+    "value": 0.2,
+    "tag": "PN24WIC101",
+    "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhVz4gXvnB6vpViWa%2BqZiLr6Y7nOyRlrVqjmKwXYCVWP22cW9uLu5rHoo7FtPDSQVAgIwguiSOhe2Udp2buHYKHk%3D",
+    "estacion": {
+     "codigo": "PN24",
+     "nombre": "ALBERGUE DE LA LOBERA RASCAFRÍA",
+     "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhVz4gXvnB6vpViWa%2BqZiLr6Y7nOyRlrVqjmKwXYCVWP22cW9uLu5rHoo7FtPDSQVAgIwguiSOhe2Udp2buHYKHk%3D",
+     "utm": {
+      "x": "428740.5",
+      "y": "4526068.9",
+      "z": "1372.0",
+      "huso": 30
+     },
+     "pais": "ESPAÑA",
+     "tipoestacion": "pluvionivometro",
+     "tipo": "Pluvionivómetro",
+     "comunidad": "Comunidad de Madrid",
+     "provincia": "Madrid",
+     "municipio": "Rascafría",
+     "zona": "MADRID"
+    },
+    "publica": true,
+    "logados": true
+   },
+   {
+    "idestacion": "PN34",
+    "fecha": "02/10/2026 09:45",
+    "value_formateado": "0.000",
+    "value": 0,
+    "tag": "PN34WIC101",
+    "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhXxe1RN4TjrOTwkB4X7BpMWQ8sr09LiFYx6MMIQVqZCLMTHoiMESs306twfMu8QzgHWEE7%2FyBhcWWoJ0dxbnxEg%3D",
+    "estacion": {
+     "codigo": "PN34",
+     "nombre": "PUERTO DEL PICO EN S.MARTIN PIMP",
+     "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhXxe1RN4TjrOTwkB4X7BpMWQ8sr09LiFYx6MMIQVqZCLMTHoiMESs306twfMu8QzgHWEE7%2FyBhcWWoJ0dxbnxEg%3D",
+     "utm": {
+      "x": "328100.5",
+      "y": "4466605.5",
+      "z": "1490.0",
+      "huso": 30
+     },
+     "pais": "ESPAÑA",
+     "tipoestacion": "pluvionivometro",
+     "tipo": "Pluvionivómetro",
+     "comunidad": "Castilla y León",
+     "provincia": "Ávila",
+     "municipio": "San Martín del Pimpollar",
+     "zona": "ALBERCHE"
+    },
+    "publica": true,
+    "logados": true
+   },
+   {
+    "idestacion": "P_26",
+    "fecha": "02/10/2026 09:45",
+    "value_formateado": "2.600",
+    "value": 2.6,
+    "tag": "P_26WIC101",
+    "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhboJeRb3QIHtW99loSIspCKNTFojbqo1rWZtKNWU7SO8GxRMZYPvYvix4vfpLCT3VtMGvORJuDzIGP5cUOg9J68%3D",
+    "estacion": {
+     "codigo": "P_26",
+     "nombre": "OLLA DEL QUIÑON EN BUSTARVIEJO",
+     "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhboJeRb3QIHtW99loSIspCKNTFojbqo1rWZtKNWU7SO8GxRMZYPvYvix4vfpLCT3VtMGvORJuDzIGP5cUOg9J68%3D",
+     "utm": {
+      "x": "435403.9",
+      "y": "4522055.4",
+      "z": "1279.0",
+      "huso": 30
+     },
+     "pais": "ESPAÑA",
+     "tipoestacion": "pluviometro",
+     "tipo": "Pluviometro",
+     "comunidad": "Comunidad de Madrid",
+     "provincia": "Madrid",
+     "municipio": "Bustarviejo",
+     "zona": "MADRID"
+    },
+    "publica": true,
+    "logados": true
+   },
+   {
+    "idestacion": "P_32",
+    "fecha": "02/10/2026 09:45",
+    "value_formateado": "0.000",
+    "value": 0,
+    "tag": "P_32WIC101",
+    "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhSaXO1SOtJJOfe4LpMUaSEf1Z47W5BUndesBCbXNemYJ7%2BLSdho1hD4Cv6xwagp5rtn7S%2BizhlLogQiwljWtVl8%3D",
+    "estacion": {
+     "codigo": "P_32",
+     "nombre": "SAN PABLO DE LOS MONTES",
+     "url": "index.php?w=get-estacion&x=%2F4ZGs%2B6M%2BZWfvq6%2FyxpbhSaXO1SOtJJOfe4LpMUaSEf1Z47W5BUndesBCbXNemYJ7%2BLSdho1hD4Cv6xwagp5rtn7S%2BizhlLogQiwljWtVl8%3D",
+     "utm": {
+      "x": "384192.4",
+      "y": "4378847.5",
+      "z": "911.0",
+      "huso": 30
+     },
+     "pais": "ESPAÑA",
+     "tipoestacion": "pluviometro",
+     "tipo": "Pluviometro",
+     "comunidad": "Castilla - La Mancha",
+     "provincia": "Toledo",
+     "municipio": "San Pablo de los Montes",
+     "zona": "TAJO IZQUIERDA"
+    },
+    "publica": true,
+    "logados": true
+   }
+  ]
+ }
+}
