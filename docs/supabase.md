@@ -1,7 +1,7 @@
 # Supabase
 
 - **Proyecto:** `ctgedeunquvmcfqsufjj` (`https://ctgedeunquvmcfqsufjj.supabase.co`), cuenta de Gonzalo, plan gratuito.
-- **Sin login, abierto por decisión de la usuaria (2026-09-30).** Cualquiera con la URL de la web puede leer y
+- **Sin login, abierto por decisión de la usuaria (2026-09-30; actualizado: ver «Cuentas y grupos» al final, la migración de cuentas y la de cierre acaban con el acceso abierto).** Cualquiera con la URL de la web puede leer y
   editar el diario (salidas, fotos, umbrales). La clave publicable (`sb_publishable_…`) está en `js/config.js` (la reexporta `js/supabase.js`)
   y es pública por diseño. El autor de cada salida es un nombre elegido en el dispositivo (`elegirAutor`).
 - `aemet_cache` tiene RLS sin políticas: solo la Edge Function (Tarea 18) la usa, con la clave de servicio.
@@ -132,3 +132,23 @@ claves `sb_publishable_`).
   Salorino y Villuercas), 158 celdas gruesas; `ultimo.json` 33 KB. Álava en septiembre queda estimada con el modelo hasta
   que Euskalmet publique el mes o haya clave de su API. Para diagnosticar: `?fuentes=<tarea>&sincrono=1` con la clave
   devuelve el resumen de la ejecución (también va al registro de la función).
+
+## Cuentas y grupos (2026-10)
+
+Spec: `docs/superpowers/specs/2026-10-02-grupos-design.md`. Plan: `docs/superpowers/plans/2026-10-02-grupos.md`.
+
+- **Identidad:** sesión anónima de Supabase por dispositivo (Authentication → Sign In / Providers → «Allow anonymous sign-ins», activado a mano en el panel). El perfil (`perfiles`) pone nombre y un **código de recuperación** (16 caracteres, solo se guarda su hash) con el que otra sesión se queda con la cuenta (`recuperar_cuenta` traspasa perfil, grupos y salidas porque las FK son `on update cascade`).
+- **Datos:** `grupos`, `miembros`, `salida_grupos`, `salidas.usuario_id`. Las salidas solo las lee su dueño; los miembros leen lo compartido con `salidas_del_grupo()` (con «solo la zona» devuelve coordenadas, meteo y `indice.punto` nulos). `salida_grupos` solo se escribe con `compartir_salida()`.
+- **Fotos:** bucket `fotos` privado tras la migración de cierre; URLs firmadas (`firmarFotos`); las rutas siguen siendo `<salida_id>/<n>.jpg` y el permiso sale de la salida (`puede_ver_foto`).
+- **Límites:** 20 miembros por grupo (`max_miembros_grupo()`); 10 fallos de código en 15 minutos por sesión o IP (`limitar_intentos`); máximo 10 grupos creados por persona (`demasiados_grupos`).
+- **Códigos:** invitación de 8 caracteres; recuperación de 16. `limitar_intentos` (usada por `unirse_grupo` y `recuperar_cuenta`) rechaza transacciones de solo lectura (`solo_post`), así que no se pueden probar por GET. Abrir un enlace de invitación nunca une al grupo por sí solo: hay que pulsar «Unirme al grupo».
+- **Pruebas de la base de datos:** `npm run probar:sql` (necesita Docker; levanta un Postgres desechable que imita a Supabase). No forman parte de `npm run comprobar`.
+
+### Pasar a cuentas (orden de despliegue)
+
+1. Activar «Allow anonymous sign-ins» en el panel de Supabase.
+2. `npx --yes supabase@latest db push` — aplica `20261005*` (cuentas, grupos, compartir). Es compatible con la app antigua (las políticas abiertas siguen activas).
+3. Fusionar la rama `grupos` en `main` y subir a GitHub (Pages despliega la app nueva).
+4. Cada persona abre el Diario, crea su perfil, **guarda su código de recuperación** y pulsa su nombre en «¿Cuáles son tuyas?».
+5. Comprobar que no queda nada sin dueño: `npx supabase@latest db query --linked "select count(*) from public.salidas where usuario_id is null"` → `0` (si no, asignarlas a mano o borrarlas).
+6. `git mv supabase/pendientes/20261006000000_cerrar_acceso_abierto.sql supabase/migrations/` y `db push`. Desde aquí `anon` no lee salidas ni fotos y el bucket es privado. (La migración aborta sola si quedan salidas sin dueño.)
