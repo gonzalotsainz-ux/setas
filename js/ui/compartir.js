@@ -5,6 +5,7 @@ import { comparticionesDesdeMapa } from '../grupos.js';
 // `grupos`: filas de mis_grupos(). `seleccion`: Map grupo_id → ubicacion_exacta (los grupos ya marcados).
 export function selectorGrupos({ grupos, seleccion = new Map() }) {
   const estado = new Map(seleccion);
+  const ids = new Set(grupos.map((g) => g.grupo_id));
   const filas = grupos.map((g) => {
     const marca = el('input', { type: 'checkbox', id: `comp-${g.grupo_id}`, checked: estado.has(g.grupo_id) });
     const soloZona = el('input', { type: 'checkbox', id: `comp-z-${g.grupo_id}`, checked: estado.get(g.grupo_id) === false });
@@ -16,5 +17,5 @@ export function selectorGrupos({ grupos, seleccion = new Map() }) {
     soloZona.addEventListener('change', () => { if (marca.checked) estado.set(g.grupo_id, !soloZona.checked); });
     return el('li', { clase: 'diario-comp' }, el('label', { htmlFor: marca.id }, marca, ` ${g.nombre}`), sub);
   });
-  return { nodo: el('ul', { clase: 'diario-lista' }, ...filas), valor: () => comparticionesDesdeMapa(estado) };
+  return { nodo: el('ul', { clase: 'diario-lista' }, ...filas), valor: () => comparticionesDesdeMapa(new Map([...estado].filter(([id]) => ids.has(id)))) };   // solo grupos a los que aún perteneces: el servidor rechaza la salida entera si no
 }

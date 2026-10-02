@@ -5,12 +5,22 @@ import { nombreCorto } from '../datos.js';
 import { fechaLarga } from '../mapa.js';
 import { supabase } from '../supabase.js';
 import { textoError, asegurarSesion } from '../cuenta.js';
-import { cuentaActual, requerirCuenta } from './cuenta-ui.js';
+import { cuentaActual, requerirCuenta, errorDeCuenta } from './cuenta-ui.js';
 import { misGrupos, crearGrupo, unirseAGrupo, regenerarCodigo, renombrarGrupo, miembrosDelGrupo, expulsarMiembro, hacerAdmin, salirDelGrupo, borrarGrupo, salidasDelGrupo, enlaceInvitacion, MAX_MIEMBROS } from '../grupos.js';
 
 const kgTexto = (n) => `${String(Math.round(n * 100) / 100).replace('.', ',')} kg`;
 const boton = (texto, onclick, { suave = true, compacto = true } = {}) =>
-  el('button', { type: 'button', clase: `boton${suave ? ' boton--suave' : ''}${compacto ? ' boton--compacto' : ''}`, texto, onclick });
+  el('button', {
+    type: 'button', clase: `boton${suave ? ' boton--suave' : ''}${compacto ? ' boton--compacto' : ''}`, texto,
+    // Se desactiva mientras corre la acción: un doble toque no la repite.
+    onclick: async (ev) => {
+      const b = ev.currentTarget;
+      if (b.disabled) return;
+      b.disabled = true;
+      try { await onclick(ev); } finally { b.disabled = false; }
+    },
+  });
+const esNoEncontrado = (e) => /no_miembro/.test(`${e?.message ?? ''}`) || e?.code === '22P02';
 
 function tarjetaSalidaGrupo(s, datos, yo) {
   const zona = datos.zonas.find((z) => z.id === s.zona_id);
@@ -42,6 +52,7 @@ export function pintar({ estado, param }) {
 
   async function vistaLista() {
     const cuenta = await cuentaActual();
+    if (!cuenta && errorDeCuenta()) { cuerpo.replaceChildren(); decir(`No se puede comprobar tu perfil (${textoError(errorDeCuenta())}). Comprueba la conexión.`, true); return; }
     if (!cuenta) {
       cuerpo.replaceChildren(el('div', { clase: 'tarjeta pila' },
         el('p', { texto: 'Los grupos sirven para compartir tus salidas solo con tus amigos. Primero crea tu perfil (sin correo ni contraseña).' }),
@@ -52,27 +63,33 @@ export function pintar({ estado, param }) {
     }
     const grupos = await misGrupos({ supabase });
     const nombre = el('input', { type: 'text', id: 'grupo-nombre', attrs: { maxlength: '60', autocomplete: 'off', enterkeyhint: 'done' } });
+    const crearBtn = el('button', { type: 'submit', clase: 'boton', texto: 'Crear grupo' });
     const formCrear = el('form', { clase: 'diario-form tarjeta', noValidate: true },
       el('h2', { clase: 'tarjeta__titulo', texto: 'Crear un grupo' }),
       el('div', { clase: 'campo' }, el('label', { htmlFor: 'grupo-nombre', texto: 'Nombre del grupo' }), nombre),
-      el('button', { type: 'submit', clase: 'boton', texto: 'Crear grupo' }));
+      crearBtn);
     formCrear.addEventListener('submit', async (ev) => {
       ev.preventDefault();
       if (!nombre.value.trim()) { decir('Ponle un nombre al grupo.', true); nombre.focus(); return; }
-      try { const g = await crearGrupo(nombre.value, { supabase }); location.hash = `#grupos/${g.grupo_id}`; } catch (e) { decir(textoError(e), true); }
+      if (crearBtn.disabled) return;
+      crearBtn.disabled = true;
+      try { const g = await crearGrupo(nombre.value, { supabase }); location.hash = `#grupos/${g.grupo_id}`; } catch (e) { decir(textoError(e), true); } finally { crearBtn.disabled = false; }
     });
     const codigo = el('input', { type: 'text', id: 'grupo-codigo', attrs: { autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', maxlength: '12', enterkeyhint: 'done' } });
+    const unirBtn = el('button', { type: 'submit', clase: 'boton boton--suave', texto: 'Unirme' });
     const formUnirse = el('form', { clase: 'diario-form tarjeta', noValidate: true },
       el('h2', { clase: 'tarjeta__titulo', texto: 'Unirme con un código' }),
       el('div', { clase: 'campo' }, el('label', { htmlFor: 'grupo-codigo', texto: 'Código de invitación' }), codigo),
-      el('button', { type: 'submit', clase: 'boton boton--suave', texto: 'Unirme' }));
+      unirBtn);
     formUnirse.addEventListener('submit', async (ev) => {
       ev.preventDefault();
+      if (unirBtn.disabled) return;
+      unirBtn.disabled = true;
       try {
         const id = await unirseAGrupo(codigo.value, { supabase });
         if (!id) { decir('Ese código no corresponde a ningún grupo.', true); return; }
         location.hash = `#grupos/${id}`;
-      } catch (e) { decir(textoError(e), true); }
+      } catch (e) { decir(textoError(e), true); } finally { unirBtn.disabled = false; }
     });
     cuerpo.replaceChildren(
       grupos.length ? el('ul', { clase: 'diario-lista' }, grupos.map((g) => el('li', { clase: 'tarjeta diario-salida' },
@@ -86,9 +103,16 @@ export function pintar({ estado, param }) {
   async function vistaGrupo(id) {
     const cuenta = await cuentaActual();
     if (!cuenta) { await vistaLista(); return; }
-    const [grupos, miembros, salidas] = await Promise.all([misGrupos({ supabase }), miembrosDelGrupo(id, { supabase }), salidasDelGrupo(id, { supabase })]);
+    const noEncontrado = () => cuerpo.replaceChildren(el('div', { clase: 'tarjeta pila' }, el('p', { texto: 'No encuentras este grupo: puede que ya no formes parte de él.' }), el('a', { href: '#grupos', texto: 'Ver mis grupos' })));
+    let grupos, miembros, salidas;
+    try {
+      [grupos, miembros, salidas] = await Promise.all([misGrupos({ supabase }), miembrosDelGrupo(id, { supabase }), salidasDelGrupo(id, { supabase })]);
+    } catch (e) {
+      if (esNoEncontrado(e)) { noEncontrado(); return; }
+      throw e;
+    }
     const g = grupos.find((x) => x.grupo_id === id);
-    if (!g) { cuerpo.replaceChildren(el('div', { clase: 'tarjeta' }, el('p', { texto: 'No encuentras este grupo: puede que ya no formes parte de él.' }), el('a', { href: '#grupos', texto: 'Ver mis grupos' }))); return; }
+    if (!g) { noEncontrado(); return; }
     const soyAdmin = g.rol === 'admin';
     const refrescar = () => vistaGrupo(id).catch((e) => decir(textoError(e), true));
     const accion = (fn, ok) => async () => { try { await fn(); decir(ok ?? ''); await refrescar(); } catch (e) { decir(textoError(e), true); } };

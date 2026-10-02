@@ -7,7 +7,7 @@ import { requerirCuenta } from './cuenta-ui.js';
 
 export function pintar({ param }) {
   const codigo = leerCodigoUnirse(param);
-  const aviso = el('p', { clase: 'texto-s', attrs: { role: 'alert', 'aria-live': 'polite' } });
+  const aviso = el('p', { clase: 'texto-s', attrs: { role: 'alert' } });
   if (!codigo) {
     return el('div', { clase: 'pila diario' }, el('h1', { texto: 'Invitación' }),
       el('div', { clase: 'tarjeta' }, el('p', { texto: 'Este enlace de invitación no es válido. Pide que te lo envíen de nuevo.' }), el('a', { href: '#grupos', texto: 'Ir a Grupos' })));

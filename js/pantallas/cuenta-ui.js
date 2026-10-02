@@ -7,6 +7,8 @@ import { cargarPerfil, crearPerfil, recuperarCuenta, asegurarSesion, codigoRecup
 let cuenta = null;        // { id, nombre } cuando existe
 let ultimoError = null;   // último fallo al comprobar el perfil (sin red, cuentas anónimas desactivadas…)
 
+export const errorDeCuenta = () => ultimoError;   // no null = no se pudo comprobar el perfil (p. ej. sin conexión)
+
 export function fijarCuenta(c) {
   cuenta = c;
   if (c) elegirAutor(c.nombre);
