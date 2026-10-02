@@ -21,7 +21,7 @@ drop policy "fotos: borrar" on storage.objects;
 
 -- Las rutas son <salida_id>/<n>.jpg: el permiso sale de la salida, no de la carpeta.
 create function public.ruta_salida_id(p_ruta text) returns uuid language sql immutable as $$
-  select case when split_part(p_ruta, '/', 1) ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+  select case when split_part(p_ruta, '/', 1) ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
               then split_part(p_ruta, '/', 1)::uuid end
 $$;
 create function public.es_mi_salida(p_salida uuid) returns boolean
