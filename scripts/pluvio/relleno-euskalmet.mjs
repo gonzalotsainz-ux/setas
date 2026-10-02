@@ -11,6 +11,7 @@ import { AGENTE } from '../../supabase/functions/pluvio/red.js';
 const RAIZ = new URL('../../', import.meta.url);
 const arg = (n, d) => process.argv.find((a) => a.startsWith(`--${n}=`))?.slice(n.length + 3) ?? d;
 const seco = process.argv.includes('--seco'), desde = arg('desde', '2026-08-01'), anio = arg('anio', desde.slice(0, 4));
+if (desde.slice(0, 4) !== anio) throw new Error(`--desde (${desde}) no es del año del zip (--anio=${anio})`);
 const FUNCION = 'https://ctgedeunquvmcfqsufjj.supabase.co/functions/v1/pluvio?accion=cargar';
 const TROZO = 2000;
 

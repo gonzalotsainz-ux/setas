@@ -4,7 +4,7 @@
 // Contesta 202 enseguida y sigue en segundo plano (EdgeRuntime.waitUntil); el plazo lo vigila el manejador.
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.117.2';   // la misma versión que js/supabase.js
 import ESTACIONES from './estaciones.json' with { type: 'json' };
-import { ejecutar, almacenSupabase, cargarFilas } from './manejador.js';
+import { ejecutar, almacenSupabase, cargarFilas, leerCuerpoCarga } from './manejador.js';
 import { claveValida } from '../_shared/clave.js';
 
 declare const EdgeRuntime: { waitUntil(p: Promise<unknown>): void } | undefined;
@@ -15,9 +15,9 @@ Deno.serve(async (req) => {
   const u = new URL(req.url);
   const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   if (u.searchParams.get('accion') === 'cargar') {
-    let cuerpo: unknown = null;
-    try { cuerpo = await req.json(); } catch { return new Response('cuerpo no válido', { status: 400 }); }
-    const r = await cargarFilas({ almacen: almacenSupabase(admin), estaciones: ESTACIONES, cuerpo });
+    const l = await leerCuerpoCarga(req);
+    if (l.error) return new Response(l.error, { status: l.status });
+    const r = await cargarFilas({ almacen: almacenSupabase(admin), estaciones: ESTACIONES, cuerpo: l.cuerpo });
     return Response.json(r, { status: r.ok ? 200 : 400 });
   }
   const pedidas = (u.searchParams.get('fuentes') ?? '').split(',').filter(Boolean);

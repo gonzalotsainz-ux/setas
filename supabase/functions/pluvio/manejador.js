@@ -50,19 +50,31 @@ export function unicas(filas) {
   return [...m.values()];
 }
 
-// Carga de horas leídas fuera (relleno de Euskalmet desde su zip anual): solo estaciones de la lista blanca, horas en
-// punto y mm numéricos o nulos; como mucho MAX_FILAS_CARGA por llamada.
+// Carga de horas leídas fuera (relleno de Euskalmet desde su zip anual): solo estaciones de Euskalmet de la lista blanca,
+// horas en punto de los últimos DIAS_CARGA días (hasta 1 día adelante) y mm numéricos >= 0 o nulos; como mucho
+// MAX_FILAS_CARGA por llamada.
 export const MAX_FILAS_CARGA = 5000;
-const mmValido = (v) => v === null || (typeof v === 'number' && Number.isFinite(v));
-export async function cargarFilas({ almacen, estaciones, cuerpo }) {
+export const DIAS_CARGA = 400;
+export const MAX_BYTES_CARGA = 1000000;
+const mmValido = (v) => v === null || (typeof v === 'number' && Number.isFinite(v) && v >= 0);
+export async function cargarFilas({ almacen, estaciones, cuerpo, ahora = new Date() }) {
   const lista = cuerpo?.filas;
   if (!Array.isArray(lista) || !lista.length || lista.length > MAX_FILAS_CARGA) return { ok: false, error: `hacen falta entre 1 y ${MAX_FILAS_CARGA} filas` };
-  const conocidas = new Set(estaciones.map((e) => `${e.fuente}:${e.codigo}`));
-  const malas = lista.filter((f) => !conocidas.has(`${f?.fuente}:${f?.estacion}`) || !esHoraEnPunto(f.hora) || !mmValido(f.mm));
+  const conocidas = new Set(estaciones.filter((e) => e.fuente === 'euskalmet').map((e) => e.codigo));
+  const desde = ahora.getTime() - DIAS_CARGA * 864e5, hasta = ahora.getTime() + 864e5;
+  const enVentana = (iso) => Date.parse(iso) >= desde && Date.parse(iso) <= hasta;
+  const malas = lista.filter((f) => f?.fuente !== 'euskalmet' || !conocidas.has(f.estacion) || !esHoraEnPunto(f.hora) || !enVentana(f.hora) || !mmValido(f.mm));
   if (malas.length) return { ok: false, error: `${malas.length} filas no válidas; la primera: ${JSON.stringify(malas[0]).slice(0, 120)}` };
-  const filas = unicas(lista.map((f) => filaObs(f.fuente, { estacion: f.estacion, hora: new Date(f.hora).toISOString(), mm: f.mm })));
+  const filas = unicas(lista.map((f) => filaObs('euskalmet', { estacion: f.estacion, hora: new Date(f.hora).toISOString(), mm: f.mm })));
   await almacen.guardarObs(filas);
   return { ok: true, guardadas: filas.length };
+}
+// Cuerpo de ?accion=cargar: se rechaza por tamaño antes de leerlo y un JSON malo da 400.
+export async function leerCuerpoCarga(req) {
+  if (Number(req.headers.get('content-length') ?? 0) > MAX_BYTES_CARGA) return { error: 'cuerpo demasiado grande', status: 413 };
+  const texto = await req.text();
+  if (texto.length > MAX_BYTES_CARGA) return { error: 'cuerpo demasiado grande', status: 413 };
+  try { return { cuerpo: JSON.parse(texto) }; } catch { return { error: 'cuerpo no válido', status: 400 }; }
 }
 
 export async function ejecutar({ almacen, fetchFn, ahora = new Date(), estaciones, pedidas = [], claveAemet = null,
