@@ -120,10 +120,20 @@ async function montar(estadoInicial) {
     return { paddingTopLeft: [16, v('--alto-arriba', 180) + 8], paddingBottomRight: [16, v('--alto-nav', 112) + abajo + tapa + 8], animate: false }; };
   // Para encuadrar chinchetas: suben ALTO_CHINCHETA sobre su punto, así que arriba hace falta ese margen de más.
   const margenesChinchetas = () => { const m = margenes(); return { ...m, paddingTopLeft: [m.paddingTopLeft[0], m.paddingTopLeft[1] + ALTO_CHINCHETA] }; };
-  // Centra un punto en el hueco que dejan el buscador y la hoja.
-  function centrar([lat, lon], zoom) {
-    const m = margenes(), desfase = (m.paddingBottomRight[1] - m.paddingTopLeft[1]) / 2;
+  // Centra un punto en el hueco que dejan el buscador y la hoja (con margenesChinchetas si lleva chincheta encima).
+  function centrar([lat, lon], zoom, m = margenes()) {
+    const desfase = (m.paddingBottomRight[1] - m.paddingTopLeft[1]) / 2;
     mapa.setView(mapa.unproject(mapa.project([lat, lon], zoom).add([0, desfase]), zoom), zoom, { animate: false });
+  }
+  // Todas las zonas (nivel 1): si no caben ni en el zoom mínimo (en el móvil la hoja y los avisos dejan poco hueco), se
+  // alinea su borde norte bajo el buscador, con las chinchetas enteras, en vez de centrarlas (las del norte quedarían
+  // debajo del buscador); las del sur quedan sobre la hoja, que ya las lista.
+  function encuadrarTodas() {
+    const m = margenesChinchetas(), z = mapa.getMinZoom();
+    const no = mapa.project(todas.getNorthWest(), z), se = mapa.project(todas.getSouthEast(), z);
+    const hueco = mapa.getSize().subtract(L.point(m.paddingTopLeft).add(m.paddingBottomRight));
+    if (se.x - no.x <= hueco.x && se.y - no.y <= hueco.y) { mapa.fitBounds(todas, m); return; }
+    mapa.setView(mapa.unproject([(no.x + se.x) / 2, no.y - m.paddingTopLeft[1] + mapa.getSize().y / 2], z), z, { animate: false });
   }
   // Zona: su bbox entera; si en el hueco del móvil eso deja el zoom por debajo del de los montes, se acerca hasta él
   // (centrado en la zona) para que se vean sus montes, que es lo que promete el nivel 2.
@@ -231,8 +241,8 @@ async function montar(estadoInicial) {
     if (lugar) encuadrar(() => centrar([lugar.lat, lugar.lon], lugar.zoom));
     else if (primera && ui.vista && ui.vista.clave === clave) mapa.setView([ui.vista.lat, ui.vista.lon], ui.vista.zoom, { animate: false });
     else if (e?.tipo === 'zona') encuadrar(() => encuadrarZona(e.limites));
-    else if (e?.tipo === 'punto') encuadrar(() => centrar(e.centro, e.zoom));
-    else if (primera) encuadrar(() => mapa.fitBounds(todas, margenesChinchetas()));
+    else if (e?.tipo === 'punto') encuadrar(() => centrar(e.centro, e.zoom, margenesChinchetas()));
+    else if (primera) encuadrar(encuadrarTodas);
     return true;
   }
 

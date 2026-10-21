@@ -13,8 +13,8 @@ sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gon
   contenido y de altura (recogida, resumen, completa) y trae «Cómo llegar». El **buscador** encuentra pueblos, montes y
   zonas, y cualquier lugar de España con CartoCiudad (fuera de las zonas dice qué zonas quedan cerca). Además: chips de
   especie, barra de días y capas (mapa, relieve, topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el
-  fondo «Mapa» es la Base IGN mientras CARTO pida clave). Sin índice publicado (o sin red), los puntos de cada zona con su
-  nota y un aviso.
+  fondo «Mapa» es la Base IGN mientras CARTO pida clave). Sin índice publicado (o sin red), las zonas y sus montes con
+  chinchetas y la nota de la meteo, sin manchas, y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
 - **Diario:** salidas con foto, compartidas en Supabase, con borrador local si no hay cobertura.
 - **Ajustes:** dispositivo, umbrales, calibración con el diario y **créditos completos** de datos, fotos y mapas.

@@ -189,14 +189,10 @@ Los datos son **inventados** (lo dice una etiqueta arriba). La foto es `img/espe
 
 ## Auditoría de usabilidad final (2026-09-30)
 
-Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en claro y oscuro por el Mapa (zonas, zona, monte y búsqueda fuera de las zonas), Zona
-(Guadarrama y Soria), Especies, ficha de *Amanita phalloides*, Seguridad, Diario y Ajustes: sin errores de
+Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en claro y oscuro por Hoy, Zona
+(Guadarrama y Soria), Mapa, Especies, ficha de *Amanita phalloides*, Seguridad, Diario y Ajustes: sin errores de
 consola propios (solo un 429 de Open-Meteo tras recargas repetidas, que la app gestiona), sin desbordamiento
 horizontal, con Toxicología, «Ante la duda» y la atribución de Open-Meteo visibles en todas.
-
-Capturas del mapa por niveles (`capturas/mapa-niveles-1-zonas.png`, `-2-zona.png`, `-3-monte.png`): tema claro, 390×844, del 2026-10-21,
-con Toxicología y «Ante la duda» visibles. Pendientes: las variantes en oscuro y la de «búsqueda fuera de las zonas», porque la cuota
-diaria de Open-Meteo se agotó durante la sesión y sin previsión las capturas enseñarían el estado de error.
 
 - **Corregido:** los enlaces del pie (Reglas de seguridad, 91 562 04 20, 112, Open-Meteo) medían 20 px de alto; ahora
   tienen zona de toque de 44 px (`.pie a::after`) sin mover el texto.
@@ -204,3 +200,11 @@ diaria de Open-Meteo se agotó durante la sesión y sin previsión las capturas 
   de especie dentro de frases miden 18 a 22 px. Son enlaces en línea dentro de texto (WCAG 2.2, criterio 2.5.8, los
   exime) y ampliarlos rompería la lectura compacta de créditos, que la licencia CC BY exige visibles. Las acciones
   principales sí miden 44 px o más.
+
+### Capturas del mapa por niveles (2026-10-21)
+
+Esta auditoría es anterior al mapa por niveles: no lo recorrió. Capturas del mapa por niveles
+(`capturas/mapa-niveles-1-zonas.png`, `-2-zona.png`, `-3-monte.png`): tema claro, 390×844, del 2026-10-21, con Toxicología y
+«Ante la duda» visibles. Pendientes: las variantes en oscuro y la de «búsqueda fuera de las zonas», porque la cuota diaria de
+Open-Meteo se agotó durante la sesión y sin previsión las capturas enseñarían el estado de error.
+
