@@ -6,6 +6,8 @@ import { comun } from '../ui/ficha.js';
 import { enTemporada, pesoPrevision } from '../indice.js';
 import { entreDias } from '../meteo.js';
 import { buscarEspecies } from '../pantallas/especies.js';
+import { nombreCorto } from '../datos.js';
+import { mezclarResultados } from './geocodificador.js';
 import { ZOOM_MIN_FINA, AVISO_SIN_DESCOMPRESION } from '../rejilla/carga.js';
 
 export const GRUPOS = [
@@ -45,8 +47,9 @@ export function barraDias(fechas, hoy, seleccion) {
 const normalizar = (s) => String(s ?? '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 const nombrePueblo = (municipio) => { const m = /^(.*?)\s*\(([^)]*)\)\s*$/.exec(municipio ?? ''); return m ? { n: m[1], p: m[2] } : { n: municipio ?? '', p: '' }; };
 
-// Especies (eligen su chip), sitios (con sus coordenadas o, si no tienen, las de su pueblo) y pueblos; 8 como mucho.
-export function buscarEnMapa(texto, { pueblos = [], sitios = [], especies = [], chips = [] }) {
+// Orden: especies (eligen su chip), zonas, montes (puntos), sitios (con sus coordenadas o, si no tienen, las de su pueblo)
+// y pueblos; 8 como mucho.
+export function buscarEnMapa(texto, { pueblos = [], sitios = [], especies = [], chips = [], zonas = [], puntos = [] }) {
   const q = normalizar(texto).trim();
   if (q.length < 2) return [];
   const r = [], ya = new Set();
@@ -54,6 +57,15 @@ export function buscarEnMapa(texto, { pueblos = [], sitios = [], especies = [], 
   for (const e of buscarEspecies(texto, especies.filter((x) => x.categoria === 'comestible' && x.indice))) {
     const ch = chips.find((c) => c.especies?.includes(e.id));
     if (ch) poner({ tipo: 'chip', id: ch.id, texto: comun(e), sub: ch.texto }, `chip:${ch.id}`);
+  }
+  const zonaDe = new Map(zonas.map((z) => [z.id, z]));
+  for (const z of zonas) {
+    if (normalizar(nombreCorto(z)).includes(q) || normalizar(z.nombre).includes(q)) poner({ tipo: 'zona', id: z.id, texto: nombreCorto(z), sub: 'Zona' }, `zona:${z.id}`);
+  }
+  for (const p of puntos) {
+    const z = zonaDe.get(p.zona);
+    if (!z || !(normalizar(p.corto).includes(q) || normalizar(p.nombre).includes(q))) continue;
+    poner({ tipo: 'punto', zona: z.id, id: p.id, texto: p.corto ?? p.nombre, sub: nombreCorto(z), lat: p.lat, lon: p.lon }, `punto:${p.id}`);
   }
   const deMunicipio = (m) => { const { n, p } = nombrePueblo(m); return pueblos.find((x) => x.n.split(' / ').some((k) => normalizar(k) === normalizar(n)) && (!p || normalizar(p).includes(normalizar(x.p)) || normalizar(x.p).includes(normalizar(p)))); };
   for (const s of sitios) {
@@ -74,13 +86,17 @@ export async function cargarPueblos(fetchFn = globalThis.fetch?.bind(globalThis)
   return (await r.json()).pueblos ?? [];
 }
 
-// Combobox accesible: flechas para moverse, Intro para elegir, Escape para cerrar la lista.
-export function crearBuscador({ buscar, alElegir }) {
+// Combobox accesible: flechas para moverse, Intro para elegir, Escape para cerrar la lista. `buscar` es local y síncrono
+// (pinta al instante); `buscarLejos(texto, cb)` añade después lugares de fuera (CartoCiudad) sin quitar los locales.
+// Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo.
+export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar = () => {} }) {
   const id = 'mapa-buscar-lista';
-  const input = el('input', { type: 'search', placeholder: 'Pueblo, sitio o especie', attrs: { role: 'combobox', 'aria-expanded': 'false', 'aria-controls': id,
-    'aria-autocomplete': 'list', 'aria-label': 'Buscar pueblo, sitio o especie', autocomplete: 'off', enterkeyhint: 'search' } });
+  const marcador = 'Pueblo, monte, zona o lugar';
+  const input = el('input', { type: 'search', placeholder: marcador, attrs: { role: 'combobox', 'aria-expanded': 'false', 'aria-controls': id,
+    'aria-autocomplete': 'list', 'aria-label': 'Buscar pueblo, monte, zona, lugar o especie', autocomplete: 'off', enterkeyhint: 'search' } });
   const lista = el('ul', { id, clase: 'mapa-buscador__lista', hidden: true, attrs: { role: 'listbox', 'aria-label': 'Resultados' } });
-  let resultados = [], activo = -1;
+  const migas = el('div', { clase: 'mapa-buscador__migas', hidden: true });
+  let resultados = [], activo = -1, turno = 0;
   const pintar = () => {
     lista.replaceChildren(...resultados.map((r, k) => {
       const li = el('li', { id: `${id}-${k}`, attrs: { role: 'option', 'aria-selected': String(k === activo) } }, el('span', { texto: r.texto }), r.sub ? el('span', { clase: 'texto-2 texto-s', texto: ` · ${r.sub}` }) : null);
@@ -91,16 +107,33 @@ export function crearBuscador({ buscar, alElegir }) {
     input.setAttribute('aria-expanded', String(resultados.length > 0));
     if (activo >= 0) input.setAttribute('aria-activedescendant', `${id}-${activo}`); else input.removeAttribute('aria-activedescendant');
   };
-  const elegir = (k) => { const r = resultados[k]; if (!r) return; input.value = r.texto; resultados = []; activo = -1; pintar(); alElegir(r); };
-  input.addEventListener('input', () => { resultados = buscar(input.value); activo = -1; pintar(); });
+  const cerrar = () => { turno++; resultados = []; activo = -1; pintar(); };   // turno++: una respuesta lejana tardía ya no reabre la lista
+  const elegir = (k) => { const r = resultados[k]; if (!r) return; input.value = r.texto; cerrar(); alElegir(r); };
+  const escribir = () => {
+    const texto = input.value, mio = ++turno, locales = buscar(texto);
+    resultados = locales; activo = -1; pintar();
+    if (!texto.trim()) alLimpiar();
+    else buscarLejos?.(texto, (externos) => {
+      if (mio !== turno) return;
+      const elegido = activo >= 0 ? resultados[activo] : null;
+      resultados = mezclarResultados(locales, externos); activo = elegido ? resultados.indexOf(elegido) : -1; pintar();
+    });
+  };
+  input.addEventListener('input', escribir);
   input.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' && resultados.length) { e.preventDefault(); activo = (activo + 1) % resultados.length; pintar(); }
     else if (e.key === 'ArrowUp' && resultados.length) { e.preventDefault(); activo = (activo - 1 + resultados.length) % resultados.length; pintar(); }
     else if (e.key === 'Enter') { e.preventDefault(); elegir(activo >= 0 ? activo : 0); }
-    else if (e.key === 'Escape' && resultados.length) { e.stopPropagation(); resultados = []; activo = -1; pintar(); }
+    else if (e.key === 'Escape' && resultados.length) { e.stopPropagation(); cerrar(); }
   });
-  input.addEventListener('blur', () => { resultados = []; activo = -1; pintar(); });
-  return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, icono('i-buscar'), input, lista), input };
+  input.addEventListener('blur', cerrar);
+  const ponerMigas = (items) => {
+    migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto })));
+    migas.hidden = !items.length;
+    input.value = ''; input.placeholder = marcador;
+  };
+  const limpiarMigas = () => ponerMigas([]);
+  return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, icono('i-buscar'), migas, input, lista), input, ponerMigas, limpiarMigas };
 }
 
 // Avisos de la franja inferior del mapa (spec §3.4), en orden: modo (sin índice o navegador sin descompresión),

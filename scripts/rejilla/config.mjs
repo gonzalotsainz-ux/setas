@@ -51,6 +51,8 @@ export const CONFIG = {
     archivo: '_fuentes/pueblos/ngbe-nucleos.csv',
     columnas: { nombre: 'NOMBRE', provincia: 'PROVINCIA', lat: 'LATITUD', lon: 'LONGITUD' },
   },
+  // Buscador del mapa: sugerencias y coordenadas de lugares de toda España (js/mapa/geocodificador.js); las usa la app, no el pipeline.
+  geocodificador: { nombre: 'CartoCiudad (IGN)', url: 'https://www.cartociudad.es/', licencia: 'CC BY 4.0' },
   openMeteo: { trozo: 200, maxPasados: 92 },
   supabase: { lotes: 1 },
   gruesa: { candidatos: [0.09, 0.12, 0.15, 0.18], maximo: 350 },

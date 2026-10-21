@@ -227,6 +227,7 @@ function bloqueCreditos(datos, estado) {
       ': Mapa Forestal de España 1:50.000 (MFE50) © Ministerio para la Transición Ecológica y el Reto Demográfico. Base de los bosques del mapa por laderas. Fuente de los datos: Ministerio para la Transición Ecológica y el Reto Demográfico; proyecto realizado entre 1997 y 2006 (archivos de 2013). Reutilización con cita de la fuente (Real Decreto 1495/2011).'),
     li(enlace('Modelo Digital del Terreno MDT25 (IGN, PNOA-LiDAR), servicio WCS', 'https://servicios.idee.es/wcs-inspire/mdt'), ': Obra derivada de MDT25 CC BY 4.0 scne.es. Altitud, orientación y pendiente del mapa por laderas.'),
     li(enlace('Nomenclátor Geográfico Básico de España (NGBE) y unidades administrativas, IGN (servicios WFS)', 'https://www.ign.es/wfs-inspire/ngbe'), ': CC BY 4.0 (Obra derivada de NGBE CC-BY 4.0 ign.es). Pueblos del buscador del mapa.'),
+    li(enlace('CartoCiudad (IGN)', 'https://www.cartociudad.es/'), ': CC BY 4.0 (© Instituto Geográfico Nacional de España). Lugares del buscador del mapa.'),
     li(enlace('iNaturalist', 'https://www.inaturalist.org/'), ' y ', enlace('Wikimedia Commons', 'https://commons.wikimedia.org/'), ': fotos de especies, cada una con su autor y licencia (lista más abajo).'),
     li(enlace('Junta de Castilla y León', 'https://micocyl.es/'), ': cartografía micológica y regulación de cotos.'),
     li(enlace('OAPN', 'https://www.miteco.gob.es/es/parques-nacionales-oapn/'), ': zonificación del PRUG del Parque Nacional de la Sierra de Guadarrama.'),

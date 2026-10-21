@@ -65,7 +65,7 @@ import { readFileSync } from 'node:fs';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
 test('créditos de Ajustes: MFE50 con su actualización, MDT25 y pueblos del NGBE, con los textos de CONFIG', () => {
   const src = readFileSync('js/pantallas/ajustes.js', 'utf8');
-  for (const t of [CONFIG.mfe.atribucion, CONFIG.mfe.url, CONFIG.mdt.atribucion, CONFIG.mdt.nombre, CONFIG.mdt.url, CONFIG.pueblos.nombre, CONFIG.pueblos.url, CONFIG.pueblos.licencia]) {
+  for (const t of [CONFIG.mfe.atribucion, CONFIG.mfe.url, CONFIG.mdt.atribucion, CONFIG.mdt.nombre, CONFIG.mdt.url, CONFIG.pueblos.nombre, CONFIG.pueblos.url, CONFIG.pueblos.licencia, CONFIG.geocodificador.nombre, CONFIG.geocodificador.url, CONFIG.geocodificador.licencia]) {
     assert.ok(src.includes(t), t);
   }
   assert.match(src, /entre 1997 y 2006 \(archivos de 2013\)/);

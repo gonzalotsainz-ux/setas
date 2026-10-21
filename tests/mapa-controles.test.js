@@ -160,3 +160,16 @@ test('sin índice, si algún punto sale en «Nulo» se dice qué es el gris (no 
   // Con índice, las manchas tienen su propia leyenda de colores: tampoco.
   assert.ok(!textos(avisosMapa({ salida: { sello: 'x' }, zoom: 12, puntosNulos: 3 })).includes(AVISO_GRIS));
 });
+
+test('buscador: encuentra zonas por nombre corto y montes por su corto, antes que sitios y pueblos', () => {
+  const zonas = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas;
+  const puntos = zonas.flatMap((z) => z.puntos.map((p) => ({ ...p, zona: z.id })));
+  const r = (t, extra = {}) => buscarEnMapa(t, { pueblos: [], sitios: [], especies, chips: [], zonas, puntos, ...extra });
+  const valsain = r('vals').find((x) => x.tipo === 'punto' && x.texto === 'Valsaín');
+  assert.ok(valsain, 'el monte sale por su corto');
+  assert.deepEqual([valsain.zona, valsain.id, valsain.sub, valsain.lat, valsain.lon], ['guadarrama', 'guadarrama-valsain-pinar', 'Sierra de Guadarrama', 40.853, -3.9943]);
+  assert.deepEqual(r('guada')[0], { tipo: 'zona', id: 'guadarrama', texto: 'Sierra de Guadarrama', sub: 'Zona' });
+  const orden = buscarEnMapa('vi', { pueblos: [{ n: 'Villa', p: 'Soria', lat: 41, lon: -2 }], sitios: [{ id: 's', nombre: 'Villar', lat: 41, lon: -2, municipio: 'X' }], especies: [], chips: [],
+    zonas: [{ id: 'z', nombre: 'Viñas (Soria)', puntos: [] }], puntos: [{ id: 'p', zona: 'z', corto: 'Vigía', lat: 1, lon: 2 }] }).map((x) => x.tipo);
+  assert.deepEqual(orden, ['zona', 'punto', 'sitio', 'pueblo']);
+});
