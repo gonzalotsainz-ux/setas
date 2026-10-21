@@ -5,6 +5,7 @@ import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { cargarPluvio, aplicarPluvio, combinarObs } from './pluvio.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
+import { dec } from './mapa/ruta.js';
 
 // meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida (pluviómetros y estaciones AEMET) donde la hay.
 // obs: lo que devuelve la función «aemet» tal cual (con su marca __viejo); pluvio: pluvio/ultimo.json vigente o null.
@@ -28,13 +29,15 @@ function error(raiz, titulo, detalle) {
 
 async function pintar(cambioDePantalla = false) {
   const ficha = carrera.nueva();
+  const dentroDelMapa = hashAnterior.startsWith('#mapa') && location.hash.startsWith('#mapa');
+  hashAnterior = location.hash;   // al empezar, no al acabar: un pintado descartado por la carrera no deja un hash obsoleto
   const [nombre0, param] = (location.hash.slice(1) || 'mapa').split('/');
   const nombre = nombre0 === 'hoy' ? 'mapa' : nombre0;   // «Hoy» ya no existe como pestaña: sus enlaces viejos abren el mapa
   const cargar = pantallas[nombre] ?? pantallas.mapa;
   const raiz = document.getElementById('app');
   try {
     const m = await cargar();
-    const nodo = await m.pintar({ estado, param: param && decodeURIComponent(param), refrescarMeteo });
+    const nodo = await m.pintar({ estado, param: param && dec(param), refrescarMeteo });
     if (!carrera.vigente(ficha)) return;
     // El mapa devuelve siempre el mismo nodo: volver a insertarlo le quitaría el foco (buscador) y cerraría sus popups.
     if (raiz.childNodes.length !== 1 || raiz.firstChild !== nodo) raiz.replaceChildren(nodo);
@@ -46,8 +49,6 @@ async function pintar(cambioDePantalla = false) {
   document.querySelectorAll('.barra-nav a').forEach((a) => {
     if (a.hash === `#${actual}`) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  const dentroDelMapa = hashAnterior.startsWith('#mapa') && location.hash.startsWith('#mapa');
-  hashAnterior = location.hash;
   if (cambioDePantalla === true && !dentroDelMapa) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
 }
 

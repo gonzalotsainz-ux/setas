@@ -18,3 +18,8 @@ test('leerRutaZona admite punto opcional', () => {
   assert.equal(rutaZona('soria'), '#zona/soria');
   assert.deepEqual(leerRutaZona('#mapa/soria'), { zona: null, punto: null });
 });
+
+test('un hash mal codificado no lanza', () => {
+  assert.deepEqual(leerRutaMapa('#mapa/%'), { zona: '%', punto: null });
+  assert.deepEqual(leerRutaZona('#zona/soria/%E0%A4%A'), { zona: 'soria', punto: '%E0%A4%A' });
+});
