@@ -6,13 +6,14 @@ sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gon
 
 - **Zona:** índice 0 a 100 por zona y especie a partir de la lluvia (modelos de Open-Meteo contrastados con
   estaciones de AEMET), temperatura y hábitat. Mide la **oportunidad meteorológica**, no la producción del monte.
-- **Mapa:** es la pantalla de inicio (`#mapa`, `#mapa/<zona>`, `#mapa/<zona>/<punto>`; el antiguo `#hoy` abre también el mapa). Tres niveles:
-  las **zonas** con una chincheta de color por nota y la lista «Dónde ir» (hoy o el día elegido), la **zona** con sus
-  **montes** y la ficha del **monte**, con la nota por ladera (bosque, altitud y orientación cada 250 m) como manchas
-  de color solo sobre el monte apropiado y etiquetas en las laderas. Una hoja inferior fija, que nunca se cierra, cambia de
-  contenido y de altura (recogida, resumen, completa) y trae «Cómo llegar». El **buscador** encuentra pueblos, montes y
-  zonas, y cualquier lugar de España con CartoCiudad (fuera de las zonas dice qué zonas quedan cerca). Además: chips de
-  especie, barra de días y capas (mapa, relieve, topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el
+- **Mapa:** es la pantalla de inicio (`#mapa`, `#mapa/<zona>`, `#mapa/<zona>/<punto>`; el antiguo `#hoy` abre también el mapa). Un mapa limpio,
+  sin recuadros encima, con tres niveles: las **zonas** (una chincheta de color por nota); al tocar una, el mapa se acerca
+  a la **zona** y salen sus **montes**; al tocar un monte se abre su **página** (la pantalla Zona con ese monte elegido:
+  nota, motivo, gráfica, normativa). Siempre enseña hoy. La nota por ladera (bosque, altitud y orientación cada 250 m)
+  se pinta como manchas de color solo sobre el monte apropiado, con etiquetas en las mejores laderas; tocar una mancha abre
+  un popup con su ficha y «Cómo llegar». El **buscador** encuentra pueblos, montes y zonas, y cualquier lugar de España
+  con CartoCiudad (fuera de las zonas lo dice en una línea y enseña las zonas más cercanas). Además: chips de especie,
+  una sola línea de aviso cuando hace falta y capas (mapa, relieve, topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el
   fondo «Mapa» es la Base IGN mientras CARTO pida clave). Sin índice publicado (o sin red), las zonas y sus montes con
   chinchetas y la nota de la meteo, sin manchas, y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
@@ -45,7 +46,7 @@ npm run gancho                           # instala el gancho pre-push
 - **Edge Function `pluvio`:** lluvia medida: SAIH Tajo, Duero y Júcar, Euskalmet y AEMET horario; licencias y estado de cada fuente en Ajustes. Detalles en [docs/supabase.md](docs/supabase.md).
 - **Open-Meteo:** se llama desde el navegador con caché de 3 h (evita los 429).
 - **Mapa por laderas:** `js/rejilla/` (formato binario, geometría, nota por celda, carga del índice y pintor, con Web
-  Worker), `js/mapa/` (capa de la rejilla, fondos y panel de capas, hoja inferior, buscador, chips y barra de días) y
+  Worker), `js/mapa/` (capa de la rejilla, fondos y panel de capas, chinchetas, ficha de ladera, buscador, chips y avisos) y
   `data/rejilla/` (rejillas finas de 250 m por zona, `indice.json` y `gruesa.json`, generadas con
   `scripts/rejilla/generar.mjs`). La **Edge Function `rejilla`** (pg_cron a las 07:00 y 19:00 de Madrid) pide la meteo
   de las celdas gruesas y publica el índice diario en el bucket público `indice` (`<sello>.json` + `ultimo.json`).

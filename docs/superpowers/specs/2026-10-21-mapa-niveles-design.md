@@ -1,5 +1,14 @@
 # La app gira en torno al mapa: una vista por niveles — diseño
 
+> **Revisión 2026-10-21 por la usuaria:** el mapa queda limpio; la ficha del monte es la pantalla Zona; sin hoja fija ni
+> barra de días en el mapa. Sus palabras: «no se ve bien porque los recuadros de información tapan el mapa. Prefiero que
+> salgan las zonas y, si haces clic sobre la zona, hace zoom sobre las subzonas, y si haces clic en esas subzonas te lleva
+> a otra página donde ya ves toda la información». Queda así: zonas → montes de la zona → página del monte
+> (`#zona/<zona>/<punto>`); las laderas se tocan y abren un popup de Leaflet con su ficha (rojo en una zona prohibida); el
+> mapa enseña siempre hoy; los avisos son una sola línea que se despliega al tocarla; un lugar buscado fuera de las zonas
+> lo dice esa línea. Lo que sigue describe el diseño anterior: la hoja fija (§2), la barra de días (decisión 14) y la lista
+> «Dónde ir» ya no existen.
+
 Fecha: 21/10/2026 · Estado: **implementado el 2026-10-21 (rama `mapa-niveles`)**; aprobado por la usuaria el 21/10/2026 tras la revisión del constructor (brainstorming del 21/10/2026; maquetas aprobadas en `maqueta/mapa-niveles.html`, y las tres variantes previas en `maqueta/mapa-que-cuenta.html`)
 
 ## 1. Qué se quiere y por qué

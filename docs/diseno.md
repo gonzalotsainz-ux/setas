@@ -56,7 +56,7 @@ Cada nivel tiene tres colores: trazo (`--c-sem-X`, barras), fondo (`--c-sem-X-fo
 barra llena son 20 puntos.
 
 **Herencia del nivel:** vale el `data-nivel` más cercano, sea del propio `.semaforo` o de un contenedor
-(`.fila-zona`, una tarjeta). Todo el semáforo se pinta con propiedades personalizadas (`--sem`, `--sem-fondo`,
+(una chincheta, una tarjeta). Todo el semáforo se pinta con propiedades personalizadas (`--sem`, `--sem-fondo`,
 `--sem-texto`, `--b1` a `--b4` para las barras llenas...), así que un `.semaforo` con su propio nivel dentro de un
 contenedor con otro nivel muestra el suyo. Sin `data-nivel` en ningún sitio, los valores de `:root` dan el aspecto
 «sin datos»: nunca sale un nivel inventado.
@@ -115,8 +115,7 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | `.etiqueta` (`--acento`, `--ocre`) | confianza, «orientativo», «incierta», origen del dato |
 | `.aviso` | aviso ocre (previsión incierta) |
 | `.aviso-peligro` | recuadro rojo (tóxicas parecidas, precaución) |
-| `.hoja[data-abierta]` | hoja inferior modal para detalles, filtros o Toxicología (el mapa usa `.hoja-mapa`, que no es esta). Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
-| `.lista-zonas` + `.fila-zona[data-nivel]` | fila con raya lateral del nivel, nombre, nota grande, semáforo y frase; sirve también para especies |
+| `.hoja[data-abierta]` | hoja inferior modal para detalles, filtros o Toxicología (el mapa no la usa). Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
 | `.factores` + `.factor` | desglose del índice: código, nombre, valor, frase clara y barra fina sin pista |
 | `.grafico` | gráfico SVG de lluvia: dos paneles con el mismo eje (acumulado de 26 días arriba, lluvia diaria abajo), previsión rayada en ocre con horquilla entre modelos y raya de «hoy» |
 | `.modelos` + `.modelo` | contraste de modelos como diagrama de puntos con la media marcada |
@@ -135,27 +134,31 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 
 ## Mapa a pantalla completa
 
-El mapa es la pantalla de inicio y tiene tres niveles que cambian el contenido de la hoja: **zonas** (`#mapa`: chincheta por zona
-y lista «Dónde ir»), **zona** (`#mapa/<zona>`: montes de la zona, con contorno) y **monte** (`#mapa/<zona>/<punto>`: nota por
-ladera, con etiquetas sobre las manchas). Fuera de las zonas, el buscador (CartoCiudad) coloca una gota y la hoja
-enseña las zonas cercanas. El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
-buscador (con las migas «‹ Zona › Monte» cuando hay algo elegido) y los chips de especie; a la derecha, en una columna
-bajo ese bloque, Capas, Mi ubicación y el zoom (+ y −, 44 px; por debajo de la hoja si se cruzan); abajo, la hoja fija
-(`.hoja-mapa`), que lleva dentro la barra de días, y encima de ella los avisos. La atribución de Leaflet va sobre los
-avisos en **una sola línea** (textos cortos con enlace: «© IGN CC BY 4.0 · MFE50 · MDT25»; los créditos completos, en
+El mapa es la pantalla de inicio y está **limpio**: nada lo tapa salvo el buscador, los chips y, como mucho, una línea de
+aviso (revisión de la usuaria del 2026-10-21). Niveles: **zonas** (`#mapa`: una chincheta por zona), **zona**
+(`#mapa/<zona>`: el mapa se acerca, contorno discontinuo y chinchetas de sus montes) y **página del monte** (tocar la
+chincheta de un monte abre `#zona/<zona>/<punto>`, la pantalla Zona con ese monte elegido; su «‹ Mapa» vuelve a
+`#mapa/<zona>/<punto>`, que centra el monte a zoom 13 con su chincheta marcada). Enseña siempre hoy. Tocar una mancha
+(zoom ≥ 9) abre un **popup de Leaflet** con la ficha de la ladera (`pintarLadera` en `js/mapa/hoja.js`), en rojo con la
+norma en una zona prohibida. Fuera de las zonas, el buscador (CartoCiudad) coloca una gota, encuadra las zonas más
+cercanas y lo dice la línea de aviso. El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa`
+oculta el pie). Arriba, el buscador (con las migas «‹ Zona › Monte» cuando hay algo elegido) y los chips de especie; a la
+derecha, en una columna bajo ese bloque, Capas, Mi ubicación y el zoom (+ y −, 44 px); abajo, sobre la barra de
+navegación, la línea de aviso (`.mapa-completo__aviso`: el primer aviso, con elipsis; al tocarla, `aria-expanded`, se lee
+entero). Tras tocar una zona, el foco va a la última miga. La atribución de Leaflet va sobre la línea de aviso en **una sola línea** (textos cortos con enlace: «© IGN CC BY 4.0 · MFE50 · MDT25»; los créditos completos, en
 Ajustes): al tocarla o con el foco dentro se ve entera. Las alturas se miden en la pantalla: `--alto-cabecera`,
-`--alto-nav`, `--alto-arriba` (hasta dónde llegan buscador, migas y chips: de ahí cuelgan los botones y el tope de la hoja
-completa), `--alto-hoja` (lo que mide la hoja ahora; `--alto-hoja-resumen`, lo que medía en «resumen») y `--alto-abajo`
-(hoja + avisos: la atribución va encima). Los encuadres dejan libre el hueco entre `--alto-arriba` y la hoja en
-«resumen», avisos y atribución.
+`--alto-nav`, `--alto-arriba` (hasta dónde llegan buscador, migas y chips: de ahí cuelgan los botones) y `--alto-abajo`
+(la línea de aviso, si la hay: la atribución va encima). Los encuadres y el autoPan de los popups dejan libre el hueco
+entre `--alto-arriba` y la barra de navegación, la línea de aviso y la atribución; los popups que no caben hacen scroll
+por dentro.
 
 | Clase | Qué es |
 |---|---|
-| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
+| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__avisos`, `__aviso`) | contenedor fijo del mapa y sus franjas flotantes; `__aviso` es la línea de aviso (botón de 44 px con `aria-expanded`) |
 | `.mapa-buscador` (+ `__lista`) | combobox de pueblos, sitios y especies: 48 px, foco visible, opción activa con fondo de acento y raya lateral |
 | `.mapa-panel` | panel de fondos, capas y leyenda de las manchas, con «Cerrar»; Escape lo cierra y el foco vuelve a Capas |
-| `.hoja-mapa` (`[data-estado="recogida|resumen|completa"]`) + `.hoja__asa` | hoja fija del mapa sobre la isla de navegación (`bottom: calc(var(--alto-nav) + var(--esp-2))`), con bisel doble. Es una región (`role="region"`) que **nunca se cierra**: cambia de contenido según lo elegido (lista de zonas, zona y montes, ficha de monte, mancha) y de altura con el asa (44 px, `touch-action: none`, clic o arrastre): recogida (asa, días y una línea), resumen (36 % del alto) y completa (hasta 88 %, sin pasar por debajo de `--alto-arriba`). El cuerpo hace scroll por dentro. **El foco solo se mueve al título cuando se toca algo de forma explícita** (`enfocar: true`), nunca al repintar; sin animación con `prefers-reduced-motion`. Independiente de `.hoja` |
-| `.hoja-mapa[data-variante="prohibido"]` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
+| `.mapa-popup` + `.hoja__nota`, `.hoja__filas`, `.hoja__acciones` | ficha de una ladera en el popup del mapa: nota y especie, bosque, altitud, orientación, meteo, coto y «Cómo llegar», «Ver detalle», «Guardar en el diario» |
+| `.popup-prohibido` + `.mapa-popup--prohibido` | el mismo popup en rojo para una zona prohibida, con la norma; nunca lleva nota |
 | `.marcador-sitio` | chincheta verde con borde blanco de los sitios con coordenadas (color fijo: va sobre teselas claras) |
 | `.chincheta--busqueda` | gota del lugar elegido en el buscador, en ocre oscuro (`--p-ocre-700`) con borde `--p-hueso-50`: no se confunde con «prohibido» ni con un nivel; se quita al cambiar la selección |
 | `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
