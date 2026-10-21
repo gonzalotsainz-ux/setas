@@ -11,11 +11,15 @@ import { comun } from '../ui/ficha.js';
 import { mayus } from '../ui/dom.js';
 
 const MAX = 3, SEPARACION = 12;
+// Mitad del max-width de .etiqueta-mancha (190 px en css/componentes.css): la etiqueta va centrada en su celda, así que el centro
+// debe quedar al menos a esto del borde del hueco para que quepa entera.
+export const MEDIA_ANCHURA_ETIQUETA = 95;
 const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
 // Las notas de `archivo` que caen dentro de `bounds` ([o, s, e, n]); el resto, SIN_COLOR.
 function recortar(notas, a, bounds) {
-  const nw = celdaFina(...Object.values(aMercator(bounds[0], bounds[3]))), se = celdaFina(...Object.values(aMercator(bounds[2], bounds[1])));
+  const mNO = aMercator(bounds[0], bounds[3]), mSE = aMercator(bounds[2], bounds[1]);
+  const nw = celdaFina(mNO.x, mNO.y), se = celdaFina(mSE.x, mSE.y);
   const dentro = new Uint8Array(notas.length).fill(SIN_COLOR), alto = Math.floor(notas.length / a.ancho);
   for (let f = Math.max(0, nw.fila - a.fila0); f <= Math.min(alto - 1, se.fila - a.fila0); f++) {
     for (let c = Math.max(0, nw.col - a.col0); c <= Math.min(a.ancho - 1, se.col - a.col0); c++) dentro[f * a.ancho + c] = notas[f * a.ancho + c];
@@ -32,10 +36,10 @@ export function etiquetasDeVista({ archivos, bounds, ctx }) {
     }
   }
   const salida = [];
-  for (const c of separar(candidatas, { max: candidatas.length, separacion: SEPARACION })) {
+  // Primero fuera las celdas prohibidas o sin monte (el índice ya las deja sin color, pero por si acaso) y luego la separación.
+  const validas = candidatas.filter((c) => { const h = c.r.habitat[c.k]; return !(h & PROHIBIDO) && (h & CODIGO); });
+  for (const c of separar(validas, { max: validas.length, separacion: SEPARACION })) {
     if (salida.length >= MAX) break;
-    const h = c.r.habitat[c.k];
-    if ((h & PROHIBIDO) || !(h & CODIGO)) continue;   // nunca sobre una zona prohibida (el índice ya las deja sin color)
     const m = centroFina(c.col, c.fila), { lat, lon } = aGrados(m.x, m.y);
     const { nota, celda, altitud } = notaDeLadera({ r: c.r, archivo: c.archivo.archivo, k: c.k, lat, lon, ctx });
     if (nota.sinEspecies || nota.valor == null || !nota.especie) continue;

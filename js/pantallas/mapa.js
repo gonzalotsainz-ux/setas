@@ -22,7 +22,7 @@ import { resolverToque } from '../mapa/toque-celda.js';
 import { chipsDelDia, chipVigente, barraDias, fechasBarra, avisosMapa } from '../mapa/controles.js';
 import { crearBusquedaMapa } from '../mapa/busqueda-mapa.js';
 import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES, ZOOM_ETIQUETAS } from '../mapa/chinchetas.js';
-import { crearCapaEtiquetas, etiquetasDeVista } from '../mapa/capa-etiquetas.js';
+import { crearCapaEtiquetas, etiquetasDeVista, MEDIA_ANCHURA_ETIQUETA } from '../mapa/capa-etiquetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
 import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
 import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona } from '../mapa/seleccion.js';
@@ -130,7 +130,9 @@ async function montar(estadoInicial) {
   }
   let encuadre = null;
   const encuadrar = (f) => { if (medido()) { encuadre = null; f(); } else encuadre = f; };
-  const medida = new ResizeObserver(() => { medirBarras(raiz); mapa.invalidateSize(); if (encuadre && medido()) { const f = encuadre; encuadre = null; f(); } });
+  // El hueco libre cambia con la hoja (abierta, completa, recogida): se recolocan las etiquetas, una vez por fotograma.
+  const recolocarEtiquetas = () => { cancelAnimationFrame(pideEtiquetas); pideEtiquetas = requestAnimationFrame(() => colocarEtiquetas()); };
+  const medida = new ResizeObserver(() => { medirBarras(raiz); mapa.invalidateSize(); recolocarEtiquetas(); if (encuadre && medido()) { const f = encuadre; encuadre = null; f(); } });
   medida.observe(lienzo);
   medida.observe(hoja.nodo);
   medida.observe(avisos);
@@ -266,7 +268,7 @@ async function montar(estadoInicial) {
     // meteo), no se vacían: así no parpadean.
     const clave = `${ui.fecha}|${ui.chip}|${salida?.sello}|${version}`;
     const otroDiaOChip = clave !== claveVista;
-    if (otroDiaOChip) { claveVista = clave; capaRejilla?.quitarTodo(); etiquetas.limpiar(); }
+    if (otroDiaOChip) { claveVista = clave; capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; }
     pintarAvisos(); repintar(); pintarChinchetas();
     if (mapa.hasLayer(capas.lluvia)) pintarLluvia();
     // Una ladera tocada se recalcula con el día y el chip nuevos (sin mover el foco); lo demás se repinta.
@@ -348,10 +350,10 @@ async function montar(estadoInicial) {
     const mia = ++turno;
     ponerContornos();
     // Sin índice, o con un día que el índice no tiene, no hay manchas (lo dice el aviso).
-    if (!salida || fechaSinIndice()) { capaGruesa.clearLayers(); claveGruesas = null; capaRejilla?.quitarTodo(); etiquetas.limpiar(); return; }
+    if (!salida || fechaSinIndice()) { capaGruesa.clearLayers(); claveGruesas = null; capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; return; }
     const zoom = mapa.getZoom();
-    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); etiquetas.limpiar(); pintarGruesas(); return; }
-    if (zoom < ZOOM_ETIQUETAS) etiquetas.limpiar();
+    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; pintarGruesas(); return; }
+    if (zoom < ZOOM_ETIQUETAS) { etiquetas.limpiar(); vistasEtiquetas = null; }
     capaGruesa.clearLayers(); claveGruesas = null;
     const b = mapa.getBounds(), f = filtro(), fecha = ui.fecha, chipActual = ui.chip;
     const vistos = [];
@@ -383,6 +385,7 @@ async function montar(estadoInicial) {
     if (zoom >= ZOOM_ETIQUETAS) await ponerEtiquetas(mia, vistos, f, fecha);
   }
   // Hasta tres etiquetas sobre las mejores manchas de la vista, con las notas ya calculadas; sustituyen a las de antes de golpe.
+  let vistasEtiquetas = null, pideEtiquetas = 0;   // { archivos, ctx } de la última vista, para recolocar sin recalcular notas
   async function ponerEtiquetas(mia, vistos, filtroActual, fecha) {
     const archivos = [];
     for (const { a, clave } of vistos) {
@@ -391,11 +394,16 @@ async function montar(estadoInicial) {
       try { archivos.push({ a, r: await cargador.cargar(a.archivo), notas }); } catch { /* sin esa rejilla no hay etiquetas de ese archivo */ }
     }
     if (mia !== turno || !vivo) return;
-    const ctx = { datos, rej, salida, gruesasPorArchivo, especiesZona, fecha, filtro: filtroActual };
-    // Solo el hueco que dejan buscador, chips y hoja (y un margen a los lados, para que la etiqueta quepa entera).
-    const m = margenes(), tam = mapa.getSize(), no = mapa.containerPointToLatLng([m.paddingTopLeft[0] + 100, m.paddingTopLeft[1]]),
-      se = mapa.containerPointToLatLng([tam.x - m.paddingBottomRight[0] - 100, tam.y - m.paddingBottomRight[1]]);
-    etiquetas.poner(etiquetasDeVista({ archivos, bounds: [no.lng, se.lat, se.lng, no.lat], ctx }));
+    vistasEtiquetas = { archivos, ctx: { datos, rej, salida, gruesasPorArchivo, especiesZona, fecha, filtro: filtroActual } };
+    colocarEtiquetas();
+  }
+  // Elige y pone las etiquetas con lo último calculado; se repite al cambiar el hueco libre (la hoja se abre o se recoge).
+  function colocarEtiquetas() {
+    if (!vistasEtiquetas || !vivo || mapa.getZoom() < ZOOM_ETIQUETAS) return;
+    // Solo el hueco que dejan buscador, chips y hoja (y media etiqueta a los lados, para que quepa entera).
+    const m = margenes(), tam = mapa.getSize(), no = mapa.containerPointToLatLng([m.paddingTopLeft[0] + MEDIA_ANCHURA_ETIQUETA, m.paddingTopLeft[1]]),
+      se = mapa.containerPointToLatLng([tam.x - m.paddingBottomRight[0] - MEDIA_ANCHURA_ETIQUETA, tam.y - m.paddingBottomRight[1]]);
+    etiquetas.poner(etiquetasDeVista({ archivos: vistasEtiquetas.archivos, bounds: [no.lng, se.lat, se.lng, no.lat], ctx: vistasEtiquetas.ctx }));
   }
   function pintarGruesas() {
     const clave = `${ui.fecha}|${ui.chip}|${salida.sello}|${version}`;
