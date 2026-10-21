@@ -136,7 +136,7 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 ## Mapa a pantalla completa
 
 El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
-buscador y los chips de especie; a la derecha, Capas y Mi ubicación; abajo, los avisos y la barra de días; el zoom y la
+buscador y los chips de especie; a la derecha, Capas y Mi ubicación; abajo, los avisos y la hoja fija (`.hoja-mapa`), que lleva dentro la barra de días; el zoom y la
 atribución de Leaflet quedan por encima de los avisos (las alturas se miden en `--alto-cabecera`, `--alto-nav` y
 `--alto-abajo`).
 

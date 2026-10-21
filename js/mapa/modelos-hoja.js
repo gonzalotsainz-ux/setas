@@ -2,11 +2,10 @@
 // Modelos de la hoja fija del mapa según lo seleccionado (nada → lista de zonas, zona, monte, fuera de zonas).
 // Datos puros, sin DOM: se prueban con Node. El pintado vive en hoja.js (crearHojaMapa).
 // La frase de cada fila es la de fraseZona (partes { texto, estilo }), no nodos.
-import { nombreCorto, rotuloPunto } from '../datos.js';
+import { nombreCorto, rotuloPunto, RESTRINGIDO } from '../datos.js';
 import { fraseZona, textoFaltan, ordenarZonas } from '../notas-zona.js';
 import { nivelDe, palabraDe } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
-import { RESTRINGIDO } from '../pantallas/zona.js';
 import { rutaMapa, rutaZona } from './ruta.js';
 import { urlNuevaSalida } from '../diario.js';
 import { textoCoto, urlComoLlegar } from './hoja.js';
@@ -45,12 +44,13 @@ function filasZona(filas, datos, d) {
   });
 }
 
-export function modeloListaZonas({ filas, datos, fecha, hoy, caducado = false }) {
+// caducado = fecha (AAAA-MM-DD) de la última meteo disponible si está caducada, o null.
+export function modeloListaZonas({ filas, datos, fecha, hoy, caducado = null }) {
   const titulo = `Dónde ir ${tituloDia(fecha, hoy)}`;
   const lista = filasZona(filas, datos, Math.max(0, diasEntre(fecha, hoy)));
-  const fechaCorta = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(utc(fecha));
+  const fechaCorta = caducado ? new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(utc(caducado)) : null;
   return { tipo: 'listaZonas', titulo, corto: `${titulo} · ${lista.length} ${lista.length === 1 ? 'zona' : 'zonas'}`,
-    aviso: caducado ? `Con los últimos datos, del ${fechaCorta}` : null, filas: lista };
+    aviso: fechaCorta ? `Con los últimos datos, del ${fechaCorta}` : null, filas: lista };
 }
 
 // Protección en pocas palabras: hasta el primer paréntesis, punto o dos puntos, y recortada.

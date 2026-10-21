@@ -26,7 +26,7 @@ test('tituloDia: hoy, mañana y día de la semana con número', () => {
 
 test('modeloListaZonas: filas ordenadas con enlace a su zona, nota o sin datos, y aviso con meteo caducada', () => {
   const sinDatos = fila('gredos', 'Gredos (Ávila)', null);
-  const m = modeloListaZonas({ filas: [sinDatos, soria, guadarrama], datos, fecha: '2026-10-21', hoy: '2026-10-21', caducado: false });
+  const m = modeloListaZonas({ filas: [sinDatos, soria, guadarrama], datos, fecha: '2026-10-21', hoy: '2026-10-21', caducado: null });
   assert.equal(m.tipo, 'listaZonas');
   assert.equal(m.titulo, 'Dónde ir hoy');
   assert.equal(m.corto, 'Dónde ir hoy · 3 zonas');
@@ -37,10 +37,10 @@ test('modeloListaZonas: filas ordenadas con enlace a su zona, nota o sin datos, 
   assert.deepEqual(m.filas[0].etiquetas, [{ texto: 'Confianza alta', variante: null }]);
   assert.equal(m.filas[0].frase[0].texto, `48${nbsp}mm`);   // datos de fraseZona, no nodos
   assert.deepEqual(m.filas[2].frase, [{ texto: 'Sin datos de lluvia.', estilo: null }]);
-  const c = modeloListaZonas({ filas: [guadarrama], datos, fecha: '2026-10-23', hoy: '2026-10-21', caducado: true });
+  const c = modeloListaZonas({ filas: [guadarrama], datos, fecha: '2026-10-23', hoy: '2026-10-21', caducado: '2026-10-20' });
   assert.equal(c.titulo, 'Dónde ir el viernes 23');
   assert.equal(c.corto, 'Dónde ir el viernes 23 · 1 zona');
-  assert.equal(c.aviso, 'Con los últimos datos, del 23 de octubre');
+  assert.equal(c.aviso, 'Con los últimos datos, del 20 de octubre');
   assert.deepEqual(c.filas[0].etiquetas.map((e) => e.texto), ['Confianza alta', 'Previsión']);
 });
 

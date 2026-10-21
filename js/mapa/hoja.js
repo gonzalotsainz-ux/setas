@@ -168,28 +168,28 @@ const ETIQUETA_ASA = { recogida: 'Subir la hoja', resumen: 'Ver más', completa:
 
 // Hoja permanente del mapa: se monta una vez dentro de la pantalla (hereda --alto-nav) y solo cambia de contenido y de estado.
 export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } = {}) {
-  const asa = el('button', { type: 'button', clase: 'hoja__asa', attrs: { 'aria-expanded': 'true', 'aria-label': ETIQUETA_ASA.resumen } });
+  const asa = el('button', { type: 'button', clase: 'hoja__asa', attrs: { 'aria-expanded': 'true', 'aria-label': ETIQUETA_ASA.resumen, 'aria-controls': 'hoja-mapa-cuerpo' } });
   const dias = el('div', { clase: 'chips hoja-mapa__dias', attrs: { role: 'group', 'aria-label': 'Día' } });
   const corto = el('p', { clase: 'hoja-mapa__corto' });
   const titulo = el('h2', { id: 'hoja-mapa-titulo', attrs: { tabindex: '-1' } });
-  const cuerpo = el('div', { clase: 'hoja-mapa__cuerpo' });
+  const cuerpo = el('div', { clase: 'hoja-mapa__cuerpo', id: 'hoja-mapa-cuerpo' });
   const nodo = el('section', { clase: 'hoja-mapa', attrs: { 'data-estado': 'resumen', role: 'region', 'aria-labelledby': 'hoja-mapa-titulo' } },
     el('div', { clase: 'hoja-mapa__nucleo' }, asa, dias, corto, titulo, cuerpo));
-  let estado = 'resumen', modelo = null, extra = {}, arrastrado = false, y0 = null;
-  function pintar() {
+  let estado = 'resumen', modelo = null, clave = null, extra = {}, arrastrado = false, y0 = null;
+  function pintar(reiniciarScroll = false) {
     if (modelo.tipo === 'prohibido') nodo.dataset.variante = 'prohibido'; else delete nodo.dataset.variante;
     titulo.textContent = modelo.titulo;
     corto.textContent = modelo.corto ?? modelo.titulo;
     cuerpo.replaceChildren(...contenido(modelo, { ...extra, completa: estado === 'completa' }).filter(Boolean));
-    cuerpo.scrollTop = 0;
+    if (reiniciarScroll) cuerpo.scrollTop = 0;   // solo al cambiar de elegido; no al repintar el mismo (llega la meteo)
   }
-  const ponerEstado = (e) => {
+  const ponerEstado = (e, repintar = true) => {
     if (!ESTADOS.includes(e) || e === estado) return;
     estado = e;
     nodo.dataset.estado = e;
     asa.setAttribute('aria-expanded', String(e !== 'recogida'));
     asa.setAttribute('aria-label', ETIQUETA_ASA[e]);
-    if (modelo) pintar();   // «Otras especies posibles» solo se ven en completa
+    if (modelo && repintar) pintar();   // «Otras especies posibles» solo se ven en completa
   };
   asa.addEventListener('click', () => { if (arrastrado) { arrastrado = false; return; } ponerEstado(SIGUIENTE[estado]); });
   asa.addEventListener('pointerdown', (e) => { arrastrado = false; y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
@@ -203,14 +203,24 @@ export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } =
     }
   });
   asa.addEventListener('pointercancel', () => { y0 = null; });
+  // Escape con el foco dentro baja la hoja a «recogida» (no la cierra; si ya está recogida no hace nada) y deja el foco en el asa.
+  nodo.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || e.defaultPrevented || estado === 'recogida') return;
+    e.preventDefault();
+    ponerEstado('recogida');
+    asa.focus({ preventScroll: true });
+  });
   return {
     nodo,
     // Repinta sin cambiar de estado, salvo que cambie la familia del modelo (lista ↔ ficha): entonces vuelve a «resumen».
     poner(m, x = {}, { enfocar = false } = {}) {
       const otraFamilia = !modelo || familia(m) !== familia(modelo);
+      const nueva = `${m.tipo}|${m.id ?? m.titulo}`;
       modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null };
-      if (otraFamilia) ponerEstado('resumen');
-      pintar();
+      // «recogida» oculta el título: para enfocar hay que subir antes. Se pinta una sola vez (los constructores de gráfico no se repiten).
+      if (otraFamilia || (enfocar && estado === 'recogida')) ponerEstado('resumen', false);
+      pintar(nueva !== clave);
+      clave = nueva;
       if (enfocar) titulo.focus({ preventScroll: true });
     },
     // items = [{ clave, texto, pulsado, alPulsar? }]; sin alPulsar se avisa a alCambiarDia(clave).

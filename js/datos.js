@@ -33,3 +33,6 @@ export function especiesDeZona(zona, especies, umbrales = {}) {
 }
 // «Soria (Pinar Grande, Tierras Altas)» → «Soria»: el nombre sin el paréntesis de detalle.
 export const nombreCorto = (zona) => zona.nombre.replace(/\s*\([^)]*\)\s*$/, '');
+
+// Avisos de protección que hay que leer como restricción aunque el punto no sea NO IR (zona.js y hoja del mapa).
+export const RESTRINGIDO = /prohib|solo con|exige|requiere|autorizaci|restring|vedad|reserva|no se han? (podido|encontrado|localizado)|sin (comprobar|verificar)|sin confirmar|pendiente de confirmaci|no consta/i;

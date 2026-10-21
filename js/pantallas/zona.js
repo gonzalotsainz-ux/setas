@@ -3,7 +3,7 @@
 import { indiceZona, calcularIndice, DatosIncompletos } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
 import { fijarUsarModelo, avisoViejo, textoSinLluvia } from '../aemet.js';
-import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
+import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto, RESTRINGIDO } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia, esMedida } from '../ui/grafico-lluvia.js';
 import { textoOrigenPunto } from '../ui/origen-lluvia.js';
@@ -27,7 +27,7 @@ const fecha = (f) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: '
 const hora = (iso) => new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: ZONA_HORARIA }).format(new Date(iso));
 
 const PELIGRO = /mortal|letal|phalloides|tóxic|toxic|envenen/i;
-export const RESTRINGIDO = /prohib|solo con|exige|requiere|autorizaci|restring|vedad|reserva|no se han? (podido|encontrado|localizado)|sin (comprobar|verificar)|sin confirmar|pendiente de confirmaci|no consta/i;
+export { RESTRINGIDO };
 
 const aviso = (texto, peligro) => el('div', { clase: peligro ? 'aviso-peligro' : 'aviso', attrs: { role: 'note' } }, icono(peligro ? 'i-aviso' : 'i-info'), el('p', { texto }));
 
