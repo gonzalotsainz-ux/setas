@@ -1,6 +1,6 @@
 # La app gira en torno al mapa: una vista por niveles — diseño
 
-Fecha: 21/10/2026 · Estado: revisado por el constructor, pendiente de aprobación de la usuaria (brainstorming del 21/10/2026; maquetas aprobadas en `maqueta/mapa-niveles.html`, y las tres variantes previas en `maqueta/mapa-que-cuenta.html`)
+Fecha: 21/10/2026 · Estado: **aprobado por la usuaria el 21/10/2026** tras la revisión del constructor (brainstorming del 21/10/2026; maquetas aprobadas en `maqueta/mapa-niveles.html`, y las tres variantes previas en `maqueta/mapa-que-cuenta.html`)
 
 ## 1. Qué se quiere y por qué
 
