@@ -25,8 +25,9 @@ import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, 
 import { crearCapaEtiquetas, etiquetasDeVista, MEDIA_ANCHURA_ETIQUETA } from '../mapa/capa-etiquetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
 import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
-import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona } from '../mapa/seleccion.js';
-import { zonasMasCercanas } from '../mapa/geocodificador.js';
+import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona,
+  rutaNormal, estadoHistorial, volverConAtras } from '../mapa/seleccion.js';
+import { zonasMasCercanas, zonaDeLugar } from '../mapa/geocodificador.js';
 import { desplazamientoDia } from '../notas-zona.js';
 
 const MAX_IMAGENES = 12;             // imágenes coloreadas que se guardan (día × chip × archivo)
@@ -87,7 +88,7 @@ async function montar(estadoInicial) {
   const hoja = crearHojaMapa({ alCambiarDia: (f) => { ui.fecha = f; cambio(); } });
   const mapa = L.map(lienzo, { zoomControl: false, minZoom: 6, maxZoom: 18 });
   const busqueda = crearBusquedaMapa({ L, mapa, datos, chips: () => listaChips(), alChip: (id) => { ui.chip = id; cambio(); },
-    alRuta: (r) => irARuta(r, { enfocar: true }), irA: (ll, z) => centrar(ll, z), alLugar: alElegirLugar, alError: (t) => avisar(t), vivo: () => vivo });
+    alRuta: (r) => irARuta(r, { enfocar: true }), alLugar: alElegirLugar, alError: (t) => avisar(t), vivo: () => vivo });
   const arriba = el('div', { clase: 'mapa-completo__arriba' }, busqueda.nodo, chips);
   const raiz = el('div', { clase: 'mapa-completo' }, arriba,
     el('div', { clase: 'mapa-completo__botones' }, botonCapas, botonYo), panel,
@@ -178,7 +179,9 @@ async function montar(estadoInicial) {
   const diasDesdeHoy = () => Math.max(0, entreDias(hoy(), ui.fecha) || 0);
 
   // ---------- Selección (la ruta) ----------
-  let sel = { zona: null, punto: null }, claveSel = null, enfocarPendiente = false;
+  let sel = { zona: null, punto: null }, claveSel = null, enfocarPendiente = false, hashVisto = null;
+  let rutaAplicada = null;     // la ruta de la última selección aplicada (para el historial de «‹»)
+  let lugarPendiente = null;   // lugar del buscador dentro de una zona: al aplicar su zona se centra en él (y su gota)
   let cotosPuntos = null, pidiendoCotos = null;   // cotos de los montes (ver pedirCotosPuntos)
   // Contenido que tapa al de la selección hasta el siguiente cambio: { tipo: 'celda', modelo, extra, latlng } | { tipo: 'fuera', nombre, lat, lon }.
   let sobrepuesto = null;
@@ -195,21 +198,36 @@ async function montar(estadoInicial) {
     e.preventDefault();
     irARuta(a.getAttribute('href'), { enfocar: true });
   });
+  // Migas: tocar una vuelve a encuadrar aunque sea la ruta actual; «‹» usa el atrás del historial si la entrada anterior
+  // es justo su destino (así el atrás del móvil no vuelve a bajar de nivel) y, si no, navega como un enlace.
+  busqueda.nodo.addEventListener('click', (e) => {
+    const a = e.target.closest?.('.mapa-buscador__migas a[href^="#mapa"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    const href = a.getAttribute('href');
+    if (a.dataset.subir === 'true' && volverConAtras(history.state, href)) history.back(); else irARuta(href);
+  });
   // Lee la ruta; si la selección cambió (o se fuerza), migas, contorno y encuadre. Devuelve si cambió.
   function aplicarSeleccion(forzar = false) {
     const nueva = resolverSeleccion(leerRutaMapa(location.hash), datos.zonas), clave = claveSeleccion(nueva);
-    if (clave === claveSel && !forzar) return false;
+    if (clave === claveSel && !forzar && !lugarPendiente) return false;
     const primera = claveSel === null;
     if (clave !== claveSel) busqueda.ponerMigas(migasDe(nueva));   // ponerMigas vacía el campo: solo al cambiar
     sel = nueva; claveSel = clave; sobrepuesto = null; toque++;
-    busqueda.quitarChincheta();
+    const ruta = rutaNormal(location.hash), hist = estadoHistorial({ estado: history.state, ruta, anterior: primera ? null : rutaAplicada });
+    if (hist) history.replaceState(hist, '');
+    rutaAplicada = ruta;
+    const lugar = lugarPendiente;
+    lugarPendiente = null;
+    if (lugar?.gota) busqueda.ponerChincheta(lugar.lat, lugar.lon, lugar.nombre); else busqueda.quitarChincheta();
     busqueda.invalidar();   // una elección de CartoCiudad que llegue tarde ya no reencuadra ni tapa la hoja
     if (cotosPuntos === 'error') cotosPuntos = null;   // otra selección: se reintentan los cotos
     mapa.closePopup();
     contorno.clearLayers();
     if (sel.zona) L.polygon(contornoZona(sel.zona.bbox), ESTILO_CONTORNO).addTo(contorno);
     const e = encuadreDe(sel);
-    if (primera && ui.vista && ui.vista.clave === clave) mapa.setView([ui.vista.lat, ui.vista.lon], ui.vista.zoom, { animate: false });
+    if (lugar) encuadrar(() => centrar([lugar.lat, lugar.lon], lugar.zoom));
+    else if (primera && ui.vista && ui.vista.clave === clave) mapa.setView([ui.vista.lat, ui.vista.lon], ui.vista.zoom, { animate: false });
     else if (e?.tipo === 'zona') encuadrar(() => encuadrarZona(e.limites));
     else if (e?.tipo === 'punto') encuadrar(() => centrar(e.centro, e.zoom));
     else if (primera) encuadrar(() => mapa.fitBounds(todas, margenes()));
@@ -316,10 +334,18 @@ async function montar(estadoInicial) {
       umbrales: estado.umbrales ?? {}, fecha: ui.fecha, hoy: hoy(), dHoy: diasDesdeHoy(), cotos: cotosPuntos });
     hoja.poner(modelo, extra, { enfocar });
   }
-  // Lugar elegido en el buscador: fuera de las zonas, la hoja lo dice y el mapa enseña también las zonas más cercanas.
-  function alElegirLugar({ nombre, lat, lon, fuera }) {
+  // Lugar elegido en el buscador. Dentro de las zonas: se elige la zona que lo contiene (migas y hoja pasan a ella, sin
+  // monte), y al aplicarla el mapa se centra en el lugar con su gota. Fuera: la hoja lo dice y el mapa enseña también las
+  // zonas más cercanas. Cualquier contenido sobrepuesto (ladera tocada, otro lugar) se quita.
+  function alElegirLugar({ nombre, lat, lon, zoom = 13, fuera, gota = true }) {
     if (!vivo) return;
-    if (!fuera) { if (sobrepuesto?.tipo === 'fuera') { sobrepuesto = null; cambio(); } return; }
+    if (!fuera) {
+      const zona = zonaDeLugar(lat, lon, datos.zonas);
+      sobrepuesto = null;
+      lugarPendiente = { nombre, lat, lon, zoom, gota };
+      irARuta(rutaMapa({ zona: zona.id }), { enfocar: true });
+      return;
+    }
     sobrepuesto = { tipo: 'fuera', nombre, lat, lon };
     const cerca = zonasMasCercanas(lat, lon, datos.zonas, 3);
     encuadrar(() => {
@@ -575,8 +601,12 @@ async function montar(estadoInicial) {
       if (nuevo.umbrales !== estado.umbrales) { imagenes.clear(); notasPor.clear(); version++; estado = nuevo; especiesZona = especiesPorZona(); } else estado = nuevo;
       const enfocar = enfocarPendiente;
       const cambiada = aplicarSeleccion();
-      if (cambiada) enfocarPendiente = false;
-      cambio({ enfocar: cambiada && enfocar });
+      // El toque explícito pendiente se gasta con su ruta: también si resuelve a la misma selección (p. ej. un monte
+      // desconocido), para que no enfoque más tarde, al llegar la meteo.
+      const otraRuta = location.hash !== hashVisto;
+      hashVisto = location.hash;
+      if (cambiada || otraRuta) enfocarPendiente = false;
+      cambio({ enfocar: enfocar && (cambiada || otraRuta) });
       refrescarIndice().catch(() => {});
     },
     destruir() {

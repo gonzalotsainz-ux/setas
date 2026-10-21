@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { candidatosCartoCiudad, coordenadasCartoCiudad, crearGeocodificador, mezclarResultados, fueraDeZonas, zonasMasCercanas,
+import { candidatosCartoCiudad, coordenadasCartoCiudad, crearGeocodificador, mezclarResultados, fueraDeZonas, zonasMasCercanas, zonaDeLugar,
   URL_CANDIDATOS, URL_FIND, EXCLUIDOS, MINIMO_LETRAS, RETARDO_MS } from '../js/mapa/geocodificador.js';
 
 const candidatosRascafria = JSON.parse(readFileSync('tests/fixtures/cartociudad-rascafria.json', 'utf8'));
@@ -112,4 +112,12 @@ test('fueraDeZonas y zonasMasCercanas', () => {
   assert.equal(fueraDeZonas(37, -6, zonas), true);
   assert.deepEqual(zonasMasCercanas(37, -6, zonas, 1).map((z) => z.id), ['a']);
   assert.deepEqual(zonasMasCercanas(41.5, -1.2, zonas, 2).map((z) => z.id), ['b', 'a']);
+});
+
+test('zonaDeLugar: la zona cuyo bbox contiene el lugar (la de centro más cercano si se solapan); fuera, null', () => {
+  const zonas = [{ id: 'a', bbox: [-4, 40, -3, 41] }, { id: 'b', bbox: [-3.2, 40, -2.8, 41] }];
+  assert.equal(zonaDeLugar(40.5, -3.8, zonas).id, 'a');
+  assert.equal(zonaDeLugar(40.5, -2.9, zonas).id, 'b');
+  assert.equal(zonaDeLugar(40.5, -3.1, zonas).id, 'b');   // en las dos: la de centro más cercano
+  assert.equal(zonaDeLugar(37, -6, zonas), null);
 });

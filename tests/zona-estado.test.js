@@ -115,3 +115,16 @@ test('RESTRINGIDO: los avisos de régimen sin confirmar de Abantos y Robregordo 
   for (const id of ['sierra-oeste-abantos-silvestre', 'sierra-norte-robregordo-silvestre']) assert.match(puntos.find((p) => p.id === id).proteccion, RESTRINGIDO, id);
   for (const t of ['no se han encontrado sus normas', 'no se ha localizado ordenanza', 'régimen sin confirmar', 'pendiente de confirmación oficial']) assert.match(t, RESTRINGIDO, t);
 });
+
+test('puntoInicial: el punto de la ruta se aplica solo cuando cambia el hash; luego manda el elegido en el selector', async () => {
+  const { puntoInicial } = await import('../js/pantallas/zona.js');
+  // se llega con «Más» (#zona/g/p): manda el punto de la ruta
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/p', hashAplicado: null, puntoRuta: 'p', puntoElegido: 'q' }), { punto: 'p', hashAplicado: '#zona/g/p' });
+  // se cambia a q y llega la meteo o el contraste («Usar modelo»): mismo hash, se queda q
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/p', hashAplicado: '#zona/g/p', puntoRuta: 'p', puntoElegido: 'q' }), { punto: 'q', hashAplicado: '#zona/g/p' });
+  // otro hash con punto: vuelve a mandar la ruta
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/r', hashAplicado: '#zona/g/p', puntoRuta: 'r', puntoElegido: 'q' }), { punto: 'r', hashAplicado: '#zona/g/r' });
+  // sin punto en la ruta: el elegido (o ninguno)
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: 'q' }), { punto: 'q', hashAplicado: '#zona/g' });
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: undefined }), { punto: undefined, hashAplicado: '#zona/g' });
+});

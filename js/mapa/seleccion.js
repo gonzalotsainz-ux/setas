@@ -3,7 +3,7 @@
 // cómo se encuadra, las migas y las filas de zonas del día. La pantalla (js/pantallas/mapa.js) solo lo aplica.
 import { nombreCorto } from '../datos.js';
 import { calcularZona, ordenarZonas } from '../notas-zona.js';
-import { rutaMapa } from './ruta.js';
+import { rutaMapa, leerRutaMapa } from './ruta.js';
 
 export const ZOOM_MONTE = 13;   // vista cercana de un monte (nivel 3)
 export const MOTIVO_FUERA_DE_PREVISION = 'Esa fecha queda fuera de la previsión. No se calcula nota.';
@@ -30,11 +30,24 @@ export const rutaSubir = ({ zona, punto }) => rutaMapa({ zona: punto ? zona.id :
 // «‹» sube un nivel (zona → todas; monte → su zona); luego la zona y, si lo hay, el monte.
 export function migasDe({ zona, punto }) {
   if (!zona) return [];
-  const migas = [{ texto: '‹', href: rutaSubir({ zona, punto }), aria: punto ? `Volver a ${nombreCorto(zona)}` : 'Volver a todas las zonas' },
+  const migas = [{ texto: '‹', href: rutaSubir({ zona, punto }), aria: punto ? `Volver a ${nombreCorto(zona)}` : 'Volver a todas las zonas', subir: true },
     { texto: nombreCorto(zona), href: rutaMapa({ zona: zona.id }) }];
   if (punto) migas.push({ texto: punto.corto ?? punto.nombre, href: rutaMapa({ zona: zona.id, punto: punto.id }) });
   return migas;
 }
+
+// Ruta del mapa escrita como la escribe rutaMapa: la portada sin hash y el antiguo #hoy son «#mapa».
+export const rutaNormal = (hash) => rutaMapa(leerRutaMapa(hash || '#mapa'));
+
+// Historial (decisión 2): cada entrada nueva del mapa (sin estado) se marca con la ruta del mapa de la que se llegó; una
+// ya marcada (se ha vuelto atrás hasta ella) no se toca. Devuelve el estado para history.replaceState o null.
+export function estadoHistorial({ estado, ruta, anterior }) {
+  if (estado != null) return null;
+  return { setas: true, ruta, anterior: anterior ?? null };
+}
+// «‹» hace history.back() solo si la entrada anterior del historial es justo su destino (si no, el atrás del móvil
+// volvería a bajar de nivel); en otro caso, navega al destino como un enlace.
+export const volverConAtras = (estado, destino) => !!estado?.setas && estado.anterior != null && estado.anterior === destino;
 
 // vista = [oeste, sur, este, norte]
 export const zonasQueCortan = (zonas, [o, s, e, n]) => zonas.filter(({ bbox: [zo, zs, ze, zn] }) => zo <= e && ze >= o && zs <= n && zn >= s);

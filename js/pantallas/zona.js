@@ -15,7 +15,17 @@ import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const nbsp = ' ';
-const ui = { punto: {}, abierta: {}, enfocarModelo: null };   // punto elegido y especie desplegada, por zona; se conservan al repintar
+// punto elegido y especie desplegada, por zona; se conservan al repintar. hashAplicado: la última ruta cuyo punto se aplicó.
+const ui = { punto: {}, abierta: {}, enfocarModelo: null, hashAplicado: null };
+// Al salir de Zona se olvida la ruta aplicada: volver con el mismo «Más» vuelve a elegir su punto.
+if (typeof window !== 'undefined') window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#zona/')) ui.hashAplicado = null; });
+
+// El punto de la ruta (#zona/<zona>/<punto>) solo se impone cuando cambia el hash; en los repintados (meteo, contraste,
+// «Usar modelo») manda el que se haya elegido en el selector.
+export function puntoInicial({ hashActual, hashAplicado, puntoRuta, puntoElegido }) {
+  if (puntoRuta && hashActual !== hashAplicado) return { punto: puntoRuta, hashAplicado: hashActual };
+  return { punto: puntoElegido, hashAplicado: hashActual };
+}
 const MODELOS = { ecmwf_ifs: 'ECMWF', icon_seamless: 'ICON', gfs_seamless: 'GFS (NOAA)' };
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
@@ -292,7 +302,9 @@ export function pintar({ estado, param, refrescarMeteo }) {
   // Si se llega desde el mapa con un punto en la ruta, ese punto queda elegido y «Mapa» devuelve al mismo nivel.
   const { punto: puntoRuta } = leerRutaZona(location.hash);
   const punto = zona.puntos.some((p) => p.id === puntoRuta) ? puntoRuta : null;
-  if (punto) ui.punto[zona.id] = punto;
+  const inicial = puntoInicial({ hashActual: location.hash, hashAplicado: ui.hashAplicado, puntoRuta: punto, puntoElegido: ui.punto[zona.id] });
+  ui.hashAplicado = inicial.hashAplicado;
+  if (inicial.punto) ui.punto[zona.id] = inicial.punto;
   if (!zona.puntos.some((p) => p.id === ui.punto[zona.id])) delete ui.punto[zona.id];
   const idElegido = () => ui.punto[zona.id] ?? mejorPunto;
   const dinamico = el('div', { clase: 'pila-l' });

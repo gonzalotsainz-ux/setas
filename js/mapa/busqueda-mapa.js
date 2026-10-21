@@ -8,9 +8,11 @@ import { rutaMapa } from './ruta.js';
 
 const ZOOM_LUGAR = 13;
 
-// alChip(id) · alRuta(hash) (toque explícito: la pantalla enfoca la hoja) · irA([lat, lon], zoom) ·
-// alLugar({ nombre, lat, lon, fuera }) · alError(texto) · chips() = chips del día
-export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, irA, alLugar, alError, vivo = () => true }) {
+// alChip(id) · alRuta(hash) (toque explícito: la pantalla enfoca la hoja) ·
+// alLugar({ nombre, lat, lon, zoom, fuera, gota }) · alError(texto) · chips() = chips del día.
+// Un lugar dentro de las zonas lo resuelve la pantalla (pasa a la zona que lo contiene, centra y pone la gota con
+// ponerChincheta); fuera de ellas, aquí se pone la gota y la pantalla lo avisa en la hoja.
+export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, alLugar, alError, vivo = () => true }) {
   const puntos = datos.zonas.flatMap((z) => z.puntos.map((p) => ({ ...p, zona: z.id })));
   let pueblos = [], pidiendoPueblos = null, chincheta = null, turno = 0;
   const geocodificador = crearGeocodificador();
@@ -21,18 +23,18 @@ export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, irA, 
     const icon = L.divIcon({ className: '', html: '<span class="chincheta chincheta--busqueda" aria-hidden="true"></span>', iconSize: [28, 36], iconAnchor: [14, 34] });
     chincheta = L.marker([lat, lon], { icon, title: nombre, keyboard: false, interactive: false, zIndexOffset: 2000 }).addTo(mapa);
   }
-  function irALugar(nombre, lat, lon, zoom = ZOOM_LUGAR) {
-    ponerChincheta(lat, lon, nombre);
+  // gota = false para los sitios (tienen su propia capa).
+  function irALugar(nombre, lat, lon, zoom = ZOOM_LUGAR, gota = true) {
     const fuera = fueraDeZonas(lat, lon, datos.zonas);
-    if (!fuera) irA([lat, lon], zoom);
-    alLugar({ nombre, lat, lon, fuera });
+    if (fuera && gota) ponerChincheta(lat, lon, nombre); else quitarChincheta();
+    alLugar({ nombre, lat, lon, zoom, fuera, gota });
   }
   async function elegir(r) {
     const mio = ++turno;
     if (r.tipo === 'chip') { alChip(r.id); return; }
     if (r.tipo === 'zona') { alRuta(rutaMapa({ zona: r.id })); return; }
     if (r.tipo === 'punto') { alRuta(rutaMapa({ zona: r.zona, punto: r.id })); return; }
-    if (r.tipo === 'sitio') { quitarChincheta(); irA([r.lat, r.lon], r.zoom); return; }   // los sitios tienen su propia capa
+    if (r.tipo === 'sitio') { irALugar(r.texto, r.lat, r.lon, r.zoom, false); return; }
     if (r.tipo === 'pueblo') { irALugar(r.texto, r.lat, r.lon, r.zoom); return; }
     if (r.tipo !== 'lugar') return;
     try {
@@ -53,5 +55,5 @@ export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, irA, 
   buscador.input.addEventListener('focus', pedirPueblos);
   buscador.input.addEventListener('input', pedirPueblos);
   // invalidar(): la pantalla lo llama al cambiar la selección; una respuesta de CartoCiudad pendiente se descarta.
-  return { ...buscador, quitarChincheta, invalidar: () => { turno++; } };
+  return { ...buscador, ponerChincheta, quitarChincheta, invalidar: () => { turno++; } };
 }

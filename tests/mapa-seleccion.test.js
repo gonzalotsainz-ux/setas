@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, rutaSubir, zonasQueCortan, filasZonas, filtroDeChip, limitesZona, ZOOM_MONTE, MOTIVO_FUERA_DE_PREVISION } from '../js/mapa/seleccion.js';
+import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, rutaSubir, estadoHistorial, volverConAtras, rutaNormal, zonasQueCortan, filasZonas, filtroDeChip, limitesZona, ZOOM_MONTE, MOTIVO_FUERA_DE_PREVISION } from '../js/mapa/seleccion.js';
 import { calcularZona } from '../js/notas-zona.js';
 import { serieSintetica, BOLETUS as B0, lluviaBuena } from './ayudas.js';
 
@@ -37,14 +37,37 @@ test('encuadreDe: zona → su bbox (también con un solo monte); monte → vista
 test('migas: ‹ que sube un nivel, la zona por su nombre corto y el monte por su corto', () => {
   assert.deepEqual(migasDe({ zona: null, punto: null }), []);
   assert.deepEqual(migasDe({ zona: guad, punto: null }), [
-    { texto: '‹', href: '#mapa', aria: 'Volver a todas las zonas' },
+    { texto: '‹', href: '#mapa', aria: 'Volver a todas las zonas', subir: true },
     { texto: 'Guadarrama', href: '#mapa/guadarrama' }]);
   assert.deepEqual(migasDe({ zona: guad, punto: guad.puntos[0] }), [
-    { texto: '‹', href: '#mapa/guadarrama', aria: 'Volver a Guadarrama' },
+    { texto: '‹', href: '#mapa/guadarrama', aria: 'Volver a Guadarrama', subir: true },
     { texto: 'Guadarrama', href: '#mapa/guadarrama' },
     { texto: 'Valsaín', href: '#mapa/guadarrama/valsain' }]);
   assert.equal(rutaSubir({ zona: guad, punto: guad.puntos[0] }), '#mapa/guadarrama');
   assert.equal(rutaSubir({ zona: guad, punto: null }), '#mapa');
+});
+
+test('rutaNormal: la portada sin hash y #hoy son #mapa; las demás, tal cual las escribe rutaMapa', () => {
+  assert.equal(rutaNormal(''), '#mapa');
+  assert.equal(rutaNormal('#hoy'), '#mapa');
+  assert.equal(rutaNormal('#mapa/guadarrama'), '#mapa/guadarrama');
+  assert.equal(rutaNormal('#mapa/guadarrama/valsain'), '#mapa/guadarrama/valsain');
+});
+
+test('estadoHistorial: solo marca una entrada nueva (sin estado) y recuerda de qué ruta del mapa se llegó', () => {
+  assert.deepEqual(estadoHistorial({ estado: null, ruta: '#mapa/guadarrama', anterior: '#mapa' }), { setas: true, ruta: '#mapa/guadarrama', anterior: '#mapa' });
+  assert.deepEqual(estadoHistorial({ estado: null, ruta: '#mapa', anterior: null }), { setas: true, ruta: '#mapa', anterior: null });
+  // al volver atrás a una entrada ya marcada no se pisa su «anterior» con la ruta de la que se viene
+  assert.equal(estadoHistorial({ estado: { setas: true, ruta: '#mapa/guadarrama', anterior: '#mapa' }, ruta: '#mapa/guadarrama', anterior: '#mapa/guadarrama/valsain' }), null);
+  // una entrada con estado ajeno tampoco se toca
+  assert.equal(estadoHistorial({ estado: { otro: 1 }, ruta: '#mapa', anterior: null }), null);
+});
+
+test('volverConAtras: «‹» usa el atrás del historial solo si la entrada anterior es justo el destino', () => {
+  assert.equal(volverConAtras({ setas: true, ruta: '#mapa/guadarrama/valsain', anterior: '#mapa/guadarrama' }, '#mapa/guadarrama'), true);
+  assert.equal(volverConAtras({ setas: true, ruta: '#mapa/guadarrama/valsain', anterior: '#mapa' }, '#mapa/guadarrama'), false);   // se llegó desde el buscador
+  assert.equal(volverConAtras({ setas: true, ruta: '#mapa/guadarrama', anterior: null }, '#mapa'), false);   // se entró directo con el enlace
+  assert.equal(volverConAtras(null, '#mapa'), false);
 });
 
 test('zonasQueCortan: las zonas cuyo bbox toca la vista [o, s, e, n]', () => {

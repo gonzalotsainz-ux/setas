@@ -80,7 +80,10 @@ export function mezclarResultados(locales, externos, max = 8) {
   return [...locales, ...nuevos].slice(0, max);
 }
 
-export const fueraDeZonas = (lat, lon, zonas) => !zonas.some(({ bbox: [o, s, e, n] }) => lon >= o && lon <= e && lat >= s && lat <= n);
+const contiene = (lat, lon) => ({ bbox: [o, s, e, n] }) => lon >= o && lon <= e && lat >= s && lat <= n;
+export const fueraDeZonas = (lat, lon, zonas) => !zonas.some(contiene(lat, lon));
+// La zona que contiene el lugar (si se solapan varias, la de centro más cercano), o null.
+export const zonaDeLugar = (lat, lon, zonas) => zonasMasCercanas(lat, lon, zonas.filter(contiene(lat, lon)), 1)[0] ?? null;
 
 export function zonasMasCercanas(lat, lon, zonas, n = 3) {
   const k = Math.cos(lat * Math.PI / 180);

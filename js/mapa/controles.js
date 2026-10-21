@@ -101,7 +101,8 @@ export async function cargarPueblos(fetchFn = globalThis.fetch?.bind(globalThis)
 
 // Combobox accesible: flechas para moverse, Intro para elegir, Escape para cerrar la lista. `buscar` es local y síncrono
 // (pinta al instante); `buscarLejos(texto, cb)` añade después lugares de fuera (CartoCiudad) sin quitar los locales.
-// Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo; `aria` (opcional) les pone aria-label.
+// Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo, en un <nav>; `aria` (opcional) les pone
+// aria-label y `subir` marca la de «‹» (data-subir).
 // Reductor puro de la respuesta lejana: ignora la de un turno viejo (devuelve null) y, si no, mezcla locales y externos
 // conservando la opción activa por identidad (si ya no está, o no había, queda -1).
 export function fundirResultados({ locales, externos, resultados, activo, turno, turnoRespuesta }) {
@@ -117,7 +118,7 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   const input = el('input', { type: 'search', placeholder: marcador, attrs: { role: 'combobox', 'aria-expanded': 'false', 'aria-controls': id,
     'aria-autocomplete': 'list', 'aria-label': 'Buscar pueblo, monte, zona, lugar o especie', autocomplete: 'off', enterkeyhint: 'search' } });
   const lista = el('ul', { id, clase: 'mapa-buscador__lista', hidden: true, attrs: { role: 'listbox', 'aria-label': 'Resultados' } });
-  const migas = el('div', { clase: 'mapa-buscador__migas', hidden: true });
+  const migas = el('nav', { clase: 'mapa-buscador__migas', hidden: true, attrs: { 'aria-label': 'Ruta del mapa' } });
   let resultados = [], activo = -1, turno = 0;
   const pintar = () => {
     lista.replaceChildren(...resultados.map((r, k) => {
@@ -150,7 +151,8 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   });
   input.addEventListener('blur', cerrar);
   const ponerMigas = (items) => {
-    migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto, attrs: m.aria ? { 'aria-label': m.aria } : {} })));
+    migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto,
+      attrs: { ...(m.aria ? { 'aria-label': m.aria } : {}), ...(m.subir ? { 'data-subir': 'true' } : {}) } })));
     migas.hidden = !items.length;
     input.value = '';
   };
