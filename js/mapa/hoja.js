@@ -10,7 +10,7 @@ import { urlSegura } from '../ui/normativa.js';
 import { ORIENTACIONES, TRAMOS_PENDIENTE } from '../rejilla/formato.js';
 import { esOrientativo } from '../rejilla/orientacion.js';
 import { urlNuevaSalida } from '../diario.js';
-import { textoFaltan } from '../pantallas/hoy.js';
+import { textoFaltan } from '../notas-zona.js';
 import { textoOrigenLluvia } from '../ui/origen-lluvia.js';
 
 const nbsp = '\u00a0';   // espacio duro entre número y unidad (docs/diseno.md)
@@ -26,6 +26,12 @@ export const TEXTO_ORIENTACION = { llano: 'Llano', N: 'Norte (umbría)', NE: 'No
 export const AVISO_FUERA_PROVINCIAS = 'Fuera de las provincias de la zona: la app no conoce sus prohibiciones ni sus cotos. Compruébalos antes de recoger.';
 // MFE 24/34: los prados suelen ser fincas de siega cerradas, no monte libre.
 export const AVISO_PRADO = 'Prado: suele ser finca privada (prado de siega cerrado), no monte libre. Entra solo con permiso del dueño.';
+
+// Frase de fraseZona (partes { texto, estilo }) como nodos: <b> para negrita, <span class="latin"> para latín.
+export function pintarFrase(partes) {
+  return partes.map(({ texto, estilo }) => (estilo === 'negrita' ? el('b', { clase: 'tabular', texto })
+    : estilo === 'latin' ? el('span', { clase: 'latin', texto }) : texto));
+}
 
 export const urlComoLlegar = (lat, lon) => `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
 

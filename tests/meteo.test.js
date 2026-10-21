@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { hoyMadrid, urlPrincipal, parsearPrincipal, dispersion, resumirArchivo, aplicarClimatologia, obtenerMeteo, lluviaAntes, ESPERA_ARCHIVO_MS, REINTENTO_MS } from '../js/meteo.js';
-import { calcularZona } from '../js/pantallas/hoy.js';
+import { calcularZona } from '../js/notas-zona.js';
 import { BOLETUS, NISCALO, MORCHELLA } from './ayudas.js';
 
 const PUNTOS = [{ id: 'a', lat: 41.87, lon: -2.72, altitud: 1250 }, { id: 'b', lat: 40.87, lon: -4.03, altitud: 1300 }];

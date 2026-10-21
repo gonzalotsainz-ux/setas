@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { indiceZona, enTemporada } from '../js/indice.js';
-import { calcularZona } from '../js/pantallas/hoy.js';
+import { calcularZona } from '../js/notas-zona.js';
 import { notaPunto } from '../js/mapa.js';
 import { serieSintetica, BOLETUS, NISCALO, MORCHELLA, lluviaBuena } from './ayudas.js';
 

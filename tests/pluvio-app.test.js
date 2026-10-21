@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { aplicarPluvio, combinarObs, cargarPluvio, URL_PLUVIO, PLUVIO_MAX_HORAS } from '../js/pluvio.js';
 import { aplicarContraste, aplicarEstacion, distanciaKm, avisoViejo } from '../js/aemet.js';
-import { calcularZona } from '../js/pantallas/hoy.js';
+import { calcularZona } from '../js/notas-zona.js';
 import { guardar } from '../js/cache.js';
 import { VERSION_PLUVIO, distanciaKm as distanciaCompartida, factoresPorZona as factoresCompartidos } from '../supabase/functions/_shared/pluvio.js';
 import { factoresPorZona } from '../supabase/functions/rejilla/nucleo.js';

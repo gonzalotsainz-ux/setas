@@ -1,14 +1,14 @@
 // Pantalla «Hoy»: una nota por zona, la mejor destacada y un filtro por especie y día.
-import { indiceZona } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
-import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
+import { especiesDeZona, nombreCorto } from '../datos.js';
+import { calcularZona, ordenarZonas, textoFaltan, haceCuanto, fraseZona } from '../notas-zona.js';
+import { pintarFrase } from '../mapa/hoja.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { urlSegura } from '../ui/normativa.js';
 import { avisoViejo, textoSinLluvia } from '../aemet.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const ui = { dia: 0, especie: '' };   // la elección se conserva al repintar
-const nbsp = ' ';
 
 function el(tag, props = {}, ...hijos) {
   const e = document.createElement(tag);
@@ -28,7 +28,6 @@ const icono = (id) => {
   return s;
 };
 const etiqueta = (texto, variante) => el('span', { clase: `etiqueta${variante ? ` etiqueta--${variante}` : ''}`, texto });
-const negrita = (t) => el('b', { clase: 'tabular', texto: t });
 const latin = (t) => el('span', { clase: 'latin', texto: t });
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
 const mayus = (t) => t.charAt(0).toUpperCase() + t.slice(1);
@@ -36,56 +35,6 @@ const mayus = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 const fechaLarga = (f) => mayus(new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: 'numeric', month: 'long', timeZone: ZONA_HORARIA }).format(new Date(`${f}T12:00:00Z`)));
 const fechaCorta = (f) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: ZONA_HORARIA }).format(new Date(`${f}T12:00:00Z`));
 const horaDe = (iso) => new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: ZONA_HORARIA }).format(new Date(iso));
-
-export function haceCuanto(iso, ahora = new Date()) {
-  const h = Math.floor((ahora - new Date(iso)) / 3600e3);
-  return h < 1 ? 'hace menos de 1 h' : `hace ${h} h`;
-}
-
-const vacio = { valor: null, etiqueta: null, sinDatos: true, fueraDeTemporada: false, incompleta: false, faltan: [], especies: [] };
-function sinDatosZona(zona, motivo, incierta = false, res = vacio) {
-  return { zona, res, mejor: null, incierta, motivo };
-}
-export const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
-
-// Cálculo de una zona para el día i (hoy + d), opcionalmente limitado a una especie.
-export function calcularZona(zona, datos, meteo, d, especieId, umbrales = {}) {
-  // Los puntos NO IR (solo meteo) no entran: nunca pueden salir como mejor punto de la zona.
-  const recogibles = puntosRecogibles(zona);
-  if (!recogibles.length) return sinDatosZona(zona, 'Todos los puntos de esta zona son NO IR (solo meteo). No se calcula nota.');
-  const series = Object.fromEntries(recogibles.map((p) => [p.id, meteo.series?.[p.id]]).filter(([, s]) => s));
-  const primera = Object.values(series)[0];
-  if (!primera) return sinDatosZona(zona, 'No hay datos meteorológicos de esta zona. No se calcula nota.');
-  let especies = especiesDeZona(zona, datos.especies, umbrales);
-  if (especieId) {
-    especies = especies.filter((e) => e.id === especieId);
-    if (!especies.length) return sinDatosZona(zona, 'Sin registros de esta especie en la zona. No se calcula nota.');
-  }
-  const res = indiceZona(series, primera.hoy + d, especies);
-  // el contraste de modelos es de la lluvia de los próximos días: no afecta a la nota de hoy
-  const incierta = d > 0 && zona.puntos.some((p) => meteo.dispersion?.[p.id]?.incierta);
-  if (res.fueraDeTemporada) {
-    return sinDatosZona(zona, especieId ? 'Fuera de temporada en esas fechas. No se calcula nota.' : 'Fuera de temporada: ninguna especie de la zona lo está. No se calcula nota.', incierta, res);
-  }
-  if (res.sinDatos) {
-    return sinDatosZona(zona, `Faltan datos para calcular la nota${res.faltan.length ? ` (${textoFaltan(res.faltan.length)})` : ''}.`, incierta, res);
-  }
-  const mejor = res.especies[0];
-  const discrepa = !!meteo.contraste?.[zona.id]?.discrepa;
-  return { zona, res, mejor, incierta, discrepa, rotulo: rotuloPunto(zona.puntos.find((p) => p.id === mejor.punto)) };
-}
-
-export const ordenarZonas = (filas) => [...filas].sort((a, b) => (b.res.valor ?? -1) - (a.res.valor ?? -1));
-
-function frase(fila, datos) {
-  if (!fila.mejor) return fila.motivo;
-  const r = fila.mejor.resultado, e = datos.porId[fila.mejor.id];
-  if (r.datos.P26 == null) return `${r.explicacion[0]}: ${comun(e)}.`;   // fuera de temporada: no hay datos que citar
-  const { P26, P3, lag, T20 } = r.datos;
-  const cuando = P3 < 1 ? 'sin tandas de lluvia' : lag === 0 ? 'lo más fuerte, hoy' : lag === 1 ? 'lo más fuerte, ayer' : `lo más fuerte hace ${lag} días`;
-  return [negrita(`${Math.round(P26)}${nbsp}mm`), ` en 26 días, ${cuando} · `, negrita(`${Math.round(T20)}${nbsp}°C`),
-    ' → ', latin(e.nombre), ` ${r.etiqueta}`];
-}
 
 const notaGrande = (valor, grande) => el('p', { clase: `indice${grande ? ' indice--grande' : ''}` }, String(valor), grande ? el('span', { clase: 'indice__max', texto: '/100' }) : null);
 
@@ -102,7 +51,7 @@ function filaZona(fila, pos, datos, d) {
     el('span', { clase: 'fila-zona__nombre-linea' }, el('span', { clase: 'fila-zona__pos', texto: String(pos) }), el('span', { clase: 'fila-zona__nombre', texto: nombreCorto(fila.zona) })),
     fila.res.valor != null ? notaGrande(fila.res.valor) : null,
     estado,
-    el('span', { clase: 'fila-zona__frase' }, frase(fila, datos)));
+    el('span', { clase: 'fila-zona__frase' }, pintarFrase(fraseZona(fila, datos))));
   return el('li', {}, a);
 }
 
@@ -133,7 +82,7 @@ function destacada(fila, datos, caducado, d) {
           el('div', {}, el('p', { clase: 'destacada__rotulo', texto: rotulo }), el('h2', { texto: nombreCorto(fila.zona), id: 'destacada-nombre' })),
           el('div', { clase: 'destacada__nota' }, notaGrande(fila.res.valor, true))),
         meta,
-        el('p', { clase: 'destacada__frase' }, frase(fila, datos)),
+        el('p', { clase: 'destacada__frase' }, pintarFrase(fraseZona(fila, datos))),
         el('ul', { clase: 'destacada__especies', attrs: { 'aria-label': 'Especies con mejor índice' } }, top),
         el('div', { clase: 'destacada__acciones' },
           el('a', { clase: 'boton', href: `#zona/${fila.zona.id}` }, `Ver ${nombreCorto(fila.zona)} `, el('span', { clase: 'boton__nido', attrs: { 'aria-hidden': 'true' } }, icono('i-flecha'))),
