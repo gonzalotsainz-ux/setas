@@ -11,7 +11,7 @@ import { dec, esRutaMapa } from './mapa/ruta.js';
 // obs: lo que devuelve la función «aemet» tal cual (con su marca __viejo); pluvio: pluvio/ultimo.json vigente o null.
 export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null, pluvio: null, umbrales: {} };
 const pantallas = {
-  hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
+  zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
   seguridad: () => import('./pantallas/seguridad.js'), diario: () => import('./pantallas/diario.js'), ajustes: () => import('./pantallas/ajustes.js'),
 };
@@ -93,8 +93,8 @@ let reintento = null;
 document.querySelector('[data-toxicologia]')?.replaceWith(botonToxicologia());
 document.querySelector('[data-aviso-duda]')?.replaceWith(avisoDuda());
 window.addEventListener('hashchange', () => pintar(true));
-// La meteo solo cambia lo que enseñan Hoy, Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
-const PINTAN_METEO = new Set(['hoy', 'zona', 'mapa']);
+// La meteo solo cambia lo que enseñan Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
+const PINTAN_METEO = new Set(['zona', 'mapa']);
 window.addEventListener('meteo', () => {
   const nombre = (location.hash.slice(1) || 'mapa').split('/')[0];
   if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'mapa')) pintar(false);

@@ -106,7 +106,7 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | Clase | Qué es |
 |---|---|
 | `.cabecera` | barra superior fija: marca y botón de **Toxicología** (`tel:+34915620420`), siempre visible |
-| `.barra-nav` | isla flotante inferior con 5 secciones (Hoy, Mapa, Especies, Diario, Ajustes) y, encima, la franja «Ante la duda, no la comas.», siempre visible |
+| `.barra-nav` | isla flotante inferior con 4 secciones (Mapa, Especies, Diario, Ajustes) y, encima, la franja «Ante la duda, no la comas.», siempre visible |
 | `.tarjeta`, `.tarjeta--bisel` + `.tarjeta__nucleo` | tarjeta plana; bisel doble solo para la pieza principal de la pantalla |
 | `.semaforo[data-nivel]` | distintivo del nivel con barras + palabra; hereda el `data-nivel` más cercano (ver «Herencia del nivel») |
 | `.indice`, `.indice--grande` | nota 0 a 100 en el color de texto del nivel |
@@ -127,7 +127,7 @@ Reglas: objetivos táctiles de 44 px o más; radios 24/18 px en tarjetas, píldo
 foco visible ocre de 3 px; sin guiones largos en los textos; la pestaña Especies usa la silueta del logo.
 
 **Iconos:** Phosphor Icons (regular, licencia MIT) en un solo sprite, `img/iconos.svg`. Ids: `i-telefono`, `i-atras`,
-`i-ir`, `i-abrir`, `i-hoy`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
+`i-ir`, `i-abrir`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
 `i-temp`, `i-flecha`, `i-especies`, `i-capas`, `i-ubicacion` e `i-buscar`. La app, servida por http(s), los usa así:
 `<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-mapa"/></svg>`. Las maquetas llevan una copia en
 línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cuando la página se abre con `file://`
@@ -135,7 +135,10 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 
 ## Mapa a pantalla completa
 
-El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
+El mapa es la pantalla de inicio y tiene tres niveles que cambian el contenido de la hoja: **zonas** (`#mapa`: chincheta por zona
+y lista «Dónde ir»), **zona** (`#mapa/<zona>`: montes de la zona, con contorno) y **monte** (`#mapa/<zona>/<punto>`: nota por
+ladera, con etiquetas sobre las manchas). Fuera de las zonas, el buscador (CartoCiudad) coloca una gota y la hoja
+enseña las zonas cercanas. El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
 buscador (con las migas «‹ Zona › Monte» cuando hay algo elegido) y los chips de especie; a la derecha, en una columna
 bajo ese bloque, Capas, Mi ubicación y el zoom (+ y −, 44 px; por debajo de la hoja si se cruzan); abajo, la hoja fija
 (`.hoja-mapa`), que lleva dentro la barra de días, y encima de ella los avisos. La atribución de Leaflet va sobre los
@@ -184,8 +187,8 @@ Los datos son **inventados** (lo dice una etiqueta arriba). La foto es `img/espe
 
 ## Auditoría de usabilidad final (2026-09-30)
 
-Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en claro y oscuro por Hoy, Zona
-(Guadarrama y Soria), Mapa, Especies, ficha de *Amanita phalloides*, Seguridad, Diario y Ajustes: sin errores de
+Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en claro y oscuro por el Mapa (zonas, zona, monte y búsqueda fuera de las zonas), Zona
+(Guadarrama y Soria), Especies, ficha de *Amanita phalloides*, Seguridad, Diario y Ajustes: sin errores de
 consola propios (solo un 429 de Open-Meteo tras recargas repetidas, que la app gestiona), sin desbordamiento
 horizontal, con Toxicología, «Ante la duda» y la atribución de Open-Meteo visibles en todas.
 

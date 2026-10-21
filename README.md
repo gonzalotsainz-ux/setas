@@ -4,12 +4,17 @@ Previsión y cuaderno de campo para salir a por setas en once zonas del centro, 
 (Guadarrama, Sierra Norte, Soria, Burgos, norte de Burgos, Gredos, Cuenca, Guadalajara, Toledo, Álava y Extremadura). Web personal en HTML, CSS y JS
 sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gonzalotsainz-ux.github.io/setas/
 
-- **Hoy y Zona:** índice 0 a 100 por zona y especie a partir de la lluvia (modelos de Open-Meteo contrastados con
+- **Zona:** índice 0 a 100 por zona y especie a partir de la lluvia (modelos de Open-Meteo contrastados con
   estaciones de AEMET), temperatura y hábitat. Mide la **oportunidad meteorológica**, no la producción del monte.
-- **Mapa:** a pantalla completa, con manchas de color solo sobre el monte apropiado según la nota por ladera (bosque,
-  altitud y orientación cada 250 m) de hoy y de los próximos días; buscador, chips de especie, capas (mapa, relieve,
-  topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el fondo «Mapa» es la Base IGN mientras CARTO pida clave) y hoja con «Cómo llegar». Sin índice publicado (o sin
-  red), los puntos de cada zona con su nota y un aviso.
+- **Mapa:** es la pantalla de inicio (`#mapa`, `#mapa/<zona>`, `#mapa/<zona>/<punto>`; el antiguo `#hoy` abre también el mapa). Tres niveles:
+  las **zonas** con una chincheta de color por nota y la lista «Dónde ir» (hoy o el día elegido), la **zona** con sus
+  **montes** y la ficha del **monte**, con la nota por ladera (bosque, altitud y orientación cada 250 m) como manchas
+  de color solo sobre el monte apropiado y etiquetas en las laderas. Una hoja inferior fija, que nunca se cierra, cambia de
+  contenido y de altura (recogida, resumen, completa) y trae «Cómo llegar». El **buscador** encuentra pueblos, montes y
+  zonas, y cualquier lugar de España con CartoCiudad (fuera de las zonas dice qué zonas quedan cerca). Además: chips de
+  especie, barra de días y capas (mapa, relieve, topográfico, satélite, cotos, prohibido, lluvia, sitios y diario; el
+  fondo «Mapa» es la Base IGN mientras CARTO pida clave). Sin índice publicado (o sin red), los puntos de cada zona con su
+  nota y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
 - **Diario:** salidas con foto, compartidas en Supabase, con borrador local si no hay cobertura.
 - **Ajustes:** dispositivo, umbrales, calibración con el diario y **créditos completos** de datos, fotos y mapas.

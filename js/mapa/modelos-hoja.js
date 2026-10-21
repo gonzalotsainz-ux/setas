@@ -24,7 +24,7 @@ export function tituloDia(fecha, hoy) {
   return `el ${new Intl.DateTimeFormat('es-ES', FORMATO).format(utc(fecha))}`;
 }
 
-// Las etiquetas de la fila de Hoy (filaZona de pantallas/hoy.js), como datos.
+// Las etiquetas de cada fila de zona (la antigua pantalla Hoy), como datos.
 function etiquetasDe(fila, d) {
   const e = [];
   if (fila.mejor) e.push({ texto: `Confianza ${fila.mejor.resultado.confianza}`, variante: null });
