@@ -47,13 +47,15 @@ const esc = (t) => String(t).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&
 
 export function crearCapaChinchetas(L, { alTocar }) {
   const capa = L.layerGroup();
-  const poner = (lista, seleccionadaId = null) => {
+  // seleccionada = { tipo, id } (una zona y un monte pueden llamarse igual): va encima de las demás.
+  const poner = (lista, seleccionada = null) => {
     capa.clearLayers();
     for (const c of lista) {
-      const sel = c.id === seleccionadaId ? ' data-seleccionada="true"' : '';
+      const elegida = seleccionada != null && c.tipo === seleccionada.tipo && c.id === seleccionada.id;
+      const sel = elegida ? ' data-seleccionada="true"' : '';
       const html = `<button type="button" class="chincheta" data-nivel="${c.nivel}"${sel} aria-label="${esc(c.aria)}"><b>${c.valor ?? '?'}</b><small>${esc(c.texto)}</small></button>`;
       const icon = L.divIcon({ className: '', html, iconSize: [64, 48], iconAnchor: [32, 52] });
-      const m = L.marker([c.lat, c.lon], { icon, zIndexOffset: c.valor ?? -1, keyboard: false });
+      const m = L.marker([c.lat, c.lon], { icon, zIndexOffset: elegida ? 1000 : (c.valor ?? -1), keyboard: false });
       m.on('click', (e) => { L.DomEvent.stopPropagation(e); alTocar(c); });
       capa.addLayer(m);
     }

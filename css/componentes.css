@@ -896,6 +896,8 @@
 .mapa-completo__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; font-family: var(--fuente-texto); }   /* Leaflet le pone position: relative en línea: el alto sale de height */
 .mapa-completo__lienzo .leaflet-pane > svg { max-width: none !important; max-height: none !important; }
 .mapa-completo .leaflet-bottom { bottom: calc(var(--alto-nav, 112px) + var(--alto-abajo, 56px) + var(--esp-2)); }
+/* En el móvil se acerca con los dedos: los botones + y − de Leaflet, encima de la hoja, taparían Capas y Mi ubicación. */
+@media (pointer: coarse) { .mapa-completo .leaflet-control-zoom { display: none; } }
 .mapa-completo .leaflet-bar { border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-m); box-shadow: var(--tarjeta-sombra); }
 .mapa-completo .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; background: var(--c-superficie); color: var(--c-texto); border-color: var(--c-borde); }
 .mapa-completo .leaflet-bar a:first-child { border-radius: var(--r-m) var(--r-m) 0 0; }
@@ -904,10 +906,10 @@
 .mapa-completo__arriba, .mapa-completo__abajo { position: absolute; left: var(--esp-4); right: var(--esp-4); z-index: 1000; display: grid; gap: var(--esp-2); max-width: 560px; margin-inline: auto; pointer-events: none; }
 .mapa-completo__arriba > *, .mapa-completo__abajo > * { pointer-events: auto; }   /* entre los controles, el mapa sigue tocándose */
 .mapa-completo__arriba { top: calc(var(--alto-cabecera, 64px) + var(--esp-2)); z-index: 1001; }   /* la lista del buscador, encima de Capas */
-.mapa-completo__abajo { bottom: calc(var(--alto-nav, 112px) + var(--esp-2)); }
-.mapa-completo__chips, .mapa-completo__dias { margin: -6px; padding: 6px; scroll-padding-inline: 6px; }   /* sitio para el anillo de foco: la fila recorta lo que sobresale */
-.mapa-completo__chips .chip, .mapa-completo__dias .chip { box-shadow: inset 0 0 0 1.5px var(--chip-borde), var(--tarjeta-sombra); }
-.mapa-completo__chips .chip[aria-pressed="true"], .mapa-completo__dias .chip[aria-pressed="true"] { box-shadow: var(--tarjeta-sombra); }
+.mapa-completo__abajo { bottom: calc(var(--alto-nav, 112px) + var(--alto-hoja, 148px) + var(--esp-2)); }   /* solo avisos, sobre la hoja fija */
+.mapa-completo__chips { margin: -6px; padding: 6px; scroll-padding-inline: 6px; }   /* sitio para el anillo de foco: la fila recorta lo que sobresale */
+.mapa-completo__chips .chip { box-shadow: inset 0 0 0 1.5px var(--chip-borde), var(--tarjeta-sombra); }
+.mapa-completo__chips .chip[aria-pressed="true"] { box-shadow: var(--tarjeta-sombra); }
 .chip__nota { font-weight: 400; font-size: var(--t-xs); color: var(--c-ocre-texto); }
 .chip[aria-pressed="true"] .chip__nota { color: inherit; }
 .mapa-completo__avisos { display: grid; gap: var(--esp-1); }
@@ -915,10 +917,10 @@
 .mapa-completo__avisos .aviso { gap: var(--esp-2); padding: var(--esp-2) var(--esp-3); font-size: var(--t-s); line-height: 1.35; box-shadow: var(--tarjeta-sombra); }
 .mapa-completo__avisos .aviso > .icono { width: 20px; height: 20px; }
 .mapa-completo__avisos .aviso p { margin: 0; }
-.mapa-completo__botones { position: absolute; right: var(--esp-4); top: calc(var(--alto-cabecera, 64px) + 124px); z-index: 1000; display: grid; gap: var(--esp-2); }
+.mapa-completo__botones { position: absolute; right: var(--esp-4); top: calc(var(--alto-arriba, 188px) + var(--esp-2)); z-index: 1000; display: grid; gap: var(--esp-2); }
 .mapa-completo__boton { background: var(--c-superficie); box-shadow: var(--tarjeta-sombra); }
-.mapa-completo__panel { position: absolute; right: calc(var(--esp-4) + 56px); top: calc(var(--alto-cabecera, 64px) + 124px); z-index: 1001;
-  width: min(300px, calc(100vw - 104px)); max-height: calc(100dvh - var(--alto-cabecera, 64px) - var(--alto-nav, 112px) - 140px); overflow-y: auto; border-radius: var(--r-m); }
+.mapa-completo__panel { position: absolute; right: calc(var(--esp-4) + 56px); top: calc(var(--alto-arriba, 188px) + var(--esp-2)); z-index: 1001;
+  width: min(300px, calc(100vw - 104px)); max-height: calc(100dvh - var(--alto-arriba, 188px) - var(--alto-nav, 112px) - var(--esp-4)); overflow-y: auto; border-radius: var(--r-m); }
 .mapa-completo__panel .mapa-panel { max-width: none; }
 .mapa-buscador { position: relative; }
 .mapa-buscador__campo { position: relative; }
@@ -933,15 +935,8 @@
 .mapa-buscador__lista [role="option"] { display: flex; align-items: center; flex-wrap: wrap; min-height: 44px; padding: var(--esp-1) var(--esp-4); cursor: pointer; }
 .mapa-buscador__lista [role="option"]:hover { background: var(--c-superficie-2); }
 .mapa-buscador__lista [aria-selected="true"] { background: var(--c-acento-suave); color: var(--c-acento-fuerte); font-weight: 700; box-shadow: inset 3px 0 0 var(--c-acento); }
-/* Hoja antigua (role=dialog): se retira en la integración, junto con abrirHojaMapa. */
-.hoja--mapa { max-height: 42dvh; transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear var(--dur-media); }
-.hoja--mapa[data-abierta="true"] { transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear 0s; }
-.hoja--mapa[data-estado="completa"] { max-height: 88dvh; }
-.hoja--mapa::before { display: none; }
 .hoja__asa { display: block; width: 100%; min-height: 44px; margin: calc(var(--esp-3) * -1) 0 var(--esp-2); border: 0; background: none; cursor: grab; touch-action: none; }
 .hoja__asa::before { content: ""; display: block; width: 44px; height: 5px; margin: 0 auto; border-radius: 3px; background: var(--c-borde-fuerte); }
-.hoja--prohibido { border-top: 6px solid var(--c-peligro); }
-.hoja--prohibido h2 { color: var(--c-peligro-fuerte); }
 .hoja__nota { display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-3); }
 .hoja__nota p { margin: 0; flex-basis: 100%; }
 .hoja__filas { display: grid; grid-template-columns: auto 1fr; gap: var(--esp-1) var(--esp-3); margin: 0; }
@@ -960,7 +955,7 @@
   transition: max-height var(--dur-media) var(--curva);
 }
 .hoja-mapa[data-estado="recogida"] { max-height: 148px;   /* asa 44 + días 44 + línea corta + bisel */ }
-.hoja-mapa[data-estado="completa"] { max-height: min(88dvh, calc(100dvh - var(--alto-cabecera, 64px) - var(--alto-nav, 112px) - var(--esp-4))); }
+.hoja-mapa[data-estado="completa"] { max-height: min(88dvh, calc(100dvh - var(--alto-arriba, 180px) - var(--alto-nav, 112px) - var(--esp-4))); }   /* bajo buscador, migas y chips: el asa siempre se puede tocar */
 .hoja-mapa__nucleo {
   display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;
   padding: 0 var(--esp-4) var(--esp-3); border-radius: calc(var(--r-l) - 6px);
@@ -981,7 +976,6 @@
 @media (prefers-reduced-motion: reduce) { .hoja-mapa { transition: none; } }
 .marcador-sitio { display: block; width: 22px; height: 22px; margin: 3px; transform: rotate(-45deg); border-radius: 50% 50% 50% 0;
   background: #1f4a33; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
-@media (prefers-reduced-motion: reduce) { .hoja--mapa, .hoja--mapa[data-abierta="true"] { transition: none; } }
 .mapa-completo .mapa-popup .boton { white-space: normal; text-align: center; height: auto; min-height: 44px; }   /* nombres de zona largos: el botón crece, no se corta */
 
 /* ---------- Chinchetas del mapa: nota + nombre corto, con punta ----------
@@ -996,3 +990,7 @@
 .chincheta::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg);
   background: inherit; border-right: 2px solid var(--sem); border-bottom: 2px solid var(--sem); }
 .chincheta[data-seleccionada="true"] { outline: 3px solid var(--c-texto); outline-offset: 2px; transform: scale(1.12); transform-origin: 50% 100%; }
+/* Chincheta de búsqueda (lugar elegido en el buscador): gota fija como la de Google Maps; colores fijos sobre teselas claras. */
+.chincheta.chincheta--busqueda { width: 26px; min-height: 0; height: 26px; margin: 2px 1px; padding: 0; cursor: default;
+  transform: rotate(-45deg); border-radius: 50% 50% 50% 0; background: #9e1c16; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
+.chincheta.chincheta--busqueda::after { content: none; }

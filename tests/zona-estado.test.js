@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { indiceZona, enTemporada } from '../js/indice.js';
 import { calcularZona } from '../js/notas-zona.js';
-import { notaPunto } from '../js/mapa.js';
+import { notaPuntoDia } from '../js/notas-zona.js';
 import { serieSintetica, BOLETUS, NISCALO, MORCHELLA, lluviaBuena } from './ayudas.js';
 
 // Desde el 1-oct-2026 la serie empieza el 2-ago: sin la lluvia anterior, las de otoño no se pueden calcular.
@@ -82,12 +82,12 @@ test('calcularZona: la previsión incierta solo cuenta en días > 0', () => {
   assert.equal(calcularZona(zona, datosCon(BOLETUS), meteo, 2, '').incierta, true);
 });
 
-test('notaPunto: sin datos de otoño + fuera de temporada → valor null, incompleta y cuántas faltan', () => {
-  const r = notaPunto(zona, { id: 'a' }, datosCon(BOLETUS, MORCHELLA), { series: { a: sinAgosto() } }, {});
+test('notaPuntoDia: sin datos de otoño + fuera de temporada → valor null, incompleta y cuántas faltan', () => {
+  const r = notaPuntoDia(zona, { id: 'a' }, datosCon(BOLETUS, MORCHELLA), { series: { a: sinAgosto() } }, 0, null, {});
   assert.equal(r.valor, null);
   assert.equal(r.incompleta, true);
-  assert.equal(r.faltan, 1);
-  const f = notaPunto(zona, { id: 'a' }, datosCon(MORCHELLA), { series: { a: serieSintetica({ precip: lluviaBuena }) } }, {});
+  assert.equal(r.faltan.length, 1);
+  const f = notaPuntoDia(zona, { id: 'a' }, datosCon(MORCHELLA), { series: { a: serieSintetica({ precip: lluviaBuena }) } }, 0, null, {});
   assert.equal(f.fueraDeTemporada, true);
 });
 

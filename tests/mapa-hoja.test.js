@@ -1,7 +1,7 @@
 // tests/mapa-hoja.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { urlComoLlegar, textoCoto, modeloHoja, clasesHoja, estadoTrasArrastre, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { urlComoLlegar, textoCoto, modeloHoja, estadoTrasArrastre, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
 import { rutaZona } from '../js/mapa/ruta.js';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 
@@ -33,7 +33,6 @@ test('hoja de monte: bosque, altitud, orientación, pendiente, meteo, coto y tre
   assert.deepEqual(m.otras, [{ nombre: 'níscalo', valor: 70 }]);
   assert.equal(m.orientativo, true);   // umbría: el ajuste por orientación no está calibrado
   assert.deepEqual(m.avisos, []);
-  assert.equal(clasesHoja(m), 'hoja hoja--mapa');
 });
 
 test('orientación llana no lleva la marca «Orientativo»', () => {
@@ -74,7 +73,6 @@ test('zona prohibida: hoja roja con la norma y sin botón de ruta', () => {
   assert.equal(m.titulo, 'Macizo de Peñalara');
   assert.deepEqual(m.normas, [{ titulo: 'PRUG del Parque Nacional', url: 'https://boe.es/x' }, { titulo: 'otra', url: null }]);
   assert.equal(m.acciones, undefined);
-  assert.equal(clasesHoja(m), 'hoja hoja--mapa hoja--prohibido');
 });
 
 test('zona prohibida sin nota: texto por defecto que no repite el titular', () => {

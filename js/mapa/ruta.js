@@ -13,3 +13,8 @@ export function rutaMapa({ zona = null, punto = null } = {}) {
   return `#mapa/${encodeURIComponent(zona)}${punto ? `/${encodeURIComponent(punto)}` : ''}`;
 }
 export const rutaZona = (zona, punto = null) => `#zona/${encodeURIComponent(zona)}${punto ? `/${encodeURIComponent(punto)}` : ''}`;
+// ¿Abre esta ruta la pantalla del mapa? Sin hash (portada), #mapa… y el antiguo #hoy.
+export function esRutaMapa(hash) {
+  const n = (String(hash ?? '').replace(/^#/, '') || 'mapa').split('/')[0];
+  return n === 'mapa' || n === 'hoy';
+}

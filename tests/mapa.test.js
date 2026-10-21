@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { estiloCoto, estiloHalo, radioLluvia, notaPunto, COLOR, ESTILO_COTO } from '../js/mapa.js';
+import { estiloCoto, estiloHalo, radioLluvia, lluvia26, COLOR, ESTILO_COTO } from '../js/mapa.js';
+import { readFileSync } from 'node:fs';
 import { serieSintetica, lluviaBuena } from './ayudas.js';
 
 test('estiloCoto: color fijo por tipo y trazo según la precisión', () => {
@@ -26,25 +27,20 @@ test('radioLluvia: siempre fuera del marcador de 9 px y creciente', () => {
   assert.ok(radioLluvia(50) > radioLluvia(10));
 });
 
-test('notaPunto: sin serie no hay nota; con serie, nota y lluvia de 26 días', () => {
-  const zona = { id: 'z', habitats: ['pinar'] };
-  const punto = { id: 'p' };
-  const datos = { especies: [], porId: {} };
-  assert.deepEqual(notaPunto(zona, punto, datos, null, {}), { valor: null, mejor: null, mm: null });
-  assert.deepEqual(notaPunto(zona, punto, datos, { series: {} }, {}), { valor: null, mejor: null, mm: null });
-  const serie = serieSintetica({ precip: lluviaBuena });
-  const r = notaPunto(zona, punto, datos, { series: { p: serie } }, {});
-  assert.equal(r.mm, 106);
-  assert.equal(r.valor, null);   // sin especies no hay nota
-});
-
-test('notaPunto: si falta un día de lluvia, mm es null', () => {
+test('lluvia26: suma de los 26 días hasta hoy; sin serie o con un día sin dato, null', () => {
+  assert.equal(lluvia26(null), null);
+  assert.equal(lluvia26(serieSintetica({ precip: lluviaBuena })), 106);
   const serie = serieSintetica();
   serie.precip[50] = null;
-  const r = notaPunto({ id: 'z', habitats: [] }, { id: 'p' }, { especies: [], porId: {} }, { series: { p: serie } }, {});
-  assert.equal(r.mm, null);
+  assert.equal(lluvia26(serie), null);
 });
 
+test('js/mapa.js ya no pinta rectángulos de zona ni el modo de puntos', async () => {
+  const m = await import('../js/mapa.js');
+  assert.equal(m.estiloPunto, undefined);
+  assert.equal(m.notaPunto, undefined);
+  assert.doesNotMatch(readFileSync('js/mapa.js', 'utf8'), /L\.rectangle/);
+});
 
 import { avisoOtroDia } from '../js/mapa.js';
 test('avisoOtroDia: «Datos del …» solo si la meteo guardada es de otro día', () => {
@@ -61,7 +57,6 @@ test('el mapa nuevo reutiliza la carga de cotos y su ficha', () => {
   assert.equal(typeof popupCoto, 'function');
 });
 
-import { readFileSync } from 'node:fs';
 import { CONFIG } from '../scripts/rejilla/config.mjs';
 test('créditos de Ajustes: MFE50 con su actualización, MDT25 y pueblos del NGBE, con los textos de CONFIG', () => {
   const src = readFileSync('js/pantallas/ajustes.js', 'utf8');
@@ -70,19 +65,4 @@ test('créditos de Ajustes: MFE50 con su actualización, MDT25 y pueblos del NGB
   }
   assert.match(src, /entre 1997 y 2006 \(archivos de 2013\)/);
   assert.doesNotMatch(src, /NGMEP|CARTO/);   // pueblos del NGBE; CARTO no se usa mientras CARTO_URL sea null
-});
-
-import { estiloPunto, NIVEL_COLOR } from '../js/mapa.js';
-test('punto «Sin datos» no se confunde con «Nulo»: hueco y con borde discontinuo; con nota, relleno y halo blanco', () => {
-  // NIVEL_COLOR.nulo (#7a736b) y NIVEL_COLOR['sin-datos'] (#7d827e) son casi el mismo gris: el color solo no basta.
-  const sin = estiloPunto(null), nulo = estiloPunto(0), bueno = estiloPunto(70);
-  assert.equal(nulo.fillColor, NIVEL_COLOR.nulo);
-  assert.equal(nulo.fillOpacity, 1);
-  assert.equal(nulo.color, COLOR.halo);
-  assert.equal(nulo.dashArray, undefined);
-  assert.equal(bueno.fillColor, NIVEL_COLOR.bueno);
-  assert.ok(sin.fillOpacity < 0.5, 'sin datos: relleno claro');
-  assert.ok(sin.dashArray, 'sin datos: borde discontinuo');
-  assert.notEqual(sin.color, COLOR.halo);
-  for (const e of [sin, nulo, bueno]) assert.equal(e.radius, 9);
 });

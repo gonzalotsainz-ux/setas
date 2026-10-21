@@ -78,8 +78,6 @@ export function modeloHoja({ prohibido = null, normas = new Map(), celda = null,
     otras: nota.otras.map((o) => ({ nombre: comun(o.especie), valor: o.valor })) };
 }
 
-export const clasesHoja = (m) => `hoja hoja--mapa${m?.tipo === 'prohibido' ? ' hoja--prohibido' : ''}`;
-
 export function estadoTrasArrastre(estado, dy, umbral = 60) {
   if (estado === 'recogida') return dy < -umbral ? 'resumen' : 'recogida';
   if (estado === 'resumen') return dy < -umbral ? 'completa' : dy > umbral ? 'recogida' : 'resumen';
@@ -236,59 +234,4 @@ export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } =
     ponerEstado,
     alElegir,
   };
-}
-
-// Hoja antigua (role=dialog, se abre al tocar una mancha). Se retira en la integración (Tarea 8), cuando mapa.js use crearHojaMapa.
-export function abrirHojaMapa({ modelo, desglose = null, grafico = null, alCerrar = () => {} }) {
-  const previo = document.activeElement;
-  const titulo = el('h2', { id: 'hoja-mapa-titulo', attrs: { tabindex: '-1' } });
-  const asa = el('button', { type: 'button', clase: 'hoja__asa', attrs: { 'aria-expanded': 'false', 'aria-label': 'Ver más' } });
-  const cerrar = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Cerrar' });
-  const cuerpo = el('div', { clase: 'hoja__cuerpo' });
-  const hoja = el('section', { attrs: { role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'hoja-mapa-titulo' } },
-    asa, el('div', { clase: 'hoja__cabeza' }, titulo, cerrar), cuerpo);
-  let estado = 'resumen', extra = { desglose, grafico }, arrastrado = false, y0 = null;
-  const pintar = () => {
-    hoja.className = clasesHoja(modelo);
-    hoja.dataset.estado = estado;
-    titulo.textContent = modelo.titulo;
-    asa.setAttribute('aria-expanded', String(estado === 'completa'));
-    asa.setAttribute('aria-label', estado === 'completa' ? 'Ver menos' : 'Ver más');
-    const completa = estado === 'completa';
-    cuerpo.replaceChildren(...contenido(modelo, completa ? { ...extra, completa } : {}).filter(Boolean));
-  };
-  const poner = (e) => { if (e === 'cerrada') { api.cerrar(); return; } estado = e; pintar(); };
-  asa.addEventListener('click', () => { if (arrastrado) { arrastrado = false; return; } poner(estado === 'completa' ? 'resumen' : 'completa'); });
-  asa.addEventListener('pointerdown', (e) => { arrastrado = false; y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
-  asa.addEventListener('pointerup', (e) => {
-    if (y0 == null) return;
-    const dy = e.clientY - y0; y0 = null;
-    if (Math.abs(dy) > 10) {
-      arrastrado = true;   // el «click» que sigue al arrastre no cuenta; el siguiente toque, sí
-      setTimeout(() => { arrastrado = false; }, 0);
-      poner(estadoTrasArrastre(estado, dy));
-    }
-  });
-  asa.addEventListener('pointercancel', () => { y0 = null; });
-  cerrar.addEventListener('click', () => api.cerrar());
-  // Escape ya atendido por otro (o pulsado dentro del panel de capas del mapa) no cierra la hoja.
-  const tecla = (e) => {
-    if (e.key !== 'Escape' || e.defaultPrevented || document.activeElement?.closest?.('.mapa-panel')) return;
-    api.cerrar();
-  };
-  document.addEventListener('keydown', tecla);
-  const api = {
-    actualizar(m, x = {}) { modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null }; estado = 'resumen'; pintar(); titulo.focus({ preventScroll: true }); },
-    cerrar() {
-      if (!hoja.isConnected) return;
-      document.removeEventListener('keydown', tecla);
-      hoja.remove();
-      if (previo?.isConnected) previo.focus({ preventScroll: true });
-      alCerrar();
-    },
-  };
-  pintar();
-  document.body.append(hoja);
-  requestAnimationFrame(() => { hoja.dataset.abierta = 'true'; titulo.focus({ preventScroll: true }); });
-  return api;
 }

@@ -5,7 +5,7 @@ import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { cargarPluvio, aplicarPluvio, combinarObs } from './pluvio.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
-import { dec } from './mapa/ruta.js';
+import { dec, esRutaMapa } from './mapa/ruta.js';
 
 // meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida (pluviómetros y estaciones AEMET) donde la hay.
 // obs: lo que devuelve la función «aemet» tal cual (con su marca __viejo); pluvio: pluvio/ultimo.json vigente o null.
@@ -29,7 +29,7 @@ function error(raiz, titulo, detalle) {
 
 async function pintar(cambioDePantalla = false) {
   const ficha = carrera.nueva();
-  const dentroDelMapa = hashAnterior.startsWith('#mapa') && location.hash.startsWith('#mapa');
+  const dentroDelMapa = esRutaMapa(hashAnterior) && esRutaMapa(location.hash);   // también desde la portada sin hash
   hashAnterior = location.hash;   // al empezar, no al acabar: un pintado descartado por la carrera no deja un hash obsoleto
   const [nombre0, param] = (location.hash.slice(1) || 'mapa').split('/');
   const nombre = nombre0 === 'hoy' ? 'mapa' : nombre0;   // «Hoy» ya no existe como pestaña: sus enlaces viejos abren el mapa

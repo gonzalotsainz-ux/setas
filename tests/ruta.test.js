@@ -23,3 +23,9 @@ test('un hash mal codificado no lanza', () => {
   assert.deepEqual(leerRutaMapa('#mapa/%'), { zona: '%', punto: null });
   assert.deepEqual(leerRutaZona('#zona/soria/%E0%A4%A'), { zona: 'soria', punto: '%E0%A4%A' });
 });
+
+test('esRutaMapa: la portada sin hash, #mapa con o sin selección y el antiguo #hoy son el mapa; Zona no', async () => {
+  const { esRutaMapa } = await import('../js/mapa/ruta.js');
+  for (const h of ['', '#', '#mapa', '#mapa/guadarrama', '#mapa/guadarrama/valsain', '#hoy']) assert.equal(esRutaMapa(h), true, h);
+  for (const h of ['#zona/guadarrama', '#especies', '#mapamundi']) assert.equal(esRutaMapa(h), false, h);
+});
