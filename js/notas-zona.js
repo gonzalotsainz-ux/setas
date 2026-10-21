@@ -1,11 +1,8 @@
-// Notas por zona y por punto, sin DOM: las usan el mapa y la pantalla «Hoy».
+// Notas por zona y por punto, sin DOM: las usan las chinchetas del mapa (zonas y montes).
 import { indiceZona } from './indice.js';
 import { entreDias } from './meteo.js';
 import { especiesDeZona, puntosRecogibles, rotuloPunto } from './datos.js';
 import { nivelDe } from './ui/semaforo.js';
-
-const nbsp = ' ';
-const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
 
 export function haceCuanto(iso, ahora = new Date()) {
   const h = Math.floor((ahora - new Date(iso)) / 3600e3);
@@ -56,23 +53,6 @@ export function calcularZona(zona, datos, meteo, d, filtro, umbrales = {}) {
 
 export const ordenarZonas = (filas) => [...filas].sort((a, b) => (b.res.valor ?? -1) - (a.res.valor ?? -1));
 
-// La frase de la fila como datos: [{ texto, estilo: 'negrita' | 'latin' | null }]. El nodo lo hace pintarFrase (mapa/hoja.js).
-export function fraseZona(fila, datos) {
-  if (!fila.mejor) return [{ texto: fila.motivo, estilo: null }];
-  const r = fila.mejor.resultado, e = datos.porId[fila.mejor.id];
-  if (r.datos.P26 == null) return [{ texto: `${r.explicacion[0]}: ${comun(e)}.`, estilo: null }];   // fuera de temporada: no hay datos que citar
-  const { P26, P3, lag, T20 } = r.datos;
-  const cuando = P3 < 1 ? 'sin tandas de lluvia' : lag === 0 ? 'lo más fuerte, hoy' : lag === 1 ? 'lo más fuerte, ayer' : `lo más fuerte hace ${lag} días`;
-  return [
-    { texto: `${Math.round(P26)}${nbsp}mm`, estilo: 'negrita' },
-    { texto: ` en 26 días, ${cuando} · `, estilo: null },
-    { texto: `${Math.round(T20)}${nbsp}°C`, estilo: 'negrita' },
-    { texto: ' → ', estilo: null },
-    { texto: e.nombre, estilo: 'latin' },
-    { texto: ` ${r.etiqueta}`, estilo: null },
-  ];
-}
-
 // Días de la tanda de datos que separan `fecha` de hoy (0..7); null si cae fuera del horizonte o antes de la tanda.
 export function desplazamientoDia(fecha, meteoHoy) {
   const d = entreDias(meteoHoy, fecha);
@@ -81,7 +61,7 @@ export function desplazamientoDia(fecha, meteoHoy) {
 
 const sinNota = (motivo) => ({ valor: null, nivel: nivelDe(null), etiqueta: null, mejor: null, especies: [], fueraDeTemporada: false, incompleta: false, faltan: [], motivo });
 
-export const MOTIVO_NO_IR = 'NO IR (solo meteo): no se calcula nota.';
+const MOTIVO_NO_IR = 'NO IR (solo meteo): no se calcula nota.';
 
 // Nota de un punto concreto para el día hoy + d, con las especies del filtro. Un punto NO IR nunca tiene nota (ni en su
 // chincheta, ni en su fila, ni en su ficha), aunque tenga serie de meteo.

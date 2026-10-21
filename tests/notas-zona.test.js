@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { calcularZona, ordenarZonas, textoFaltan, haceCuanto, fraseZona, desplazamientoDia, notaPuntoDia } from '../js/notas-zona.js';
+import { calcularZona, ordenarZonas, textoFaltan, haceCuanto, desplazamientoDia, notaPuntoDia } from '../js/notas-zona.js';
 import { nivelDe } from '../js/ui/semaforo.js';
 import { serieSintetica, BOLETUS as B0, NISCALO as N0, lluviaBuena } from './ayudas.js';
 
@@ -56,27 +56,6 @@ test('notaPuntoDia con d null (fecha fuera del horizonte) devuelve sin datos', (
   const n = notaPuntoDia(zona, zona.puntos[0], datos, meteo, null, null);
   assert.equal(n.valor, null);
   assert.ok(n.motivo.length > 0);
-});
-
-test('fraseZona devuelve partes de datos, sin DOM', () => {
-  const fila = calcularZona(zona, datos, meteo, 0, BOLETUS.id);
-  const p = fraseZona(fila, datos);
-  const { P26, T20, lag } = fila.mejor.resultado.datos;
-  const nb = ' ';
-  assert.deepEqual(p, [
-    { texto: `${Math.round(P26)}${nb}mm`, estilo: 'negrita' },
-    { texto: ` en 26 días, lo más fuerte hace ${lag} días · `, estilo: null },
-    { texto: `${Math.round(T20)}${nb}°C`, estilo: 'negrita' },
-    { texto: ' → ', estilo: null },
-    { texto: 'Boletus edulis', estilo: 'latin' },
-    { texto: ` ${fila.mejor.resultado.etiqueta}`, estilo: null },
-  ]);
-  assert.equal(p[0].texto, `106${nb}mm`);
-});
-
-test('fraseZona sin mejor devuelve el motivo', () => {
-  const fila = calcularZona(zona, datos, { series: {} }, 0, null);
-  assert.deepEqual(fraseZona(fila, datos), [{ texto: fila.motivo, estilo: null }]);
 });
 
 test('textoFaltan, haceCuanto y ordenarZonas siguen igual', () => {
