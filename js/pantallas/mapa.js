@@ -23,7 +23,7 @@ import { chipsDelDia, chipVigente, barraDias, fechasBarra, avisosMapa } from '..
 import { crearBusquedaMapa } from '../mapa/busqueda-mapa.js';
 import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES } from '../mapa/chinchetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
-import { leerRutaMapa, rutaMapa } from '../mapa/ruta.js';
+import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
 import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona } from '../mapa/seleccion.js';
 import { zonasMasCercanas } from '../mapa/geocodificador.js';
 import { desplazamientoDia } from '../notas-zona.js';
@@ -37,7 +37,7 @@ const ui = { fecha: null, chip: 'mejor', vista: null };
 let montaje = null;
 
 window.addEventListener('hashchange', () => {
-  if (location.hash.startsWith('#mapa')) return;
+  if (esRutaMapa(location.hash)) return;   // la portada sin hash y #hoy también son el mapa: no se desmonta
   document.body.classList.remove('en-mapa');
   const m = montaje;
   montaje = null;

@@ -33,12 +33,12 @@ export function chipsDelDia(especies, fecha) {
 // Un chip que deja de estar en temporada al cambiar de día vuelve a «Mejor hoy».
 export const chipVigente = (id, chips) => (chips.some((c) => c.id === id) ? id : 'mejor');
 
-// Fechas de la barra de días (decisión 14): las del índice desde hoy si lo hay; si no, hoy y los 7 días de la meteo
-// (los de su tanda que no han pasado); sin nada, solo hoy.
+// Fechas de la barra de días (decisión 14): las del índice desde hoy si le quedan; si no, hoy y los 7 días de la meteo
+// (los de su tanda que no han pasado; con un índice viejo, el aviso de fecha sin índice lo explica); sin nada, solo hoy.
 export function fechasBarra({ salida = null, meteo = null, hoy }) {
   const delIndice = salida ? diasDisponibles(salida, hoy) : [];
   if (delIndice.length) return delIndice;
-  if (!salida && meteo?.hoy) {
+  if (meteo?.hoy) {   // sin índice, o con un índice cuyos días ya han pasado
     const base = Date.parse(`${meteo.hoy}T12:00:00Z`);
     const fs = Array.from({ length: 8 }, (_, d) => new Date(base + d * 864e5).toISOString().slice(0, 10)).filter((f) => f >= hoy);
     if (fs.length) return fs;
@@ -182,7 +182,7 @@ export function avisosMapa({ salida, sinDescompresion = false, cargando = false,
   }
   if (salida) {
     if (diasDesdeHoy > 0 && pesoPrevision(diasDesdeHoy) < 0.8) lista.push(['i-info', `Previsión a ${diasDesdeHoy} días: menos fiable.`]);
-    if (zoom < ZOOM_MIN_FINA) lista.push(['i-info', AVISO_ACERCATE]);
+    if (zoom < ZOOM_MIN_FINA && !fechaSinIndice) lista.push(['i-info', AVISO_ACERCATE]);
   }
   if (error) lista.push(['i-aviso', error]);
   return lista;

@@ -162,6 +162,8 @@ test('fechasBarra: con índice, sus días desde hoy; sin índice, hoy y 7 días 
   assert.equal(fechasBarra({ salida: null, meteo: { hoy: '2026-10-20' }, hoy: '2026-10-21' }).length, 7);
   // Un índice vacío o ya pasado no deja la barra vacía: hoy.
   assert.deepEqual(fechasBarra({ salida: { fechas: ['2026-10-19'] }, meteo: null, hoy: '2026-10-21' }), ['2026-10-21']);
+  // Índice viejo (todos sus días pasados) con meteo: los días de la meteo, no solo hoy (el aviso dirá que no hay laderas).
+  assert.equal(fechasBarra({ salida: { fechas: ['2026-10-19'] }, meteo: { hoy: '2026-10-21' }, hoy: '2026-10-21' }).length, 8);
 });
 
 import { AVISO_FECHA_SIN_INDICE, AVISO_FECHA_SIN_METEO } from '../js/mapa/controles.js';
@@ -177,6 +179,7 @@ test('avisos sin índice hablan de zonas y montes, no de puntos; fecha sin índi
   assert.equal(AVISO_FECHA_SIN_METEO, 'La previsión no llega a este día: chinchetas sin nota.');
   const s = { sello: 'x' };
   assert.ok(textos(avisosMapa({ salida: s, zoom: 12, fechaSinIndice: true })).includes(AVISO_FECHA_SIN_INDICE));
+  assert.ok(!textos(avisosMapa({ salida: s, zoom: 6, fechaSinIndice: true })).includes(AVISO_ACERCATE));   // ese día no hay laderas a las que acercarse
   assert.ok(textos(avisosMapa({ salida: s, zoom: 12, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
   assert.ok(textos(avisosMapa({ salida: null, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
   assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, meteo: { series: {} } })), []);   // sin banderas, nada de esto
