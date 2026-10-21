@@ -973,6 +973,10 @@
 .chincheta small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.7rem; }
 .chincheta::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg);
   background: inherit; border-right: 2px solid var(--sem); border-bottom: 2px solid var(--sem); }
+/* NO IR: gris (sin nota) con borde y rótulo de peligro, para no confundirla con «sin datos». */
+.chincheta[data-no-ir="true"] { border-color: var(--c-peligro); }
+.chincheta[data-no-ir="true"]::after { border-color: var(--c-peligro); }
+.chincheta[data-no-ir="true"] b { color: var(--c-peligro); font-size: 0.85rem; letter-spacing: 0.02em; }
 .chincheta[data-seleccionada="true"] { outline: 3px solid var(--c-texto); outline-offset: 2px; transform: scale(1.12); transform-origin: 50% 100%; }
 /* Chincheta de búsqueda (lugar elegido en el buscador): gota como la de Google Maps, en ocre oscuro (no se lee como «prohibido»
    ni como un nivel del semáforo); primitivos, que no cambian con el tema, porque va sobre teselas claras. */

@@ -81,8 +81,12 @@ export function desplazamientoDia(fecha, meteoHoy) {
 
 const sinNota = (motivo) => ({ valor: null, nivel: nivelDe(null), etiqueta: null, mejor: null, especies: [], fueraDeTemporada: false, incompleta: false, faltan: [], motivo });
 
-// Nota de un punto concreto para el día hoy + d, con las especies del filtro.
+export const MOTIVO_NO_IR = 'NO IR (solo meteo): no se calcula nota.';
+
+// Nota de un punto concreto para el día hoy + d, con las especies del filtro. Un punto NO IR nunca tiene nota (ni en su
+// chincheta, ni en su fila, ni en su ficha), aunque tenga serie de meteo.
 export function notaPuntoDia(zona, punto, datos, meteo, d, filtro, umbrales = {}) {
+  if (punto.noIr) return sinNota(MOTIVO_NO_IR);
   const serie = meteo?.series?.[punto.id];
   if (!serie) return sinNota('No hay datos meteorológicos de este punto. No se calcula nota.');
   if (d == null) return sinNota('Esa fecha queda fuera de la previsión. No se calcula nota.');

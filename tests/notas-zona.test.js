@@ -86,3 +86,12 @@ test('textoFaltan, haceCuanto y ordenarZonas siguen igual', () => {
   assert.equal(haceCuanto('2026-10-21T10:00:00Z', new Date('2026-10-21T13:00:00Z')), 'hace 3 h');
   assert.deepEqual(ordenarZonas([{ res: { valor: 10 } }, { res: { valor: null } }, { res: { valor: 50 } }]).map((f) => f.res.valor), [50, 10, null]);
 });
+
+test('notaPuntoDia: un punto NO IR nunca tiene nota, aunque tenga serie de meteo', () => {
+  const noIr = { id: 'p1', habitat: 'pinar-silvestre', noIr: true };
+  const n = notaPuntoDia(zona, noIr, datos, meteo, 0, null);
+  assert.equal(n.valor, null);
+  assert.equal(n.nivel, 'sin-datos');
+  assert.equal(n.mejor, null);
+  assert.equal(n.motivo, 'NO IR (solo meteo): no se calcula nota.');
+});

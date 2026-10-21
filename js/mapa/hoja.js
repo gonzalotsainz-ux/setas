@@ -129,8 +129,8 @@ function pintarMonte(m, extra) {
   if (m.porque) nodos.push(el('p', { clase: 'texto-s', texto: m.porque }));
   nodos.push(...m.avisos.map((a) => avisoNodo(a.texto, a.peligro)),
     el('p', { clase: 'texto-s' }, m.coto.url ? enlace(m.coto.url, m.coto.texto) : m.coto.texto),
-    el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton'),
-      el('a', { clase: 'boton boton--suave', href: m.acciones.diario, texto: 'Guardar en el diario' }),
+    el('div', { clase: 'hoja__acciones' }, m.acciones.comoLlegar ? enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton') : null,
+      m.acciones.diario ? el('a', { clase: 'boton boton--suave', href: m.acciones.diario, texto: 'Guardar en el diario' }) : null,
       el('a', { clase: 'boton boton--suave', href: m.acciones.mas, texto: 'Más' })));
   if (extra.desglose) nodos.push(extra.desglose());
   if (extra.grafico) nodos.push(extra.grafico());

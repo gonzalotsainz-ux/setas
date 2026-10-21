@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { queChinchetas, centroide, chinchetasZonas, chinchetasMontes, textoAria, ZOOM_MONTES, ZOOM_ETIQUETAS } from '../js/mapa/chinchetas.js';
+import { queChinchetas, centroide, chinchetasZonas, chinchetasMontes, textoAria, textoChincheta, ZOOM_MONTES, ZOOM_ETIQUETAS, ALTO_CHINCHETA } from '../js/mapa/chinchetas.js';
 import { serieSintetica, BOLETUS as B0, lluviaBuena } from './ayudas.js';
 
 const BOLETUS = { ...B0, habitats: ['pinar-silvestre'], categoria: 'comestible', zonas: { z: { presencia: 'si' } }, nombre: 'Boletus edulis' };
@@ -47,4 +47,12 @@ test('chinchetasMontes: usa corto, marca NO IR y nunca inventa nota sin serie', 
   assert.equal(n.noIr, true); assert.equal(n.valor, null); assert.equal(n.nivel, 'sin-datos');
   assert.equal(n.rotulo.texto, 'NO IR (solo meteo)');
   assert.equal(textoAria(n), 'Abantos, NO IR (solo meteo)');
+  // Lo que se lee en la chincheta: la nota, «?» sin datos y «NO IR» (no se confunde con «sin datos»).
+  assert.equal(textoChincheta(a), String(a.valor));
+  assert.equal(textoChincheta(b), '?');
+  assert.equal(textoChincheta(n), 'NO IR');
+});
+
+test('ALTO_CHINCHETA: lo que la chincheta sube sobre su ancla (para que no quede bajo el buscador)', () => {
+  assert.equal(ALTO_CHINCHETA, 52);
 });

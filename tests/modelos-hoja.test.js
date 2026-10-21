@@ -80,7 +80,33 @@ test('modeloZona: montes con nota primero, luego sin datos, luego NO IR; detalle
   assert.equal(m.montes[2].valor, null);
   assert.equal(m.montes[2].nivel, 'sin-datos');
   assert.deepEqual(m.montes[3].rotulo, { texto: 'NO IR (solo meteo)', variante: 'peligro' });
+  // Un monte NO IR nunca enseña nota, aunque le llegue una (como su chincheta gris).
+  assert.equal(m.montes[3].valor, null);
+  assert.equal(m.montes[3].nivel, 'sin-datos');
+  assert.doesNotMatch(m.montes[3].linea, /hongo blanco/);
   assert.equal(m.montes[0].rotulo.texto, 'Restricciones');
+});
+
+test('modeloMonte NO IR: sin nota, nivel sin datos, el motivo y solo «Más» (ni «Cómo llegar» ni diario)', () => {
+  const zona = { id: 'guadarrama' };
+  const motivo = { ...nota(null), motivo: 'NO IR (solo meteo): no se calcula nota.' };
+  const m = modeloMonte({ zona, punto: { ...monteNoIr, lat: 40.7, lon: -4 }, nota: motivo, datos, d: 0 });
+  assert.equal(m.valor, null);
+  assert.equal(m.nivel, 'sin-datos');
+  assert.equal(m.especie, null);
+  assert.equal(m.porque, null);
+  assert.equal(m.texto, 'NO IR (solo meteo): no se calcula nota.');
+  assert.equal(m.corto, 'Prohibido D · NO IR');
+  assert.deepEqual(m.acciones, { comoLlegar: null, diario: null, mas: '#zona/guadarrama/p-d' });
+  // aunque le llegue una nota (datos hostiles), no la enseña
+  const h = modeloMonte({ zona, punto: { ...monteNoIr, lat: 40.7, lon: -4 }, nota: nota(70), datos, d: 0 });
+  assert.equal(h.valor, null);
+  assert.equal(h.nivel, 'sin-datos');
+  assert.equal(h.acciones.comoLlegar, null);
+  // un monte normal sin datos conserva «Cómo llegar» y el diario
+  const s = modeloMonte({ zona, punto: { ...monteSin, lat: 40.7, lon: -4 }, nota: nota(null), datos, d: 0 });
+  assert.equal(s.nivel, 'sin-datos');
+  assert.ok(s.acciones.comoLlegar && s.acciones.diario);
 });
 
 test('modeloMonte: especie, también, porqué, día de previsión y tres acciones (Más con el punto)', () => {

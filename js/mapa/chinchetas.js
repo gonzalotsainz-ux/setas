@@ -6,6 +6,9 @@ import { ZOOM_MIN_FINA } from '../rejilla/carga.js';
 
 export const ZOOM_MONTES = ZOOM_MIN_FINA;
 export const ZOOM_ETIQUETAS = 13;
+// La chincheta (44 px y la punta) queda encima de su ancla: tanto sube sobre el punto (iconAnchor).
+export const ALTO_CHINCHETA = 52;
+const ANCHO_CHINCHETA = 64;
 
 export const queChinchetas = (zoom) => (zoom < ZOOM_MONTES ? 'zonas' : 'montes');
 
@@ -23,6 +26,9 @@ export function textoAria(c) {
   if (c.valor == null) return `${c.texto}, sin datos`;
   return `${c.texto}, ${c.valor}, ${minuscula(palabraDe(c.nivel))}`;
 }
+
+// Lo que se lee en grande: la nota, «?» sin datos o «NO IR» (gris con borde de peligro: no es «sin datos»).
+export const textoChincheta = (c) => (c.noIr ? 'NO IR' : String(c.valor ?? '?'));
 
 export function chinchetasZonas(filas) {
   return filas.map((f, i) => {
@@ -52,9 +58,9 @@ export function crearCapaChinchetas(L, { alTocar }) {
     capa.clearLayers();
     for (const c of lista) {
       const elegida = seleccionada != null && c.tipo === seleccionada.tipo && c.id === seleccionada.id;
-      const sel = elegida ? ' data-seleccionada="true"' : '';
-      const html = `<button type="button" class="chincheta" data-nivel="${c.nivel}"${sel} aria-label="${esc(c.aria)}"><b>${c.valor ?? '?'}</b><small>${esc(c.texto)}</small></button>`;
-      const icon = L.divIcon({ className: '', html, iconSize: [64, 48], iconAnchor: [32, 52] });
+      const sel = elegida ? ' data-seleccionada="true"' : '', noIr = c.noIr ? ' data-no-ir="true"' : '';
+      const html = `<button type="button" class="chincheta" data-nivel="${c.nivel}"${sel}${noIr} aria-label="${esc(c.aria)}"><b>${esc(textoChincheta(c))}</b><small>${esc(c.texto)}</small></button>`;
+      const icon = L.divIcon({ className: '', html, iconSize: [ANCHO_CHINCHETA, 48], iconAnchor: [ANCHO_CHINCHETA / 2, ALTO_CHINCHETA] });
       const m = L.marker([c.lat, c.lon], { icon, zIndexOffset: elegida ? 1000 : (c.valor ?? -1), keyboard: false });
       m.on('click', (e) => { L.DomEvent.stopPropagation(e); alTocar(c); });
       capa.addLayer(m);

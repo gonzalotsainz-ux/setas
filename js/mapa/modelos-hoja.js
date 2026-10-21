@@ -3,7 +3,7 @@
 // Datos puros, sin DOM: se prueban con Node. El pintado vive en hoja.js (crearHojaMapa).
 // La frase de cada fila es la de fraseZona (partes { texto, estilo }), no nodos.
 import { nombreCorto, rotuloPunto, RESTRINGIDO } from '../datos.js';
-import { fraseZona, textoFaltan, ordenarZonas } from '../notas-zona.js';
+import { fraseZona, textoFaltan, ordenarZonas, MOTIVO_NO_IR } from '../notas-zona.js';
 import { nivelDe, palabraDe } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
 import { rutaMapa, rutaZona } from './ruta.js';
@@ -69,7 +69,7 @@ export function modeloZona({ fila, montes, datos, d = 0 }) {
   return { tipo: 'zona', id: fila.zona.id, titulo, corto: `${titulo} · ${palabraDe(nivel)}${valor != null ? ` ${valor}` : ''}`,
     valor, nivel, frase: fraseZona(fila, datos), etiquetas: etiquetasDe(fila, d), detalle: rutaZona(fila.zona.id),
     montes: ordenados.map(({ punto, nota, coto }) => {
-      const v = nota?.valor ?? null;
+      const v = punto.noIr ? null : nota?.valor ?? null;   // NO IR: nunca nota, como su chincheta
       const lugar = coto?.nombre ?? (punto.proteccion ? proteccionCorta(punto.proteccion) : null);
       const linea = [v != null && nota.mejor?.especie ? comun(nota.mejor.especie) : null, lugar].filter(Boolean).join(' · ') || (nota?.motivo ?? '');
       return { id: punto.id, nombre: punto.corto ?? nombrePunto(punto), valor: v, nivel: nivelDe(v), linea, rotulo: rotuloPunto(punto),
@@ -85,19 +85,21 @@ function porqueDe(nota) {
   return `${Math.round(P26)}${nbsp}mm en 26 días, ${cuando} · ${Math.round(T20)}${nbsp}°C de media`;
 }
 
+// Un monte NO IR: sin nota, con el motivo, y sin «Cómo llegar» ni diario (no se va); solo «Más» (la meteo en Zona).
 export function modeloMonte({ zona, punto, nota, datos, d = 0, coto = null }) {
-  const valor = nota?.valor ?? null, titulo = nombrePunto(punto);
+  const noIr = !!punto.noIr, valor = noIr ? null : nota?.valor ?? null, titulo = nombrePunto(punto);
   const otra = valor != null ? nota.especies?.[1] : null;
   const e = valor != null ? nota.mejor?.especie : null;
-  const base = { tipo: 'monte', id: punto.id, zona: zona.id, titulo, corto: `${titulo} · ${valor ?? 'sin datos'}`, valor, nivel: nivelDe(valor),
+  const base = { tipo: 'monte', id: punto.id, zona: zona.id, titulo, corto: `${titulo} · ${noIr ? 'NO IR' : valor ?? 'sin datos'}`, valor, nivel: nivelDe(valor),
     especie: e ? { nombre: comun(e), latin: e.nombre } : null,
     tambien: otra && datos.porId[otra.id] ? `${comun(datos.porId[otra.id])} (${otra.valor})` : null,
     porque: valor != null ? porqueDe(nota) : null,
     dia: d > 0 ? `Previsión a +${d} ${d === 1 ? 'día' : 'días'}` : null,
     coto: textoCoto(coto),
     avisos: punto.proteccion ? [{ texto: punto.proteccion, peligro: !!punto.noIr || RESTRINGIDO.test(punto.proteccion) }] : [],
-    acciones: { comoLlegar: urlComoLlegar(punto.lat, punto.lon), diario: urlNuevaSalida({ lat: punto.lat, lon: punto.lon, zona: zona.id, punto: punto.id }),
-      mas: rutaZona(zona.id, punto.id) } };
+    acciones: { comoLlegar: noIr ? null : urlComoLlegar(punto.lat, punto.lon),
+      diario: noIr ? null : urlNuevaSalida({ lat: punto.lat, lon: punto.lon, zona: zona.id, punto: punto.id }), mas: rutaZona(zona.id, punto.id) } };
+  if (noIr) return { ...base, texto: MOTIVO_NO_IR };
   return valor == null ? { ...base, texto: nota?.motivo ?? 'Sin datos suficientes para este día.' } : base;
 }
 
