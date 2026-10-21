@@ -62,6 +62,7 @@ function medirBarras(raiz) {
   raiz.style.setProperty('--alto-cabecera', `${cab?.offsetHeight ?? 64}px`);
   raiz.style.setProperty('--alto-nav', `${(nav?.offsetHeight ?? 100) + 12}px`);
   raiz.style.setProperty('--alto-hoja', `${hoja}px`);
+  if (raiz.querySelector('.hoja-mapa')?.dataset.estado === 'resumen') raiz.style.setProperty('--alto-hoja-resumen', `${hoja}px`);
   raiz.style.setProperty('--alto-abajo', `${hoja + (avisos ? avisos + 8 : 0)}px`);
 }
 
@@ -94,7 +95,10 @@ async function montar(estadoInicial) {
 
   // ---------- Mapa ----------
   mapa.setView([40.4, -3.7], 6);
-  L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
+  L.control.zoom({ position: 'topright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
+  // La atribución va en una línea; tocarla (fuera de sus enlaces) la enseña entera o la vuelve a recoger.
+  const atribucion = lienzo.querySelector('.leaflet-control-attribution');
+  atribucion?.addEventListener('click', (e) => { if (!e.target.closest('a')) atribucion.classList.toggle('atribucion--entera'); });
   for (const [nombre, z] of [['rejilla', 350], ['lluvia', 420], ['puntos', 450]]) mapa.createPane(nombre).style.zIndex = z;
   let fondo = crearFondo(L, prefs.fondo).addTo(mapa);
   const capas = Object.fromEntries(Object.keys(SUPERPUESTAS).map((k) => [k, L.layerGroup()]));
@@ -105,9 +109,11 @@ async function montar(estadoInicial) {
   const medido = () => lienzo.clientWidth > 0 && lienzo.clientHeight > 0;
   // Encuadre sin dejar nada bajo el buscador ni bajo la hoja (en «resumen» como mucho: la completa no cuenta).
   const margenes = () => { const v = (n, d) => parseFloat(raiz.style.getPropertyValue(n)) || d;
-    const hojaAlta = v('--alto-hoja', 148), abajo = Math.min(hojaAlta, Math.round(window.innerHeight * 0.42) + 14) + v('--alto-abajo', 148) - hojaAlta;
-    const atribucion = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;   // tapa el mapa encima de la hoja
-    return { paddingTopLeft: [16, v('--alto-arriba', 180) + 8], paddingBottomRight: [16, v('--alto-nav', 112) + abajo + atribucion + 8], animate: false }; };
+    // La hoja cuenta lo que mide; en «completa», lo que medía en «resumen» (si no, no quedaría mapa que encuadrar).
+    const hojaAlta = v('--alto-hoja', 148), cuenta = hoja.estado() === 'completa' ? v('--alto-hoja-resumen', hojaAlta) : hojaAlta;
+    const abajo = cuenta + v('--alto-abajo', 148) - hojaAlta;
+    const tapa = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;   // la atribución tapa el mapa encima de la hoja
+    return { paddingTopLeft: [16, v('--alto-arriba', 180) + 8], paddingBottomRight: [16, v('--alto-nav', 112) + abajo + tapa + 8], animate: false }; };
   // Centra un punto en el hueco que dejan el buscador y la hoja.
   function centrar([lat, lon], zoom) {
     const m = margenes(), desfase = (m.paddingBottomRight[1] - m.paddingTopLeft[1]) / 2;
@@ -168,6 +174,7 @@ async function montar(estadoInicial) {
 
   // ---------- Selección (la ruta) ----------
   let sel = { zona: null, punto: null }, claveSel = null, enfocarPendiente = false;
+  let cotosPuntos = null, pidiendoCotos = null;   // cotos de los montes (ver pedirCotosPuntos)
   // Contenido que tapa al de la selección hasta el siguiente cambio: { tipo: 'celda', modelo, extra, latlng } | { tipo: 'fuera', nombre, lat, lon }.
   let sobrepuesto = null;
   // Un toque explícito (chincheta, fila, sugerencia) cambia la ruta y enfoca la hoja; si la ruta ya es esa, se reencuadra igual.
@@ -191,6 +198,8 @@ async function montar(estadoInicial) {
     if (clave !== claveSel) busqueda.ponerMigas(migasDe(nueva));   // ponerMigas vacía el campo: solo al cambiar
     sel = nueva; claveSel = clave; sobrepuesto = null; toque++;
     busqueda.quitarChincheta();
+    busqueda.invalidar();   // una elección de CartoCiudad que llegue tarde ya no reencuadra ni tapa la hoja
+    if (cotosPuntos === 'error') cotosPuntos = null;   // otra selección: se reintentan los cotos
     mapa.closePopup();
     contorno.clearLayers();
     if (sel.zona) L.polygon(contornoZona(sel.zona.bbox), ESTILO_CONTORNO).addTo(contorno);
@@ -285,19 +294,19 @@ async function montar(estadoInicial) {
   }
 
   // ---------- Hoja: lo elegido ----------
-  // Cotos de los puntos (1 MB la primera vez): se piden al elegir una zona y, al llegar, se repinta la hoja.
-  let cotosPuntos = null, pidiendoCotos = null;
+  // Cotos de los puntos (1 MB la primera vez): se piden al elegir una zona y, al llegar, se repinta la hoja. Si fallan, se
+  // vuelven a pedir al cambiar de selección (no en cada repintado: sin red sería un bucle).
   function pedirCotosPuntos() {
     pidiendoCotos ??= (async () => {
       const m = new Map();
       for (const z of datos.zonas) for (const p of z.puntos) m.set(p.id, (await poligonoEn(p.lon, p.lat, (q) => q.tipo !== 'prohibido'))?.properties ?? null);
       cotosPuntos = m;
-    })().catch(() => { cotosPuntos = 'error'; }).finally(() => { if (vivo && sel.zona && !sobrepuesto) pintarHoja(); });
+    })().catch(() => { cotosPuntos = 'error'; pidiendoCotos = null; }).finally(() => { if (vivo && sel.zona && !sobrepuesto) pintarHoja(); });
   }
   function pintarHoja({ enfocar = false } = {}) {
     if (!vivo) return;
     if (sobrepuesto?.tipo === 'celda') { hoja.poner(sobrepuesto.modelo, sobrepuesto.extra, { enfocar }); return; }
-    if (sel.zona && !sobrepuesto) pedirCotosPuntos();
+    if (sel.zona && !sobrepuesto && cotosPuntos !== 'error') pedirCotosPuntos();   // tras un fallo, hasta la siguiente selección
     const { modelo, extra } = contenidoHoja({ sel, fuera: sobrepuesto?.tipo === 'fuera' ? sobrepuesto : null, notas: notasDelDia(), datos, meteo: estado.meteo,
       umbrales: estado.umbrales ?? {}, fecha: ui.fecha, hoy: hoy(), dHoy: diasDesdeHoy(), cotos: cotosPuntos });
     hoja.poner(modelo, extra, { enfocar });

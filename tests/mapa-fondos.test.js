@@ -12,7 +12,7 @@ test('cuatro fondos; el de por defecto es el mapa claro: sin clave de CARTO, la 
   assert.equal(FONDO_POR_DEFECTO, 'mapa');
   assert.equal(CARTO_URL, null);
   assert.match(FONDOS.mapa.capas[0].url, /ign\.es\/wmts\/ign-base\?.*layer=IGNBaseTodo/);
-  assert.equal(textoAtribucion(FONDOS.mapa), '© Instituto Geográfico Nacional CC BY 4.0');
+  assert.equal(textoAtribucion(FONDOS.mapa), '© IGN CC BY 4.0');   // corta: una línea en el móvil (el crédito entero, en Ajustes)
 });
 
 test('relieve = fondo claro + relieve del IDEE en multiply; topográfico MTN y satélite PNOA del IGN', () => {

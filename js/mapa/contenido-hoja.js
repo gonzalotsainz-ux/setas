@@ -20,8 +20,10 @@ const graficoPunto = (serie, disp) => () => { const fig = el('figure', { clase: 
 export function contenidoHoja({ sel, fuera = null, notas, datos, meteo, umbrales = {}, fecha, hoy, dHoy = 0, cotos = null }) {
   if (fuera) {
     const cerca = zonasMasCercanas(fuera.lat, fuera.lon, datos.zonas, 3).map((z) => z.id);
-    const filas = notas.filas.filter((f) => cerca.includes(f.zona.id));
-    return { modelo: modeloFueraDeZonas({ nombre: fuera.nombre, cercanas: modeloListaZonas({ filas, datos, fecha, hoy }).filas }), extra: {} };
+    const modelos = modeloListaZonas({ filas: notas.filas.filter((f) => cerca.includes(f.zona.id)), datos, fecha, hoy }).filas;
+    // De la más cercana a la más lejana, numeradas en ese orden.
+    const cercanas = cerca.map((id) => modelos.find((f) => f.id === id)).filter(Boolean).map((f, k) => ({ ...f, pos: k + 1 }));
+    return { modelo: modeloFueraDeZonas({ nombre: fuera.nombre, cercanas }), extra: {} };
   }
   if (!sel.zona) {
     const caducado = meteo?.series && meteo.hoy && meteo.hoy !== hoy ? meteo.hoy : null;

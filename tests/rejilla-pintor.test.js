@@ -88,9 +88,8 @@ test('los colores del mapa viven en js/mapa/colores.js y js/mapa.js los reexport
   assert.equal(COLOR_MAPA, COLOR);
 });
 
-test('la capa de la rejilla cita el MFE50 y el MDT con el texto de la configuración', () => {
-  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mfe.atribucion));
-  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mdt.atribucion));
+test('la capa de la rejilla cita el MFE50 y el MDT en corto, con los enlaces de la configuración (el texto entero, en Ajustes)', () => {
+  assert.equal(ATRIBUCION_REJILLA.replace(/<[^>]+>/g, ''), 'MFE50 · MDT25');
   assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mfe.url}"`));
   assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mdt.url}"`));
 });

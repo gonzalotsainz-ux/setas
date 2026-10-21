@@ -136,18 +136,25 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 ## Mapa a pantalla completa
 
 El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
-buscador y los chips de especie; a la derecha, Capas y Mi ubicación; abajo, los avisos y la hoja fija (`.hoja-mapa`), que lleva dentro la barra de días; el zoom y la
-atribución de Leaflet quedan por encima de los avisos (las alturas se miden en `--alto-cabecera`, `--alto-nav` y
-`--alto-abajo`).
+buscador (con las migas «‹ Zona › Monte» cuando hay algo elegido) y los chips de especie; a la derecha, en una columna
+bajo ese bloque, Capas, Mi ubicación y el zoom (+ y −, 44 px; por debajo de la hoja si se cruzan); abajo, la hoja fija
+(`.hoja-mapa`), que lleva dentro la barra de días, y encima de ella los avisos. La atribución de Leaflet va sobre los
+avisos en **una sola línea** (textos cortos con enlace: «© IGN CC BY 4.0 · MFE50 · MDT25»; los créditos completos, en
+Ajustes): al tocarla o con el foco dentro se ve entera. Las alturas se miden en la pantalla: `--alto-cabecera`,
+`--alto-nav`, `--alto-arriba` (hasta dónde llegan buscador, migas y chips: de ahí cuelgan los botones y el tope de la hoja
+completa), `--alto-hoja` (lo que mide la hoja ahora; `--alto-hoja-resumen`, lo que medía en «resumen») y `--alto-abajo`
+(hoja + avisos: la atribución va encima). Los encuadres dejan libre el hueco entre `--alto-arriba` y la hoja en
+«resumen», avisos y atribución.
 
 | Clase | Qué es |
 |---|---|
-| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__dias`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
+| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
 | `.mapa-buscador` (+ `__lista`) | combobox de pueblos, sitios y especies: 48 px, foco visible, opción activa con fondo de acento y raya lateral |
 | `.mapa-panel` | panel de fondos, capas y leyenda de las manchas, con «Cerrar»; Escape lo cierra y el foco vuelve a Capas |
-| `.hoja-mapa` (`[data-estado="recogida|resumen|completa"]`) + `.hoja__asa` | hoja fija del mapa sobre la isla de navegación (`bottom: calc(var(--alto-nav) + var(--esp-2))`), con bisel doble. Es una región (`role="region"`) que **nunca se cierra**: cambia de contenido según lo elegido (lista de zonas, zona y montes, ficha de monte, mancha) y de altura con el asa (44 px, `touch-action: none`, clic o arrastre): recogida (asa, días y una línea), resumen (42 %) y completa (88 %). El cuerpo hace scroll por dentro. **El foco solo se mueve al título cuando se toca algo de forma explícita** (`enfocar: true`), nunca al repintar; sin animación con `prefers-reduced-motion`. Independiente de `.hoja` |
+| `.hoja-mapa` (`[data-estado="recogida|resumen|completa"]`) + `.hoja__asa` | hoja fija del mapa sobre la isla de navegación (`bottom: calc(var(--alto-nav) + var(--esp-2))`), con bisel doble. Es una región (`role="region"`) que **nunca se cierra**: cambia de contenido según lo elegido (lista de zonas, zona y montes, ficha de monte, mancha) y de altura con el asa (44 px, `touch-action: none`, clic o arrastre): recogida (asa, días y una línea), resumen (36 % del alto) y completa (hasta 88 %, sin pasar por debajo de `--alto-arriba`). El cuerpo hace scroll por dentro. **El foco solo se mueve al título cuando se toca algo de forma explícita** (`enfocar: true`), nunca al repintar; sin animación con `prefers-reduced-motion`. Independiente de `.hoja` |
 | `.hoja-mapa[data-variante="prohibido"]` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
 | `.marcador-sitio` | chincheta verde con borde blanco de los sitios con coordenadas (color fijo: va sobre teselas claras) |
+| `.chincheta--busqueda` | gota del lugar elegido en el buscador, en ocre oscuro (`--p-ocre-700`) con borde `--p-hueso-50`: no se confunde con «prohibido» ni con un nivel; se quita al cambiar la selección |
 | `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
 
 Las manchas usan `NIVEL_COLOR` de `js/mapa/colores.js` con alfa 150/255; las celdas con monte apropiado pero sin datos

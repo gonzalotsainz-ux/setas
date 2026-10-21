@@ -897,7 +897,15 @@
 .mapa-completo__lienzo .leaflet-pane > svg { max-width: none !important; max-height: none !important; }
 .mapa-completo .leaflet-bottom { bottom: calc(var(--alto-nav, 112px) + var(--alto-abajo, 56px) + var(--esp-2)); }
 /* En el móvil se acerca con los dedos: los botones + y − de Leaflet, encima de la hoja, taparían Capas y Mi ubicación. */
-@media (pointer: coarse) { .mapa-completo .leaflet-control-zoom { display: none; } }
+/* Zoom (+ y −, 44 px) en la columna de la derecha, bajo Capas y Mi ubicación (2 × 44 px + huecos); por debajo de la hoja si se cruzan. */
+.mapa-completo .leaflet-top.leaflet-right { top: calc(var(--alto-arriba, 188px) + var(--esp-2) + 88px + 2 * var(--esp-2)); z-index: 999; }
+.mapa-completo .leaflet-top.leaflet-right .leaflet-control { margin: 0 var(--esp-4) 0 0; }
+/* Atribución en una sola línea; al tocarla (clase alternada en mapa.js) o con el foco dentro, entera. 100vw y no 100 %:
+   el contenedor de Leaflet se ajusta a su contenido y un porcentaje no recortaría. */
+/* Se aparta de la columna de botones (44 px + hueco): en el móvil, con migas, el zoom llega hasta su altura. */
+.mapa-completo .leaflet-control-attribution { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+  margin-right: calc(var(--esp-4) + 44px + var(--esp-2)); max-width: calc(100vw - 2 * var(--esp-4) - 44px - var(--esp-2)); }
+.mapa-completo .leaflet-control-attribution:focus-within, .mapa-completo .leaflet-control-attribution.atribucion--entera { white-space: normal; }
 .mapa-completo .leaflet-bar { border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-m); box-shadow: var(--tarjeta-sombra); }
 .mapa-completo .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; background: var(--c-superficie); color: var(--c-texto); border-color: var(--c-borde); }
 .mapa-completo .leaflet-bar a:first-child { border-radius: var(--r-m) var(--r-m) 0 0; }
@@ -951,7 +959,7 @@
   display: flex; flex-direction: column; max-width: 640px; margin-inline: auto;
   padding: 6px; border-radius: var(--r-l);   /* bisel doble, como .tarjeta--bisel */
   background: var(--c-bisel); border: 1px solid color-mix(in srgb, var(--c-borde) 80%, transparent);
-  max-height: 42dvh;
+  max-height: 36dvh;
   transition: max-height var(--dur-media) var(--curva);
 }
 .hoja-mapa[data-estado="recogida"] { max-height: 148px;   /* asa 44 + días 44 + línea corta + bisel */ }
@@ -990,7 +998,8 @@
 .chincheta::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg);
   background: inherit; border-right: 2px solid var(--sem); border-bottom: 2px solid var(--sem); }
 .chincheta[data-seleccionada="true"] { outline: 3px solid var(--c-texto); outline-offset: 2px; transform: scale(1.12); transform-origin: 50% 100%; }
-/* Chincheta de búsqueda (lugar elegido en el buscador): gota fija como la de Google Maps; colores fijos sobre teselas claras. */
+/* Chincheta de búsqueda (lugar elegido en el buscador): gota como la de Google Maps, en ocre oscuro (no se lee como «prohibido»
+   ni como un nivel del semáforo); primitivos, que no cambian con el tema, porque va sobre teselas claras. */
 .chincheta.chincheta--busqueda { width: 26px; min-height: 0; height: 26px; margin: 2px 1px; padding: 0; cursor: default;
-  transform: rotate(-45deg); border-radius: 50% 50% 50% 0; background: #9e1c16; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
+  transform: rotate(-45deg); border-radius: 50% 50% 50% 0; background: var(--p-ocre-700); border: 3px solid var(--p-hueso-50); box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
 .chincheta.chincheta--busqueda::after { content: none; }

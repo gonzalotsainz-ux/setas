@@ -52,5 +52,6 @@ export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, irA, 
   }
   buscador.input.addEventListener('focus', pedirPueblos);
   buscador.input.addEventListener('input', pedirPueblos);
-  return { ...buscador, quitarChincheta };
+  // invalidar(): la pantalla lo llama al cambiar la selección; una respuesta de CartoCiudad pendiente se descarta.
+  return { ...buscador, quitarChincheta, invalidar: () => { turno++; } };
 }

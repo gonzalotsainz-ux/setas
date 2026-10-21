@@ -47,9 +47,16 @@ test('ficha del monte: sin cotos cargados no se afirma que esté fuera de ellos'
   assert.equal(con.coto.texto, 'Valsaín: pide permiso.');
 });
 
-test('lugar fuera de las zonas: aviso con las zonas más cercanas, aunque haya una zona elegida', () => {
-  const m = contenidoHoja({ ...base, sel: { zona: z, punto: null }, fuera: { nombre: 'Sevilla', lat: 37.38, lon: -5.97 }, notas: notasCon(0) }).modelo;
+test('lugar fuera de las zonas: las 3 zonas más cercanas, de la más cercana a la más lejana, aunque haya una zona elegida', () => {
+  const zonaEn = (id, lat, lon) => ({ id, nombre: id, habitats: ['pinar-silvestre'], bbox: [lon - 0.2, lat - 0.2, lon + 0.2, lat + 0.2],
+    puntos: [{ id: `${id}-p`, corto: id, nombre: id, habitat: 'pinar-silvestre', lat, lon }] });
+  // Sevilla (37,4, −6,0): Extremadura la más cercana, luego Toledo, luego Gredos; Álava, lejos, no sale.
+  const cuatro = [zonaEn('alava', 42.9, -2.7), zonaEn('gredos', 40.3, -5.1), zonaEn('extremadura', 39.4, -6.2), zonaEn('toledo', 39.5, -4.2)];
+  const d4 = { ...datos, zonas: cuatro };
+  const notas = { filas: filasZonas({ datos: d4, meteo, d: 0, filtro: null }), d: 0, filtro: null };
+  const m = contenidoHoja({ ...base, datos: d4, sel: { zona: cuatro[1], punto: null }, fuera: { nombre: 'Sevilla', lat: 37.38, lon: -5.97 }, notas }).modelo;
   assert.equal(m.tipo, 'fuera');
   assert.equal(m.titulo, 'Sevilla');
-  assert.deepEqual(m.filas.map((f) => f.id).sort(), ['lejos', 'z']);
+  assert.deepEqual(m.filas.map((f) => f.id), ['extremadura', 'toledo', 'gredos']);
+  assert.deepEqual(m.filas.map((f) => f.pos), [1, 2, 3]);
 });

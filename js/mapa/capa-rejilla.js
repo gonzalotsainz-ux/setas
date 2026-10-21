@@ -1,13 +1,13 @@
 // js/mapa/capa-rejilla.js
 // Capa de Leaflet que dibuja en un canvas las imágenes de la rejilla (1 celda = 1 píxel) escaladas sin suavizado.
 // Se redibuja al mover o hacer zoom; durante la animación de zoom se oculta para no desencajarse.
-// Lleva la atribución del MFE50 y del MDT (CC BY: se cita donde se muestran los derivados). Los textos son los de
+// Lleva la atribución del MFE50 y del MDT (CC BY: se cita donde se muestran los derivados), con los enlaces de
 // scripts/rejilla/config.mjs (una prueba lo comprueba).
 import { aGrados, ORIGEN } from '../rejilla/geo.js';
 
-export const ATRIBUCION_REJILLA = 'Laderas: <a href="https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50.html">'
-  + 'Mapa Forestal de España 1:50.000 (MFE50) © Ministerio para la Transición Ecológica y el Reto Demográfico</a>; '
-  + '<a href="https://servicios.idee.es/wcs-inspire/mdt">Obra derivada de MDT25 CC BY 4.0 scne.es</a>';
+// Corta (una línea en el móvil, con los enlaces); el texto completo de scripts/rejilla/config.mjs va en los créditos de Ajustes.
+export const ATRIBUCION_REJILLA = '<a href="https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50.html">MFE50</a>'
+  + ' · <a href="https://servicios.idee.es/wcs-inspire/mdt">MDT25</a>';
 
 export function crearCapaRejilla(L) {
   return L.Layer.extend({
