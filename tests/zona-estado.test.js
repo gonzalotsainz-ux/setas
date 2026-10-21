@@ -128,3 +128,22 @@ test('puntoInicial: el punto de la ruta se aplica solo cuando cambia el hash; lu
   assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: 'q' }), { punto: 'q', hashAplicado: '#zona/g' });
   assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: undefined }), { punto: undefined, hashAplicado: '#zona/g' });
 });
+
+test('sacarAvisos: saca los recuadros amarillos (.aviso) en orden, deja los rojos y quita las .pila que queden vacías', async () => {
+  const { sacarAvisos } = await import('../js/pantallas/zona.js');
+  const nodo = (clase, padre = null) => {
+    const n = { clase, padre, hijos: [], classList: { contains: (c) => clase.split(' ').includes(c) },
+      get parentElement() { return this.padre; }, get childElementCount() { return this.hijos.length; },
+      remove() { if (this.padre) this.padre.hijos = this.padre.hijos.filter((h) => h !== this); this.padre = null; } };
+    if (padre) padre.hijos.push(n);
+    return n;
+  };
+  const raiz = nodo('raiz');
+  const pila = nodo('pila', raiz), a1 = nodo('aviso', pila);
+  const rojo = nodo('aviso-peligro', raiz);
+  const tarjeta = nodo('tarjeta', raiz), a2 = nodo('aviso', tarjeta);
+  raiz.querySelectorAll = (sel) => { assert.equal(sel, '.aviso'); return [a1, a2]; };
+  assert.deepEqual(sacarAvisos(raiz), [a1, a2]);
+  assert.deepEqual(raiz.hijos.map((h) => h.clase), ['aviso-peligro', 'tarjeta']);   // la .pila vacía desaparece; el rojo se queda
+  assert.deepEqual(tarjeta.hijos, []);
+});

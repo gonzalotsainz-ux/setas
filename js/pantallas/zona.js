@@ -76,11 +76,20 @@ function cabecera(zona, res, volver) {
     res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null);
 }
 
-// Avisos de la zona (normativa, permisos): al final de la página, no en la cabecera (petición de la usuaria, 2026-10-21).
-function seccionAvisos(zona) {
-  const avisos = (zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)));
-  if (!avisos.length) return null;
-  return el('section', { clase: 'pila', attrs: { 'aria-labelledby': 'titulo-avisos-zona' } }, el('h2', { id: 'titulo-avisos-zona', texto: 'Avisos de la zona' }), ...avisos);
+// Avisos (normativa de la zona, datos incompletos o de otro día, protección del punto…): al final de la página, nunca al
+// principio (petición de la usuaria, 2026-10-21). Los recuadros rojos (NO IR, restricciones serias) se quedan donde están.
+// `movidos` son los .aviso amarillos que se han sacado de la cabecera y de la parte dinámica, en su orden.
+function seccionAvisos(zona, movidos = []) {
+  const avisos = [...movidos, ...(zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)))];
+  const seccion = el('section', { clase: 'pila', attrs: { 'aria-labelledby': 'titulo-avisos-zona' } }, el('h2', { id: 'titulo-avisos-zona', texto: 'Avisos' }), ...avisos);
+  seccion.hidden = !avisos.length;
+  return seccion;
+}
+// Saca de un contenedor los recuadros amarillos (.aviso), no los rojos, y los devuelve en orden de aparición.
+export function sacarAvisos(contenedor) {
+  const nodos = [...contenedor.querySelectorAll('.aviso')];
+  for (const n of nodos) { const envoltorio = n.parentElement; n.remove(); if (envoltorio?.classList.contains('pila') && !envoltorio.childElementCount) envoltorio.remove(); }
+  return nodos;
 }
 
 function selectorPuntos(zona, sel, porPunto, alElegir) {
@@ -329,9 +338,13 @@ export function pintar({ estado, param, refrescarMeteo }) {
     partes.push(listaEspecies(zona, c.especies, c.res, serie, nombrePunto(punto)));
     dinamico.replaceChildren(...partes.filter(Boolean));
     habitats.replaceChildren(seccionHabitats(zona, punto));
+    final.replaceChildren(seccionAvisos(zona, [...avisosCabecera, ...sacarAvisos(dinamico)]));
   }
+  const cab = cabecera(zona, c.res, { href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' });
+  const avisosCabecera = sacarAvisos(cab);
+  const final = el('div');
   pintarDinamico();
 
-  return el('div', {}, cabecera(zona, c.res, { href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' }),
-    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats, seccionAvisos(zona)));
+  return el('div', {}, cab,
+    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats, final));
 }
