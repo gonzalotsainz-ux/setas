@@ -8,7 +8,7 @@ import { entreDias } from '../meteo.js';
 import { buscarEspecies } from '../pantallas/especies.js';
 import { nombreCorto } from '../datos.js';
 import { mezclarResultados } from './geocodificador.js';
-import { ZOOM_MIN_FINA, AVISO_SIN_DESCOMPRESION } from '../rejilla/carga.js';
+import { ZOOM_MIN_FINA, AVISO_SIN_DESCOMPRESION, diasDisponibles } from '../rejilla/carga.js';
 
 export const GRUPOS = [
   { id: 'boletus', texto: 'Boletus', especies: ['boletus-edulis', 'boletus-pinophilus', 'boletus-aereus', 'boletus-reticulatus'] },
@@ -32,6 +32,19 @@ export function chipsDelDia(especies, fecha) {
 }
 // Un chip que deja de estar en temporada al cambiar de día vuelve a «Mejor hoy».
 export const chipVigente = (id, chips) => (chips.some((c) => c.id === id) ? id : 'mejor');
+
+// Fechas de la barra de días (decisión 14): las del índice desde hoy si lo hay; si no, hoy y los 7 días de la meteo
+// (los de su tanda que no han pasado); sin nada, solo hoy.
+export function fechasBarra({ salida = null, meteo = null, hoy }) {
+  const delIndice = salida ? diasDisponibles(salida, hoy) : [];
+  if (delIndice.length) return delIndice;
+  if (!salida && meteo?.hoy) {
+    const base = Date.parse(`${meteo.hoy}T12:00:00Z`);
+    const fs = Array.from({ length: 8 }, (_, d) => new Date(base + d * 864e5).toISOString().slice(0, 10)).filter((f) => f >= hoy);
+    if (fs.length) return fs;
+  }
+  return [hoy];
+}
 
 // Cada botón lleva su fecha: quien la use indexa dias[] con fechas.indexOf(fecha), nunca por posición (un índice de
 // ayer empieza un día antes; ver diasDisponibles en js/rejilla/carga.js).
@@ -88,7 +101,7 @@ export async function cargarPueblos(fetchFn = globalThis.fetch?.bind(globalThis)
 
 // Combobox accesible: flechas para moverse, Intro para elegir, Escape para cerrar la lista. `buscar` es local y síncrono
 // (pinta al instante); `buscarLejos(texto, cb)` añade después lugares de fuera (CartoCiudad) sin quitar los locales.
-// Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo.
+// Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo; `aria` (opcional) les pone aria-label.
 // Reductor puro de la respuesta lejana: ignora la de un turno viejo (devuelve null) y, si no, mezcla locales y externos
 // conservando la opción activa por identidad (si ya no está, o no había, queda -1).
 export function fundirResultados({ locales, externos, resultados, activo, turno, turnoRespuesta }) {
@@ -137,7 +150,7 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   });
   input.addEventListener('blur', cerrar);
   const ponerMigas = (items) => {
-    migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto })));
+    migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto, attrs: m.aria ? { 'aria-label': m.aria } : {} })));
     migas.hidden = !items.length;
     input.value = '';
   };
@@ -145,23 +158,29 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, migas, el('div', { clase: 'mapa-buscador__campo' }, icono('i-buscar'), input), lista), input, ponerMigas, limpiarMigas };
 }
 
-// Avisos de la franja inferior del mapa (spec §3.4), en orden: modo (sin índice o navegador sin descompresión),
-// estado de la previsión de los puntos, antigüedad del índice, previsión lejana, zoom y el último error.
+// Avisos sobre la hoja del mapa (spec §3.4 y decisión 14), en orden: modo (sin índice o navegador sin descompresión),
+// estado de la previsión, antigüedad del índice, fecha sin índice o sin meteo, previsión lejana, zoom y el último error.
 // Cada aviso es [icono, texto]. `viejo` es avisoIndice(salida) y `otroDia`, avisoOtroDia(meteo): se calculan fuera.
-export const AVISO_SIN_INDICE = 'No hay mapa por laderas ahora mismo: se ven los puntos de cada zona con su nota.';
+export const AVISO_SIN_INDICE = 'No hay mapa por laderas ahora mismo: se ven las zonas y sus montes con su nota.';
 export const AVISO_ACERCATE = 'Acércate para ver cada ladera.';
-// El gris de «Nulo» (#7a736b) y el de «Sin datos» (#7d827e) casi no se distinguen: en modo de puntos se dice qué es.
-export const AVISO_GRIS = 'Gris: nota «Nulo» (menos de 20 sobre 100). Toca un punto para ver su nota.';
-export const AVISO_CARGANDO = 'Cargando el mapa por laderas: mientras, se ven los puntos de cada zona.';
-export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null, puntosNulos = 0 }) {
+export const AVISO_CARGANDO = 'Cargando el mapa por laderas: mientras, se ven las zonas y sus montes.';
+export const AVISO_FECHA_SIN_INDICE = 'El mapa por laderas no tiene este día: solo chinchetas.';
+export const AVISO_FECHA_SIN_METEO = 'La previsión no llega a este día: chinchetas sin nota.';
+export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null,
+  fechaSinIndice = false, fechaSinMeteo = false }) {
   const lista = [];
   if (!salida) {
     lista.push(cargando ? ['i-info', AVISO_CARGANDO] : ['i-aviso', sinDescompresion ? AVISO_SIN_DESCOMPRESION : AVISO_SIN_INDICE]);
-    if (!meteo?.series) lista.push(['i-aviso', meteo?.error ? 'No hay previsión: los puntos salen sin nota.' : 'Esperando la previsión: los puntos saldrán con su nota en unos segundos.']);
-    else if (otroDia) lista.push(['i-info', otroDia]);
-    if (meteo?.series && puntosNulos > 0) lista.push(['i-info', AVISO_GRIS]);
   } else {
     if (viejo) lista.push(['i-info', viejo]);
+    if (fechaSinIndice) lista.push(['i-info', AVISO_FECHA_SIN_INDICE]);
+  }
+  if (!meteo?.series) lista.push(['i-aviso', meteo?.error ? 'No hay previsión: las chinchetas salen sin nota.' : 'Esperando la previsión: las chinchetas saldrán con su nota en unos segundos.']);
+  else {
+    if (otroDia) lista.push(['i-info', otroDia]);
+    if (fechaSinMeteo) lista.push(['i-info', AVISO_FECHA_SIN_METEO]);
+  }
+  if (salida) {
     if (diasDesdeHoy > 0 && pesoPrevision(diasDesdeHoy) < 0.8) lista.push(['i-info', `Previsión a ${diasDesdeHoy} días: menos fiable.`]);
     if (zoom < ZOOM_MIN_FINA) lista.push(['i-info', AVISO_ACERCATE]);
   }

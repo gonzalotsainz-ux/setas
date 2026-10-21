@@ -120,7 +120,7 @@ test('pueblos: un núcleo repetido en el mismo punto queda una vez con todos sus
 import { avisosMapa, AVISO_SIN_INDICE, AVISO_ACERCATE } from '../js/mapa/controles.js';
 import { AVISO_SIN_DESCOMPRESION } from '../js/rejilla/carga.js';
 const textos = (a) => a.map(([, t]) => t);
-test('avisos del mapa sin índice: puntos de siempre, con el estado de la previsión', () => {
+test('avisos del mapa sin índice: zonas y montes, con el estado de la previsión', () => {
   const sinMeteo = avisosMapa({ salida: null, meteo: null });
   assert.equal(sinMeteo[0][1], AVISO_SIN_INDICE);
   assert.match(AVISO_SIN_INDICE, /^No hay mapa por laderas ahora mismo/);
@@ -132,15 +132,17 @@ test('avisos del mapa sin índice: puntos de siempre, con el estado de la previs
   assert.deepEqual(textos(viejo), [AVISO_SIN_DESCOMPRESION]);
 });
 test('avisos del mapa con índice: antigüedad, previsión lejana, zoom y error', () => {
-  const s = { sello: '2026-10-01T07' };
-  assert.deepEqual(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0 }), []);
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 8, diasDesdeHoy: 0 })), [AVISO_ACERCATE]);
+  const s = { sello: '2026-10-01T07' }, meteo = { series: {} };   // con previsión: el estado de la meteo no se avisa
+  assert.deepEqual(avisosMapa({ salida: s, meteo, zoom: 12, diasDesdeHoy: 0 }), []);
+  assert.deepEqual(textos(avisosMapa({ salida: s, meteo, zoom: 8, diasDesdeHoy: 0 })), [AVISO_ACERCATE]);
   assert.equal(AVISO_ACERCATE, 'Acércate para ver cada ladera.');
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 2 })), []);   // pesoPrevision(2) ≥ 0,8
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 5 })), ['Previsión a 5 días: menos fiable.']);
-  const todo = avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0, viejo: 'Datos de ayer a las 19:00.', error: 'No se pudo cargar x.bin (404)' });
+  assert.deepEqual(textos(avisosMapa({ salida: s, meteo, zoom: 12, diasDesdeHoy: 2 })), []);   // pesoPrevision(2) ≥ 0,8
+  assert.deepEqual(textos(avisosMapa({ salida: s, meteo, zoom: 12, diasDesdeHoy: 5 })), ['Previsión a 5 días: menos fiable.']);
+  const todo = avisosMapa({ salida: s, meteo, zoom: 12, diasDesdeHoy: 0, viejo: 'Datos de ayer a las 19:00.', error: 'No se pudo cargar x.bin (404)' });
   assert.deepEqual(todo.map(([i]) => i), ['i-info', 'i-aviso']);
   assert.deepEqual(textos(todo), ['Datos de ayer a las 19:00.', 'No se pudo cargar x.bin (404)']);
+  // Con índice, las chinchetas siguen saliendo de la meteo: sin ella, también se avisa.
+  assert.match(textos(avisosMapa({ salida: s, zoom: 12 }))[0], /^Esperando la previsión/);
 });
 
 import { AVISO_CARGANDO } from '../js/mapa/controles.js';
@@ -149,16 +151,37 @@ test('mientras llegan la rejilla y el índice, el aviso dice que se está cargan
   assert.deepEqual(a, [['i-info', AVISO_CARGANDO]]);
 });
 
-import { AVISO_GRIS } from '../js/mapa/controles.js';
-test('sin índice, si algún punto sale en «Nulo» se dice qué es el gris (no es falta de datos)', () => {
-  assert.match(AVISO_GRIS, /Nulo/);
-  const conNulos = avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 3 });
-  assert.deepEqual(conNulos, [['i-aviso', AVISO_SIN_INDICE], ['i-info', AVISO_GRIS]]);
-  assert.deepEqual(textos(avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 0 })), [AVISO_SIN_INDICE]);
-  // Sin previsión no hay notas: no se habla del gris de «Nulo».
-  assert.ok(!textos(avisosMapa({ salida: null, meteo: null, puntosNulos: 3 })).includes(AVISO_GRIS));
-  // Con índice, las manchas tienen su propia leyenda de colores: tampoco.
-  assert.ok(!textos(avisosMapa({ salida: { sello: 'x' }, zoom: 12, puntosNulos: 3 })).includes(AVISO_GRIS));
+import { fechasBarra } from '../js/mapa/controles.js';
+test('fechasBarra: con índice, sus días desde hoy; sin índice, hoy y 7 días de la meteo; con meteo de ayer, empieza hoy', () => {
+  assert.deepEqual(fechasBarra({ salida: { fechas: ['2026-10-20', '2026-10-21', '2026-10-22'] }, meteo: null, hoy: '2026-10-21' }), ['2026-10-21', '2026-10-22']);
+  assert.deepEqual(fechasBarra({ salida: null, meteo: { hoy: '2026-10-21' }, hoy: '2026-10-21' }).length, 8);
+  assert.deepEqual(fechasBarra({ salida: null, meteo: { hoy: '2026-10-20' }, hoy: '2026-10-21' })[0], '2026-10-21');
+  assert.deepEqual(fechasBarra({ salida: null, meteo: null, hoy: '2026-10-21' }), ['2026-10-21']);
+  // Hoy y 7 días de la meteo, seguidos; la de ayer se queda en 7 (su +7 es el último día con previsión).
+  assert.deepEqual(fechasBarra({ salida: null, meteo: { hoy: '2026-10-30' }, hoy: '2026-10-30' }).slice(-2), ['2026-11-05', '2026-11-06']);
+  assert.equal(fechasBarra({ salida: null, meteo: { hoy: '2026-10-20' }, hoy: '2026-10-21' }).length, 7);
+  // Un índice vacío o ya pasado no deja la barra vacía: hoy.
+  assert.deepEqual(fechasBarra({ salida: { fechas: ['2026-10-19'] }, meteo: null, hoy: '2026-10-21' }), ['2026-10-21']);
+});
+
+import { AVISO_FECHA_SIN_INDICE, AVISO_FECHA_SIN_METEO } from '../js/mapa/controles.js';
+test('avisos sin índice hablan de zonas y montes, no de puntos; fecha sin índice o sin meteo tienen su aviso', async () => {
+  const m = await import('../js/mapa/controles.js');
+  assert.equal(AVISO_SIN_INDICE, 'No hay mapa por laderas ahora mismo: se ven las zonas y sus montes con su nota.');
+  assert.equal(AVISO_CARGANDO, 'Cargando el mapa por laderas: mientras, se ven las zonas y sus montes.');
+  assert.equal(m.AVISO_GRIS, undefined);
+  for (const meteo of [null, { error: 'x' }, { series: {} }]) {
+    for (const t of textos(avisosMapa({ salida: null, meteo }))) assert.doesNotMatch(t, /puntos?/i, t);
+  }
+  assert.equal(AVISO_FECHA_SIN_INDICE, 'El mapa por laderas no tiene este día: solo chinchetas.');
+  assert.equal(AVISO_FECHA_SIN_METEO, 'La previsión no llega a este día: chinchetas sin nota.');
+  const s = { sello: 'x' };
+  assert.ok(textos(avisosMapa({ salida: s, zoom: 12, fechaSinIndice: true })).includes(AVISO_FECHA_SIN_INDICE));
+  assert.ok(textos(avisosMapa({ salida: s, zoom: 12, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
+  assert.ok(textos(avisosMapa({ salida: null, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
+  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, meteo: { series: {} } })), []);   // sin banderas, nada de esto
+  // «Acércate» solo con índice: sin él no hay laderas que ver.
+  assert.ok(!textos(avisosMapa({ salida: null, zoom: 6, meteo: { series: {} } })).includes(AVISO_ACERCATE));
 });
 
 test('buscador: encuentra zonas por nombre corto y montes por su corto, antes que sitios y pueblos', () => {
