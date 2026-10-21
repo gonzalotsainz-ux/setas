@@ -177,6 +177,8 @@ Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
 
 ## Maquetas
 
+El recorrido de `maqueta/hoy.html` queda superado por `maqueta/mapa-niveles.html`.
+
 - `maqueta/hoy.html`: zona destacada con foto, aviso de previsión incierta, filtro por especie, las 8 zonas
   ordenadas (con «incierta» y una «sin datos»), leyenda del semáforo y pie.
 - `maqueta/zona.html`: resumen de Soria por puntos, gráfico de lluvia (60 días + 10 de previsión), desacuerdo

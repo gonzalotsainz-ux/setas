@@ -506,18 +506,12 @@
 .pie a { position: relative; }
 .pie a::after { content: ''; position: absolute; inset: -12px -4px; }
 
-/* ---------- Pantalla Hoy (de maqueta/hoy.html) ---------- */
+/* ---------- Portada de pantalla (la usan Zona, Especies y Seguridad) ---------- */
 .portada { padding: var(--esp-6) 0 var(--esp-2); }
 .portada h1 { margin-top: var(--esp-1); }
 .portada__sub { margin-top: var(--esp-2); color: var(--c-texto-2); }
 
-.credito-foto { position: absolute; right: 8px; bottom: 6px; z-index: 1; color: #fff; font-size: 12px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.6); }
-.credito-foto a { color: inherit; }
 
-.seccion-cabeza { display: flex; justify-content: space-between; align-items: baseline; gap: var(--esp-3); margin-bottom: var(--esp-3); }
-.lista { padding: 0; overflow: hidden; }
-.semaforos { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
-.leyenda-rangos { margin-top: var(--esp-3); color: var(--c-texto-2); font-size: var(--t-s); }
 
 .controles { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--esp-3); margin-bottom: var(--esp-4); }
 .campo { display: grid; gap: var(--esp-1); font-weight: 600; font-size: var(--t-s); color: var(--c-texto-2); }
