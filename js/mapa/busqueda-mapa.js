@@ -1,17 +1,17 @@
 // js/mapa/busqueda-mapa.js
 // El buscador de la pantalla del mapa «como Google Maps» (spec §2): lo local (especies, zonas, montes, sitios y pueblos)
 // al instante y cualquier lugar de España con CartoCiudad después. Elegir una zona o un monte cambia la ruta; un pueblo o
-// un lugar lleva el mapa allí con una chincheta de búsqueda temporal y, si cae fuera de las zonas, lo avisa la hoja.
+// un lugar lleva el mapa allí con una chincheta de búsqueda temporal y, si cae fuera de las zonas, lo dice la línea de aviso.
 import { buscarEnMapa, crearBuscador, cargarPueblos } from './controles.js';
 import { crearGeocodificador, coordenadasCartoCiudad, fueraDeZonas } from './geocodificador.js';
 import { rutaMapa } from './ruta.js';
 
 const ZOOM_LUGAR = 13;
 
-// alChip(id) · alRuta(hash) (toque explícito: la pantalla enfoca la hoja) ·
+// alChip(id) · alRuta(hash) (toque explícito: la pantalla lleva el foco a las migas) ·
 // alLugar({ nombre, lat, lon, zoom, fuera, gota }) · alError(texto) · chips() = chips del día.
 // Un lugar dentro de las zonas lo resuelve la pantalla (pasa a la zona que lo contiene, centra y pone la gota con
-// ponerChincheta); fuera de ellas, aquí se pone la gota y la pantalla lo avisa en la hoja.
+// ponerChincheta); fuera de ellas, aquí se pone la gota y la pantalla lo dice en la línea de aviso.
 export function crearBusquedaMapa({ L, mapa, datos, chips, alChip, alRuta, alLugar, alError, vivo = () => true }) {
   const puntos = datos.zonas.flatMap((z) => z.puntos.map((p) => ({ ...p, zona: z.id })));
   let pueblos = [], pidiendoPueblos = null, chincheta = null, turno = 0;

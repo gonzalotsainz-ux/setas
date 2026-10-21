@@ -1,14 +1,13 @@
 // js/mapa/controles.js
-// Controles del mapa a pantalla completa: chips de especie en temporada, barra de días y buscador de pueblos,
-// sitios y especies (spec §2). Lo que decide es puro (se prueba con Node); crearBuscador monta el DOM.
+// Controles del mapa a pantalla completa: chips de especie en temporada, la fecha que enseña (siempre hoy), el buscador
+// de pueblos, sitios y especies y la línea de avisos. Lo que decide es puro (se prueba con Node); crearBuscador monta el DOM.
 import { el, icono, mayus, claveFoco, nodoEquivalente } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
-import { enTemporada, pesoPrevision } from '../indice.js';
-import { entreDias } from '../meteo.js';
+import { enTemporada } from '../indice.js';
 import { buscarEspecies } from '../pantallas/especies.js';
 import { nombreCorto } from '../datos.js';
 import { mezclarResultados } from './geocodificador.js';
-import { ZOOM_MIN_FINA, AVISO_SIN_DESCOMPRESION, diasDisponibles } from '../rejilla/carga.js';
+import { AVISO_SIN_DESCOMPRESION, diasDisponibles } from '../rejilla/carga.js';
 
 export const GRUPOS = [
   { id: 'boletus', texto: 'Boletus', especies: ['boletus-edulis', 'boletus-pinophilus', 'boletus-aereus', 'boletus-reticulatus'] },
@@ -33,29 +32,9 @@ export function chipsDelDia(especies, fecha) {
 // Un chip que deja de estar en temporada al cambiar de día vuelve a «Mejor hoy».
 export const chipVigente = (id, chips) => (chips.some((c) => c.id === id) ? id : 'mejor');
 
-// Fechas de la barra de días (decisión 14): las del índice desde hoy si le quedan; si no, hoy y los 7 días de la meteo
-// (los de su tanda que no han pasado; con un índice viejo, el aviso de fecha sin índice lo explica); sin nada, solo hoy.
-export function fechasBarra({ salida = null, meteo = null, hoy }) {
-  const delIndice = salida ? diasDisponibles(salida, hoy) : [];
-  if (delIndice.length) return delIndice;
-  if (meteo?.hoy) {   // sin índice, o con un índice cuyos días ya han pasado
-    const base = Date.parse(`${meteo.hoy}T12:00:00Z`);
-    const fs = Array.from({ length: 8 }, (_, d) => new Date(base + d * 864e5).toISOString().slice(0, 10)).filter((f) => f >= hoy);
-    if (fs.length) return fs;
-  }
-  return [hoy];
-}
-
-// Cada botón lleva su fecha: quien la use indexa dias[] con fechas.indexOf(fecha), nunca por posición (un índice de
-// ayer empieza un día antes; ver diasDisponibles en js/rejilla/carga.js).
-const DIA = new Intl.DateTimeFormat('es-ES', { weekday: 'short', day: 'numeric', timeZone: 'UTC' });
-export function barraDias(fechas, hoy, seleccion) {
-  return fechas.map((fecha) => {
-    const d = entreDias(hoy, fecha);
-    return { fecha, texto: d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : mayus(DIA.format(new Date(`${fecha}T12:00:00Z`))),
-      menosFiable: pesoPrevision(d) < 0.8, pulsado: fecha === seleccion };
-  });
-}
+// El mapa no tiene barra de días: enseña hoy. Con un índice de ayer, su primer día desde hoy (que es hoy); sin índice o
+// con uno ya pasado, hoy igualmente (sin manchas: lo dice AVISO_FECHA_SIN_INDICE).
+export const fechaDelMapa = ({ salida = null, hoy }) => diasDisponibles(salida, hoy)[0] ?? hoy;
 
 const normalizar = (s) => String(s ?? '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 const nombrePueblo = (municipio) => { const m = /^(.*?)\s*\(([^)]*)\)\s*$/.exec(municipio ?? ''); return m ? { n: m[1], p: m[2] } : { n: municipio ?? '', p: '' }; };
@@ -163,17 +142,20 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, migas, el('div', { clase: 'mapa-buscador__campo' }, icono('i-buscar'), input), lista), input, ponerMigas, limpiarMigas };
 }
 
-// Avisos sobre la hoja del mapa (spec §3.4 y decisión 14), en orden: modo (sin índice o navegador sin descompresión),
-// estado de la previsión, antigüedad del índice, fecha sin índice o sin meteo, previsión lejana, zoom y el último error.
-// Cada aviso es [icono, texto]. `viejo` es avisoIndice(salida) y `otroDia`, avisoOtroDia(meteo): se calculan fuera.
+// Avisos del mapa, en orden: primero lo que responde a lo que acaba de hacer la usuaria (un error, un lugar buscado fuera
+// de las zonas); luego el modo (sin índice o navegador sin descompresión), la antigüedad del índice, el estado de la
+// previsión y el día sin índice o sin meteo. El mapa enseña solo el primero (primerAviso), en una línea.
+// Cada aviso es [icono, texto]. `viejo` es avisoIndice(salida) y `otroDia`, el de la meteo caducada: se calculan fuera.
 export const AVISO_SIN_INDICE = 'No hay mapa por laderas ahora mismo: se ven las zonas y sus montes con su nota.';
-export const AVISO_ACERCATE = 'Acércate para ver cada ladera.';
 export const AVISO_CARGANDO = 'Cargando el mapa por laderas: mientras, se ven las zonas y sus montes.';
-export const AVISO_FECHA_SIN_INDICE = 'El mapa por laderas no tiene este día: solo chinchetas.';
-export const AVISO_FECHA_SIN_METEO = 'La previsión no llega a este día: chinchetas sin nota.';
-export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, diasDesdeHoy = 0, zoom = 0, error = null,
-  fechaSinIndice = false, fechaSinMeteo = false }) {
+export const AVISO_FECHA_SIN_INDICE = 'El mapa por laderas aún no tiene el día de hoy: solo chinchetas.';
+export const AVISO_FECHA_SIN_METEO = 'La previsión no llega a hoy: chinchetas sin nota.';
+export const AVISO_FUERA_DE_ZONAS = 'La app no tiene datos de monte aquí; las zonas más cercanas están en el mapa.';
+export function avisosMapa({ salida, sinDescompresion = false, cargando = false, meteo = null, otroDia = null, viejo = null, error = null,
+  fechaSinIndice = false, fechaSinMeteo = false, fuera = false }) {
   const lista = [];
+  if (error) lista.push(['i-aviso', error]);
+  if (fuera) lista.push(['i-info', AVISO_FUERA_DE_ZONAS]);
   if (!salida) {
     lista.push(cargando ? ['i-info', AVISO_CARGANDO] : ['i-aviso', sinDescompresion ? AVISO_SIN_DESCOMPRESION : AVISO_SIN_INDICE]);
   } else {
@@ -185,10 +167,6 @@ export function avisosMapa({ salida, sinDescompresion = false, cargando = false,
     if (otroDia) lista.push(['i-info', otroDia]);
     if (fechaSinMeteo) lista.push(['i-info', AVISO_FECHA_SIN_METEO]);
   }
-  if (salida) {
-    if (diasDesdeHoy > 0 && pesoPrevision(diasDesdeHoy) < 0.8) lista.push(['i-info', `Previsión a ${diasDesdeHoy} días: menos fiable.`]);
-    if (zoom < ZOOM_MIN_FINA && !fechaSinIndice) lista.push(['i-info', AVISO_ACERCATE]);
-  }
-  if (error) lista.push(['i-aviso', error]);
   return lista;
 }
+export const primerAviso = (lista) => lista[0] ?? null;

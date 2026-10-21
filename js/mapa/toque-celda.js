@@ -6,17 +6,12 @@ import { PROHIBIDO, CODIGO, FUERA_PROVINCIAS } from '../rejilla/formato.js';
 import { archivoDeCelda, ZOOM_MIN_FINA } from '../rejilla/carga.js';
 import { gruesasDeArchivo } from '../rejilla/pintor.js';
 import { notaCelda, corregirAltitud } from '../rejilla/nota.js';
-import { agregadosDeCelda, serieLluvia } from '../rejilla/salida.js';
+import { agregadosDeCelda } from '../rejilla/salida.js';
 import { modeloHoja } from './hoja.js';
-import { desglose } from '../ui/desglose.js';
 import { origenDeCelda } from '../ui/origen-lluvia.js';
-import { graficoLluvia } from '../ui/grafico-lluvia.js';
-import { el } from '../ui/dom.js';
-
-const grafico = (celdaSalida) => () => { const fig = el('figure', { clase: 'grafico' }); fig.innerHTML = graficoLluvia({ serie: serieLluvia(celdaSalida), altura: 220 }); return fig; };
 
 // La ladera de la celda k del archivo ya cargado `r` (con código de monte): su celda, su nota del día y del chip y lo que
-// hace falta para la hoja. La usan el toque y las etiquetas de las mejores manchas, para que digan lo mismo.
+// hace falta para su ficha. La usan el toque y las etiquetas de las mejores manchas, para que digan lo mismo.
 export function notaDeLadera({ r, archivo, k, lat, lon, ctx }) {
   const { datos, rej, salida, gruesasPorArchivo, especiesZona, fecha, filtro } = ctx, h = r.habitat[k];
   if (!gruesasPorArchivo.has(archivo)) gruesasPorArchivo.set(archivo, gruesasDeArchivo(r, rej.gruesa));
@@ -27,32 +22,30 @@ export function notaDeLadera({ r, archivo, k, lat, lon, ctx }) {
   const ag = enSalida ? agregadosDeCelda(salida, g.id, fecha) : null;
   const altRef = enSalida?.altRef;   // sin ella, la nota queda «sin datos», igual que la mancha gris
   const zona = datos.zonas.find((z) => z.id === r.cabecera.zona) ?? null;
-  // La nota con la altitud en tramos de 10 m, igual que el pintor (así hoja y mancha coinciden); la exacta, en «Altitud».
+  // La nota con la altitud en tramos de 10 m, igual que el pintor (así ficha y mancha coinciden); la exacta, en «Altitud».
   const altitud = Math.round(celda.altitud / 10) * 10;
   const nota = notaCelda({ ag, ...celda, altitud, altRef, especies: especiesZona.get(zona?.id) ?? [], fecha, filtro });
   return { celda, nota, ag, altRef, enSalida, altitud, zona };
 }
 
-// → { modelo, extra } (prohibido o ladera) | null (sin mancha: la hoja vuelve a lo elegido).
+// → modelo de modeloHoja (prohibido o ladera, para el popup) | null (sin mancha).
 // ctx = { datos, normas, rej, salida, cargador, gruesasPorArchivo, especiesZona, fecha, filtro, zoom, conManchas, poligonoEn }
 export async function resolverToque({ lat, lng: lon }, ctx) {
   const { normas, rej, cargador, zoom, conManchas, poligonoEn } = ctx;
   const prohibido = await poligonoEn(lon, lat, (p) => p.tipo === 'prohibido');
-  if (prohibido) return { modelo: modeloHoja({ prohibido: prohibido.properties, normas }), extra: {} };
+  if (prohibido) return modeloHoja({ prohibido: prohibido.properties, normas });
   if (!conManchas || zoom < ZOOM_MIN_FINA) return null;
   const m = aMercator(lon, lat), c = celdaFina(m.x, m.y), a = archivoDeCelda(rej.indice, c.col, c.fila);
   if (!a) return null;
   const r = await cargador.cargar(a.archivo);
   const k = (c.fila - a.fila0) * a.ancho + (c.col - a.col0), h = r.habitat[k];
-  // Marca de prohibido de la rejilla (centro o esquina dentro de un prohibido): hoja roja, nunca la de monte.
-  if (h & PROHIBIDO) return { modelo: modeloHoja({ prohibido: { nombre: 'Zona prohibida' }, normas }), extra: {} };
-  if (!(h & CODIGO)) return null;   // sin monte apropiado: no hay hoja de ladera
+  // Marca de prohibido de la rejilla (centro o esquina dentro de un prohibido): ficha roja, nunca la de monte.
+  if (h & PROHIBIDO) return modeloHoja({ prohibido: { nombre: 'Zona prohibida' }, normas });
+  if (!(h & CODIGO)) return null;   // sin monte apropiado: no hay ficha de ladera
   const { celda, nota, ag, altRef, enSalida, altitud, zona } = notaDeLadera({ r, archivo: a.archivo, k, lat, lon, ctx });
   if (nota.sinEspecies) return null;
   const coto = await poligonoEn(lon, lat, (p) => p.tipo !== 'prohibido');
   let agHoja = null;
   try { agHoja = ag && corregirAltitud(ag, altitud - altRef); } catch { agHoja = null; }
-  const modelo = modeloHoja({ celda, nota, ag: agHoja, coto: coto?.properties ?? null, zona, lluvia: origenDeCelda(enSalida) });
-  if (!modelo) return null;
-  return { modelo, extra: { desglose: nota.resultado ? () => desglose(nota.resultado) : null, grafico: enSalida?.lluvia ? grafico(enSalida) : null } };
+  return modeloHoja({ celda, nota, ag: agHoja, coto: coto?.properties ?? null, zona, lluvia: origenDeCelda(enSalida) });
 }

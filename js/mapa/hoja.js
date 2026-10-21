@@ -1,9 +1,9 @@
 // js/mapa/hoja.js
-// Hoja fija del mapa (spec §2): región permanente con tres estados (recogida / resumen / completa) que nunca se cierra.
-// Su contenido sigue a la selección: lista de zonas, zona y sus montes, ficha de monte, mancha (ladera) o zona prohibida
-// (variante roja). Los modelos puros están en modelos-hoja.js; aquí solo se pintan. El foco se mueve solo con `enfocar: true`.
+// Ficha de una ladera (mancha) o de una zona prohibida tocada en el mapa: modeloHoja (datos puros, se prueba con Node) y
+// pintarLadera, que la convierte en nodos para el popup de Leaflet (en rojo si es prohibida). El nombre viene de la hoja
+// fija que tuvo el mapa; la ficha del monte es la pantalla Zona.
 // `celda` = { habitat, altitud, orientacion, tramo, lat, lon, fueraProvincias? } (fueraProvincias = bit 0x20 del hábitat).
-import { el, icono, etiqueta, claveFoco, nodoEquivalente } from '../ui/dom.js';
+import { el, icono } from '../ui/dom.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
 import { urlSegura } from '../ui/normativa.js';
@@ -27,12 +27,6 @@ export const TEXTO_ORIENTACION = { llano: 'Llano', N: 'Norte (umbría)', NE: 'No
 export const AVISO_FUERA_PROVINCIAS = 'Fuera de las provincias de la zona: la app no conoce sus prohibiciones ni sus cotos. Compruébalos antes de recoger.';
 // MFE 24/34: los prados suelen ser fincas de siega cerradas, no monte libre.
 export const AVISO_PRADO = 'Prado: suele ser finca privada (prado de siega cerrado), no monte libre. Entra solo con permiso del dueño.';
-
-// Frase de fraseZona (partes { texto, estilo }) como nodos: <b> para negrita, <span class="latin"> para latín.
-export function pintarFrase(partes) {
-  return partes.map(({ texto, estilo }) => (estilo === 'negrita' ? el('b', { clase: 'tabular', texto })
-    : estilo === 'latin' ? el('span', { clase: 'latin', texto }) : texto));
-}
 
 export const urlComoLlegar = (lat, lon) => `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(5)},${lon.toFixed(5)}`;
 
@@ -74,73 +68,22 @@ export function modeloHoja({ prohibido = null, normas = new Map(), celda = null,
     acciones: { comoLlegar: urlComoLlegar(celda.lat, celda.lon), detalle: zona ? rutaZona(zona.id) : null, diario: urlNuevaSalida({ lat: celda.lat, lon: celda.lon, zona: zona?.id ?? null }) } };
   if (!nota || nota.valor == null) return { tipo: 'sinDatos', ...base, texto: 'Sin datos suficientes para este día.' };
   return { tipo: 'ladera', ...base, valor: nota.valor, nivel: nivelDe(nota.valor),
-    especie: { id: nota.especie.id, nombre: comun(nota.especie), latin: nota.especie.nombre },
-    otras: nota.otras.map((o) => ({ nombre: comun(o.especie), valor: o.valor })) };
-}
-
-export function estadoTrasArrastre(estado, dy, umbral = 60) {
-  if (estado === 'recogida') return dy < -umbral ? 'resumen' : 'recogida';
-  if (estado === 'resumen') return dy < -umbral ? 'completa' : dy > umbral ? 'recogida' : 'resumen';
-  if (estado === 'completa') return dy > umbral ? 'resumen' : 'completa';
-  return estado;
+    especie: { id: nota.especie.id, nombre: comun(nota.especie), latin: nota.especie.nombre } };
 }
 
 const enlace = (href, texto, clase) => el('a', { clase, href, rel: 'noopener', target: '_blank', texto });
 const avisoNodo = (texto, peligro) => el('div', { clase: peligro ? 'aviso-peligro' : 'aviso', attrs: { role: 'note' } }, icono(peligro ? 'i-aviso' : 'i-info'), el('p', { texto }));
-// ---------- Pintores: cada modelo → Node[] ----------
+
 const pintarProhibido = (m) => [el('div', { clase: 'aviso-peligro', attrs: { role: 'note' } }, icono('i-aviso'), el('p', {}, el('strong', { texto: 'Recogida de setas prohibida. ' }), m.texto)),
   m.normas.length ? el('ul', { clase: 'mapa-popup__normas' }, m.normas.map((n) => el('li', {}, n.url ? enlace(n.url, n.titulo) : n.titulo))) : null];
 
-const notaGrande = (valor) => el('span', { clase: 'indice indice--grande tabular', texto: String(valor) });
-const etiquetas = (lista) => lista.map((e) => etiqueta(e.texto, e.variante));
-
-function filaZonaNodo(f) {
-  return el('li', {}, el('a', { clase: 'fila-zona', href: f.href, attrs: { 'data-nivel': f.nivel } },
-    el('span', { clase: 'fila-zona__nombre-linea' }, el('span', { clase: 'fila-zona__pos', texto: String(f.pos) }), el('span', { clase: 'fila-zona__nombre', texto: f.nombre })),
-    f.valor != null ? el('p', { clase: 'indice' }, String(f.valor)) : null,
-    el('span', { clase: 'fila-zona__estado' }, semaforo(f.valor, f.fueraDeTemporada ? 'Fuera de temporada' : null), etiquetas(f.etiquetas)),
-    el('span', { clase: 'fila-zona__frase' }, pintarFrase(f.frase))));
-}
-const listaFilas = (filas) => el('ol', { clase: 'lista-zonas' }, filas.map(filaZonaNodo));
-
-const pintarListaZonas = (m) => [m.aviso ? avisoNodo(m.aviso, false) : null, listaFilas(m.filas)];
-const pintarFuera = (m) => [el('p', { clase: 'texto-2', texto: m.texto }), listaFilas(m.filas)];
-
-function filaMonteNodo(x) {
-  return el('li', {}, el('a', { clase: 'fila-zona', href: x.href, attrs: { 'data-nivel': x.nivel } },
-    el('span', { clase: 'fila-zona__nombre-linea' }, el('span', { clase: 'fila-zona__nombre', texto: x.nombre })),
-    x.valor != null ? el('p', { clase: 'indice' }, String(x.valor)) : null,
-    el('span', { clase: 'fila-zona__estado' }, semaforo(x.valor), x.rotulo ? etiqueta(x.rotulo.texto, x.rotulo.variante) : null),
-    x.linea ? el('span', { clase: 'fila-zona__frase', texto: x.linea }) : null));
-}
-
-const pintarZona = (m) => [
-  el('div', { clase: 'hoja__nota', attrs: { 'data-nivel': m.nivel } }, m.valor != null ? notaGrande(m.valor) : null, semaforo(m.valor), etiquetas(m.etiquetas),
-    el('p', {}, pintarFrase(m.frase))),
-  m.montes.length ? el('ol', { clase: 'lista-zonas' }, m.montes.map(filaMonteNodo)) : null,
-  el('div', { clase: 'hoja__acciones' }, el('a', { clase: 'boton boton--suave', href: m.detalle, texto: 'Ver la zona' }))];
-
-function pintarMonte(m, extra) {
-  const nodos = [m.valor != null
-    ? el('div', { clase: 'hoja__nota', attrs: { 'data-nivel': m.nivel } }, notaGrande(m.valor), semaforo(m.valor), m.dia ? etiqueta(m.dia, 'ocre') : null,
-      m.especie ? el('p', {}, 'Por ', el('span', { clase: 'latin', texto: m.especie.latin }), ` (${m.especie.nombre})`) : null)
-    : el('p', { clase: 'texto-2', texto: m.texto })];
-  if (m.tambien) nodos.push(el('p', { clase: 'texto-2 texto-s', texto: `También: ${m.tambien}` }));
-  if (m.porque) nodos.push(el('p', { clase: 'texto-s', texto: m.porque }));
-  nodos.push(...m.avisos.map((a) => avisoNodo(a.texto, a.peligro)),
-    el('p', { clase: 'texto-s' }, m.coto.url ? enlace(m.coto.url, m.coto.texto) : m.coto.texto),
-    el('div', { clase: 'hoja__acciones' }, m.acciones.comoLlegar ? enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton') : null,
-      m.acciones.diario ? el('a', { clase: 'boton boton--suave', href: m.acciones.diario, texto: 'Guardar en el diario' }) : null,
-      el('a', { clase: 'boton boton--suave', href: m.acciones.mas, texto: 'Más' })));
-  if (extra.desglose) nodos.push(extra.desglose());
-  if (extra.grafico) nodos.push(extra.grafico());
-  return nodos;
-}
-
-// Mancha tocada: la ficha de la celda (bosque, altitud, meteo, coto y botones).
-function pintarLadera(m, extra) {
-  const nodos = [m.valor != null
-    ? el('div', { clase: 'hoja__nota', attrs: { 'data-nivel': m.nivel } }, notaGrande(m.valor), semaforo(m.valor),
+// Modelo de modeloHoja → nodos del popup (título incluido): nota y especie, avisos, bosque, altitud, orientación y meteo,
+// coto y los botones «Cómo llegar», «Ver detalle» y «Guardar en el diario». La zona prohibida, solo el aviso y sus normas.
+export function pintarLadera(m) {
+  const titulo = el('h3', { texto: m.titulo });
+  if (m.tipo === 'prohibido') return [titulo, ...pintarProhibido(m)].filter(Boolean);
+  const nodos = [titulo, m.valor != null
+    ? el('div', { clase: 'hoja__nota', attrs: { 'data-nivel': m.nivel } }, el('span', { clase: 'indice indice--grande tabular', texto: String(m.valor) }), semaforo(m.valor),
       el('p', {}, 'Por ', el('span', { clase: 'latin', texto: m.especie.latin }), ` (${m.especie.nombre})`))
     : el('p', { clase: 'texto-2', texto: m.texto })];
   nodos.push(...m.avisos.map((a) => avisoNodo(a.texto, a.peligro)));
@@ -148,98 +91,8 @@ function pintarLadera(m, extra) {
   nodos.push(el('dl', { clase: 'hoja__filas' }, m.filas.flatMap((f) => [el('dt', { texto: f.etiqueta }), el('dd', { texto: f.valor })])),
     m.origenLluvia ? el('p', { clase: 'texto-2 texto-s', texto: m.origenLluvia }) : null,
     el('p', { clase: 'texto-s' }, m.coto.url ? enlace(m.coto.url, m.coto.texto) : m.coto.texto),
-    el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton'),
-      m.acciones.detalle ? el('a', { clase: 'boton boton--suave', href: m.acciones.detalle, texto: 'Ver detalle' }) : null,
-      el('a', { clase: 'boton boton--suave', href: m.acciones.diario, texto: 'Guardar en el diario' })));
-  if (extra.desglose) nodos.push(extra.desglose());
-  if (extra.completa && m.otras?.length) nodos.push(el('h3', { texto: 'Otras especies posibles' }), el('ul', {}, m.otras.map((o) => el('li', { texto: `${o.nombre}: ${o.valor}/100` }))));
-  if (extra.grafico) nodos.push(extra.grafico());
-  return nodos;
-}
-
-const PINTORES = { prohibido: pintarProhibido, listaZonas: pintarListaZonas, fuera: pintarFuera, zona: pintarZona, monte: pintarMonte, ladera: pintarLadera, sinDatos: pintarLadera };
-// Lo que decide si hay que repintar: el modelo (datos puros), el estado (completa enseña más) y qué piezas perezosas hay.
-export const firmaHoja = (m, estado, x = {}) => JSON.stringify([m, estado, !!x.desglose, !!x.grafico]);
-const contenido = (m, extra = {}) => (PINTORES[m.tipo] ?? pintarLadera)(m, extra);
-const familia = (m) => (m.tipo === 'listaZonas' || m.tipo === 'fuera' ? 'lista' : 'ficha');
-const ESTADOS = ['recogida', 'resumen', 'completa'];
-const SIGUIENTE = { recogida: 'resumen', resumen: 'completa', completa: 'resumen' };
-const ETIQUETA_ASA = { recogida: 'Subir la hoja', resumen: 'Ver más', completa: 'Ver menos' };
-
-// Hoja permanente del mapa: se monta una vez dentro de la pantalla (hereda --alto-nav) y solo cambia de contenido y de estado.
-export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } = {}) {
-  const asa = el('button', { type: 'button', clase: 'hoja__asa', attrs: { 'aria-expanded': 'true', 'aria-label': ETIQUETA_ASA.resumen, 'aria-controls': 'hoja-mapa-cuerpo' } });
-  const dias = el('div', { clase: 'chips hoja-mapa__dias', attrs: { role: 'group', 'aria-label': 'Día' } });
-  const corto = el('p', { clase: 'hoja-mapa__corto' });
-  const titulo = el('h2', { id: 'hoja-mapa-titulo', attrs: { tabindex: '-1' } });
-  const cuerpo = el('div', { clase: 'hoja-mapa__cuerpo', id: 'hoja-mapa-cuerpo' });
-  const nodo = el('section', { clase: 'hoja-mapa', attrs: { 'data-estado': 'resumen', role: 'region', 'aria-labelledby': 'hoja-mapa-titulo' } },
-    el('div', { clase: 'hoja-mapa__nucleo' }, asa, dias, corto, titulo, cuerpo));
-  let estado = 'resumen', modelo = null, clave = null, firma = null, extra = {}, arrastrado = false, y0 = null;
-  // Con el foco dentro del cuerpo, al repintar vuelve al enlace o botón equivalente (mismo href o data-clave) o, si ya no
-  // está, al título: nunca se queda en <body>.
-  function pintar(reiniciarScroll = false) {
-    firma = firmaHoja(modelo, estado, extra);
-    if (modelo.tipo === 'prohibido') nodo.dataset.variante = 'prohibido'; else delete nodo.dataset.variante;
-    titulo.textContent = modelo.titulo;
-    corto.textContent = modelo.corto ?? modelo.titulo;
-    const activo = document.activeElement, dentro = cuerpo.contains(activo), enfocada = dentro ? claveFoco(activo) : null;
-    cuerpo.replaceChildren(...contenido(modelo, { ...extra, completa: estado === 'completa' }).filter(Boolean));
-    if (reiniciarScroll) cuerpo.scrollTop = 0;   // solo al cambiar de elegido; no al repintar el mismo (llega la meteo)
-    if (dentro) (nodoEquivalente(cuerpo.querySelectorAll('a[href], button'), enfocada) ?? titulo).focus({ preventScroll: true });
-  }
-  const ponerEstado = (e, repintar = true) => {
-    if (!ESTADOS.includes(e) || e === estado) return;
-    estado = e;
-    nodo.dataset.estado = e;
-    asa.setAttribute('aria-expanded', String(e !== 'recogida'));
-    asa.setAttribute('aria-label', ETIQUETA_ASA[e]);
-    if (modelo && repintar) pintar();   // «Otras especies posibles» solo se ven en completa
-  };
-  asa.addEventListener('click', () => { if (arrastrado) { arrastrado = false; return; } ponerEstado(SIGUIENTE[estado]); });
-  asa.addEventListener('pointerdown', (e) => { arrastrado = false; y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
-  asa.addEventListener('pointerup', (e) => {
-    if (y0 == null) return;
-    const dy = e.clientY - y0; y0 = null;
-    if (Math.abs(dy) > 10) {
-      arrastrado = true;   // el «click» que sigue al arrastre no cuenta; el siguiente toque, sí
-      setTimeout(() => { arrastrado = false; }, 0);
-      ponerEstado(estadoTrasArrastre(estado, dy));
-    }
-  });
-  asa.addEventListener('pointercancel', () => { y0 = null; });
-  // Escape con el foco dentro baja la hoja a «recogida» (no la cierra; si ya está recogida no hace nada) y deja el foco en el asa.
-  nodo.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape' || e.defaultPrevented || estado === 'recogida') return;
-    e.preventDefault();
-    ponerEstado('recogida');
-    asa.focus({ preventScroll: true });
-  });
-  return {
-    nodo,
-    // Repinta sin cambiar de estado, salvo que cambie la familia del modelo (lista ↔ ficha): entonces vuelve a «resumen».
-    // Si el modelo y el estado son los mismos (llega la meteo sin cambiar nada de lo que se ve) no se repinta.
-    poner(m, x = {}, { enfocar = false } = {}) {
-      const otraFamilia = !modelo || familia(m) !== familia(modelo);
-      const nueva = `${m.tipo}|${m.id ?? m.titulo}`;
-      modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null };
-      // «recogida» oculta el título: para enfocar hay que subir antes. Se pinta una sola vez (los constructores de gráfico no se repiten).
-      if (otraFamilia || (enfocar && estado === 'recogida')) ponerEstado('resumen', false);
-      if (firmaHoja(modelo, estado, extra) !== firma) pintar(nueva !== clave);
-      clave = nueva;
-      if (enfocar) titulo.focus({ preventScroll: true });
-    },
-    // items = [{ clave, texto, pulsado, alPulsar? }]; sin alPulsar se avisa a alCambiarDia(clave).
-    ponerDias(items = []) {
-      dias.hidden = !items.length;
-      dias.replaceChildren(...items.map((x) => {
-        const b = el('button', { type: 'button', clase: 'chip', attrs: { 'aria-pressed': String(!!x.pulsado), 'data-clave': x.clave } }, x.texto);
-        b.addEventListener('click', () => (x.alPulsar ? x.alPulsar() : alCambiarDia(x.clave)));
-        return b;
-      }));
-    },
-    estado: () => estado,
-    ponerEstado,
-    alElegir,
-  };
+    el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton boton--compacto'),
+      m.acciones.detalle ? el('a', { clase: 'boton boton--suave boton--compacto', href: m.acciones.detalle, texto: 'Ver detalle' }) : null,
+      el('a', { clase: 'boton boton--suave boton--compacto', href: m.acciones.diario, texto: 'Guardar en el diario' })));
+  return nodos.filter(Boolean);
 }

@@ -1,7 +1,7 @@
 // tests/mapa-hoja.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { urlComoLlegar, textoCoto, modeloHoja, estadoTrasArrastre, firmaHoja, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { urlComoLlegar, textoCoto, modeloHoja, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
 import { claveFoco, nodoEquivalente } from '../js/ui/dom.js';
 import { rutaZona } from '../js/mapa/ruta.js';
 import { HABITATS } from '../scripts/validar-datos.mjs';
@@ -18,7 +18,7 @@ test('«Cómo llegar» abre la ruta de Google Maps hasta la celda', () => {
   assert.equal(urlComoLlegar(40.853, -3.9943), 'https://www.google.com/maps/dir/?api=1&destination=40.85300,-3.99430');
 });
 
-test('hoja de monte: bosque, altitud, orientación, pendiente, meteo, coto y tres botones', () => {
+test('ficha de ladera (popup): bosque, altitud, orientación, pendiente, meteo, coto y tres botones', () => {
   const m = modeloHoja({ celda, nota, ag, zona, coto: { nombre: 'Valsaín', tipo: 'acotado', permisoUrl: 'https://x.es/permiso' } });
   assert.equal(m.tipo, 'ladera');
   assert.equal(m.titulo, 'Pinar silvestre');
@@ -31,7 +31,6 @@ test('hoja de monte: bosque, altitud, orientación, pendiente, meteo, coto y tre
     ['Lluvia en 26 días', `106${nbsp}mm`], ['Humedad del suelo', 'percentil 63'], ['Temperatura', `11,7${nbsp}°C de media en 20 días`]]);
   assert.deepEqual(m.coto, { texto: 'Valsaín: pide permiso.', url: 'https://x.es/permiso' });
   assert.deepEqual(m.acciones, { comoLlegar: urlComoLlegar(40.853, -3.9943), detalle: rutaZona('guadarrama'), diario: '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama' });
-  assert.deepEqual(m.otras, [{ nombre: 'níscalo', valor: 70 }]);
   assert.equal(m.orientativo, true);   // umbría: el ajuste por orientación no está calibrado
   assert.deepEqual(m.avisos, []);
 });
@@ -95,18 +94,7 @@ test('textos de coto y nombres de todos los hábitats', () => {
   for (const h of HABITATS) assert.ok(NOMBRE_HABITAT[h], h);
 });
 
-test('estadoTrasArrastre: recogida ↔ resumen ↔ completa, nunca cerrada', () => {
-  assert.equal(estadoTrasArrastre('recogida', -80), 'resumen');
-  assert.equal(estadoTrasArrastre('resumen', 80), 'recogida');
-  assert.equal(estadoTrasArrastre('resumen', -80), 'completa');
-  assert.equal(estadoTrasArrastre('completa', 80), 'resumen');
-  assert.equal(estadoTrasArrastre('recogida', 80), 'recogida');
-  assert.equal(estadoTrasArrastre('completa', -80), 'completa');
-  assert.equal(estadoTrasArrastre('resumen', 20), 'resumen');
-  assert.equal(estadoTrasArrastre('recogida', -20), 'recogida');
-});
-
-// Repintar la hoja (llega la meteo, los cotos, el contraste) no debe dejar el foco en <body>.
+// Repintar las migas o los chips (llega la meteo, cambia la selección) no debe dejar el foco en <body>.
 const nodoFalso = (attrs = {}, dataset = {}) => ({ getAttribute: (k) => attrs[k] ?? null, dataset });
 test('claveFoco y nodoEquivalente: el foco vuelve al enlace con el mismo href o al botón con la misma data-clave', () => {
   const a1 = nodoFalso({ href: '#mapa/guadarrama/a' }), a2 = nodoFalso({ href: '#mapa/guadarrama/b' }), b = nodoFalso({}, { clave: '2026-10-22' });
@@ -120,13 +108,4 @@ test('claveFoco y nodoEquivalente: el foco vuelve al enlace con el mismo href o 
   assert.equal(nodoEquivalente(nuevos, '#otro'), null);
   assert.equal(nodoEquivalente(nuevos, null), null);
   assert.ok(a1);
-});
-
-test('firmaHoja: el mismo modelo en el mismo estado no se repinta; otro estado u otra gráfica, sí', () => {
-  const m = { tipo: 'zona', id: 'g', titulo: 'Guadarrama', montes: [{ id: 'a', valor: 70 }] };
-  const x = { desglose: null, grafico: () => 1 };
-  assert.equal(firmaHoja(m, 'resumen', x), firmaHoja({ ...m, montes: [{ id: 'a', valor: 70 }] }, 'resumen', { desglose: null, grafico: () => 2 }));
-  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja(m, 'completa', x));
-  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja(m, 'resumen', { desglose: null, grafico: null }));
-  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja({ ...m, montes: [{ id: 'a', valor: 71 }] }, 'resumen', x));
 });

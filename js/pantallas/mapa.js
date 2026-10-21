@@ -1,13 +1,13 @@
 // js/pantallas/mapa.js
-// Pantalla «Mapa», la portada (docs/superpowers/specs/2026-10-21-mapa-niveles-design.md): mapa a pantalla completa con
-// tres niveles (zonas → montes → laderas). Manda la selección de la ruta (#mapa, #mapa/<zona>, #mapa/<zona>/<punto>), que
-// solo cambia con toques explícitos; el zoom decide qué chinchetas se ven (decisiones 1 y 13). La hoja fija dice lo elegido
-// y lleva la barra de días (14, 15). Las manchas por ladera salen de la rejilla y del índice; sin ellos, los niveles 1 y 2
-// siguen con la meteo de los puntos.
+// Pantalla «Mapa», la portada: un mapa limpio a pantalla completa (revisión de la usuaria del 2026-10-21 sobre
+// docs/superpowers/specs/2026-10-21-mapa-niveles-design.md). Niveles: zonas → montes de una zona → página del monte (la
+// pantalla Zona, #zona/<zona>/<punto>). Manda la ruta (#mapa, #mapa/<zona>, #mapa/<zona>/<punto>), que solo cambia con
+// toques explícitos; el zoom decide qué chinchetas se ven. Encima del mapa solo van buscador, migas, chips y, como mucho,
+// una línea de aviso. Las manchas por ladera salen de la rejilla y del índice de hoy; tocar una abre su ficha en un popup.
 import { el, icono } from '../ui/dom.js';
-import { cargarLeaflet, cargarCotos, popupCoto, NIVEL_COLOR, COLOR, estiloCoto, estiloHalo, pintarSalidas, radioLluvia, lluvia26 } from '../mapa.js';
+import { cargarLeaflet, cargarCotos, popupCoto, COLOR, estiloCoto, estiloHalo, pintarSalidas, radioLluvia, lluvia26 } from '../mapa.js';
 import { especiesDeZona } from '../datos.js';
-import { hoyMadrid, entreDias } from '../meteo.js';
+import { hoyMadrid } from '../meteo.js';
 import { limitesGruesa, puntoEnGeometria, bboxDe } from '../rejilla/geo.js';
 import { cargarIndice, avisoIndice, cargarDatosRejilla, archivosVisibles, crearCargadorRejillas,
   rejillasSoportadas, ZOOM_MIN_FINA } from '../rejilla/carga.js';
@@ -16,26 +16,26 @@ import { calcularNotas } from '../rejilla/notas-async.js';
 import { agregadosDeCelda } from '../rejilla/salida.js';
 import { crearCapaRejilla } from '../mapa/capa-rejilla.js';
 import { crearFondo, leerPreferencias, guardarPreferencias, panelCapas, SUPERPUESTAS } from '../mapa/fondos.js';
-import { crearHojaMapa, urlComoLlegar } from '../mapa/hoja.js';
-import { contenidoHoja } from '../mapa/contenido-hoja.js';
+import { urlComoLlegar, pintarLadera } from '../mapa/hoja.js';
 import { resolverToque } from '../mapa/toque-celda.js';
-import { chipsDelDia, chipVigente, barraDias, fechasBarra, avisosMapa } from '../mapa/controles.js';
+import { chipsDelDia, chipVigente, fechaDelMapa, avisosMapa, primerAviso } from '../mapa/controles.js';
 import { crearBusquedaMapa } from '../mapa/busqueda-mapa.js';
 import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES, ZOOM_ETIQUETAS, ALTO_CHINCHETA } from '../mapa/chinchetas.js';
 import { crearCapaEtiquetas, etiquetasDeVista, MEDIA_ANCHURA_ETIQUETA } from '../mapa/capa-etiquetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
-import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
+import { leerRutaMapa, rutaMapa, rutaZona, esRutaMapa } from '../mapa/ruta.js';
 import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona,
   rutaNormal, estadoHistorial, volverConAtras } from '../mapa/seleccion.js';
 import { zonasMasCercanas, zonaDeLugar } from '../mapa/geocodificador.js';
 import { desplazamientoDia } from '../notas-zona.js';
 
 const HUECO_MINIMO = 160;          // píxeles de mapa que siempre quedan libres para encuadrar
+const COLUMNA_BOTONES = 72;          // margen derecho de los popups: botones de 44 px, su margen de 16 y un hueco
 const MAX_IMAGENES = 12;             // imágenes coloreadas que se guardan (día × chip × archivo)
 const TRES_HORAS = 3 * 3600e3;       // el índice se vuelve a pedir con el mapa abierto (misma caché que cargarIndice)
-const POPUP = { minWidth: 200, maxWidth: 250, autoPanPaddingTopLeft: [16, 140], autoPanPaddingBottomRight: [72, 180] };
+const POPUP = { minWidth: 200, maxWidth: 260 };   // el margen del autoPan se mide al abrir (popupOpciones)
 const FECHA_DIA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' });
-// vista = { lat, lon, zoom, clave }: la vista y la selección que tenía; se conserva al salir y volver (p. ej. desde Zona).
+// fecha: siempre hoy (fechaDelMapa). vista = { lat, lon, zoom, clave }: la vista y la selección que tenía; se conserva al salir y volver (p. ej. desde Zona).
 const ui = { fecha: null, chip: 'mejor', vista: null };
 let montaje = null;
 
@@ -55,18 +55,16 @@ export async function pintar({ estado, param }) {
   return v.raiz;
 }
 
-// --alto-arriba: hasta dónde llegan buscador, migas y chips (Capas y Mi ubicación van debajo); --alto-hoja: lo que ocupa
-// la hoja; --alto-abajo: hoja + avisos (los controles de Leaflet van encima).
+// --alto-arriba: hasta dónde llegan buscador, migas y chips (Capas y Mi ubicación van debajo); --alto-abajo: la línea de
+// aviso, si la hay (la atribución de Leaflet va encima).
 function medirBarras(raiz) {
   const cab = document.querySelector('.cabecera'), nav = document.querySelector('.barra-nav'), arriba = raiz.querySelector('.mapa-completo__arriba');
   const altoArriba = arriba?.offsetHeight ? arriba.offsetTop + arriba.offsetHeight : (cab?.offsetHeight ?? 64) + 116;
+  const avisos = raiz.querySelector('.mapa-completo__abajo')?.offsetHeight || 0;
   raiz.style.setProperty('--alto-arriba', `${altoArriba}px`);
-  const hoja = raiz.querySelector('.hoja-mapa')?.offsetHeight || 148, avisos = raiz.querySelector('.mapa-completo__abajo')?.offsetHeight || 0;
   raiz.style.setProperty('--alto-cabecera', `${cab?.offsetHeight ?? 64}px`);
   raiz.style.setProperty('--alto-nav', `${(nav?.offsetHeight ?? 100) + 12}px`);
-  raiz.style.setProperty('--alto-hoja', `${hoja}px`);
-  if (raiz.querySelector('.hoja-mapa')?.dataset.estado === 'resumen') raiz.style.setProperty('--alto-hoja-resumen', `${hoja}px`);
-  raiz.style.setProperty('--alto-abajo', `${hoja + (avisos ? avisos + 8 : 0)}px`);
+  raiz.style.setProperty('--alto-abajo', `${avisos ? avisos + 8 : 0}px`);
 }
 
 async function montar(estadoInicial) {
@@ -78,7 +76,7 @@ async function montar(estadoInicial) {
   let vivo = true;   // false tras destruir(): lo que aún esté en curso (un toque, una descarga) ya no toca nada
 
   // ---------- DOM ----------
-  // Orden (y tabulación): buscador y chips, Capas y Mi ubicación, panel, avisos y hoja, y al final el lienzo (decisión 10).
+  // Orden (y tabulación): buscador y chips, Capas y Mi ubicación, panel, la línea de aviso y al final el lienzo.
   const lienzo = el('div', { clase: 'mapa-completo__lienzo', attrs: { role: 'region', 'aria-label': 'Mapa con las zonas, sus montes y las manchas donde es más probable encontrar setas' } });
   const anuncio = el('p', { clase: 'solo-lector', attrs: { 'aria-live': 'polite' } });
   const avisos = el('div', { clase: 'mapa-completo__avisos' });
@@ -86,14 +84,13 @@ async function montar(estadoInicial) {
   const panel = el('div', { id: 'mapa-panel-capas', clase: 'mapa-completo__panel', hidden: true });
   const botonCapas = el('button', { type: 'button', clase: 'boton boton--suave boton--icono mapa-completo__boton', attrs: { 'aria-label': 'Capas', 'aria-expanded': 'false', 'aria-controls': 'mapa-panel-capas' } }, icono('i-capas'));
   const botonYo = el('button', { type: 'button', clase: 'boton boton--suave boton--icono mapa-completo__boton', attrs: { 'aria-label': 'Mi ubicación' } }, icono('i-ubicacion'));
-  const hoja = crearHojaMapa({ alCambiarDia: (f) => { ui.fecha = f; cambio(); } });
   const mapa = L.map(lienzo, { zoomControl: false, minZoom: 6, maxZoom: 18 });
   const busqueda = crearBusquedaMapa({ L, mapa, datos, chips: () => listaChips(), alChip: (id) => { ui.chip = id; cambio(); },
     alRuta: (r) => irARuta(r, { enfocar: true }), alLugar: alElegirLugar, alError: (t) => avisar(t), vivo: () => vivo });
   const arriba = el('div', { clase: 'mapa-completo__arriba' }, busqueda.nodo, chips);
   const raiz = el('div', { clase: 'mapa-completo' }, arriba,
     el('div', { clase: 'mapa-completo__botones' }, botonCapas, botonYo), panel,
-    el('div', { clase: 'mapa-completo__abajo' }, avisos), hoja.nodo, anuncio, lienzo);
+    el('div', { clase: 'mapa-completo__abajo' }, avisos), anuncio, lienzo);
   medirBarras(raiz);
 
   // ---------- Mapa ----------
@@ -106,35 +103,40 @@ async function montar(estadoInicial) {
   let fondo = crearFondo(L, prefs.fondo).addTo(mapa);
   const capas = Object.fromEntries(Object.keys(SUPERPUESTAS).map((k) => [k, L.layerGroup()]));
   const contorno = L.layerGroup().addTo(mapa);
-  const chinchetas = crearCapaChinchetas(L, { alTocar: (c) => irARuta(c.tipo === 'zona' ? rutaMapa({ zona: c.id }) : rutaMapa({ zona: c.zona, punto: c.id }), { enfocar: true }) });
+  // Zona → se acerca a sus montes; monte → su página (Zona con ese punto elegido; app.js mueve allí el foco).
+  const chinchetas = crearCapaChinchetas(L, { alTocar: (c) => {
+    if (c.tipo === 'zona') irARuta(rutaMapa({ zona: c.id }), { enfocar: true });
+    else if (vivo) location.hash = rutaZona(c.zona, c.id);
+  } });
   chinchetas.capa.addTo(mapa);
-  const etiquetas = crearCapaEtiquetas(L, { alTocar: (ll) => { tocar(ll).catch((err) => avisar(err.message)); } });   // las mejores manchas de la vista (nivel 3)
+  const etiquetas = crearCapaEtiquetas(L, { alTocar: (ll) => { tocar(ll).catch((err) => avisar(err.message)); } });   // las mejores manchas de la vista
   etiquetas.capa.addTo(mapa);
   const todas = L.latLngBounds(datos.zonas.map(limitesZona).flat());
   const medido = () => lienzo.clientWidth > 0 && lienzo.clientHeight > 0;
-  // Encuadre sin dejar nada bajo el buscador ni bajo la hoja (en «resumen» como mucho: la completa no cuenta).
+  // Encuadre sin dejar nada bajo el buscador ni bajo la línea de aviso, la atribución o la barra de navegación.
   const margenes = () => { const v = (n, d) => parseFloat(raiz.style.getPropertyValue(n)) || d;
-    // La hoja cuenta lo que mide; en «completa», lo que medía en «resumen» (si no, no quedaría mapa que encuadrar).
-    const hojaAlta = v('--alto-hoja', 148), cuenta = hoja.estado() === 'completa' ? v('--alto-hoja-resumen', hojaAlta) : hojaAlta;
-    const abajo = cuenta + v('--alto-abajo', 148) - hojaAlta;
-    const tapa = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;   // la atribución tapa el mapa encima de la hoja
+    const tapa = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;
     const arriba = v('--alto-arriba', 180) + 8;
-    let bajo = v('--alto-nav', 112) + abajo + tapa + 8;
-    // Si buscador, hoja y avisos no dejan hueco (móvil con varios avisos), se recorta el margen de abajo: con márgenes
-    // mayores que la pantalla, fitBounds se iría al zoom máximo (todo verde liso).
+    let bajo = v('--alto-nav', 112) + v('--alto-abajo', 0) + tapa + 8;
+    // Sin hueco (móvil apaisado, aviso desplegado), se recorta el margen de abajo: con márgenes mayores que la pantalla,
+    // fitBounds se iría al zoom máximo (todo verde liso).
     const alto = lienzo.clientHeight || 0;
     if (alto && arriba + bajo > alto - HUECO_MINIMO) bajo = Math.max(0, alto - HUECO_MINIMO - arriba);
     return { paddingTopLeft: [16, arriba], paddingBottomRight: [16, bajo], animate: false }; };
+  // Popups: el autoPan los deja dentro del mismo hueco, sin pasar bajo la columna de botones de la derecha (Capas, Mi
+  // ubicación, zoom), y si no caben hacen scroll por dentro.
+  const popupOpciones = (extra = {}) => { const m = margenes(), alto = lienzo.clientHeight || 600;
+    return { ...POPUP, autoPanPaddingTopLeft: [16, m.paddingTopLeft[1]], autoPanPaddingBottomRight: [COLUMNA_BOTONES, m.paddingBottomRight[1]],
+      maxHeight: Math.max(160, alto - m.paddingTopLeft[1] - m.paddingBottomRight[1] - 40), ...extra }; };
   // Para encuadrar chinchetas: suben ALTO_CHINCHETA sobre su punto, así que arriba hace falta ese margen de más.
   const margenesChinchetas = () => { const m = margenes(); return { ...m, paddingTopLeft: [m.paddingTopLeft[0], m.paddingTopLeft[1] + ALTO_CHINCHETA] }; };
-  // Centra un punto en el hueco que dejan el buscador y la hoja (con margenesChinchetas si lleva chincheta encima).
+  // Centra un punto en el hueco que dejan el buscador y la barra de abajo (con margenesChinchetas si lleva chincheta encima).
   function centrar([lat, lon], zoom, m = margenes()) {
     const desfase = (m.paddingBottomRight[1] - m.paddingTopLeft[1]) / 2;
     mapa.setView(mapa.unproject(mapa.project([lat, lon], zoom).add([0, desfase]), zoom), zoom, { animate: false });
   }
-  // Todas las zonas (nivel 1): si no caben ni en el zoom mínimo (en el móvil la hoja y los avisos dejan poco hueco), se
-  // alinea su borde norte bajo el buscador, con las chinchetas enteras, en vez de centrarlas (las del norte quedarían
-  // debajo del buscador); las del sur quedan sobre la hoja, que ya las lista.
+  // Todas las zonas (nivel 1): si no caben ni en el zoom mínimo, se alinea su borde norte bajo el buscador, con las
+  // chinchetas enteras, en vez de centrarlas (las del norte quedarían debajo del buscador).
   function encuadrarTodas() {
     const m = margenesChinchetas(), z = mapa.getMinZoom();
     const no = mapa.project(todas.getNorthWest(), z), se = mapa.project(todas.getSouthEast(), z);
@@ -150,12 +152,11 @@ async function montar(estadoInicial) {
   }
   let encuadre = null;
   const encuadrar = (f) => { if (medido()) { encuadre = null; f(); } else encuadre = f; };
-  // El hueco libre cambia con la hoja (abierta, completa, recogida): se recolocan las etiquetas, una vez por fotograma.
+  // El hueco libre cambia con el aviso o las migas: se recolocan las etiquetas, una vez por fotograma.
   const recolocarEtiquetas = () => { cancelAnimationFrame(pideEtiquetas); pideEtiquetas = requestAnimationFrame(() => colocarEtiquetas()); };
   const medida = new ResizeObserver(() => { medirBarras(raiz); mapa.invalidateSize(); recolocarEtiquetas(); if (encuadre && medido()) { const f = encuadre; encuadre = null; f(); } });
   medida.observe(lienzo);
-  medida.observe(hoja.nodo);
-  medida.observe(avisos);
+  medida.observe(avisos);   // la línea de aviso se despliega al tocarla
   medida.observe(arriba);   // las migas lo hacen más alto
 
   // ---------- Datos ----------
@@ -175,7 +176,6 @@ async function montar(estadoInicial) {
   const especiesPorZona = () => { const m = new Map(); for (const z of datos.zonas) m.set(z.id, especiesDeZona(z, datos.especies, estado.umbrales ?? {})); return m; };
   let especiesZona = especiesPorZona();
   const hoy = () => hoyMadrid();
-  const fechas = () => fechasBarra({ salida, meteo: estado.meteo, hoy: hoy() });
   const listaChips = () => chipsDelDia(datos.especies, ui.fecha ?? hoy());
   const filtro = () => filtroDeChip(listaChips(), ui.chip);
   const fechaSinIndice = () => !!salida && !(salida.fechas ?? []).includes(ui.fecha);
@@ -184,7 +184,7 @@ async function montar(estadoInicial) {
     if (!salida && capaRejilla && mapa.hasLayer(capaRejilla)) mapa.removeLayer(capaRejilla);
   }
 
-  // Notas del día (fecha × chip × meteo × umbrales): las mismas para chinchetas, lista y fichas.
+  // Notas del día (fecha × chip × meteo × umbrales) para las chinchetas.
   let delDia = null;
   function notasDelDia() {
     const clave = `${ui.fecha}|${ui.chip}|${version}`;
@@ -194,28 +194,22 @@ async function montar(estadoInicial) {
     delDia = { clave, meteo: estado.meteo, d, filtro: f, filas, zonas: chinchetasZonas(filas), montes: chinchetasMontes(datos.zonas, datos, estado.meteo, d, f, u) };
     return delDia;
   }
-  const diasDesdeHoy = () => Math.max(0, entreDias(hoy(), ui.fecha) || 0);
 
   // ---------- Selección (la ruta) ----------
   let sel = { zona: null, punto: null }, claveSel = null, enfocarPendiente = false, hashVisto = null;
   let rutaAplicada = null;     // la ruta de la última selección aplicada (para el historial de «‹»)
   let lugarPendiente = null;   // lugar del buscador dentro de una zona: al aplicar su zona se centra en él (y su gota)
-  let cotosPuntos = null, pidiendoCotos = null;   // cotos de los montes (ver pedirCotosPuntos)
-  // Contenido que tapa al de la selección hasta el siguiente cambio: { tipo: 'celda', modelo, extra, latlng } | { tipo: 'fuera', nombre, lat, lon }.
-  let sobrepuesto = null;
-  // Un toque explícito (chincheta, fila, sugerencia) cambia la ruta y enfoca la hoja; si la ruta ya es esa, se reencuadra igual.
+  let lugarFuera = false;      // lugar del buscador fuera de las zonas: lo dice la línea de aviso hasta otra selección
+  // Un toque explícito (chincheta, sugerencia) cambia la ruta y lleva el foco a las migas; si la ruta ya es esa, se reencuadra igual.
   function irARuta(ruta, { enfocar = false } = {}) {
     if (!vivo) return;
     if (ruta === (location.hash || '#mapa')) { aplicarSeleccion(true); cambio({ enfocar }); return; }
     enfocarPendiente = enfocar;
     location.hash = ruta;
   }
-  hoja.nodo.addEventListener('click', (e) => {
-    const a = e.target.closest?.('a[href^="#mapa"]');
-    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    e.preventDefault();
-    irARuta(a.getAttribute('href'), { enfocar: true });
-  });
+  // Tras un toque explícito, el foco va a la última miga (la zona o el monte elegido): las chinchetas se rehacen al
+  // mover el mapa y perderían el foco; las migas solo cambian con la selección.
+  const enfocarMigas = () => [...busqueda.nodo.querySelectorAll('.mapa-buscador__miga')].pop()?.focus({ preventScroll: true });
   // Migas: tocar una vuelve a encuadrar aunque sea la ruta actual; «‹» usa el atrás del historial si la entrada anterior
   // es justo su destino (así el atrás del móvil no vuelve a bajar de nivel) y, si no, navega como un enlace.
   busqueda.nodo.addEventListener('click', (e) => {
@@ -231,15 +225,14 @@ async function montar(estadoInicial) {
     if (clave === claveSel && !forzar && !lugarPendiente) return false;
     const primera = claveSel === null;
     if (clave !== claveSel) busqueda.ponerMigas(migasDe(nueva));   // ponerMigas vacía el campo: solo al cambiar
-    sel = nueva; claveSel = clave; sobrepuesto = null; toque++;
+    sel = nueva; claveSel = clave; lugarFuera = false; toque++;
     const ruta = rutaNormal(location.hash), hist = estadoHistorial({ estado: history.state, ruta, anterior: primera ? null : rutaAplicada });
     if (hist) history.replaceState(hist, '');
     rutaAplicada = ruta;
     const lugar = lugarPendiente;
     lugarPendiente = null;
     if (lugar?.gota) busqueda.ponerChincheta(lugar.lat, lugar.lon, lugar.nombre); else busqueda.quitarChincheta();
-    busqueda.invalidar();   // una elección de CartoCiudad que llegue tarde ya no reencuadra ni tapa la hoja
-    if (cotosPuntos === 'error') cotosPuntos = null;   // otra selección: se reintentan los cotos
+    busqueda.invalidar();   // una elección de CartoCiudad que llegue tarde ya no reencuadra
     mapa.closePopup();
     contorno.clearLayers();
     if (sel.zona) L.polygon(contornoZona(sel.zona.bbox), ESTILO_CONTORNO).addTo(contorno);
@@ -258,60 +251,50 @@ async function montar(estadoInicial) {
     b.addEventListener('click', alPulsar);
     return b;
   };
-  // Una fila de chips solo se rehace si cambia su contenido o el pulsado; si se rehace con el foco dentro, el foco pasa
-  // al chip equivalente (misma especie o mismo día).
-  function ponerFila(fila, items, pintarFila) {
-    const firma = JSON.stringify(items.map((x) => [x.clave, x.texto, x.pulsado]));
-    if (fila.dataset.firma === firma) return;
-    fila.dataset.firma = firma;
-    const enfocado = fila.contains(document.activeElement) ? document.activeElement.dataset.clave : null;
-    pintarFila(items);
-    if (enfocado != null) [...fila.children].find((b) => b.dataset.clave === enfocado)?.focus({ preventScroll: true });
-  }
-  const filaDias = hoja.nodo.querySelector('.hoja-mapa__dias');
-  function pintarControles() {
-    const fs = fechas();
-    if (!fs.includes(ui.fecha)) ui.fecha = fs[0];
+  // Los chips solo se rehacen si cambia su contenido o el pulsado; si se rehacen con el foco dentro, el foco pasa al chip
+  // de la misma especie. Filtran chinchetas, manchas y etiquetas: se enseñan también sin índice.
+  function pintarChips() {
     const lista = listaChips();
     ui.chip = chipVigente(ui.chip, lista);
-    // Los chips filtran chinchetas, listas y manchas: se enseñan también sin índice.
-    ponerFila(chips, lista.map((c) => ({ clave: c.id, texto: c.texto, pulsado: c.id === ui.chip, alPulsar: () => { ui.chip = c.id; cambio(); } })),
-      (items) => chips.replaceChildren(...items.map((x) => chip(x.clave, x.texto, x.pulsado, x.alPulsar))));
-    ponerFila(filaDias, barraDias(fs, hoy(), ui.fecha).map((d) => ({ clave: d.fecha, texto: d.menosFiable ? `${d.texto} · menos fiable` : d.texto, pulsado: d.pulsado })),
-      (items) => hoja.ponerDias(items));
+    const firma = JSON.stringify(lista.map((c) => [c.id, c.texto, c.id === ui.chip]));
+    if (chips.dataset.firma === firma) return;
+    chips.dataset.firma = firma;
+    const enfocado = chips.contains(document.activeElement) ? document.activeElement.dataset.clave : null;
+    chips.replaceChildren(...lista.map((c) => chip(c.id, c.texto, c.id === ui.chip, () => { ui.chip = c.id; cambio(); })));
+    if (enfocado != null) [...chips.children].find((b) => b.dataset.clave === enfocado)?.focus({ preventScroll: true });
   }
+  // Una sola línea (el primer aviso de avisosMapa), con elipsis; al tocarla se despliega entera o se vuelve a recoger.
   function pintarAvisos() {
     const meteo = estado.meteo;
-    // La lista de zonas ya dice «Con los últimos datos»: el aviso del mapa sale en los demás contenidos.
-    const otroDia = meteo?.series && meteo.hoy && meteo.hoy !== hoy() && (sel.zona || sobrepuesto)
+    const otroDia = meteo?.series && meteo.hoy && meteo.hoy !== hoy()
       ? `Con los últimos datos, del ${FECHA_DIA.format(new Date(`${meteo.hoy}T12:00:00Z`))}: no se ha podido actualizar la previsión.` : null;
-    const lista = avisosMapa({ salida, sinDescompresion, cargando: cargandoLaderas, meteo, otroDia, viejo: salida && avisoIndice(salida),
-      diasDesdeHoy: diasDesdeHoy(), zoom: mapa.getZoom(), error, fechaSinIndice: fechaSinIndice(), fechaSinMeteo: !!meteo?.series && notasDelDia().d == null });
-    const firma = JSON.stringify(lista);
+    const aviso = primerAviso(avisosMapa({ salida, sinDescompresion, cargando: cargandoLaderas, meteo, otroDia, viejo: salida && avisoIndice(salida),
+      error, fuera: lugarFuera, fechaSinIndice: fechaSinIndice(), fechaSinMeteo: !!meteo?.series && notasDelDia().d == null }));
+    const firma = JSON.stringify(aviso);
     if (avisos.dataset.firma === firma) return;
     avisos.dataset.firma = firma;
-    avisos.replaceChildren(...lista.map(([i, t]) => el('div', { clase: 'aviso', attrs: { role: 'note' } }, icono(i), el('p', { texto: t }))));
+    if (!aviso) { avisos.replaceChildren(); medirBarras(raiz); return; }
+    const linea = el('button', { type: 'button', clase: 'aviso mapa-completo__aviso', attrs: { 'aria-expanded': 'false' } }, icono(aviso[0]), el('p', { texto: aviso[1] }));
+    linea.addEventListener('click', () => linea.setAttribute('aria-expanded', String(linea.getAttribute('aria-expanded') !== 'true')));
+    avisos.replaceChildren(linea);
     medirBarras(raiz);
   }
   const avisar = (t) => { if (!vivo) return; error = t; pintarAvisos(); };
   let claveVista = null;
-  // Repinta todo con la selección, el día y el chip actuales. Solo enfoca la hoja tras un toque explícito.
+  // Repinta todo con la selección y el chip actuales (y la fecha de hoy). Solo mueve el foco tras un toque explícito.
   function cambio({ enfocar = false } = {}) {
     if (!vivo) return;
     error = null;
-    pintarControles();
+    ui.fecha = fechaDelMapa({ salida, hoy: hoy() });
+    pintarChips();
     // Las rejillas fuera de la vista no se quedan con el día o la especie de antes; si nada de eso cambia (llega la
-    // meteo), no se vacían: así no parpadean.
+    // meteo), no se vacían: así no parpadean. La ficha de una ladera abierta ya no valdría: se cierra.
     const clave = `${ui.fecha}|${ui.chip}|${salida?.sello}|${version}`;
-    const otroDiaOChip = clave !== claveVista;
-    if (otroDiaOChip) { claveVista = clave; capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; }
+    if (clave !== claveVista) { claveVista = clave; capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; if (fichaLadera) mapa.closePopup(fichaLadera); }
     pintarAvisos(); repintar(); pintarChinchetas();
     if (mapa.hasLayer(capas.lluvia)) pintarLluvia();
-    // Una ladera tocada se recalcula con el día y el chip nuevos (sin mover el foco); lo demás se repinta.
-    if (otroDiaOChip && sobrepuesto?.tipo === 'celda' && sobrepuesto.latlng) tocar(sobrepuesto.latlng, { enfocar: false }).catch((e) => avisar(e.message));
-    pintarHoja({ enfocar });
-    const c = listaChips().find((x) => x.id === ui.chip), d = barraDias(fechas(), hoy(), ui.fecha).find((x) => x.pulsado);
-    const texto = `Mapa: ${c?.texto ?? 'Mejor hoy'}, ${d?.texto ?? 'hoy'}.`;
+    if (enfocar) enfocarMigas();
+    const texto = `Mapa: ${listaChips().find((x) => x.id === ui.chip)?.texto ?? 'Mejor hoy'}.`;
     if (anuncio.textContent !== texto) anuncio.textContent = texto;   // el lector no lo repite en cada llegada de la meteo
   }
 
@@ -334,37 +317,19 @@ async function montar(estadoInicial) {
     chinchetas.poner(lista, elegida);
   }
 
-  // ---------- Hoja: lo elegido ----------
-  // Cotos de los puntos (1 MB la primera vez): se piden al elegir una zona y, al llegar, se repinta la hoja. Si fallan, se
-  // vuelven a pedir al cambiar de selección (no en cada repintado: sin red sería un bucle).
-  function pedirCotosPuntos() {
-    pidiendoCotos ??= (async () => {
-      const m = new Map();
-      for (const z of datos.zonas) for (const p of z.puntos) m.set(p.id, (await poligonoEn(p.lon, p.lat, (q) => q.tipo !== 'prohibido'))?.properties ?? null);
-      cotosPuntos = m;
-    })().catch(() => { cotosPuntos = 'error'; pidiendoCotos = null; }).finally(() => { if (vivo && sel.zona && !sobrepuesto) pintarHoja(); });
-  }
-  function pintarHoja({ enfocar = false } = {}) {
-    if (!vivo) return;
-    if (sobrepuesto?.tipo === 'celda') { hoja.poner(sobrepuesto.modelo, sobrepuesto.extra, { enfocar }); return; }
-    if (sel.zona && !sobrepuesto && cotosPuntos !== 'error') pedirCotosPuntos();   // tras un fallo, hasta la siguiente selección
-    const { modelo, extra } = contenidoHoja({ sel, fuera: sobrepuesto?.tipo === 'fuera' ? sobrepuesto : null, notas: notasDelDia(), datos, meteo: estado.meteo,
-      umbrales: estado.umbrales ?? {}, fecha: ui.fecha, hoy: hoy(), dHoy: diasDesdeHoy(), cotos: cotosPuntos });
-    hoja.poner(modelo, extra, { enfocar });
-  }
-  // Lugar elegido en el buscador. Dentro de las zonas: se elige la zona que lo contiene (migas y hoja pasan a ella, sin
-  // monte), y al aplicarla el mapa se centra en el lugar con su gota. Fuera: la hoja lo dice y el mapa enseña también las
-  // zonas más cercanas. Cualquier contenido sobrepuesto (ladera tocada, otro lugar) se quita.
+  // Lugar elegido en el buscador. Dentro de las zonas: se elige la zona que lo contiene (migas y chinchetas pasan a ella,
+  // sin monte), y al aplicarla el mapa se centra en el lugar con su gota. Fuera: la línea de aviso lo dice y el mapa
+  // enseña también las zonas más cercanas.
   function alElegirLugar({ nombre, lat, lon, zoom = 13, fuera, gota = true }) {
     if (!vivo) return;
     if (!fuera) {
       const zona = zonaDeLugar(lat, lon, datos.zonas);
-      sobrepuesto = null;
+      lugarFuera = false;
       lugarPendiente = { nombre, lat, lon, zoom, gota };
       irARuta(rutaMapa({ zona: zona.id }), { enfocar: true });
       return;
     }
-    sobrepuesto = { tipo: 'fuera', nombre, lat, lon };
+    lugarFuera = true;
     const cerca = zonasMasCercanas(lat, lon, datos.zonas, 3);
     encuadrar(() => {
       const caja = L.latLngBounds([[lat, lon], ...cerca.flatMap(limitesZona)]), m = margenesChinchetas();
@@ -376,7 +341,7 @@ async function montar(estadoInicial) {
       const centro = mapa.unproject(mapa.project([lat, lon], z).subtract([0, Math.max(0, hueco / 2 - 40)]), z);
       centrar([centro.lat, centro.lng], z);
     });
-    cambio({ enfocar: true });
+    cambio();
   }
 
   // ---------- Pintado de las manchas ----------
@@ -442,10 +407,10 @@ async function montar(estadoInicial) {
     vistasEtiquetas = { archivos, ctx: { datos, rej, salida, gruesasPorArchivo, especiesZona, fecha, filtro: filtroActual } };
     colocarEtiquetas();
   }
-  // Elige y pone las etiquetas con lo último calculado; se repite al cambiar el hueco libre (la hoja se abre o se recoge).
+  // Elige y pone las etiquetas con lo último calculado; se repite al cambiar el hueco libre (aviso, migas).
   function colocarEtiquetas() {
     if (!vistasEtiquetas || !vivo || mapa.getZoom() < ZOOM_ETIQUETAS) return;
-    // Solo el hueco que dejan buscador, chips y hoja (y media etiqueta a los lados, para que quepa entera).
+    // Solo el hueco que dejan buscador, chips y aviso (y media etiqueta a los lados, para que quepa entera).
     const m = margenes(), tam = mapa.getSize(), no = mapa.containerPointToLatLng([m.paddingTopLeft[0] + MEDIA_ANCHURA_ETIQUETA, m.paddingTopLeft[1]]),
       se = mapa.containerPointToLatLng([tam.x - m.paddingBottomRight[0] - MEDIA_ANCHURA_ETIQUETA, tam.y - m.paddingBottomRight[1]]);
     etiquetas.poner(etiquetasDeVista({ archivos: vistasEtiquetas.archivos, bounds: [no.lng, se.lat, se.lng, no.lat], ctx: vistasEtiquetas.ctx }));
@@ -462,7 +427,7 @@ async function montar(estadoInicial) {
         const g = await cargarCotos();
         const col = { type: 'FeatureCollection', features: g.features.filter((f) => (f.properties.tipo === 'prohibido') === (id === 'prohibido')) };
         capas[id].addLayer(L.geoJSON(col, { style: (f) => estiloHalo(f.properties), interactive: false }));
-        // El toque sigue al mapa (bubbling): dentro de un prohibido abre la hoja roja; en un coto, la hoja o su ficha.
+        // El toque sigue al mapa (bubbling): dentro de un prohibido abre el popup rojo; en un coto, la ladera o su ficha.
         capas[id].addLayer(L.geoJSON(col, { style: (f) => estiloCoto(f.properties), onEachFeature: (f, c) => c.bindTooltip(el('span', { texto: f.properties.nombre }), { sticky: true }) }));
       } else if (id === 'sitios') pintarSitios();
       else if (id === 'diario') {
@@ -481,7 +446,7 @@ async function montar(estadoInicial) {
         const ag = agregadosDeCelda(salida, g.id, ui.fecha);
         if (ag?.P26 == null) continue;
         const [o, s, e, n] = limitesGruesa(g.id, rej.gruesa.pasos[g.zona]);
-        // Interactivos para que el tooltip enseñe los mm; el toque sigue hasta el mapa (bubbling) y abre la hoja igual.
+        // Interactivos para que el tooltip enseñe los mm; el toque sigue hasta el mapa (bubbling) y abre la ficha igual.
         L.rectangle([[s, o], [n, e]], { pane: 'lluvia', stroke: false, fillColor: COLOR.lluvia, fillOpacity: Math.min(0.45, ag.P26 / 200) })
           .bindTooltip(`${Math.round(ag.P26)} mm en 26 días`).addTo(capas.lluvia);
       }
@@ -499,7 +464,7 @@ async function montar(estadoInicial) {
       L.marker([s.lat, s.lon], { icon, title: s.nombre, keyboard: true })
         .bindPopup(() => el('div', { clase: 'mapa-popup' }, el('h3', { texto: s.nombre }), el('p', { clase: 'texto-2 texto-s', texto: s.municipio ?? '' }),
           el('p', { clase: 'mapa-popup__acciones' }, el('a', { clase: 'boton boton--compacto', href: urlComoLlegar(s.lat, s.lon), rel: 'noopener', target: '_blank', texto: 'Cómo llegar' }),
-            el('a', { clase: 'boton boton--suave boton--compacto', href: `#zona/${encodeURIComponent(s.zona)}`, texto: 'Ver zona' }))), POPUP)
+            el('a', { clase: 'boton boton--suave boton--compacto', href: rutaZona(s.zona), texto: 'Ver zona' }))), popupOpciones())
         .addTo(capas.sitios);
     }
   }
@@ -523,34 +488,28 @@ async function montar(estadoInicial) {
   botonCapas.addEventListener('click', () => { if (panel.hidden) abrirPanel(); else { cerrarPanel(); botonCapas.focus(); } });
   for (const id of prefs.activas) activar(id, true);
 
-  // ---------- Toque en el mapa: mancha, prohibido o vuelta a lo elegido ----------
+  // ---------- Toque en el mapa: mancha o prohibido (popup con su ficha) ----------
   async function poligonoEn(lon, lat, cumple) {
     cotos ??= cargarCotos().then((g) => g.features.map((f) => ({ f, b: bboxDe(f.geometry) }))).catch((e) => { cotos = null; throw e; });
     for (const { f, b: [o, s, e, n] } of await cotos) if (lon >= o && lon <= e && lat >= s && lat <= n && cumple(f.properties) && puntoEnGeometria(lon, lat, f.geometry)) return f;
     return null;
   }
-  function sobreponer(modelo, extra, latlng, enfocar) {
-    if (!vivo) return;
-    mapa.closePopup();
-    sobrepuesto = { tipo: 'celda', modelo, extra, latlng };
-    pintarAvisos();
-    hoja.poner(modelo, extra, { enfocar });
-  }
-  // Fuera de una mancha (sin índice, lejos o sin monte apropiado), la hoja vuelve a lo elegido; con la capa Cotos
-  // encendida, además, la ficha del coto en un popup.
-  async function sinMancha(latlng, enfocar) {
-    if (!vivo) return;
-    if (sobrepuesto) { sobrepuesto = null; pintarAvisos(); pintarHoja(); }
-    if (!enfocar || !mapa.hasLayer(capas.cotos)) return;
-    const coto = await poligonoEn(latlng.lng, latlng.lat, (p) => p.tipo !== 'prohibido');
-    if (coto && vivo) L.popup(POPUP).setLatLng(latlng).setContent(popupCoto(coto.properties, normas)).openOn(mapa);
-  }
-  async function tocar(latlng, { enfocar = true } = {}) {
+  let fichaLadera = null;   // el popup de la última ladera tocada (se cierra al cambiar de chip)
+  // Fuera de una mancha (sin índice, lejos o sin monte apropiado) no hay ficha; con la capa Cotos encendida, la del coto.
+  async function tocar(latlng) {
     const mio = ++toque;
-    const r = await resolverToque(latlng, { datos, normas, rej, salida, cargador, gruesasPorArchivo, especiesZona, fecha: ui.fecha, filtro: filtro(),
+    const modelo = await resolverToque(latlng, { datos, normas, rej, salida, cargador, gruesasPorArchivo, especiesZona, fecha: ui.fecha, filtro: filtro(),
       zoom: mapa.getZoom(), conManchas: !!salida && !fechaSinIndice(), poligonoEn });
     if (mio !== toque || !vivo) return;   // otro toque, otra selección o la pantalla ya cerrada
-    if (r) sobreponer(r.modelo, r.extra, latlng, enfocar); else await sinMancha(latlng, enfocar);
+    if (modelo) {
+      const rojo = modelo.tipo === 'prohibido';
+      fichaLadera = L.popup(popupOpciones(rojo ? { className: 'popup-prohibido' } : {})).setLatLng(latlng)
+        .setContent(el('div', { clase: rojo ? 'mapa-popup mapa-popup--prohibido' : 'mapa-popup' }, ...pintarLadera(modelo))).openOn(mapa);
+      return;
+    }
+    if (!mapa.hasLayer(capas.cotos)) return;
+    const coto = await poligonoEn(latlng.lng, latlng.lat, (p) => p.tipo !== 'prohibido');
+    if (coto && mio === toque && vivo) L.popup(popupOpciones()).setLatLng(latlng).setContent(popupCoto(coto.properties, normas)).openOn(mapa);
   }
   mapa.on('click', (e) => { tocar(e.latlng).catch((err) => avisar(err.message)); });
 
@@ -570,7 +529,6 @@ async function montar(estadoInicial) {
     if (encuadre || !medido()) return;
     const c = mapa.getCenter();
     ui.vista = { lat: c.lat, lon: c.lng, zoom: mapa.getZoom(), clave: claveSel };
-    pintarAvisos();
     repintar();
     pintarChinchetas();
   });
@@ -599,7 +557,7 @@ async function montar(estadoInicial) {
   return {
     raiz,
     // Lo llama app.js al cambiar la ruta y al llegar la meteo, el contraste o los umbrales: solo un cambio de selección
-    // encuadra, y solo un toque explícito previo enfoca la hoja.
+    // encuadra, y solo un toque explícito previo mueve el foco (a las migas).
     actualizar(nuevo) {
       if (nuevo.umbrales !== estado.umbrales) { imagenes.clear(); notasPor.clear(); version++; estado = nuevo; especiesZona = especiesPorZona(); } else estado = nuevo;
       const enfocar = enfocarPendiente;
