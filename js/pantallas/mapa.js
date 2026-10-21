@@ -11,7 +11,7 @@ import { hoyMadrid, entreDias } from '../meteo.js';
 import { limitesGruesa, puntoEnGeometria, bboxDe } from '../rejilla/geo.js';
 import { cargarIndice, avisoIndice, cargarDatosRejilla, archivosVisibles, crearCargadorRejillas,
   rejillasSoportadas, ZOOM_MIN_FINA } from '../rejilla/carga.js';
-import { gruesasDeArchivo, colorear, notaGruesa, colorDeNota, ALFA, ALFA_TRAMA } from '../rejilla/pintor.js';
+import { gruesasDeArchivo, colorear } from '../rejilla/pintor.js';
 import { calcularNotas } from '../rejilla/notas-async.js';
 import { agregadosDeCelda } from '../rejilla/salida.js';
 import { crearCapaRejilla } from '../mapa/capa-rejilla.js';
@@ -160,11 +160,10 @@ async function montar(estadoInicial) {
   let rej = null, salida = null, cargadoEn = Date.now(), recargando = false, cargandoLaderas = !sinDescompresion;
   const CapaRejilla = crearCapaRejilla(L);
   let capaRejilla = null;   // se crea al llegar la rejilla y se añade al mapa solo con índice (lleva la atribución del MFE50 y del MDT)
-  const capaGruesa = L.layerGroup().addTo(mapa);
   const contornos = L.layerGroup();   // contorno de los prohibidos en la vista lejana, aunque la capa Prohibido esté apagada
   let contornosPedidos = null;
   const imagenes = new Map(), notasPor = new Map(), gruesasPorArchivo = new Map();   // notasPor: las notas de cada imagen, para las etiquetas
-  let turno = 0, toque = 0, version = 0, claveGruesas = null, cotos = null, error = null;
+  let turno = 0, toque = 0, version = 0, cotos = null, error = null;
 
   const especiesPorZona = () => { const m = new Map(); for (const z of datos.zonas) m.set(z.id, especiesDeZona(z, datos.especies, estado.umbrales ?? {})); return m; };
   let especiesZona = especiesPorZona();
@@ -388,11 +387,12 @@ async function montar(estadoInicial) {
     const mia = ++turno;
     ponerContornos();
     // Sin índice, o con un día que el índice no tiene, no hay manchas (lo dice el aviso).
-    if (!salida || fechaSinIndice()) { capaGruesa.clearLayers(); claveGruesas = null; capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; return; }
+    if (!salida || fechaSinIndice()) { capaRejilla?.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; return; }
     const zoom = mapa.getZoom();
-    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; pintarGruesas(); return; }
+    // Lejos (por debajo de ZOOM_MIN_FINA) no se pintan celdas: las chinchetas de zona ya llevan la nota (la usuaria no
+    // quiere cuadrados de color en el mapa).
+    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); etiquetas.limpiar(); vistasEtiquetas = null; return; }
     if (zoom < ZOOM_ETIQUETAS) { etiquetas.limpiar(); vistasEtiquetas = null; }
-    capaGruesa.clearLayers(); claveGruesas = null;
     const b = mapa.getBounds(), f = filtro(), fecha = ui.fecha, chipActual = ui.chip;
     const vistos = [];
     for (const a of archivosVisibles(rej.indice, [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()], zoom)) {
@@ -442,22 +442,6 @@ async function montar(estadoInicial) {
     const m = margenes(), tam = mapa.getSize(), no = mapa.containerPointToLatLng([m.paddingTopLeft[0] + MEDIA_ANCHURA_ETIQUETA, m.paddingTopLeft[1]]),
       se = mapa.containerPointToLatLng([tam.x - m.paddingBottomRight[0] - MEDIA_ANCHURA_ETIQUETA, tam.y - m.paddingBottomRight[1]]);
     etiquetas.poner(etiquetasDeVista({ archivos: vistasEtiquetas.archivos, bounds: [no.lng, se.lat, se.lng, no.lat], ctx: vistasEtiquetas.ctx }));
-  }
-  function pintarGruesas() {
-    const clave = `${ui.fecha}|${ui.chip}|${salida.sello}|${version}`;
-    if (clave === claveGruesas) return;   // mover el mapa lejos no cambia las celdas gruesas
-    claveGruesas = clave;
-    capaGruesa.clearLayers();
-    const f = filtro();
-    for (const g of rej.gruesa.celdas) {
-      const color = colorDeNota(notaGruesa(g, { salida, fecha: ui.fecha, especies: especiesZona.get(g.zona) ?? [], filtro: f }));
-      if (!color) continue;
-      const [o, s, e, n] = limitesGruesa(g.id, rej.gruesa.pasos[g.zona]);
-      // «Sin datos»: más claro y con borde punteado, para no confundirlo con «Nulo».
-      const sinDatos = color === NIVEL_COLOR['sin-datos'];
-      L.rectangle([[s, o], [n, e]], { pane: 'rejilla', stroke: sinDatos, color, weight: 1, dashArray: '3 3', fillColor: color,
-        fillOpacity: (sinDatos ? ALFA_TRAMA : ALFA) / 255, interactive: false }).addTo(capaGruesa);
-    }
   }
 
   // ---------- Capas superpuestas ----------

@@ -162,8 +162,8 @@ completa), `--alto-hoja` (lo que mide la hoja ahora; `--alto-hoja-resumen`, lo q
 
 Las manchas usan `NIVEL_COLOR` de `js/mapa/colores.js` con alfa 150/255; las celdas con monte apropiado pero sin datos
 suficientes, el gris `NIVEL_COLOR['sin-datos']` en damero (celdas alternas con alfa 110/255 y 35/255), para no
-confundirlo con el gris liso de «Nulo»; la leyenda del panel lo enseña igual. En la vista lejana, las celdas gruesas
-van con alfa 150/255 y las «sin datos», con alfa 35/255 y borde punteado; encima, siempre el contorno de los prohibidos. Nunca se colorea una celda sin hábitat ni prohibida.
+confundirlo con el gris liso de «Nulo»; la leyenda del panel lo enseña igual. En la vista lejana (por debajo del zoom 9) no
+se pinta ninguna celda: la nota la llevan las chinchetas de zona (la usuaria no quiere cuadrados de color en el mapa, 2026-10-21); encima, siempre el contorno de los prohibidos. Nunca se colorea una celda sin hábitat ni prohibida.
 
 Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
 
