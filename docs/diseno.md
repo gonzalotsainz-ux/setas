@@ -194,6 +194,10 @@ Pase con `frontend-design-audit:quick` y recorrido con Playwright a 390×844 en 
 consola propios (solo un 429 de Open-Meteo tras recargas repetidas, que la app gestiona), sin desbordamiento
 horizontal, con Toxicología, «Ante la duda» y la atribución de Open-Meteo visibles en todas.
 
+Capturas del mapa por niveles (`capturas/mapa-niveles-1-zonas.png`, `-2-zona.png`, `-3-monte.png`): tema claro, 390×844, del 2026-10-21,
+con Toxicología y «Ante la duda» visibles. Pendientes: las variantes en oscuro y la de «búsqueda fuera de las zonas», porque la cuota
+diaria de Open-Meteo se agotó durante la sesión y sin previsión las capturas enseñarían el estado de error.
+
 - **Corregido:** los enlaces del pie (Reglas de seguridad, 91 562 04 20, 112, Open-Meteo) medían 20 px de alto; ahora
   tienen zona de toque de 44 px (`.pie a::after`) sin mover el texto.
 - **No corregido, justificado:** los enlaces de crédito («original», «ver original», autor de la foto) y los nombres
