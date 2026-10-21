@@ -1,7 +1,8 @@
 // tests/mapa-hoja.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { urlComoLlegar, textoCoto, modeloHoja, estadoTrasArrastre, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { urlComoLlegar, textoCoto, modeloHoja, estadoTrasArrastre, firmaHoja, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { claveFoco, nodoEquivalente } from '../js/ui/dom.js';
 import { rutaZona } from '../js/mapa/ruta.js';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 
@@ -103,4 +104,29 @@ test('estadoTrasArrastre: recogida ↔ resumen ↔ completa, nunca cerrada', () 
   assert.equal(estadoTrasArrastre('completa', -80), 'completa');
   assert.equal(estadoTrasArrastre('resumen', 20), 'resumen');
   assert.equal(estadoTrasArrastre('recogida', -20), 'recogida');
+});
+
+// Repintar la hoja (llega la meteo, los cotos, el contraste) no debe dejar el foco en <body>.
+const nodoFalso = (attrs = {}, dataset = {}) => ({ getAttribute: (k) => attrs[k] ?? null, dataset });
+test('claveFoco y nodoEquivalente: el foco vuelve al enlace con el mismo href o al botón con la misma data-clave', () => {
+  const a1 = nodoFalso({ href: '#mapa/guadarrama/a' }), a2 = nodoFalso({ href: '#mapa/guadarrama/b' }), b = nodoFalso({}, { clave: '2026-10-22' });
+  assert.equal(claveFoco(a2), '#mapa/guadarrama/b');
+  assert.equal(claveFoco(b), '2026-10-22');
+  assert.equal(claveFoco(nodoFalso()), null);
+  assert.equal(claveFoco(null), null);
+  const nuevos = [nodoFalso({ href: '#mapa/guadarrama/a' }), nodoFalso({ href: '#mapa/guadarrama/b' }), nodoFalso({}, { clave: '2026-10-22' })];
+  assert.equal(nodoEquivalente(nuevos, claveFoco(a2)), nuevos[1]);
+  assert.equal(nodoEquivalente(nuevos, claveFoco(b)), nuevos[2]);
+  assert.equal(nodoEquivalente(nuevos, '#otro'), null);
+  assert.equal(nodoEquivalente(nuevos, null), null);
+  assert.ok(a1);
+});
+
+test('firmaHoja: el mismo modelo en el mismo estado no se repinta; otro estado u otra gráfica, sí', () => {
+  const m = { tipo: 'zona', id: 'g', titulo: 'Guadarrama', montes: [{ id: 'a', valor: 70 }] };
+  const x = { desglose: null, grafico: () => 1 };
+  assert.equal(firmaHoja(m, 'resumen', x), firmaHoja({ ...m, montes: [{ id: 'a', valor: 70 }] }, 'resumen', { desglose: null, grafico: () => 2 }));
+  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja(m, 'completa', x));
+  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja(m, 'resumen', { desglose: null, grafico: null }));
+  assert.notEqual(firmaHoja(m, 'resumen', x), firmaHoja({ ...m, montes: [{ id: 'a', valor: 71 }] }, 'resumen', x));
 });

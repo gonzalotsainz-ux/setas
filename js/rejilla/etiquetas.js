@@ -8,7 +8,8 @@ const NBSP = ' ';
 
 // → [{ k, col, fila, valor }]: celdas de `minimo` a 100 que son máximo local 3×3, de mayor a menor y a `separacion` celdas
 // (Chebyshev) o más unas de otras; avaricia hasta `max`. En una meseta de celdas iguales solo cuenta la primera.
-export function elegirEtiquetas({ notas, ancho, max = 3, minimo = 60, separacion = 12 }) {
+export const MINIMO_ETIQUETA = 60;   // solo llevan etiqueta las manchas de «Bueno» en adelante
+export function elegirEtiquetas({ notas, ancho, max = 3, minimo = MINIMO_ETIQUETA, separacion = 12 }) {
   const alto = Math.floor(notas.length / ancho), candidatas = [];
   const valorDe = (c, f) => (c < 0 || f < 0 || c >= ancho || f >= alto ? -1 : (notas[f * ancho + c] > 100 ? -1 : notas[f * ancho + c]));
   for (let fila = 0; fila < alto; fila++) {

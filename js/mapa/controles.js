@@ -1,7 +1,7 @@
 // js/mapa/controles.js
 // Controles del mapa a pantalla completa: chips de especie en temporada, barra de días y buscador de pueblos,
 // sitios y especies (spec §2). Lo que decide es puro (se prueba con Node); crearBuscador monta el DOM.
-import { el, icono, mayus } from '../ui/dom.js';
+import { el, icono, mayus, claveFoco, nodoEquivalente } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
 import { enTemporada, pesoPrevision } from '../indice.js';
 import { entreDias } from '../meteo.js';
@@ -150,11 +150,14 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
     else if (e.key === 'Escape' && resultados.length) { e.stopPropagation(); cerrar(); }
   });
   input.addEventListener('blur', cerrar);
+  // Si el foco estaba en una miga, vuelve a la del mismo href (o a la primera, o al campo si ya no hay migas).
   const ponerMigas = (items) => {
+    const enfocada = migas.contains(document.activeElement) ? claveFoco(document.activeElement) : null;
     migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto,
       attrs: { ...(m.aria ? { 'aria-label': m.aria } : {}), ...(m.subir ? { 'data-subir': 'true' } : {}) } })));
     migas.hidden = !items.length;
     input.value = '';
+    if (enfocada != null) (nodoEquivalente(migas.children, enfocada) ?? migas.querySelector('a') ?? input).focus({ preventScroll: true });
   };
   const limpiarMigas = () => ponerMigas([]);
   return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, migas, el('div', { clase: 'mapa-buscador__campo' }, icono('i-buscar'), input), lista), input, ponerMigas, limpiarMigas };

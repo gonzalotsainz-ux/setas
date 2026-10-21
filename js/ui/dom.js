@@ -18,3 +18,6 @@ export function icono(id) {
 }
 export const etiqueta = (texto, variante) => el('span', { clase: `etiqueta${variante ? ` etiqueta--${variante}` : ''}`, texto });
 export const mayus = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+// Lo que identifica a un enlace o un botón entre repintados (su href o su data-clave), para devolverle el foco al nuevo.
+export const claveFoco = (n) => n?.getAttribute?.('href') ?? n?.dataset?.clave ?? null;
+export const nodoEquivalente = (nodos, clave) => (clave == null ? null : [...nodos].find((n) => claveFoco(n) === clave) ?? null);

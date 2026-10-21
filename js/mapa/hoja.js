@@ -3,7 +3,7 @@
 // Su contenido sigue a la selección: lista de zonas, zona y sus montes, ficha de monte, mancha (ladera) o zona prohibida
 // (variante roja). Los modelos puros están en modelos-hoja.js; aquí solo se pintan. El foco se mueve solo con `enfocar: true`.
 // `celda` = { habitat, altitud, orientacion, tramo, lat, lon, fueraProvincias? } (fueraProvincias = bit 0x20 del hábitat).
-import { el, icono, etiqueta } from '../ui/dom.js';
+import { el, icono, etiqueta, claveFoco, nodoEquivalente } from '../ui/dom.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
 import { urlSegura } from '../ui/normativa.js';
@@ -158,6 +158,8 @@ function pintarLadera(m, extra) {
 }
 
 const PINTORES = { prohibido: pintarProhibido, listaZonas: pintarListaZonas, fuera: pintarFuera, zona: pintarZona, monte: pintarMonte, ladera: pintarLadera, sinDatos: pintarLadera };
+// Lo que decide si hay que repintar: el modelo (datos puros), el estado (completa enseña más) y qué piezas perezosas hay.
+export const firmaHoja = (m, estado, x = {}) => JSON.stringify([m, estado, !!x.desglose, !!x.grafico]);
 const contenido = (m, extra = {}) => (PINTORES[m.tipo] ?? pintarLadera)(m, extra);
 const familia = (m) => (m.tipo === 'listaZonas' || m.tipo === 'fuera' ? 'lista' : 'ficha');
 const ESTADOS = ['recogida', 'resumen', 'completa'];
@@ -173,13 +175,18 @@ export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } =
   const cuerpo = el('div', { clase: 'hoja-mapa__cuerpo', id: 'hoja-mapa-cuerpo' });
   const nodo = el('section', { clase: 'hoja-mapa', attrs: { 'data-estado': 'resumen', role: 'region', 'aria-labelledby': 'hoja-mapa-titulo' } },
     el('div', { clase: 'hoja-mapa__nucleo' }, asa, dias, corto, titulo, cuerpo));
-  let estado = 'resumen', modelo = null, clave = null, extra = {}, arrastrado = false, y0 = null;
+  let estado = 'resumen', modelo = null, clave = null, firma = null, extra = {}, arrastrado = false, y0 = null;
+  // Con el foco dentro del cuerpo, al repintar vuelve al enlace o botón equivalente (mismo href o data-clave) o, si ya no
+  // está, al título: nunca se queda en <body>.
   function pintar(reiniciarScroll = false) {
+    firma = firmaHoja(modelo, estado, extra);
     if (modelo.tipo === 'prohibido') nodo.dataset.variante = 'prohibido'; else delete nodo.dataset.variante;
     titulo.textContent = modelo.titulo;
     corto.textContent = modelo.corto ?? modelo.titulo;
+    const activo = document.activeElement, dentro = cuerpo.contains(activo), enfocada = dentro ? claveFoco(activo) : null;
     cuerpo.replaceChildren(...contenido(modelo, { ...extra, completa: estado === 'completa' }).filter(Boolean));
     if (reiniciarScroll) cuerpo.scrollTop = 0;   // solo al cambiar de elegido; no al repintar el mismo (llega la meteo)
+    if (dentro) (nodoEquivalente(cuerpo.querySelectorAll('a[href], button'), enfocada) ?? titulo).focus({ preventScroll: true });
   }
   const ponerEstado = (e, repintar = true) => {
     if (!ESTADOS.includes(e) || e === estado) return;
@@ -211,13 +218,14 @@ export function crearHojaMapa({ alElegir = () => {}, alCambiarDia = () => {} } =
   return {
     nodo,
     // Repinta sin cambiar de estado, salvo que cambie la familia del modelo (lista ↔ ficha): entonces vuelve a «resumen».
+    // Si el modelo y el estado son los mismos (llega la meteo sin cambiar nada de lo que se ve) no se repinta.
     poner(m, x = {}, { enfocar = false } = {}) {
       const otraFamilia = !modelo || familia(m) !== familia(modelo);
       const nueva = `${m.tipo}|${m.id ?? m.titulo}`;
       modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null };
       // «recogida» oculta el título: para enfocar hay que subir antes. Se pinta una sola vez (los constructores de gráfico no se repiten).
       if (otraFamilia || (enfocar && estado === 'recogida')) ponerEstado('resumen', false);
-      pintar(nueva !== clave);
+      if (firmaHoja(modelo, estado, extra) !== firma) pintar(nueva !== clave);
       clave = nueva;
       if (enfocar) titulo.focus({ preventScroll: true });
     },

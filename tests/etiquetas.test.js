@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { elegirEtiquetas, textoEtiqueta } from '../js/rejilla/etiquetas.js';
+import { elegirEtiquetas, textoEtiqueta, MINIMO_ETIQUETA } from '../js/rejilla/etiquetas.js';
+import { notaParaEtiqueta } from '../js/mapa/capa-etiquetas.js';
 
 test('elegirEtiquetas: máximos locales de 60 o más, de mayor a menor, separados y como mucho 3', () => {
   const ancho = 40, notas = new Uint8Array(40 * 40).fill(255);
@@ -32,4 +33,15 @@ test('textoEtiqueta: umbría, solana o altitud', () => {
   assert.equal(textoEtiqueta({ especie: 'Boletus', valor: 66, orientacion: 5, altitud: 1450 }), 'Boletus 66 · solana');
   assert.equal(textoEtiqueta({ especie: 'Rebozuelo', valor: 62, orientacion: 3, altitud: 1450 }), 'Rebozuelo 62 · 1450 m');
   assert.equal(textoEtiqueta({ especie: 'Rebozuelo', valor: 62, orientacion: 0, altitud: 1453 }), 'Rebozuelo 62 · 1450 m');
+});
+
+test('notaParaEtiqueta: la nota recalculada de la celda tiene que seguir siendo de 60 o más (no basta con que exista)', () => {
+  const especie = { id: 'boletus-edulis' };
+  assert.equal(MINIMO_ETIQUETA, 60);
+  assert.equal(notaParaEtiqueta({ valor: 72, especie, sinEspecies: false }), true);
+  assert.equal(notaParaEtiqueta({ valor: 60, especie, sinEspecies: false }), true);
+  assert.equal(notaParaEtiqueta({ valor: 59, especie, sinEspecies: false }), false);
+  assert.equal(notaParaEtiqueta({ valor: null, especie, sinEspecies: false }), false);
+  assert.equal(notaParaEtiqueta({ valor: 80, especie: null, sinEspecies: false }), false);
+  assert.equal(notaParaEtiqueta({ valor: 80, especie, sinEspecies: true }), false);
 });

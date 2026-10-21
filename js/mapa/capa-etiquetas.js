@@ -4,7 +4,7 @@
 import { aGrados, aMercator, celdaFina, centroFina } from '../rejilla/geo.js';
 import { PROHIBIDO, CODIGO } from '../rejilla/formato.js';
 import { SIN_COLOR } from '../rejilla/pintor.js';
-import { elegirEtiquetas, separar, textoEtiqueta } from '../rejilla/etiquetas.js';
+import { elegirEtiquetas, separar, textoEtiqueta, MINIMO_ETIQUETA } from '../rejilla/etiquetas.js';
 import { notaDeLadera } from './toque-celda.js';
 import { nivelDe } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
@@ -27,6 +27,10 @@ function recortar(notas, a, bounds) {
   return dentro;
 }
 
+// La nota recalculada de la celda (notaDeLadera) puede no coincidir con la del pintor: solo se etiqueta si sigue siendo de
+// MINIMO_ETIQUETA o más y dice la especie.
+export const notaParaEtiqueta = (nota) => !nota.sinEspecies && nota.valor != null && nota.valor >= MINIMO_ETIQUETA && !!nota.especie;
+
 // archivos = [{ a (del índice), r (rejilla cargada), notas }] → [{ lat, lon, texto, valor, nivel }] (como mucho 3).
 export function etiquetasDeVista({ archivos, bounds, ctx }) {
   const candidatas = [];
@@ -42,7 +46,7 @@ export function etiquetasDeVista({ archivos, bounds, ctx }) {
     if (salida.length >= MAX) break;
     const m = centroFina(c.col, c.fila), { lat, lon } = aGrados(m.x, m.y);
     const { nota, celda, altitud } = notaDeLadera({ r: c.r, archivo: c.archivo.archivo, k: c.k, lat, lon, ctx });
-    if (nota.sinEspecies || nota.valor == null || !nota.especie) continue;
+    if (!notaParaEtiqueta(nota)) continue;
     salida.push({ lat, lon, valor: nota.valor, nivel: nivelDe(nota.valor),
       texto: textoEtiqueta({ especie: mayus(comun(nota.especie)), valor: nota.valor, orientacion: celda.orientacion, altitud }) });
   }
@@ -54,7 +58,7 @@ export function crearCapaEtiquetas(L, { pane = 'puntos', alTocar }) {
   const poner = (lista) => {
     capa.clearLayers();
     for (const e of lista) {
-      const icon = L.divIcon({ className: '', html: `<span class="etiqueta-mancha" data-nivel="${e.nivel}">${esc(e.texto)}</span>`, iconSize: [0, 0], iconAnchor: [0, 0] });
+      const icon = L.divIcon({ className: '', html: `<span class="etiqueta-mancha" data-nivel="${e.nivel}"><span>${esc(e.texto)}</span></span>`, iconSize: [0, 0], iconAnchor: [0, 0] });
       const m = L.marker([e.lat, e.lon], { icon, pane, interactive: true, title: e.texto, zIndexOffset: e.valor });
       m.on('click', (ev) => { L.DomEvent.stopPropagation(ev); alTocar(L.latLng(e.lat, e.lon)); });
       capa.addLayer(m);

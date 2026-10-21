@@ -21,7 +21,7 @@ import { contenidoHoja } from '../mapa/contenido-hoja.js';
 import { resolverToque } from '../mapa/toque-celda.js';
 import { chipsDelDia, chipVigente, barraDias, fechasBarra, avisosMapa } from '../mapa/controles.js';
 import { crearBusquedaMapa } from '../mapa/busqueda-mapa.js';
-import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES, ZOOM_ETIQUETAS } from '../mapa/chinchetas.js';
+import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES, ZOOM_ETIQUETAS, ALTO_CHINCHETA } from '../mapa/chinchetas.js';
 import { crearCapaEtiquetas, etiquetasDeVista, MEDIA_ANCHURA_ETIQUETA } from '../mapa/capa-etiquetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
 import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
@@ -118,6 +118,8 @@ async function montar(estadoInicial) {
     const abajo = cuenta + v('--alto-abajo', 148) - hojaAlta;
     const tapa = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;   // la atribución tapa el mapa encima de la hoja
     return { paddingTopLeft: [16, v('--alto-arriba', 180) + 8], paddingBottomRight: [16, v('--alto-nav', 112) + abajo + tapa + 8], animate: false }; };
+  // Para encuadrar chinchetas: suben ALTO_CHINCHETA sobre su punto, así que arriba hace falta ese margen de más.
+  const margenesChinchetas = () => { const m = margenes(); return { ...m, paddingTopLeft: [m.paddingTopLeft[0], m.paddingTopLeft[1] + ALTO_CHINCHETA] }; };
   // Centra un punto en el hueco que dejan el buscador y la hoja.
   function centrar([lat, lon], zoom) {
     const m = margenes(), desfase = (m.paddingBottomRight[1] - m.paddingTopLeft[1]) / 2;
@@ -126,7 +128,7 @@ async function montar(estadoInicial) {
   // Zona: su bbox entera; si en el hueco del móvil eso deja el zoom por debajo del de los montes, se acerca hasta él
   // (centrado en la zona) para que se vean sus montes, que es lo que promete el nivel 2.
   function encuadrarZona(limites) {
-    mapa.fitBounds(limites, margenes());
+    mapa.fitBounds(limites, margenesChinchetas());
     if (mapa.getZoom() < ZOOM_MONTES) { const c = L.latLngBounds(limites).getCenter(); centrar([c.lat, c.lng], ZOOM_MONTES); }
   }
   let encuadre = null;
@@ -230,7 +232,7 @@ async function montar(estadoInicial) {
     else if (primera && ui.vista && ui.vista.clave === clave) mapa.setView([ui.vista.lat, ui.vista.lon], ui.vista.zoom, { animate: false });
     else if (e?.tipo === 'zona') encuadrar(() => encuadrarZona(e.limites));
     else if (e?.tipo === 'punto') encuadrar(() => centrar(e.centro, e.zoom));
-    else if (primera) encuadrar(() => mapa.fitBounds(todas, margenes()));
+    else if (primera) encuadrar(() => mapa.fitBounds(todas, margenesChinchetas()));
     return true;
   }
 
@@ -349,7 +351,7 @@ async function montar(estadoInicial) {
     sobrepuesto = { tipo: 'fuera', nombre, lat, lon };
     const cerca = zonasMasCercanas(lat, lon, datos.zonas, 3);
     encuadrar(() => {
-      const caja = L.latLngBounds([[lat, lon], ...cerca.flatMap(limitesZona)]), m = margenes();
+      const caja = L.latLngBounds([[lat, lon], ...cerca.flatMap(limitesZona)]), m = margenesChinchetas();
       const z0 = mapa.getMinZoom(), hueco0 = mapa.getSize().subtract(L.point(m.paddingTopLeft).add(m.paddingBottomRight));
       const tam = mapa.project(caja.getSouthEast(), z0).subtract(mapa.project(caja.getNorthWest(), z0));
       if (tam.x <= hueco0.x && tam.y <= hueco0.y) { mapa.fitBounds(caja, m); return; }
