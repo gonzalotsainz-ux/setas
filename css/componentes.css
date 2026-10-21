@@ -951,3 +951,16 @@
   background: #1f4a33; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
 @media (prefers-reduced-motion: reduce) { .hoja--mapa, .hoja--mapa[data-abierta="true"] { transition: none; } }
 .mapa-completo .mapa-popup .boton { white-space: normal; text-align: center; height: auto; min-height: 44px; }   /* nombres de zona largos: el botón crece, no se corta */
+
+/* ---------- Chinchetas del mapa: nota + nombre corto, con punta ----------
+   Fondo y texto del nivel (--sem-fondo / --sem-texto, contraste ya validado) y borde --sem; no se usa texto blanco sobre --sem. */
+.chincheta { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box;
+  width: 64px; min-height: 44px; height: 44px; padding: 2px 4px; margin: 0; font: inherit; line-height: 1.1; cursor: pointer;
+  color: var(--sem-texto); background: var(--sem-fondo); border: 2px solid var(--sem); border-radius: 10px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4); }
+.chincheta[data-nivel="sin-datos"] { background: var(--c-superficie); }
+.chincheta b { font-size: 1.05rem; font-weight: 700; }
+.chincheta small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.7rem; }
+.chincheta::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg);
+  background: inherit; border-right: 2px solid var(--sem); border-bottom: 2px solid var(--sem); }
+.chincheta[data-seleccionada="true"] { outline: 3px solid var(--c-texto); outline-offset: 2px; transform: scale(1.12); transform-origin: 50% 100%; }
