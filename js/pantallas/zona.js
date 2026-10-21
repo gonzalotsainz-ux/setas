@@ -64,7 +64,6 @@ function cabecera(zona, res, volver) {
   const alts = zona.puntos.map((p) => p.altitud);
   const meta = el('div', { clase: 'portada__meta' }, etiqueta(zona.provincias.join(' y ')),
     etiqueta(`${zona.puntos.length} ${zona.puntos.length === 1 ? 'punto' : 'puntos'}, ${miles(Math.min(...alts))} a ${miles(Math.max(...alts))}${nbsp}m`));
-  const avisos = (zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)));
   return el('div', { attrs: { 'data-nivel': nivelDe(valor) } },
     el('a', { clase: 'volver', href: volver.href }, icono('i-atras'), volver.texto),
     el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-zona' } },
@@ -74,8 +73,14 @@ function cabecera(zona, res, volver) {
           valor != null ? el('p', { clase: 'indice indice--grande' }, String(valor), el('span', { clase: 'indice__max', texto: '/100' })) : null,
           semaforo(valor, rotulo(res)))),
       meta),
-    res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null,
-    avisos.length ? el('div', { clase: 'pila' }, avisos) : null);
+    res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null);
+}
+
+// Avisos de la zona (normativa, permisos): al final de la página, no en la cabecera (petición de la usuaria, 2026-10-21).
+function seccionAvisos(zona) {
+  const avisos = (zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)));
+  if (!avisos.length) return null;
+  return el('section', { clase: 'pila', attrs: { 'aria-labelledby': 'titulo-avisos-zona' } }, el('h2', { id: 'titulo-avisos-zona', texto: 'Avisos de la zona' }), ...avisos);
 }
 
 function selectorPuntos(zona, sel, porPunto, alElegir) {
@@ -328,5 +333,5 @@ export function pintar({ estado, param, refrescarMeteo }) {
   pintarDinamico();
 
   return el('div', {}, cabecera(zona, c.res, { href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' }),
-    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
+    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats, seccionAvisos(zona)));
 }
