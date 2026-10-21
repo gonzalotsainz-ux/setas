@@ -921,7 +921,8 @@
   width: min(300px, calc(100vw - 104px)); max-height: calc(100dvh - var(--alto-cabecera, 64px) - var(--alto-nav, 112px) - 140px); overflow-y: auto; border-radius: var(--r-m); }
 .mapa-completo__panel .mapa-panel { max-width: none; }
 .mapa-buscador { position: relative; }
-.mapa-buscador > .icono { position: absolute; left: 14px; top: 14px; width: 20px; height: 20px; color: var(--c-texto-3); pointer-events: none; }
+.mapa-buscador__campo { position: relative; }
+.mapa-buscador__campo > .icono { position: absolute; left: 14px; top: 14px; width: 20px; height: 20px; color: var(--c-texto-3); pointer-events: none; }
 .mapa-buscador__migas { display: flex; flex-wrap: wrap; gap: var(--esp-1); margin-bottom: var(--esp-1); }
 .mapa-buscador__migas[hidden] { display: none; }
 .mapa-buscador input { width: 100%; min-height: 48px; padding: 0 var(--esp-4) 0 44px; border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-pildora);

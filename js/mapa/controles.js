@@ -89,6 +89,15 @@ export async function cargarPueblos(fetchFn = globalThis.fetch?.bind(globalThis)
 // Combobox accesible: flechas para moverse, Intro para elegir, Escape para cerrar la lista. `buscar` es local y síncrono
 // (pinta al instante); `buscarLejos(texto, cb)` añade después lugares de fuera (CartoCiudad) sin quitar los locales.
 // Las migas son los chips de lo elegido (zona > monte…) que se pintan antes del campo.
+// Reductor puro de la respuesta lejana: ignora la de un turno viejo (devuelve null) y, si no, mezcla locales y externos
+// conservando la opción activa por identidad (si ya no está, o no había, queda -1).
+export function fundirResultados({ locales, externos, resultados, activo, turno, turnoRespuesta }) {
+  if (turnoRespuesta !== turno) return null;
+  const elegido = activo >= 0 ? resultados[activo] : null;
+  const nuevos = mezclarResultados(locales, externos);
+  return { resultados: nuevos, activo: elegido ? nuevos.indexOf(elegido) : -1 };
+}
+
 export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar = () => {} }) {
   const id = 'mapa-buscar-lista';
   const marcador = 'Pueblo, monte, zona o lugar';
@@ -114,9 +123,9 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
     resultados = locales; activo = -1; pintar();
     if (!texto.trim()) alLimpiar();
     else buscarLejos?.(texto, (externos) => {
-      if (mio !== turno) return;
-      const elegido = activo >= 0 ? resultados[activo] : null;
-      resultados = mezclarResultados(locales, externos); activo = elegido ? resultados.indexOf(elegido) : -1; pintar();
+      const f = fundirResultados({ locales, externos, resultados, activo, turno, turnoRespuesta: mio });
+      if (!f) return;
+      ({ resultados, activo } = f); pintar();
     });
   };
   input.addEventListener('input', escribir);
@@ -130,10 +139,10 @@ export function crearBuscador({ buscar, buscarLejos = null, alElegir, alLimpiar 
   const ponerMigas = (items) => {
     migas.replaceChildren(...items.map((m) => el('a', { clase: 'chip mapa-buscador__miga', href: m.href, texto: m.texto })));
     migas.hidden = !items.length;
-    input.value = ''; input.placeholder = marcador;
+    input.value = '';
   };
   const limpiarMigas = () => ponerMigas([]);
-  return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, icono('i-buscar'), migas, input, lista), input, ponerMigas, limpiarMigas };
+  return { nodo: el('div', { clase: 'mapa-buscador', attrs: { role: 'search' } }, migas, el('div', { clase: 'mapa-buscador__campo' }, icono('i-buscar'), input), lista), input, ponerMigas, limpiarMigas };
 }
 
 // Avisos de la franja inferior del mapa (spec §3.4), en orden: modo (sin índice o navegador sin descompresión),

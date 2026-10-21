@@ -28,7 +28,8 @@ test('candidatos: pide no_process con calles y portales y devuelve pueblos, top�
   assert.equal(r.length, 4);
   assert.deepEqual(r[0], { tipo: 'lugar', texto: 'Rascafría', sub: 'Rascafría, Madrid', id: '1300000303', type: 'poblacion' });
   assert.equal(r[1].texto, 'Rascafría');
-  assert.equal(r[2].texto, 'Refugio de la Morcuera (Rascafría)');
+  assert.equal(r[2].texto, 'Refugio de la Morcuera');
+  assert.equal(r[3].texto, 'Pinar de Valsaín (Paraje)', 'solo se quita el paréntesis que repite el municipio');
   assert.equal(r[3].sub, 'Real Sitio de San Ildefonso, Segovia');
   assert.ok(r.every((x) => !('lat' in x) && !('lng' in x)), 'los candidatos no llevan coordenadas');
 });

@@ -13,8 +13,13 @@ const predeterminado = () => globalThis.fetch?.bind(globalThis);
 // Los `type` no vienen siempre con la misma capitalización («poblacion», «Municipio»).
 const excluido = (type) => EXCLUIDOS.includes(String(type ?? '').toLowerCase());
 
-// «Rascafría, Rascafría» → «Rascafría»: lo que va antes de la primera coma.
-const textoDe = (address) => String(address ?? '').split(',')[0].trim();
+// «Rascafría, Rascafría» → «Rascafría»: lo que va antes de la primera coma; y se quita un « (<municipio>)» final
+// que repite el municipio («Refugio de la Morcuera (Rascafría)» → «Refugio de la Morcuera»), pero no otros paréntesis («(Paraje)»).
+const textoDe = (c) => {
+  const t = String(c.address ?? '').split(',')[0].trim();
+  const m = /^(.*\S)\s*\(([^()]*)\)$/.exec(t);
+  return m && c.muni && normalizar(m[2]) === normalizar(c.muni) ? m[1] : t;
+};
 const subDe = (c) => [c.muni, c.province].filter(Boolean).join(', ');
 
 export async function candidatosCartoCiudad(texto, { fetchFn = predeterminado(), limite = 8, senal } = {}) {
@@ -23,7 +28,7 @@ export async function candidatosCartoCiudad(texto, { fetchFn = predeterminado(),
   if (!r.ok) throw new Error(`CartoCiudad respondió ${r.status}`);
   const lista = await r.json();
   return (Array.isArray(lista) ? lista : []).filter((c) => !excluido(c.type) && c.address)
-    .map((c) => ({ tipo: 'lugar', texto: textoDe(c.address), sub: subDe(c), id: c.id, type: c.type }));
+    .map((c) => ({ tipo: 'lugar', texto: textoDe(c), sub: subDe(c), id: c.id, type: c.type }));
 }
 
 const valido = (n) => typeof n === 'number' && Number.isFinite(n) && n !== 0;
@@ -70,7 +75,8 @@ export function crearGeocodificador({ fetchFn = predeterminado(), retardo = RETA
 // Locales primero; de los externos, solo los que no repiten texto (sin tildes ni mayúsculas).
 export function mezclarResultados(locales, externos, max = 8) {
   const vistos = new Set(locales.map((x) => normalizar(x.texto)));
-  const nuevos = externos.filter((x) => { const k = normalizar(x.texto); return !vistos.has(k) && vistos.add(k); });
+  const nuevos = [];
+  for (const x of externos) { const k = normalizar(x.texto); if (vistos.has(k)) continue; vistos.add(k); nuevos.push(x); }
   return [...locales, ...nuevos].slice(0, max);
 }
 

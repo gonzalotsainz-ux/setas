@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { chipsDelDia, chipVigente, barraDias, buscarEnMapa, GRUPOS } from '../js/mapa/controles.js';
+import { chipsDelDia, chipVigente, barraDias, buscarEnMapa, fundirResultados, GRUPOS } from '../js/mapa/controles.js';
 import { diasDisponibles } from '../js/rejilla/carga.js';
 import { leerCsv, filtrarPueblos, leerLugares, leerProvincias, provinciaDe, unirMismoPunto } from '../scripts/rejilla/pueblos.mjs';
 
@@ -172,4 +172,16 @@ test('buscador: encuentra zonas por nombre corto y montes por su corto, antes qu
   const orden = buscarEnMapa('vi', { pueblos: [{ n: 'Villa', p: 'Soria', lat: 41, lon: -2 }], sitios: [{ id: 's', nombre: 'Villar', lat: 41, lon: -2, municipio: 'X' }], especies: [], chips: [],
     zonas: [{ id: 'z', nombre: 'Viñas (Soria)', puntos: [] }], puntos: [{ id: 'p', zona: 'z', corto: 'Vigía', lat: 1, lon: 2 }] }).map((x) => x.tipo);
   assert.deepEqual(orden, ['zona', 'punto', 'sitio', 'pueblo']);
+});
+
+test('fundirResultados: ignora un turno viejo, conserva la opción activa por identidad y deja -1 si no había', () => {
+  const a = { tipo: 'pueblo', texto: 'Rascafría' }, b = { tipo: 'zona', texto: 'Guadarrama' };
+  const ext = [{ tipo: 'lugar', texto: 'RASCAFRIA' }, { tipo: 'lugar', texto: 'Morcuera' }];
+  assert.equal(fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: 0, turno: 3, turnoRespuesta: 2 }), null);
+  const f = fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: 1, turno: 3, turnoRespuesta: 3 });
+  assert.deepEqual(f.resultados.map((x) => x.texto), ['Rascafría', 'Guadarrama', 'Morcuera']);
+  assert.equal(f.activo, 1);
+  assert.equal(f.resultados[f.activo], b);
+  assert.equal(fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: -1, turno: 3, turnoRespuesta: 3 }).activo, -1);
+  assert.equal(fundirResultados({ locales: [a], externos: [], resultados: [a, b], activo: 1, turno: 3, turnoRespuesta: 3 }).activo, -1, 'si la opción activa desaparece, vuelve a -1');
 });
