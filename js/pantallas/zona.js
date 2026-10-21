@@ -10,6 +10,7 @@ import { textoOrigenPunto } from '../ui/origen-lluvia.js';
 import { desglose } from '../ui/desglose.js';
 import { fichaNormativa } from '../ui/normativa.js';
 import { seccionDondeBuscar } from '../ui/sitios.js';
+import { leerRutaZona, rutaMapa } from '../mapa/ruta.js';
 import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
@@ -47,7 +48,7 @@ function calcular(zona, datos, meteo, umbrales) {
 const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
 const rotulo = (res) => (res?.fueraDeTemporada ? 'Fuera de temporada' : null);
 
-function cabecera(zona, res) {
+function cabecera(zona, res, volver) {
   const valor = res?.valor ?? null;
   const detalle = detalleNombre(zona);
   const alts = zona.puntos.map((p) => p.altitud);
@@ -55,7 +56,7 @@ function cabecera(zona, res) {
     etiqueta(`${zona.puntos.length} ${zona.puntos.length === 1 ? 'punto' : 'puntos'}, ${miles(Math.min(...alts))} a ${miles(Math.max(...alts))}${nbsp}m`));
   const avisos = (zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)));
   return el('div', { attrs: { 'data-nivel': nivelDe(valor) } },
-    el('a', { clase: 'volver', href: '#hoy' }, icono('i-atras'), 'Hoy'),
+    el('a', { clase: 'volver', href: volver.href }, icono('i-atras'), volver.texto),
     el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-zona' } },
       el('div', { clase: 'zona-cabeza' },
         el('div', {}, el('h1', { id: 'titulo-zona', texto: nombreCorto(zona) }), detalle ? el('p', { clase: 'portada__sub', texto: detalle }) : null),
@@ -281,13 +282,17 @@ export function pintar({ estado, param, refrescarMeteo }) {
   const zona = datos.zonas.find((z) => z.id === param);
   if (!zona) {
     return el('div', { clase: 'tarjeta', style: 'margin-top: var(--esp-6)' }, el('h2', { texto: 'Zona no encontrada' }),
-      el('p', { texto: 'No conozco esa zona.' }), el('a', { clase: 'boton', href: '#hoy' }, 'Volver a Hoy'));
+      el('p', { texto: 'No conozco esa zona.' }), el('a', { clase: 'boton', href: '#mapa' }, 'Volver al mapa'));
   }
   const umbrales = estado.umbrales ?? {};
   const c = meteo?.series ? calcular(zona, datos, meteo, umbrales)
     : { series: {}, especies: especiesDeZona(zona, datos.especies, umbrales), res: null, porPunto: {} };
   const recogibles = puntosRecogibles(zona);
   const mejorPunto = c.res?.especies?.[0]?.punto ?? recogibles.find((p) => c.series[p.id])?.id ?? (recogibles[0] ?? zona.puntos[0]).id;
+  // Si se llega desde el mapa con un punto en la ruta, ese punto queda elegido y «Mapa» devuelve al mismo nivel.
+  const { punto: puntoRuta } = leerRutaZona(location.hash);
+  const punto = zona.puntos.some((p) => p.id === puntoRuta) ? puntoRuta : null;
+  if (punto) ui.punto[zona.id] = punto;
   if (!zona.puntos.some((p) => p.id === ui.punto[zona.id])) delete ui.punto[zona.id];
   const idElegido = () => ui.punto[zona.id] ?? mejorPunto;
   const dinamico = el('div', { clase: 'pila-l' });
@@ -310,6 +315,6 @@ export function pintar({ estado, param, refrescarMeteo }) {
   }
   pintarDinamico();
 
-  return el('div', {}, cabecera(zona, c.res),
+  return el('div', {}, cabecera(zona, c.res, { href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' }),
     el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
 }

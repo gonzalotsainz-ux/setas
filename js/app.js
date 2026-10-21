@@ -14,6 +14,7 @@ const pantallas = {
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
   seguridad: () => import('./pantallas/seguridad.js'), diario: () => import('./pantallas/diario.js'), ajustes: () => import('./pantallas/ajustes.js'),
 };
+let hashAnterior = '';   // para no mover el foco ni el scroll al cambiar de zona o punto dentro del mapa
 const carrera = guardia();   // un pintado asíncrono antiguo no puede pisar a uno más nuevo
 const SECCION = { zona: 'mapa', especie: 'especies', seguridad: 'especies' };   // la sección de la barra que queda marcada
 
@@ -27,8 +28,9 @@ function error(raiz, titulo, detalle) {
 
 async function pintar(cambioDePantalla = false) {
   const ficha = carrera.nueva();
-  const [nombre, param] = (location.hash.slice(1) || 'hoy').split('/');
-  const cargar = pantallas[nombre] ?? pantallas.hoy;
+  const [nombre0, param] = (location.hash.slice(1) || 'mapa').split('/');
+  const nombre = nombre0 === 'hoy' ? 'mapa' : nombre0;   // «Hoy» ya no existe como pestaña: sus enlaces viejos abren el mapa
+  const cargar = pantallas[nombre] ?? pantallas.mapa;
   const raiz = document.getElementById('app');
   try {
     const m = await cargar();
@@ -44,7 +46,9 @@ async function pintar(cambioDePantalla = false) {
   document.querySelectorAll('.barra-nav a').forEach((a) => {
     if (a.hash === `#${actual}`) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  if (cambioDePantalla === true) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
+  const dentroDelMapa = hashAnterior.startsWith('#mapa') && location.hash.startsWith('#mapa');
+  hashAnterior = location.hash;
+  if (cambioDePantalla === true && !dentroDelMapa) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
 }
 
 // Recalcula la meteo «efectiva»: la del modelo con la lluvia medida en pluviómetros y, encima, la de las estaciones AEMET.
@@ -91,8 +95,8 @@ window.addEventListener('hashchange', () => pintar(true));
 // La meteo solo cambia lo que enseñan Hoy, Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
 const PINTAN_METEO = new Set(['hoy', 'zona', 'mapa']);
 window.addEventListener('meteo', () => {
-  const nombre = (location.hash.slice(1) || 'hoy').split('/')[0];
-  if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'hoy')) pintar(false);
+  const nombre = (location.hash.slice(1) || 'mapa').split('/')[0];
+  if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'mapa')) pintar(false);
 });
 window.addEventListener('contraste', () => { recalcularContraste(); pintar(false); });   // «Usar modelo» cambiado en Zona
 try {
