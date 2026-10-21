@@ -21,7 +21,8 @@ import { contenidoHoja } from '../mapa/contenido-hoja.js';
 import { resolverToque } from '../mapa/toque-celda.js';
 import { chipsDelDia, chipVigente, barraDias, fechasBarra, avisosMapa } from '../mapa/controles.js';
 import { crearBusquedaMapa } from '../mapa/busqueda-mapa.js';
-import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES } from '../mapa/chinchetas.js';
+import { queChinchetas, chinchetasZonas, chinchetasMontes, crearCapaChinchetas, ZOOM_MONTES, ZOOM_ETIQUETAS } from '../mapa/chinchetas.js';
+import { crearCapaEtiquetas, etiquetasDeVista } from '../mapa/capa-etiquetas.js';
 import { contornoZona, ESTILO_CONTORNO } from '../mapa/contorno.js';
 import { leerRutaMapa, rutaMapa, esRutaMapa } from '../mapa/ruta.js';
 import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan, filasZonas, filtroDeChip, limitesZona } from '../mapa/seleccion.js';
@@ -105,6 +106,8 @@ async function montar(estadoInicial) {
   const contorno = L.layerGroup().addTo(mapa);
   const chinchetas = crearCapaChinchetas(L, { alTocar: (c) => irARuta(c.tipo === 'zona' ? rutaMapa({ zona: c.id }) : rutaMapa({ zona: c.zona, punto: c.id }), { enfocar: true }) });
   chinchetas.capa.addTo(mapa);
+  const etiquetas = crearCapaEtiquetas(L, { alTocar: (ll) => { tocar(ll).catch((err) => avisar(err.message)); } });   // las mejores manchas de la vista (nivel 3)
+  etiquetas.capa.addTo(mapa);
   const todas = L.latLngBounds(datos.zonas.map(limitesZona).flat());
   const medido = () => lienzo.clientWidth > 0 && lienzo.clientHeight > 0;
   // Encuadre sin dejar nada bajo el buscador ni bajo la hoja (en «resumen» como mucho: la completa no cuenta).
@@ -145,7 +148,7 @@ async function montar(estadoInicial) {
   const capaGruesa = L.layerGroup().addTo(mapa);
   const contornos = L.layerGroup();   // contorno de los prohibidos en la vista lejana, aunque la capa Prohibido esté apagada
   let contornosPedidos = null;
-  const imagenes = new Map(), gruesasPorArchivo = new Map();
+  const imagenes = new Map(), notasPor = new Map(), gruesasPorArchivo = new Map();   // notasPor: las notas de cada imagen, para las etiquetas
   let turno = 0, toque = 0, version = 0, claveGruesas = null, cotos = null, error = null;
 
   const especiesPorZona = () => { const m = new Map(); for (const z of datos.zonas) m.set(z.id, especiesDeZona(z, datos.especies, estado.umbrales ?? {})); return m; };
@@ -263,7 +266,7 @@ async function montar(estadoInicial) {
     // meteo), no se vacían: así no parpadean.
     const clave = `${ui.fecha}|${ui.chip}|${salida?.sello}|${version}`;
     const otroDiaOChip = clave !== claveVista;
-    if (otroDiaOChip) { claveVista = clave; capaRejilla?.quitarTodo(); }
+    if (otroDiaOChip) { claveVista = clave; capaRejilla?.quitarTodo(); etiquetas.limpiar(); }
     pintarAvisos(); repintar(); pintarChinchetas();
     if (mapa.hasLayer(capas.lluvia)) pintarLluvia();
     // Una ladera tocada se recalcula con el día y el chip nuevos (sin mover el foco); lo demás se repinta.
@@ -345,13 +348,16 @@ async function montar(estadoInicial) {
     const mia = ++turno;
     ponerContornos();
     // Sin índice, o con un día que el índice no tiene, no hay manchas (lo dice el aviso).
-    if (!salida || fechaSinIndice()) { capaGruesa.clearLayers(); claveGruesas = null; capaRejilla?.quitarTodo(); return; }
+    if (!salida || fechaSinIndice()) { capaGruesa.clearLayers(); claveGruesas = null; capaRejilla?.quitarTodo(); etiquetas.limpiar(); return; }
     const zoom = mapa.getZoom();
-    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); pintarGruesas(); return; }
+    if (zoom < ZOOM_MIN_FINA) { capaRejilla.quitarTodo(); etiquetas.limpiar(); pintarGruesas(); return; }
+    if (zoom < ZOOM_ETIQUETAS) etiquetas.limpiar();
     capaGruesa.clearLayers(); claveGruesas = null;
     const b = mapa.getBounds(), f = filtro(), fecha = ui.fecha, chipActual = ui.chip;
+    const vistos = [];
     for (const a of archivosVisibles(rej.indice, [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()], zoom)) {
       const clave = `${a.archivo}|${fecha}|${chipActual}|${salida.sello}|${version}`;
+      vistos.push({ a, clave });
       if (capaRejilla.tieneImagen(a.archivo, clave)) continue;
       let r;
       try { r = await cargador.cargar(a.archivo); } catch (e) { if (mia === turno) avisar(e.message); continue; }
@@ -369,11 +375,27 @@ async function montar(estadoInicial) {
         }
         if (mia !== turno) return;   // resultado de un día, una especie o una vista que ya no se ven
         rgba = colorear(notas, r.cabecera.ancho);   // «sin datos» en damero
-        imagenes.set(clave, rgba);
-        if (imagenes.size > MAX_IMAGENES) imagenes.delete(imagenes.keys().next().value);
+        imagenes.set(clave, rgba); notasPor.set(clave, notas);
+        if (imagenes.size > MAX_IMAGENES) { imagenes.delete(imagenes.keys().next().value); notasPor.delete(notasPor.keys().next().value); }
       }
       capaRejilla.ponerImagen(a.archivo, r.cabecera, rgba, clave);
     }
+    if (zoom >= ZOOM_ETIQUETAS) await ponerEtiquetas(mia, vistos, f, fecha);
+  }
+  // Hasta tres etiquetas sobre las mejores manchas de la vista, con las notas ya calculadas; sustituyen a las de antes de golpe.
+  async function ponerEtiquetas(mia, vistos, filtroActual, fecha) {
+    const archivos = [];
+    for (const { a, clave } of vistos) {
+      const notas = notasPor.get(clave);
+      if (!notas) continue;
+      try { archivos.push({ a, r: await cargador.cargar(a.archivo), notas }); } catch { /* sin esa rejilla no hay etiquetas de ese archivo */ }
+    }
+    if (mia !== turno || !vivo) return;
+    const ctx = { datos, rej, salida, gruesasPorArchivo, especiesZona, fecha, filtro: filtroActual };
+    // Solo el hueco que dejan buscador, chips y hoja (y un margen a los lados, para que la etiqueta quepa entera).
+    const m = margenes(), tam = mapa.getSize(), no = mapa.containerPointToLatLng([m.paddingTopLeft[0] + 100, m.paddingTopLeft[1]]),
+      se = mapa.containerPointToLatLng([tam.x - m.paddingBottomRight[0] - 100, tam.y - m.paddingBottomRight[1]]);
+    etiquetas.poner(etiquetasDeVista({ archivos, bounds: [no.lng, se.lat, se.lng, no.lat], ctx }));
   }
   function pintarGruesas() {
     const clave = `${ui.fecha}|${ui.chip}|${salida.sello}|${version}`;
@@ -523,7 +545,7 @@ async function montar(estadoInicial) {
     try {
       const nuevo = await cargarIndice();
       cargadoEn = Date.now();
-      if (vivo && nuevo.salida && nuevo.salida.sello !== salida?.sello) { salida = nuevo.salida; imagenes.clear(); ponerModo(); cambio(); }
+      if (vivo && nuevo.salida && nuevo.salida.sello !== salida?.sello) { salida = nuevo.salida; imagenes.clear(); notasPor.clear(); ponerModo(); cambio(); }
     } finally { recargando = false; }
   }
   // Carga de la rejilla y del índice sin bloquear el montaje.
@@ -531,7 +553,7 @@ async function montar(estadoInicial) {
     Promise.all([cargarDatosRejilla().catch(() => null), cargarIndice()]).then(([r, ind]) => {
       cargandoLaderas = false; cargadoEn = Date.now();
       if (!vivo) return;
-      if (r) { rej = r; capaRejilla = new CapaRejilla(); salida = ind?.salida ?? null; imagenes.clear(); ponerModo(); }
+      if (r) { rej = r; capaRejilla = new CapaRejilla(); salida = ind?.salida ?? null; imagenes.clear(); notasPor.clear(); ponerModo(); }
       cambio();
     }).catch(() => { cargandoLaderas = false; if (vivo) cambio(); });
   }
@@ -542,7 +564,7 @@ async function montar(estadoInicial) {
     // Lo llama app.js al cambiar la ruta y al llegar la meteo, el contraste o los umbrales: solo un cambio de selección
     // encuadra, y solo un toque explícito previo enfoca la hoja.
     actualizar(nuevo) {
-      if (nuevo.umbrales !== estado.umbrales) { imagenes.clear(); version++; estado = nuevo; especiesZona = especiesPorZona(); } else estado = nuevo;
+      if (nuevo.umbrales !== estado.umbrales) { imagenes.clear(); notasPor.clear(); version++; estado = nuevo; especiesZona = especiesPorZona(); } else estado = nuevo;
       const enfocar = enfocarPendiente;
       const cambiada = aplicarSeleccion();
       if (cambiada) enfocarPendiente = false;

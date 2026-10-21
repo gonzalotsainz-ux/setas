@@ -1003,3 +1003,7 @@
 .chincheta.chincheta--busqueda { width: 26px; min-height: 0; height: 26px; margin: 2px 1px; padding: 0; cursor: default;
   transform: rotate(-45deg); border-radius: 50% 50% 50% 0; background: var(--p-ocre-700); border: 3px solid var(--p-hueso-50); box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
 .chincheta.chincheta--busqueda::after { content: none; }
+/* Etiqueta de una de las mejores manchas (nivel 3): como la chincheta, más pequeña y sin punta; centrada en la celda. */
+.etiqueta-mancha { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); box-sizing: border-box; max-width: 220px; padding: 3px 8px;
+  white-space: nowrap; font-size: 0.8rem; font-weight: 600; line-height: 1.2; cursor: pointer; pointer-events: auto;
+  color: var(--sem-texto); background: var(--sem-fondo); border: 2px solid var(--sem); border-radius: 999px; box-shadow: 0 1px 4px rgb(0 0 0 / 0.4); }
