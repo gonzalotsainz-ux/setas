@@ -30,6 +30,7 @@ import { resolverSeleccion, claveSeleccion, encuadreDe, migasDe, zonasQueCortan,
 import { zonasMasCercanas, zonaDeLugar } from '../mapa/geocodificador.js';
 import { desplazamientoDia } from '../notas-zona.js';
 
+const HUECO_MINIMO = 160;          // píxeles de mapa que siempre quedan libres para encuadrar
 const MAX_IMAGENES = 12;             // imágenes coloreadas que se guardan (día × chip × archivo)
 const TRES_HORAS = 3 * 3600e3;       // el índice se vuelve a pedir con el mapa abierto (misma caché que cargarIndice)
 const POPUP = { minWidth: 200, maxWidth: 250, autoPanPaddingTopLeft: [16, 140], autoPanPaddingBottomRight: [72, 180] };
@@ -117,7 +118,13 @@ async function montar(estadoInicial) {
     const hojaAlta = v('--alto-hoja', 148), cuenta = hoja.estado() === 'completa' ? v('--alto-hoja-resumen', hojaAlta) : hojaAlta;
     const abajo = cuenta + v('--alto-abajo', 148) - hojaAlta;
     const tapa = lienzo.querySelector('.leaflet-bottom.leaflet-right')?.offsetHeight || 0;   // la atribución tapa el mapa encima de la hoja
-    return { paddingTopLeft: [16, v('--alto-arriba', 180) + 8], paddingBottomRight: [16, v('--alto-nav', 112) + abajo + tapa + 8], animate: false }; };
+    const arriba = v('--alto-arriba', 180) + 8;
+    let bajo = v('--alto-nav', 112) + abajo + tapa + 8;
+    // Si buscador, hoja y avisos no dejan hueco (móvil con varios avisos), se recorta el margen de abajo: con márgenes
+    // mayores que la pantalla, fitBounds se iría al zoom máximo (todo verde liso).
+    const alto = lienzo.clientHeight || 0;
+    if (alto && arriba + bajo > alto - HUECO_MINIMO) bajo = Math.max(0, alto - HUECO_MINIMO - arriba);
+    return { paddingTopLeft: [16, arriba], paddingBottomRight: [16, bajo], animate: false }; };
   // Para encuadrar chinchetas: suben ALTO_CHINCHETA sobre su punto, así que arriba hace falta ese margen de más.
   const margenesChinchetas = () => { const m = margenes(); return { ...m, paddingTopLeft: [m.paddingTopLeft[0], m.paddingTopLeft[1] + ALTO_CHINCHETA] }; };
   // Centra un punto en el hueco que dejan el buscador y la hoja (con margenesChinchetas si lleva chincheta encima).

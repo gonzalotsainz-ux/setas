@@ -110,3 +110,11 @@ test('estilos: opciones del panel de 44 px, multiply del relieve, sin animación
   assert.match(base, /:focus-visible\s*\{[^}]*outline:\s*3px/);
   assert.match(base, /prefers-reduced-motion:\s*reduce/);
 });
+
+test('las manchas se desenfocan según la celda en pantalla (media celda, entre 1 y 10 px) y van más claras de lejos', async () => {
+  const { desenfoque, OPACIDAD_LEJOS } = await import('../js/mapa/capa-rejilla.js');
+  assert.equal(desenfoque(0.5), 1);
+  assert.equal(desenfoque(8), 4);
+  assert.equal(desenfoque(40), 10);
+  assert.ok(OPACIDAD_LEJOS > 0.4 && OPACIDAD_LEJOS < 0.8);
+});

@@ -243,7 +243,7 @@ test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captu
     DomUtil: { create: () => canvas, setPosition() {} },
     latLngBounds: () => ({ getNorthWest: () => ({}), getSouthEast: () => ({}) }) };
   const mapa = { getPane: () => ({ append() {} }), on() {}, off() {}, getSize: () => ({ x: 10, y: 10 }), containerPointToLayerPoint: () => ({}),
-    getBounds: () => ({ intersects: () => true }), latLngToContainerPoint: () => ({ x: 0, y: 0 }) };
+    getBounds: () => ({ intersects: () => true }), latLngToContainerPoint: () => ({ x: 0, y: 0 }), getZoom: () => 13 };
   try {
     const capa = new (crearCapaRejilla(L))();
     capa.onAdd(mapa);
@@ -256,6 +256,8 @@ test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captu
     capa.ponerImagen('a.bin', cab, rgba, 'a|d2');
     assert.equal(lienzos, 2);
     assert.equal(capa.tieneImagen('a.bin', 'a|d1'), false);
+    assert.match(canvas.style.filter, /^blur\(\d+(\.\d+)?px\)$/);   // manchas, no cuadrados
+    assert.equal(canvas.style.opacity, '1');   // a zoom 13 no se aclara
   } finally {
     delete globalThis.document; delete globalThis.ImageData; delete globalThis.window;
   }
