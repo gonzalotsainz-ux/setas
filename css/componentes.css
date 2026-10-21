@@ -933,6 +933,7 @@
 .mapa-buscador__lista [role="option"] { display: flex; align-items: center; flex-wrap: wrap; min-height: 44px; padding: var(--esp-1) var(--esp-4); cursor: pointer; }
 .mapa-buscador__lista [role="option"]:hover { background: var(--c-superficie-2); }
 .mapa-buscador__lista [aria-selected="true"] { background: var(--c-acento-suave); color: var(--c-acento-fuerte); font-weight: 700; box-shadow: inset 3px 0 0 var(--c-acento); }
+/* Hoja antigua (role=dialog): se retira en la integración, junto con abrirHojaMapa. */
 .hoja--mapa { max-height: 42dvh; transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear var(--dur-media); }
 .hoja--mapa[data-abierta="true"] { transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear 0s; }
 .hoja--mapa[data-estado="completa"] { max-height: 88dvh; }
@@ -947,6 +948,37 @@
 .hoja__filas dt { color: var(--c-texto-2); }
 .hoja__filas dd { margin: 0; }
 .hoja__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-2); }
+/* Hoja fija del mapa (.hoja-mapa): región permanente sobre la isla de navegación, con tres alturas (recogida, resumen, completa).
+   No usa la .hoja genérica: nunca se cierra, así que no lleva transform ni visibility. Vive dentro de .mapa-completo (hereda --alto-nav). */
+.hoja-mapa {
+  position: absolute; left: var(--esp-2); right: var(--esp-2); z-index: 1000;
+  bottom: calc(var(--alto-nav, 112px) + var(--esp-2));
+  display: flex; flex-direction: column; max-width: 640px; margin-inline: auto;
+  padding: 6px; border-radius: var(--r-l);   /* bisel doble, como .tarjeta--bisel */
+  background: var(--c-bisel); border: 1px solid color-mix(in srgb, var(--c-borde) 80%, transparent);
+  max-height: 42dvh;
+  transition: max-height var(--dur-media) var(--curva);
+}
+.hoja-mapa[data-estado="recogida"] { max-height: 148px;   /* asa 44 + días 44 + línea corta + bisel */ }
+.hoja-mapa[data-estado="completa"] { max-height: min(88dvh, calc(100dvh - var(--alto-cabecera, 64px) - var(--alto-nav, 112px) - var(--esp-4))); }
+.hoja-mapa__nucleo {
+  display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;
+  padding: 0 var(--esp-4) var(--esp-3); border-radius: calc(var(--r-l) - 6px);
+  background: var(--tarjeta-fondo); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), var(--tarjeta-sombra);
+}
+.hoja-mapa .hoja__asa { flex: none; margin: 0; }
+.hoja-mapa__dias { flex: none; margin-bottom: var(--esp-2); }
+.hoja-mapa__dias[hidden] { display: none; }
+.hoja-mapa__corto { flex: none; margin: 0; font-weight: 700; display: none; }
+.hoja-mapa[data-estado="recogida"] .hoja-mapa__corto { display: block; }
+.hoja-mapa[data-estado="recogida"] h2, .hoja-mapa[data-estado="recogida"] .hoja-mapa__cuerpo { display: none; }   /* h2 sigue nombrando la región (aria-labelledby) */
+.hoja-mapa h2 { flex: none; margin: 0 0 var(--esp-2); font-size: var(--t-l); }
+.hoja-mapa h2:focus-visible { outline-offset: 2px; }
+.hoja-mapa__cuerpo { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: grid; gap: var(--esp-3); align-content: start; }
+.hoja-mapa__cuerpo .lista-zonas { margin-inline: calc(var(--esp-4) * -1); }
+.hoja-mapa[data-variante="prohibido"] .hoja-mapa__nucleo { border-top: 6px solid var(--c-peligro); }
+.hoja-mapa[data-variante="prohibido"] h2 { color: var(--c-peligro-fuerte); }
+@media (prefers-reduced-motion: reduce) { .hoja-mapa { transition: none; } }
 .marcador-sitio { display: block; width: 22px; height: 22px; margin: 3px; transform: rotate(-45deg); border-radius: 50% 50% 50% 0;
   background: #1f4a33; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
 @media (prefers-reduced-motion: reduce) { .hoja--mapa, .hoja--mapa[data-abierta="true"] { transition: none; } }

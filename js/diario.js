@@ -207,18 +207,18 @@ export function fotoFijaDelDia({ zona, lat, lon, fecha, datos, meteo, umbrales =
 }
 
 // «Guardar en el diario» desde el mapa: #diario/nueva?lat=…&lon=…&zona=… abre la hoja «Nueva salida» rellena.
-export const urlNuevaSalida = ({ lat, lon, zona }) => `#diario/nueva?${new URLSearchParams({
-  ...(Number.isFinite(lat) && Number.isFinite(lon) ? { lat: lat.toFixed(5), lon: lon.toFixed(5) } : {}), ...(zona ? { zona } : {}) })}`;
+export const urlNuevaSalida = ({ lat, lon, zona, punto }) => `#diario/nueva?${new URLSearchParams({
+  ...(Number.isFinite(lat) && Number.isFinite(lon) ? { lat: lat.toFixed(5), lon: lon.toFixed(5) } : {}), ...(zona ? { zona } : {}), ...(punto ? { punto } : {}) })}`;
 export function leerNuevaSalida(param) {
   if (typeof param !== 'string' || !(param === 'nueva' || param.startsWith('nueva?'))) return null;
   const q = new URLSearchParams(param.slice('nueva?'.length));
-  const zona = q.get('zona') || null;
-  if (!q.has('lat') && !q.has('lon')) return { lat: null, lon: null, zona };
+  const zona = q.get('zona') || null, punto = q.get('punto') || null;
+  if (!q.has('lat') && !q.has('lon')) return { lat: null, lon: null, zona, punto };
   // Las dos, en decimal (nada de «0x10», «1e2» ni vacías) y dentro de rango; si no, no se rellena nada.
   const decimal = /^-?\d+(\.\d+)?$/;
   const tLat = q.get('lat'), tLon = q.get('lon');
   if (!decimal.test(tLat ?? '') || !decimal.test(tLon ?? '')) return null;
   const lat = Number(tLat), lon = Number(tLon);
   if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
-  return { lat, lon, zona };
+  return { lat, lon, zona, punto };
 }

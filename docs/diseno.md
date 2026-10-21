@@ -115,7 +115,7 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | `.etiqueta` (`--acento`, `--ocre`) | confianza, «orientativo», «incierta», origen del dato |
 | `.aviso` | aviso ocre (previsión incierta) |
 | `.aviso-peligro` | recuadro rojo (tóxicas parecidas, precaución) |
-| `.hoja[data-abierta]` | hoja inferior para detalles, filtros o Toxicología. Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
+| `.hoja[data-abierta]` | hoja inferior modal para detalles, filtros o Toxicología (el mapa usa `.hoja-mapa`, que no es esta). Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
 | `.lista-zonas` + `.fila-zona[data-nivel]` | fila con raya lateral del nivel, nombre, nota grande, semáforo y frase; sirve también para especies |
 | `.factores` + `.factor` | desglose del índice: código, nombre, valor, frase clara y barra fina sin pista |
 | `.grafico` | gráfico SVG de lluvia: dos paneles con el mismo eje (acumulado de 26 días arriba, lluvia diaria abajo), previsión rayada en ocre con horquilla entre modelos y raya de «hoy» |
@@ -145,8 +145,8 @@ atribución de Leaflet quedan por encima de los avisos (las alturas se miden en 
 | `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__dias`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
 | `.mapa-buscador` (+ `__lista`) | combobox de pueblos, sitios y especies: 48 px, foco visible, opción activa con fondo de acento y raya lateral |
 | `.mapa-panel` | panel de fondos, capas y leyenda de las manchas, con «Cerrar»; Escape lo cierra y el foco vuelve a Capas |
-| `.hoja--mapa` (`[data-estado="resumen|completa"]`) + `.hoja__asa` | hoja inferior al tocar una mancha: 42 % de alto, 88 % al subir el asa (44 px, `touch-action: none`); sin animación con `prefers-reduced-motion` |
-| `.hoja--prohibido` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
+| `.hoja-mapa` (`[data-estado="recogida|resumen|completa"]`) + `.hoja__asa` | hoja fija del mapa sobre la isla de navegación (`bottom: calc(var(--alto-nav) + var(--esp-2))`), con bisel doble. Es una región (`role="region"`) que **nunca se cierra**: cambia de contenido según lo elegido (lista de zonas, zona y montes, ficha de monte, mancha) y de altura con el asa (44 px, `touch-action: none`, clic o arrastre): recogida (asa, días y una línea), resumen (42 %) y completa (88 %). El cuerpo hace scroll por dentro. **El foco solo se mueve al título cuando se toca algo de forma explícita** (`enfocar: true`), nunca al repintar; sin animación con `prefers-reduced-motion`. Independiente de `.hoja` |
+| `.hoja-mapa[data-variante="prohibido"]` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
 | `.marcador-sitio` | chincheta verde con borde blanco de los sitios con coordenadas (color fijo: va sobre teselas claras) |
 | `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
 
