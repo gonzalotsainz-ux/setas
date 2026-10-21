@@ -100,7 +100,7 @@ git commit -m "Datos: nombre corto de cada monte (corto) con validación"
 - Consumes: `indiceZona(seriesPorPunto, i, especies)` y `entreDias(a, b)` de `js/indice.js` / `js/meteo.js`; `especiesDeZona`, `puntosRecogibles`, `rotuloPunto` de `js/datos.js`; `serieSintetica`, `BOLETUS`, `NISCALO`, `lluviaBuena` de `tests/ayudas.js`.
 - Produces (todo exportado de `js/notas-zona.js`):
   - `calcularZona(zona, datos, meteo, d, filtro, umbrales = {})` → la fila de siempre `{ zona, res, mejor, incierta, discrepa, rotulo, motivo }`. `filtro` es `null` (todas), un `string` (una especie, compatibilidad) o un `Set<string>`/`string[]` de ids (chip de grupo).
-  - `ordenarZonas(filas)`, `textoFaltan(n)`, `haceCuanto(iso, ahora)`, `fraseZona(fila, datos)` (la antigua `frase`: nodos DOM).
+  - `ordenarZonas(filas)`, `textoFaltan(n)`, `haceCuanto(iso, ahora)`, `fraseZona(fila, datos)` (la antigua `frase`, pero **sin DOM**: devuelve `[{ texto, estilo: 'negrita' | 'latin' | null }]`; sin `mejor`, `[{ texto: fila.motivo, estilo: null }]`). El nodo lo hace `pintarFrase(partes)` en `js/mapa/hoja.js` (`<strong>` para `negrita`, `<span class="latin">` para `latin`); `hoy.js` lo importa de ahí mientras exista.
   - `desplazamientoDia(fecha, meteoHoy)` → entero `0..7` o `null` (fecha fuera del horizonte o anterior a la tanda).
   - `notaPuntoDia(zona, punto, datos, meteo, d, filtro, umbrales = {})` → `{ valor, nivel, etiqueta, mejor: { id, especie, resultado } | null, especies, fueraDeTemporada, incompleta, faltan, motivo }`; sin serie o `d === null` → `valor: null`, `motivo` con texto.
 
@@ -142,7 +142,9 @@ test('notaPuntoDia con d null (fecha fuera del horizonte) devuelve sin datos', (
 Run: `node --test tests/notas-zona.test.js`
 Expected: FAIL con «Cannot find module».
 
-- [ ] **Step 3: Crear `js/notas-zona.js` moviendo de `hoy.js` `calcularZona`, `ordenarZonas`, `frase` (renombrada `fraseZona`), `textoFaltan`, `haceCuanto` y sus ayudas (`negrita`, `latin`, `nbsp`, `sinDatosZona`); añadir `desplazamientoDia` y `notaPuntoDia`**
+- [ ] **Step 3: Crear `js/notas-zona.js` moviendo de `hoy.js` `calcularZona`, `ordenarZonas`, `frase` (renombrada `fraseZona` y convertida a datos), `textoFaltan`, `haceCuanto` y `sinDatosZona`; añadir `desplazamientoDia` y `notaPuntoDia`; `pintarFrase` en `js/mapa/hoja.js`**
+
+Prueba adicional en `tests/notas-zona.test.js`: `fraseZona` con lluvia buena devuelve `[{ texto: '48 mm', estilo: 'negrita' }, { texto: ' en 26 días, lo más fuerte hace 3 días · ', estilo: null }, { texto: '11 °C', estilo: 'negrita' }, { texto: ' → ', estilo: null }, { texto: 'Boletus edulis', estilo: 'latin' }, { texto: ' Muy bueno', estilo: null }]` (ajustar cifras a la serie sintética usada).
 
 `desplazamientoDia` usa `entreDias(meteoHoy, fecha)` y devuelve `null` fuera de `0..7`. `notaPuntoDia` llama a `indiceZona({ [punto.id]: serie }, serie.hoy + d, especies filtradas)`; `nivel` con `nivelDe`. `calcularZona` normaliza `filtro` a `Set` al principio. `hoy.js` pasa a importar todo esto (sin lógica duplicada).
 
@@ -175,7 +177,7 @@ git commit -m "Notas por zona y por punto en un módulo compartido (sale de la p
   - `rutaMapa({ zona = null, punto = null })` → `'#mapa' | '#mapa/<zona>' | '#mapa/<zona>/<punto>'` (ids con `encodeURIComponent`).
   - `leerRutaZona(hash)` → `{ zona, punto }` para `#zona/<zona>[/<punto>]`; `rutaZona(zona, punto = null)`.
 - `js/app.js`: exporta nada nuevo; la ruta por defecto y `#hoy` cargan `pantallas.mapa`; `SECCION = { zona: 'mapa', especie: 'especies', seguridad: 'especies' }`; cuando el hash anterior y el nuevo empiezan por `#mapa`, no hace `scrollTo` ni `raiz.focus`.
-- `js/pantallas/zona.js`: `pintar` lee `leerRutaZona(location.hash)`; si trae `punto` válido, `ui.punto[zona.id] = punto` antes de pintar; el enlace «volver» es `{ href: '#mapa', texto: 'Mapa' }`.
+- `js/pantallas/zona.js`: `pintar` lee `leerRutaZona(location.hash)`; si trae `punto` válido, `ui.punto[zona.id] = punto` antes de pintar; el enlace «volver» es `{ href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' }` (devuelve al nivel del que se vino); la pantalla «Zona no encontrada» enlaza a `#mapa`.
 
 - [ ] **Step 1: Escribir las pruebas que fallan**
 
@@ -404,7 +406,7 @@ git commit -m "Contorno suave y discontinuo de la zona seleccionada"
 - Consumes: `fraseZona`, `textoFaltan` (Tarea 2); `rutaMapa`, `rutaZona` (Tarea 3); `urlNuevaSalida` (`js/diario.js`, ampliada aquí con `punto`); `textoCoto`, `urlComoLlegar` (`js/mapa/hoja.js`); `comun` (`js/ui/ficha.js`); `nivelDe`, `palabraDe`.
 - Produces (`js/mapa/modelos-hoja.js`):
   - `tituloDia(fecha, hoy)` → `'hoy' | 'mañana' | 'el jueves 23'`.
-  - `modeloListaZonas({ filas, datos, fecha, hoy, caducado })` → `{ tipo: 'listaZonas', titulo: 'Dónde ir hoy', corto: 'Dónde ir hoy · 12 zonas', aviso: caducado ? 'Con los últimos datos, del <fecha>' : null, filas: [{ id, pos, nombre, valor, nivel, frase: Node[], etiquetas: [{ texto, variante }], href: rutaMapa({ zona: id }) }] }`. Etiquetas = las de `filaZona` de Hoy (Confianza, N especies sin datos, Previsión, Previsión incierta, Estación y modelo no coinciden, rótulo del punto).
+  - `modeloListaZonas({ filas, datos, fecha, hoy, caducado })` → `{ tipo: 'listaZonas', titulo: 'Dónde ir hoy', corto: 'Dónde ir hoy · 12 zonas', aviso: caducado ? 'Con los últimos datos, del <fecha>' : null, filas: [{ id, pos, nombre, valor, nivel, frase: partes de fraseZona (datos, no nodos), etiquetas: [{ texto, variante }], href: rutaMapa({ zona: id }) }] }`. Los modelos no tocan el DOM: se prueban con Node sin simulación. Etiquetas = las de `filaZona` de Hoy (Confianza, N especies sin datos, Previsión, Previsión incierta, Estación y modelo no coinciden, rótulo del punto).
   - `modeloZona({ fila, montes, datos, d, fecha, hoy })` → `{ tipo: 'zona', id, titulo: nombreCorto, corto: 'Guadarrama · Muy bueno 82', valor, nivel, frase, etiquetas, detalle: rutaZona(id), montes: [{ id, nombre: corto, valor, nivel, linea, rotulo, href: rutaMapa({ zona, punto }) }] }`; `montes` ya ordenados: con nota de mayor a menor, luego sin datos, luego NO IR; `linea` = `'<especie común> · <coto o proteccion corta>'`.
   - `modeloMonte({ zona, punto, nota, datos, d, coto })` → `{ tipo: 'monte', id, zona: zona.id, titulo: nombre sin paréntesis, corto: 'Pinar de Valsaín · 82', valor, nivel, especie: { nombre, latin } | null, tambien: 'Boletus (61)' | null, porque: '48 mm en 26 días, lo más fuerte hace 3 días · 11 °C de media' | null, dia: d > 0 ? 'Previsión a +d días' : null, coto: textoCoto(coto), avisos: [{ texto, peligro }] (proteccion con RESTRINGIDO/NO IR), acciones: { comoLlegar: urlComoLlegar(lat, lon), diario: urlNuevaSalida({ lat, lon, zona: zona.id, punto: punto.id }), mas: rutaZona(zona.id, punto.id) } }`. Sin nota: `valor: null`, `texto: nota.motivo`.
   - `modeloFueraDeZonas({ nombre, cercanas })` → `{ tipo: 'fuera', titulo: nombre, corto: nombre, texto: 'La app no tiene datos de monte aquí. Las zonas más cercanas:', filas: [...como listaZonas] }`.
@@ -480,7 +482,8 @@ git commit -m "Hoja fija del mapa con tres estados y modelos por nivel (lista, z
   - Chinchetas: en `moveend`/`zoomend`, `queChinchetas(zoom)` decide la lista (`chinchetasZonas` sobre `ordenarZonas(datos.zonas.map(calcularZona…))` con `d = desplazamientoDia(ui.fecha, estado.meteo?.hoy)` y `filtro = especies del chip`, o `chinchetasMontes` de las zonas cuyo bbox corta la vista); tocar una → `location.hash = rutaMapa(...)` (con `enfocar` en la hoja tras repintar).
   - Contorno: polígono `contornoZona(z.bbox)` con `ESTILO_CONTORNO` solo para `sel.zona`.
   - Hoja: `crearHojaMapa` montada en `raiz`; contenido según `sel`: nada → `modeloListaZonas`; zona → `modeloZona`; punto → `modeloMonte` con `notaPuntoDia` y el coto por `poligonoEn`; ladera tocada → `modeloHoja` (vuelve a la selección al tocar fuera de una mancha); prohibido → como hoy; sitio buscado fuera → `modeloFueraDeZonas`. Días: `hoja.ponerDias(barraDias(fechasBarra(...), hoy, ui.fecha))`.
-  - Migas: `buscador.ponerMigas([{ texto: nombreCorto(z), href: rutaMapa({ zona }) }, { texto: p.corto, href: rutaMapa({ zona, punto }) }])` con un botón «‹» que hace `history.back()` si el historial es nuestro (`history.state?.setas`) y, si no, `location.hash = rutaMapa({ zona: sel.punto ? sel.zona : null })`.
+  - Migas: `buscador.ponerMigas([{ texto: nombreCorto(z), href: rutaMapa({ zona }) }, { texto: p.corto, href: rutaMapa({ zona, punto }) }])` con un botón «‹» que hace `location.hash = rutaMapa({ zona: sel.punto ? sel.zona : null })` (sube un nivel; el botón atrás del móvil recorre el historial del hash por su cuenta).
+  - Orden del DOM en `raiz`: buscador y chips, botones, panel, **hoja**, anuncio y, al final, el lienzo (así el tabulador pasa por la hoja antes que por el mapa, decisión 10 del diseño).
   - Buscador: `buscarLejos` = `crearGeocodificador().sugerir`; elegir `lugar` → `coordenadasCartoCiudad` → chincheta de búsqueda (`L.marker` con `divIcon` `.chincheta.chincheta--busqueda`) y `setView(…, 13)`; si `fueraDeZonas` → hoja `modeloFueraDeZonas` con `zonasMasCercanas(…, 3)`; `zona`/`punto` → su ruta; `chip` → como hoy.
   - Se elimina: `pintarPuntos`, `puntoAbierto`, `estiloPunto`, `notaPunto`, `puntosNulos`, la fila `dias` fuera de la hoja y `encuadre`/`enfocada` antiguos.
   - Carga: montar con chinchetas en cuanto hay `datos` (valor `null` → «?» hasta que llega `meteo`); rejilla e índice después, como hoy.
@@ -540,9 +543,9 @@ git commit -m "Mapa por niveles: selección por ruta, chinchetas, contorno, hoja
 test('elegirEtiquetas: máximos locales de 60 o más, de mayor a menor, separados y como mucho 3', () => {
   const ancho = 40, notas = new Uint8Array(40 * 40).fill(255);
   const poner = (col, fila, v) => { notas[fila * ancho + col] = v; };
-  poner(5, 5, 90); poner(6, 5, 85); poner(30, 30, 70); poner(20, 5, 65); poner(8, 8, 95); poner(35, 2, 50);
+  poner(5, 5, 90); poner(6, 5, 85); poner(30, 30, 70); poner(21, 5, 65); poner(8, 8, 95); poner(35, 2, 50);
   const e = elegirEtiquetas({ notas, ancho, max: 3, minimo: 60, separacion: 12 });
-  assert.deepEqual(e.map((x) => [x.col, x.fila, x.valor]), [[8, 8, 95], [30, 30, 70], [20, 5, 65]]);   // 90 y 85 caen por cercanía al 95; 50 por mínimo
+  assert.deepEqual(e.map((x) => [x.col, x.fila, x.valor]), [[8, 8, 95], [30, 30, 70], [21, 5, 65]]);   // 90 y 85 caen por cercanía al 95 (menos de 12 celdas); 50 por mínimo
 });
 test('elegirEtiquetas ignora SIN_COLOR y SIN_DATOS', () => { … 254 y 255 nunca salen … });
 test('textoEtiqueta: umbría, solana o altitud', () => {
