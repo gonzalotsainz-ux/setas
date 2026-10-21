@@ -26,6 +26,7 @@
         {
           "id": "guadarrama-valsain-pinar",
           "nombre": "Pinar de Valsaín (Real Sitio de San Ildefonso)",
+          "corto": "Valsaín",
           "lat": 40.853,
           "lon": -3.9943,
           "altitud": 1561,
@@ -37,6 +38,7 @@
         {
           "id": "guadarrama-navas-melojar",
           "nombre": "Melojar de la vertiente segoviana (Navas de San Antonio)",
+          "corto": "Navas",
           "lat": 40.9915,
           "lon": -3.9348,
           "altitud": 1472,
@@ -48,6 +50,7 @@
         {
           "id": "guadarrama-morcuera-pinar",
           "nombre": "Pinar de la Morcuera (Rascafría)",
+          "corto": "Morcuera",
           "lat": 40.83233,
           "lon": -3.85257,
           "altitud": 1580,
@@ -60,6 +63,7 @@
         {
           "id": "guadarrama-miraflores-pinar",
           "nombre": "Pinar de Miraflores (MUP 13)",
+          "corto": "Miraflores",
           "lat": 40.8215,
           "lon": -3.8137,
           "altitud": 1591,
@@ -72,6 +76,7 @@
         {
           "id": "guadarrama-canencia-pinar",
           "nombre": "Pinar bajo el Puerto de Canencia",
+          "corto": "Canencia",
           "lat": 40.8781,
           "lon": -3.7703,
           "altitud": 1382,
@@ -85,6 +90,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-guadarrama-resinero",
           "nombre": "Pinar resinero de Guadarrama (MUP 39 «Pinar y Agregados»)",
+          "corto": "Guadarrama",
           "lat": 40.67966,
           "lon": -4.14587,
           "altitud": 1358,
@@ -98,6 +104,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-cercedilla-silvestre",
           "nombre": "Pinar de Cercedilla fuera del Parque Nacional (MUP 32 «Pinar y Agregados»)",
+          "corto": "Cercedilla",
           "lat": 40.76973,
           "lon": -4.06648,
           "altitud": 1378,
@@ -111,6 +118,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-camorza-resinero",
           "nombre": "Pinar de La Camorza (MUP 163, coto La Pedriza)",
+          "corto": "La Camorza",
           "lat": 40.75194,
           "lon": -3.91347,
           "altitud": 1195,
@@ -123,6 +131,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-sanblas-silvestre",
           "nombre": "Pinar del Hueco de San Blas (MUP 142, coto La Pedriza)",
+          "corto": "Hueco San Blas",
           "lat": 40.79072,
           "lon": -3.85651,
           "altitud": 1443,
@@ -135,6 +144,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-alameda-melojar",
           "nombre": "Melojar de Moroviejo y Santa Ana (MUP 60, Alameda del Valle)",
+          "corto": "Moroviejo",
           "lat": 40.88181,
           "lon": -3.828,
           "altitud": 1322,
@@ -148,6 +158,7 @@
           "revisado": "2026-10-02",
           "id": "guadarrama-pinilla-melojar",
           "nombre": "Melojar de Villanadillas (MUP 102, Pinilla del Valle)",
+          "corto": "Villanadillas",
           "lat": 40.90781,
           "lon": -3.79598,
           "altitud": 1410,
@@ -266,6 +277,7 @@
         {
           "id": "sierra-norte-riaza-melojar",
           "nombre": "Melojar de Riaza (Segovia)",
+          "corto": "Riaza",
           "lat": 41.2801,
           "lon": -3.434,
           "altitud": 1505,
@@ -276,6 +288,7 @@
         {
           "id": "sierra-norte-sepulveda-pinar",
           "nombre": "Pinar de repoblación de pino silvestre (Sepúlveda, Sierra de Ayllón)",
+          "corto": "Sepúlveda",
           "lat": 41.2042,
           "lon": -3.5085,
           "altitud": 1324,
@@ -286,6 +299,7 @@
         {
           "id": "sierra-norte-canencia-melojar",
           "nombre": "Melojar de Canencia (La Solana)",
+          "corto": "La Solana",
           "lat": 40.9158,
           "lon": -3.7652,
           "altitud": 1336,
@@ -297,6 +311,7 @@
         {
           "id": "sierra-norte-bustarviejo-melojar",
           "nombre": "Melojar de Bustarviejo (Dehesa del Valle, MUP 68)",
+          "corto": "Bustarviejo",
           "lat": 40.83402,
           "lon": -3.7694,
           "altitud": 1271,
@@ -310,6 +325,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-norte-braojos-silvestre",
           "nombre": "Pinar del Perímetro de Braojos (MUP 148)",
+          "corto": "Braojos",
           "lat": 41.07143,
           "lon": -3.66977,
           "altitud": 1619,
@@ -322,6 +338,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-norte-robregordo-silvestre",
           "nombre": "Pinar del Perímetro de Robregordo (MUP 144)",
+          "corto": "Robregordo",
           "lat": 41.12795,
           "lon": -3.6168,
           "altitud": 1591,
@@ -334,6 +351,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-norte-hiruela-melojar",
           "nombre": "Melojar de la Dehesa Boyal de La Hiruela (MUP 79)",
+          "corto": "La Hiruela",
           "lat": 41.07437,
           "lon": -3.43203,
           "altitud": 1254,
@@ -346,6 +364,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-norte-pradena-silvestre",
           "nombre": "Pinar de La Morra (MUP 155, Prádena del Rincón)",
+          "corto": "La Morra",
           "lat": 41.02171,
           "lon": -3.50254,
           "altitud": 1502,
@@ -358,6 +377,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-norte-pradena-melojar",
           "nombre": "Melojar de la Dehesa Boyal de Prádena del Rincón (MUP 105)",
+          "corto": "Prádena",
           "lat": 41.0474,
           "lon": -3.50043,
           "altitud": 1257,
@@ -468,6 +488,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-oeste-abantos-silvestre",
           "nombre": "Pinar de Abantos (MUP 46 «La Jurisdicción», San Lorenzo de El Escorial)",
+          "corto": "Abantos",
           "lat": 40.60322,
           "lon": -4.16762,
           "altitud": 1445,
@@ -481,6 +502,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-oeste-sanmartin-resinero",
           "nombre": "Pinar resinero de San Martín de Valdeiglesias (MUP 55)",
+          "corto": "San Martín",
           "lat": 40.33473,
           "lon": -4.35552,
           "altitud": 956,
@@ -493,6 +515,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-oeste-valdemaqueda-resinero",
           "nombre": "Pinar resinero del Monte de Valdemaqueda (MUP 185)",
+          "corto": "Valdemaqueda",
           "lat": 40.5213,
           "lon": -4.27913,
           "altitud": 1042,
@@ -505,6 +528,7 @@
           "revisado": "2026-10-02",
           "id": "sierra-oeste-robledo-encinar",
           "nombre": "Encinar de la Dehesa de Fuenteanguila (MUP 43, Robledo de Chavela)",
+          "corto": "Fuenteanguila",
           "lat": 40.43922,
           "lon": -4.2341,
           "altitud": 785,
@@ -603,6 +627,7 @@
         {
           "id": "soria-pinar-grande-covaleda",
           "nombre": "Pinar Grande (Covaleda)",
+          "corto": "Pinar Grande",
           "lat": 41.9415,
           "lon": -2.8315,
           "altitud": 1540,
@@ -613,6 +638,7 @@
         {
           "id": "soria-navaleno-resinero",
           "nombre": "Pinar de pino resinero (Navaleno)",
+          "corto": "Navaleno",
           "lat": 41.8672,
           "lon": -3.0286,
           "altitud": 1177,
@@ -623,6 +649,7 @@
         {
           "id": "soria-cidones-melojar",
           "nombre": "Rebollar de Cidones",
+          "corto": "Cidones",
           "lat": 41.829,
           "lon": -2.678,
           "altitud": 1134,
@@ -709,6 +736,7 @@
         {
           "id": "burgos-hontoria-pinar",
           "nombre": "Pinar de Hontoria del Pinar (Pinares Sur)",
+          "corto": "Hontoria",
           "lat": 41.8896,
           "lon": -3.1398,
           "altitud": 1160,
@@ -720,6 +748,7 @@
         {
           "id": "burgos-palacios-pinar",
           "nombre": "Pinar de Palacios de la Sierra",
+          "corto": "Palacios",
           "lat": 41.9994,
           "lon": -3.0805,
           "altitud": 1271,
@@ -731,6 +760,7 @@
         {
           "id": "burgos-monte-agudo-hayedo",
           "nombre": "Hayedo de Monte Agudo (Fresneda de la Sierra Tirón)",
+          "corto": "Monte Agudo",
           "lat": 42.2755,
           "lon": -3.1525,
           "altitud": 1478,
@@ -742,6 +772,7 @@
         {
           "id": "burgos-umbria-rebollar",
           "nombre": "Rebollar de La Umbría (Monterrubio de la Demanda)",
+          "corto": "La Umbría",
           "lat": 42.173,
           "lon": -3.1152,
           "altitud": 1366,
@@ -844,6 +875,7 @@
         {
           "id": "merindades-cerneja-hayedo",
           "nombre": "Hayedo de Cerneja (Merindad de Montija, coto La Engaña)",
+          "corto": "Cerneja",
           "lat": 43.127,
           "lon": -3.4875,
           "altitud": 1031,
@@ -941,6 +973,7 @@
         {
           "id": "gredos-navahondilla-castanar",
           "nombre": "Castañar de Navahondilla (vertiente sur-este de Gredos)",
+          "corto": "Navahondilla",
           "lat": 40.3262,
           "lon": -4.5068,
           "altitud": 832,
@@ -951,6 +984,7 @@
         {
           "id": "gredos-arenal-resinero",
           "nombre": "Pinar de pino resinero de El Arenal (Valle del Tiétar)",
+          "corto": "El Arenal",
           "lat": 40.2928,
           "lon": -5.0719,
           "altitud": 1240,
@@ -962,6 +996,7 @@
         {
           "id": "gredos-villarejo-silvestre",
           "nombre": "Pinar de pino silvestre de Villarejo del Valle",
+          "corto": "Villarejo",
           "lat": 40.3417,
           "lon": -5.0072,
           "altitud": 1334,
@@ -1048,6 +1083,7 @@
         {
           "id": "cuenca-serrania-negral",
           "nombre": "Pinar de pino salgareño de Palomera (Serranía de Cuenca)",
+          "corto": "Palomera",
           "lat": 40.0689,
           "lon": -1.9971,
           "altitud": 1250,
@@ -1059,6 +1095,7 @@
         {
           "id": "cuenca-boniches-resinero",
           "nombre": "Pinar de pino resinero de Boniches",
+          "corto": "Boniches",
           "lat": 39.9701,
           "lon": -1.6521,
           "altitud": 1088,
@@ -1147,6 +1184,7 @@
         {
           "id": "guadalajara-poveda-negral",
           "nombre": "Pinar de pino salgareño de Poveda de la Sierra",
+          "corto": "Poveda",
           "lat": 40.6094,
           "lon": -2.0169,
           "altitud": 1360,
@@ -1158,6 +1196,7 @@
         {
           "id": "guadalajara-tierzo-sabinar",
           "nombre": "Sabinar albar de Tierzo",
+          "corto": "Tierzo",
           "lat": 40.7507,
           "lon": -1.9,
           "altitud": 1314,
@@ -1254,6 +1293,7 @@
         {
           "id": "toledo-navalucillos-encinar",
           "nombre": "Encinar de Los Navalucillos",
+          "corto": "Navalucillos",
           "lat": 39.6101,
           "lon": -4.6186,
           "altitud": 972,
@@ -1265,6 +1305,7 @@
         {
           "id": "toledo-menasalbas-melojar",
           "nombre": "Melojar de Menasalbas",
+          "corto": "Menasalbas",
           "lat": 39.5501,
           "lon": -4.4125,
           "altitud": 941,
@@ -1276,6 +1317,7 @@
         {
           "id": "toledo-sevilleja-alcornocal",
           "nombre": "Alcornocal de Sevilleja de la Jara",
+          "corto": "Sevilleja",
           "lat": 39.4552,
           "lon": -4.925,
           "altitud": 550,
@@ -1352,6 +1394,7 @@
         {
           "id": "alava-gorbeia-hayedo",
           "nombre": "Hayedo de Gorbeia (Urkabustaiz)",
+          "corto": "Gorbeia",
           "lat": 42.954,
           "lon": -2.9184,
           "altitud": 760,
@@ -1363,6 +1406,7 @@
         {
           "id": "alava-entzia-hayedo",
           "nombre": "Hayedo de Entzia (Iruraiz-Gauna)",
+          "corto": "Hayedo de Entzia",
           "lat": 42.7985,
           "lon": -2.494,
           "altitud": 934,
@@ -1373,6 +1417,7 @@
         {
           "id": "alava-izki-marojal",
           "nombre": "Marojal de Izki (Bernedo)",
+          "corto": "Izki",
           "lat": 42.6824,
           "lon": -2.4941,
           "altitud": 772,
@@ -1384,6 +1429,7 @@
         {
           "id": "alava-entzia-pastizal",
           "nombre": "Pastizal de montaña de Entzia (Arraia-Maeztu)",
+          "corto": "Pastizal Entzia",
           "lat": 42.772,
           "lon": -2.3836,
           "altitud": 1011,
@@ -1486,6 +1532,7 @@
         {
           "id": "extremadura-salorino-alcornocal",
           "nombre": "Alcornocal de la Sierra de San Pedro (Salorino)",
+          "corto": "San Pedro",
           "lat": 39.43489,
           "lon": -7.03565,
           "altitud": 452,
@@ -1497,6 +1544,7 @@
         {
           "id": "extremadura-villuercas-castanar",
           "nombre": "Castañar de las Villuercas (Castañar de Ibor)",
+          "corto": "Villuercas",
           "lat": 39.4801,
           "lon": -5.35165,
           "altitud": 914,
@@ -1508,6 +1556,7 @@
         {
           "id": "extremadura-hervas-castanar",
           "nombre": "Castañar del Valle del Ambroz (Hervás)",
+          "corto": "Ambroz",
           "lat": 40.25486,
           "lon": -5.85655,
           "altitud": 968,
@@ -1519,6 +1568,7 @@
         {
           "id": "extremadura-trevejo-castanar",
           "nombre": "Castañar de San Martín de Trevejo (Sierra de Gata)",
+          "corto": "Trevejo",
           "lat": 40.2315,
           "lon": -6.7882,
           "altitud": 785,

@@ -27,6 +27,21 @@ export const licenciaPermitida = (t) => /^(CC0( 1\.0)?|PD|CC BY(-SA)?( \d\.\d)?)
 const fuentesOk = (fs) => Array.isArray(fs) && fs.length > 0 && fs.every((f) => URL_OK.test(f.url ?? '') && FECHA.test(f.consultado ?? '')
   && (f.fecha == null || FECHA.test(f.fecha)));
 
+// Nombre corto de cada monte (etiqueta del pin en el mapa): texto de 2 a 18 caracteres, único dentro de su zona.
+export function comprobarCortos(z) {
+  const e = [];
+  const vistos = new Set();
+  for (const p of z.puntos ?? []) {
+    if (typeof p.corto !== 'string') e.push(`punto ${p.id}: sin corto`);
+    else {
+      if (p.corto.length < 2 || p.corto.length > 18) e.push(`punto ${p.id}: corto de más de 18 caracteres`);
+      if (vistos.has(p.corto)) e.push(`zona ${z.id}: corto repetido «${p.corto}»`);
+      vistos.add(p.corto);
+    }
+  }
+  return e;
+}
+
 export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: [] }, existe = existsSync }) {
   const e = [];
   const err = (msg) => e.push(msg);
@@ -44,6 +59,7 @@ export function validar({ zonas, especies, normativa, cotos, sitios = { sitios: 
   for (const z of zonas.zonas) {
     if (!Array.isArray(z.bbox) || z.bbox.length !== 4) err(`zona ${z.id}: bbox inválido`);
     if (!z.puntos?.length) err(`zona ${z.id}: sin puntos`);
+    for (const m of comprobarCortos(z)) err(m);
     for (const p of z.puntos ?? []) {
       for (const k of ['lat', 'lon', 'altitud']) if (typeof p[k] !== 'number') err(`punto ${p.id}: ${k} no numérico`);
       if (!HABITATS.includes(p.habitat)) err(`punto ${p.id}: hábitat desconocido ${p.habitat}`);
