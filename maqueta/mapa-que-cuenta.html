@@ -1,0 +1,135 @@
+<h2>¿Cómo cuenta el mapa «dónde, por qué y qué seta» sin tocar nada?</h2>
+<p class="subtitle">Tres formas de que el mapa sea la portada y lo diga todo de un vistazo. En las tres el buscador funciona como el de Google Maps (escribes «Rascafría» y el mapa va allí). Toca la que te suene mejor; se pueden mezclar.</p>
+
+<style>
+  .fila{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+  .tel{width:300px;height:620px;border-radius:34px;background:#0c1510;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25);position:relative;flex:none;cursor:pointer;border:3px solid transparent}
+  .tel.selected{border-color:#b27a0e;box-shadow:0 0 0 4px rgba(178,122,14,.35),0 18px 40px rgba(0,0,0,.25)}
+  .pant{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:#e9ecdf;font-family:system-ui,Segoe UI,Roboto,sans-serif;color:#142019;font-size:12px}
+  .mapa{position:absolute;inset:0;background:
+    radial-gradient(ellipse 90px 60px at 70% 38%, rgba(29,94,58,.55), transparent 70%),
+    radial-gradient(ellipse 70px 45px at 30% 52%, rgba(76,138,55,.55), transparent 70%),
+    radial-gradient(ellipse 60px 40px at 62% 60%, rgba(178,122,14,.5), transparent 70%),
+    radial-gradient(ellipse 50px 32px at 22% 30%, rgba(184,84,42,.45), transparent 70%),
+    repeating-linear-gradient(115deg, transparent 0 18px, rgba(20,32,25,.045) 18px 19px),
+    repeating-linear-gradient(25deg, transparent 0 26px, rgba(20,32,25,.04) 26px 27px),
+    #e9ecdf}
+  .carretera{position:absolute;left:-10%;top:68%;width:130%;height:3px;background:#fff;transform:rotate(-14deg);box-shadow:0 0 0 1px #d3d6c8}
+  .carretera.b{top:22%;transform:rotate(32deg)}
+  .pueblo{position:absolute;font-size:10px;color:#3d4a41;font-weight:600;text-shadow:0 0 3px #fff,0 0 3px #fff}
+  .cab{position:absolute;top:0;left:0;right:0;padding:10px 12px 0;display:flex;justify-content:space-between;align-items:center;z-index:3}
+  .marca{font-weight:800;font-size:15px;display:flex;align-items:center;gap:6px}
+  .marca i{width:16px;height:16px;border-radius:8px 8px 3px 3px;background:#245a3d;display:inline-block}
+  .tox{background:#b3261e;color:#fff;border-radius:999px;padding:5px 10px;font-weight:700;font-size:11px}
+  .busca{position:absolute;top:44px;left:12px;right:12px;background:#fbfbf6;border-radius:999px;padding:9px 14px;box-shadow:0 2px 8px rgba(0,0,0,.15);color:#3d4a41;z-index:3;display:flex;justify-content:space-between}
+  .chips{position:absolute;top:84px;left:12px;right:12px;display:flex;gap:6px;z-index:3;overflow:hidden}
+  .chip{background:#fbfbf6;border:1px solid #d3d6c8;border-radius:999px;padding:4px 9px;white-space:nowrap;font-size:11px}
+  .chip.on{background:#245a3d;color:#fff;border-color:#245a3d}
+  .botones{position:absolute;right:12px;top:120px;display:flex;flex-direction:column;gap:8px;z-index:3}
+  .bot{width:34px;height:34px;border-radius:50%;background:#fbfbf6;box-shadow:0 2px 6px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:14px}
+  .etq{position:absolute;background:#fbfbf6;border-radius:8px;padding:3px 7px;font-size:11px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:2;display:flex;align-items:center;gap:5px;border-left:4px solid var(--c)}
+  .etq small{font-weight:500;color:#3d4a41}
+  .hoja{position:absolute;left:0;right:0;bottom:0;background:#fbfbf6;border-radius:18px 18px 0 0;box-shadow:0 -4px 16px rgba(0,0,0,.18);padding:8px 14px 14px;z-index:4;border-top:3px double #d3d6c8}
+  .asa{width:36px;height:4px;border-radius:2px;background:#d3d6c8;margin:0 auto 8px}
+  .hoja h4{margin:0 0 2px;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+  .sem{display:inline-flex;gap:2px;align-items:flex-end}
+  .sem b{width:5px;background:var(--c);display:block;border-radius:1px}
+  .nota{font-weight:800;color:var(--c);font-size:13px}
+  .hoja p{margin:3px 0;color:#3d4a41;font-size:11.5px;line-height:1.35}
+  .acc{display:flex;gap:6px;margin-top:8px}
+  .acc span{flex:1;text-align:center;border-radius:999px;padding:6px 4px;font-size:11px;font-weight:700;border:1px solid #245a3d;color:#245a3d}
+  .acc span.p{background:#245a3d;color:#fff}
+  .lista{margin:6px 0 0;padding:0;list-style:none}
+  .lista li{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid #e5e7dc;font-size:11.5px}
+  .lista li em{font-style:normal;color:#3d4a41;font-size:10.5px;display:block}
+  .dias{position:absolute;left:12px;right:12px;display:flex;gap:6px;z-index:3}
+  .nav{position:absolute;left:10px;right:10px;bottom:8px;background:#fbfbf6;border-radius:999px;display:flex;justify-content:space-around;padding:6px 4px;font-size:10px;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:5}
+  .nav span.on{color:#245a3d;font-weight:800}
+  .leyenda{position:absolute;left:12px;background:#fbfbf6;border-radius:12px;padding:8px 10px;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:3;font-size:11px;line-height:1.4;max-width:210px}
+  .pie-op{margin-top:14px;max-width:300px}
+  .pie-op h3{margin:0 0 4px;font-size:16px}
+  .pie-op p{margin:0;color:#555;font-size:13px;line-height:1.4}
+  .combinar{margin-top:28px;padding:14px 18px;border:1px dashed #b27a0e;border-radius:12px;background:rgba(178,122,14,.06)}
+</style>
+
+<div class="fila">
+
+<!-- A: etiquetas sobre las manchas -->
+<div>
+<div class="tel" data-choice="A" onclick="toggleSelect(this)">
+<div class="pant">
+  <div class="mapa"></div><div class="carretera"></div><div class="carretera b"></div>
+  <span class="pueblo" style="left:40%;top:46%">Rascafría</span>
+  <span class="pueblo" style="left:66%;top:71%">Valsaín</span>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span>Busca un pueblo, sitio o seta</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="etq" style="left:52%;top:33%;--c:#1d5e3a">Níscalos 82 <small>· 48 mm</small></div>
+  <div class="etq" style="left:14%;top:48%;--c:#4c8a37">Boletus 66 <small>· pinar</small></div>
+  <div class="etq" style="left:46%;top:58%;--c:#b27a0e">Níscalos 51</div>
+  <div class="dias" style="bottom:62px"><span class="chip on">Hoy</span><span class="chip">Mañana</span><span class="chip">Jue</span><span class="chip">Vie</span></div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div>
+</div>
+<div class="pie-op"><h3>A · Etiquetas en el mapa</h3><p>Como los nombres de sitios en Google Maps: las mejores manchas de la vista llevan su etiqueta con la seta, la nota y el porqué en dos palabras. El mapa queda libre; al tocar una etiqueta sube la hoja. «Hoy» desaparece como pestaña.</p></div>
+</div>
+
+<!-- B: hoja que acompaña -->
+<div>
+<div class="tel" data-choice="B" onclick="toggleSelect(this)">
+<div class="pant">
+  <div class="mapa"></div><div class="carretera"></div><div class="carretera b"></div>
+  <span class="pueblo" style="left:40%;top:46%">Rascafría</span>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span>Busca un pueblo, sitio o seta</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="dias" style="bottom:258px"><span class="chip on">Hoy</span><span class="chip">Mañana</span><span class="chip">Jue</span><span class="chip">Vie</span></div>
+  <div class="hoja" style="bottom:0;padding-bottom:52px;--c:#1d5e3a">
+    <div class="asa"></div>
+    <h4>Pinar silvestre · Valsaín <span class="nota">Muy bueno 82</span></h4>
+    <p><b>Níscalos</b> <i>(Lactarius deliciosus)</i>, también Boletus (61).</p>
+    <p><b>Por qué:</b> 48 mm de lluvia en 26 días, suelo húmedo (percentil 80) y 11 °C de media. Umbría a 1 400 m.</p>
+    <p style="color:#b27a0e">Dentro del coto de Valsaín: pide permiso.</p>
+    <div class="acc"><span class="p">Cómo llegar</span><span>Diario</span><span>Más</span></div>
+  </div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div>
+</div>
+<div class="pie-op"><h3>B · La hoja acompaña siempre</h3><p>Abajo hay siempre una hoja con la mejor mancha de lo que ves (o la que toques): seta, nota, el porqué en una frase y el coto, sin arrastrar nada. Al mover el mapa la hoja se actualiza. Arrastrada arriba, el detalle completo.</p></div>
+</div>
+
+<!-- C: lista "dónde ir" -->
+<div>
+<div class="tel" data-choice="C" onclick="toggleSelect(this)">
+<div class="pant">
+  <div class="mapa"></div><div class="carretera"></div><div class="carretera b"></div>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span>Busca un pueblo, sitio o seta</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="etq" style="left:60%;top:34%;--c:#1d5e3a">1</div>
+  <div class="etq" style="left:22%;top:50%;--c:#4c8a37">2</div>
+  <div class="etq" style="left:55%;top:57%;--c:#b27a0e">3</div>
+  <div class="hoja" style="bottom:0;padding-bottom:52px">
+    <div class="asa"></div>
+    <h4>Dónde ir hoy <small style="font-weight:500;color:#3d4a41">cerca de Madrid · 1 h 10</small></h4>
+    <ul class="lista">
+      <li style="--c:#1d5e3a"><span><b>1 · Valsaín</b>, pinar<em>Níscalos · 48 mm en 26 d · coto, pide permiso</em></span><span class="nota">82</span></li>
+      <li style="--c:#4c8a37"><span><b>2 · Rascafría</b>, pinar<em>Boletus · umbría, suelo húmedo</em></span><span class="nota">66</span></li>
+      <li style="--c:#b27a0e"><span><b>3 · Navafría</b>, pinar<em>Níscalos · llovió menos (31 mm)</em></span><span class="nota">51</span></li>
+    </ul>
+    <div class="dias" style="position:static;margin-top:8px"><span class="chip on">Hoy</span><span class="chip">Mañana</span><span class="chip">Jue</span></div>
+  </div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div>
+</div>
+<div class="pie-op"><h3>C · Lista «dónde ir» sobre el mapa</h3><p>Lo que hoy hace «Hoy» pasa a vivir dentro del mapa: una lista numerada de las mejores laderas (de lo que ves, o cerca de ti), con seta, nota y porqué. Tocar una centra el mapa y abre su hoja. Es el modo «Explorar» de Google Maps.</p></div>
+</div>
+
+</div>
+
+<div class="combinar">
+  <b>Se pueden mezclar.</b> Por ejemplo A + C: etiquetas en el mapa y, al arrastrar la hoja desde abajo, la lista «dónde ir». Dime cuál te atrae más y qué te falta o te sobra.
+</div>
