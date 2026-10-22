@@ -1,4 +1,4 @@
--- Fotos privadas: solo las ve el dueño o un miembro de un grupo con el que se compartió la salida.
+-- Fotos privadas: solo las ve el dueño o quien comparte algún grupo con él (spec cuadrillas §9).
 select t.como(1); select public.crear_perfil('Ana');
 select t.como(2); select public.crear_perfil('Beto');
 select t.como(3); select public.crear_perfil('Cris');
@@ -24,22 +24,21 @@ begin
   perform t.falla('insert into storage.objects (bucket_id, name) values (''fotos'', ''11111111-1111-4111-8111-111111111111/1.gif'')', 'row-level security');
 end $$;
 
--- Sin compartir: solo Ana.
+-- Beto (mismo grupo) ve la foto de Ana sin que ella haga nada; el dueño la sube pero él no puede subir a su salida.
 select t.como(2);
 do $$
 begin
-  perform t.afirma((select count(*) from storage.objects) = 0, 'Beto no ve la foto privada de Ana');
+  perform t.afirma((select count(*) from storage.objects) = 1, 'Beto, del mismo grupo, ve la foto de Ana');
   perform t.falla('insert into storage.objects (bucket_id, name) values (''fotos'', ''11111111-1111-4111-8111-111111111111/2.jpg'')', 'row-level security');
 end $$;
-
--- Compartida con el grupo: Beto la ve; Cris, de fuera, no.
-select t.como(1);
-select public.compartir_salida('11111111-1111-4111-8111-111111111111',
-  jsonb_build_array(jsonb_build_object('grupo_id', (select valor from t.codigos where clave = 'gid'), 'ubicacion_exacta', false)));
-select t.como(2);
-do $$ begin perform t.afirma((select count(*) from storage.objects) = 1, 'Beto ve la foto compartida'); end $$;
+-- Cris, de fuera, no.
 select t.como(3);
-do $$ begin perform t.afirma((select count(*) from storage.objects) = 0, 'Cris no ve la foto'); end $$;
+do $$ begin perform t.afirma((select count(*) from storage.objects) = 0, 'Cris, fuera del grupo, no ve la foto'); end $$;
+-- Tras expulsar a Beto (Ana es admin), deja de verla.
+select t.como(1);
+select public.expulsar_miembro((select valor::uuid from t.codigos where clave = 'gid'), t.uid(2));
+select t.como(2);
+do $$ begin perform t.afirma((select count(*) from storage.objects) = 0, 'Beto expulsado ya no ve la foto'); end $$;
 
 -- Carpeta en MAYÚSCULAS: el uuid no distingue mayúsculas, así que vale para el dueño.
 select t.como(1);
@@ -66,7 +65,7 @@ begin
   perform t.falla('update storage.objects set name = ''99999999-9999-4999-8999-999999999999/1.jpg'' where name = ''11111111-1111-4111-8111-111111111111/1.jpg''', 'row-level security');
 end $$;
 
--- anon no lee, no escribe, no actualiza y no borra mientras hay objetos (compartidos y propios).
+-- anon no lee, no escribe, no actualiza y no borra mientras hay objetos (propios).
 select t.anonimo();
 do $$
 declare n int;

@@ -1,4 +1,4 @@
--- Cierre del acceso abierto (docs/superpowers/specs/2026-10-02-grupos-design.md §6, paso 4).
+-- Cierre del acceso abierto (docs/superpowers/specs/2026-10-22-cuadrillas-design.md §8 paso 4 y §9).
 -- NO está en supabase/migrations/ a propósito: se mueve allí (git mv) y se aplica con `db push` solo cuando todas las
 -- salidas tienen dueño y la app nueva está desplegada. Ver docs/supabase.md, «Pasar a cuentas».
 do $$
@@ -33,9 +33,10 @@ language sql stable security definer set search_path = public as $$
   select exists (
     select 1 from salidas s
     where s.id = public.ruta_salida_id(p_ruta)
+      -- Dueño, o alguien que comparte algún grupo con el dueño (la pertenencia da la vista, spec §9).
       and (s.usuario_id = auth.uid()
-           or exists (select 1 from salida_grupos sg join miembros m on m.grupo_id = sg.grupo_id
-                      where sg.salida_id = s.id and m.usuario_id = auth.uid()))
+           or exists (select 1 from miembros yo join miembros d on d.grupo_id = yo.grupo_id
+                      where yo.usuario_id = auth.uid() and d.usuario_id = s.usuario_id))
   )
 $$;
 revoke execute on function public.ruta_salida_id(text), public.es_mi_salida(uuid), public.puede_ver_foto(text) from public, anon;
