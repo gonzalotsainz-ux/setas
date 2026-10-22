@@ -1,4 +1,4 @@
--- Grupos: crear, unirse con código, expulsar, salir, administradores, tope de miembros y traspaso de cuenta.
+-- Grupos: crear, unirse con código, expulsar, salir, administradores, tope de miembros y borrado de cuenta.
 select t.como(1); select public.crear_perfil('Ana');
 select t.como(2); select public.crear_perfil('Beto');
 select t.como(3); select public.crear_perfil('Cris');
@@ -131,24 +131,6 @@ end $$;
 select t.admin();
 do $$ begin perform t.afirma((select count(*) from public.miembros) = 0, 'borrar el grupo borra sus miembros'); end $$;
 
--- Recuperar la cuenta traspasa la pertenencia a grupos (y la administración).
-select t.como(5);
-do $$ begin insert into t.codigos values ('eva', public.crear_perfil('Eva')); end $$;
-select t.como(5);
-select public.crear_grupo('De Eva');
-select t.como(6);
-do $$
-declare c text;
-begin
-  select valor into c from t.codigos where clave = 'eva';
-  perform t.afirma(public.recuperar_cuenta(c), 'la sesión nueva recupera la cuenta');
-  perform t.afirma((select rol from public.mis_grupos()) = 'admin', 'conserva el grupo y su rol de administradora');
-end $$;
-select t.como(5);
-do $$ begin perform t.afirma((select count(*) from public.mis_grupos()) = 0, 'el dispositivo antiguo ya no tiene el grupo'); end $$;
-select t.admin();
-do $$ begin perform t.afirma((select count(*) from public.grupos where creado_por = t.uid(6)) = 1, 'creado_por sigue a la cuenta'); end $$;
-
 -- ---------- Ronda de correcciones ----------
 select t.como(7); select public.crear_perfil('Gus');
 select t.como(8); select public.crear_perfil('Hugo');
@@ -187,35 +169,8 @@ begin
   perform t.falla('update public.miembros set rol = ''admin''', 'permission denied');
   perform t.falla(format('insert into public.miembros (grupo_id, usuario_id, rol) values (%L, %L, ''admin'')', b, t.uid(8)), 'permission denied');
   perform t.falla('insert into public.grupos (nombre, codigo_invitacion) values (''X'', ''ABCDEFGH'')', 'permission denied');
-  perform t.falla('insert into public.salida_grupos (salida_id, grupo_id) values (gen_random_uuid(), gen_random_uuid())', 'permission denied');
 end $$;
 
--- Limpieza de salida_grupos al expulsar y al salir.
-select t.admin();
-do $$
-declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
-        s8 uuid := gen_random_uuid(); s9 uuid := gen_random_uuid();
-begin
-  insert into public.salidas (id, fecha, zona_id, usuario_id) values (s8, current_date, 'z', t.uid(8)), (s9, current_date, 'z', t.uid(9));
-  insert into public.salida_grupos (salida_id, grupo_id) values (s8, n), (s8, s), (s9, n), (s9, s);
-  insert into t.codigos values ('s8', s8::text), ('s9', s9::text);
-end $$;
-select t.como(7);
-do $$
-declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid;
-begin
-  perform t.falla(format('select public.expulsar_miembro(%L, %L)', n, t.uid(99)), 'no_miembro');
-  perform public.expulsar_miembro(n, t.uid(8));
-end $$;
-select t.admin();
-do $$
-declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
-        s8 uuid := (select valor from t.codigos where clave = 's8')::uuid; s9 uuid := (select valor from t.codigos where clave = 's9')::uuid;
-begin
-  perform t.afirma(not exists (select 1 from public.salida_grupos where salida_id = s8 and grupo_id = n), 'expulsar quita lo compartido en ese grupo');
-  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s8 and grupo_id = s), 'expulsar no toca otros grupos');
-  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = n), 'expulsar no toca a otros miembros');
-end $$;
 -- Un miembro corriente puede salir aunque el unico administrador siga alli.
 select t.como(9);
 do $$
@@ -224,11 +179,29 @@ begin
   perform public.salir_grupo(n);
   perform t.afirma((select count(*) from public.mis_grupos() where grupo_id = n) = 0, 'un miembro corriente puede salir');
 end $$;
-select t.admin();
-do $$
-declare n uuid := (select valor from t.codigos where clave = 'nid')::uuid; s uuid := (select valor from t.codigos where clave = 'sid')::uuid;
-        s9 uuid := (select valor from t.codigos where clave = 's9')::uuid;
-begin
-  perform t.afirma(not exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = n), 'salir quita lo compartido en ese grupo');
-  perform t.afirma(exists (select 1 from public.salida_grupos where salida_id = s9 and grupo_id = s), 'salir no toca otros grupos');
+
+-- borrar_cuenta: el único administrador con más gente no puede; el único miembro se lleva el grupo; lo suyo desaparece.
+select t.como(21); select public.crear_perfil('Uno');
+select t.como(22); select public.crear_perfil('Dos');
+select t.como(21);
+do $$ declare r record; begin
+  select * into r from public.crear_grupo('Solo'); insert into t.codigos values ('solo', r.grupo_id::text);
+  select * into r from public.crear_grupo('Dúo'); insert into t.codigos values ('duo', r.grupo_id::text), ('duo_c', r.codigo);
+  insert into public.salidas (id, fecha, zona_id, usuario_id) values (gen_random_uuid(), current_date, 'z', t.uid(21));
 end $$;
+select t.como(22); select public.unirse_grupo((select valor from t.codigos where clave = 'duo_c'));
+select t.como(21);
+do $$ begin perform t.falla('select public.borrar_cuenta()', 'ultimo_admin'); end $$;
+do $$ begin perform public.hacer_admin((select valor from t.codigos where clave = 'duo')::uuid, t.uid(22)); perform public.borrar_cuenta(); end $$;
+select t.admin();
+do $$ begin
+  perform t.afirma(not exists (select 1 from public.perfiles where id = t.uid(21)), 'el perfil se borra');
+  perform t.afirma(not exists (select 1 from auth.users where id = t.uid(21)), 'el usuario de Auth se borra');
+  perform t.afirma(not exists (select 1 from public.grupos where id = (select valor from t.codigos where clave = 'solo')::uuid), 'el grupo donde era el único miembro se borra');
+  perform t.afirma(exists (select 1 from public.grupos where id = (select valor from t.codigos where clave = 'duo')::uuid), 'el grupo con más gente sigue');
+  perform t.afirma((select count(*) from public.miembros where usuario_id = t.uid(21)) = 0, 'sin pertenencias');
+  perform t.afirma((select count(*) from public.salidas where usuario_id = t.uid(21)) = 0, 'sus salidas se borran');
+  perform t.afirma((select count(*) from public.salidas where usuario_id is null) = 0, 'no queda ninguna salida sin dueño (sería reclamable por cualquiera)');
+end $$;
+select t.anonimo();
+do $$ begin perform t.falla('select public.borrar_cuenta()', 'permission denied'); end $$;

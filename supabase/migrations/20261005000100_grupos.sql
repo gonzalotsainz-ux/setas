@@ -1,4 +1,5 @@
--- Grupos de amigos (docs/superpowers/specs/2026-10-02-grupos-design.md §3 y §5).
+-- Cuadrillas: grupos, pertenencia y borrado de cuenta (docs/superpowers/specs/2026-10-22-cuadrillas-design.md §2-§3).
+-- Todo lo del grupo es del grupo: la visibilidad va por pertenencia, sin reparto salida a salida.
 
 create function public.max_miembros_grupo() returns int language sql immutable as $$ select 20 $$;
 
@@ -18,16 +19,9 @@ create table public.miembros (
 );
 create index on public.miembros (usuario_id);
 
--- Dueño de cada salida (nulo = salida anterior a las cuentas, sin reclamar) y con qué grupos se comparte.
-alter table public.salidas add column usuario_id uuid references public.perfiles (id) on update cascade on delete set null;
+-- Dueño de cada salida: al borrar la cuenta se van con ella sus salidas (y sus fotos).
+alter table public.salidas add column usuario_id uuid references public.perfiles (id) on update cascade on delete cascade;
 create index on public.salidas (usuario_id);
-create table public.salida_grupos (
-  salida_id uuid not null references public.salidas (id) on delete cascade,
-  grupo_id uuid not null references public.grupos (id) on delete cascade,
-  ubicacion_exacta boolean not null default true,
-  primary key (salida_id, grupo_id)
-);
-create index on public.salida_grupos (grupo_id);
 
 -- ---------- Comprobaciones (security definer: no pasan por RLS, así que no hay recursión) ----------
 create function public.es_miembro(p_grupo uuid) returns boolean
@@ -41,13 +35,10 @@ $$;
 
 alter table public.grupos enable row level security;
 alter table public.miembros enable row level security;
-alter table public.salida_grupos enable row level security;
-revoke all on public.grupos, public.miembros, public.salida_grupos from anon, authenticated;
-grant select on public.grupos, public.miembros, public.salida_grupos to authenticated;
+revoke all on public.grupos, public.miembros from anon, authenticated;
+grant select on public.grupos, public.miembros to authenticated;
 create policy "grupos: los míos" on public.grupos for select to authenticated using (public.es_miembro(id));
 create policy "miembros: de mis grupos" on public.miembros for select to authenticated using (public.es_miembro(grupo_id));
-create policy "salida_grupos: del dueño" on public.salida_grupos for select to authenticated
-  using (exists (select 1 from public.salidas s where s.id = salida_id and s.usuario_id = auth.uid()));
 
 -- ---------- API ----------
 create function public.crear_grupo(p_nombre text) returns table (grupo_id uuid, codigo text)
@@ -118,7 +109,6 @@ begin
   if not found then raise exception 'no_miembro'; end if;
 end $$;
 
--- Lo que un miembro tenía compartido en el grupo deja de verse al irse o ser expulsado.
 create function public.expulsar_miembro(p_grupo uuid, p_usuario uuid) returns void
 language plpgsql security definer set search_path = public as $$
 begin
@@ -128,7 +118,6 @@ begin
   -- y "un grupo siempre tiene administrador" podrían romperse con peticiones simultáneas.
   perform 1 from grupos where id = p_grupo for update;
   if not exists (select 1 from miembros where grupo_id = p_grupo and usuario_id = p_usuario) then raise exception 'no_miembro'; end if;
-  delete from salida_grupos where grupo_id = p_grupo and salida_id in (select id from salidas where usuario_id = p_usuario);
   delete from miembros where grupo_id = p_grupo and usuario_id = p_usuario;
 end $$;
 
@@ -142,12 +131,11 @@ begin
   perform 1 from grupos where id = p_grupo for update;
   select count(*) into otros from miembros where grupo_id = p_grupo and usuario_id <> auth.uid();
   if otros = 0 then
-    delete from grupos where id = p_grupo;   -- el último en salir apaga la luz (cascada a miembros y salida_grupos)
+    delete from grupos where id = p_grupo;   -- el último en salir apaga la luz (cascada a miembros)
     return;
   end if;
   select count(*) into admins from miembros where grupo_id = p_grupo and rol = 'admin' and usuario_id <> auth.uid();
   if public.es_admin(p_grupo) and admins = 0 then raise exception 'ultimo_admin'; end if;
-  delete from salida_grupos where grupo_id = p_grupo and salida_id in (select id from salidas where usuario_id = auth.uid());
   delete from miembros where grupo_id = p_grupo and usuario_id = auth.uid();
 end $$;
 
@@ -177,12 +165,37 @@ begin
     order by m.alta;
 end $$;
 
+-- Borra la cuenta entera: pertenencias, perfil, salidas (y sus fotos, en cascada) y el usuario de Auth.
+-- Un administrador que deja a otros miembros sin ningún otro administrador no puede irse (ultimo_admin);
+-- los grupos donde es el único miembro se borran con él.
+create function public.borrar_cuenta() returns void
+language plpgsql security definer set search_path = public, auth as $$
+declare uid uuid := auth.uid(); g record;
+begin
+  if uid is null then raise exception 'sin_sesion'; end if;
+  if not exists (select 1 from perfiles where id = uid) then raise exception 'sin_perfil'; end if;
+  for g in select grupo_id from miembros where usuario_id = uid order by grupo_id loop
+    -- Serializa altas y bajas del mismo grupo, como en salir_grupo.
+    perform 1 from grupos where id = g.grupo_id for update;
+  end loop;
+  if exists (
+    select 1 from miembros yo
+    where yo.usuario_id = uid and yo.rol = 'admin'
+      and exists (select 1 from miembros o where o.grupo_id = yo.grupo_id and o.usuario_id <> uid)
+      and not exists (select 1 from miembros a where a.grupo_id = yo.grupo_id and a.usuario_id <> uid and a.rol = 'admin')
+  ) then raise exception 'ultimo_admin'; end if;
+  delete from grupos g2 where exists (select 1 from miembros m where m.grupo_id = g2.id and m.usuario_id = uid)
+    and not exists (select 1 from miembros o where o.grupo_id = g2.id and o.usuario_id <> uid);
+  delete from perfiles where id = uid;   -- cascada: miembros y salidas (y de ahí sus fotos)
+  delete from auth.users where id = uid;
+end $$;
+
 -- ---------- Permisos ----------
 revoke execute on function public.es_miembro(uuid), public.es_admin(uuid), public.max_miembros_grupo(),
   public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
   public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
-  public.mis_grupos(), public.miembros_del_grupo(uuid) from public, anon;
+  public.mis_grupos(), public.miembros_del_grupo(uuid), public.borrar_cuenta() from public, anon;
 grant execute on function public.es_miembro(uuid), public.es_admin(uuid), public.max_miembros_grupo(),
   public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
   public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
-  public.mis_grupos(), public.miembros_del_grupo(uuid) to authenticated;
+  public.mis_grupos(), public.miembros_del_grupo(uuid), public.borrar_cuenta() to authenticated;
