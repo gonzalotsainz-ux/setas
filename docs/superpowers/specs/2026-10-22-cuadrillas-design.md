@@ -56,10 +56,12 @@ automático sobre el historial.
   `accounts.google.com/gsi/client`, cargado solo en la pantalla de entrada) que devuelve un *ID token*, y
   `supabase.auth.signInWithIdToken({ provider: 'google', token })`. La sesión la persiste supabase-js en localStorage.
   Motivo: la app se instala como PWA (`display: standalone`) y en iPhone el flujo por redirección
-  (`signInWithOAuth`) puede volver a Safari en vez de a la app instalada. La redirección queda solo como respaldo si
-  GIS no carga (sin red para el script, navegador raro). En ambos casos, antes de salir a Google se guarda la ruta
-  pendiente (p. ej. `#unirse/CODIGO`) y se restaura al volver. *Decisión del documento tras la revisión del
-  constructor.* No hay otra forma de entrar.
+  (`signInWithOAuth`) puede volver a Safari en vez de a la app instalada. **Esto no está comprobado:** GIS en una
+  PWA instalada de iPhone también puede abrir su ventana en Safari. Por eso la **primera tarea** del trabajo de
+  cuentas es una prueba desechable en un iPhone con la app instalada: si GIS entra y la sesión queda en la app, es
+  el camino; si no, se pasa a la redirección y se documenta aquí el resultado. En ambos casos, antes de salir a
+  Google se guarda la ruta pendiente (p. ej. `#unirse/CODIGO`) y se restaura al volver. *Decisión del documento
+  tras la revisión del constructor.* No hay otra forma de entrar.
 - **Requisito previo (lo hace la usuaria o Gonzalo en los paneles, no el código):** cliente OAuth en Google Cloud
   con orígenes autorizados `https://gonzalotsainz-ux.github.io` y `http://localhost:8080`, y la pantalla de
   consentimiento **publicada** (en modo «pruebas» solo entran los correos dados de alta como probadores, y queremos
@@ -272,8 +274,9 @@ previsibles están en `js/pantallas/mapa.js` (la rama solo toca 4 líneas) y `cs
 
 Tras la revisión del constructor (2026-10-22):
 
-9. Entrada con Google Identity Services + `signInWithIdToken`, sin redirección, por la PWA instalada en iPhone;
-   la pantalla de consentimiento de Google debe estar publicada (§2).
+9. Entrada con Google Identity Services + `signInWithIdToken` como camino preferido, **pendiente de una prueba en un
+   iPhone con la app instalada** (primera tarea de cuentas); si falla, redirección. La pantalla de consentimiento de
+   Google debe estar publicada (§2).
 10. El historial de un sitio enseña la lluvia de cada salida también a los miembros del grupo: `salidas_del_sitio`
     devuelve `meteo` e `indice`; el muro no (§3, §4).
 11. Los comentarios van por salida y grupo: no cruzan de un grupo a otro (§6).
