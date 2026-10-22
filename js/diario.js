@@ -1,4 +1,4 @@
-// Diario: salidas en Supabase (cada una de su dueño, compartibles con grupos), con cola de borradores local para no perder nada sin red.
+// Diario: salidas en Supabase (cada una de su dueño), con cola de borradores local para no perder nada sin red.
 // La identidad viene de la sesión anónima (js/cuenta.js); aquí el cliente y el id de usuario llegan inyectados.
 import { indiceZona, HISTORIA_MINIMA } from './indice.js';
 import { especiesDeZona } from './datos.js';
@@ -97,8 +97,6 @@ export function sincronizar({ cola, subir }) {
 // así que una respuesta perdida no crea una segunda salida. Tras el alta guarda `remotoId` (vía `persistir`) y las
 // fotos ya subidas (`fotosSubidas`) no se repiten; la fila de `fotos` se comprueba antes de insertarla.
 // `usuarioId` (dueño) viene de la sesión en el momento de subir, así un borrador sobrevive a recuperar la cuenta.
-// `b.grupos` = [{ grupo_id, ubicacion_exacta }]: se comparte una sola vez (`compartida`); si ya no eres miembro del
-// grupo, la salida se queda privada en vez de atascar la cola.
 export async function crearSalida(b, { supabase, persistir, almacenFotos = null, usuarioId = null }) {
   const marcar = (cambios) => { Object.assign(b, cambios); persistir?.(b); };
   if (!b.remotoId) {
@@ -107,11 +105,6 @@ export async function crearSalida(b, { supabase, persistir, almacenFotos = null,
     const { error } = await supabase.from('salidas').upsert({ ...fila, id: b.id }, { onConflict: 'id', ignoreDuplicates: true });
     if (error) throw error;
     marcar({ remotoId: b.id });
-  }
-  if (b.grupos?.length && !b.compartida) {
-    const { error } = await supabase.rpc('compartir_salida', { p_salida: b.remotoId, p_grupos: b.grupos });
-    if (error && !/no_miembro/.test(error.message ?? '')) throw error;
-    marcar({ compartida: true });
   }
   const fotos = b.fotos ?? [];
   if (fotos.length && (b.fotosSubidas ?? 0) < fotos.length) {
@@ -139,18 +132,12 @@ export async function crearSalida(b, { supabase, persistir, almacenFotos = null,
   return b.remotoId;
 }
 
-// Reemplaza con qué grupos (y con qué precisión de ubicación) se comparte una salida ya subida.
-export async function guardarComparticion(salidaId, grupos, { supabase }) {
-  const { error } = await supabase.rpc('compartir_salida', { p_salida: salidaId, p_grupos: grupos });
-  if (error) throw error;
-}
-
-// Mis salidas (con las fotos ya firmadas y con qué grupos están compartidas). Mientras exista el acceso abierto
+// Mis salidas (con las fotos ya firmadas). Mientras exista el acceso abierto
 // (antes de la migración de cierre) la tabla devuelve también las ajenas: se filtran aquí por dueño.
 // `usuarioId` es obligatorio: sin él fallaría abierto y devolvería las salidas de todos.
 export async function listarSalidas({ supabase, usuarioId = null }) {
   if (!usuarioId) throw new Error('listarSalidas necesita el usuarioId');
-  const { data, error } = await supabase.from('salidas').select('*, fotos(ruta, ancho, alto), salida_grupos(grupo_id, ubicacion_exacta)').order('fecha', { ascending: false });
+  const { data, error } = await supabase.from('salidas').select('*, fotos(ruta, ancho, alto)').order('fecha', { ascending: false });
   if (error) throw error;
   const propias = data.filter((s) => s.usuario_id === usuarioId);
   return firmarFotos(propias, { supabase });

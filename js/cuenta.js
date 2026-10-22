@@ -100,6 +100,3 @@ export function textoError(e) {
   for (const [clave, texto] of ERRORES) if (m.includes(clave)) return texto;
   return m || 'Algo ha fallado.';
 }
-
-// TEMPORAL (Tarea 7): js/grupos.js y tests/grupos.test.js aún importan asegurarSesion; la Tarea 7 los migra y este alias se borra.
-export { sesionActual as asegurarSesion };

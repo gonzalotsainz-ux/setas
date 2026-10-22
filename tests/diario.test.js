@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { serieSintetica, lluviaBuena, BOLETUS } from './ayudas.js';
-import { prepararFotosBorrador, cabeEnPresupuesto, fotoFijaDelDia, colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, firmarFotos, guardarComparticion, ajustarATamano, recortarSerie, puntoMasCercano, totalKg } from '../js/diario.js';
+import { prepararFotosBorrador, cabeEnPresupuesto, fotoFijaDelDia, colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, firmarFotos, ajustarATamano, recortarSerie, puntoMasCercano, totalKg } from '../js/diario.js';
 
 function almacenFalso() { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v), removeItem: (k) => m.delete(k) }; }
 
@@ -38,7 +38,7 @@ test('almacén roto → la cola funciona en memoria y avisa', () => {
 });
 
 // ---- Supabase falso: tablas y Storage en memoria, con fallos programables ----
-function supabaseFalso({ fallaSubidaN = null, pierdeRespuestaUpsert = false, rpcFalla = null } = {}) {
+function supabaseFalso({ fallaSubidaN = null, pierdeRespuestaUpsert = false } = {}) {
   const bd = { salidas: [], fotos: [] }, objetos = new Map();
   const registro = { inserts: 0, subidas: [] };
   let subidasIntentadas = 0;
@@ -72,10 +72,6 @@ function supabaseFalso({ fallaSubidaN = null, pierdeRespuestaUpsert = false, rpc
   return {
     bd, objetos, registro,
     from: (n) => tabla(n),
-    rpc: async (nombre, args) => {
-      (registro.rpc ??= []).push({ nombre, args });
-      return rpcFalla ? { data: null, error: new Error(rpcFalla) } : { data: null, error: null };
-    },
     storage: {
       from: () => ({
         async upload(ruta, blob) {
@@ -144,7 +140,7 @@ test('listarSalidas propaga el error', async () => {
 
 test('listarSalidas: solo las del dueño, con las fotos firmadas', async () => {
   const filas = [
-    { id: 'a', usuario_id: 'u1', fotos: [{ ruta: 'a/1.jpg' }], salida_grupos: [{ grupo_id: 'g1', ubicacion_exacta: true }] },
+    { id: 'a', usuario_id: 'u1', fotos: [{ ruta: 'a/1.jpg' }] },
     { id: 'b', usuario_id: 'u2', fotos: [] },
     { id: 'c', usuario_id: null, fotos: [] },
   ];
@@ -399,54 +395,11 @@ test('leerNuevaSalida: coordenadas incompletas, vacías, no decimales o fuera de
     'nuevaXYZ?lat=1&lon=1', 'nuevas', 'nueva?lat=95&lon=1', 'nueva?lat=1&lon=181']) assert.equal(leerNuevaSalida(p), null, p);
 });
 
-// ---- Dueño y grupos ----
+// ---- Dueño ----
 test('crearSalida: con usuarioId la fila lleva usuario_id', async () => {
   const sb = supabaseFalso();
   await crearSalida({ id: 'b1', fecha: '2026-10-12', zona_id: 'z', fotos: [] }, { supabase: sb, usuarioId: 'u1' });
   assert.equal(sb.bd.salidas[0].usuario_id, 'u1');
-});
-
-test('crearSalida: comparte con los grupos elegidos una sola vez, aunque el reintento repita el alta', async () => {
-  const sb = supabaseFalso({ fallaSubidaN: 1 });
-  const grupos = [{ grupo_id: 'g1', ubicacion_exacta: false }];
-  const guardados = [];
-  const b = { id: 'b1', fecha: '2026-10-12', zona_id: 'z', fotos: [foto(1)], grupos };
-  await assert.rejects(() => crearSalida(b, { supabase: sb, usuarioId: 'u1', persistir: (x) => guardados.push(JSON.parse(JSON.stringify(x))) }));
-  assert.equal(sb.registro.rpc.length, 1);
-  assert.deepEqual(sb.registro.rpc[0], { nombre: 'compartir_salida', args: { p_salida: 'b1', p_grupos: grupos } });
-  assert.equal(guardados.at(-1).compartida, true);
-  await crearSalida(guardados.at(-1), { supabase: sb, usuarioId: 'u1' });
-  assert.equal(sb.registro.rpc.length, 1, 'el reintento no vuelve a compartir');
-});
-
-test('crearSalida: sin grupos no llama a compartir_salida', async () => {
-  const sb = supabaseFalso();
-  await crearSalida({ id: 'b1', fotos: [], grupos: [] }, { supabase: sb, usuarioId: 'u1' });
-  assert.equal(sb.registro.rpc, undefined);
-});
-
-test('crearSalida: si ya te echaron del grupo la salida se sube privada y no se atasca', async () => {
-  const sb = supabaseFalso({ rpcFalla: 'no_miembro' });
-  const b = { id: 'b1', fecha: '2026-10-12', zona_id: 'z', fotos: [foto(1)], grupos: [{ grupo_id: 'g1', ubicacion_exacta: true }] };
-  const id = await crearSalida(b, { supabase: sb, usuarioId: 'u1' });
-  assert.equal(id, 'b1');
-  assert.equal(sb.bd.salidas.length, 1);
-  assert.equal(sb.bd.fotos.length, 1);
-  assert.equal(b.compartida, true);
-});
-
-test('crearSalida: otros errores al compartir sí se propagan (se reintentará)', async () => {
-  const sb = supabaseFalso({ rpcFalla: 'Failed to fetch' });
-  const b = { id: 'b1', fotos: [], grupos: [{ grupo_id: 'g1', ubicacion_exacta: true }] };
-  await assert.rejects(() => crearSalida(b, { supabase: sb, usuarioId: 'u1' }), /Failed to fetch/);
-  assert.notEqual(b.compartida, true);
-});
-
-test('guardarComparticion envía el conjunto completo; propaga el error', async () => {
-  const sb = supabaseFalso();
-  await guardarComparticion('s1', [{ grupo_id: 'g1', ubicacion_exacta: true }], { supabase: sb });
-  assert.deepEqual(sb.registro.rpc[0], { nombre: 'compartir_salida', args: { p_salida: 's1', p_grupos: [{ grupo_id: 'g1', ubicacion_exacta: true }] } });
-  await assert.rejects(() => guardarComparticion('s1', [], { supabase: supabaseFalso({ rpcFalla: 'no_es_tuya' }) }), /no_es_tuya/);
 });
 
 test('«Guardar en el diario» con punto: va después de la zona y se lee de vuelta', () => {

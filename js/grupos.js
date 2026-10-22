@@ -1,11 +1,11 @@
 // Grupos de amigos: llamadas a las funciones del servidor (con el cliente inyectado) y utilidades puras.
-import { asegurarSesion, normalizarCodigo } from './cuenta.js';
+import { sesionActual, normalizarCodigo } from './cuenta.js';
 import { firmarFotos } from './diario.js';
 
 export const MAX_MIEMBROS = 20;   // el tope real lo pone el servidor (max_miembros_grupo()); aquí solo se muestra
 
 async function llamar(nombre, args, { supabase }) {
-  await asegurarSesion({ supabase });
+  if (!await sesionActual({ supabase })) throw new Error('sin_sesion');
   const { data, error } = await supabase.rpc(nombre, args);
   if (error) throw error;
   return data;
@@ -26,8 +26,9 @@ export const hacerAdmin = (grupoId, usuarioId, { supabase }) => llamar('hacer_ad
 export const salirDelGrupo = (grupoId, { supabase }) => llamar('salir_grupo', { p_grupo: grupoId }, { supabase });
 export const borrarGrupo = (grupoId, { supabase }) => llamar('borrar_grupo', { p_grupo: grupoId }, { supabase });
 
-export async function salidasDelGrupo(grupoId, { supabase }) {
-  const salidas = (await llamar('salidas_del_grupo', { p_grupo: grupoId }, { supabase })) ?? [];
+// Salidas de los miembros del grupo, de la más reciente a la más antigua; `antes` (fecha ISO) pide la página siguiente.
+export async function salidasDelGrupo(grupoId, { supabase, antes = null, limite = 20 }) {
+  const salidas = (await llamar('salidas_del_grupo', { p_grupo: grupoId, p_antes: antes, p_limite: limite }, { supabase })) ?? [];
   return firmarFotos(salidas, { supabase });
 }
 
@@ -43,6 +44,3 @@ export function leerCodigoUnirse(param) {
   const c = normalizarCodigo(param);
   return /^[0-9A-HJKMNP-TV-Z]{8}$/.test(c) ? c : null;
 }
-
-// Selección del formulario (grupo_id → ubicación exacta) en la forma que espera `compartir_salida`.
-export const comparticionesDesdeMapa = (mapa) => [...mapa].map(([grupo_id, ubicacion_exacta]) => ({ grupo_id, ubicacion_exacta }));

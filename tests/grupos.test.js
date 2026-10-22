@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { MAX_MIEMBROS, crearGrupo, misGrupos, unirseAGrupo, regenerarCodigo, renombrarGrupo, miembrosDelGrupo, expulsarMiembro, hacerAdmin, salirDelGrupo, borrarGrupo, salidasSinDueno, reclamarSalidas, enlaceInvitacion, leerCodigoUnirse, comparticionesDesdeMapa } from '../js/grupos.js';
+import { MAX_MIEMBROS, crearGrupo, misGrupos, unirseAGrupo, regenerarCodigo, renombrarGrupo, miembrosDelGrupo, expulsarMiembro, hacerAdmin, salirDelGrupo, borrarGrupo, salidasSinDueno, reclamarSalidas, enlaceInvitacion, leerCodigoUnirse, salidasDelGrupo } from '../js/grupos.js';
 
-function sbFalso(respuestas = {}) {
+function sbFalso(respuestas = {}, session = { user: { id: 'u1' } }) {
   const llamadas = [];
   return {
     llamadas,
-    auth: { getSession: async () => ({ data: { session: { user: { id: 'u1' } } } }) },
+    auth: { getSession: async () => ({ data: { session } }) },
     rpc: async (nombre, args) => { llamadas.push({ nombre, args }); return respuestas[nombre] ?? { data: null, error: null }; },
   };
 }
@@ -71,8 +71,16 @@ test('leerCodigoUnirse: acepta códigos de 8 caracteres en cualquier formato y r
   assert.equal(leerCodigoUnirse('../../x'), null);
 });
 
-test('comparticionesDesdeMapa convierte la selección en la lista del servidor', () => {
-  const m = new Map([['g1', true], ['g2', false]]);
-  assert.deepEqual(comparticionesDesdeMapa(m), [{ grupo_id: 'g1', ubicacion_exacta: true }, { grupo_id: 'g2', ubicacion_exacta: false }]);
-  assert.deepEqual(comparticionesDesdeMapa(new Map()), []);
+test('sin sesión, llamar rechaza con sin_sesion y no llama al servidor', async () => {
+  const sb = sbFalso({}, null);
+  await assert.rejects(() => misGrupos({ supabase: sb }), /sin_sesion/);
+  assert.equal(sb.llamadas.length, 0);
+});
+
+test('salidasDelGrupo: paginación por defecto y explícita', async () => {
+  const sb = sbFalso({ salidas_del_grupo: { data: [{ id: 's1', fotos: [] }], error: null } });
+  assert.deepEqual(await salidasDelGrupo('g1', { supabase: sb }), [{ id: 's1', fotos: [] }]);
+  assert.deepEqual(sb.llamadas[0], { nombre: 'salidas_del_grupo', args: { p_grupo: 'g1', p_antes: null, p_limite: 20 } });
+  await salidasDelGrupo('g1', { supabase: sb, antes: '2026-10-01T00:00:00Z', limite: 5 });
+  assert.deepEqual(sb.llamadas[1].args, { p_grupo: 'g1', p_antes: '2026-10-01T00:00:00Z', p_limite: 5 });
 });
