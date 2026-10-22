@@ -27,11 +27,20 @@ const quitarFotosLocales = (b) => Promise.all((b.fotos ?? []).filter((f) => f.cl
 
 // ---------- Sincronización (carga, online, visibilitychange) ----------
 const avisarCambio = () => window.dispatchEvent(new CustomEvent('diario-cambio'));
+// Solo se suben los borradores de la cuenta actual o sin dueño anotado. Se usa una cola envuelta estable (no una nueva
+// por llamada) para que sincronizar() siga serializando las tandas; el filtro lee la cuenta de la tanda en curso.
+let idSync = null;
+const colaPropia = {
+  todos: () => cola.todos().filter((b) => !b.usuario_id || b.usuario_id === idSync),
+  actualizar: (b) => cola.actualizar(b),
+  quitar: (id) => cola.quitar(id),
+};
 export async function sincronizarYa() {
   if (!cola.todos().length) return { subidas: 0, fallidas: 0 };
   const cuenta = await cuentaActual();
-  if (!cuenta) return { subidas: 0, fallidas: 0, sinSesion: true };   // los borradores esperan a que haya perfil
-  const r = await sincronizar({ cola, subir: (b) => crearSalida(b, { supabase, persistir: (x) => cola.actualizar(x), almacenFotos, usuarioId: cuenta.id }) });
+  if (!cuenta) return { subidas: 0, fallidas: 0, sinSesion: true };   // los borradores esperan a que se entre con Google
+  idSync = cuenta.id;
+  const r = await sincronizar({ cola: colaPropia, subir: (b) => crearSalida(b, { supabase, persistir: (x) => cola.actualizar(x), almacenFotos, usuarioId: cuenta.id }) });
   if (r.subidas) avisarCambio();
   return r;
 }
@@ -179,7 +188,7 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
       let cuenta = null, sinVerificar = false;
       try { cuenta = await requerirCuenta(); } catch (e) {
         // Sin red no se puede comprobar el perfil: con un nombre ya guardado en el móvil la salida se apunta igualmente
-        // (el dueño se toma de la sesión al subirla y los borradores esperan a que el perfil esté confirmado.
+        // (sin dueño anotado: se subirá con la cuenta que esté al volver la red, y espera a que esté confirmada).
         if (!autorActual()) { estadoGuardar.textContent = e.message; return; }
         sinVerificar = true;
       }
@@ -191,7 +200,7 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
       try { prep = await prepararFotosBorrador(id, fotos, { almacen: almacenFotos }); } catch (e) { estadoGuardar.textContent = e.message; return; }
       const borrador = {
         id, fecha: fecha.value, zona_id: zona.value, lat: punto?.lat ?? null, lon: punto?.lon ?? null,
-        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta ? cuenta.nombre : autorActual(),
+        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta ? cuenta.nombre : autorActual(), usuario_id: cuenta?.id ?? null,
         meteo: foto.meteo, indice: foto.indice, fotos: prep.fotos,
       };
       const guardado = cola.anadir(borrador);
@@ -237,15 +246,15 @@ function miniaturasPendientes(b) {
   }));
 }
 
-function tarjetaPendiente(b, datos, { reintentar, descartar }) {
+function tarjetaPendiente(b, datos, { reintentar, descartar, deOtra = false }) {
   return el('li', { clase: 'tarjeta diario-salida diario-salida--pendiente' },
-    el('div', { clase: 'diario-salida__cabeza' }, el('h3', { texto: fechaLarga(b.fecha) }), el('span', { clase: 'etiqueta etiqueta--ocre', texto: 'Pendiente de subir' })),
+    el('div', { clase: 'diario-salida__cabeza' }, el('h3', { texto: fechaLarga(b.fecha) }), el('span', { clase: 'etiqueta etiqueta--ocre', texto: deOtra ? 'De otra cuenta' : 'Pendiente de subir' })),
     el('p', { clase: 'texto-2 texto-s', texto: `${nombreZona(datos, b.zona_id)} · ${b.fotos?.length ?? 0} foto${b.fotos?.length === 1 ? '' : 's'}${b.remotoId ? ' · subida a medias' : ''}` }),
     listaEspecies(datos, b.especies),
     b.ultimoError ? el('p', { clase: 'texto-s', texto: `Último intento: ${b.ultimoError}` }) : null,
     miniaturasPendientes(b),
     el('div', { clase: 'diario-fila' },
-      el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Subir ahora', onclick: reintentar }),
+      deOtra ? null : el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Subir ahora', onclick: reintentar }),
       el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Descartar', onclick: () => { if (confirm('¿Descartar este borrador? No se ha subido y se perderá.')) descartar(); } })));
 }
 
@@ -343,9 +352,11 @@ export function pintar({ estado, param }) {
     refrescar();
     return r;
   }
-  function pintarPendientes() {
+  async function pintarPendientes() {
     const pend = cola.todos();
+    const miId = (await cuentaActual().catch(() => null))?.id ?? null;
     listaPend.replaceChildren(...pend.map((b) => tarjetaPendiente(b, datos, {
+      deOtra: !!(b.usuario_id && miId && b.usuario_id !== miId),
       reintentar: async () => {
         const r = await subirPendientes();
         if (r.sinSesion) mensaje(errorDeCuenta() ? 'Sin conexión: se subirá al recuperarla.' : 'Entra con Google para subir tus salidas.');

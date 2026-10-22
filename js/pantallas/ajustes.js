@@ -91,14 +91,18 @@ function bloqueDispositivo() {
     reintentar.disabled = false; pintarCola();
   };
   pintarCola();
-  return seccion('Este dispositivo', linea, formulario, resultadoNombre, estadoCola, reintentar, resultado);
+  const bloque = seccion('Este dispositivo', linea, formulario, resultadoNombre, estadoCola, reintentar, resultado);
+  // Entrar, salir o borrar la cuenta (aquí o en otra pestaña): se repinta el nombre; el formulario a medias no se toca.
+  const alCuenta = () => { if (!bloque.isConnected) window.removeEventListener('cuenta-cambio', alCuenta); else { pintarNombre(); pintarCola(); } };
+  window.addEventListener('cuenta-cambio', alCuenta);
+  return bloque;
 }
 
 // ---------- Mi cuenta ----------
 function bloqueCuenta() {
   const cuerpo = el('div', { clase: 'pila' });
   const seccionCuenta = seccion('Mi cuenta', cuerpo);
-  const estado = el('p', { clase: 'texto-2', role: 'status' });
+  const estado = el('p', { clase: 'texto-2', role: 'alert' });   // solo lleva errores
   const pintarCuenta = async () => {
     const c = await cuentaActual();
     estado.textContent = '';
@@ -128,6 +132,8 @@ function bloqueCuenta() {
     }
   };
   pintarCuenta();
+  const alCuenta = () => { if (!seccionCuenta.isConnected) window.removeEventListener('cuenta-cambio', alCuenta); else pintarCuenta(); };
+  window.addEventListener('cuenta-cambio', alCuenta);
   return seccionCuenta;
 }
 

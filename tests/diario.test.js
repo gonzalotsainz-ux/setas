@@ -335,6 +335,15 @@ test('crearSalida con fotos en IndexedDB: las lee del almacén, las sube y las b
   await assert.rejects(() => crearSalida(b, { supabase: sb, almacenFotos: alm }), /Falta una foto/);
 });
 
+test('crearSalida: el dueño es el del borrador, no el de la sesión que sube (y sin dueño se usa el de la sesión)', async () => {
+  const sb = supabaseFalso();
+  await crearSalida({ id: 'b1', usuario_id: 'u1', fotos: [] }, { supabase: sb, usuarioId: 'u2' });
+  assert.equal(sb.bd.salidas[0].usuario_id, 'u1');
+  const sb2 = supabaseFalso();
+  await crearSalida({ id: 'b2', usuario_id: null, fotos: [] }, { supabase: sb2, usuarioId: 'u2' });
+  assert.equal(sb2.bd.salidas[0].usuario_id, 'u2');
+});
+
 test('crearSalida solo envía columnas reales de salidas (nada de ultimoError ni campos locales)', async () => {
   const sb = supabaseFalso();
   await crearSalida({ id: 'b1', fecha: '2026-10-12', zona_id: 'z', notas: 'x', ultimoError: 'HTTP 503', fotosSubidas: 0, fotos: [] }, { supabase: sb });

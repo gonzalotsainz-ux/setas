@@ -6,7 +6,7 @@ import { especiesDeZona } from './datos.js';
 const CLAVE = 'setas:borradores';
 const BUCKET = 'fotos';
 // Columnas de `salidas` que viajan desde el borrador; lo demás (fotos, remotoId, ultimoError…) es solo del móvil.
-const COLUMNAS = ['fecha', 'zona_id', 'lat', 'lon', 'especies', 'notas', 'meteo', 'indice', 'autor'];
+const COLUMNAS = ['fecha', 'zona_id', 'lat', 'lon', 'especies', 'notas', 'meteo', 'indice', 'autor', 'usuario_id'];
 
 function almacenPorDefecto() {
   try { return globalThis.localStorage ?? null; } catch { return null; }
@@ -101,7 +101,8 @@ export async function crearSalida(b, { supabase, persistir, almacenFotos = null,
   const marcar = (cambios) => { Object.assign(b, cambios); persistir?.(b); };
   if (!b.remotoId) {
     const fila = Object.fromEntries(Object.entries(b).filter(([k]) => COLUMNAS.includes(k)));
-    if (usuarioId) fila.usuario_id = usuarioId;
+    // El dueño es el del borrador; solo si no lo trae (borradores antiguos o guardados sin red) se toma el de la sesión.
+    if (!fila.usuario_id) { if (usuarioId) fila.usuario_id = usuarioId; else delete fila.usuario_id; }
     const { error } = await supabase.from('salidas').upsert({ ...fila, id: b.id }, { onConflict: 'id', ignoreDuplicates: true });
     if (error) throw error;
     marcar({ remotoId: b.id });
