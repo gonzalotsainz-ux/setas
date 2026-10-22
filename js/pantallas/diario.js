@@ -1,5 +1,5 @@
-// Pantalla «Diario»: mis salidas (cada una es de su dueño, con perfil), alta con fotos, compartir con grupos,
-// reclamo de las salidas anteriores a los perfiles y cola de borradores sin conexión.
+// Pantalla «Diario»: mis salidas (cada una es de su dueño, con cuenta de Google), alta con fotos,
+// reclamo de las salidas anteriores a las cuentas y cola de borradores sin conexión.
 import { el, icono } from '../ui/dom.js';
 import { semaforo } from '../ui/semaforo.js';
 import { comun } from '../ui/ficha.js';
@@ -9,12 +9,11 @@ import { crearMapa, fechaLarga } from '../mapa.js';
 import { supabase, autorActual } from '../supabase.js';
 import { buscarEspecies } from './especies.js';
 import { reducirFoto, aDataUrl } from '../fotos.js';
-import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, guardarComparticion, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto, leerNuevaSalida } from '../diario.js';
+import { colaBorradores, sincronizar, crearSalida, borrarSalida, listarSalidas, totalKg, fotoFijaDelDia, nuevaId, prepararFotosBorrador, cabeEnPresupuesto, leerNuevaSalida } from '../diario.js';
 import { almacenIndexedDB } from '../almacen-fotos.js';
 import { abrirHoja } from '../ui/hoja.js';
-import { selectorGrupos } from '../ui/compartir.js';
-import { cuentaActual, requerirCuenta, errorDeCuenta } from './cuenta-ui.js';
-import { misGrupos, salidasSinDueno, reclamarSalidas } from '../grupos.js';
+import { cuentaActual, requerirCuenta, errorDeCuenta, tarjetaSinSesion } from './cuenta-ui.js';
+import { salidasSinDueno, reclamarSalidas } from '../grupos.js';
 import { textoError } from '../cuenta.js';
 
 const MAX_FOTOS = 6;
@@ -31,7 +30,7 @@ const avisarCambio = () => window.dispatchEvent(new CustomEvent('diario-cambio')
 export async function sincronizarYa() {
   if (!cola.todos().length) return { subidas: 0, fallidas: 0 };
   const cuenta = await cuentaActual();
-  if (!cuenta) return { subidas: 0, fallidas: 0, sinPerfil: true };   // borradores anteriores a las cuentas: esperan a que haya perfil
+  if (!cuenta) return { subidas: 0, fallidas: 0, sinSesion: true };   // los borradores esperan a que haya perfil
   const r = await sincronizar({ cola, subir: (b) => crearSalida(b, { supabase, persistir: (x) => cola.actualizar(x), almacenFotos, usuarioId: cuenta.id }) });
   if (r.subidas) avisarCambio();
   return r;
@@ -151,23 +150,6 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
   };
   const dePhoto = entrada(true), deGaleria = entrada(false);
 
-  // Compartir con grupos (opcional): se cargan los grupos del perfil.
-  const compartirCaja = el('fieldset', { clase: 'diario-grupo' }, el('legend', { texto: 'Compartir con tus grupos (opcional)' }));
-  let selector = null;
-  (async () => {
-    try {
-      if (!(await cuentaActual())) {
-        const sinRed = !!errorDeCuenta();
-        compartirCaja.append(el('p', { clase: 'texto-2 texto-s', texto: sinRed ? 'Sin conexión: la salida se guardará privada y se subirá al volver la red.' : 'Al guardar te pediremos crear tu perfil; después podrás compartir con grupos.' }));
-        return;
-      }
-      const grupos = await misGrupos({ supabase });
-      if (!grupos.length) { compartirCaja.append(el('p', { clase: 'texto-2 texto-s' }, 'No estás en ningún grupo. ', el('a', { href: '#grupos', texto: 'Crear o unirme a uno' }))); return; }
-      selector = selectorGrupos({ grupos });
-      compartirCaja.append(selector.nodo);
-    } catch { compartirCaja.append(el('p', { clase: 'texto-2 texto-s', texto: 'No se pudieron cargar tus grupos: la salida se guardará privada.' })); }
-  })();
-
   const notas = el('textarea', { id: 'sal-notas', rows: 3, attrs: { maxlength: '2000' } });
   const estadoGuardar = el('p', { clase: 'texto-s', attrs: { role: 'alert' } });
   const guardar = el('button', { type: 'submit', clase: 'boton', texto: 'Guardar salida' });
@@ -184,7 +166,6 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
         el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Hacer foto', onclick: () => dePhoto.click() }),
         el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Desde la galería', onclick: () => deGaleria.click() })),
       dePhoto, deGaleria, estadoFotos, miniaturas),
-    compartirCaja,
     el('div', { clase: 'campo' }, el('label', { htmlFor: 'sal-notas', texto: 'Notas' }), notas),
     estadoGuardar, guardar);
   pintarPunto();
@@ -198,11 +179,11 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
       let cuenta = null, sinVerificar = false;
       try { cuenta = await requerirCuenta(); } catch (e) {
         // Sin red no se puede comprobar el perfil: con un nombre ya guardado en el móvil la salida se apunta igualmente
-        // (privada); el dueño se toma de la sesión al subirla y los borradores esperan a que el perfil esté confirmado.
+        // (el dueño se toma de la sesión al subirla y los borradores esperan a que el perfil esté confirmado.
         if (!autorActual()) { estadoGuardar.textContent = e.message; return; }
         sinVerificar = true;
       }
-      if (!cuenta && !sinVerificar) { estadoGuardar.textContent = 'Crea tu perfil para guardar la salida.'; return; }
+      if (!cuenta && !sinVerificar) { estadoGuardar.textContent = 'Entra con Google para guardar la salida.'; return; }
       const z = datos.zonas.find((x) => x.id === zona.value);
       const foto = fotoFijaDelDia({ zona: z, lat: punto?.lat, lon: punto?.lon, fecha: fecha.value, datos, meteo: estado.meteo, umbrales: estado.umbrales ?? {} });
       const id = nuevaId();
@@ -210,7 +191,7 @@ function hojaNuevaSalida({ estado, alGuardar, inicial = null }) {
       try { prep = await prepararFotosBorrador(id, fotos, { almacen: almacenFotos }); } catch (e) { estadoGuardar.textContent = e.message; return; }
       const borrador = {
         id, fecha: fecha.value, zona_id: zona.value, lat: punto?.lat ?? null, lon: punto?.lon ?? null,
-        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta ? cuenta.nombre : autorActual(), grupos: cuenta ? (selector?.valor() ?? []) : [],
+        especies: especies.map((s) => ({ especie_id: s.especie_id, kg: s.kg })), notas: notas.value.trim(), autor: cuenta ? cuenta.nombre : autorActual(),
         meteo: foto.meteo, indice: foto.indice, fotos: prep.fotos,
       };
       const guardado = cola.anadir(borrador);
@@ -276,40 +257,18 @@ function comparacionIndice(s) {
     kg ? ` · recogido: ${kgTexto(kg)}` : ' · sin kilos apuntados');
 }
 
-function tarjetaSalida(s, datos, { borrar, compartir, nombresGrupos }) {
+function tarjetaSalida(s, datos, { borrar }) {
   const urls = (s.fotos ?? []).filter((f) => f.url).slice().sort((a, b) => a.ruta.localeCompare(b.ruta, 'es', { numeric: true })).map((f) => ({ mini: f.url, grande: f.url }));
-  const con = (s.salida_grupos ?? []).map((c) => `${nombresGrupos.get(c.grupo_id) ?? 'un grupo'}${c.ubicacion_exacta ? '' : ' (solo la zona)'}`);
   return el('li', { clase: 'tarjeta diario-salida' },
     el('div', { clase: 'diario-salida__cabeza' }, el('h3', { texto: fechaLarga(s.fecha) }),
-      con.length ? el('span', { clase: 'etiqueta etiqueta--acento', texto: `Compartida con ${con.join(', ')}` }) : el('span', { clase: 'etiqueta', texto: 'Privada' })),
-    el('p', { clase: 'texto-2 texto-s', texto: nombreZona(datos, s.zona_id) }),
+      el('span', { clase: 'etiqueta', texto: nombreZona(datos, s.zona_id) })),
     listaEspecies(datos, s.especies),
     miniaturasDe(urls, `Salida del ${fechaLarga(s.fecha)}`),
     s.notas ? el('p', { clase: 'diario-notas', texto: s.notas }) : null,
     comparacionIndice(s),
     el('div', { clase: 'diario-fila' },
       typeof s.lat === 'number' && typeof s.lon === 'number' ? el('a', { clase: 'boton boton--suave boton--compacto', href: '#mapa', texto: 'Ver en el mapa' }) : null,
-      el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Compartir…', onclick: compartir }),
       el('button', { type: 'button', clase: 'boton boton--suave boton--compacto boton--borrar', texto: 'Borrar', onclick: () => { if (confirm('¿Borrar esta salida y sus fotos? No se puede deshacer.')) borrar(); } })));
-}
-
-// «Compartir…» en una salida ya subida: elegir (o quitar) los grupos y la precisión de la ubicación.
-async function hojaCompartirSalida(s, { alGuardar }) {
-  const hoja = abrirHoja('Compartir esta salida');
-  const estadoHoja = el('p', { clase: 'texto-s', attrs: { role: 'alert' } });
-  try {
-    const grupos = await misGrupos({ supabase });
-    if (!grupos.length) { hoja.cuerpo.append(el('p', {}, 'No estás en ningún grupo. ', el('a', { href: '#grupos', texto: 'Crear o unirme a uno' }))); return; }
-    const actual = new Map((s.salida_grupos ?? []).map((c) => [c.grupo_id, c.ubicacion_exacta]));
-    const selector = selectorGrupos({ grupos, seleccion: actual });
-    const guardar = el('button', { type: 'button', clase: 'boton', texto: 'Guardar', onclick: async () => {
-      guardar.disabled = true;
-      try { await guardarComparticion(s.id, selector.valor(), { supabase }); hoja.cerrar(); alGuardar(); } catch (e) { estadoHoja.textContent = textoError(e); guardar.disabled = false; }
-    } });
-    hoja.cuerpo.append(
-      el('p', { clase: 'texto-2', texto: 'Los miembros de cada grupo marcado verán esta salida. Con «solo la zona» no verán el punto exacto ni los datos del punto.' }),
-      selector.nodo, estadoHoja, guardar);
-  } catch (e) { hoja.cuerpo.append(el('p', { clase: 'aviso-peligro', texto: textoError(e) })); }
 }
 
 // ---------- Pantalla ----------
@@ -338,13 +297,14 @@ export function pintar({ estado, param }) {
   const pintarAutor = async () => {
     const c = await cuentaActual();
     const sinRed = !c && !!errorDeCuenta();
-    autorLinea.replaceChildren(
-      c ? el('span', {}, 'Apuntas como ', el('b', { texto: c.nombre })) : el('span', { clase: 'texto-2', texto: sinRed ? 'Sin conexión: no se puede comprobar tu perfil.' : (cola.todos().length ? 'Crea tu perfil para subir tus salidas pendientes.' : 'Aún no tienes perfil.') }),
-      el('span', { clase: 'diario-fila' },
-        c || sinRed ? null : el('button', { type: 'button', clase: 'boton boton--compacto', texto: 'Crear perfil', onclick: async () => {
-          try { if (await requerirCuenta()) { await pintarAutor(); await sincronizarYa(); refrescar(); } } catch (e) { mensaje(e.message, { peligro: true }); }
-        } }),
-        el('a', { clase: 'boton boton--suave boton--compacto', href: '#grupos', texto: 'Grupos' })));
+    const grupos = el('a', { clase: 'boton boton--suave boton--compacto', href: '#grupos', texto: 'Grupos' });
+    if (c || sinRed) {
+      autorLinea.replaceChildren(
+        c ? el('span', {}, 'Apuntas como ', el('b', { texto: c.nombre })) : el('span', { clase: 'texto-2', texto: 'Sin conexión: no se puede comprobar tu perfil.' }),
+        el('span', { clase: 'diario-fila' }, grupos));
+    } else {
+      autorLinea.replaceChildren(tarjetaSinSesion('Entra con Google para apuntar tus salidas y verlas con tu cuadrilla.', async () => { await pintarAutor(); await sincronizarYa(); refrescar(); }));
+    }
     pintarReclamo();
   };
   // Salidas anteriores a las cuentas (sin dueño): quien tiene perfil puede reclamar las que llevan su nombre.
@@ -356,9 +316,9 @@ export function pintar({ estado, param }) {
       const sin = await salidasSinDueno({ supabase });
       if (!sin.length) return;
       reclamo.append(el('div', { clase: 'aviso' }, icono('i-aviso'), el('div', { clase: 'pila' },
-        el('p', { texto: 'Hay salidas de antes de los perfiles. ¿Cuáles son tuyas?' }),
+        el('p', { texto: 'Hay salidas de antes de las cuentas. ¿Cuáles son tuyas?' }),
         el('div', { clase: 'diario-fila' }, sin.map((f) => el('button', { type: 'button', clase: 'boton boton--compacto', texto: `${f.autor || 'Sin nombre'} (${f.n})`, onclick: async () => {
-          if (!confirm(`¿Quedarte con las ${f.n} salidas de «${f.autor || 'Sin nombre'}»? Pasarán a ser tuyas y privadas.`)) return;
+          if (!confirm(`¿Quedarte con las ${f.n} salidas de «${f.autor || 'Sin nombre'}»? Pasarán a ser tuyas y las verán tus grupos.`)) return;
           try { const n = await reclamarSalidas(f.autor, { supabase }); mensaje(Number(n) === 0 ? 'No quedaban salidas por reclamar.' : 'Salidas reclamadas.'); await refrescar(); pintarReclamo(); } catch (e) { mensaje(textoError(e), { peligro: true }); }
         } }))))));
     } catch { /* sin conexión: se verá al volver */ }
@@ -370,7 +330,7 @@ export function pintar({ estado, param }) {
   const actualizarVacio = () => { vacio.hidden = !(cache && !cache.length && !cola.todos().length); };
   const cargando = el('div', { clase: 'esqueleto', attrs: { 'aria-label': 'Cargando salidas' } });
   const avisoRed = el('div');
-  let cache = null, ficha = 0, nombresGrupos = new Map();
+  let cache = null, ficha = 0;
 
   const mostrarMensaje = () => {
     if (!ultimoMensaje || ultimoMensaje.hasta < Date.now()) { resultado.replaceChildren(); return; }
@@ -388,7 +348,7 @@ export function pintar({ estado, param }) {
     listaPend.replaceChildren(...pend.map((b) => tarjetaPendiente(b, datos, {
       reintentar: async () => {
         const r = await subirPendientes();
-        if (r.sinPerfil) mensaje(errorDeCuenta() ? 'Sin conexión: se subirá al recuperarla.' : 'Crea tu perfil para subir tus salidas.');
+        if (r.sinSesion) mensaje(errorDeCuenta() ? 'Sin conexión: se subirá al recuperarla.' : 'Entra con Google para subir tus salidas.');
         else mensaje(r.fallidas ? 'Sigue sin conexión: se subirá al recuperarla.' : 'Subida ✓');
       },
       descartar: () => { cola.quitar(b.id); quitarFotosLocales(b); pintarPendientes(); },
@@ -398,8 +358,6 @@ export function pintar({ estado, param }) {
   }
   function pintarSalidas() {
     listaSal.replaceChildren(...(cache ?? []).map((s) => tarjetaSalida(s, datos, {
-      nombresGrupos,
-      compartir: () => hojaCompartirSalida(s, { alGuardar: () => { mensaje('Cambios de compartir guardados.'); refrescar(); } }),
       borrar: async () => {
         try { await borrarSalida(s.id, { supabase }); mensaje('Salida borrada.'); await refrescar(); }
         catch (e) { mensaje(`No se pudo borrar: ${e.message}`, { peligro: true }); }
@@ -413,12 +371,8 @@ export function pintar({ estado, param }) {
     try {
       const cuenta = await cuentaActual();
       if (!cuenta && errorDeCuenta()) throw new Error(textoError(errorDeCuenta()));
-      const [salidas, grupos] = await Promise.all([
-        cuenta ? listarSalidas({ supabase, usuarioId: cuenta.id }) : Promise.resolve([]),
-        cuenta ? misGrupos({ supabase }).catch(() => []) : Promise.resolve([]),
-      ]);
+      const salidas = cuenta ? await listarSalidas({ supabase, usuarioId: cuenta.id }) : [];
       if (mi !== ficha) return;
-      nombresGrupos = new Map(grupos.map((g) => [g.grupo_id, g.nombre]));
       cache = salidas; avisoRed.replaceChildren();
     } catch (e) {
       if (mi !== ficha) return;
@@ -432,6 +386,9 @@ export function pintar({ estado, param }) {
 
   const alCambio = () => { if (!raiz.isConnected) window.removeEventListener('diario-cambio', alCambio); else refrescar(); };
   window.addEventListener('diario-cambio', alCambio);
+  // La sesión puede cambiar (o repetirse el aviso al volver a la pestaña): solo se refrescan cabecera y lista; las hojas abiertas no se tocan.
+  const alCuenta = () => { if (!raiz.isConnected) window.removeEventListener('cuenta-cambio', alCuenta); else { pintarAutor(); refrescar(); } };
+  window.addEventListener('cuenta-cambio', alCuenta);
 
   viva = { mostrarMensaje, pintarPendientes, pintarAutor, refrescar };
   pintarAutor();

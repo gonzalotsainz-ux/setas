@@ -796,18 +796,13 @@
 .campo label { font-weight: 600; }
 .autor-botones { display: grid; grid-template-columns: 1fr 1fr; gap: var(--esp-3); }
 .autor-boton { min-height: 72px; font-size: var(--t-l); }
-.grupo-codigo, .recuperacion-codigo {
+.grupo-codigo {
   margin: 0; padding: var(--esp-3) var(--esp-4); border-radius: var(--r-s); background: var(--c-superficie-2);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; letter-spacing: 0.12em;
   overflow-wrap: anywhere; user-select: all;
 }
 .grupo-codigo { font-size: var(--t-l); }
-.recuperacion-codigo { font-size: var(--t-base); text-align: center; }
-.diario-comp { display: grid; gap: var(--esp-1); }
-.diario-comp label { display: flex; align-items: center; gap: var(--esp-2); }
-.diario-comp__zona { padding-left: var(--esp-6); font-size: var(--t-s); }
-.campo--marca { display: flex; align-items: center; gap: var(--esp-2); }
-.aviso-peligro[hidden], .diario-comp__zona[hidden] { display: none; }
+.aviso-peligro[hidden] { display: none; }
 .diario-resultados, .diario-elegidas { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-2); }
 .diario-resultado {
   display: flex; flex-direction: column; align-items: flex-start; width: 100%; min-height: 48px; padding: var(--esp-2) var(--esp-4);

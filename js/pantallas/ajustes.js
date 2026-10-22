@@ -1,4 +1,4 @@
-// Pantalla «Ajustes»: este dispositivo y mi cuenta (perfil y código de recuperación), umbrales compartidos,
+// Pantalla «Ajustes»: este dispositivo y mi cuenta (entrar, salir y borrar), umbrales compartidos,
 // calibración con el diario y créditos.
 import { el } from '../ui/dom.js';
 import { comun } from '../ui/ficha.js';
@@ -6,8 +6,8 @@ import { nombreCorto } from '../datos.js';
 import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
 import { hoyMadrid } from '../meteo.js';
 import { supabase, autorActual } from '../supabase.js';
-import { renombrarPerfil, regenerarRecuperacion, textoError } from '../cuenta.js';
-import { cuentaActual, requerirCuenta, mostrarCodigoRecuperacion, fijarCuenta, errorDeCuenta } from './cuenta-ui.js';
+import { renombrarPerfil, salir, borrarCuenta, textoError } from '../cuenta.js';
+import { cuentaActual, requerirCuenta, hojaEntrar, fijarCuenta, errorDeCuenta } from './cuenta-ui.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
 import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
@@ -45,7 +45,7 @@ function bloqueDispositivo() {
   // El nombre se muestra solo si hay perfil (o, sin red, el nombre guardado en el móvil).
   const pintarNombre = async () => {
     const c = await cuentaActual();
-    nombre.textContent = c?.nombre ?? (errorDeCuenta() ? autorActual() : null) ?? 'nadie (aún no tienes perfil)';
+    nombre.textContent = c?.nombre ?? (errorDeCuenta() ? autorActual() : null) ?? 'nadie (entra con Google)';
   };
   cambiar.onclick = async () => {
     const c = await cuentaActual();
@@ -86,7 +86,7 @@ function bloqueDispositivo() {
     try {
       const { sincronizarYa } = await import('./diario.js');
       const r = await sincronizarYa();
-      resultado.textContent = r.sinPerfil ? (errorDeCuenta() ? 'Sin conexión: se subirán al recuperarla.' : 'Crea tu perfil para subir tus salidas.') : r.fallidas ? `Se subieron ${r.subidas}; ${r.fallidas} siguen pendientes.` : `Se subieron ${r.subidas}.`;
+      resultado.textContent = r.sinSesion ? (errorDeCuenta() ? 'Sin conexión: se subirán al recuperarla.' : 'Entra con Google para subir tus salidas.') : r.fallidas ? `Se subieron ${r.subidas}; ${r.fallidas} siguen pendientes.` : `Se subieron ${r.subidas}.`;
     } catch (e) { resultado.textContent = `No se pudo subir: ${e.message}`; }
     reintentar.disabled = false; pintarCola();
   };
@@ -96,19 +96,39 @@ function bloqueDispositivo() {
 
 // ---------- Mi cuenta ----------
 function bloqueCuenta() {
+  const cuerpo = el('div', { clase: 'pila' });
+  const seccionCuenta = seccion('Mi cuenta', cuerpo);
   const estado = el('p', { clase: 'texto-2', role: 'status' });
-  const nuevo = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Generar un código de recuperación nuevo' });
-  nuevo.onclick = async () => {
-    if (!(await cuentaActual())) { estado.textContent = errorDeCuenta() ? 'Sin conexión: no se puede comprobar tu perfil.' : 'Primero crea tu perfil.'; return; }
-    if (!confirm('El código anterior dejará de valer. ¿Generar uno nuevo?')) return;
-    nuevo.disabled = true;
-    try { await mostrarCodigoRecuperacion(await regenerarRecuperacion({ supabase }), { titulo: 'Tu código nuevo' }); estado.textContent = 'Código nuevo generado.'; }
-    catch (e) { estado.textContent = textoError(e); }
-    nuevo.disabled = false;
+  const pintarCuenta = async () => {
+    const c = await cuentaActual();
+    estado.textContent = '';
+    if (c) {
+      const botonSalir = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Salir' });
+      const botonBorrar = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto boton--borrar', texto: 'Borrar mi cuenta' });
+      botonSalir.onclick = async () => {
+        botonSalir.disabled = true;
+        try { await salir({ supabase }); await cuentaActual({ forzar: true }); await pintarCuenta(); }
+        catch (e) { estado.textContent = textoError(e); botonSalir.disabled = false; }
+      };
+      botonBorrar.onclick = async () => {
+        if (!confirm('Se borrarán tus salidas, fotos y grupos donde seas el único miembro. No se puede deshacer. ¿Borrar la cuenta?')) return;
+        botonBorrar.disabled = true;
+        try { await borrarCuenta({ supabase, usuarioId: c.id }); await cuentaActual({ forzar: true }); location.hash = '#mapa'; }
+        catch (e) { estado.textContent = textoError(e); botonBorrar.disabled = false; }
+      };
+      cuerpo.replaceChildren(
+        el('p', {}, 'Has entrado con Google como ', el('b', { texto: c.nombre }), '. Tu correo solo sirve para entrar: no se enseña a nadie. Dentro de un grupo, todos ven tus salidas; una captura de pantalla no se puede impedir, así que invita solo a gente de confianza.'),
+        el('div', { clase: 'ajustes-botones' }, botonSalir, botonBorrar), estado);
+    } else if (errorDeCuenta()) {
+      cuerpo.replaceChildren(el('p', { clase: 'texto-2', texto: 'Sin conexión: no se puede comprobar tu cuenta.' }));
+    } else {
+      cuerpo.replaceChildren(
+        el('p', { texto: 'Entra con tu cuenta de Google para guardar tus salidas y verlas con tu cuadrilla.' }),
+        el('button', { type: 'button', clase: 'boton', texto: 'Entrar con Google', onclick: async () => { if (await hojaEntrar()) await pintarCuenta(); } }), estado);
+    }
   };
-  return seccion('Mi cuenta',
-    el('p', { texto: 'Tu cuenta vive en este dispositivo. Para pasarla a otro móvil usa tu código de recuperación (en el móvil nuevo: Diario → Crear perfil → «Ya tengo una cuenta en otro móvil»).' }),
-    nuevo, estado);
+  pintarCuenta();
+  return seccionCuenta;
 }
 
 // ---------- Umbrales ----------
