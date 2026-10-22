@@ -1,122 +1,156 @@
-// Perfil de este dispositivo: crearlo («Tu perfil»), recuperar una cuenta con el código y enseñar el código de recuperación.
+// Cuenta de Google: entrar («Entrar»), elegir el nombre del perfil («Tu nombre») y la tarjeta para quien no ha entrado.
 import { el } from '../ui/dom.js';
 import { abrirHoja } from '../ui/hoja.js';
 import { supabase, elegirAutor } from '../supabase.js';
-import { cargarPerfil, crearPerfil, recuperarCuenta, asegurarSesion, codigoRecuperacionValido, textoError } from '../cuenta.js';
+import { GOOGLE_CLIENT_ID } from '../config.js';
+import { nonceNuevo, cargarGis, botonGoogle } from '../google.js';
+import { cargarPerfil, crearPerfil, entrarConGoogle, entrarPorRedireccion, guardarRutaPendiente, textoError } from '../cuenta.js';
 
-let cuenta = null;        // { id, nombre } cuando existe
-let ultimoError = null;   // último fallo al comprobar el perfil (sin red, cuentas anónimas desactivadas…)
+export const PREFERIR_GIS = true;   // true: botón de Google en la hoja; false: redirección como opción principal
 
-export const errorDeCuenta = () => ultimoError;   // no null = no se pudo comprobar el perfil (p. ej. sin conexión)
+let cuenta = null;        // { id, nombre } cuando existe el perfil
+let estado = null;        // último resultado de cargarPerfil
+let ultimoError = null;   // último fallo al comprobar la cuenta (sin red…)
+
+export const errorDeCuenta = () => ultimoError;   // no null = no se pudo comprobar la cuenta (p. ej. sin conexión)
+export const estadoCuenta = () => estado;
 
 export function fijarCuenta(c) {
   cuenta = c;
-  if (c) elegirAutor(c.nombre);
+  elegirAutor(c ? c.nombre : null);   // sin perfil o sin sesión no queda nombre local: no habría subida posible
 }
 
-let cargando = null;   // consulta del perfil en vuelo: las llamadas simultáneas comparten una sola
+let cargando = null;   // consulta en vuelo: las llamadas simultáneas comparten una sola
 export async function cuentaActual({ forzar = false } = {}) {
   if (cuenta && !forzar) return cuenta;
   if (cargando && !forzar) return cargando;
   const p = (async () => {
     try {
-      const perfil = await cargarPerfil({ supabase });
-      fijarCuenta(perfil);
-      if (!perfil) elegirAutor(null);   // sin perfil en esta sesión (p. ej. cuenta recuperada en otro dispositivo): un nombre local viejo permitiría guardados sin subida posible
+      const r = await cargarPerfil({ supabase });
+      estado = r;
+      fijarCuenta(r.estado === 'perfil' ? { id: r.id, nombre: r.nombre } : null);
       ultimoError = null;
-    } catch (e) { cuenta = null; ultimoError = e; }
+    } catch (e) { estado = null; cuenta = null; ultimoError = e; }
     return cuenta;
   })();
   cargando = p;
   try { return await p; } finally { if (cargando === p) cargando = null; }
 }
 
-async function copiar(texto) {
-  try { await navigator.clipboard.writeText(texto); return true; } catch { return false; }
-}
+// Solo lee el perfil y avisa: no inicia ni cierra sesiones, así que no puede provocar otro cambio de auth.
+supabase.auth.onAuthStateChange(() => {
+  cuentaActual({ forzar: true }).then(() => window.dispatchEvent(new CustomEvent('cuenta-cambio')));
+});
 
-// Enseña el código de recuperación (solo se ve una vez) y espera a que se cierre la hoja.
-export function mostrarCodigoRecuperacion(codigo, { titulo = 'Tu código de recuperación' } = {}) {
+// Hoja «Entrar». Resuelve true al entrar con Google en la propia página; false si se cierra sin entrar
+// (la redirección sale de la página y no resuelve nada).
+export function hojaEntrar() {
   return new Promise((resolver) => {
-    const hoja = abrirHoja(titulo, { encima: true });
-    hoja.alCerrar = () => resolver();
-    const estado = el('p', { clase: 'texto-2 texto-s', attrs: { role: 'status', 'aria-live': 'polite' } });
-    const guardado = el('input', { type: 'checkbox', id: 'codigo-guardado' });
-    const seguir = el('button', { type: 'button', clase: 'boton', texto: 'Continuar', disabled: true, onclick: () => hoja.cerrar() });
-    guardado.addEventListener('change', () => { seguir.disabled = !guardado.checked; });
-    const botones = [el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Copiar', onclick: async () => {
-      estado.textContent = (await copiar(codigo)) ? 'Copiado.' : 'No se pudo copiar: apúntalo a mano.';
-    } })];
-    if (navigator.share) {
-      botones.push(el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Compartir', onclick: () => {
-        navigator.share({ text: `Mi código de recuperación de Setas: ${codigo}` }).catch(() => {});
-      } }));
-    }
+    const hoja = abrirHoja('Entrar', { encima: true });
+    let hecho = false;
+    hoja.alCerrar = () => { if (!hecho) resolver(false); };
+    const error = el('p', { clase: 'texto-s aviso-peligro', attrs: { role: 'alert' }, hidden: true });
+    const fallo = (e) => { error.textContent = textoError(e); error.hidden = false; };
+
+    const botonRedireccion = (texto, principal) => el('button', {
+      type: 'button', clase: principal ? 'boton' : 'boton boton--suave', texto,
+      onclick: async (ev) => {
+        const b = ev.currentTarget;
+        b.disabled = true; error.hidden = true;
+        try {
+          guardarRutaPendiente(location.hash);
+          await entrarPorRedireccion({ supabase, redirigirA: location.origin + location.pathname });
+        } catch (e) { fallo(e); b.disabled = false; }
+      },
+    });
+
+    const contenedorGoogle = el('div', { clase: 'google-boton' });
+    let gisListo = false;
+    const alCredencial = async (credencial, nonce) => {
+      error.hidden = true;
+      try {
+        await entrarConGoogle({ supabase, credencial, nonce });
+        await cuentaActual({ forzar: true });
+        hecho = true; resolver(true); hoja.cerrar();
+      } catch (e) { fallo(e); }
+    };
+
+    const zona = el('div', { clase: 'pila' });
     hoja.cuerpo.append(
-      el('p', { texto: 'Con este código puedes pasar tu cuenta a otro móvil. Quien lo tenga tiene tu cuenta: guárdalo en un sitio seguro (no en una captura que compartas).' }),
-      el('p', { clase: 'recuperacion-codigo', texto: codigo, attrs: { 'aria-label': 'Código de recuperación' } }),
-      el('div', { clase: 'diario-fila' }, ...botones), estado,
-      el('p', { clase: 'texto-2 texto-s', texto: 'No se vuelve a mostrar. Si lo pierdes, puedes generar uno nuevo desde Ajustes mientras sigas dentro de la app.' }),
-      el('div', { clase: 'campo campo--marca' }, guardado, el('label', { htmlFor: 'codigo-guardado', texto: 'Lo he guardado en un sitio seguro' })),
-      seguir);
+      el('p', { texto: 'Con tu cuenta de Google tendrás tu diario y podrás entrar en grupos. Tu correo no se enseña a nadie.' }),
+      zona, error);
+
+    const pintarBotones = () => {
+      if (!gisListo) zona.replaceChildren(botonRedireccion('Entrar con Google', true));
+      else if (PREFERIR_GIS) zona.replaceChildren(contenedorGoogle, botonRedireccion('Entrar de otra forma', false));
+      else zona.replaceChildren(botonRedireccion('Entrar con Google', true), contenedorGoogle);
+    };
+    pintarBotones();
+
+    if (GOOGLE_CLIENT_ID) {
+      (async () => {
+        try {
+          const gis = await cargarGis();
+          const nonce = await nonceNuevo();
+          if (!hoja.cuerpo.isConnected) return;   // la hoja se cerró mientras cargaba
+          botonGoogle(contenedorGoogle, { clientId: GOOGLE_CLIENT_ID, nonce, alCredencial: (c) => alCredencial(c, nonce), gis });
+          gisListo = true;
+          pintarBotones();
+        } catch { /* sin Google en la página: queda la redirección */ }
+      })();
+    }
   });
 }
 
-// Devuelve el perfil; si no existe abre «Tu perfil» (crear uno o recuperar la cuenta de otro móvil).
-// Lanza un Error en español si no se puede comprobar el perfil (p. ej. sin conexión): crear otro duplicaría la cuenta.
-// Devuelve null si se cierra la hoja sin terminar.
+// Hoja «Tu nombre»: crea el perfil. Resuelve { id, nombre } o null si se cierra sin guardar.
+export function hojaNombre(sugerido = '') {
+  return new Promise((resolver) => {
+    const hoja = abrirHoja('Tu nombre', { encima: true });
+    let hecho = false;
+    hoja.alCerrar = () => { if (!hecho) resolver(null); };
+    const error = el('p', { clase: 'texto-s aviso-peligro', attrs: { role: 'alert' }, hidden: true });
+    const nombre = el('input', { type: 'text', id: 'perfil-nombre', value: String(sugerido ?? ''), attrs: { autocomplete: 'given-name', maxlength: '40', enterkeyhint: 'done' } });
+    const guardar = el('button', { type: 'submit', clase: 'boton', texto: 'Guardar' });
+    const form = el('form', { clase: 'diario-form', noValidate: true },
+      el('p', { clase: 'texto-2', texto: 'Así se sabrá quién apuntó cada salida.' }),
+      el('div', { clase: 'campo' }, el('label', { htmlFor: 'perfil-nombre', texto: 'Tu nombre' }), nombre), error, guardar);
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const n = nombre.value.trim();
+      if (!n) { error.textContent = 'Escribe tu nombre.'; error.hidden = false; nombre.focus(); return; }
+      guardar.disabled = true; error.hidden = true;
+      try {
+        await crearPerfil(n, { supabase });
+        const c = await cuentaActual({ forzar: true });
+        if (!c) throw new Error('No se pudo cargar tu perfil.');
+        hecho = true; resolver(c); hoja.cerrar();
+      } catch (e) { error.textContent = textoError(e); error.hidden = false; guardar.disabled = false; }
+    });
+    hoja.cuerpo.append(form);
+  });
+}
+
+// Devuelve el perfil; si falta, abre «Entrar» y/o «Tu nombre». null si se cierra sin terminar.
+// Lanza un Error en español si no se puede comprobar la cuenta (p. ej. sin conexión).
+const sinRed = () => new Error(`No se puede comprobar tu cuenta (${textoError(ultimoError)}). Comprueba la conexión.`);
 export async function requerirCuenta() {
   const c = await cuentaActual();
   if (c) return c;
-  if (ultimoError) throw new Error(`No se puede comprobar tu perfil (${textoError(ultimoError)}). Comprueba la conexión.`);
-  return new Promise((resolver) => {
-    const hoja = abrirHoja('Tu perfil', { encima: true });
-    let hecho = false;
-    let creado = null;   // perfil ya creado cuando se cierra todo (hashchange) durante la hoja del código
-    const terminar = (perfil) => { hecho = true; fijarCuenta(perfil); resolver(perfil); hoja.cerrar(); };
-    hoja.alCerrar = () => { if (!hecho) resolver(creado); };
+  if (ultimoError) throw sinRed();
+  if (estado?.estado !== 'sin-perfil') {
+    if (!(await hojaEntrar())) return null;
+    const tras = await cuentaActual();
+    if (tras) return tras;
+    if (ultimoError) throw sinRed();
+  }
+  return hojaNombre(estado?.nombreGoogle ?? '');
+}
 
-    const errorCrear = el('p', { clase: 'texto-s aviso-peligro', attrs: { role: 'alert' }, hidden: true });
-    const nombre = el('input', { type: 'text', id: 'perfil-nombre', attrs: { autocomplete: 'given-name', maxlength: '40', enterkeyhint: 'done' } });
-    const crear = el('button', { type: 'submit', clase: 'boton', texto: 'Crear mi perfil' });
-    const formCrear = el('form', { clase: 'diario-form', noValidate: true },
-      el('p', { clase: 'texto-2', texto: 'Así se sabrá quién apuntó cada salida. No hace falta correo ni contraseña.' }),
-      el('div', { clase: 'campo' }, el('label', { htmlFor: 'perfil-nombre', texto: 'Tu nombre' }), nombre), errorCrear, crear);
-    formCrear.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      const n = nombre.value.trim();
-      if (!n) { errorCrear.textContent = 'Escribe tu nombre.'; errorCrear.hidden = false; nombre.focus(); return; }
-      crear.disabled = true; errorCrear.hidden = true;
-      try {
-        const codigo = await crearPerfil(n, { supabase });
-        const id = await asegurarSesion({ supabase });
-        fijarCuenta({ id, nombre: n });
-        creado = { id, nombre: n };
-        await mostrarCodigoRecuperacion(codigo);
-        terminar({ id, nombre: n });
-      } catch (e) { errorCrear.textContent = textoError(e); errorCrear.hidden = false; crear.disabled = false; }
-    });
-
-    const errorRec = el('p', { clase: 'texto-s aviso-peligro', attrs: { role: 'alert' }, hidden: true });
-    const codigo = el('input', { type: 'text', id: 'perfil-codigo', attrs: { autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', maxlength: '24', enterkeyhint: 'done' }, placeholder: 'XXXX-XXXX-XXXX-XXXX' });
-    const recuperar = el('button', { type: 'submit', clase: 'boton boton--suave', texto: 'Recuperar mi cuenta' });
-    const formRec = el('form', { clase: 'diario-form', noValidate: true },
-      el('p', { clase: 'texto-2', texto: 'Si ya tenías cuenta en otro móvil, escribe el código de recuperación que te dieron.' }),
-      el('div', { clase: 'campo' }, el('label', { htmlFor: 'perfil-codigo', texto: 'Código de recuperación' }), codigo), errorRec, recuperar);
-    formRec.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      if (!codigoRecuperacionValido(codigo.value)) { errorRec.textContent = 'El código tiene 16 caracteres (letras y números).'; errorRec.hidden = false; codigo.focus(); return; }
-      recuperar.disabled = true; errorRec.hidden = true;
-      try {
-        if (!(await recuperarCuenta(codigo.value, { supabase }))) {
-          errorRec.textContent = 'Ese código no corresponde a ninguna cuenta.'; errorRec.hidden = false; recuperar.disabled = false; return;
-        }
-        const perfil = await cargarPerfil({ supabase });
-        if (!perfil) throw new Error('No se pudo cargar la cuenta recuperada.');
-        terminar(perfil);
-      } catch (e) { errorRec.textContent = textoError(e); errorRec.hidden = false; recuperar.disabled = false; }
-    });
-
-    hoja.cuerpo.append(formCrear, el('hr'), el('details', {}, el('summary', { texto: 'Ya tengo una cuenta en otro móvil' }), formRec));
-  });
+// Tarjeta para pantallas que necesitan cuenta cuando no se ha entrado.
+export function tarjetaSinSesion(texto, alEntrar) {
+  return el('div', { clase: 'tarjeta pila' },
+    el('p', { texto }),
+    el('button', { type: 'button', clase: 'boton', texto: 'Entrar con Google', onclick: async () => {
+      if (await hojaEntrar()) alEntrar?.();
+    } }));
 }

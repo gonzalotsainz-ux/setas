@@ -1,4 +1,4 @@
-// Cliente de Supabase con sesión anónima persistente (una identidad por dispositivo; ver js/cuenta.js).
+// Cliente de Supabase. La sesión es la de Google (ver js/cuenta.js) y la persiste supabase-js con storageKey «setas.sesion».
 // La clave publicable es pública por diseño; lo que protege los datos son las políticas RLS de la base de datos.
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/+esm';
 

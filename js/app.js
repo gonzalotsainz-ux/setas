@@ -5,6 +5,7 @@ import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { cargarPluvio, aplicarPluvio, combinarObs } from './pluvio.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
+import { tomarRutaPendiente } from './cuenta.js';
 import { dec, esRutaMapa } from './mapa/ruta.js';
 
 // meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida (pluviómetros y estaciones AEMET) donde la hay.
@@ -107,6 +108,7 @@ try {
   error(document.getElementById('app'), 'No se han podido cargar los datos de la app', e.message);
   throw e;
 }
+const ruta = tomarRutaPendiente(); if (ruta) location.hash = ruta;
 await pintar();
 refrescarMeteo();
 
