@@ -1,21 +1,20 @@
--- Cuentas anónimas con perfil y código de recuperación (docs/superpowers/specs/2026-10-02-grupos-design.md §2).
--- Cada dispositivo tiene una sesión anónima de Supabase (auth.uid()); el perfil le pone nombre y un código de
--- recuperación (solo se guarda su hash) con el que otra sesión puede quedarse con la cuenta.
+-- Cuentas con Google y perfil mínimo (docs/superpowers/specs/2026-10-22-cuadrillas-design.md §2).
+-- El perfil cuelga del usuario de Supabase Auth (auth.uid()) y solo guarda el nombre visible: no hay códigos
+-- de recuperación, la cuenta de Google ya identifica a la persona en cualquier dispositivo.
 
 create extension if not exists pgcrypto with schema extensions;
 
 create table public.perfiles (
   id uuid primary key,
   nombre text not null check (char_length(btrim(nombre)) between 1 and 40),
-  hash_recuperacion text not null unique,
   creado timestamptz not null default now()
 );
 alter table public.perfiles enable row level security;
 revoke all on public.perfiles from anon, authenticated;
-grant select (id, nombre, creado) on public.perfiles to authenticated;   -- el hash no se lee desde la API
+grant select (id, nombre, creado) on public.perfiles to authenticated;
 create policy "perfil propio: ver" on public.perfiles for select to authenticated using (id = auth.uid());
 
--- Fallos de «código» (recuperar cuenta, unirse a un grupo) para limitar la fuerza bruta.
+-- Fallos de «código» (unirse a un grupo) para limitar la fuerza bruta.
 create table public.intentos_codigo (
   id bigserial primary key,
   tipo text not null,
@@ -52,11 +51,6 @@ create function public.normalizar_codigo(p text) returns text language sql immut
   select translate(upper(regexp_replace(coalesce(p, ''), '[\s-]', '', 'g')), 'OIL', '011')
 $$;
 
--- Con ~80 bits de entropía basta un SHA-256 sin sal (y permite buscar por igualdad).
-create function public.hash_codigo(p text) returns text language sql immutable set search_path = public, extensions as $$
-  select encode(extensions.digest(public.normalizar_codigo(p), 'sha256'), 'hex')
-$$;
-
 create function public.registrar_fallo(p_tipo text) returns void
 language plpgsql security definer set search_path = public as $$
 begin
@@ -77,25 +71,13 @@ begin
 end $$;
 
 -- ---------- API ----------
-create function public.crear_perfil(p_nombre text) returns text
-language plpgsql security definer set search_path = public, extensions as $$
-declare codigo text;
+create function public.crear_perfil(p_nombre text) returns void
+language plpgsql security definer set search_path = public as $$
 begin
   if auth.uid() is null then raise exception 'sin_sesion'; end if;
-  if exists (select 1 from perfiles where id = auth.uid()) then raise exception 'perfil_existente'; end if;
-  codigo := public.codigo_aleatorio(16);
-  insert into perfiles (id, nombre, hash_recuperacion) values (auth.uid(), btrim(p_nombre), public.hash_codigo(codigo));
-  return codigo;
-end $$;
-
-create function public.regenerar_recuperacion() returns text
-language plpgsql security definer set search_path = public, extensions as $$
-declare codigo text;
-begin
-  codigo := public.codigo_aleatorio(16);
-  update perfiles set hash_recuperacion = public.hash_codigo(codigo) where id = auth.uid();
-  if not found then raise exception 'sin_perfil'; end if;
-  return codigo;
+  -- Se valida el nombre (check) antes de detectar el duplicado y, de paso, sin carreras entre dos llamadas.
+  insert into perfiles (id, nombre) values (auth.uid(), btrim(p_nombre)) on conflict (id) do nothing;
+  if not found then raise exception 'perfil_existente'; end if;
 end $$;
 
 create function public.renombrar_perfil(p_nombre text) returns void
@@ -105,32 +87,9 @@ begin
   if not found then raise exception 'sin_perfil'; end if;
 end $$;
 
--- Llamada desde una sesión NUEVA (sin perfil): se queda con el perfil del código. El resto de tablas (grupos,
--- miembros, salidas) apuntan a perfiles(id) con `on update cascade`, así que todo lo del identificador antiguo pasa
--- al nuevo; el dispositivo antiguo se queda sin perfil.
-create function public.recuperar_cuenta(p_codigo text) returns boolean
-language plpgsql security definer set search_path = public, extensions as $$
-declare viejo uuid;
-begin
-  if auth.uid() is null then raise exception 'sin_sesion'; end if;
-  perform public.limitar_intentos('recuperar', 10, '15 minutes');
-  select id into viejo from perfiles where hash_recuperacion = public.hash_codigo(p_codigo);
-  if viejo is null then
-    perform public.registrar_fallo('recuperar');
-    return false;
-  end if;
-  if viejo = auth.uid() then return true; end if;
-  if exists (select 1 from perfiles where id = auth.uid()) then raise exception 'sesion_con_perfil'; end if;
-  update perfiles set id = auth.uid() where id = viejo;
-  if not found then return false; end if;   -- otra sesión se quedó antes con la cuenta
-  return true;
-end $$;
-
 -- ---------- Permisos ----------
-revoke execute on function public.crear_perfil(text), public.regenerar_recuperacion(),
-  public.renombrar_perfil(text), public.recuperar_cuenta(text) from public, anon;
-grant execute on function public.crear_perfil(text), public.regenerar_recuperacion(),
-  public.renombrar_perfil(text), public.recuperar_cuenta(text) to authenticated;
+revoke execute on function public.crear_perfil(text), public.renombrar_perfil(text) from public, anon;
+grant execute on function public.crear_perfil(text), public.renombrar_perfil(text) to authenticated;
 revoke execute on function public.ip_cliente(), public.codigo_aleatorio(int), public.normalizar_codigo(text),
-  public.hash_codigo(text), public.registrar_fallo(text), public.limitar_intentos(text, int, interval)
+  public.registrar_fallo(text), public.limitar_intentos(text, int, interval)
   from public, anon, authenticated;

@@ -4,6 +4,7 @@ create role authenticated nologin;
 create role service_role nologin bypassrls;
 
 create schema auth;
+create table auth.users (id uuid primary key, raw_user_meta_data jsonb not null default '{}'::jsonb);
 create function auth.uid() returns uuid language sql stable
 as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
 
@@ -11,6 +12,8 @@ create schema extensions;
 create extension pgcrypto schema extensions;
 
 grant usage on schema public, auth, extensions to anon, authenticated, service_role;
+-- Solo para que las pruebas (que corren como authenticated) puedan comprobar que el usuario existe.
+grant select on auth.users to authenticated;
 grant execute on function auth.uid() to anon, authenticated, service_role;
 -- Supabase concede todo en `public` a estos roles por defecto: las migraciones revocan lo que haga falta.
 alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
@@ -49,6 +52,7 @@ as $$ select ('00000000-0000-0000-0000-' || lpad(n::text, 12, '0'))::uuid $$;
 create function t.como(n int) returns void language plpgsql as $$
 begin
   execute 'reset role';
+  insert into auth.users (id) values (t.uid(n)) on conflict do nothing;
   perform set_config('request.jwt.claim.sub', t.uid(n)::text, false);
   execute 'set role authenticated';
 end $$;
