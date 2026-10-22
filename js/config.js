@@ -2,3 +2,5 @@
 // cargar el cliente del CDN (supabase.js) solo para leerlas.
 export const SUPABASE_URL = 'https://ctgedeunquvmcfqsufjj.supabase.co';
 export const SUPABASE_ANON = 'sb_publishable_IkbuQo3x4etQ6Sr5YXU6yQ_IRTjeERV';
+// ID de cliente OAuth de Google (Google Cloud Console): lo rellena la usuaria. Es público por diseño, como la clave de Supabase.
+export const GOOGLE_CLIENT_ID = '';
