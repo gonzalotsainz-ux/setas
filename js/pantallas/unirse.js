@@ -25,7 +25,7 @@ export function pintar({ param }) {
   });
   return el('div', { clase: 'pila diario' }, el('h1', { texto: 'Invitación' }),
     el('div', { clase: 'tarjeta pila' },
-      el('p', { texto: 'Te han invitado a un grupo de Setas. Al unirte, sus miembros verán las salidas que tú decidas compartir con ellos (nunca las demás).' }),
+      el('p', { texto: 'Te han invitado a un grupo de Setas. Al unirte, sus miembros verán tus salidas y tú las suyas.' }),
       el('p', { clase: 'grupo-codigo', texto: codigo, attrs: { 'aria-label': 'Código de invitación' } }),
       unirme, aviso));
 }
