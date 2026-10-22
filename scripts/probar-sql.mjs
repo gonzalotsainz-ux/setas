@@ -15,10 +15,10 @@ const psql = (bd, sql) => docker(['exec', '-i', CONT, 'psql', '-X', '-q', '-v', 
 const leer = (ruta) => readFileSync(path.join(RAIZ, ruta), 'utf8');
 const lista = (dir) => (existsSync(path.join(RAIZ, dir)) ? readdirSync(path.join(RAIZ, dir)).sort().map((f) => `${dir}/${f}`) : []);
 
-// La migración original (con las políticas abiertas), las de cuentas/grupos/compartir y las pendientes. (Las demás migraciones del proyecto necesitan extensiones de Supabase que este entorno no tiene.)
+// La migración original (con las políticas abiertas), las de cuentas, grupos y ver_grupo (por sello) y las pendientes. (Las demás migraciones del proyecto necesitan extensiones de Supabase que este entorno no tiene.)
 const migraciones = () => [
   'supabase/migrations/20261001000000_setas.sql',
-  ...lista('supabase/migrations').filter((f) => /_(cuentas|grupos|compartir)\.sql$/.test(f)),
+  ...lista('supabase/migrations').filter((f) => /\/2026100[56]\d{6}_/.test(f)),
   ...lista('supabase/pendientes'),
 ];
 

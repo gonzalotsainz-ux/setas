@@ -67,6 +67,7 @@ declare g uuid := (select valor from t.codigos where clave = 'gid')::uuid;
 begin
   perform t.falla(format('select public.expulsar_miembro(%L, %L)', g, t.uid(1)), 'usa_salir');
   perform public.expulsar_miembro(g, t.uid(2));
+  perform t.falla(format('select public.expulsar_miembro(%L, %L)', g, t.uid(99)), 'no_miembro');
   perform t.afirma((select count(*) from public.miembros_del_grupo(g)) = 1, 'queda un miembro');
 end $$;
 select t.como(2);
