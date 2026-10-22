@@ -36,6 +36,9 @@ test('qué días pedir: ayer y anteayer siempre; después, los que faltan desde 
   assert.equal(f.at(-1), '2026-08-19');
   const todos = new Set(Array.from({ length: 62 }, (_, k) => new Date(Date.UTC(2026, 7, 1 + k)).toISOString().slice(0, 10)));
   assert.deepEqual(fechasJucar('2026-10-02', todos), ['2026-10-01', '2026-09-30']);
+  // Revisión final 4: al final de la temporada el relleno empieza en `inicio` (lo que lluvia_obs aún guarda entero); antes,
+  // cada día viejo borrado por la limpieza se volvería a pedir en cada ejecución.
+  assert.deepEqual(fechasJucar('2027-03-10', new Set(), 5, '2026-08-24'), ['2027-03-09', '2027-03-08', '2026-08-24', '2026-08-25', '2026-08-26']);
 });
 
 test('leerJucar: un día que falla es un error de ese día y se sigue', async () => {

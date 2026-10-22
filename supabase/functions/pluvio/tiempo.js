@@ -41,5 +41,7 @@ export function horaDeTexto(t) {
   return m ? utcDeMadrid(`${m[3]}-${m[2]}-${m[1]}`, m[4]) : null;
 }
 export const fechaMadridDeFin = (iso) => enMadrid(Date.parse(iso) - 60e3).slice(0, 10);
+// La hora acaba a las 00:00 de Madrid: es la última del día anterior (fechaMadridDeFin).
+export const acabaAMedianoche = (iso) => enMadrid(Date.parse(iso)).slice(11, 16) === '00:00';
 export const finDeDia = (fecha) => utcDeMadrid(sumarDias(fecha, 1), '00:00');
 export const esHoraEnPunto = (iso) => typeof iso === 'string' && Number.isFinite(Date.parse(iso)) && Date.parse(iso) % 3600e3 === 0;

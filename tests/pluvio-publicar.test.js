@@ -59,6 +59,41 @@ test('publicar sube celdas.json y ultimo.json: Covaleda medida, Quintanar fuera 
   assert.deepEqual(ultimo.fuentes, { duero: '2026-09-30' });
 });
 
+// Revisión final 4: lluvia_obs se limpia a los 200 días y la temporada va del 1 de agosto al 31 de julio. El 10/03/2027
+// los días anteriores al 24/08/2026 (hoy − 198) se toman de lluvia_dia, con su calidad, y no se reescriben.
+test('final de temporada: los días que ya no están enteros en lluvia_obs salen de lluvia_dia; sin ella, sin medir', async () => {
+  const almacen = almacenPluvioMemoria();
+  const est = [{ fuente: 'duero', codigo: 'PL1', nombre: 'Uno', lat: 41.95, lon: -2.87, altitud: 1450 }];
+  const viejo = '2026-08-30T04:10:00.000Z';
+  const dia = (fecha, mm, calidad) => ({ fuente: 'duero', estacion: 'PL1', fecha, mm, horas: 24, maximo: 1, calidad, motivo: calidad === 'ok' ? null : 'x', actualizado: viejo });
+  await almacen.guardarDias([dia('2026-08-10', 6.4, 'ok'), dia('2026-08-11', 150, 'sospechoso'), dia('2026-08-23', 3.2, 'ok'),
+    { ...dia('2026-08-10', 9, 'ok'), estacion: 'FUERA' }]);
+  // El 23/08 ya está a medias en lluvia_obs (la limpieza va por horas): 5 horas. El 25/08, entero (24 horas de 0,1 mm).
+  const hora = (iso, mm) => filaObs('duero', { estacion: 'PL1', hora: iso, mm });
+  await almacen.guardarObs([...Array.from({ length: 5 }, (_, k) => hora(new Date(Date.UTC(2026, 7, 23, 17 + k)).toISOString(), 1)),
+    ...Array.from({ length: 24 }, (_, k) => hora(new Date(Date.UTC(2026, 7, 24, 23 + k)).toISOString(), 0.1))]);
+  const r = await ejecutar({ almacen, fetchFn: servidorFalso([]), esperar: async () => {}, ahora: new Date('2027-03-10T04:10:00Z'),
+    estaciones: est, puntos: [{ id: 'p', lat: 41.95, lon: -2.87, altitud: 1450 }], pedidas: ['publicar'] });
+  assert.deepEqual(r.errores, []);
+  assert.deepEqual(r.pasos.publicar, { dias: 1, guardados: 2, puntos: 1, celdas: 0 });
+  const p = almacen.archivos.get('pluvio/ultimo.json').lugares.p;
+  assert.equal(el(p, '2026-08-10'), 6.4);    // de lluvia_dia
+  assert.equal(el(p, '2026-08-11'), null);   // sospechoso en lluvia_dia: fuera
+  assert.equal(el(p, '2026-08-12'), null);   // en ninguna de las dos: sin medir, no se inventa
+  assert.equal(el(p, '2026-08-23'), 3.2);    // el bueno de lluvia_dia, no las 5 horas que quedan en lluvia_obs
+  assert.equal(el(p, '2026-08-25'), 2.4);    // de lluvia_obs, como siempre
+  assert.deepEqual(p.estaciones.map((e) => [e.nombre, e.ultimo]), [['Uno', '2026-08-25']]);
+  assert.deepEqual({ ...almacen.dias.get('duero|PL1|2026-08-23') }, dia('2026-08-23', 3.2, 'ok'));   // no se reescribe
+  assert.equal(almacen.dias.get('duero|PL1|2026-08-25').calidad, 'ok');
+  // Sin lluvia_dia para esos días, quedan sin medir.
+  const vacio = almacenPluvioMemoria();
+  await vacio.guardarObs([...almacen.obs.values()]);
+  await ejecutar({ almacen: vacio, fetchFn: servidorFalso([]), esperar: async () => {}, ahora: new Date('2027-03-10T04:10:00Z'),
+    estaciones: est, puntos: [{ id: 'p', lat: 41.95, lon: -2.87, altitud: 1450 }], pedidas: ['publicar'] });
+  const q = vacio.archivos.get('pluvio/ultimo.json').lugares.p;
+  assert.deepEqual([el(q, '2026-08-10'), el(q, '2026-08-23'), el(q, '2026-08-25')], [null, null, 2.4]);
+});
+
 // Almacén cuyo reloj avanza al guardar o subir, para probar el tope duro de tiempo.
 async function conTiempo(avanza) {
   const almacen = almacenPluvioMemoria();

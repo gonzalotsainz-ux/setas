@@ -2,7 +2,9 @@
 // Control de calidad de la lluvia medida (spec §3.2). Todos los umbrales viven aquí. Lo sospechoso no entra en la nota:
 // queda guardado en lluvia_dia con su motivo.
 //  - Una hora: negativa → descartada; más de 60 mm → sospechosa (un total diario, como el del Júcar, no es una hora).
-//  - Un día: alguna hora de más de 60 mm o más de 200 mm en el día → sospechoso; menos de 20 horas con dato → incompleto.
+//  - Un día: alguna hora de más de 60 mm o más de 200 mm en el día → sospechoso; menos de 20 horas con dato → incompleto;
+//    sin la hora que acaba a las 00:00 de Madrid (`ultima: false`, de dias.js) → incompleto: con los lotes del Duero, a las
+//    4 UTC ayer puede estar leído solo hasta las 20 h y las horas de la tarde (las de tormenta) no pueden contar como 0 mm.
 //  - Pico aislado: sus vecinas (< 25 km) secas (mediana ≤ 1 mm), el día más de 50 mm por encima y 5 veces su mediana, y el
 //    modelo casi seco → sospechoso (Quintanar 28/08). Con vecinas mojadas no: puede ser una tormenta local de verdad.
 //  - Pico sin vecinas: ninguna vecina, más de 100 mm y el modelo casi seco → sospechoso.
@@ -33,6 +35,7 @@ function limites(dia, u) {
   if (dia.maximo != null && dia.maximo > u.horaMax) return { calidad: 'sospechoso', motivo: `una hora con ${r1(dia.maximo)} mm (más de ${u.horaMax})` };
   if (dia.mm > u.diaMax) return { calidad: 'sospechoso', motivo: `${r1(dia.mm)} mm en el día (más de ${u.diaMax})` };
   if (dia.horas < u.horasMinimas) return { calidad: 'incompleto', motivo: `solo ${dia.horas} horas con dato` };
+  if (dia.ultima === false) return { calidad: 'incompleto', motivo: 'falta la hora que acaba a medianoche' };
   return OK;
 }
 function pico(dia, vecinas, modelo, u) {

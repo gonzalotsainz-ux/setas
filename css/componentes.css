@@ -1,7 +1,7 @@
 /* =====================================================================
    Setas · componentes. Solo leen tokens semánticos y de componente.
    Piezas: .cabecera .boton .tarjeta .semaforo .indice .chip .aviso
-   .aviso-peligro .etiqueta .barra-nav .hoja .fila-zona .factor
+   .aviso-peligro .etiqueta .barra-nav .hoja .factor
    .grafico .modelos .leyenda .pie
    ===================================================================== */
 
@@ -368,34 +368,6 @@
   background: var(--c-borde-fuerte);
 }
 
-/* ---------- Lista de zonas (Hoy) ---------- */
-.lista-zonas { margin: 0; padding: 0; list-style: none; }
-.fila-zona {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--esp-1) var(--esp-3);
-  align-items: center;
-  padding: var(--esp-4) var(--esp-4) var(--esp-4) var(--esp-5);
-  color: inherit;
-  text-decoration: none;
-}
-.lista-zonas > li + li { border-top: 1px solid var(--c-borde); }
-.fila-zona::before {
-  content: "";
-  position: absolute;
-  left: 0; top: var(--esp-4); bottom: var(--esp-4);
-  width: 4px;
-  border-radius: 0 3px 3px 0;
-  background: var(--sem);
-}
-.fila-zona__nombre-linea { display: flex; align-items: baseline; gap: var(--esp-2); min-width: 0; }
-.fila-zona__pos { font-family: var(--fuente-cifras); font-size: var(--t-s); color: var(--c-texto-3); min-width: 1.2em; }
-.fila-zona__nombre { font-family: var(--fuente-display); font-weight: 700; font-size: var(--t-m); line-height: 1.2; letter-spacing: -0.01em; }
-.fila-zona > .indice { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: var(--t-xl); min-width: 2ch; text-align: right; }
-.fila-zona__estado { grid-column: 1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-2); }
-.fila-zona__frase { grid-column: 1 / -1; margin-top: var(--esp-1); color: var(--c-texto-2); }
-
 /* ---------- Desglose del índice ---------- */
 .factores { margin: 0; padding: 0; list-style: none; }
 .factor {
@@ -506,35 +478,12 @@
 .pie a { position: relative; }
 .pie a::after { content: ''; position: absolute; inset: -12px -4px; }
 
-/* ---------- Pantalla Hoy (de maqueta/hoy.html) ---------- */
+/* ---------- Portada de pantalla (la usan Zona, Especies y Seguridad) ---------- */
 .portada { padding: var(--esp-6) 0 var(--esp-2); }
-.portada__fecha { color: var(--c-texto-2); font-weight: 600; }
 .portada h1 { margin-top: var(--esp-1); }
 .portada__sub { margin-top: var(--esp-2); color: var(--c-texto-2); }
 
-.destacada__foto { position: relative; height: 150px; }
-.destacada__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.destacada__foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgb(12 21 16 / 0.35)); }
-.destacada__cuerpo { padding: var(--esp-5); }
-.destacada__cabeza { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--esp-3); }
-.destacada__rotulo { color: var(--c-texto-2); font-weight: 700; font-size: var(--t-s); }
-.destacada h2 { font-size: var(--t-xl); font-weight: 800; letter-spacing: -0.03em; margin-top: 2px; }
-.destacada__nota { text-align: right; }
-.destacada__frase { margin-top: var(--esp-4); font-size: var(--t-m); line-height: 1.4; }
-.destacada__frase b { font-weight: 800; }
-.destacada__meta { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-4); }
-.destacada__especies { display: grid; gap: var(--esp-2); margin: var(--esp-4) 0 0; padding: var(--esp-4) 0 0; list-style: none; border-top: 1px dashed var(--c-borde); }
-.destacada__especies li { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-3); }
-.destacada__especies .latin { font-size: var(--t-m); }
-.destacada__acciones { display: flex; gap: var(--esp-2); margin-top: var(--esp-5); }
-.destacada__acciones .boton:first-child { flex: 1; }
-.credito-foto { position: absolute; right: 8px; bottom: 6px; z-index: 1; color: #fff; font-size: 12px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.6); }
-.credito-foto a { color: inherit; }
 
-.seccion-cabeza { display: flex; justify-content: space-between; align-items: baseline; gap: var(--esp-3); margin-bottom: var(--esp-3); }
-.lista { padding: 0; overflow: hidden; }
-.semaforos { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: var(--esp-3); }
-.leyenda-rangos { margin-top: var(--esp-3); color: var(--c-texto-2); font-size: var(--t-s); }
 
 .controles { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--esp-3); margin-bottom: var(--esp-4); }
 .campo { display: grid; gap: var(--esp-1); font-weight: 600; font-size: var(--t-s); color: var(--c-texto-2); }
@@ -547,7 +496,6 @@
 .esqueleto + .esqueleto { margin-top: var(--esp-4); }
 @keyframes esqueleto { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { .esqueleto { animation: none; } }
-.destacada__especies li > span:last-child { white-space: nowrap; display: inline-flex; align-items: center; gap: var(--esp-2); }
 
 /* ---------- Pantalla Zona (de maqueta/zona.html) ---------- */
 .volver { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; margin-left: -6px; padding-right: var(--esp-3); color: var(--c-texto-2); font-weight: 700; text-decoration: none; }
@@ -907,7 +855,16 @@
 .mapa-completo [hidden] { display: none !important; }
 .mapa-completo__lienzo { position: absolute; inset: 0; width: 100%; height: 100%; font-family: var(--fuente-texto); }   /* Leaflet le pone position: relative en línea: el alto sale de height */
 .mapa-completo__lienzo .leaflet-pane > svg { max-width: none !important; max-height: none !important; }
-.mapa-completo .leaflet-bottom { bottom: calc(var(--alto-nav, 112px) + var(--alto-abajo, 56px) + var(--esp-2)); }
+.mapa-completo .leaflet-bottom { bottom: calc(var(--alto-nav, 112px) + var(--alto-abajo, 0px) + var(--esp-2)); }   /* encima de la línea de aviso */
+/* Zoom (+ y −, 44 px) en la columna de la derecha, bajo Capas y Mi ubicación (2 × 44 px + huecos). */
+.mapa-completo .leaflet-top.leaflet-right { top: calc(var(--alto-arriba, 188px) + var(--esp-2) + 88px + 2 * var(--esp-2)); z-index: 999; }
+.mapa-completo .leaflet-top.leaflet-right .leaflet-control { margin: 0 var(--esp-4) 0 0; }
+/* Atribución en una sola línea; al tocarla (clase alternada en mapa.js) o con el foco dentro, entera. 100vw y no 100 %:
+   el contenedor de Leaflet se ajusta a su contenido y un porcentaje no recortaría. */
+/* Se aparta de la columna de botones (44 px + hueco): en el móvil, con migas, el zoom llega hasta su altura. */
+.mapa-completo .leaflet-control-attribution { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+  margin-right: calc(var(--esp-4) + 44px + var(--esp-2)); max-width: calc(100vw - 2 * var(--esp-4) - 44px - var(--esp-2)); }
+.mapa-completo .leaflet-control-attribution:focus-within, .mapa-completo .leaflet-control-attribution.atribucion--entera { white-space: normal; }
 .mapa-completo .leaflet-bar { border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-m); box-shadow: var(--tarjeta-sombra); }
 .mapa-completo .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; font-size: 22px; background: var(--c-superficie); color: var(--c-texto); border-color: var(--c-borde); }
 .mapa-completo .leaflet-bar a:first-child { border-radius: var(--r-m) var(--r-m) 0 0; }
@@ -916,24 +873,30 @@
 .mapa-completo__arriba, .mapa-completo__abajo { position: absolute; left: var(--esp-4); right: var(--esp-4); z-index: 1000; display: grid; gap: var(--esp-2); max-width: 560px; margin-inline: auto; pointer-events: none; }
 .mapa-completo__arriba > *, .mapa-completo__abajo > * { pointer-events: auto; }   /* entre los controles, el mapa sigue tocándose */
 .mapa-completo__arriba { top: calc(var(--alto-cabecera, 64px) + var(--esp-2)); z-index: 1001; }   /* la lista del buscador, encima de Capas */
-.mapa-completo__abajo { bottom: calc(var(--alto-nav, 112px) + var(--esp-2)); }
-.mapa-completo__chips, .mapa-completo__dias { margin: -6px; padding: 6px; scroll-padding-inline: 6px; }   /* sitio para el anillo de foco: la fila recorta lo que sobresale */
-.mapa-completo__chips .chip, .mapa-completo__dias .chip { box-shadow: inset 0 0 0 1.5px var(--chip-borde), var(--tarjeta-sombra); }
-.mapa-completo__chips .chip[aria-pressed="true"], .mapa-completo__dias .chip[aria-pressed="true"] { box-shadow: var(--tarjeta-sombra); }
+.mapa-completo__abajo { bottom: calc(var(--alto-nav, 112px) + var(--esp-2)); }   /* la línea de aviso, sobre la barra de navegación */
+.mapa-completo__chips { margin: -6px; padding: 6px; scroll-padding-inline: 6px; }   /* sitio para el anillo de foco: la fila recorta lo que sobresale */
+.mapa-completo__chips .chip { box-shadow: inset 0 0 0 1.5px var(--chip-borde), var(--tarjeta-sombra); }
+.mapa-completo__chips .chip[aria-pressed="true"] { box-shadow: var(--tarjeta-sombra); }
 .chip__nota { font-weight: 400; font-size: var(--t-xs); color: var(--c-ocre-texto); }
 .chip[aria-pressed="true"] .chip__nota { color: inherit; }
-.mapa-completo__avisos { display: grid; gap: var(--esp-1); }
+.mapa-completo__avisos { display: grid; }
 .mapa-completo__avisos:empty { display: none; }
-.mapa-completo__avisos .aviso { gap: var(--esp-2); padding: var(--esp-2) var(--esp-3); font-size: var(--t-s); line-height: 1.35; box-shadow: var(--tarjeta-sombra); }
-.mapa-completo__avisos .aviso > .icono { width: 20px; height: 20px; }
-.mapa-completo__avisos .aviso p { margin: 0; }
-.mapa-completo__botones { position: absolute; right: var(--esp-4); top: calc(var(--alto-cabecera, 64px) + 124px); z-index: 1000; display: grid; gap: var(--esp-2); }
+/* Una sola línea con elipsis; al tocarla (aria-expanded, en mapa.js) se lee entera. */
+.mapa-completo__aviso { width: 100%; margin: 0; gap: var(--esp-2); align-items: center; padding: var(--esp-2) var(--esp-3); min-height: 44px;
+  border: 0; font: inherit; font-size: var(--t-s); line-height: 1.35; text-align: left; color: inherit; cursor: pointer; box-shadow: var(--tarjeta-sombra); }
+.mapa-completo__aviso > .icono { width: 20px; height: 20px; margin: 0; }
+.mapa-completo__aviso p { margin: 0; min-width: 0; }
+.mapa-completo__aviso[aria-expanded="false"] p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mapa-completo__botones { position: absolute; right: var(--esp-4); top: calc(var(--alto-arriba, 188px) + var(--esp-2)); z-index: 1000; display: grid; gap: var(--esp-2); }
 .mapa-completo__boton { background: var(--c-superficie); box-shadow: var(--tarjeta-sombra); }
-.mapa-completo__panel { position: absolute; right: calc(var(--esp-4) + 56px); top: calc(var(--alto-cabecera, 64px) + 124px); z-index: 1001;
-  width: min(300px, calc(100vw - 104px)); max-height: calc(100dvh - var(--alto-cabecera, 64px) - var(--alto-nav, 112px) - 140px); overflow-y: auto; border-radius: var(--r-m); }
+.mapa-completo__panel { position: absolute; right: calc(var(--esp-4) + 56px); top: calc(var(--alto-arriba, 188px) + var(--esp-2)); z-index: 1001;
+  width: min(300px, calc(100vw - 104px)); max-height: calc(100dvh - var(--alto-arriba, 188px) - var(--alto-nav, 112px) - var(--esp-4)); overflow-y: auto; border-radius: var(--r-m); }
 .mapa-completo__panel .mapa-panel { max-width: none; }
 .mapa-buscador { position: relative; }
-.mapa-buscador > .icono { position: absolute; left: 14px; top: 14px; width: 20px; height: 20px; color: var(--c-texto-3); pointer-events: none; }
+.mapa-buscador__campo { position: relative; }
+.mapa-buscador__campo > .icono { position: absolute; left: 14px; top: 14px; width: 20px; height: 20px; color: var(--c-texto-3); pointer-events: none; }
+.mapa-buscador__migas { display: flex; flex-wrap: wrap; gap: var(--esp-1); margin-bottom: var(--esp-1); }
+.mapa-buscador__migas[hidden] { display: none; }
 .mapa-buscador input { width: 100%; min-height: 48px; padding: 0 var(--esp-4) 0 44px; border: 1px solid var(--c-borde-fuerte); border-radius: var(--r-pildora);
   background: var(--c-superficie); color: var(--c-texto); box-shadow: var(--tarjeta-sombra); font: inherit; font-size: var(--t-base); }
 .mapa-buscador input:focus-visible { border-color: var(--c-acento); }
@@ -942,21 +905,45 @@
 .mapa-buscador__lista [role="option"] { display: flex; align-items: center; flex-wrap: wrap; min-height: 44px; padding: var(--esp-1) var(--esp-4); cursor: pointer; }
 .mapa-buscador__lista [role="option"]:hover { background: var(--c-superficie-2); }
 .mapa-buscador__lista [aria-selected="true"] { background: var(--c-acento-suave); color: var(--c-acento-fuerte); font-weight: 700; box-shadow: inset 3px 0 0 var(--c-acento); }
-.hoja--mapa { max-height: 42dvh; transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear var(--dur-media); }
-.hoja--mapa[data-abierta="true"] { transition: max-height var(--dur-media) var(--curva), transform var(--dur-media) var(--curva), visibility 0s linear 0s; }
-.hoja--mapa[data-estado="completa"] { max-height: 88dvh; }
-.hoja--mapa::before { display: none; }
-.hoja__asa { display: block; width: 100%; min-height: 44px; margin: calc(var(--esp-3) * -1) 0 var(--esp-2); border: 0; background: none; cursor: grab; touch-action: none; }
-.hoja__asa::before { content: ""; display: block; width: 44px; height: 5px; margin: 0 auto; border-radius: 3px; background: var(--c-borde-fuerte); }
-.hoja--prohibido { border-top: 6px solid var(--c-peligro); }
-.hoja--prohibido h2 { color: var(--c-peligro-fuerte); }
+/* Ficha de una ladera en el popup del mapa (pintarLadera en js/mapa/hoja.js). */
 .hoja__nota { display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-3); }
 .hoja__nota p { margin: 0; flex-basis: 100%; }
 .hoja__filas { display: grid; grid-template-columns: auto 1fr; gap: var(--esp-1) var(--esp-3); margin: 0; }
 .hoja__filas dt { color: var(--c-texto-2); }
 .hoja__filas dd { margin: 0; }
 .hoja__acciones { display: flex; flex-wrap: wrap; gap: var(--esp-2); }
+/* Zona prohibida: el mismo popup, en rojo. */
+.mapa-completo .popup-prohibido .leaflet-popup-content-wrapper { box-shadow: inset 0 6px 0 var(--c-peligro), var(--tarjeta-sombra); }
+.mapa-popup--prohibido h3 { color: var(--c-peligro-fuerte); }
 .marcador-sitio { display: block; width: 22px; height: 22px; margin: 3px; transform: rotate(-45deg); border-radius: 50% 50% 50% 0;
   background: #1f4a33; border: 3px solid #ffffff; box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
-@media (prefers-reduced-motion: reduce) { .hoja--mapa, .hoja--mapa[data-abierta="true"] { transition: none; } }
 .mapa-completo .mapa-popup .boton { white-space: normal; text-align: center; height: auto; min-height: 44px; }   /* nombres de zona largos: el botón crece, no se corta */
+
+/* ---------- Chinchetas del mapa: nota + nombre corto, con punta ----------
+   Fondo y texto del nivel (--sem-fondo / --sem-texto, contraste ya validado) y borde --sem; no se usa texto blanco sobre --sem. */
+.chincheta { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box;
+  width: 64px; min-height: 44px; height: 44px; padding: 2px 4px; margin: 0; font: inherit; line-height: 1.1; cursor: pointer;
+  color: var(--sem-texto); background: var(--sem-fondo); border: 2px solid var(--sem); border-radius: 10px;
+  box-shadow: 0 1px 4px rgb(var(--c-sombra) / 0.4); }
+.chincheta[data-nivel="sin-datos"] { background: var(--c-superficie); }
+.chincheta b { font-size: 1.05rem; font-weight: 700; }
+.chincheta small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.7rem; }
+.chincheta::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg);
+  background: inherit; border-right: 2px solid var(--sem); border-bottom: 2px solid var(--sem); }
+/* NO IR: gris (sin nota) con borde y rótulo de peligro, para no confundirla con «sin datos». */
+.chincheta[data-no-ir="true"] { border-color: var(--c-peligro); }
+.chincheta[data-no-ir="true"]::after { border-color: var(--c-peligro); }
+.chincheta[data-no-ir="true"] b { color: var(--c-peligro); font-size: 0.85rem; letter-spacing: 0.02em; }
+.chincheta[data-seleccionada="true"] { outline: 3px solid var(--c-texto); outline-offset: 2px; transform: scale(1.12); transform-origin: 50% 100%; }
+/* Chincheta de búsqueda (lugar elegido en el buscador): gota como la de Google Maps, en ocre oscuro (no se lee como «prohibido»
+   ni como un nivel del semáforo); primitivos, que no cambian con el tema, porque va sobre teselas claras. */
+.chincheta.chincheta--busqueda { width: 26px; min-height: 0; height: 26px; margin: 2px 1px; padding: 0; cursor: default;
+  transform: rotate(-45deg); border-radius: 50% 50% 50% 0; background: var(--p-ocre-700); border: 3px solid var(--p-hueso-50); box-shadow: 0 1px 4px rgb(var(--c-sombra) / 0.5); }
+.chincheta.chincheta--busqueda::after { content: none; }
+/* Etiqueta de una de las mejores manchas (nivel 3): como la chincheta, más pequeña y sin punta; centrada en la celda. */
+.etiqueta-mancha { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); box-sizing: border-box; display: block; max-width: 190px; padding: 3px 8px;
+  white-space: nowrap; font-size: 0.8rem; font-weight: 600; line-height: 1.2; cursor: pointer; pointer-events: auto;
+  color: var(--sem-texto); background: var(--sem-fondo); border: 2px solid var(--sem); border-radius: 999px; box-shadow: 0 1px 4px rgb(var(--c-sombra) / 0.4); }
+/* El texto se recorta dentro (span); la etiqueta no, para que su zona táctil llegue a 44 px de alto sin cambiar cómo se ve. */
+.etiqueta-mancha > span { display: block; overflow: hidden; text-overflow: ellipsis; }
+.etiqueta-mancha::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%); }

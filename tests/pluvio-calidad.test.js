@@ -36,7 +36,7 @@ test('Quintanar de la Sierra (casos reales): 551,9 mm el 27/08, pico aislado el 
   assert.equal(de(r, 'PL031', '2026-08-28').motivo, 'pico aislado: 144.8 mm frente a 0 de sus vecinas y 0.4 del modelo');
   assert.equal(de(r, 'PL031', '2026-09-30').calidad, 'sospechoso');   // una hora de 81,9 mm (y además incompleto)
   assert.equal(de(r, 'PL002', '2026-09-17').calidad, 'incompleto');
-  assert.deepEqual({ ...de(r, 'PL002', '2026-08-27') }, { fuente: 'duero', estacion: 'PL002', fecha: '2026-08-27', mm: 3.8, horas: 24, maximo: 1.7, calidad: 'ok', motivo: null });
+  assert.deepEqual({ ...de(r, 'PL002', '2026-08-27') }, { fuente: 'duero', estacion: 'PL002', fecha: '2026-08-27', mm: 3.8, horas: 24, maximo: 1.7, ultima: true, calidad: 'ok', motivo: null });
 });
 
 test('sin modelo no se aplica la regla del pico: el 28/08 de Quintanar pasaría (por eso se usa el de la celda gruesa)', () => {

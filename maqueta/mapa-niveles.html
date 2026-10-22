@@ -1,0 +1,177 @@
+<h2>Una sola vista por niveles: zonas → montes → manchas</h2>
+<p class="subtitle">El mapa es la portada y la lista «dónde ir» va pegada abajo. Lo que ves en la lista es lo mismo que ves marcado en el mapa, y al tocar una marca se acerca y aparece el nivel siguiente. Son tres momentos de la misma pantalla.</p>
+
+<style>
+  .fila{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+  .paso{width:300px}
+  .paso h3{margin:0 0 8px;font-size:15px;display:flex;gap:8px;align-items:center}
+  .paso h3 b{background:#245a3d;color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+  .tel{width:300px;height:620px;border-radius:34px;background:#0c1510;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25);position:relative;flex:none}
+  .pant{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:#e9ecdf;font-family:system-ui,Segoe UI,Roboto,sans-serif;color:#142019;font-size:12px}
+  .mapa{position:absolute;inset:0;background:#e9ecdf}
+  .mapa.lejos{background:
+    radial-gradient(ellipse 40px 26px at 50% 40%, rgba(29,94,58,.35), transparent 70%),
+    radial-gradient(ellipse 36px 22px at 46% 28%, rgba(76,138,55,.35), transparent 70%),
+    radial-gradient(ellipse 36px 22px at 60% 24%, rgba(178,122,14,.35), transparent 70%),
+    radial-gradient(ellipse 30px 20px at 30% 52%, rgba(184,84,42,.35), transparent 70%),
+    radial-gradient(ellipse 30px 20px at 80% 40%, rgba(122,115,107,.3), transparent 70%),
+    #e9ecdf}
+  .mapa.medio{background:
+    radial-gradient(ellipse 70px 44px at 66% 30%, rgba(29,94,58,.45), transparent 70%),
+    radial-gradient(ellipse 55px 36px at 36% 40%, rgba(76,138,55,.45), transparent 70%),
+    radial-gradient(ellipse 50px 32px at 56% 54%, rgba(178,122,14,.4), transparent 70%),
+    radial-gradient(ellipse 40px 28px at 24% 60%, rgba(184,84,42,.35), transparent 70%),
+    repeating-linear-gradient(115deg, transparent 0 18px, rgba(20,32,25,.045) 18px 19px),#e9ecdf}
+  .mapa.cerca{background:
+    radial-gradient(ellipse 110px 70px at 58% 36%, rgba(29,94,58,.6), transparent 70%),
+    radial-gradient(ellipse 80px 50px at 30% 48%, rgba(76,138,55,.55), transparent 70%),
+    radial-gradient(ellipse 60px 40px at 70% 60%, rgba(178,122,14,.5), transparent 70%),
+    repeating-linear-gradient(115deg, transparent 0 14px, rgba(20,32,25,.05) 14px 15px),
+    repeating-linear-gradient(25deg, transparent 0 20px, rgba(20,32,25,.045) 20px 21px),#e9ecdf}
+  .silueta{position:absolute;left:18%;top:16%;width:64%;height:50%;border:1.5px dashed rgba(20,32,25,.35);border-radius:46% 54% 50% 50%/40% 40% 60% 60%}
+  .contorno{position:absolute;border:2px solid rgba(36,90,61,.55);border-radius:40% 60% 55% 45%/55% 45% 55% 45%;background:rgba(36,90,61,.06)}
+  .carretera{position:absolute;left:-10%;top:68%;width:130%;height:3px;background:#fff;transform:rotate(-14deg);box-shadow:0 0 0 1px #d3d6c8}
+  .pueblo{position:absolute;font-size:10px;color:#3d4a41;font-weight:600;text-shadow:0 0 3px #fff,0 0 3px #fff}
+  .cab{position:absolute;top:0;left:0;right:0;padding:10px 12px 0;display:flex;justify-content:space-between;align-items:center;z-index:3}
+  .marca{font-weight:800;font-size:15px;display:flex;align-items:center;gap:6px}
+  .marca i{width:16px;height:16px;border-radius:8px 8px 3px 3px;background:#245a3d;display:inline-block}
+  .tox{background:#b3261e;color:#fff;border-radius:999px;padding:5px 10px;font-weight:700;font-size:11px}
+  .busca{position:absolute;top:44px;left:12px;right:12px;background:#fbfbf6;border-radius:999px;padding:9px 14px;box-shadow:0 2px 8px rgba(0,0,0,.15);color:#3d4a41;z-index:3;display:flex;justify-content:space-between;gap:8px}
+  .busca .migas{color:#142019;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chips{position:absolute;top:84px;left:12px;right:12px;display:flex;gap:6px;z-index:3;overflow:hidden}
+  .chip{background:#fbfbf6;border:1px solid #d3d6c8;border-radius:999px;padding:4px 9px;white-space:nowrap;font-size:11px}
+  .chip.on{background:#245a3d;color:#fff;border-color:#245a3d}
+  .botones{position:absolute;right:12px;top:120px;display:flex;flex-direction:column;gap:8px;z-index:3}
+  .bot{width:34px;height:34px;border-radius:50%;background:#fbfbf6;box-shadow:0 2px 6px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:14px}
+  /* marcas: chincheta con la nota y flecha abajo */
+  .pin{position:absolute;z-index:2;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+  .pin .cara{background:var(--c);color:#fff;font-weight:800;border-radius:10px;padding:3px 7px;font-size:11px;box-shadow:0 2px 6px rgba(0,0,0,.3);white-space:nowrap;display:flex;gap:4px;align-items:center}
+  .pin .cara small{font-weight:500;opacity:.95}
+  .pin .punta{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--c)}
+  .pin.gris .cara{color:#fff}
+  .etq{position:absolute;background:#fbfbf6;border-radius:8px;padding:3px 7px;font-size:11px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:2;border-left:4px solid var(--c)}
+  .hoja{position:absolute;left:0;right:0;bottom:0;background:#fbfbf6;border-radius:18px 18px 0 0;box-shadow:0 -4px 16px rgba(0,0,0,.18);padding:8px 14px 54px;z-index:4;border-top:3px double #d3d6c8}
+  .asa{width:36px;height:4px;border-radius:2px;background:#d3d6c8;margin:0 auto 8px}
+  .hoja h4{margin:0 0 2px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+  .hoja h4 small{font-weight:500;color:#3d4a41;font-size:10.5px}
+  .nota{font-weight:800;color:var(--c);font-size:13px;flex:none}
+  .hoja p{margin:3px 0;color:#3d4a41;font-size:11.5px;line-height:1.35}
+  .acc{display:flex;gap:6px;margin-top:8px}
+  .acc span{flex:1;text-align:center;border-radius:999px;padding:6px 4px;font-size:11px;font-weight:700;border:1px solid #245a3d;color:#245a3d}
+  .acc span.p{background:#245a3d;color:#fff}
+  .lista{margin:4px 0 0;padding:0;list-style:none}
+  .lista li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px solid #e5e7dc;font-size:11.5px}
+  .lista li em{font-style:normal;color:#3d4a41;font-size:10.5px;display:block}
+  .lista li .n{background:var(--c);color:#fff;font-weight:800;border-radius:6px;padding:1px 6px;font-size:11px;flex:none}
+  .dias{display:flex;gap:6px;margin-top:8px}
+  .nav{position:absolute;left:10px;right:10px;bottom:8px;background:#fbfbf6;border-radius:999px;display:flex;justify-content:space-around;padding:6px 4px;font-size:10px;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:5}
+  .nav span.on{color:#245a3d;font-weight:800}
+  .volver{position:absolute;left:12px;top:120px;background:#fbfbf6;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.2);z-index:3}
+  .expl{margin-top:10px;color:#555;font-size:13px;line-height:1.45}
+  .pregunta{margin-top:30px}
+  .pregunta h3{font-size:17px;margin-bottom:6px}
+  .options{margin-top:10px}
+  .mini{display:inline-flex;flex-direction:column;align-items:center;margin-right:10px;vertical-align:middle}
+</style>
+
+<div class="fila">
+
+<!-- Paso 1: lejos -->
+<div class="paso">
+<h3><b>1</b> Lejos: las zonas, como «Hoy»</h3>
+<div class="tel"><div class="pant">
+  <div class="mapa lejos"></div><div class="silueta"></div>
+  <span class="pueblo" style="left:44%;top:46%">Madrid</span>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span>Busca un pueblo, sitio o seta</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="pin" style="left:50%;top:40%;--c:#1d5e3a"><span class="cara">82 <small>Guadarrama</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:48%;top:27%;--c:#4c8a37"><span class="cara">66 <small>Sierra Norte</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:62%;top:23%;--c:#b27a0e"><span class="cara">54 <small>Soria</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:31%;top:52%;--c:#b8542a"><span class="cara">31 <small>Gredos</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:80%;top:40%;--c:#7a736b"><span class="cara">12 <small>Cuenca</small></span><span class="punta"></span></div>
+  <div class="hoja">
+    <div class="asa"></div>
+    <h4>Dónde ir hoy <small>12 zonas · mejor arriba</small></h4>
+    <ul class="lista">
+      <li style="--c:#1d5e3a"><span><b>Guadarrama</b><em>Níscalos en Valsaín · 48 mm en 26 días</em></span><span class="n">82</span></li>
+      <li style="--c:#4c8a37"><span><b>Sierra Norte</b><em>Boletus en Riaza · suelo húmedo</em></span><span class="n">66</span></li>
+      <li style="--c:#b27a0e"><span><b>Soria</b><em>Níscalos en Pinar Grande · llovió menos</em></span><span class="n">54</span></li>
+    </ul>
+    <div class="dias"><span class="chip on">Hoy</span><span class="chip">Mañana</span><span class="chip">Jue</span><span class="chip">Vie</span></div>
+  </div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div></div>
+<p class="expl">Al abrir la app: una chincheta por zona con su nota, y debajo la lista ordenada (lo que hoy hace «Hoy»). Tocar la chincheta o la fila acerca el mapa a esa zona.</p>
+</div>
+
+<!-- Paso 2: zona con sus montes -->
+<div class="paso">
+<h3><b>2</b> Zona: sus montes</h3>
+<div class="tel"><div class="pant">
+  <div class="mapa medio"></div>
+  <div class="contorno" style="left:10%;top:16%;width:80%;height:52%"></div>
+  <div class="carretera"></div>
+  <span class="pueblo" style="left:40%;top:48%">Rascafría</span>
+  <span class="pueblo" style="left:66%;top:62%">Valsaín</span>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span class="migas">‹ Guadarrama</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="pin" style="left:66%;top:32%;--c:#1d5e3a"><span class="cara">82 <small>Valsaín</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:36%;top:40%;--c:#4c8a37"><span class="cara">71 <small>Morcuera</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:56%;top:54%;--c:#b27a0e"><span class="cara">58 <small>Canencia</small></span><span class="punta"></span></div>
+  <div class="pin" style="left:24%;top:60%;--c:#b8542a"><span class="cara">34 <small>Cercedilla</small></span><span class="punta"></span></div>
+  <div class="hoja">
+    <div class="asa"></div>
+    <h4>Guadarrama <small>11 montes · mejor arriba</small><span class="nota" style="--c:#1d5e3a">Muy bueno</span></h4>
+    <p>Ha llovido 48 mm en 26 días y el suelo está húmedo. Níscalos y Boletus en temporada.</p>
+    <ul class="lista">
+      <li style="--c:#1d5e3a"><span><b>Pinar de Valsaín</b><em>Níscalos · coto, pide permiso</em></span><span class="n">82</span></li>
+      <li style="--c:#4c8a37"><span><b>Pinar de la Morcuera</b><em>Boletus · umbría, 1 500 m</em></span><span class="n">71</span></li>
+      <li style="--c:#b27a0e"><span><b>Pinar bajo Canencia</b><em>Níscalos · llovió menos</em></span><span class="n">58</span></li>
+    </ul>
+  </div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div></div>
+<p class="expl">Dentro de la zona aparecen sus montes (los «puntos» que ya tiene la app: Valsaín, Morcuera, Canencia…), cada uno con su chincheta y su fila. Las manchas de ladera empiezan a verse de fondo. El buscador muestra dónde estás y «‹» vuelve atrás.</p>
+</div>
+
+<!-- Paso 3: monte con sus manchas -->
+<div class="paso">
+<h3><b>3</b> Monte: las laderas</h3>
+<div class="tel"><div class="pant">
+  <div class="mapa cerca"></div><div class="carretera"></div>
+  <span class="pueblo" style="left:70%;top:72%">Valsaín</span>
+  <div class="cab"><span class="marca"><i></i>Setas</span><span class="tox">Toxicología</span></div>
+  <div class="busca"><span class="migas">‹ Guadarrama › Valsaín</span><span>🔍</span></div>
+  <div class="chips"><span class="chip on">Mejor hoy</span><span class="chip">Níscalos</span><span class="chip">Boletus</span><span class="chip">Rebozuelo</span></div>
+  <div class="botones"><div class="bot">◫</div><div class="bot">◎</div></div>
+  <div class="etq" style="left:50%;top:30%;--c:#1d5e3a">Níscalos 84 · umbría</div>
+  <div class="etq" style="left:16%;top:46%;--c:#4c8a37">Boletus 66</div>
+  <div class="etq" style="left:58%;top:58%;--c:#b27a0e">Níscalos 52 · solana</div>
+  <div class="hoja" style="--c:#1d5e3a">
+    <div class="asa"></div>
+    <h4>Pinar de Valsaín <span class="nota">Muy bueno 82</span></h4>
+    <p><b>Níscalos</b> <i>(Lactarius deliciosus)</i>, también Boletus (61). Las mejores laderas son las umbrías entre 1 300 y 1 600 m.</p>
+    <p><b>Por qué:</b> 48 mm en 26 días, suelo húmedo (percentil 80), 11 °C de media.</p>
+    <p style="color:#b27a0e">Coto de Valsaín: pide permiso.</p>
+    <div class="acc"><span class="p">Cómo llegar</span><span>Diario</span><span>Más</span></div>
+  </div>
+  <div class="nav"><span class="on">▣ Mapa</span><span>✎ Diario</span><span>❋ Especies</span><span>⚙ Ajustes</span></div>
+</div></div>
+<p class="expl">Dentro del monte, las manchas de ladera con etiqueta en las mejores. La hoja es la ficha del monte: seta, porqué, coto y los tres botones. Tocar una mancha cambia la hoja a esa ladera. Arrastrada arriba: desglose, otras especies y gráfica de lluvia.</p>
+</div>
+
+</div>
+
+<div class="pregunta">
+<h3>Una duda de forma: ¿cómo quieres las marcas?</h3>
+<p class="subtitle">Dijiste «flechas». Toca la que te encaje; o descríbemela.</p>
+<div class="options">
+  <div class="option" data-choice="chincheta-nota" onclick="toggleSelect(this)"><div class="letter">A</div><div class="content"><h3><span class="mini" style="--c:#1d5e3a"><span class="cara" style="background:var(--c);color:#fff;font-weight:800;border-radius:10px;padding:3px 7px;font-size:11px">82 Valsaín</span><span class="punta" style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--c)"></span></span>Chincheta con la nota y el nombre</h3><p>Como en las maquetas de arriba. Color del semáforo, número grande. Se lee aunque haya muchas.</p></div></div>
+  <div class="option" data-choice="flecha" onclick="toggleSelect(this)"><div class="letter">B</div><div class="content"><h3>Flecha que apunta al sitio</h3><p>Una flecha del color del semáforo señalando el monte, con el nombre al lado. Más llamativa; ocupa más y puede tapar el mapa cuando hay varias cerca.</p></div></div>
+  <div class="option" data-choice="globo-seta" onclick="toggleSelect(this)"><div class="letter">C</div><div class="content"><h3>Globo con la seta</h3><p>Una chincheta con el dibujo de la seta (níscalo, boletus…) y la nota pequeña. Dice «qué» antes que «cuánto».</p></div></div>
+</div>
+</div>

@@ -3,18 +3,29 @@
 import { indiceZona, calcularIndice, DatosIncompletos } from '../indice.js';
 import { hoyMadrid } from '../meteo.js';
 import { fijarUsarModelo, avisoViejo, textoSinLluvia } from '../aemet.js';
-import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto } from '../datos.js';
+import { especiesDeZona, nombreCorto, puntosRecogibles, rotuloPunto, RESTRINGIDO } from '../datos.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
 import { graficoLluvia, esMedida } from '../ui/grafico-lluvia.js';
 import { textoOrigenPunto } from '../ui/origen-lluvia.js';
 import { desglose } from '../ui/desglose.js';
 import { fichaNormativa } from '../ui/normativa.js';
 import { seccionDondeBuscar } from '../ui/sitios.js';
+import { leerRutaZona, rutaMapa } from '../mapa/ruta.js';
 import { el, icono, etiqueta, mayus } from '../ui/dom.js';
 
 const ZONA_HORARIA = 'Europe/Madrid';
 const nbsp = ' ';
-const ui = { punto: {}, abierta: {}, enfocarModelo: null };   // punto elegido y especie desplegada, por zona; se conservan al repintar
+// punto elegido y especie desplegada, por zona; se conservan al repintar. hashAplicado: la última ruta cuyo punto se aplicó.
+const ui = { punto: {}, abierta: {}, enfocarModelo: null, hashAplicado: null };
+// Al salir de Zona se olvida la ruta aplicada: volver con el mismo «Más» vuelve a elegir su punto.
+if (typeof window !== 'undefined') window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#zona/')) ui.hashAplicado = null; });
+
+// El punto de la ruta (#zona/<zona>/<punto>) solo se impone cuando cambia el hash; en los repintados (meteo, contraste,
+// «Usar modelo») manda el que se haya elegido en el selector.
+export function puntoInicial({ hashActual, hashAplicado, puntoRuta, puntoElegido }) {
+  if (puntoRuta && hashActual !== hashAplicado) return { punto: puntoRuta, hashAplicado: hashActual };
+  return { punto: puntoElegido, hashAplicado: hashActual };
+}
 const MODELOS = { ecmwf_ifs: 'ECMWF', icon_seamless: 'ICON', gfs_seamless: 'GFS (NOAA)' };
 const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const comun = (e) => e.comunes?.es?.[0] ?? e.nombre;
@@ -26,7 +37,7 @@ const fecha = (f) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: '
 const hora = (iso) => new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: ZONA_HORARIA }).format(new Date(iso));
 
 const PELIGRO = /mortal|letal|phalloides|tóxic|toxic|envenen/i;
-export const RESTRINGIDO = /prohib|solo con|exige|requiere|autorizaci|restring|vedad|reserva|no se han? (podido|encontrado|localizado)|sin (comprobar|verificar)|sin confirmar|pendiente de confirmaci|no consta/i;
+export { RESTRINGIDO };
 
 const aviso = (texto, peligro) => el('div', { clase: peligro ? 'aviso-peligro' : 'aviso', attrs: { role: 'note' } }, icono(peligro ? 'i-aviso' : 'i-info'), el('p', { texto }));
 
@@ -47,15 +58,14 @@ function calcular(zona, datos, meteo, umbrales) {
 const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
 const rotulo = (res) => (res?.fueraDeTemporada ? 'Fuera de temporada' : null);
 
-function cabecera(zona, res) {
+function cabecera(zona, res, volver) {
   const valor = res?.valor ?? null;
   const detalle = detalleNombre(zona);
   const alts = zona.puntos.map((p) => p.altitud);
   const meta = el('div', { clase: 'portada__meta' }, etiqueta(zona.provincias.join(' y ')),
     etiqueta(`${zona.puntos.length} ${zona.puntos.length === 1 ? 'punto' : 'puntos'}, ${miles(Math.min(...alts))} a ${miles(Math.max(...alts))}${nbsp}m`));
-  const avisos = (zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)));
   return el('div', { attrs: { 'data-nivel': nivelDe(valor) } },
-    el('a', { clase: 'volver', href: '#hoy' }, icono('i-atras'), 'Hoy'),
+    el('a', { clase: 'volver', href: volver.href }, icono('i-atras'), volver.texto),
     el('section', { clase: 'portada', attrs: { 'aria-labelledby': 'titulo-zona' } },
       el('div', { clase: 'zona-cabeza' },
         el('div', {}, el('h1', { id: 'titulo-zona', texto: nombreCorto(zona) }), detalle ? el('p', { clase: 'portada__sub', texto: detalle }) : null),
@@ -63,8 +73,23 @@ function cabecera(zona, res) {
           valor != null ? el('p', { clase: 'indice indice--grande' }, String(valor), el('span', { clase: 'indice__max', texto: '/100' })) : null,
           semaforo(valor, rotulo(res)))),
       meta),
-    res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null,
-    avisos.length ? el('div', { clase: 'pila' }, avisos) : null);
+    res?.incompleta ? el('div', { clase: 'pila' }, aviso(`${textoFaltan(res.faltan.length)} para calcular su nota${valor != null ? ': la nota de la zona sale solo con las demás' : ''}.`, false)) : null);
+}
+
+// Avisos (normativa de la zona, datos incompletos o de otro día, protección del punto…): al final de la página, nunca al
+// principio (petición de la usuaria, 2026-10-21). Los recuadros rojos (NO IR, restricciones serias) se quedan donde están.
+// `movidos` son los .aviso amarillos que se han sacado de la cabecera y de la parte dinámica, en su orden.
+function seccionAvisos(zona, movidos = []) {
+  const avisos = [...movidos, ...(zona.avisos ?? []).map((a) => aviso(a, PELIGRO.test(a)))];
+  const seccion = el('section', { clase: 'pila', attrs: { 'aria-labelledby': 'titulo-avisos-zona' } }, el('h2', { id: 'titulo-avisos-zona', texto: 'Avisos' }), ...avisos);
+  seccion.hidden = !avisos.length;
+  return seccion;
+}
+// Saca de un contenedor los recuadros amarillos (.aviso), no los rojos, y los devuelve en orden de aparición.
+export function sacarAvisos(contenedor) {
+  const nodos = [...contenedor.querySelectorAll('.aviso')];
+  for (const n of nodos) { const envoltorio = n.parentElement; n.remove(); if (envoltorio?.classList.contains('pila') && !envoltorio.childElementCount) envoltorio.remove(); }
+  return nodos;
 }
 
 function selectorPuntos(zona, sel, porPunto, alElegir) {
@@ -281,13 +306,19 @@ export function pintar({ estado, param, refrescarMeteo }) {
   const zona = datos.zonas.find((z) => z.id === param);
   if (!zona) {
     return el('div', { clase: 'tarjeta', style: 'margin-top: var(--esp-6)' }, el('h2', { texto: 'Zona no encontrada' }),
-      el('p', { texto: 'No conozco esa zona.' }), el('a', { clase: 'boton', href: '#hoy' }, 'Volver a Hoy'));
+      el('p', { texto: 'No conozco esa zona.' }), el('a', { clase: 'boton', href: '#mapa' }, 'Volver al mapa'));
   }
   const umbrales = estado.umbrales ?? {};
   const c = meteo?.series ? calcular(zona, datos, meteo, umbrales)
     : { series: {}, especies: especiesDeZona(zona, datos.especies, umbrales), res: null, porPunto: {} };
   const recogibles = puntosRecogibles(zona);
   const mejorPunto = c.res?.especies?.[0]?.punto ?? recogibles.find((p) => c.series[p.id])?.id ?? (recogibles[0] ?? zona.puntos[0]).id;
+  // Si se llega desde el mapa con un punto en la ruta, ese punto queda elegido y «Mapa» devuelve al mismo nivel.
+  const { punto: puntoRuta } = leerRutaZona(location.hash);
+  const punto = zona.puntos.some((p) => p.id === puntoRuta) ? puntoRuta : null;
+  const inicial = puntoInicial({ hashActual: location.hash, hashAplicado: ui.hashAplicado, puntoRuta: punto, puntoElegido: ui.punto[zona.id] });
+  ui.hashAplicado = inicial.hashAplicado;
+  if (inicial.punto) ui.punto[zona.id] = inicial.punto;
   if (!zona.puntos.some((p) => p.id === ui.punto[zona.id])) delete ui.punto[zona.id];
   const idElegido = () => ui.punto[zona.id] ?? mejorPunto;
   const dinamico = el('div', { clase: 'pila-l' });
@@ -307,9 +338,13 @@ export function pintar({ estado, param, refrescarMeteo }) {
     partes.push(listaEspecies(zona, c.especies, c.res, serie, nombrePunto(punto)));
     dinamico.replaceChildren(...partes.filter(Boolean));
     habitats.replaceChildren(seccionHabitats(zona, punto));
+    final.replaceChildren(seccionAvisos(zona, [...avisosCabecera, ...sacarAvisos(dinamico)]));
   }
+  const cab = cabecera(zona, c.res, { href: rutaMapa({ zona: zona.id, punto }), texto: 'Mapa' });
+  const avisosCabecera = sacarAvisos(cab);
+  const final = el('div');
   pintarDinamico();
 
-  return el('div', {}, cabecera(zona, c.res),
-    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats));
+  return el('div', {}, cab,
+    el('div', { clase: 'pila-l', style: 'margin-top: var(--esp-5)' }, dinamico, seccionDondeBuscar(zona, datos), seccionNormativa(zona, datos), habitats, final));
 }

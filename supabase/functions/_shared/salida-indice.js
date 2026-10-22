@@ -40,7 +40,11 @@ export function resumirCelda({ altRef, serie, fechas, pluvio = null }) {
     lluvia.origen = serie.fechas.slice(i0, i1).map((_, k) => ORIGEN[serie.origenPrecip?.[i0 + k]] ?? 0);
     lluvia.estaciones = pluvio.estaciones;
     if (pluvio.km) lluvia.km = pluvio.km;   // distancia (km) de cada estación nombrada
+    // Cuántas aportaron en los 26 días (se nombran las tres más cercanas). Sin él (índice anterior, o un pluvio/celdas.json
+    // sin `ultimo`) no se sabe y la hoja no nombra ninguna.
+    if (Number.isInteger(pluvio.aportan)) lluvia.aportan = pluvio.aportan;
     lluvia.cercanas = pluvio.cercanas;
+    if (Number.isFinite(pluvio.factor) && pluvio.factor !== 1) lluvia.factor = pluvio.factor;   // sesgo de la zona (días «estimada»)
   }
   return { altRef, incompleta: !dias.every(diaConDatos), lluvia, dias };
 }
@@ -78,7 +82,9 @@ export function validarSalida(s) {
       && (!('origen' in l) || (Array.isArray(l.origen) && l.origen.length === l.mm.length && l.origen.every((c) => c === 0 || c === 1 || c === 2)))
       && (!('estaciones' in l) || (Array.isArray(l.estaciones) && l.estaciones.every((n) => typeof n === 'string')))
       && (!('km' in l) || (Array.isArray(l.km) && l.km.length === l.estaciones?.length && l.km.every(num)))
-      && (!('cercanas' in l) || Number.isInteger(l.cercanas));
+      && (!('cercanas' in l) || Number.isInteger(l.cercanas))
+      && (!('aportan' in l) || (Number.isInteger(l.aportan) && l.aportan >= 0))
+      && (!('factor' in l) || (typeof l.factor === 'number' && Number.isFinite(l.factor) && l.factor > 0));
     if (!bien) e.push(`celda ${id} mal formada`);
   }
   return e;

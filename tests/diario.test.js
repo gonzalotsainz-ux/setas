@@ -384,14 +384,14 @@ import { urlNuevaSalida, leerNuevaSalida } from '../js/diario.js';
 test('«Guardar en el diario» desde el mapa: ida y vuelta del parámetro', () => {
   const u = urlNuevaSalida({ lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
   assert.equal(u, '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama');
-  assert.deepEqual(leerNuevaSalida(decodeURIComponent(u.split('/')[1])), { lat: 40.853, lon: -3.9943, zona: 'guadarrama' });
-  assert.deepEqual(leerNuevaSalida('nueva?zona=soria'), { lat: null, lon: null, zona: 'soria' });
-  assert.deepEqual(leerNuevaSalida('nueva'), { lat: null, lon: null, zona: null });
+  assert.deepEqual(leerNuevaSalida(decodeURIComponent(u.split('/')[1])), { lat: 40.853, lon: -3.9943, zona: 'guadarrama', punto: null });
+  assert.deepEqual(leerNuevaSalida('nueva?zona=soria'), { lat: null, lon: null, zona: 'soria', punto: null });
+  assert.deepEqual(leerNuevaSalida('nueva'), { lat: null, lon: null, zona: null, punto: null });
   assert.equal(leerNuevaSalida('nueva?lat=abc&lon=1'), null);
   assert.equal(leerNuevaSalida('nueva?lat=95&lon=1'), null);
   assert.equal(leerNuevaSalida(undefined), null);
   assert.equal(leerNuevaSalida('otra'), null);
-  assert.deepEqual(leerNuevaSalida('nueva?lat=-3.5&lon=-180'), { lat: -3.5, lon: -180, zona: null });
+  assert.deepEqual(leerNuevaSalida('nueva?lat=-3.5&lon=-180'), { lat: -3.5, lon: -180, zona: null, punto: null });
 });
 
 test('leerNuevaSalida: coordenadas incompletas, vacías, no decimales o fuera de rango → null', () => {
@@ -447,4 +447,12 @@ test('guardarComparticion envía el conjunto completo; propaga el error', async 
   await guardarComparticion('s1', [{ grupo_id: 'g1', ubicacion_exacta: true }], { supabase: sb });
   assert.deepEqual(sb.registro.rpc[0], { nombre: 'compartir_salida', args: { p_salida: 's1', p_grupos: [{ grupo_id: 'g1', ubicacion_exacta: true }] } });
   await assert.rejects(() => guardarComparticion('s1', [], { supabase: supabaseFalso({ rpcFalla: 'no_es_tuya' }) }), /no_es_tuya/);
+});
+
+test('«Guardar en el diario» con punto: va después de la zona y se lee de vuelta', () => {
+  const u = urlNuevaSalida({ lat: 40.853, lon: -3.9943, zona: 'guadarrama', punto: 'guadarrama-valsain-pinar' });
+  assert.equal(u, '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama&punto=guadarrama-valsain-pinar');
+  assert.deepEqual(leerNuevaSalida(u.split('/')[1]), { lat: 40.853, lon: -3.9943, zona: 'guadarrama', punto: 'guadarrama-valsain-pinar' });
+  assert.equal(leerNuevaSalida('nueva?zona=soria').punto, null);
+  assert.equal(leerNuevaSalida('nueva').punto, null);
 });

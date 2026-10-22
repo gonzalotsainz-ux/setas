@@ -1,7 +1,9 @@
 // tests/mapa-hoja.test.js
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { urlComoLlegar, textoCoto, modeloHoja, clasesHoja, estadoTrasArrastre, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { urlComoLlegar, textoCoto, modeloHoja, NOMBRE_HABITAT, AVISO_FUERA_PROVINCIAS, AVISO_PRADO } from '../js/mapa/hoja.js';
+import { claveFoco, nodoEquivalente } from '../js/ui/dom.js';
+import { rutaZona } from '../js/mapa/ruta.js';
 import { HABITATS } from '../scripts/validar-datos.mjs';
 
 const nbsp = '\u00a0';
@@ -16,9 +18,9 @@ test('«Cómo llegar» abre la ruta de Google Maps hasta la celda', () => {
   assert.equal(urlComoLlegar(40.853, -3.9943), 'https://www.google.com/maps/dir/?api=1&destination=40.85300,-3.99430');
 });
 
-test('hoja de monte: bosque, altitud, orientación, pendiente, meteo, coto y tres botones', () => {
+test('ficha de ladera (popup): bosque, altitud, orientación, pendiente, meteo, coto y tres botones', () => {
   const m = modeloHoja({ celda, nota, ag, zona, coto: { nombre: 'Valsaín', tipo: 'acotado', permisoUrl: 'https://x.es/permiso' } });
-  assert.equal(m.tipo, 'monte');
+  assert.equal(m.tipo, 'ladera');
   assert.equal(m.titulo, 'Pinar silvestre');
   assert.equal(m.valor, 92);
   assert.equal(m.nivel, 'muy-bueno');
@@ -28,11 +30,9 @@ test('hoja de monte: bosque, altitud, orientación, pendiente, meteo, coto y tre
     ['Bosque', 'Pinar silvestre'], ['Altitud', `1560${nbsp}m`], ['Orientación', 'Norte (umbría)'], ['Pendiente', `del 15 al 30${nbsp}%`],
     ['Lluvia en 26 días', `106${nbsp}mm`], ['Humedad del suelo', 'percentil 63'], ['Temperatura', `11,7${nbsp}°C de media en 20 días`]]);
   assert.deepEqual(m.coto, { texto: 'Valsaín: pide permiso.', url: 'https://x.es/permiso' });
-  assert.deepEqual(m.acciones, { comoLlegar: urlComoLlegar(40.853, -3.9943), detalle: '#zona/guadarrama', diario: '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama' });
-  assert.deepEqual(m.otras, [{ nombre: 'níscalo', valor: 70 }]);
+  assert.deepEqual(m.acciones, { comoLlegar: urlComoLlegar(40.853, -3.9943), detalle: rutaZona('guadarrama'), diario: '#diario/nueva?lat=40.85300&lon=-3.99430&zona=guadarrama' });
   assert.equal(m.orientativo, true);   // umbría: el ajuste por orientación no está calibrado
   assert.deepEqual(m.avisos, []);
-  assert.equal(clasesHoja(m), 'hoja hoja--mapa');
 });
 
 test('orientación llana no lleva la marca «Orientativo»', () => {
@@ -49,7 +49,7 @@ test('hoja sin datos suficientes: gris, sin nota inventada', () => {
 
 test('especies del hábitat sin datos: la hoja lo dice aunque haya nota', () => {
   const m = modeloHoja({ celda, nota: { ...nota, faltan: ['a', 'b'] }, ag, zona });
-  assert.equal(m.tipo, 'monte');
+  assert.equal(m.tipo, 'ladera');
   assert.deepEqual(m.avisos, [{ texto: '2 especies sin datos suficientes: la nota sale solo con las demás.', peligro: false }]);
 });
 
@@ -73,7 +73,6 @@ test('zona prohibida: hoja roja con la norma y sin botón de ruta', () => {
   assert.equal(m.titulo, 'Macizo de Peñalara');
   assert.deepEqual(m.normas, [{ titulo: 'PRUG del Parque Nacional', url: 'https://boe.es/x' }, { titulo: 'otra', url: null }]);
   assert.equal(m.acciones, undefined);
-  assert.equal(clasesHoja(m), 'hoja hoja--mapa hoja--prohibido');
 });
 
 test('zona prohibida sin nota: texto por defecto que no repite el titular', () => {
@@ -95,10 +94,18 @@ test('textos de coto y nombres de todos los hábitats', () => {
   for (const h of HABITATS) assert.ok(NOMBRE_HABITAT[h], h);
 });
 
-test('arrastre de la hoja', () => {
-  assert.equal(estadoTrasArrastre('resumen', -80), 'completa');
-  assert.equal(estadoTrasArrastre('resumen', 80), 'cerrada');
-  assert.equal(estadoTrasArrastre('resumen', 20), 'resumen');
-  assert.equal(estadoTrasArrastre('completa', 80), 'resumen');
-  assert.equal(estadoTrasArrastre('completa', -80), 'completa');
+// Repintar las migas o los chips (llega la meteo, cambia la selección) no debe dejar el foco en <body>.
+const nodoFalso = (attrs = {}, dataset = {}) => ({ getAttribute: (k) => attrs[k] ?? null, dataset });
+test('claveFoco y nodoEquivalente: el foco vuelve al enlace con el mismo href o al botón con la misma data-clave', () => {
+  const a1 = nodoFalso({ href: '#mapa/guadarrama/a' }), a2 = nodoFalso({ href: '#mapa/guadarrama/b' }), b = nodoFalso({}, { clave: '2026-10-22' });
+  assert.equal(claveFoco(a2), '#mapa/guadarrama/b');
+  assert.equal(claveFoco(b), '2026-10-22');
+  assert.equal(claveFoco(nodoFalso()), null);
+  assert.equal(claveFoco(null), null);
+  const nuevos = [nodoFalso({ href: '#mapa/guadarrama/a' }), nodoFalso({ href: '#mapa/guadarrama/b' }), nodoFalso({}, { clave: '2026-10-22' })];
+  assert.equal(nodoEquivalente(nuevos, claveFoco(a2)), nuevos[1]);
+  assert.equal(nodoEquivalente(nuevos, claveFoco(b)), nuevos[2]);
+  assert.equal(nodoEquivalente(nuevos, '#otro'), null);
+  assert.equal(nodoEquivalente(nuevos, null), null);
+  assert.ok(a1);
 });

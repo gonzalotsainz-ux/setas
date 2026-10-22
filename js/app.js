@@ -5,16 +5,18 @@ import { pedirObservaciones, aplicarContraste, usarModeloDe } from './aemet.js';
 import { cargarPluvio, aplicarPluvio, combinarObs } from './pluvio.js';
 import { botonToxicologia, avisoDuda } from './ui/seguridad.js';
 import { guardia } from './ui/carrera.js';
+import { dec, esRutaMapa } from './mapa/ruta.js';
 
 // meteoBruta: lo que dice el modelo; meteo: lo mismo con la lluvia medida (pluviómetros y estaciones AEMET) donde la hay.
 // obs: lo que devuelve la función «aemet» tal cual (con su marca __viejo); pluvio: pluvio/ultimo.json vigente o null.
 export const estado = { datos: null, meteo: null, meteoBruta: null, obs: null, obsError: null, pluvio: null, umbrales: {} };
 const pantallas = {
-  hoy: () => import('./pantallas/hoy.js'), zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
+  zona: () => import('./pantallas/zona.js'), mapa: () => import('./pantallas/mapa.js'),
   especies: () => import('./pantallas/especies.js'), especie: () => import('./pantallas/especie.js'),
   seguridad: () => import('./pantallas/seguridad.js'), diario: () => import('./pantallas/diario.js'), ajustes: () => import('./pantallas/ajustes.js'),
   grupos: () => import('./pantallas/grupos.js'), unirse: () => import('./pantallas/unirse.js'),
 };
+let hashAnterior = '';   // para no mover el foco ni el scroll al cambiar de zona o punto dentro del mapa
 const carrera = guardia();   // un pintado asíncrono antiguo no puede pisar a uno más nuevo
 const SECCION = { zona: 'mapa', especie: 'especies', seguridad: 'especies', grupos: 'diario', unirse: 'diario' };   // la sección de la barra que queda marcada
 
@@ -28,12 +30,15 @@ function error(raiz, titulo, detalle) {
 
 async function pintar(cambioDePantalla = false) {
   const ficha = carrera.nueva();
-  const [nombre, param] = (location.hash.slice(1) || 'hoy').split('/');
-  const cargar = pantallas[nombre] ?? pantallas.hoy;
+  const dentroDelMapa = esRutaMapa(hashAnterior) && esRutaMapa(location.hash);   // también desde la portada sin hash
+  hashAnterior = location.hash;   // al empezar, no al acabar: un pintado descartado por la carrera no deja un hash obsoleto
+  const [nombre0, param] = (location.hash.slice(1) || 'mapa').split('/');
+  const nombre = nombre0 === 'hoy' ? 'mapa' : nombre0;   // «Hoy» ya no existe como pestaña: sus enlaces viejos abren el mapa
+  const cargar = pantallas[nombre] ?? pantallas.mapa;
   const raiz = document.getElementById('app');
   try {
     const m = await cargar();
-    const nodo = await m.pintar({ estado, param: param && decodeURIComponent(param), refrescarMeteo });
+    const nodo = await m.pintar({ estado, param: param && dec(param), refrescarMeteo });
     if (!carrera.vigente(ficha)) return;
     // El mapa devuelve siempre el mismo nodo: volver a insertarlo le quitaría el foco (buscador) y cerraría sus popups.
     if (raiz.childNodes.length !== 1 || raiz.firstChild !== nodo) raiz.replaceChildren(nodo);
@@ -45,7 +50,7 @@ async function pintar(cambioDePantalla = false) {
   document.querySelectorAll('.barra-nav a').forEach((a) => {
     if (a.hash === `#${actual}`) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
-  if (cambioDePantalla === true) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
+  if (cambioDePantalla === true && !dentroDelMapa) { window.scrollTo(0, 0); raiz.focus({ preventScroll: true }); }
 }
 
 // Recalcula la meteo «efectiva»: la del modelo con la lluvia medida en pluviómetros y, encima, la de las estaciones AEMET.
@@ -89,11 +94,11 @@ let reintento = null;
 document.querySelector('[data-toxicologia]')?.replaceWith(botonToxicologia());
 document.querySelector('[data-aviso-duda]')?.replaceWith(avisoDuda());
 window.addEventListener('hashchange', () => pintar(true));
-// La meteo solo cambia lo que enseñan Hoy, Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
-const PINTAN_METEO = new Set(['hoy', 'zona', 'mapa']);
+// La meteo solo cambia lo que enseñan Zona y Mapa: en Ajustes, Especies o Diario no se repinta (se perdería lo escrito).
+const PINTAN_METEO = new Set(['zona', 'mapa']);
 window.addEventListener('meteo', () => {
-  const nombre = (location.hash.slice(1) || 'hoy').split('/')[0];
-  if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'hoy')) pintar(false);
+  const nombre = (location.hash.slice(1) || 'mapa').split('/')[0];
+  if (PINTAN_METEO.has(nombre in pantallas ? nombre : 'mapa')) pintar(false);
 });
 window.addEventListener('contraste', () => { recalcularContraste(); pintar(false); });   // «Usar modelo» cambiado en Zona
 try {

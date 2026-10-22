@@ -30,9 +30,10 @@ export const estacionesDeJucar = (lista) => (Array.isArray(lista) ? lista : []).
 
 // Ayer y anteayer siempre (son provisionales y pueden corregirse); después, los que faltan desde el 1 de agosto, de los más
 // antiguos a los más nuevos, hasta `lote` peticiones por ejecución (una por día: el relleno tarda unas 4 ejecuciones).
-export function fechasJucar(hoy, presentes, lote = LOTE_JUCAR) {
-  const anteayer = sumarDias(hoy, -2), fechas = [sumarDias(hoy, -1), anteayer];
-  for (let f = agostoDe(hoy); f < anteayer && fechas.length < lote; f = sumarDias(f, 1)) if (!presentes.has(f)) fechas.push(f);
+// `inicio`: desde dónde rellenar si es después del 1 de agosto (lo que lluvia_obs aún guarda entero, ver publicar.js).
+export function fechasJucar(hoy, presentes, lote = LOTE_JUCAR, inicio = null) {
+  const anteayer = sumarDias(hoy, -2), fechas = [sumarDias(hoy, -1), anteayer], agosto = agostoDe(hoy);
+  for (let f = inicio && inicio > agosto ? inicio : agosto; f < anteayer && fechas.length < lote; f = sumarDias(f, 1)) if (!presentes.has(f)) fechas.push(f);
   return fechas;
 }
 

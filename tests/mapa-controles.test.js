@@ -2,8 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { chipsDelDia, chipVigente, barraDias, buscarEnMapa, GRUPOS } from '../js/mapa/controles.js';
-import { diasDisponibles } from '../js/rejilla/carga.js';
+import { chipsDelDia, chipVigente, fechaDelMapa, buscarEnMapa, fundirResultados, GRUPOS } from '../js/mapa/controles.js';
 import { leerCsv, filtrarPueblos, leerLugares, leerProvincias, provinciaDe, unirMismoPunto } from '../scripts/rejilla/pueblos.mjs';
 
 const especies = JSON.parse(readFileSync('data/especies.json', 'utf8')).especies;
@@ -39,21 +38,11 @@ test('un chip que deja de estar en temporada vuelve a «Mejor hoy»', () => {
   assert.equal(chipVigente('boletus', chipsDelDia(especies, '2026-10-01')), 'boletus');
 });
 
-test('barra de días: Hoy, Mañana, día de la semana; «menos fiable» desde el cuarto día', () => {
-  const b = barraDias(diez('2026-10-01'), '2026-10-01', '2026-10-03');
-  assert.deepEqual(b.slice(0, 5).map((d) => d.texto), ['Hoy', 'Mañana', 'Sáb 3', 'Dom 4', 'Lun 5']);
-  assert.deepEqual(b.map((d) => d.menosFiable), [false, false, false, false, true, true, true, true, true, true]);
-  assert.deepEqual(b.map((d) => d.pulsado).indexOf(true), 2);
-});
-
-test('con un índice de ayer, el primer día de la barra es hoy y se llama «Hoy»; la fecha indexa dias[] por indexOf', () => {
-  const fechas = diez('2026-09-30');
-  const dias = diasDisponibles({ fechas }, '2026-10-01');
-  const b = barraDias(dias, '2026-10-01', '2026-10-01');
-  assert.equal(b[0].fecha, '2026-10-01');
-  assert.equal(b[0].texto, 'Hoy');
-  assert.equal(b.length, 9);
-  assert.equal(fechas.indexOf(b[0].fecha), 1, 'el día «Hoy» es la posición 1 del índice de ayer, no la 0');
+test('el mapa enseña siempre hoy: con un índice de ayer, su primer día desde hoy; sin índice o con uno pasado, hoy', () => {
+  assert.equal(fechaDelMapa({ salida: { fechas: diez('2026-09-30') }, hoy: '2026-10-01' }), '2026-10-01');
+  assert.equal(fechaDelMapa({ salida: { fechas: diez('2026-10-01') }, hoy: '2026-10-01' }), '2026-10-01');
+  assert.equal(fechaDelMapa({ salida: null, hoy: '2026-10-01' }), '2026-10-01');
+  assert.equal(fechaDelMapa({ salida: { fechas: ['2026-09-28', '2026-09-29'] }, hoy: '2026-10-01' }), '2026-10-01');   // el aviso dirá que no hay laderas
 });
 
 test('buscador: especies (que eligen su chip), sitios y pueblos, sin tildes', () => {
@@ -117,30 +106,37 @@ test('pueblos: un núcleo repetido en el mismo punto queda una vez con todos sus
   assert.deepEqual(u.map((l) => l.nombre), ['Acosta / Okoizta / Akosta', 'Acosta']);
 });
 
-import { avisosMapa, AVISO_SIN_INDICE, AVISO_ACERCATE } from '../js/mapa/controles.js';
+import { avisosMapa, primerAviso, AVISO_SIN_INDICE, AVISO_FUERA_DE_ZONAS } from '../js/mapa/controles.js';
 import { AVISO_SIN_DESCOMPRESION } from '../js/rejilla/carga.js';
 const textos = (a) => a.map(([, t]) => t);
-test('avisos del mapa sin índice: puntos de siempre, con el estado de la previsión', () => {
+test('avisos del mapa sin índice: zonas y montes, con el estado de la previsión', () => {
   const sinMeteo = avisosMapa({ salida: null, meteo: null });
   assert.equal(sinMeteo[0][1], AVISO_SIN_INDICE);
   assert.match(AVISO_SIN_INDICE, /^No hay mapa por laderas ahora mismo/);
   assert.match(textos(sinMeteo)[1], /^Esperando la previsión/);
   assert.match(textos(avisosMapa({ salida: null, meteo: { error: 'x' } }))[1], /^No hay previsión/);
-  const bien = avisosMapa({ salida: null, meteo: { series: {} }, otroDia: 'Datos del 30 de septiembre.', zoom: 6 });
-  assert.deepEqual(textos(bien), [AVISO_SIN_INDICE, 'Datos del 30 de septiembre.']);   // sin «Acércate»: no hay laderas que ver
+  const bien = avisosMapa({ salida: null, meteo: { series: {} }, otroDia: 'Datos del 30 de septiembre.' });
+  assert.deepEqual(textos(bien), [AVISO_SIN_INDICE, 'Datos del 30 de septiembre.']);
   const viejo = avisosMapa({ salida: null, sinDescompresion: true, meteo: { series: {} } });
   assert.deepEqual(textos(viejo), [AVISO_SIN_DESCOMPRESION]);
 });
-test('avisos del mapa con índice: antigüedad, previsión lejana, zoom y error', () => {
-  const s = { sello: '2026-10-01T07' };
-  assert.deepEqual(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0 }), []);
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 8, diasDesdeHoy: 0 })), [AVISO_ACERCATE]);
-  assert.equal(AVISO_ACERCATE, 'Acércate para ver cada ladera.');
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 2 })), []);   // pesoPrevision(2) ≥ 0,8
-  assert.deepEqual(textos(avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 5 })), ['Previsión a 5 días: menos fiable.']);
-  const todo = avisosMapa({ salida: s, zoom: 12, diasDesdeHoy: 0, viejo: 'Datos de ayer a las 19:00.', error: 'No se pudo cargar x.bin (404)' });
-  assert.deepEqual(todo.map(([i]) => i), ['i-info', 'i-aviso']);
-  assert.deepEqual(textos(todo), ['Datos de ayer a las 19:00.', 'No se pudo cargar x.bin (404)']);
+test('avisos del mapa con índice: antigüedad y error; ya no hay «Acércate» ni previsión lejana', () => {
+  const s = { sello: '2026-10-01T07' }, meteo = { series: {} };   // con previsión: el estado de la meteo no se avisa
+  assert.deepEqual(avisosMapa({ salida: s, meteo }), []);
+  const todo = avisosMapa({ salida: s, meteo, viejo: 'Datos de ayer a las 19:00.', error: 'No se pudo cargar x.bin (404)' });
+  assert.deepEqual(todo.map(([i]) => i), ['i-aviso', 'i-info']);
+  assert.deepEqual(textos(todo), ['No se pudo cargar x.bin (404)', 'Datos de ayer a las 19:00.']);
+  // Con índice, las chinchetas siguen saliendo de la meteo: sin ella, también se avisa.
+  assert.match(textos(avisosMapa({ salida: s }))[0], /^Esperando la previsión/);
+});
+
+test('un lugar buscado fuera de las zonas y los errores van primero: el mapa solo enseña una línea', () => {
+  assert.equal(AVISO_FUERA_DE_ZONAS, 'La app no tiene datos de monte aquí; las zonas más cercanas están en el mapa.');
+  const a = avisosMapa({ salida: null, cargando: true, meteo: null, fuera: true, error: 'CartoCiudad no responde.' });
+  assert.deepEqual(a.slice(0, 2), [['i-aviso', 'CartoCiudad no responde.'], ['i-info', AVISO_FUERA_DE_ZONAS]]);
+  assert.deepEqual(primerAviso(a), ['i-aviso', 'CartoCiudad no responde.']);
+  assert.deepEqual(primerAviso(avisosMapa({ salida: null, cargando: true, meteo: { series: {} }, fuera: true })), ['i-info', AVISO_FUERA_DE_ZONAS]);
+  assert.equal(primerAviso(avisosMapa({ salida: { sello: 'x' }, meteo: { series: {} } })), null);
 });
 
 import { AVISO_CARGANDO } from '../js/mapa/controles.js';
@@ -149,14 +145,45 @@ test('mientras llegan la rejilla y el índice, el aviso dice que se está cargan
   assert.deepEqual(a, [['i-info', AVISO_CARGANDO]]);
 });
 
-import { AVISO_GRIS } from '../js/mapa/controles.js';
-test('sin índice, si algún punto sale en «Nulo» se dice qué es el gris (no es falta de datos)', () => {
-  assert.match(AVISO_GRIS, /Nulo/);
-  const conNulos = avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 3 });
-  assert.deepEqual(conNulos, [['i-aviso', AVISO_SIN_INDICE], ['i-info', AVISO_GRIS]]);
-  assert.deepEqual(textos(avisosMapa({ salida: null, meteo: { series: {} }, puntosNulos: 0 })), [AVISO_SIN_INDICE]);
-  // Sin previsión no hay notas: no se habla del gris de «Nulo».
-  assert.ok(!textos(avisosMapa({ salida: null, meteo: null, puntosNulos: 3 })).includes(AVISO_GRIS));
-  // Con índice, las manchas tienen su propia leyenda de colores: tampoco.
-  assert.ok(!textos(avisosMapa({ salida: { sello: 'x' }, zoom: 12, puntosNulos: 3 })).includes(AVISO_GRIS));
+import { AVISO_FECHA_SIN_INDICE, AVISO_FECHA_SIN_METEO } from '../js/mapa/controles.js';
+test('avisos sin índice hablan de zonas y montes, no de puntos; fecha sin índice o sin meteo tienen su aviso', async () => {
+  const m = await import('../js/mapa/controles.js');
+  assert.equal(AVISO_SIN_INDICE, 'No hay mapa por laderas ahora mismo: se ven las zonas y sus montes con su nota.');
+  assert.equal(AVISO_CARGANDO, 'Cargando el mapa por laderas: mientras, se ven las zonas y sus montes.');
+  assert.equal(m.AVISO_GRIS, undefined);
+  for (const meteo of [null, { error: 'x' }, { series: {} }]) {
+    for (const t of textos(avisosMapa({ salida: null, meteo }))) assert.doesNotMatch(t, /puntos?/i, t);
+  }
+  assert.equal(AVISO_FECHA_SIN_INDICE, 'El mapa por laderas aún no tiene el día de hoy: solo chinchetas.');
+  assert.equal(AVISO_FECHA_SIN_METEO, 'La previsión no llega a hoy: chinchetas sin nota.');
+  const s = { sello: 'x' };
+  assert.ok(textos(avisosMapa({ salida: s, fechaSinIndice: true })).includes(AVISO_FECHA_SIN_INDICE));
+  assert.ok(textos(avisosMapa({ salida: s, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
+  assert.ok(textos(avisosMapa({ salida: null, fechaSinMeteo: true, meteo: { series: {} } })).includes(AVISO_FECHA_SIN_METEO));
+  assert.deepEqual(textos(avisosMapa({ salida: s, meteo: { series: {} } })), []);   // sin banderas, nada de esto
+});
+
+test('buscador: encuentra zonas por nombre corto y montes por su corto, antes que sitios y pueblos', () => {
+  const zonas = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas;
+  const puntos = zonas.flatMap((z) => z.puntos.map((p) => ({ ...p, zona: z.id })));
+  const r = (t, extra = {}) => buscarEnMapa(t, { pueblos: [], sitios: [], especies, chips: [], zonas, puntos, ...extra });
+  const valsain = r('vals').find((x) => x.tipo === 'punto' && x.texto === 'Valsaín');
+  assert.ok(valsain, 'el monte sale por su corto');
+  assert.deepEqual([valsain.zona, valsain.id, valsain.sub, valsain.lat, valsain.lon], ['guadarrama', 'guadarrama-valsain-pinar', 'Sierra de Guadarrama', 40.853, -3.9943]);
+  assert.deepEqual(r('guada')[0], { tipo: 'zona', id: 'guadarrama', texto: 'Sierra de Guadarrama', sub: 'Zona' });
+  const orden = buscarEnMapa('vi', { pueblos: [{ n: 'Villa', p: 'Soria', lat: 41, lon: -2 }], sitios: [{ id: 's', nombre: 'Villar', lat: 41, lon: -2, municipio: 'X' }], especies: [], chips: [],
+    zonas: [{ id: 'z', nombre: 'Viñas (Soria)', puntos: [] }], puntos: [{ id: 'p', zona: 'z', corto: 'Vigía', lat: 1, lon: 2 }] }).map((x) => x.tipo);
+  assert.deepEqual(orden, ['zona', 'punto', 'sitio', 'pueblo']);
+});
+
+test('fundirResultados: ignora un turno viejo, conserva la opción activa por identidad y deja -1 si no había', () => {
+  const a = { tipo: 'pueblo', texto: 'Rascafría' }, b = { tipo: 'zona', texto: 'Guadarrama' };
+  const ext = [{ tipo: 'lugar', texto: 'RASCAFRIA' }, { tipo: 'lugar', texto: 'Morcuera' }];
+  assert.equal(fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: 0, turno: 3, turnoRespuesta: 2 }), null);
+  const f = fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: 1, turno: 3, turnoRespuesta: 3 });
+  assert.deepEqual(f.resultados.map((x) => x.texto), ['Rascafría', 'Guadarrama', 'Morcuera']);
+  assert.equal(f.activo, 1);
+  assert.equal(f.resultados[f.activo], b);
+  assert.equal(fundirResultados({ locales: [a, b], externos: ext, resultados: [a, b], activo: -1, turno: 3, turnoRespuesta: 3 }).activo, -1);
+  assert.equal(fundirResultados({ locales: [a], externos: [], resultados: [a, b], activo: 1, turno: 3, turnoRespuesta: 3 }).activo, -1, 'si la opción activa desaparece, vuelve a -1');
 });

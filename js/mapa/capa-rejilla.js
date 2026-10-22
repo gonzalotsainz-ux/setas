@@ -1,13 +1,18 @@
 // js/mapa/capa-rejilla.js
-// Capa de Leaflet que dibuja en un canvas las imágenes de la rejilla (1 celda = 1 píxel) escaladas sin suavizado.
+// Capa de Leaflet que dibuja en un canvas las imágenes de la rejilla (1 celda = 1 píxel) escaladas con suavizado y
+// desenfoque, para que se vean como manchas y no como cuadrados.
 // Se redibuja al mover o hacer zoom; durante la animación de zoom se oculta para no desencajarse.
-// Lleva la atribución del MFE50 y del MDT (CC BY: se cita donde se muestran los derivados). Los textos son los de
+// Lleva la atribución del MFE50 y del MDT (CC BY: se cita donde se muestran los derivados), con los enlaces de
 // scripts/rejilla/config.mjs (una prueba lo comprueba).
 import { aGrados, ORIGEN } from '../rejilla/geo.js';
 
-export const ATRIBUCION_REJILLA = 'Laderas: <a href="https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50.html">'
-  + 'Mapa Forestal de España 1:50.000 (MFE50) © Ministerio para la Transición Ecológica y el Reto Demográfico</a>; '
-  + '<a href="https://servicios.idee.es/wcs-inspire/mdt">Obra derivada de MDT25 CC BY 4.0 scne.es</a>';
+// Corta (una línea en el móvil, con los enlaces); el texto completo de scripts/rejilla/config.mjs va en los créditos de Ajustes.
+export const ATRIBUCION_REJILLA = '<a href="https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mfe50.html">MFE50</a>'
+  + ' · <a href="https://servicios.idee.es/wcs-inspire/mdt">MDT25</a>';
+
+// Desenfoque en píxeles según el tamaño de la celda en pantalla: media celda, entre 1 y 10 px.
+export const desenfoque = (pxCelda) => Math.min(10, Math.max(1, pxCelda * 0.5));
+export const OPACIDAD_LEJOS = 0.6;
 
 export function crearCapaRejilla(L) {
   return L.Layer.extend({
@@ -58,13 +63,20 @@ export function crearCapaRejilla(L) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, ancho, alto);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.imageSmoothingEnabled = false;
+      // Manchas, no cuadrados (la usuaria no quiere «cuadraditos», 2026-10-21): se escala con suavizado y se desenfoca
+      // en proporción al tamaño de la celda en pantalla; lejos (zoom < 12) va más transparente para no tapar el mapa.
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       const vista = m.getBounds();
+      let pxCelda = 0;
       for (const { lienzo, limites } of this._imagenes.values()) {
         if (!vista.intersects(limites)) continue;
         const a = m.latLngToContainerPoint(limites.getNorthWest()), b = m.latLngToContainerPoint(limites.getSouthEast());
+        pxCelda = Math.max(pxCelda, (b.x - a.x) / lienzo.width);
         ctx.drawImage(lienzo, a.x, a.y, b.x - a.x, b.y - a.y);
       }
+      c.style.filter = `blur(${desenfoque(pxCelda)}px)`;
+      c.style.opacity = String(m.getZoom() < 12 ? OPACIDAD_LEJOS : 1);
       c.style.visibility = 'visible';
     },
   });

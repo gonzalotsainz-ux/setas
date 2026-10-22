@@ -2,12 +2,18 @@
 // Paso de «pluvio» a las 4 y a las 16 UTC, tras las lecturas: agrega las horas por día de Madrid desde el 1 de agosto,
 // aplica el control de calidad (con las vecinas y el modelo de la celda gruesa más cercana, de meteo_celdas) y guarda
 // lluvia_dia. Solo días ya cerrados (hasta ayer) y estaciones de la lista blanca.
+// lluvia_obs se limpia a los DIAS_OBS días y la temporada va del 1 de agosto al 31 de julio: los días anteriores a
+// `corte` (hoy − DIAS_OBS + 2, con margen por la hora de la limpieza y el desfase de Madrid) pueden estar a medias en
+// lluvia_obs. Esos se toman de lluvia_dia (400 días), ya revisados: solo los «ok», tal cual, sin revisarlos ni reescribirlos.
+// Si lluvia_dia no los tiene, quedan sin medir.
 import { agostoDe, sumarDias } from '../_shared/meteo.js';
 import { distanciaKm, seriesMedidas, validarPluvio, validosDe, VERSION_PLUVIO } from '../_shared/pluvio.js';
 import { diasDeFilas } from './dias.js';
 import { revisarDias } from './calidad.js';
 
 export const KM_MODELO = 15;   // más lejos, el modelo de la celda ya no representa a la estación
+export const DIAS_OBS = 200;   // = la limpieza de lluvia_obs (migración 20261004000000_lluvia_dia.sql)
+export const corteObs = (hoy) => sumarDias(hoy, -(DIAS_OBS - 2));
 
 export function celdasCercanas(estaciones, celdas, maxKm = KM_MODELO) {
   const r = new Map();
@@ -38,17 +44,21 @@ export function construirPublicacion({ revisados, estaciones, puntos, celdas, de
 }
 
 export async function publicar({ almacen, hoy, ahora, estaciones, puntos = [], gruesa = { celdas: [] }, quedan = () => Infinity }) {
-  const desde = agostoDe(hoy), hasta = sumarDias(hoy, -1);
+  const desde = agostoDe(hoy), hasta = sumarDias(hoy, -1), corte = corteObs(hoy);
   const conocidas = new Set(estaciones.map((e) => `${e.fuente}:${e.codigo}`));
-  const dias = diasDeFilas(await almacen.diasPorEstacion(desde)).filter((d) => d.fecha <= hasta && conocidas.has(`${d.fuente}:${d.estacion}`));
+  const propia = (d) => conocidas.has(`${d.fuente}:${d.estacion}`);
+  const dias = diasDeFilas(await almacen.diasPorEstacion(desde)).filter((d) => d.fecha >= corte && d.fecha <= hasta && propia(d));
+  const guardados = corte > desde && almacen.diasGuardados
+    ? (await almacen.diasGuardados(desde, sumarDias(corte, -1))).map((d) => ({ ...d, fecha: String(d.fecha).slice(0, 10) })).filter(propia) : [];
   const cercana = celdasCercanas(estaciones, gruesa.celdas);
   const modelo = cercana.size ? await almacen.precipCeldas([...new Set(cercana.values())], desde) : new Map();
   const modeloDe = (clave, fecha) => modelo.get(cercana.get(clave))?.get(fecha) ?? null;
   const revisados = revisarDias(dias, estaciones, modeloDe);
-  const filas = revisados.map((d) => ({ ...d, actualizado: ahora.toISOString() }));
+  const filas = revisados.map(({ ultima, ...d }) => ({ ...d, actualizado: ahora.toISOString() }));   // lluvia_dia no guarda `ultima`
   for (let k = 0; k < filas.length; k += 1000) { sinTiempo(quedan, 'guardar los días'); await almacen.guardarDias(filas.slice(k, k + 1000)); }
-  if (!puntos.length) return { dias: revisados.length };
-  const { ultimo, celdas } = construirPublicacion({ revisados, estaciones, puntos, celdas: gruesa.celdas, desde, hasta, generado: ahora.toISOString() });
+  const extra = guardados.length ? { guardados: guardados.length } : {};
+  if (!puntos.length) return { dias: revisados.length, ...extra };
+  const { ultimo, celdas } = construirPublicacion({ revisados: [...guardados, ...revisados], estaciones, puntos, celdas: gruesa.celdas, desde, hasta, generado: ahora.toISOString() });
   const malas = [...validarPluvio(ultimo), ...validarPluvio(celdas)];
   if (malas.length) throw new Error(`salida mal formada, no se sube: ${malas[0]}`);
   // Primero las celdas (las lee «rejilla») y después, lo último, el puntero de Hoy y Zona.
@@ -56,5 +66,5 @@ export async function publicar({ almacen, hoy, ahora, estaciones, puntos = [], g
   await almacen.subir('pluvio/celdas.json', celdas, '3600');
   sinTiempo(quedan, 'subir ultimo.json');
   await almacen.subir('pluvio/ultimo.json', ultimo, '600');
-  return { dias: revisados.length, puntos: Object.keys(ultimo.lugares).length, celdas: Object.keys(celdas.lugares).length };
+  return { dias: revisados.length, ...extra, puntos: Object.keys(ultimo.lugares).length, celdas: Object.keys(celdas.lugares).length };
 }

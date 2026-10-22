@@ -8,7 +8,7 @@ import { leerAemet } from './lectores/aemet.js';
 import { leerDuero } from './lectores/duero.js';
 import { leerJucar, fechasJucar } from './lectores/jucar.js';
 import { diasDeFilas } from './dias.js';
-import { publicar } from './publicar.js';
+import { publicar, corteObs } from './publicar.js';
 import { calidadHora } from './calidad.js';
 import { esHoraEnPunto } from './tiempo.js';
 
@@ -41,11 +41,12 @@ export const TAREAS = {
   duero: { fuente: 'duero', toca: (h) => h % 3 === 0, lotes: LOTES_DUERO, lote: (h) => Math.floor(h / 3) % LOTES_DUERO,
     leer: (c) => leerDuero({ ...c, desde: sumarDias(c.hoy, -DIAS_DUERO) }) },
   // Júcar a las 3 y 15 UTC, una hora antes de publicar (así publicar va casi solo: es la ejecución con más CPU). Días que
-  // ya tienen dato de alguna estación del Júcar desde el 1 de agosto (de lluvia_por_dia): no se vuelven a pedir.
+  // ya tienen dato de alguna estación del Júcar desde el 1 de agosto (de lluvia_por_dia): no se vuelven a pedir. Los
+  // anteriores al corte de lluvia_obs (200 días) tampoco: la limpieza los borraría y se pedirían en cada ejecución.
   jucar: { fuente: 'jucar', toca: (h) => h === 3 || h === 15, leer: async (c) => {
     const presentes = new Set(diasDeFilas((await c.almacen.diasPorEstacion(agostoDe(c.hoy))).filter((f) => f.fuente === 'jucar'))
       .filter((d) => d.horas > 0).map((d) => d.fecha));
-    return leerJucar({ ...c, fechas: fechasJucar(c.hoy, presentes) });
+    return leerJucar({ ...c, fechas: fechasJucar(c.hoy, presentes, undefined, corteObs(c.hoy)) });
   } },
   publicar: { toca: (h) => h === 4 || h === 16, paso: (c) => publicar(c) },
 };
@@ -162,6 +163,17 @@ export function almacenSupabase(admin) {
     async diasPorEstacion(desde) { return datos(await admin.rpc('lluvia_por_dia', { p_desde: desde })); },
     async guardarDias(filas) {
       for (let k = 0; k < filas.length; k += 1000) datos(await admin.from('lluvia_dia').upsert(filas.slice(k, k + 1000), { onConflict: 'fuente,estacion,fecha' }));
+    },
+    // Días buenos ya revisados de lluvia_dia entre dos fechas (los que lluvia_obs ya no tiene enteros; ver publicar.js), por
+    // páginas de 1.000 filas (el máximo de la API).
+    async diasGuardados(desde, hasta) {
+      const filas = [];
+      for (let k = 0; ; k += 1000) {
+        const pagina = datos(await admin.from('lluvia_dia').select('fuente, estacion, fecha, mm, horas, maximo, calidad, motivo').eq('calidad', 'ok')
+          .gte('fecha', desde).lte('fecha', hasta).order('fuente').order('estacion').order('fecha').range(k, k + 999));
+        filas.push(...pagina);
+        if (pagina.length < 1000) return filas;
+      }
     },
     // Bucket público «indice» (el de «rejilla»): pluvio/ultimo.json y pluvio/celdas.json. Las limpiezas de «rejilla»
     // solo tocan los <sello>.json de la raíz.

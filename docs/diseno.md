@@ -56,7 +56,7 @@ Cada nivel tiene tres colores: trazo (`--c-sem-X`, barras), fondo (`--c-sem-X-fo
 barra llena son 20 puntos.
 
 **Herencia del nivel:** vale el `data-nivel` más cercano, sea del propio `.semaforo` o de un contenedor
-(`.fila-zona`, una tarjeta). Todo el semáforo se pinta con propiedades personalizadas (`--sem`, `--sem-fondo`,
+(una chincheta, una tarjeta). Todo el semáforo se pinta con propiedades personalizadas (`--sem`, `--sem-fondo`,
 `--sem-texto`, `--b1` a `--b4` para las barras llenas...), así que un `.semaforo` con su propio nivel dentro de un
 contenedor con otro nivel muestra el suyo. Sin `data-nivel` en ningún sitio, los valores de `:root` dan el aspecto
 «sin datos»: nunca sale un nivel inventado.
@@ -106,7 +106,7 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | Clase | Qué es |
 |---|---|
 | `.cabecera` | barra superior fija: marca y botón de **Toxicología** (`tel:+34915620420`), siempre visible |
-| `.barra-nav` | isla flotante inferior con 5 secciones (Hoy, Mapa, Especies, Diario, Ajustes) y, encima, la franja «Ante la duda, no la comas.», siempre visible |
+| `.barra-nav` | isla flotante inferior con 4 secciones (Mapa, Especies, Diario, Ajustes) y, encima, la franja «Ante la duda, no la comas.», siempre visible |
 | `.tarjeta`, `.tarjeta--bisel` + `.tarjeta__nucleo` | tarjeta plana; bisel doble solo para la pieza principal de la pantalla |
 | `.semaforo[data-nivel]` | distintivo del nivel con barras + palabra; hereda el `data-nivel` más cercano (ver «Herencia del nivel») |
 | `.indice`, `.indice--grande` | nota 0 a 100 en el color de texto del nivel |
@@ -115,8 +115,7 @@ Número y unidad van unidos con espacio duro (`74&nbsp;mm`).
 | `.etiqueta` (`--acento`, `--ocre`) | confianza, «orientativo», «incierta», origen del dato |
 | `.aviso` | aviso ocre (previsión incierta) |
 | `.aviso-peligro` | recuadro rojo (tóxicas parecidas, precaución) |
-| `.hoja[data-abierta]` | hoja inferior para detalles, filtros o Toxicología. Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
-| `.lista-zonas` + `.fila-zona[data-nivel]` | fila con raya lateral del nivel, nombre, nota grande, semáforo y frase; sirve también para especies |
+| `.hoja[data-abierta]` | hoja inferior modal para detalles, filtros o Toxicología (el mapa no la usa). Cerrada lleva `visibility: hidden`: queda fuera del tabulador y del lector de pantalla, y el cambio espera al final del deslizamiento. **Quien la abre debe mover el foco a la hoja y, al cerrarla, devolverlo al botón que la abrió**; también se cierra con Escape |
 | `.factores` + `.factor` | desglose del índice: código, nombre, valor, frase clara y barra fina sin pista |
 | `.grafico` | gráfico SVG de lluvia: dos paneles con el mismo eje (acumulado de 26 días arriba, lluvia diaria abajo), previsión rayada en ocre con horquilla entre modelos y raya de «hoy» |
 | `.modelos` + `.modelo` | contraste de modelos como diagrama de puntos con la media marcada |
@@ -127,7 +126,7 @@ Reglas: objetivos táctiles de 44 px o más; radios 24/18 px en tarjetas, píldo
 foco visible ocre de 3 px; sin guiones largos en los textos; la pestaña Especies usa la silueta del logo.
 
 **Iconos:** Phosphor Icons (regular, licencia MIT) en un solo sprite, `img/iconos.svg`. Ids: `i-telefono`, `i-atras`,
-`i-ir`, `i-abrir`, `i-hoy`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
+`i-ir`, `i-abrir`, `i-mapa`, `i-diario`, `i-ajustes`, `i-aviso`, `i-lluvia`, `i-info`, `i-sello`, `i-pinar`,
 `i-temp`, `i-flecha`, `i-especies`, `i-capas`, `i-ubicacion` e `i-buscar`. La app, servida por http(s), los usa así:
 `<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#i-mapa"/></svg>`. Las maquetas llevan una copia en
 línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cuando la página se abre con `file://`
@@ -135,25 +134,39 @@ línea del mismo sprite porque Chrome bloquea el `<use>` a un fichero externo cu
 
 ## Mapa a pantalla completa
 
-El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa` oculta el pie). Arriba, el
-buscador y los chips de especie; a la derecha, Capas y Mi ubicación; abajo, los avisos y la barra de días; el zoom y la
-atribución de Leaflet quedan por encima de los avisos (las alturas se miden en `--alto-cabecera`, `--alto-nav` y
-`--alto-abajo`).
+El mapa es la pantalla de inicio y está **limpio**: nada lo tapa salvo el buscador, los chips y, como mucho, una línea de
+aviso (revisión de la usuaria del 2026-10-21). Niveles: **zonas** (`#mapa`: una chincheta por zona), **zona**
+(`#mapa/<zona>`: el mapa se acerca, contorno discontinuo y chinchetas de sus montes) y **página del monte** (tocar la
+chincheta de un monte abre `#zona/<zona>/<punto>`, la pantalla Zona con ese monte elegido; su «‹ Mapa» vuelve a
+`#mapa/<zona>/<punto>`, que centra el monte a zoom 13 con su chincheta marcada). Enseña siempre hoy. Tocar una mancha
+(zoom ≥ 9) abre un **popup de Leaflet** con la ficha de la ladera (`pintarLadera` en `js/mapa/hoja.js`), en rojo con la
+norma en una zona prohibida. Fuera de las zonas, el buscador (CartoCiudad) coloca una gota, encuadra las zonas más
+cercanas y lo dice la línea de aviso. El mapa ocupa toda la pantalla bajo la cabecera y la barra inferior (`body.en-mapa`
+oculta el pie). Arriba, el buscador (con las migas «‹ Zona › Monte» cuando hay algo elegido) y los chips de especie; a la
+derecha, en una columna bajo ese bloque, Capas, Mi ubicación y el zoom (+ y −, 44 px); abajo, sobre la barra de
+navegación, la línea de aviso (`.mapa-completo__aviso`: el primer aviso, con elipsis; al tocarla, `aria-expanded`, se lee
+entero). Tras tocar una zona, el foco va a la última miga. La atribución de Leaflet va sobre la línea de aviso en **una sola línea** (textos cortos con enlace: «© IGN CC BY 4.0 · MFE50 · MDT25»; los créditos completos, en
+Ajustes): al tocarla o con el foco dentro se ve entera. Las alturas se miden en la pantalla: `--alto-cabecera`,
+`--alto-nav`, `--alto-arriba` (hasta dónde llegan buscador, migas y chips: de ahí cuelgan los botones) y `--alto-abajo`
+(la línea de aviso, si la hay: la atribución va encima). Los encuadres y el autoPan de los popups dejan libre el hueco
+entre `--alto-arriba` y la barra de navegación, la línea de aviso y la atribución; los popups que no caben hacen scroll
+por dentro.
 
 | Clase | Qué es |
 |---|---|
-| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__dias`, `__avisos`) | contenedor fijo del mapa y sus franjas flotantes |
+| `.mapa-completo` (+ `__lienzo`, `__arriba`, `__abajo`, `__botones`, `__boton`, `__panel`, `__chips`, `__avisos`, `__aviso`) | contenedor fijo del mapa y sus franjas flotantes; `__aviso` es la línea de aviso (botón de 44 px con `aria-expanded`) |
 | `.mapa-buscador` (+ `__lista`) | combobox de pueblos, sitios y especies: 48 px, foco visible, opción activa con fondo de acento y raya lateral |
 | `.mapa-panel` | panel de fondos, capas y leyenda de las manchas, con «Cerrar»; Escape lo cierra y el foco vuelve a Capas |
-| `.hoja--mapa` (`[data-estado="resumen|completa"]`) + `.hoja__asa` | hoja inferior al tocar una mancha: 42 % de alto, 88 % al subir el asa (44 px, `touch-action: none`); sin animación con `prefers-reduced-motion` |
-| `.hoja--prohibido` | la misma hoja en rojo para una zona prohibida, con la norma; nunca lleva mancha |
+| `.mapa-popup` + `.hoja__nota`, `.hoja__filas`, `.hoja__acciones` | ficha de una ladera en el popup del mapa: nota y especie, bosque, altitud, orientación, meteo, coto y «Cómo llegar», «Ver detalle», «Guardar en el diario» |
+| `.popup-prohibido` + `.mapa-popup--prohibido` | el mismo popup en rojo para una zona prohibida, con la norma; nunca lleva nota |
 | `.marcador-sitio` | chincheta verde con borde blanco de los sitios con coordenadas (color fijo: va sobre teselas claras) |
+| `.chincheta--busqueda` | gota del lugar elegido en el buscador, en ocre oscuro (`--p-ocre-700`) con borde `--p-hueso-50`: no se confunde con «prohibido» ni con un nivel; se quita al cambiar la selección |
 | `.chip__nota` | «menos fiable» en ocre dentro del chip de un día lejano |
 
 Las manchas usan `NIVEL_COLOR` de `js/mapa/colores.js` con alfa 150/255; las celdas con monte apropiado pero sin datos
 suficientes, el gris `NIVEL_COLOR['sin-datos']` en damero (celdas alternas con alfa 110/255 y 35/255), para no
-confundirlo con el gris liso de «Nulo»; la leyenda del panel lo enseña igual. En la vista lejana, las celdas gruesas
-van con alfa 150/255 y las «sin datos», con alfa 35/255 y borde punteado; encima, siempre el contorno de los prohibidos. Nunca se colorea una celda sin hábitat ni prohibida.
+confundirlo con el gris liso de «Nulo»; la leyenda del panel lo enseña igual. En la vista lejana (por debajo del zoom 9) no
+se pinta ninguna celda: la nota la llevan las chinchetas de zona (la usuaria no quiere cuadrados de color en el mapa, 2026-10-21); encima, siempre el contorno de los prohibidos. Nunca se colorea una celda sin hábitat ni prohibida.
 
 Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
 
@@ -166,6 +179,8 @@ Textos de los avisos (`js/mapa/controles.js`, `avisosMapa`):
 - Lejos (zoom menor que 9): «Acércate para ver cada ladera.»
 
 ## Maquetas
+
+El recorrido de `maqueta/hoy.html` queda superado por `maqueta/mapa-niveles.html`.
 
 - `maqueta/hoy.html`: zona destacada con foto, aviso de previsión incierta, filtro por especie, las 8 zonas
   ordenadas (con «incierta» y una «sin datos»), leyenda del semáforo y pie.
@@ -188,3 +203,11 @@ horizontal, con Toxicología, «Ante la duda» y la atribución de Open-Meteo vi
   de especie dentro de frases miden 18 a 22 px. Son enlaces en línea dentro de texto (WCAG 2.2, criterio 2.5.8, los
   exime) y ampliarlos rompería la lectura compacta de créditos, que la licencia CC BY exige visibles. Las acciones
   principales sí miden 44 px o más.
+
+### Capturas del mapa por niveles (2026-10-21)
+
+Esta auditoría es anterior al mapa por niveles: no lo recorrió. Capturas del mapa por niveles
+(`capturas/mapa-niveles-1-zonas.png`, `-2-zona.png`, `-3-monte.png`): tema claro, 390×844, del 2026-10-21, con Toxicología y
+«Ante la duda» visibles. Pendientes: las variantes en oscuro y la de «búsqueda fuera de las zonas», porque la cuota diaria de
+Open-Meteo se agotó durante la sesión y sin previsión las capturas enseñarían el estado de error.
+

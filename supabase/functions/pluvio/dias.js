@@ -1,8 +1,9 @@
 // supabase/functions/pluvio/dias.js
 // Lluvia por día de Madrid de cada estación. La función SQL lluvia_por_dia (migración 20261004000000) hace lo mismo en la
 // base de datos; agregarHoras es su referencia en JS (la usan las pruebas y el almacén en memoria) y diasDeFilas pasa su
-// salida (un array por columna y estación) a una fila por día.
-import { fechaMadridDeFin } from './tiempo.js';
+// salida (un array por columna y estación) a una fila por día. `ultima`: el día tiene con dato la hora que acaba a las 00:00
+// de Madrid del día siguiente (su última hora; también un total diario como el del Júcar, que se apunta a ese fin).
+import { fechaMadridDeFin, acabaAMedianoche } from './tiempo.js';
 
 const r1 = (x) => Math.round(x * 10) / 10;
 
@@ -12,12 +13,13 @@ export function agregarHoras(filas, desde) {
     const fecha = fechaMadridDeFin(f.hora);
     if (fecha < desde) continue;
     const k = `${f.fuente}|${f.estacion}|${fecha}`;
-    const d = dias.get(k) ?? { fuente: f.fuente, estacion: f.estacion, fecha, mm: null, horas: 0, maximo: null };
+    const d = dias.get(k) ?? { fuente: f.fuente, estacion: f.estacion, fecha, mm: null, horas: 0, maximo: null, ultima: false };
     if (typeof f.mm === 'number' && Number.isFinite(f.mm) && f.mm >= 0) {
       const horas = f.horas ?? 1;
       d.mm = (d.mm ?? 0) + f.mm;   // sin redondear: se redondea al final (Euskalmet trae 2 decimales)
       d.horas += horas;
       if (horas === 1) d.maximo = Math.max(d.maximo ?? 0, f.mm);
+      if (acabaAMedianoche(f.hora)) d.ultima = true;
     }
     dias.set(k, d);
   }
@@ -25,5 +27,6 @@ export function agregarHoras(filas, desde) {
 }
 export function diasDeFilas(filas) {
   return (filas ?? []).flatMap((f) => (f.fechas ?? []).map((fecha, k) => ({ fuente: f.fuente, estacion: f.estacion, fecha: String(fecha).slice(0, 10),
-    mm: f.mm?.[k] == null ? null : r1(f.mm[k]), horas: f.horas?.[k] ?? 0, maximo: f.maximo?.[k] ?? null })));
+    mm: f.mm?.[k] == null ? null : r1(f.mm[k]), horas: f.horas?.[k] ?? 0, maximo: f.maximo?.[k] ?? null,
+    ultima: f.ultima?.[k] === true })));   // sin la columna (función SQL anterior), no se sabe: como si faltara
 }

@@ -1,8 +1,7 @@
-// Mapa base IGN (topográfico y ortofoto) + OSM, con capas de zonas, cotos, lluvia y salidas.
+// Mapa base IGN (topográfico y ortofoto) + OSM, con capas de cotos, lluvia y salidas (sin rectángulos de zona).
 import { el } from './ui/dom.js';
-import { NIVELES, nivelDe, semaforo, palabraDe } from './ui/semaforo.js';
-import { indiceZona } from './indice.js';
-import { especiesDeZona, nombreCorto, rotuloPunto } from './datos.js';
+import { NIVELES, palabraDe } from './ui/semaforo.js';
+import { nombreCorto } from './datos.js';
 import { urlSegura } from './ui/normativa.js';
 import { hoyMadrid } from './meteo.js';
 import { COLOR, NIVEL_COLOR } from './mapa/colores.js';
@@ -33,7 +32,7 @@ export const PRECISION_TEXTO = { derivado: 'Derivado de montes públicos', aprox
 const PRECISION_LEYENDA = { oficial: 'Límite oficial', derivado: 'Derivado de montes públicos', aproximado: 'Límite aproximado' };
 // Popups: estrechos y con margen para no quedar bajo los controles de zoom y capas.
 const POPUP = { minWidth: 200, maxWidth: 250, autoPanPaddingTopLeft: [60, 16], autoPanPaddingBottomRight: [16, 16] };
-const PANE_LLUVIA = 'lluvia', PANE_PUNTOS = 'puntos';
+const PANE_LLUVIA = 'lluvia';
 // Lluvia: anillo alrededor del punto (12 px = por fuera del marcador de 9 px) que crece con los mm de 26 días.
 export const radioLluvia = (mm) => 12 + mm / 4;
 
@@ -66,28 +65,16 @@ export const cargarCotos = () => (cacheCotos ??= fetch('data/cotos.geojson').the
   return r.json();
 }).catch((e) => { cacheCotos = null; throw e; }));
 
-// Nota del día de un punto: mejor especie de la zona con la serie de ese punto.
-// Estilo del círculo de un punto. «Sin datos» va hueco y con borde discontinuo (como las celdas gruesas sin datos):
-// su gris y el de «Nulo» son casi iguales y, solo con el color, un mapa en «Nulo» parece un mapa sin notas.
-export function estiloPunto(valor) {
-  const nivel = nivelDe(valor);
-  if (nivel === 'sin-datos') return { radius: 9, weight: 2, dashArray: '3 3', color: COLOR.texto, fillColor: NIVEL_COLOR[nivel], fillOpacity: 0.3 };
-  return { radius: 9, weight: 2.5, color: COLOR.halo, fillColor: NIVEL_COLOR[nivel], fillOpacity: 1 };
-}
-
-export function notaPunto(zona, punto, datos, meteo, umbrales) {
-  const serie = meteo?.series?.[punto.id];
-  if (!serie) return { valor: null, mejor: null, mm: null };
-  const especies = especiesDeZona(zona, datos.especies, umbrales);
-  const res = indiceZona({ [punto.id]: serie }, serie.hoy, especies);
+// Lluvia de los últimos 26 días de una serie (mm), o null si falta algún día: el radio del anillo de la capa «Lluvia».
+export function lluvia26(serie) {
+  if (!serie?.precip) return null;
   let mm = 0;
   for (let j = serie.hoy - 25; j <= serie.hoy; j++) {
-    const p = serie.precip?.[j];
-    if (p == null || Number.isNaN(p)) { mm = null; break; }
+    const p = serie.precip[j];
+    if (p == null || Number.isNaN(p)) return null;
     mm += p;
   }
-  return { valor: res.valor, mejor: res.especies[0] ? datos.porId[res.especies[0].id] : null, mm,
-    fueraDeTemporada: res.fueraDeTemporada, incompleta: res.incompleta, faltan: res.faltan.length };
+  return mm;
 }
 
 const enlaceA = (href, texto, clase) => (urlSegura(href) ? el('a', { texto, href, rel: 'noopener', clase }) : el('span', { texto }));
@@ -120,26 +107,6 @@ export function avisoOtroDia(meteo, hoy = hoyMadrid()) {
   return meteo?.series && meteo.hoy && meteo.hoy !== hoy ? `Datos del ${FECHA_DIA.format(new Date(`${meteo.hoy}T12:00:00Z`))}. No se ha podido actualizar; las notas son de ese día.` : null;
 }
 const FECHA_DIA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'Europe/Madrid' });
-const textoFaltan = (n) => `${n} ${n === 1 ? 'especie' : 'especies'} sin datos suficientes`;
-
-function popupPunto(zona, punto, nota, meteo) {
-  const raiz = el('div', { clase: 'mapa-popup' }, el('h3', { texto: punto.nombre }), el('p', { clase: 'texto-2 texto-s', texto: zona.nombre }));
-  const fila = el('p', { clase: 'mapa-popup__etiquetas' }, semaforo(nota.valor, nota.fueraDeTemporada ? 'Fuera de temporada' : null));
-  if (nota.valor != null) fila.append(el('b', { clase: 'tabular', texto: `${nota.valor}/100` }));
-  const r = rotuloPunto(punto);
-  if (r) fila.append(el('span', { clase: `etiqueta etiqueta--${r.variante}`, texto: r.texto }));
-  raiz.append(fila);
-  const otroDia = avisoOtroDia(meteo);
-  if (otroDia) raiz.append(el('p', { clase: 'mapa-popup__aviso', texto: otroDia }));
-  if (nota.incompleta) raiz.append(el('p', { clase: 'texto-s', texto: `${textoFaltan(nota.faltan)}.` }));
-  if (nota.mejor) raiz.append(el('p', { clase: 'texto-s' }, 'Mejor: ', el('span', { clase: 'latin', texto: nota.mejor.nombre })));
-  if (nota.mm != null) raiz.append(el('p', { clase: 'texto-s tabular', texto: `Lluvia en 26 días: ${Math.round(nota.mm)} mm` }));
-  if (punto.altitud != null) raiz.append(el('p', { clase: 'texto-2 texto-s', texto: `Altitud: ${punto.altitud} m` }));
-  if (punto.proteccion) raiz.append(el('h4', { texto: 'Protección' }), el('p', { clase: 'texto-s', texto: punto.proteccion }));
-  if (punto.nota) raiz.append(el('p', { clase: 'texto-2 texto-s', texto: punto.nota }));
-  raiz.append(el('p', { clase: 'mapa-popup__acciones' }, el('a', { clase: 'boton boton--compacto', href: `#zona/${encodeURIComponent(zona.id)}`, texto: `Ver ${nombreCorto(zona)}` })));
-  return raiz;
-}
 
 const FECHA_LARGA = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 export const fechaLarga = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(iso ?? '') ? FECHA_LARGA.format(new Date(`${iso.slice(0, 10)}T00:00:00Z`)) : 'Sin fecha');
@@ -167,9 +134,9 @@ export function pintarSalidas(capa, salidas, datos) {
   }
 }
 
-// crearMapa(elemento, { capas, datos, meteo, umbrales, vista, base, onVista }) → { mapa, enfocarZona, capaSalidas, destruir }
+// crearMapa(elemento, { capas, datos, meteo, vista, base, activas, onCambio }) → { mapa, enfocarZona, capaSalidas, destruir }
 export async function crearMapa(elemento, opciones = {}) {
-  const { capas = ['zonas', 'cotos', 'lluvia', 'salidas'], datos, meteo = null, umbrales = {}, vista = null, base = null, activas = null, onCambio = () => {} } = opciones;
+  const { capas = ['cotos', 'lluvia', 'salidas'], datos, meteo = null, vista = null, base = null, activas = null, onCambio = () => {} } = opciones;
   const L = await cargarLeaflet();
   const mapa = L.map(elemento, { zoomControl: true, worldCopyJump: false, minZoom: 5, maxZoom: 18 });
   const limitesZona = (z) => [[z.bbox[1], z.bbox[0]], [z.bbox[3], z.bbox[2]]];
@@ -182,32 +149,16 @@ export async function crearMapa(elemento, opciones = {}) {
   const nombreBase = base in bases ? base : 'Topográfico IGN';
   bases[nombreBase].addTo(mapa);
 
-  // Capas superpuestas
-  const zonas = L.layerGroup();
-    mapa.createPane(PANE_LLUVIA).style.zIndex = 420;   // sobre los polígonos de coto (400)
-  mapa.createPane(PANE_PUNTOS).style.zIndex = 450;    // y los puntos, sobre la lluvia
+  // Capas superpuestas (sin rectángulos ni puntos de zona: el mapa por niveles usa chinchetas en su propia pantalla)
+  mapa.createPane(PANE_LLUVIA).style.zIndex = 420;   // sobre los polígonos de coto (400)
   const lluvia = L.layerGroup();
   const cotos = L.layerGroup();
   const salidas = L.layerGroup();   // la rellena la pantalla del mapa con pintarSalidas (diario)
   const normas = new Map((datos?.normativa ?? []).map((n) => [n.id, n]));
 
-  for (const z of datos?.zonas ?? []) {
-    L.rectangle(limitesZona(z), { color: COLOR.halo, weight: 5, opacity: 0.85, fill: false, interactive: false }).addTo(zonas);
-    const rect = L.rectangle(limitesZona(z), { color: COLOR.acento, fill: false, weight: 2, interactive: true, bubblingMouseEvents: false });
-    rect.bindTooltip(el('span', { texto: nombreCorto(z) }), { sticky: true });
-    rect.bindPopup(() => el('div', { clase: 'mapa-popup' }, el('h3', { texto: z.nombre }),
-      el('p', { clase: 'mapa-popup__acciones' }, el('a', { clase: 'boton boton--compacto', href: `#zona/${encodeURIComponent(z.id)}`, texto: `Ver ${nombreCorto(z)}` }))), POPUP);
-    rect.addTo(zonas);
-    for (const p of z.puntos) {
-      const nota = notaPunto(z, p, datos, meteo, umbrales);
-      const m = L.circleMarker([p.lat, p.lon], { pane: PANE_PUNTOS, ...estiloPunto(nota.valor) });
-      m.bindPopup(() => popupPunto(z, p, nota, meteo), POPUP);
-      m.addTo(zonas);
-      if (nota.mm != null) {
-        const c = L.circleMarker([p.lat, p.lon], { pane: PANE_LLUVIA, radius: radioLluvia(nota.mm), weight: 2, color: COLOR.lluvia, fillColor: COLOR.lluvia, fillOpacity: 0.22, interactive: false });
-        c.addTo(lluvia);
-      }
-    }
+  for (const z of datos?.zonas ?? []) for (const p of z.puntos) {
+    const mm = lluvia26(meteo?.series?.[p.id]);
+    if (mm != null) L.circleMarker([p.lat, p.lon], { pane: PANE_LLUVIA, radius: radioLluvia(mm), weight: 2, color: COLOR.lluvia, fillColor: COLOR.lluvia, fillOpacity: 0.22, interactive: false }).addTo(lluvia);
   }
 
   // Cotos: perezoso. La capa puede estar encendida, pero el GeoJSON (1 MB) no se pide hasta que
@@ -237,13 +188,13 @@ export async function crearMapa(elemento, opciones = {}) {
 
   // Control de capas
   const superpuestas = {};
-  const ofrecidas = { zonas: ['Zonas y puntos', zonas], cotos: ['Cotos y prohibiciones', cotos], lluvia: ['Lluvia de 26 días', lluvia], salidas: ['Salidas del diario', salidas] };
+  const ofrecidas = { cotos: ['Cotos y prohibiciones', cotos], lluvia: ['Lluvia de 26 días', lluvia], salidas: ['Salidas del diario', salidas] };
   for (const c of capas) if (ofrecidas[c]) superpuestas[ofrecidas[c][0]] = ofrecidas[c][1];
   L.control.layers(bases, superpuestas, { collapsed: true }).addTo(mapa);
   const porNombre = Object.fromEntries(Object.entries(ofrecidas).map(([id, [n, g]]) => [id, g]));
   for (const c of capas) {
     if (!porNombre[c]) continue;
-    const por = activas ? activas.includes(c) : c !== 'lluvia';   // por defecto: zonas y cotos encendidas, lluvia apagada
+    const por = activas ? activas.includes(c) : c !== 'lluvia';   // por defecto: cotos encendidos, lluvia apagada
     if (por) porNombre[c].addTo(mapa);
   }
 

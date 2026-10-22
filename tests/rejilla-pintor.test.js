@@ -88,9 +88,8 @@ test('los colores del mapa viven en js/mapa/colores.js y js/mapa.js los reexport
   assert.equal(COLOR_MAPA, COLOR);
 });
 
-test('la capa de la rejilla cita el MFE50 y el MDT con el texto de la configuración', () => {
-  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mfe.atribucion));
-  assert.ok(ATRIBUCION_REJILLA.includes(CONFIG.mdt.atribucion));
+test('la capa de la rejilla cita el MFE50 y el MDT en corto, con los enlaces de la configuración (el texto entero, en Ajustes)', () => {
+  assert.equal(ATRIBUCION_REJILLA.replace(/<[^>]+>/g, ''), 'MFE50 · MDT25');
   assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mfe.url}"`));
   assert.ok(ATRIBUCION_REJILLA.includes(`href="${CONFIG.mdt.url}"`));
 });
@@ -244,7 +243,7 @@ test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captu
     DomUtil: { create: () => canvas, setPosition() {} },
     latLngBounds: () => ({ getNorthWest: () => ({}), getSouthEast: () => ({}) }) };
   const mapa = { getPane: () => ({ append() {} }), on() {}, off() {}, getSize: () => ({ x: 10, y: 10 }), containerPointToLayerPoint: () => ({}),
-    getBounds: () => ({ intersects: () => true }), latLngToContainerPoint: () => ({ x: 0, y: 0 }) };
+    getBounds: () => ({ intersects: () => true }), latLngToContainerPoint: () => ({ x: 0, y: 0 }), getZoom: () => 13 };
   try {
     const capa = new (crearCapaRejilla(L))();
     capa.onAdd(mapa);
@@ -257,6 +256,8 @@ test('la capa no rehace el lienzo si la clave de la imagen no cambia, y no captu
     capa.ponerImagen('a.bin', cab, rgba, 'a|d2');
     assert.equal(lienzos, 2);
     assert.equal(capa.tieneImagen('a.bin', 'a|d1'), false);
+    assert.match(canvas.style.filter, /^blur\(\d+(\.\d+)?px\)$/);   // manchas, no cuadrados
+    assert.equal(canvas.style.opacity, '1');   // a zoom 13 no se aclara
   } finally {
     delete globalThis.document; delete globalThis.ImageData; delete globalThis.window;
   }

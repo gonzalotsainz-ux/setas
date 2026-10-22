@@ -2,8 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { indiceZona, enTemporada } from '../js/indice.js';
-import { calcularZona } from '../js/pantallas/hoy.js';
-import { notaPunto } from '../js/mapa.js';
+import { calcularZona } from '../js/notas-zona.js';
+import { notaPuntoDia } from '../js/notas-zona.js';
 import { serieSintetica, BOLETUS, NISCALO, MORCHELLA, lluviaBuena } from './ayudas.js';
 
 // Desde el 1-oct-2026 la serie empieza el 2-ago: sin la lluvia anterior, las de otoño no se pueden calcular.
@@ -82,12 +82,12 @@ test('calcularZona: la previsión incierta solo cuenta en días > 0', () => {
   assert.equal(calcularZona(zona, datosCon(BOLETUS), meteo, 2, '').incierta, true);
 });
 
-test('notaPunto: sin datos de otoño + fuera de temporada → valor null, incompleta y cuántas faltan', () => {
-  const r = notaPunto(zona, { id: 'a' }, datosCon(BOLETUS, MORCHELLA), { series: { a: sinAgosto() } }, {});
+test('notaPuntoDia: sin datos de otoño + fuera de temporada → valor null, incompleta y cuántas faltan', () => {
+  const r = notaPuntoDia(zona, { id: 'a' }, datosCon(BOLETUS, MORCHELLA), { series: { a: sinAgosto() } }, 0, null, {});
   assert.equal(r.valor, null);
   assert.equal(r.incompleta, true);
-  assert.equal(r.faltan, 1);
-  const f = notaPunto(zona, { id: 'a' }, datosCon(MORCHELLA), { series: { a: serieSintetica({ precip: lluviaBuena }) } }, {});
+  assert.equal(r.faltan.length, 1);
+  const f = notaPuntoDia(zona, { id: 'a' }, datosCon(MORCHELLA), { series: { a: serieSintetica({ precip: lluviaBuena }) } }, 0, null, {});
   assert.equal(f.fueraDeTemporada, true);
 });
 
@@ -114,4 +114,36 @@ test('RESTRINGIDO: los avisos de régimen sin confirmar de Abantos y Robregordo 
   const puntos = JSON.parse(readFileSync('data/zonas.json', 'utf8')).zonas.flatMap((z) => z.puntos);
   for (const id of ['sierra-oeste-abantos-silvestre', 'sierra-norte-robregordo-silvestre']) assert.match(puntos.find((p) => p.id === id).proteccion, RESTRINGIDO, id);
   for (const t of ['no se han encontrado sus normas', 'no se ha localizado ordenanza', 'régimen sin confirmar', 'pendiente de confirmación oficial']) assert.match(t, RESTRINGIDO, t);
+});
+
+test('puntoInicial: el punto de la ruta se aplica solo cuando cambia el hash; luego manda el elegido en el selector', async () => {
+  const { puntoInicial } = await import('../js/pantallas/zona.js');
+  // se llega con «Más» (#zona/g/p): manda el punto de la ruta
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/p', hashAplicado: null, puntoRuta: 'p', puntoElegido: 'q' }), { punto: 'p', hashAplicado: '#zona/g/p' });
+  // se cambia a q y llega la meteo o el contraste («Usar modelo»): mismo hash, se queda q
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/p', hashAplicado: '#zona/g/p', puntoRuta: 'p', puntoElegido: 'q' }), { punto: 'q', hashAplicado: '#zona/g/p' });
+  // otro hash con punto: vuelve a mandar la ruta
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g/r', hashAplicado: '#zona/g/p', puntoRuta: 'r', puntoElegido: 'q' }), { punto: 'r', hashAplicado: '#zona/g/r' });
+  // sin punto en la ruta: el elegido (o ninguno)
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: 'q' }), { punto: 'q', hashAplicado: '#zona/g' });
+  assert.deepEqual(puntoInicial({ hashActual: '#zona/g', hashAplicado: null, puntoRuta: null, puntoElegido: undefined }), { punto: undefined, hashAplicado: '#zona/g' });
+});
+
+test('sacarAvisos: saca los recuadros amarillos (.aviso) en orden, deja los rojos y quita las .pila que queden vacías', async () => {
+  const { sacarAvisos } = await import('../js/pantallas/zona.js');
+  const nodo = (clase, padre = null) => {
+    const n = { clase, padre, hijos: [], classList: { contains: (c) => clase.split(' ').includes(c) },
+      get parentElement() { return this.padre; }, get childElementCount() { return this.hijos.length; },
+      remove() { if (this.padre) this.padre.hijos = this.padre.hijos.filter((h) => h !== this); this.padre = null; } };
+    if (padre) padre.hijos.push(n);
+    return n;
+  };
+  const raiz = nodo('raiz');
+  const pila = nodo('pila', raiz), a1 = nodo('aviso', pila);
+  const rojo = nodo('aviso-peligro', raiz);
+  const tarjeta = nodo('tarjeta', raiz), a2 = nodo('aviso', tarjeta);
+  raiz.querySelectorAll = (sel) => { assert.equal(sel, '.aviso'); return [a1, a2]; };
+  assert.deepEqual(sacarAvisos(raiz), [a1, a2]);
+  assert.deepEqual(raiz.hijos.map((h) => h.clase), ['aviso-peligro', 'tarjeta']);   // la .pila vacía desaparece; el rojo se queda
+  assert.deepEqual(tarjeta.hijos, []);
 });

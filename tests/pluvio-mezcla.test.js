@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pesoEstacion, cercanas, mezclarDia, seriesMedidas, paresSesgo, factorSesgo, aplicarMedida, validarPluvio, VERSION_PLUVIO, validosDe, distanciaKm, MEZCLA } from '../supabase/functions/_shared/pluvio.js';
+import { pesoEstacion, cercanas, mezclarDia, seriesMedidas, paresSesgo, factorSesgo, aplicarMedida, validarPluvio, VERSION_PLUVIO, validosDe, distanciaKm, MEZCLA, estacionesDesde } from '../supabase/functions/_shared/pluvio.js';
 import { calcularIndice } from '../supabase/functions/_shared/indice.js';
 import { serieSintetica, BOLETUS, lluviaBuena } from './ayudas.js';
 import { sumarDias } from '../supabase/functions/_shared/meteo.js';
@@ -38,7 +38,7 @@ test('seriesMedidas: un valor por día con las estaciones que lo dan; sin estaci
   const validos = new Map([['tajo:S1', mapa({ '2026-09-28': 4, '2026-09-29': 0 })], ['tajo:S2', mapa({ '2026-09-28': 10, '2026-09-30': 6 })]]);
   const lugares = [LUGAR, { id: 'lejos', lat: 41.5, lon: -4, altitud: 1200 }, { id: 'roto', lat: 40.5, lon: -4, altitud: 1200 }];
   const r = seriesMedidas(lugares, estaciones, validos, '2026-09-28', '2026-09-30');
-  assert.deepEqual(r.p, { mm: [7, 0, 6], n: [2, 1, 1], estaciones: [{ nombre: 'S1', fuente: 'tajo', km: 2 }, { nombre: 'S2', fuente: 'tajo', km: 2 }], cercanas: 2 });
+  assert.deepEqual(r.p, { mm: [7, 0, 6], n: [2, 1, 1], estaciones: [{ nombre: 'S1', fuente: 'tajo', km: 2, ultimo: '2026-09-29' }, { nombre: 'S2', fuente: 'tajo', km: 2, ultimo: '2026-09-30' }], cercanas: 2 });
   assert.equal(r.lejos, undefined);
   // Review Focus 5: con estación cerca pero sin ningún día válido sale, sin estaciones que aporten.
   assert.deepEqual(r.roto, { mm: [null, null, null], n: [0, 0, 0], estaciones: [], cercanas: 1 });
@@ -119,6 +119,24 @@ test('validarPluvio: versión, fechas y lugares bien formados', () => {
   assert.deepEqual(validarPluvio({ ...bueno, lugares: { p: { ...bueno.lugares.p, mm: [-1, 0] } } }), ['lugar p mal formado']);
   assert.deepEqual(validarPluvio({ ...bueno, aemet: { x: { ayer: 1 } } }), ['aemet mal formado']);
   assert.deepEqual(validarPluvio(null), ['versión desconocida', 'desde/hasta mal formados', 'sin lugares']);
+});
+
+// Revisión final 2: `ultimo` (último día con aporte de cada estación) es nuevo; un archivo anterior sin él sigue valiendo.
+test('validarPluvio: el último día con aporte de cada estación, opcional pero con fecha si viene', () => {
+  const con = (s) => ({ version: VERSION_PLUVIO, generado: '2026-10-02T04:10:00.000Z', desde: '2026-09-29', hasta: '2026-09-30',
+    lugares: { p: { mm: [1.2, null], n: [1, 0], estaciones: [{ nombre: 'S1', fuente: 'tajo', km: 2, ...s }], cercanas: 1 } } });
+  assert.deepEqual(validarPluvio(con({ ultimo: '2026-09-29' })), []);
+  assert.deepEqual(validarPluvio(con({})), []);
+  assert.deepEqual(validarPluvio(con({ ultimo: 'ayer' })), ['lugar p mal formado']);
+  assert.deepEqual(validarPluvio(con({ ultimo: null })), ['lugar p mal formado']);
+});
+
+test('estacionesDesde: las que aportaron desde una fecha, en su orden; sin `ultimo` en alguna, null (no se sabe)', () => {
+  const lista = [{ nombre: 'A', km: 1, ultimo: '2026-09-01' }, { nombre: 'B', km: 2, ultimo: '2026-09-20' }, { nombre: 'C', km: 3, ultimo: '2026-09-06' }];
+  assert.deepEqual(estacionesDesde(lista, '2026-09-06').map((e) => e.nombre), ['B', 'C']);
+  assert.deepEqual(estacionesDesde([], '2026-09-06'), []);
+  assert.equal(estacionesDesde([{ nombre: 'A', km: 1 }, ...lista], '2026-09-06'), null);
+  assert.deepEqual(estacionesDesde(undefined, '2026-09-06'), []);
 });
 
 test('el módulo compartido no usa el DOM (Deno no tiene document)', () => {

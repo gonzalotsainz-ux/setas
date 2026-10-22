@@ -4,7 +4,7 @@ import { validar, licenciaPermitida } from '../scripts/validar-datos.mjs';
 
 const zona = () => ({ id: 'soria', nombre: 'Soria', comunidad: 'castilla-y-leon', provincias: ['Soria'],
   bbox: [-3.2, 41.6, -2.2, 42.1], habitats: ['pinar-silvestre'],
-  puntos: [{ id: 'p1', nombre: 'P', lat: 41.8, lon: -2.7, altitud: 1200, habitat: 'pinar-silvestre',
+  puntos: [{ id: 'p1', nombre: 'P', corto: 'Pinar', lat: 41.8, lon: -2.7, altitud: 1200, habitat: 'pinar-silvestre',
              fuente: 'https://x.es', revisado: '2026-09-30' }],
   estacionesAemet: [], normas: ['n1'], avisos: [], fuentes: [{ url: 'https://x.es', titulo: 't', consultado: '2026-09-30' }] });
 const norma = () => ({ id: 'n1', titulo: 'N', tipo: 'decreto', ambito: { comunidad: 'castilla-y-leon', zonas: ['soria'] },

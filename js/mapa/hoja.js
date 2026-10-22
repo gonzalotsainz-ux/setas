@@ -1,7 +1,7 @@
 // js/mapa/hoja.js
-// Hoja inferior del mapa al tocar una mancha (spec §2): bosque, altitud, orientación, nota y especie, meteo, coto y
-// tres botones; arrastrada hacia arriba, el desglose, las otras especies y la gráfica de lluvia. Zona prohibida: roja,
-// con la norma y nunca mancha. No es modal (el mapa sigue usable): mueve el foco al título y lo devuelve al cerrar.
+// Ficha de una ladera (mancha) o de una zona prohibida tocada en el mapa: modeloHoja (datos puros, se prueba con Node) y
+// pintarLadera, que la convierte en nodos para el popup de Leaflet (en rojo si es prohibida). El nombre viene de la hoja
+// fija que tuvo el mapa; la ficha del monte es la pantalla Zona.
 // `celda` = { habitat, altitud, orientacion, tramo, lat, lon, fueraProvincias? } (fueraProvincias = bit 0x20 del hábitat).
 import { el, icono } from '../ui/dom.js';
 import { semaforo, nivelDe } from '../ui/semaforo.js';
@@ -10,7 +10,8 @@ import { urlSegura } from '../ui/normativa.js';
 import { ORIENTACIONES, TRAMOS_PENDIENTE } from '../rejilla/formato.js';
 import { esOrientativo } from '../rejilla/orientacion.js';
 import { urlNuevaSalida } from '../diario.js';
-import { textoFaltan } from '../pantallas/hoy.js';
+import { rutaZona } from './ruta.js';
+import { textoFaltan } from '../notas-zona.js';
 import { textoOrigenLluvia } from '../ui/origen-lluvia.js';
 
 const nbsp = '\u00a0';   // espacio duro entre número y unidad (docs/diseno.md)
@@ -64,29 +65,24 @@ export function modeloHoja({ prohibido = null, normas = new Map(), celda = null,
   }
   const base = { titulo: NOMBRE_HABITAT[celda.habitat], filas, coto: textoCoto(coto), orientativo: esOrientativo(celda.orientacion),
     avisos: avisosDe(celda, nota), origenLluvia: lluvia ? textoOrigenLluvia(lluvia) : null,
-    acciones: { comoLlegar: urlComoLlegar(celda.lat, celda.lon), detalle: zona ? `#zona/${encodeURIComponent(zona.id)}` : null, diario: urlNuevaSalida({ lat: celda.lat, lon: celda.lon, zona: zona?.id ?? null }) } };
+    acciones: { comoLlegar: urlComoLlegar(celda.lat, celda.lon), detalle: zona ? rutaZona(zona.id) : null, diario: urlNuevaSalida({ lat: celda.lat, lon: celda.lon, zona: zona?.id ?? null }) } };
   if (!nota || nota.valor == null) return { tipo: 'sinDatos', ...base, texto: 'Sin datos suficientes para este día.' };
-  return { tipo: 'monte', ...base, valor: nota.valor, nivel: nivelDe(nota.valor),
-    especie: { id: nota.especie.id, nombre: comun(nota.especie), latin: nota.especie.nombre },
-    otras: nota.otras.map((o) => ({ nombre: comun(o.especie), valor: o.valor })) };
-}
-
-export const clasesHoja = (m) => `hoja hoja--mapa${m?.tipo === 'prohibido' ? ' hoja--prohibido' : ''}`;
-
-export function estadoTrasArrastre(estado, dy, umbral = 60) {
-  if (estado === 'resumen') return dy < -umbral ? 'completa' : dy > umbral ? 'cerrada' : 'resumen';
-  if (estado === 'completa') return dy > umbral ? 'resumen' : 'completa';
-  return estado;
+  return { tipo: 'ladera', ...base, valor: nota.valor, nivel: nivelDe(nota.valor),
+    especie: { id: nota.especie.id, nombre: comun(nota.especie), latin: nota.especie.nombre } };
 }
 
 const enlace = (href, texto, clase) => el('a', { clase, href, rel: 'noopener', target: '_blank', texto });
 const avisoNodo = (texto, peligro) => el('div', { clase: peligro ? 'aviso-peligro' : 'aviso', attrs: { role: 'note' } }, icono(peligro ? 'i-aviso' : 'i-info'), el('p', { texto }));
-function contenido(m, extra) {
-  if (m.tipo === 'prohibido') {
-    return [el('div', { clase: 'aviso-peligro', attrs: { role: 'note' } }, icono('i-aviso'), el('p', {}, el('strong', { texto: 'Recogida de setas prohibida. ' }), m.texto)),
-      m.normas.length ? el('ul', { clase: 'mapa-popup__normas' }, m.normas.map((n) => el('li', {}, n.url ? enlace(n.url, n.titulo) : n.titulo))) : null];
-  }
-  const nodos = [m.tipo === 'monte'
+
+const pintarProhibido = (m) => [el('div', { clase: 'aviso-peligro', attrs: { role: 'note' } }, icono('i-aviso'), el('p', {}, el('strong', { texto: 'Recogida de setas prohibida. ' }), m.texto)),
+  m.normas.length ? el('ul', { clase: 'mapa-popup__normas' }, m.normas.map((n) => el('li', {}, n.url ? enlace(n.url, n.titulo) : n.titulo))) : null];
+
+// Modelo de modeloHoja → nodos del popup (título incluido): nota y especie, avisos, bosque, altitud, orientación y meteo,
+// coto y los botones «Cómo llegar», «Ver detalle» y «Guardar en el diario». La zona prohibida, solo el aviso y sus normas.
+export function pintarLadera(m) {
+  const titulo = el('h3', { texto: m.titulo });
+  if (m.tipo === 'prohibido') return [titulo, ...pintarProhibido(m)].filter(Boolean);
+  const nodos = [titulo, m.valor != null
     ? el('div', { clase: 'hoja__nota', attrs: { 'data-nivel': m.nivel } }, el('span', { clase: 'indice indice--grande tabular', texto: String(m.valor) }), semaforo(m.valor),
       el('p', {}, 'Por ', el('span', { clase: 'latin', texto: m.especie.latin }), ` (${m.especie.nombre})`))
     : el('p', { clase: 'texto-2', texto: m.texto })];
@@ -95,65 +91,8 @@ function contenido(m, extra) {
   nodos.push(el('dl', { clase: 'hoja__filas' }, m.filas.flatMap((f) => [el('dt', { texto: f.etiqueta }), el('dd', { texto: f.valor })])),
     m.origenLluvia ? el('p', { clase: 'texto-2 texto-s', texto: m.origenLluvia }) : null,
     el('p', { clase: 'texto-s' }, m.coto.url ? enlace(m.coto.url, m.coto.texto) : m.coto.texto),
-    el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton'),
-      m.acciones.detalle ? el('a', { clase: 'boton boton--suave', href: m.acciones.detalle, texto: 'Ver detalle' }) : null,
-      el('a', { clase: 'boton boton--suave', href: m.acciones.diario, texto: 'Guardar en el diario' })));
-  if (extra.desglose) nodos.push(extra.desglose());
-  if (extra.completa && m.otras?.length) nodos.push(el('h3', { texto: 'Otras especies posibles' }), el('ul', {}, m.otras.map((o) => el('li', { texto: `${o.nombre}: ${o.valor}/100` }))));
-  if (extra.grafico) nodos.push(extra.grafico());
-  return nodos;
-}
-
-export function abrirHojaMapa({ modelo, desglose = null, grafico = null, alCerrar = () => {} }) {
-  const previo = document.activeElement;
-  const titulo = el('h2', { id: 'hoja-mapa-titulo', attrs: { tabindex: '-1' } });
-  const asa = el('button', { type: 'button', clase: 'hoja__asa', attrs: { 'aria-expanded': 'false', 'aria-label': 'Ver más' } });
-  const cerrar = el('button', { type: 'button', clase: 'boton boton--suave boton--compacto', texto: 'Cerrar' });
-  const cuerpo = el('div', { clase: 'hoja__cuerpo' });
-  const hoja = el('section', { attrs: { role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'hoja-mapa-titulo' } },
-    asa, el('div', { clase: 'hoja__cabeza' }, titulo, cerrar), cuerpo);
-  let estado = 'resumen', extra = { desglose, grafico }, arrastrado = false, y0 = null;
-  const pintar = () => {
-    hoja.className = clasesHoja(modelo);
-    hoja.dataset.estado = estado;
-    titulo.textContent = modelo.titulo;
-    asa.setAttribute('aria-expanded', String(estado === 'completa'));
-    asa.setAttribute('aria-label', estado === 'completa' ? 'Ver menos' : 'Ver más');
-    const completa = estado === 'completa';
-    cuerpo.replaceChildren(...contenido(modelo, completa ? { ...extra, completa } : {}).filter(Boolean));
-  };
-  const poner = (e) => { if (e === 'cerrada') { api.cerrar(); return; } estado = e; pintar(); };
-  asa.addEventListener('click', () => { if (arrastrado) { arrastrado = false; return; } poner(estado === 'completa' ? 'resumen' : 'completa'); });
-  asa.addEventListener('pointerdown', (e) => { arrastrado = false; y0 = e.clientY; asa.setPointerCapture?.(e.pointerId); });
-  asa.addEventListener('pointerup', (e) => {
-    if (y0 == null) return;
-    const dy = e.clientY - y0; y0 = null;
-    if (Math.abs(dy) > 10) {
-      arrastrado = true;   // el «click» que sigue al arrastre no cuenta; el siguiente toque, sí
-      setTimeout(() => { arrastrado = false; }, 0);
-      poner(estadoTrasArrastre(estado, dy));
-    }
-  });
-  asa.addEventListener('pointercancel', () => { y0 = null; });
-  cerrar.addEventListener('click', () => api.cerrar());
-  // Escape ya atendido por otro (o pulsado dentro del panel de capas del mapa) no cierra la hoja.
-  const tecla = (e) => {
-    if (e.key !== 'Escape' || e.defaultPrevented || document.activeElement?.closest?.('.mapa-panel')) return;
-    api.cerrar();
-  };
-  document.addEventListener('keydown', tecla);
-  const api = {
-    actualizar(m, x = {}) { modelo = m; extra = { desglose: x.desglose ?? null, grafico: x.grafico ?? null }; estado = 'resumen'; pintar(); titulo.focus({ preventScroll: true }); },
-    cerrar() {
-      if (!hoja.isConnected) return;
-      document.removeEventListener('keydown', tecla);
-      hoja.remove();
-      if (previo?.isConnected) previo.focus({ preventScroll: true });
-      alCerrar();
-    },
-  };
-  pintar();
-  document.body.append(hoja);
-  requestAnimationFrame(() => { hoja.dataset.abierta = 'true'; titulo.focus({ preventScroll: true }); });
-  return api;
+    el('div', { clase: 'hoja__acciones' }, enlace(m.acciones.comoLlegar, 'Cómo llegar', 'boton boton--compacto'),
+      m.acciones.detalle ? el('a', { clase: 'boton boton--suave boton--compacto', href: m.acciones.detalle, texto: 'Ver detalle' }) : null,
+      el('a', { clase: 'boton boton--suave boton--compacto', href: m.acciones.diario, texto: 'Guardar en el diario' })));
+  return nodos.filter(Boolean);
 }
