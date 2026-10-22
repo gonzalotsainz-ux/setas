@@ -520,6 +520,107 @@
       "notas": "Precios releídos en el portal oficial el 30/09/2026. Otros acotados menores de Segovia (SG-50003, 50004, 50006 a 50013) tienen permiso propio cuyo precio no se ha verificado. Portal sin año de vigencia: los precios se leyeron en el portal el 30/09/2026 y «verificado» significa solo eso, no que el portal fije la temporada."
     },
     {
+      "id": "cyl-sg-50006-arcones",
+      "titulo": "Acotado SG-50006 «Acotado de Arcones» (Ayuntamiento de Arcones, Segovia)",
+      "tipo": "acotado",
+      "ambito": {
+        "comunidad": "castilla-y-leon",
+        "zonas": [
+          "sierra-norte"
+        ]
+      },
+      "url": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia",
+      "vigente": true,
+      "resumen": [
+        "Permiso del Ayuntamiento de Arcones (venta en cotosdesetas.es). Recreativo: 5 kg/día; comercial: 50 kg/día.",
+        "Antes de recolectar, preguntar en el Ayuntamiento si hay cacerías colectivas autorizadas en esos montes: tienen prioridad (Ley 4/2021 de Caza de CyL)."
+      ],
+      "permiso": {
+        "obligatorio": true,
+        "donde": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia",
+        "tarifas": [
+          {
+            "nombre": "Foráneo recreativo, 1 día",
+            "precio": 5,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Foráneo recreativo, 2 días consecutivos",
+            "precio": 8,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Foráneo recreativo, temporada",
+            "precio": 30,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Foráneo comercial, temporada",
+            "precio": 250,
+            "cupoKgDia": 50,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Local (empadronado) recreativo, temporada",
+            "precio": 3,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Local (empadronado) comercial, temporada",
+            "precio": 25,
+            "cupoKgDia": 50,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Vinculado recreativo, temporada",
+            "precio": 10,
+            "cupoKgDia": 5,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Vinculado comercial, temporada",
+            "precio": 50,
+            "cupoKgDia": 50,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          },
+          {
+            "nombre": "Provincial comercial, temporada",
+            "precio": 100,
+            "cupoKgDia": 50,
+            "anio": null,
+            "verificado": true,
+            "fuente": "https://cotosdesetas.es/coto-de-setas-de-arcones-segovia"
+          }
+        ]
+      },
+      "cupoKgDia": 5,
+      "prohibiciones": [],
+      "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
+      "revisado": "2026-10-22",
+      "verificado": true,
+      "notas": "Tarifas y cupos leídos en la web de venta del coto el 22/10/2026, sin año ni fechas de temporada; la web decía «en breve estará disponible la venta de permisos para el coto de Arcones», así que la compra podía no estar activa. Locales, vinculados y provinciales tienen que estar aprobados por el Ayuntamiento (se comprueba con el DNI al comprar). Matrícula SG-50006 en la ficha. No hay polígono propio en la web: el de la app es el oficial de la Junta (IDECyL)."
+    },
+    {
       "id": "cyl-av-50006-junta-avila",
       "titulo": "Acotado AV-50006 «Montes de la Comunidad de Castilla y León en Ávila» (Junta; 7.477 ha)",
       "tipo": "acotado",
@@ -2632,7 +2733,7 @@
       ],
       "permiso": {
         "obligatorio": true,
-        "donde": "https://www.cotosdesetas.es",
+        "donde": "https://cotosdesetas.es/coto-micologico-pinares-sur-de-burgos",
         "tarifas": [
           {
             "nombre": "Foráneo, 1 día",
@@ -2679,9 +2780,9 @@
       "cupoKgDia": null,
       "prohibiciones": [],
       "sanciones": "Las del Decreto 31/2017 y la Ley 43/2003 (ver esas normas).",
-      "revisado": "2026-09-30",
+      "revisado": "2026-10-22",
       "verificado": false,
-      "notas": "La web no dice el año de las tarifas y tenía la compra desactivada el 30/09/2026: sin confirmar para esta temporada. El cupo de 20 kg/día de la web choca con el máximo recreativo de 5 kg del Decreto 31/2017; manda el decreto para lo recreativo. La ordenanza vieja que aloja Rabanera (10/20/150 €) es antigua y no se usa. Aviso del Ayuntamiento de Hontoria (18/09/2024): cambios en el procedimiento; teléfono 947 386 141."
+      "notas": "La web no dice el año de las tarifas y tenía la compra desactivada el 30/09/2026: sin confirmar para esta temporada. El cupo de 20 kg/día de la web choca con el máximo recreativo de 5 kg del Decreto 31/2017; manda el decreto para lo recreativo. La ordenanza vieja que aloja Rabanera (10/20/150 €) es antigua y no se usa. Aviso del Ayuntamiento de Hontoria (18/09/2024): cambios en el procedimiento; teléfono 947 386 141. Revisado el 22/10/2026: la compra sigue anunciada como «en breve»; el enlace de permiso apunta ahora a la página del coto (la compra se hace en cotosdesetas.es/pinares-sur-pago-mobile)."
     },
     {
       "id": "cyl-bu-50067-demanda-suroeste",

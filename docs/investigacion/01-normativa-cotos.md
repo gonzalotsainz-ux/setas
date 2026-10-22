@@ -543,3 +543,7 @@ Método: descarga de los PDF oficiales y lectura del texto, o relectura de las p
 - `https://www.euskadi.eus/y22-bopv/es/bopv2/datos/2018/06/1802901a.shtml`: solo contiene el decreto de aprobación; el PRUG está en el PDF ilegible.
 - `https://www.boe.es/buscar/act.php?id=BOE-A-1996-16688`: no es la Ley 3/1996 de Gredos (es una resolución de lotería); la ley se leyó en `https://boe.es/boe/dias/1996/07/22/pdfs/A22901-22902.pdf`.
 - `https://www.comunidad.madrid/sites/default/files/doc/medio-ambiente/cma_consejoma_01_prug_informefavorable_propuesta.pdf`: no es un PDF válido al descargarlo.
+
+## Revisión de cotosdesetas.es (2026-10-22)
+
+La web https://cotosdesetas.es/mapa-cotos-setas vende permisos de cinco cotos: Arcones (SG-50006), Bozoó (BU-50054), Demanda Suroeste (BU-50067), Pinares Sur de Burgos (BU-50004) y «Pinares de Urbión» (Soria; en la app, el acotado de Covaleda SO-50001 y los de Vinuesa y Montes de Soria). No publica polígonos descargables ni licencia: los mapas están solo en su app móvil. Los cinco ya estaban en `data/cotos.geojson` con la geometría oficial de la Junta (IDECyL), así que no se añadió ninguna geometría. Se añadió la ficha de Arcones a `data/normativa.json` (tarifas y cupos de la web, sin año) y los enlaces de permiso de Arcones y Pinares Sur apuntan a la página de cada coto.
