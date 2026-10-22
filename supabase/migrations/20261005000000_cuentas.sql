@@ -75,9 +75,8 @@ create function public.crear_perfil(p_nombre text) returns void
 language plpgsql security definer set search_path = public as $$
 begin
   if auth.uid() is null then raise exception 'sin_sesion'; end if;
-  -- Se valida el nombre (check) antes de detectar el duplicado y, de paso, sin carreras entre dos llamadas.
-  insert into perfiles (id, nombre) values (auth.uid(), btrim(p_nombre)) on conflict (id) do nothing;
-  if not found then raise exception 'perfil_existente'; end if;
+  if exists (select 1 from perfiles where id = auth.uid()) then raise exception 'perfil_existente'; end if;
+  insert into perfiles (id, nombre) values (auth.uid(), btrim(p_nombre));
 end $$;
 
 create function public.renombrar_perfil(p_nombre text) returns void

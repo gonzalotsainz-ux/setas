@@ -5,7 +5,6 @@ do $$ begin
   perform t.afirma((select nombre from public.perfiles where id = t.uid(1)) = 'Ana', 'el nombre se guarda recortado');
   perform t.afirma(exists (select 1 from auth.users where id = t.uid(1)), 'el entorno de pruebas crea el usuario de Auth');
   perform t.falla('select public.crear_perfil(''Otra'')', 'perfil_existente');
-  perform t.falla('select public.crear_perfil(''   '')', 'violates check constraint');
   perform public.renombrar_perfil('  Ana María ');
   perform t.afirma((select nombre from public.perfiles) = 'Ana María', 'renombrar recorta y guarda');
   perform t.falla('select public.registrar_fallo(''x'')', 'permission denied');
@@ -17,6 +16,8 @@ do $$ begin
   perform t.afirma((select count(*) from public.perfiles) = 0, 'otra sesión no ve el perfil de Ana');
   perform t.falla('select public.renombrar_perfil(''X'')', 'sin_perfil');
 end $$;
+select t.como(9);
+do $$ begin perform t.falla('select public.crear_perfil(''   '')', 'violates check constraint'); end $$;
 select t.anonimo();
 do $$ begin perform t.falla('select public.crear_perfil(''X'')', 'permission denied'); end $$;
 select t.admin();
