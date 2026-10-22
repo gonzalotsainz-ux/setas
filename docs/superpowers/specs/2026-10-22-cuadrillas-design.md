@@ -1,6 +1,6 @@
 # Cuadrillas: cuentas de Google, grupos abiertos por dentro, sitios vigilados y ficha de temporada
 
-Fecha: 2026-10-22 · Estado: aprobado en conversación por la usuaria; pendiente de la revisión del constructor
+Fecha: 2026-10-22 · Estado: aprobado en conversación por la usuaria; revisado por el constructor (3 preguntas resueltas en §13)
 Sustituye a `2026-10-02-grupos-design.md` en lo que choca; lo que no se menciona aquí sigue valiendo de aquella.
 
 ## 1. Intención y por qué
@@ -52,12 +52,20 @@ automático sobre el historial.
 
 ## 2. Cuentas
 
-- **Google con Supabase Auth** (`signInWithOAuth({ provider: 'google' })`, flujo PKCE, sesión persistida por
-  supabase-js en localStorage). No hay otra forma de entrar.
-- **Requisito previo (lo hace la usuaria o Gonzalo en los paneles, no el código):** cliente OAuth en Google Cloud con
-  pantalla de consentimiento; en Supabase, proveedor Google activado y en «Redirect URLs»
-  `https://gonzalotsainz-ux.github.io/setas/` y `http://localhost:8080/`. Se documenta en `docs/supabase.md` igual
-  que la rama documentaba «Anonymous sign-ins». «Anonymous sign-ins» **no** hace falta.
+- **Google con Supabase Auth, sin salir de la página:** botón de Google Identity Services (script
+  `accounts.google.com/gsi/client`, cargado solo en la pantalla de entrada) que devuelve un *ID token*, y
+  `supabase.auth.signInWithIdToken({ provider: 'google', token })`. La sesión la persiste supabase-js en localStorage.
+  Motivo: la app se instala como PWA (`display: standalone`) y en iPhone el flujo por redirección
+  (`signInWithOAuth`) puede volver a Safari en vez de a la app instalada. La redirección queda solo como respaldo si
+  GIS no carga (sin red para el script, navegador raro). En ambos casos, antes de salir a Google se guarda la ruta
+  pendiente (p. ej. `#unirse/CODIGO`) y se restaura al volver. *Decisión del documento tras la revisión del
+  constructor.* No hay otra forma de entrar.
+- **Requisito previo (lo hace la usuaria o Gonzalo en los paneles, no el código):** cliente OAuth en Google Cloud
+  con orígenes autorizados `https://gonzalotsainz-ux.github.io` y `http://localhost:8080`, y la pantalla de
+  consentimiento **publicada** (en modo «pruebas» solo entran los correos dados de alta como probadores, y queremos
+  gente que no conocemos); en Supabase, proveedor Google activado con ese ID de cliente y, para el respaldo por
+  redirección, «Redirect URLs» `https://gonzalotsainz-ux.github.io/setas/` y `http://localhost:8080/`. Se documenta
+  en `docs/supabase.md` igual que la rama documentaba «Anonymous sign-ins». «Anonymous sign-ins» **no** hace falta.
 - **Perfil** (`perfiles`): `id` = `auth.uid()`, `nombre` visible (por defecto el nombre de Google, editable en
   Ajustes), `creado`. Desaparecen `hash_recuperacion`, `recuperar_cuenta`, `regenerar_recuperacion` y la UI del
   código de recuperación. `intentos_codigo` y `limitar_intentos` se quedan: los usa `unirse_grupo`.
@@ -81,8 +89,11 @@ en `unirse_grupo`.
 **Cambia la visibilidad.** Se eliminan `salida_grupos`, `compartir_salida`, el selector de grupos al guardar y el
 campo `ubicacion_exacta`. La regla pasa a ser: **un miembro del grupo ve todas las salidas, sitios y comentarios de
 quienes son miembros en ese momento.** `salidas_del_grupo(p_grupo)` devuelve las salidas cuyo dueño está en
-`miembros` del grupo (con `lat`, `lon`, especies, kilos, notas, fotos firmadas, nombre del autor; sigue sin devolver
-`meteo` ni `indice`, que no hacen falta en el grupo). Lo mismo para `sitios_del_grupo` y los comentarios.
+`miembros` del grupo (con `lat`, `lon`, especies, kilos, notas, fotos firmadas, nombre del autor; sin `meteo` ni
+`indice`, para que el muro paginado pese poco). El historial de un sitio va por `salidas_del_sitio(p_sitio)`, que
+para el dueño y para los miembros de sus grupos **sí** devuelve `meteo` e `indice` de cada salida: el motivo de
+taparlos en la rama era «solo la zona» (`meteo.punto` delataba la ubicación) y ya no existe. La prueba de
+`tests/sql/compartir.test.sql` que exige que vayan nulos se reescribe. Lo mismo para `sitios_del_grupo`.
 
 - Si alguien sale o es expulsado, **sus salidas y sitios dejan de verse en ese grupo** en el acto, porque la lectura
   va por pertenencia. Sus comentarios en salidas ajenas se quedan, con su nombre.
@@ -113,8 +124,8 @@ Nuevo concepto. Hoy una salida lleva un punto suelto (`lat`, `lon`); a partir de
   en la misma migración que asigna dueños (§8).
 - **Ficha del sitio** (`#sitio/<id>`): nombre, zona y monte, el semáforo de hoy y de los días de previsión
   disponibles, y el **historial**: lista de salidas en ese sitio con fecha, especies, kilos y la lluvia de 26 días
-  que había ese día (`salida.indice`/`salida.meteo`, que ya se guardan al apuntar). Si el sitio es de otro miembro
-  del grupo, se ve lo mismo salvo editar.
+  que había ese día (`salida.indice`/`salida.meteo`, que ya se guardan al apuntar; llegan por `salidas_del_sitio`,
+  §3). Si el sitio es de otro miembro del grupo, se ve lo mismo, lluvia incluida, salvo editar.
 
 ## 5. Sitios vigilados («tus sitios hoy»)
 
@@ -148,9 +159,14 @@ Nuevo concepto. Hoy una salida lleva un punto suelto (`lat`, `lon`); a partir de
 - **Muro del grupo** en `#grupos/<id>`: las salidas de los miembros actuales, de más reciente a más antigua, una
   tarjeta por salida: foto (si la hay, firmada), autor, fecha, zona y sitio, especies con kilos, notas, y los
   comentarios. Carga por páginas de 20 (`salidas_del_grupo` admite `p_antes` y `p_limite`).
-- **Comentarios** por salida: tabla `comentarios` (`id`, `salida_id`, `usuario_id`, `texto` 1–500, `creado`).
-  Lee quien puede ver la salida (dueño o miembro de un grupo del dueño); escribe cualquiera de ellos; borra solo su
-  autor. Sin «me gusta», sin reacciones, sin hilos: esto es un cuaderno, no una red social.
+- **Comentarios** por salida **y por grupo**: tabla `comentarios` (`id`, `salida_id`, `grupo_id`, `usuario_id`,
+  `texto` 1–500, `creado`). Un comentario se escribe desde el muro de un grupo y **solo se ve en ese grupo**: lo leen
+  los miembros actuales de ese grupo (el dueño de la salida entre ellos), lo escribe cualquiera de ellos y lo borra
+  solo su autor. Si el dueño está en dos grupos, su salida tiene dos conversaciones separadas, una por grupo; en su
+  propio Diario las ve ambas, con el nombre del grupo. Motivo: la confianza se da al entrar en *ese* grupo, y un
+  comentario que nombre un paraje no debe cruzar a un grupo donde el comentarista no está. *Decisión del documento
+  tras la revisión del constructor.* Sin «me gusta», sin reacciones, sin hilos: esto es un cuaderno, no una red
+  social.
 - **La charla del grupo es sobre salidas.** No hay canal de mensajes sueltos: para «mañana salimos a las 8» ya está
   WhatsApp, donde además vive el enlace de invitación. *Decisión del documento.*
 - Mi **Diario** sigue siendo la lista de lo mío (como en la rama), ahora con el bloque de sitios arriba y el enlace
@@ -198,11 +214,12 @@ La ventana entre 2 y 4 es de minutos y solo hay dos personas: se hace el mismo d
 | `salida_grupos` | **se elimina** |
 | `salidas` | `usuario_id` (como la rama) + `sitio_id` nuevo |
 | `sitios` | nueva (§4) |
-| `comentarios` | nueva (§6) |
+| `comentarios` | nueva (§6), con `grupo_id` |
 
 Reglas: las tablas base (`salidas`, `fotos`, `sitios`, `comentarios`) solo las lee y escribe su dueño por RLS; el
 grupo lee por funciones `security definer` con `search_path` fijado (`salidas_del_grupo`, `sitios_del_grupo`,
-`comentarios_de_salida`) que comprueban `es_miembro`. `puede_ver_foto` pasa a mirar pertenencia al grupo del dueño
+`salidas_del_sitio`, `comentarios_de_salida(p_salida, p_grupo)`) que comprueban `es_miembro` del grupo en cuestión y,
+para sitios y salidas, que el dueño siga siendo miembro. `puede_ver_foto` pasa a mirar pertenencia al grupo del dueño
 en vez de `salida_grupos`. Todas las escrituras de grupos, sitios compartidos y comentarios van por funciones del
 servidor. Las funciones auxiliares no se exponen a `anon`.
 
@@ -221,7 +238,9 @@ previsibles están en `js/pantallas/mapa.js` (la rama solo toca 4 líneas) y `cs
 ## 11. Pruebas
 
 - SQL (Docker, como la rama): un no miembro no ve salidas, sitios ni comentarios; un expulsado deja de ver todo lo
-  del expulsado en el acto; un miembro no lee las tablas base; solo el autor borra su comentario; `reclamar_salidas`
+  del expulsado en el acto; un miembro no lee las tablas base; un comentario escrito en el grupo A no se ve desde el
+  grupo B aunque el dueño esté en ambos; `salidas_del_sitio` devuelve `meteo` e `indice` a un miembro y nada a un no
+  miembro; solo el autor borra su comentario; `reclamar_salidas`
   crea los sitios agrupando a 150 m; el guardia de cierre aborta con salidas sin dueño; borrar cuenta deja limpio y
   respeta la regla del administrador único.
 - Cliente (`node --test`): nivel de un sitio = nivel de la ladera del mapa para el mismo punto y día; sitio fuera de
@@ -250,3 +269,11 @@ previsibles están en `js/pantallas/mapa.js` (la rama solo toca 4 líneas) y `cs
 6. Temporada = año natural; la imagen compartida no lleva sitios ni coordenadas (§7).
 7. Las migraciones no aplicadas de la rama se reescriben con sus nombres (§8).
 8. Merge de `main` en `grupos`, no rebase (§10).
+
+Tras la revisión del constructor (2026-10-22):
+
+9. Entrada con Google Identity Services + `signInWithIdToken`, sin redirección, por la PWA instalada en iPhone;
+   la pantalla de consentimiento de Google debe estar publicada (§2).
+10. El historial de un sitio enseña la lluvia de cada salida también a los miembros del grupo: `salidas_del_sitio`
+    devuelve `meteo` e `indice`; el muro no (§3, §4).
+11. Los comentarios van por salida y grupo: no cruzan de un grupo a otro (§6).
