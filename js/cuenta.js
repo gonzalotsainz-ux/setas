@@ -1,77 +1,90 @@
-// Cuenta de este dispositivo: sesión anónima de Supabase, perfil y código de recuperación.
+// Cuenta del usuario: sesión de Google (Supabase Auth), perfil y ruta pendiente.
 // Todo con el cliente inyectado ({ supabase }) para poder probarlo sin red.
-const ALFABETO = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';   // Crockford base32: sin I, L, O, U
+import { borrarSalida } from './diario.js';
 
 // Quita separadores y unifica lo que se confunde al teclear (O→0, I y L→1), igual que el servidor.
+// (Lo usa grupos.js para los códigos de invitación.)
 export const normalizarCodigo = (t) => String(t ?? '').toUpperCase().replace(/[\s-]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
-export const formatearCodigo = (c, bloque = 4) => normalizarCodigo(c).match(new RegExp(`.{1,${bloque}}`, 'g'))?.join('-') ?? '';
-export function codigoRecuperacionValido(t) {
-  const n = normalizarCodigo(t);
-  return n.length === 16 && [...n].every((c) => ALFABETO.includes(c));
-}
 
-// Una sola entrada anónima aunque varias partes de la app la pidan a la vez.
-let enCurso = null;
-export function asegurarSesion({ supabase }) {
-  enCurso ??= (async () => {
-    const { data, error } = await supabase.auth.getSession();
-    if (error) throw error;   // un fallo al leer la sesión NO es «sin sesión»: entrar como anónimo huérfana el perfil
-    if (data?.session) return data.session.user.id;
-    const r = await supabase.auth.signInAnonymously();
-    if (r.error) throw r.error;
-    return r.data.user.id;
-  })().finally(() => { enCurso = null; });
-  return enCurso;
-}
+const nombreDe = (user) => user?.user_metadata?.full_name ?? user?.user_metadata?.name ?? '';
 
-// `null` solo si el perfil NO existe; un fallo de red se propaga (no es lo mismo: crear otro perfil duplicaría la cuenta).
-export async function cargarPerfil({ supabase }) {
-  const uid = await asegurarSesion({ supabase });
-  const { data, error } = await supabase.from('perfiles').select('id, nombre').eq('id', uid).maybeSingle();
+// null = no hay sesión. Un fallo al leerla se propaga: no es lo mismo que «sin sesión».
+export async function sesionActual({ supabase }) {
+  const { data, error } = await supabase.auth.getSession();
   if (error) throw error;
-  return data ? { id: data.id, nombre: data.nombre } : null;
+  const s = data?.session;
+  return s ? { uid: s.user.id, nombreGoogle: nombreDe(s.user) } : null;
 }
 
-function codigoDevuelto(data) {
-  const c = formatearCodigo(data);
-  if (!c) throw new Error('El servidor no devolvió el código de recuperación.');
-  return c;
+export async function entrarConGoogle({ supabase, credencial, nonce }) {
+  const { data, error } = await supabase.auth.signInWithIdToken({ provider: 'google', token: credencial, nonce: nonce.bruto });
+  if (error) throw error;
+  return data.user.id;
+}
+
+export async function entrarPorRedireccion({ supabase, redirigirA }) {
+  const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: redirigirA } });
+  if (error) throw error;
+}
+
+export async function salir({ supabase }) {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
+
+// Un fallo de red se propaga: tomarlo por «sin perfil» haría crear un perfil duplicado.
+export async function cargarPerfil({ supabase }) {
+  const sesion = await sesionActual({ supabase });
+  if (!sesion) return { estado: 'sin-sesion' };
+  const { data, error } = await supabase.from('perfiles').select('id, nombre').eq('id', sesion.uid).maybeSingle();
+  if (error) throw error;
+  return data
+    ? { estado: 'perfil', id: data.id, nombre: data.nombre }
+    : { estado: 'sin-perfil', uid: sesion.uid, nombreGoogle: sesion.nombreGoogle };
 }
 
 export async function crearPerfil(nombre, { supabase }) {
-  await asegurarSesion({ supabase });
-  const { data, error } = await supabase.rpc('crear_perfil', { p_nombre: nombre });
+  const { error } = await supabase.rpc('crear_perfil', { p_nombre: nombre });
   if (error) throw error;
-  return codigoDevuelto(data);
-}
-
-export async function regenerarRecuperacion({ supabase }) {
-  await asegurarSesion({ supabase });
-  const { data, error } = await supabase.rpc('regenerar_recuperacion');
-  if (error) throw error;
-  return codigoDevuelto(data);
 }
 
 export async function renombrarPerfil(nombre, { supabase }) {
-  await asegurarSesion({ supabase });
   const { error } = await supabase.rpc('renombrar_perfil', { p_nombre: nombre });
   if (error) throw error;
 }
 
-// true = esta sesión es ahora la dueña de la cuenta; false = el código no existe o está mal escrito.
-export async function recuperarCuenta(codigo, { supabase }) {
-  if (!codigoRecuperacionValido(codigo)) return false;
-  await asegurarSesion({ supabase });
-  const { data, error } = await supabase.rpc('recuperar_cuenta', { p_codigo: normalizarCodigo(codigo) });
+// Primero los objetos de Storage y las filas de cada salida; solo si todo va bien se borra la cuenta.
+export async function borrarCuenta({ supabase, usuarioId, borrar = borrarSalida }) {
+  const { data, error } = await supabase.from('salidas').select('id').eq('usuario_id', usuarioId);
   if (error) throw error;
-  return data === true;
+  for (const { id } of data ?? []) await borrar(id, { supabase });
+  const r = await supabase.rpc('borrar_cuenta');
+  if (r.error) throw r.error;
+  await salir({ supabase });
+}
+
+// Ruta a la que volver tras el viaje de ida y vuelta a Google (solo hashes internos).
+const CLAVE_RUTA = 'setas.ruta';
+const almacenPorDefecto = () => { try { return globalThis.sessionStorage; } catch { return undefined; } };
+
+export function guardarRutaPendiente(hash, almacen = almacenPorDefecto()) {
+  if (typeof hash !== 'string' || !hash.startsWith('#')) return;
+  try { almacen.setItem(CLAVE_RUTA, hash); } catch { /* almacén no disponible (p. ej. Safari privado) */ }
+}
+
+export function tomarRutaPendiente(almacen = almacenPorDefecto()) {
+  try {
+    const v = almacen.getItem(CLAVE_RUTA);
+    almacen.removeItem(CLAVE_RUTA);
+    return typeof v === 'string' && v.startsWith('#') ? v : null;
+  } catch { return null; }
 }
 
 const ERRORES = [
   ['demasiados_intentos', 'Demasiados intentos. Espera unos minutos y vuelve a probar.'],
   ['demasiados_grupos', 'Has creado demasiados grupos (máximo 10).'],
   ['solo_post', 'Petición no válida. Recarga la página y vuelve a probar.'],
-  ['sesion_con_perfil', 'Este dispositivo ya tiene un perfil: no se puede recuperar otra cuenta encima.'],
+  ['sin_sesion', 'Entra con Google para continuar.'],
   ['perfil_existente', 'Este dispositivo ya tiene un perfil.'],
   ['sin_perfil', 'Primero crea tu perfil.'],
   ['no_admin', 'Solo un administrador puede hacer eso.'],
@@ -80,10 +93,13 @@ const ERRORES = [
   ['grupo_lleno', 'El grupo está lleno.'],
   ['ultimo_admin', 'Eres el único administrador: nombra a otro antes de salir.'],
   ['usa_salir', 'Para irte tú, usa «Salir del grupo».'],
-  ['Anonymous sign-ins', 'El servidor aún no admite cuentas anónimas: avisa a quien administra la app.'],
+  ['Failed to fetch', 'Sin conexión.'],
 ];
 export function textoError(e) {
   const m = String(e?.message ?? e ?? '');
   for (const [clave, texto] of ERRORES) if (m.includes(clave)) return texto;
   return m || 'Algo ha fallado.';
 }
+
+// TEMPORAL (Tarea 7): js/grupos.js y tests/grupos.test.js aún importan asegurarSesion; la Tarea 7 los migra y este alias se borra.
+export { sesionActual as asegurarSesion };

@@ -1,19 +1,31 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizarCodigo, formatearCodigo, codigoRecuperacionValido, asegurarSesion, cargarPerfil, crearPerfil, regenerarRecuperacion, renombrarPerfil, recuperarCuenta, textoError } from '../js/cuenta.js';
+import { normalizarCodigo, sesionActual, entrarConGoogle, entrarPorRedireccion, salir, cargarPerfil, crearPerfil, renombrarPerfil, borrarCuenta, guardarRutaPendiente, tomarRutaPendiente, textoError } from '../js/cuenta.js';
 
-function sbFalso({ sesion = null, perfil = null, errorPerfil = null, rpc = {} } = {}) {
-  const llamadas = { rpc: [], signIn: 0 };
-  const sb = {
+function sbFalso({ sesion = null, errorSesion = null, perfil = null, errorPerfil = null, rpc = {}, idToken = { data: { user: { id: 'u1' } }, error: null }, salidasIds = [] } = {}) {
+  const llamadas = { rpc: [], idToken: [], oauth: [], signOut: 0 };
+  return {
     llamadas,
     auth: {
-      getSession: async () => ({ data: { session: sesion } }),
-      signInAnonymously: async () => { llamadas.signIn++; await new Promise((r) => setTimeout(r, 5)); return { data: { user: { id: 'u-nuevo' } }, error: null }; },
+      getSession: async () => ({ data: { session: sesion }, error: errorSesion }),
+      signInWithIdToken: async (args) => { llamadas.idToken.push(args); return idToken; },
+      signInWithOAuth: async (args) => { llamadas.oauth.push(args); return { data: {}, error: null }; },
+      signOut: async () => { llamadas.signOut++; return { error: null }; },
     },
-    from: () => ({ select: () => ({ eq: () => ({ maybeSingle: async () => (errorPerfil ? { data: null, error: errorPerfil } : { data: perfil, error: null }) }) }) }),
+    from: (tabla) => ({
+      select: () => ({
+        eq: tabla === 'salidas'
+          ? async () => ({ data: salidasIds.map((id) => ({ id })), error: null })
+          : () => ({ maybeSingle: async () => (errorPerfil ? { data: null, error: errorPerfil } : { data: perfil, error: null }) }),
+      }),
+    }),
     rpc: async (nombre, args) => { llamadas.rpc.push({ nombre, args }); return rpc[nombre] ?? { data: null, error: null }; },
   };
-  return sb;
+}
+
+function almacenFalso() {
+  const m = new Map();
+  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => { m.set(k, String(v)); }, removeItem: (k) => { m.delete(k); } };
 }
 
 test('normalizarCodigo: mayúsculas, sin separadores y O→0, I/L→1', () => {
@@ -22,111 +34,103 @@ test('normalizarCodigo: mayúsculas, sin separadores y O→0, I/L→1', () => {
   assert.equal(normalizarCodigo(null), '');
 });
 
-test('formatearCodigo agrupa de 4 en 4', () => {
-  assert.equal(formatearCodigo('K7QM4XR9TD2BWPHN'), 'K7QM-4XR9-TD2B-WPHN');
-  assert.equal(formatearCodigo('k7qm 4xr9'), 'K7QM-4XR9');
-  assert.equal(formatearCodigo(''), '');
+test('sesionActual: null sin sesión; uid y nombre de Google con ella; el error se propaga', async () => {
+  assert.equal(await sesionActual({ supabase: sbFalso() }), null);
+  const con = sbFalso({ sesion: { user: { id: 'u1', user_metadata: { full_name: 'Ana Pérez', name: 'otro' } } } });
+  assert.deepEqual(await sesionActual({ supabase: con }), { uid: 'u1', nombreGoogle: 'Ana Pérez' });
+  const soloName = sbFalso({ sesion: { user: { id: 'u2', user_metadata: { name: 'Luis' } } } });
+  assert.deepEqual(await sesionActual({ supabase: soloName }), { uid: 'u2', nombreGoogle: 'Luis' });
+  const sinMeta = sbFalso({ sesion: { user: { id: 'u3' } } });
+  assert.deepEqual(await sesionActual({ supabase: sinMeta }), { uid: 'u3', nombreGoogle: '' });
+  await assert.rejects(() => sesionActual({ supabase: sbFalso({ errorSesion: new Error('refresh fallido') }) }), /refresh fallido/);
 });
 
-test('codigoRecuperacionValido exige 16 caracteres del alfabeto', () => {
-  assert.equal(codigoRecuperacionValido('K7QM-4XR9-TD2B-WPHN'), true);
-  assert.equal(codigoRecuperacionValido('k7qm4xr9td2bwphn'), true);
-  assert.equal(codigoRecuperacionValido('K7QM-4XR9-TD2B'), false);
-  assert.equal(codigoRecuperacionValido('K7QM-4XR9-TD2B-WPH!'), false);
-  assert.equal(codigoRecuperacionValido('UUUU-UUUU-UUUU-UUUU'), false);   // la U no está en el alfabeto
-  assert.equal(codigoRecuperacionValido(undefined), false);
+test('entrarConGoogle manda la credencial y el nonce en claro', async () => {
+  const sb = sbFalso({ idToken: { data: { user: { id: 'u1' } }, error: null } });
+  assert.equal(await entrarConGoogle({ supabase: sb, credencial: 'tok', nonce: { bruto: 'n', hash: 'h' } }), 'u1');
+  assert.deepEqual(sb.llamadas.idToken[0], { provider: 'google', token: 'tok', nonce: 'n' });
 });
 
-test('asegurarSesion reutiliza la sesión existente y solo entra como anónimo si no la hay', async () => {
-  const con = sbFalso({ sesion: { user: { id: 'u1' } } });
-  assert.equal(await asegurarSesion({ supabase: con }), 'u1');
-  assert.equal(con.llamadas.signIn, 0);
-  const sin = sbFalso();
-  assert.equal(await asegurarSesion({ supabase: sin }), 'u-nuevo');
-  assert.equal(sin.llamadas.signIn, 1);
+test('entrarConGoogle propaga el error', async () => {
+  const sb = sbFalso({ idToken: { data: null, error: new Error('nonce no válido') } });
+  await assert.rejects(() => entrarConGoogle({ supabase: sb, credencial: 'tok', nonce: { bruto: 'n', hash: 'h' } }), /nonce no válido/);
 });
 
-test('asegurarSesion: llamadas simultáneas comparten una sola entrada anónima', async () => {
+test('entrarPorRedireccion pasa redirectTo y propaga el error', async () => {
   const sb = sbFalso();
-  const ids = await Promise.all([asegurarSesion({ supabase: sb }), asegurarSesion({ supabase: sb }), asegurarSesion({ supabase: sb })]);
-  assert.deepEqual(ids, ['u-nuevo', 'u-nuevo', 'u-nuevo']);
-  assert.equal(sb.llamadas.signIn, 1);
+  await entrarPorRedireccion({ supabase: sb, redirigirA: 'https://x.test/' });
+  assert.deepEqual(sb.llamadas.oauth[0], { provider: 'google', options: { redirectTo: 'https://x.test/' } });
+  const mal = sbFalso();
+  mal.auth.signInWithOAuth = async () => ({ data: null, error: new Error('oauth caído') });
+  await assert.rejects(() => entrarPorRedireccion({ supabase: mal, redirigirA: 'https://x.test/' }), /oauth caído/);
 });
 
-test('asegurarSesion propaga el error si las cuentas anónimas están desactivadas', async () => {
+test('salir cierra la sesión y propaga el error', async () => {
   const sb = sbFalso();
-  sb.auth.signInAnonymously = async () => ({ data: null, error: new Error('Anonymous sign-ins are disabled') });
-  await assert.rejects(() => asegurarSesion({ supabase: sb }), /Anonymous sign-ins/);
+  await salir({ supabase: sb });
+  assert.equal(sb.llamadas.signOut, 1);
+  sb.auth.signOut = async () => ({ error: new Error('no se pudo salir') });
+  await assert.rejects(() => salir({ supabase: sb }), /no se pudo salir/);
 });
 
-test('cargarPerfil: perfil, sin perfil (null) y error de red (se propaga, NO es «sin perfil»)', async () => {
-  const sesion = { user: { id: 'u1' } };
-  assert.deepEqual(await cargarPerfil({ supabase: sbFalso({ sesion, perfil: { id: 'u1', nombre: 'Ana' } }) }), { id: 'u1', nombre: 'Ana' });
-  assert.equal(await cargarPerfil({ supabase: sbFalso({ sesion, perfil: null }) }), null);
+test('cargarPerfil: sin-sesion, sin-perfil (con nombre de Google), perfil; el error de red se propaga', async () => {
+  assert.deepEqual(await cargarPerfil({ supabase: sbFalso() }), { estado: 'sin-sesion' });
+  const sesion = { user: { id: 'u1', user_metadata: { full_name: 'Ana Pérez' } } };
+  assert.deepEqual(await cargarPerfil({ supabase: sbFalso({ sesion, perfil: null }) }), { estado: 'sin-perfil', uid: 'u1', nombreGoogle: 'Ana Pérez' });
+  assert.deepEqual(await cargarPerfil({ supabase: sbFalso({ sesion, perfil: { id: 'u1', nombre: 'Ana' } }) }), { estado: 'perfil', id: 'u1', nombre: 'Ana' });
   await assert.rejects(() => cargarPerfil({ supabase: sbFalso({ sesion, errorPerfil: new Error('Failed to fetch') }) }), /Failed to fetch/);
 });
 
-test('crearPerfil llama a la función y devuelve el código formateado', async () => {
-  const sb = sbFalso({ sesion: { user: { id: 'u1' } }, rpc: { crear_perfil: { data: 'K7QM4XR9TD2BWPHN', error: null } } });
-  assert.equal(await crearPerfil('Ana', { supabase: sb }), 'K7QM-4XR9-TD2B-WPHN');
+test('crearPerfil y renombrarPerfil llaman a sus funciones', async () => {
+  const sb = sbFalso();
+  assert.equal(await crearPerfil('Ana', { supabase: sb }), undefined);
   assert.deepEqual(sb.llamadas.rpc[0], { nombre: 'crear_perfil', args: { p_nombre: 'Ana' } });
-});
-
-test('regenerarRecuperacion y renombrarPerfil', async () => {
-  const sb = sbFalso({ sesion: { user: { id: 'u1' } }, rpc: { regenerar_recuperacion: { data: 'AAAABBBBCCCCDDDD', error: null } } });
-  assert.equal(await regenerarRecuperacion({ supabase: sb }), 'AAAA-BBBB-CCCC-DDDD');
   await renombrarPerfil('Ana M.', { supabase: sb });
-  assert.deepEqual(sb.llamadas.rpc.at(-1), { nombre: 'renombrar_perfil', args: { p_nombre: 'Ana M.' } });
+  assert.deepEqual(sb.llamadas.rpc[1], { nombre: 'renombrar_perfil', args: { p_nombre: 'Ana M.' } });
+  const mal = sbFalso({ rpc: { crear_perfil: { data: null, error: new Error('perfil_existente') } } });
+  await assert.rejects(() => crearPerfil('Ana', { supabase: mal }), /perfil_existente/);
 });
 
-test('recuperarCuenta: un código mal formado no llega al servidor; uno válido va normalizado', async () => {
-  const sb = sbFalso({ sesion: { user: { id: 'u1' } }, rpc: { recuperar_cuenta: { data: true, error: null } } });
-  assert.equal(await recuperarCuenta('corto', { supabase: sb }), false);
+test('borrarCuenta borra cada salida (Storage incluido), llama a borrar_cuenta y cierra la sesión, en ese orden', async () => {
+  const orden = [];
+  const sb = sbFalso({ salidasIds: ['a', 'b'], rpc: { borrar_cuenta: { data: null, error: null } } });
+  sb.rpc = async (n) => { orden.push(n); return { data: null, error: null }; };
+  sb.auth.signOut = async () => { orden.push('signOut'); return { error: null }; };
+  await borrarCuenta({ supabase: sb, usuarioId: 'u1', borrar: async (id) => { orden.push(`borrar:${id}`); } });
+  assert.deepEqual(orden, ['borrar:a', 'borrar:b', 'borrar_cuenta', 'signOut']);
+});
+
+test('borrarCuenta: si falla borrar una salida no llama a borrar_cuenta', async () => {
+  const sb = sbFalso({ salidasIds: ['a', 'b'] });
+  await assert.rejects(() => borrarCuenta({ supabase: sb, usuarioId: 'u1', borrar: async (id) => { if (id === 'b') throw new Error('storage caído'); } }), /storage caído/);
   assert.equal(sb.llamadas.rpc.length, 0);
-  assert.equal(await recuperarCuenta('k7qm-4xr9 td2b-wphn', { supabase: sb }), true);
-  assert.deepEqual(sb.llamadas.rpc[0], { nombre: 'recuperar_cuenta', args: { p_codigo: 'K7QM4XR9TD2BWPHN' } });
-  const no = sbFalso({ sesion: { user: { id: 'u1' } }, rpc: { recuperar_cuenta: { data: false, error: null } } });
-  assert.equal(await recuperarCuenta('K7QM-4XR9-TD2B-WPHN', { supabase: no }), false);
+  assert.equal(sb.llamadas.signOut, 0);
 });
 
-test('recuperarCuenta propaga los errores del servidor', async () => {
-  const sb = sbFalso({ sesion: { user: { id: 'u1' } }, rpc: { recuperar_cuenta: { data: null, error: new Error('demasiados_intentos') } } });
-  await assert.rejects(() => recuperarCuenta('K7QM-4XR9-TD2B-WPHN', { supabase: sb }), /demasiados_intentos/);
+test('ruta pendiente: se guarda, se toma una sola vez y se ignora lo que no empieza por #', () => {
+  const alm = almacenFalso();
+  guardarRutaPendiente('#unirse/ABCD2345', alm); assert.equal(tomarRutaPendiente(alm), '#unirse/ABCD2345'); assert.equal(tomarRutaPendiente(alm), null);
+  guardarRutaPendiente('javascript:x', alm); assert.equal(tomarRutaPendiente(alm), null);
+  guardarRutaPendiente(undefined, alm); assert.equal(tomarRutaPendiente(alm), null);
+  alm.setItem('setas.ruta', 'https://malo.test');
+  assert.equal(tomarRutaPendiente(alm), null);
+  assert.equal(alm.getItem('setas.ruta'), null);   // se borra aunque no sea válida
 });
 
-test('textoError traduce los errores del servidor y deja pasar los demás', () => {
+test('ruta pendiente: un almacén que lanza no rompe nada', () => {
+  const roto = { getItem() { throw new Error('privado'); }, setItem() { throw new Error('privado'); }, removeItem() { throw new Error('privado'); } };
+  assert.doesNotThrow(() => guardarRutaPendiente('#x', roto));
+  assert.equal(tomarRutaPendiente(roto), null);
+});
+
+test('textoError: sin_sesion, Failed to fetch y los de grupos', () => {
+  assert.equal(textoError(new Error('sin_sesion')), 'Entra con Google para continuar.');
+  assert.equal(textoError(new TypeError('Failed to fetch')), 'Sin conexión.');
   assert.match(textoError(new Error('demasiados_intentos')), /Demasiados intentos/);
-  assert.match(textoError({ message: 'ultimo_admin' }), /único administrador/);
-  assert.match(textoError(new Error('Anonymous sign-ins are disabled')), /cuentas anónimas/);
-  assert.equal(textoError(new Error('algo raro')), 'algo raro');
-  assert.equal(textoError(null), 'Algo ha fallado.');
-});
-
-test('textoError traduce demasiados_grupos y solo_post', () => {
   assert.equal(textoError(new Error('demasiados_grupos')), 'Has creado demasiados grupos (máximo 10).');
   assert.equal(textoError({ message: 'solo_post' }), 'Petición no válida. Recarga la página y vuelve a probar.');
-});
-
-test('asegurarSesion: si getSession falla, propaga el error y NO entra como anónimo', async () => {
-  const sb = sbFalso();
-  sb.auth.getSession = async () => ({ data: { session: null }, error: new Error('refresh fallido') });
-  await assert.rejects(() => asegurarSesion({ supabase: sb }), /refresh fallido/);
-  assert.equal(sb.llamadas.signIn, 0);
-});
-
-test('asegurarSesion: tras un rechazo, la siguiente llamada vuelve a intentarlo', async () => {
-  const sb = sbFalso();
-  let n = 0;
-  sb.auth.getSession = async () => (n++ === 0 ? { data: { session: null }, error: new Error('red caída') } : { data: { session: { user: { id: 'u1' } } }, error: null });
-  await assert.rejects(() => asegurarSesion({ supabase: sb }), /red caída/);
-  assert.equal(await asegurarSesion({ supabase: sb }), 'u1');
-  assert.equal(sb.llamadas.signIn, 0);
-});
-
-test('crearPerfil y regenerarRecuperacion rechazan si el servidor no devuelve código', async () => {
-  const sesion = { user: { id: 'u1' } };
-  const a = sbFalso({ sesion, rpc: { crear_perfil: { data: '', error: null } } });
-  await assert.rejects(() => crearPerfil('Ana', { supabase: a }), /no devolvió el código/);
-  const b = sbFalso({ sesion, rpc: { regenerar_recuperacion: { data: null, error: null } } });
-  await assert.rejects(() => regenerarRecuperacion({ supabase: b }), /no devolvió el código/);
+  assert.match(textoError({ message: 'ultimo_admin' }), /único administrador/);
+  assert.match(textoError(new Error('perfil_existente')), /ya tiene un perfil/);
+  assert.equal(textoError(new Error('algo raro')), 'algo raro');
+  assert.equal(textoError(null), 'Algo ha fallado.');
 });
