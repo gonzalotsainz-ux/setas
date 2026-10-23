@@ -1,6 +1,6 @@
 # Grupos de amigos: cuentas, visibilidad y recuperación
 
-Fecha: 2026-10-02 · Estado: pendiente de revisión por la usuaria
+Fecha: 2026-10-02 · Estado: **sustituida por `2026-10-22-cuadrillas-design.md`** (entrada con Google, todo lo del grupo es del grupo). Se conserva como historia.
 
 ## 1. Objetivo y alcance
 

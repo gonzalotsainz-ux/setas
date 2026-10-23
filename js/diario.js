@@ -1,5 +1,5 @@
 // Diario: salidas en Supabase (cada una de su dueño), con cola de borradores local para no perder nada sin red.
-// La identidad viene de la sesión anónima (js/cuenta.js); aquí el cliente y el id de usuario llegan inyectados.
+// La identidad viene de la sesión de Google (js/cuenta.js); aquí el cliente y el id de usuario llegan inyectados.
 import { indiceZona, HISTORIA_MINIMA } from './indice.js';
 import { especiesDeZona } from './datos.js';
 

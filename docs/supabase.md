@@ -1,9 +1,10 @@
 # Supabase
 
 - **Proyecto:** `ctgedeunquvmcfqsufjj` (`https://ctgedeunquvmcfqsufjj.supabase.co`), cuenta de Gonzalo, plan gratuito.
-- **Sin login, abierto hasta la migración de cierre (ver «Cuentas y grupos» al final).** Hasta entonces cualquiera con la URL de la web puede leer y
-  editar el diario (salidas, fotos, umbrales). La clave publicable (`sb_publishable_…`) está en `js/config.js` (la reexporta `js/supabase.js`)
-  y es pública por diseño. El autor de cada salida es un nombre elegido en el dispositivo (`elegirAutor`).
+- **Se entra con Google; el diario queda abierto hasta la migración de cierre (ver «Cuentas y grupos» al final).** Hasta entonces
+  cualquiera con la URL de la web puede leer y editar el diario (salidas, fotos, umbrales). La clave publicable (`sb_publishable_…`)
+  está en `js/config.js` (la reexporta `js/supabase.js`) y es pública por diseño. Las salidas anteriores a las cuentas llevan como
+  autor el nombre elegido en el dispositivo (`elegirAutor`) y se reclaman desde el Diario.
 - `aemet_cache` tiene RLS sin políticas: solo la Edge Function (Tarea 18) la usa, con la clave de servicio.
 
 ## Aplicar migraciones
@@ -141,22 +142,70 @@ claves `sb_publishable_`).
 
 ## Cuentas y grupos (2026-10)
 
-Spec: `docs/superpowers/specs/2026-10-02-grupos-design.md`. Plan: `docs/superpowers/plans/2026-10-02-grupos.md`.
+Spec: `docs/superpowers/specs/2026-10-22-cuadrillas-design.md` (sustituye a la del 2026-10-02). Plan de la fase 1:
+`docs/superpowers/plans/2026-10-22-cuadrillas-1-cuentas-grupos.md`.
 
-- **Identidad:** sesión anónima de Supabase por dispositivo (Authentication → Sign In / Providers → «Allow anonymous sign-ins», activado a mano en el panel). El perfil (`perfiles`) pone nombre y un **código de recuperación** (16 caracteres, solo se guarda su hash) con el que otra sesión se queda con la cuenta (`recuperar_cuenta` traspasa perfil, grupos y salidas porque las FK son `on update cascade`).
-- **Datos:** `grupos`, `miembros`, `salida_grupos`, `salidas.usuario_id`. Las salidas solo las lee su dueño; los miembros leen lo compartido con `salidas_del_grupo()` (nunca devuelve `meteo` ni `indice`; con «solo la zona» las coordenadas van nulas). `salida_grupos` solo se escribe con `compartir_salida()`.
-- **Fotos:** bucket `fotos` privado tras la migración de cierre; URLs firmadas (`firmarFotos`); las rutas siguen siendo `<salida_id>/<n>.jpg` y el permiso sale de la salida (`puede_ver_foto`).
-- **Límites:** 20 miembros por grupo (`max_miembros_grupo()`); 10 fallos de código en 15 minutos por sesión o IP (`limitar_intentos`); máximo 10 grupos creados por persona (`demasiados_grupos`).
-- **Códigos:** invitación de 8 caracteres; recuperación de 16. `limitar_intentos` (usada por `unirse_grupo` y `recuperar_cuenta`) rechaza transacciones de solo lectura (`solo_post`), así que no se pueden probar por GET. Abrir un enlace de invitación nunca une al grupo por sí solo: hay que pulsar «Unirme al grupo».
-- **Pruebas de la base de datos:** `npm run probar:sql` (necesita Docker; levanta un Postgres desechable que imita a Supabase). No forman parte de `npm run comprobar`.
+- **Identidad:** se entra con Google. En la hoja «Entrar» el botón de Google Identity Services (script
+  `accounts.google.com/gsi/client`, cargado solo ahí) devuelve un *ID token* que la app pasa a
+  `supabase.auth.signInWithIdToken({ provider: 'google', token, nonce })`. El nonce se genera en cada entrada
+  (`js/google.js`: el valor bruto va a Supabase y su SHA-256 a Google). Respaldo «Entrar de otra forma»:
+  `signInWithOAuth` por redirección. `PREFERIR_GIS` (`js/pantallas/cuenta-ui.js`) decide cuál de las dos es la
+  opción principal y se fija con la prueba en un iPhone con la app instalada (spec §2). Antes de salir a Google se
+  guarda la ruta pendiente (p. ej. `#unirse/CODIGO`) y se restaura al volver. La sesión la persiste supabase-js en
+  localStorage. Google da correo y nombre: el **correo solo vive en `auth.users`** (no se copia a tablas públicas ni
+  se enseña a nadie); el nombre visible se confirma en la primera entrada y se guarda en `perfiles`. No hay cuentas
+  anónimas ni códigos de recuperación: la cuenta de Google identifica a la persona en cualquier dispositivo.
+- **Datos:** `perfiles` (`id` = `auth.uid()`, `nombre`), `grupos`, `miembros` (rol `admin` o `miembro`) y
+  `salidas.usuario_id` (FK a `auth.users` con borrado en cascada: las salidas y sus fotos se van con la cuenta).
+  Las tablas base solo las lee y escribe su dueño por RLS. **Todo lo del grupo es del grupo:** no hay reparto salida a
+  salida; un miembro lee las salidas completas (coordenadas y fotos) de quienes son miembros ahora con
+  `salidas_del_grupo(p_grupo, p_antes, p_limite)` (*security definer*, paginada por `creado`, nunca devuelve
+  `meteo` ni `indice`). Las escrituras de grupos van por funciones del servidor (`crear_grupo`, `unirse_grupo`,
+  `regenerar_codigo`, `renombrar_grupo`, `hacer_admin`, `expulsar_miembro`, `salir_grupo`, `borrar_grupo`).
+  `borrar_cuenta()` borra pertenencias, perfil, salidas (y fotos) y el usuario de Auth; quien es el único
+  administrador de un grupo con más gente no puede irse ni borrarse sin nombrar sucesor (`ultimo_admin`), y los
+  grupos donde está solo se borran con él.
+- **Reclamo:** las salidas anteriores a las cuentas (`usuario_id` nulo) se reclaman por el nombre de autor que
+  llevaban: `salidas_sin_dueno()` lista esos autores y `reclamar_salidas(p_autor)` las asigna a quien pulsa
+  (Diario → «Hay salidas de antes de las cuentas. ¿Cuáles son tuyas?»). Sin secreto: gana quien pulsa primero.
+- **Fotos:** tras la migración de cierre el bucket `fotos` es privado y la app usa URLs firmadas (`firmarFotos`).
+  Las rutas siguen siendo `<salida_id>/<n>.jpg`; `puede_ver_foto(ruta)` deja ver la foto al dueño de la salida
+  y a quien comparte grupo con él.
+- **Límites:** 20 miembros por grupo (`max_miembros_grupo()`); 10 fallos de código de invitación en 15 minutos por
+  sesión o IP (`limitar_intentos`, que rechaza transacciones de solo lectura, así que `unirse_grupo` no se puede
+  probar por GET); máximo 10 grupos creados por persona (`demasiados_grupos`).
+- **Códigos de invitación:** 8 caracteres en Crockford base32 (`codigo_aleatorio`; `normalizar_codigo` unifica
+  O/0 e I/L/1). Abrir un enlace de invitación nunca une al grupo por sí solo: hay que pulsar «Unirme al grupo».
+- **Coste:** todo cabe en el plan gratuito a esta escala. El primer límite real serán las **fotos** (1 GB de
+  almacenamiento): es el indicador a vigilar si la app crece. Google OAuth no cuesta nada.
+- **Pruebas de la base de datos:** `npm run probar:sql` (necesita Docker; levanta un Postgres desechable que imita a
+  Supabase y carga la migración original, las `20261005*` y la pendiente de cierre). No forman parte de
+  `npm run comprobar`.
 
 ### Pasar a cuentas (orden de despliegue)
 
-**Ojo con la ventana de transición.** Las garantías de «solo el dueño lee sus salidas y fotos» y del bucket privado **empiezan solo con el paso 6** (migración de cierre). Entre el paso 2 y el 6 cualquiera con la clave publicable (anon) puede leer todas las filas, incluidas las salidas que la app nueva marque como «solo la zona». Haz los pasos 4–6 el mismo día y no compartas «solo la zona» antes del paso 6. El reclamo del paso 4 es por nombre de autor, sin secreto: gana quien pulsa primero. Nunca ejecutes la limpieza de usuarios anónimos que sugiere Supabase: aquí todas las cuentas son anónimas y borrarlas destruye las cuentas.
+**Ventana de transición.** Las políticas abiertas de `salidas` y `fotos` siguen activas hasta el paso 7: entre el
+paso 3 y el 7 cualquiera con la clave publicable (anon) sigue leyendo todas las salidas y fotos, igual que hoy. Son
+minutos y dos personas: hacer los pasos 3–7 el mismo día. Los pasos marcados **(Manual)** se hacen en los paneles.
 
-1. Activar «Allow anonymous sign-ins» en el panel de Supabase.
-2. `npx --yes supabase@latest db push` — aplica `20261005*` (cuentas, grupos, compartir). Es compatible con la app antigua (las políticas abiertas siguen activas).
-3. Fusionar la rama `grupos` en `main` y subir a GitHub (Pages despliega la app nueva).
-4. Cada persona abre el Diario, crea su perfil, **guarda su código de recuperación** y pulsa su nombre en «¿Cuáles son tuyas?».
-5. Comprobar que no queda nada sin dueño: `npx supabase@latest db query --linked "select count(*) from public.salidas where usuario_id is null"` → `0` (si no, asignarlas a mano o borrarlas).
-6. `git mv supabase/pendientes/20261006000000_cerrar_acceso_abierto.sql supabase/migrations/` y `db push`. Desde aquí `anon` no lee salidas ni fotos y el bucket es privado. (La migración aborta sola si quedan salidas sin dueño.)
+1. **(Manual) Google Cloud:** cliente OAuth de tipo «aplicación web» con orígenes autorizados
+   `https://gonzalotsainz-ux.github.io` y `http://localhost:8080`, URI de redirección
+   `https://ctgedeunquvmcfqsufjj.supabase.co/auth/v1/callback` y la pantalla de consentimiento **publicada** (en
+   modo «pruebas» solo entran los correos dados de alta como probadores). Copiar el ID de cliente a
+   `GOOGLE_CLIENT_ID` en `js/config.js`.
+2. **(Manual) Supabase:** Authentication → Providers → Google: activar, pegar ID y secreto, y el ID también en
+   «Authorized Client IDs». Authentication → URL Configuration: Site URL `https://gonzalotsainz-ux.github.io/setas/`
+   y Redirect URLs esa misma y `http://localhost:8080/`. «Anonymous sign-ins» **no** hace falta.
+3. `npx --yes supabase@latest migration list` (con `SUPABASE_ACCESS_TOKEN` en la terminal): confirmar que
+   `20261004000100` está aplicada y que no hay ninguna `20261005*` ni `20261006*`. Después
+   `npx --yes supabase@latest db push`: aplica `20261005*` (cuentas, grupos, lectura por pertenencia y reclamo).
+   Es compatible con la app antigua: las políticas abiertas siguen activas.
+4. Fusionar la rama `grupos` en `main` y subir a GitHub (Pages despliega la app nueva).
+5. Cada uno entra con Google, confirma su nombre y pulsa el suyo en «¿Cuáles son tuyas?». Uno crea el grupo
+   «familia» y el otro entra por el enlace de invitación.
+6. Comprobar que no queda nada sin dueño:
+   `npx supabase@latest db query --linked "select count(*) from public.salidas where usuario_id is null"` → `0`
+   (si no, reclamarlas o borrarlas: la migración de cierre aborta sola si queda alguna).
+7. `git mv supabase/pendientes/20261006000000_cerrar_acceso_abierto.sql supabase/migrations/` y `db push`. Desde
+   aquí `anon` no lee salidas ni fotos y el bucket es privado.
+8. Revocar el *access token* de Supabase cuando termine (pendiente desde septiembre).

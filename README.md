@@ -17,7 +17,7 @@ sin framework (módulos ES), publicada en GitHub Pages desde `main`: https://gon
   fondo «Mapa» es la Base IGN mientras CARTO pida clave). Sin índice publicado (o sin red), las zonas y sus montes con
   chinchetas y la nota de la meteo, sin manchas, y un aviso.
 - **Especies:** fichas con fotos de licencia libre, toxicidad y confusiones peligrosas.
-- **Diario:** salidas con foto, compartidas en Supabase, con borrador local si no hay cobertura.
+- **Diario:** salidas con foto, de cada uno, visibles para su cuadrilla, con borrador local si no hay cobertura.
 - **Ajustes:** dispositivo, umbrales, calibración con el diario y **créditos completos** de datos, fotos y mapas.
 
 ## Aviso de seguridad
@@ -37,9 +37,9 @@ npm run gancho                           # instala el gancho pre-push
 
 ## Arquitectura
 
-- **Cuentas y grupos.** Cada dispositivo tiene una cuenta anónima con perfil y código de recuperación; las salidas son
-  privadas y solo se comparten con los grupos que elijas (punto exacto o solo la zona). Hasta aplicar la migración de
-  cierre el diario sigue abierto: ver [docs/supabase.md](docs/supabase.md).
+- **Cuentas y grupos.** Se entra con Google. Las salidas son de su dueño y las ven todos los miembros de sus grupos;
+  sin cuenta se consulta el mapa, pero no el diario. Hasta aplicar la migración de cierre el diario sigue abierto:
+  ver [docs/supabase.md](docs/supabase.md).
 - **Supabase** (proyecto `ctgedeunquvmcfqsufjj`): diario, fotos y umbrales. La clave publicable está en
   `js/config.js` y es pública por diseño. Migraciones en `supabase/migrations/`.
 - **Edge Function `aemet`:** lluvia medida en estaciones AEMET con caché de 6 h y lista blanca de estaciones.
