@@ -126,8 +126,9 @@ export function pintar({ estado, param }) {
     const refrescar = () => vistaGrupo(id).catch((e) => decir(textoError(e), true));
     const accion = (fn, ok) => async () => { try { await fn(); decir(ok ?? ''); await refrescar(); } catch (e) { decir(textoError(e), true); } };
 
-    const enlace = enlaceInvitacion(g.codigo_invitacion);
-    const invitar = el('div', { clase: 'tarjeta pila' },
+    // Solo el administrador invita (spec §3): mis_grupos devuelve el código únicamente a los administradores.
+    const enlace = soyAdmin && g.codigo_invitacion ? enlaceInvitacion(g.codigo_invitacion) : null;
+    const invitar = !enlace ? el('p', { clase: 'tarjeta texto-2', texto: 'Para invitar a alguien, pídeselo a un administrador del grupo.' }) : el('div', { clase: 'tarjeta pila' },
       el('h2', { clase: 'tarjeta__titulo', texto: 'Invitar' }),
       el('p', { clase: 'texto-2', texto: 'Comparte este código o el enlace con quien quieras en el grupo:' }),
       el('p', { clase: 'grupo-codigo', texto: g.codigo_invitacion, attrs: { 'aria-label': 'Código de invitación' } }),

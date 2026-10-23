@@ -36,7 +36,9 @@ $$;
 alter table public.grupos enable row level security;
 alter table public.miembros enable row level security;
 revoke all on public.grupos, public.miembros from anon, authenticated;
-grant select on public.grupos, public.miembros to authenticated;
+-- El código de invitación solo lo ven los administradores (lo devuelve mis_grupos según el rol): la tabla no lo expone.
+grant select (id, nombre, creado_por, creado) on public.grupos to authenticated;
+grant select on public.miembros to authenticated;
 create policy "grupos: los míos" on public.grupos for select to authenticated using (public.es_miembro(id));
 create policy "miembros: de mis grupos" on public.miembros for select to authenticated using (public.es_miembro(grupo_id));
 
@@ -148,7 +150,7 @@ end $$;
 
 create function public.mis_grupos() returns table (grupo_id uuid, nombre text, codigo_invitacion text, rol text, miembros bigint)
 language sql stable security definer set search_path = public as $$
-  select g.id, g.nombre, g.codigo_invitacion, m.rol, (select count(*) from miembros x where x.grupo_id = g.id)
+  select g.id, g.nombre, case when m.rol = 'admin' then g.codigo_invitacion end, m.rol, (select count(*) from miembros x where x.grupo_id = g.id)
   from miembros m join grupos g on g.id = m.grupo_id
   where m.usuario_id = auth.uid()
   order by g.nombre
@@ -165,6 +167,22 @@ begin
     order by m.alta;
 end $$;
 
+-- ¿Puede borrarse la cuenta? Lanza sin_sesion, sin_perfil o ultimo_admin y no toca nada. La app la llama ANTES de borrar
+-- las fotos de Storage y las salidas (que el servidor no puede borrar del bucket): así un rechazo no deja la cuenta vacía.
+create function public.comprobar_borrar_cuenta() returns void
+language plpgsql stable security definer set search_path = public as $$
+declare uid uuid := auth.uid();
+begin
+  if uid is null then raise exception 'sin_sesion'; end if;
+  if not exists (select 1 from perfiles where id = uid) then raise exception 'sin_perfil'; end if;
+  if exists (
+    select 1 from miembros yo
+    where yo.usuario_id = uid and yo.rol = 'admin'
+      and exists (select 1 from miembros o where o.grupo_id = yo.grupo_id and o.usuario_id <> uid)
+      and not exists (select 1 from miembros a where a.grupo_id = yo.grupo_id and a.usuario_id <> uid and a.rol = 'admin')
+  ) then raise exception 'ultimo_admin'; end if;
+end $$;
+
 -- Borra la cuenta entera: pertenencias, perfil, salidas (y sus fotos, en cascada) y el usuario de Auth.
 -- Un administrador que deja a otros miembros sin ningún otro administrador no puede irse (ultimo_admin);
 -- los grupos donde es el único miembro se borran con él.
@@ -173,17 +191,11 @@ language plpgsql security definer set search_path = public, auth as $$
 declare uid uuid := auth.uid(); g record;
 begin
   if uid is null then raise exception 'sin_sesion'; end if;
-  if not exists (select 1 from perfiles where id = uid) then raise exception 'sin_perfil'; end if;
   for g in select grupo_id from miembros where usuario_id = uid order by grupo_id loop
     -- Serializa altas y bajas del mismo grupo, como en salir_grupo.
     perform 1 from grupos where id = g.grupo_id for update;
   end loop;
-  if exists (
-    select 1 from miembros yo
-    where yo.usuario_id = uid and yo.rol = 'admin'
-      and exists (select 1 from miembros o where o.grupo_id = yo.grupo_id and o.usuario_id <> uid)
-      and not exists (select 1 from miembros a where a.grupo_id = yo.grupo_id and a.usuario_id <> uid and a.rol = 'admin')
-  ) then raise exception 'ultimo_admin'; end if;
+  perform public.comprobar_borrar_cuenta();   -- con los grupos bloqueados, la comprobación ya no puede cambiar
   delete from grupos g2 where exists (select 1 from miembros m where m.grupo_id = g2.id and m.usuario_id = uid)
     and not exists (select 1 from miembros o where o.grupo_id = g2.id and o.usuario_id <> uid);
   delete from perfiles where id = uid;   -- cascada: miembros y salidas (y de ahí sus fotos)
@@ -194,8 +206,8 @@ end $$;
 revoke execute on function public.es_miembro(uuid), public.es_admin(uuid), public.max_miembros_grupo(),
   public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
   public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
-  public.mis_grupos(), public.miembros_del_grupo(uuid), public.borrar_cuenta() from public, anon;
+  public.mis_grupos(), public.miembros_del_grupo(uuid), public.comprobar_borrar_cuenta(), public.borrar_cuenta() from public, anon;
 grant execute on function public.es_miembro(uuid), public.es_admin(uuid), public.max_miembros_grupo(),
   public.crear_grupo(text), public.unirse_grupo(text), public.regenerar_codigo(uuid), public.renombrar_grupo(uuid, text),
   public.hacer_admin(uuid, uuid), public.expulsar_miembro(uuid, uuid), public.salir_grupo(uuid), public.borrar_grupo(uuid),
-  public.mis_grupos(), public.miembros_del_grupo(uuid), public.borrar_cuenta() to authenticated;
+  public.mis_grupos(), public.miembros_del_grupo(uuid), public.comprobar_borrar_cuenta(), public.borrar_cuenta() to authenticated;

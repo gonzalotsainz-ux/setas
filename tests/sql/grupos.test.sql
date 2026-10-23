@@ -18,6 +18,7 @@ begin
   perform t.afirma(char_length(r.codigo) = 8, 'el código de invitación tiene 8 caracteres');
   perform t.afirma((select nombre from public.mis_grupos()) = 'Amigos', 'el nombre se guarda recortado');
   perform t.afirma((select rol from public.mis_grupos()) = 'admin', 'quien crea es administrador');
+  perform t.afirma((select codigo_invitacion from public.mis_grupos()) = r.codigo, 'la administradora ve el código de invitación');
 end $$;
 
 -- Beto se une (el código vale en minúsculas y dos veces es inocuo); un miembro no administra.
@@ -29,6 +30,9 @@ begin
   g := public.unirse_grupo(lower(c));
   perform t.afirma(g::text = (select valor from t.codigos where clave = 'gid'), 'unirse con el código en minúsculas devuelve el grupo');
   perform t.afirma((select rol from public.mis_grupos()) = 'miembro', 'quien se une es miembro');
+  perform t.afirma((select codigo_invitacion from public.mis_grupos()) is null, 'un miembro corriente no ve el código de invitación (solo invita el administrador)');
+  perform t.afirma((select count(*) from public.grupos) = 1, 'pero sí ve el grupo en la tabla');
+  perform t.falla('select codigo_invitacion from public.grupos', 'permission denied');
   perform t.afirma(public.unirse_grupo(c) = g, 'unirse dos veces es inocuo');
   perform t.afirma((select count(*) from public.miembros_del_grupo(g)) = 2, 'dos miembros');
   perform t.afirma((select count(*) from public.mis_grupos()) = 1, 'sigue en un solo grupo');
@@ -192,8 +196,16 @@ do $$ declare r record; begin
 end $$;
 select t.como(22); select public.unirse_grupo((select valor from t.codigos where clave = 'duo_c'));
 select t.como(21);
+-- comprobar_borrar_cuenta avisa de antemano (la app borra las fotos de Storage antes de llamar a borrar_cuenta) y no toca nada.
+do $$ begin perform t.falla('select public.comprobar_borrar_cuenta()', 'ultimo_admin'); end $$;
 do $$ begin perform t.falla('select public.borrar_cuenta()', 'ultimo_admin'); end $$;
-do $$ begin perform public.hacer_admin((select valor from t.codigos where clave = 'duo')::uuid, t.uid(22)); perform public.borrar_cuenta(); end $$;
+do $$ begin
+  perform public.hacer_admin((select valor from t.codigos where clave = 'duo')::uuid, t.uid(22));
+  perform public.comprobar_borrar_cuenta();
+  perform t.afirma((select count(*) from public.salidas where usuario_id = t.uid(21)) = 1, 'comprobar_borrar_cuenta no borra nada');
+  perform t.afirma(exists (select 1 from public.perfiles where id = t.uid(21)), 'comprobar_borrar_cuenta deja el perfil');
+  perform public.borrar_cuenta();
+end $$;
 select t.admin();
 do $$ begin
   perform t.afirma(not exists (select 1 from public.perfiles where id = t.uid(21)), 'el perfil se borra');
@@ -206,3 +218,4 @@ do $$ begin
 end $$;
 select t.anonimo();
 do $$ begin perform t.falla('select public.borrar_cuenta()', 'permission denied'); end $$;
+do $$ begin perform t.falla('select public.comprobar_borrar_cuenta()', 'permission denied'); end $$;

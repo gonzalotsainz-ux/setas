@@ -7,7 +7,7 @@ import { estadoFuentesLluvia, fuentesLluviaSinEstado } from '../pluvio.js';
 import { hoyMadrid } from '../meteo.js';
 import { supabase, autorActual } from '../supabase.js';
 import { renombrarPerfil, salir, borrarCuenta, textoError } from '../cuenta.js';
-import { cuentaActual, requerirCuenta, hojaEntrar, fijarCuenta, errorDeCuenta } from './cuenta-ui.js';
+import { cuentaActual, requerirCuenta, estadoCuenta, fijarCuenta, errorDeCuenta } from './cuenta-ui.js';
 import { colaBorradores, listarSalidas } from '../diario.js';
 import { validarUmbral, umbralEfectivo, cargarFilasUmbrales, guardarUmbral, restablecerUmbral } from '../umbrales.js';
 
@@ -128,7 +128,9 @@ function bloqueCuenta() {
     } else {
       cuerpo.replaceChildren(
         el('p', { texto: 'Entra con tu cuenta de Google para guardar tus salidas y verlas con tu cuadrilla.' }),
-        el('button', { type: 'button', clase: 'boton', texto: 'Entrar con Google', onclick: async () => { if (await hojaEntrar()) await pintarCuenta(); } }), estado);
+        el('button', { type: 'button', clase: 'boton', texto: estadoCuenta()?.estado === 'sin-perfil' ? 'Poner mi nombre' : 'Entrar con Google', onclick: async () => {
+          try { if (await requerirCuenta()) await pintarCuenta(); } catch (e) { estado.textContent = e.message; }
+        } }), estado);
     }
   };
   pintarCuenta();

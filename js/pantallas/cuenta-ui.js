@@ -146,11 +146,18 @@ export async function requerirCuenta() {
   return hojaNombre(estado?.nombreGoogle ?? '');
 }
 
-// Tarjeta para pantallas que necesitan cuenta cuando no se ha entrado.
+// Tarjeta para pantallas que necesitan cuenta cuando no se ha entrado o, ya con sesión de Google, aún falta el nombre
+// (primera entrada: la hoja «Tu nombre» crea el perfil). El botón pasa por requerirCuenta, que cubre las dos situaciones.
 export function tarjetaSinSesion(texto, alEntrar) {
+  const faltaNombre = estado?.estado === 'sin-perfil';
+  const aviso = el('p', { clase: 'texto-s aviso-peligro', attrs: { role: 'alert' }, hidden: true });
   return el('div', { clase: 'tarjeta pila' },
-    el('p', { texto }),
-    el('button', { type: 'button', clase: 'boton', texto: 'Entrar con Google', onclick: async () => {
-      if (await hojaEntrar()) alEntrar?.();
-    } }));
+    el('p', { texto: faltaNombre ? 'Ya has entrado con Google. Solo falta tu nombre, para que tu cuadrilla sepa quién apunta cada salida.' : texto }),
+    el('button', { type: 'button', clase: 'boton', texto: faltaNombre ? 'Poner mi nombre' : 'Entrar con Google', onclick: async (ev) => {
+      const b = ev.currentTarget;
+      b.disabled = true; aviso.hidden = true;
+      try { if (await requerirCuenta()) alEntrar?.(); }
+      catch (e) { aviso.textContent = e.message; aviso.hidden = false; }
+      finally { b.disabled = false; }
+    } }), aviso);
 }

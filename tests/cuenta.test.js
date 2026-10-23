@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { normalizarCodigo, sesionActual, entrarConGoogle, entrarPorRedireccion, salir, cargarPerfil, crearPerfil, renombrarPerfil, borrarCuenta, guardarRutaPendiente, tomarRutaPendiente, textoError } from '../js/cuenta.js';
 
 function sbFalso({ sesion = null, errorSesion = null, perfil = null, errorPerfil = null, rpc = {}, idToken = { data: { user: { id: 'u1' } }, error: null }, salidasIds = [] } = {}) {
@@ -91,19 +92,33 @@ test('crearPerfil y renombrarPerfil llaman a sus funciones', async () => {
   await assert.rejects(() => crearPerfil('Ana', { supabase: mal }), /perfil_existente/);
 });
 
-test('borrarCuenta borra cada salida (Storage incluido), llama a borrar_cuenta y cierra la sesión, en ese orden', async () => {
+test('borrarCuenta pregunta antes al servidor (comprobar_borrar_cuenta), borra cada salida (Storage incluido), llama a borrar_cuenta y cierra la sesión, en ese orden', async () => {
   const orden = [];
-  const sb = sbFalso({ salidasIds: ['a', 'b'], rpc: { borrar_cuenta: { data: null, error: null } } });
+  const sb = sbFalso({ salidasIds: ['a', 'b'] });
   sb.rpc = async (n) => { orden.push(n); return { data: null, error: null }; };
   sb.auth.signOut = async () => { orden.push('signOut'); return { error: null }; };
   await borrarCuenta({ supabase: sb, usuarioId: 'u1', borrar: async (id) => { orden.push(`borrar:${id}`); } });
-  assert.deepEqual(orden, ['borrar:a', 'borrar:b', 'borrar_cuenta', 'signOut']);
+  assert.deepEqual(orden, ['comprobar_borrar_cuenta', 'borrar:a', 'borrar:b', 'borrar_cuenta', 'signOut']);
+});
+
+test('borrarCuenta: si el servidor la rechaza de antemano (ultimo_admin) no se borra ninguna salida ni se cierra la sesión', async () => {
+  const sb = sbFalso({ salidasIds: ['a', 'b'], rpc: { comprobar_borrar_cuenta: { data: null, error: new Error('ultimo_admin') } } });
+  const borradas = [];
+  await assert.rejects(() => borrarCuenta({ supabase: sb, usuarioId: 'u1', borrar: async (id) => { borradas.push(id); } }), /ultimo_admin/);
+  assert.deepEqual(borradas, []);
+  assert.deepEqual(sb.llamadas.rpc.map((r) => r.nombre), ['comprobar_borrar_cuenta']);
+  assert.equal(sb.llamadas.signOut, 0);
+});
+
+test('el cliente de Supabase usa el flujo PKCE: al volver de Google el código va en la query y no en un hash que la ruta pendiente pisaría', () => {
+  const fuente = readFileSync(new URL('../js/supabase.js', import.meta.url), 'utf8');
+  assert.match(fuente, /flowType:\s*'pkce'/);
 });
 
 test('borrarCuenta: si falla borrar una salida no llama a borrar_cuenta', async () => {
   const sb = sbFalso({ salidasIds: ['a', 'b'] });
   await assert.rejects(() => borrarCuenta({ supabase: sb, usuarioId: 'u1', borrar: async (id) => { if (id === 'b') throw new Error('storage caído'); } }), /storage caído/);
-  assert.equal(sb.llamadas.rpc.length, 0);
+  assert.deepEqual(sb.llamadas.rpc.map((r) => r.nombre), ['comprobar_borrar_cuenta'], 'solo la comprobación previa; borrar_cuenta no se llama');
   assert.equal(sb.llamadas.signOut, 0);
 });
 
@@ -130,6 +145,7 @@ test('textoError: sin_sesion, Failed to fetch y los de grupos', () => {
   assert.equal(textoError(new Error('demasiados_grupos')), 'Has creado demasiados grupos (máximo 10).');
   assert.equal(textoError({ message: 'solo_post' }), 'Petición no válida. Recarga la página y vuelve a probar.');
   assert.match(textoError({ message: 'ultimo_admin' }), /único administrador/);
+  assert.match(textoError({ message: 'ultimo_admin' }), /borra el grupo/, 'vale también al borrar la cuenta: ofrece nombrar sucesor o borrar el grupo');
   assert.match(textoError(new Error('perfil_existente')), /ya tiene un perfil/);
   assert.equal(textoError(new Error('algo raro')), 'algo raro');
   assert.equal(textoError(null), 'Algo ha fallado.');

@@ -156,7 +156,7 @@ Spec: `docs/superpowers/specs/2026-10-22-cuadrillas-design.md` (sustituye a la d
   se enseña a nadie); el nombre visible se confirma en la primera entrada y se guarda en `perfiles`. No hay cuentas
   anónimas ni códigos de recuperación: la cuenta de Google identifica a la persona en cualquier dispositivo.
 - **Datos:** `perfiles` (`id` = `auth.uid()`, `nombre`), `grupos`, `miembros` (rol `admin` o `miembro`) y
-  `salidas.usuario_id` (FK a `auth.users` con borrado en cascada: las salidas y sus fotos se van con la cuenta).
+  `salidas.usuario_id` (FK a `perfiles` con borrado en cascada: las salidas y sus fotos se van con la cuenta).
   Las tablas base solo las lee y escribe su dueño por RLS. **Todo lo del grupo es del grupo:** no hay reparto salida a
   salida; un miembro lee las salidas completas (coordenadas y fotos) de quienes son miembros ahora con
   `salidas_del_grupo(p_grupo, p_antes, p_limite)` (*security definer*, paginada por `creado`, nunca devuelve
@@ -164,7 +164,8 @@ Spec: `docs/superpowers/specs/2026-10-22-cuadrillas-design.md` (sustituye a la d
   `regenerar_codigo`, `renombrar_grupo`, `hacer_admin`, `expulsar_miembro`, `salir_grupo`, `borrar_grupo`).
   `borrar_cuenta()` borra pertenencias, perfil, salidas (y fotos) y el usuario de Auth; quien es el único
   administrador de un grupo con más gente no puede irse ni borrarse sin nombrar sucesor (`ultimo_admin`), y los
-  grupos donde está solo se borran con él.
+  grupos donde está solo se borran con él. La app llama antes a `comprobar_borrar_cuenta()` (mismas comprobaciones,
+  sin efectos) porque los ficheros del bucket los borra el cliente antes de la llamada final.
 - **Reclamo:** las salidas anteriores a las cuentas (`usuario_id` nulo) se reclaman por el nombre de autor que
   llevaban: `salidas_sin_dueno()` lista esos autores y `reclamar_salidas(p_autor)` las asigna a quien pulsa
   (Diario → «Hay salidas de antes de las cuentas. ¿Cuáles son tuyas?»). Sin secreto: gana quien pulsa primero.
@@ -175,7 +176,8 @@ Spec: `docs/superpowers/specs/2026-10-22-cuadrillas-design.md` (sustituye a la d
   sesión o IP (`limitar_intentos`, que rechaza transacciones de solo lectura, así que `unirse_grupo` no se puede
   probar por GET); máximo 10 grupos creados por persona (`demasiados_grupos`).
 - **Códigos de invitación:** 8 caracteres en Crockford base32 (`codigo_aleatorio`; `normalizar_codigo` unifica
-  O/0 e I/L/1). Abrir un enlace de invitación nunca une al grupo por sí solo: hay que pulsar «Unirme al grupo».
+  O/0 e I/L/1). Solo los administradores lo ven y lo comparten: `mis_grupos` lo devuelve según el rol y la tabla
+  `grupos` no concede `select` sobre esa columna. Abrir un enlace de invitación nunca une al grupo por sí solo: hay que pulsar «Unirme al grupo».
 - **Coste:** todo cabe en el plan gratuito a esta escala. El primer límite real serán las **fotos** (1 GB de
   almacenamiento): es el indicador a vigilar si la app crece. Google OAuth no cuesta nada.
 - **Pruebas de la base de datos:** `npm run probar:sql` (necesita Docker; levanta un Postgres desechable que imita a

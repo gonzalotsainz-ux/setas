@@ -53,8 +53,11 @@ export async function renombrarPerfil(nombre, { supabase }) {
   if (error) throw error;
 }
 
-// Primero los objetos de Storage y las filas de cada salida; solo si todo va bien se borra la cuenta.
+// Primero el servidor dice si puede borrarse (ultimo_admin) sin tocar nada; luego los objetos de Storage y las filas de
+// cada salida (el servidor no puede borrar los ficheros del bucket); solo si todo va bien se borra la cuenta.
 export async function borrarCuenta({ supabase, usuarioId, borrar = borrarSalida }) {
+  const previa = await supabase.rpc('comprobar_borrar_cuenta');
+  if (previa.error) throw previa.error;
   const { data, error } = await supabase.from('salidas').select('id').eq('usuario_id', usuarioId);
   if (error) throw error;
   for (const { id } of data ?? []) await borrar(id, { supabase });
@@ -91,7 +94,7 @@ const ERRORES = [
   ['no_miembro', 'Ya no formas parte de ese grupo.'],
   ['no_es_tuya', 'Esa salida no es tuya.'],
   ['grupo_lleno', 'El grupo está lleno.'],
-  ['ultimo_admin', 'Eres el único administrador: nombra a otro antes de salir.'],
+  ['ultimo_admin', 'Eres el único administrador de un grupo con más gente: nombra a otro administrador o borra el grupo antes.'],
   ['usa_salir', 'Para irte tú, usa «Salir del grupo».'],
   ['Failed to fetch', 'Sin conexión.'],
 ];

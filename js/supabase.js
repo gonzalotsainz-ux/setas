@@ -5,8 +5,10 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { SUPABASE_URL, SUPABASE_ANON } from './config.js';
 
 export { SUPABASE_URL, SUPABASE_ANON };
+// Flujo PKCE: al volver de Google el código llega en la query (?code=) y no en el hash. Con el flujo implícito los tokens
+// irían en el hash y los pisaría la ruta pendiente que app.js restaura antes de que este módulo llegue a cargarse.
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON, {
-  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'setas.sesion' },
+  auth: { persistSession: true, autoRefreshToken: true, storageKey: 'setas.sesion', flowType: 'pkce' },
 });
 
 const CLAVE_AUTOR = 'setas.autor';

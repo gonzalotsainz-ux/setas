@@ -4,7 +4,7 @@ do $$
 declare f text;
 begin
   foreach f in array array[
-    'public.crear_perfil(text)', 'public.renombrar_perfil(text)', 'public.borrar_cuenta()',
+    'public.crear_perfil(text)', 'public.renombrar_perfil(text)', 'public.borrar_cuenta()', 'public.comprobar_borrar_cuenta()',
     'public.es_miembro(uuid)', 'public.es_admin(uuid)', 'public.max_miembros_grupo()', 'public.crear_grupo(text)',
     'public.unirse_grupo(text)', 'public.regenerar_codigo(uuid)', 'public.renombrar_grupo(uuid, text)',
     'public.hacer_admin(uuid, uuid)', 'public.expulsar_miembro(uuid, uuid)', 'public.salir_grupo(uuid)',
