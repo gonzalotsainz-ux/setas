@@ -127,7 +127,7 @@ function bloqueCuenta() {
       cuerpo.replaceChildren(el('p', { clase: 'texto-2', texto: 'Sin conexión: no se puede comprobar tu cuenta.' }));
     } else {
       cuerpo.replaceChildren(
-        el('p', { texto: 'Entra con tu cuenta de Google para guardar tus salidas y verlas con tu cuadrilla.' }),
+        el('p', { texto: estadoCuenta()?.estado === 'sin-perfil' ? 'Ya has entrado con Google. Solo falta tu nombre, para que tu cuadrilla sepa quién apunta cada salida.' : 'Entra con tu cuenta de Google para guardar tus salidas y verlas con tu cuadrilla.' }),
         el('button', { type: 'button', clase: 'boton', texto: estadoCuenta()?.estado === 'sin-perfil' ? 'Poner mi nombre' : 'Entrar con Google', onclick: async () => {
           try { if (await requerirCuenta()) await pintarCuenta(); } catch (e) { estado.textContent = e.message; }
         } }), estado);
